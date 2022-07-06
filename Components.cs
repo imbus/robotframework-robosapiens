@@ -1,0 +1,451 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using SAPFEWSELib;
+// using shdocvw.net;
+// using MSHTML;
+
+namespace RoboSAPiens {
+    public sealed class Components {
+        SAPBoxStore boxes = new SAPBoxStore();
+        ButtonStore buttons = new ButtonStore();
+        CheckBoxStore checkBoxes = new CheckBoxStore();
+        ComboBoxStore comboBoxes = new ComboBoxStore();
+        EditableCellStore editableCells = new EditableCellStore();
+        EditableTextFieldStore editableTextFields = new EditableTextFieldStore();
+        LabelCellStore labelCells = new LabelCellStore();
+        LabelStore labels = new LabelStore();
+        RadioButtonStore radioButtons = new RadioButtonStore();
+        ReadOnlyTextFieldStore readOnlyTextFields = new ReadOnlyTextFieldStore();
+        SAPStatusbar? statusBar = null;
+        SAPTabStore tabs = new SAPTabStore();
+
+
+        public Components() {  
+        // Null-Object Design Pattern
+        }
+
+        public Components(GuiComponentCollection components) {            
+            getWindowComponents(components);
+        }
+
+        void classifyComponent(GuiComponent component) {
+            switch (component.Type) {
+                case "GuiBox":
+                    boxes.add(new SAPBox((GuiBox)component));
+                    break;
+                case "GuiButton":
+                    buttons.add(new SAPButton((GuiButton)component));
+                    break;
+                case "GuiCheckBox":
+                    checkBoxes.add(new SAPCheckBox((GuiCheckBox)component));
+                    break;
+                case "GuiComboBox":
+                    comboBoxes.add(new SAPComboBox((GuiComboBox)component));
+                    break;
+                case "GuiLabel":
+                    labels.add(new SAPLabel((GuiLabel)component));
+                    break;
+                case "GuiRadioButton":
+                    radioButtons.add(new SAPRadioButton((GuiRadioButton)component));
+                    break;
+                case "GuiPasswordField":
+                case "GuiTextField":
+                case "GuiCTextField":
+                    var textField = (GuiTextField)component;
+
+                    if (textField.Changeable) {
+                        editableTextFields.add(new EditableTextField(textField));
+                    } 
+                    else {
+                        readOnlyTextFields.add(new SAPTextField(textField));
+                    }
+
+                    break;
+            }
+        }
+
+        void classifyContainer(GuiComponent container) {
+            switch (container.Type) {
+                case "GuiMenubar":
+                    break;
+                case "GuiShell":
+                    classifyGuiShell((GuiShell)container);
+                    break;
+                case "GuiStatusbar":
+                    this.statusBar = new SAPStatusbar((GuiStatusbar)container);
+                    break;
+                case "GuiTabStrip":
+                    getTabStripComponents((GuiTabStrip)container);
+                    break;
+                case "GuiTableControl":
+                    classifyTableCells((GuiTableControl)container);
+                    break;
+                default:
+                    getWindowComponents(getContainerChildren(container));
+                    break;
+            }
+        }
+        
+        void classifyGridViewCells(GuiGridView gridView) {
+            var columnCount = gridView.ColumnCount;
+            var rowCount = gridView.RowCount;
+
+            var columnIds = (GuiCollection)gridView.ColumnOrder;
+            for (int column = 0; column < columnCount; column++) {
+                var columnId = (string)columnIds.ElementAt(column);
+                for (int row = 0; row < rowCount; row++) {
+                    var type = gridView.GetCellType(row, columnId);
+                    switch (type) {
+                        case "Normal":
+                            if (gridView.GetCellChangeable(row, columnId)) {
+                                editableCells.add(new EmptyGridViewCell(columnId, gridView, row));
+                            } else {
+                                labelCells.add(new SAPGridViewCell(columnId, gridView, row));
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+    
+        void classifyGuiShell(GuiShell guiShell) {
+            switch (guiShell.SubType) {
+                case "GridView":
+                    var gridView = (GuiGridView)guiShell;
+                    classifyGridViewToolbar(gridView);
+                    classifyGridViewCells(gridView);
+                    break;
+                // case "HTMLViewer":
+                //     var htmlViewer = (GuiHTMLViewer)guiShell;
+                //     var browser = (InternetExplorer)htmlViewer.BrowserHandle;
+                //     // var document = (HTMLDocument)browser.Document;
+
+                //     // var pdfTab = document.getElementById("A:LE:J_action_shipmentEventPreview_t_0");
+                //     // if (pdfTab != null) {
+                //     //     pdfTab.click();
+                //     // }
+
+                //     break;
+                case "Toolbar":
+                    classifyToolbar((GuiToolbarControl)guiShell);
+                    break;
+                case "Tree":
+                    var tree = (GuiTree)guiShell;
+                    if ((TreeType)tree.GetTreeType() == TreeType.Column) {
+                        classifyTreeComponents(tree);
+                    }
+                    break;
+                default:
+                    getWindowComponents(guiShell.Children);
+                    break;
+            }
+        }
+
+        void classifyTableCells(GuiTableControl table, int rowsInStore = 0) {
+            var columns = table.Columns;
+            // https://answers.sap.com/questions/11100660/how-to-get-a-correct-row-count-in-sap-table.html
+            var totalRows = table.VerticalScrollbar.Maximum + 1;
+            var visibleRows = table.VisibleRowCount;
+            var maxRows = Math.Min(visibleRows, totalRows - rowsInStore);
+            var tableId = table.Id;
+
+            for (int colIdx = 0; colIdx < columns.Length; colIdx++) {
+                var column = (GuiTableColumn)columns.ElementAt(colIdx);
+                var columnTitle = column.Title;
+                for (int rowIdx = 0; rowIdx < maxRows; rowIdx++) {
+                    try {
+                        var cell = table.GetCell(rowIdx, colIdx);
+                        switch (cell.Type) {
+                            case "GuiButton":
+                                buttons.add(new SAPTableButton(columnTitle, rowIdx, tableId, (GuiButton)cell));
+                                break;
+                            case "GuiCheckBox":
+                                checkBoxes.add(new SAPTableCheckBox(columnTitle, rowIdx, tableId, (GuiCheckBox)cell));
+                                break;
+                            case "GuiTextField":
+                            case "GuiCTextField":
+                                var textField = (GuiTextField)cell;
+                                if (textField.Changeable) {
+                                    editableCells.add(new EditableTableCell(columnTitle, rowIdx, tableId, textField, visibleRows));
+                                } else {
+                                    labelCells.add(new SAPTableCell(columnTitle, rowIdx, tableId, textField));
+                                }
+                                break;
+                        }
+                    } 
+                    catch (Exception) {
+                        // TODO: Do not ignore the exception. Throw it and catch it upstream in a function that can return a RobotResult.
+                        continue;
+                    }
+                }
+            }
+
+            rowsInStore += maxRows;
+
+            if (rowsInStore < totalRows) {
+                throw new Exception("Die Tabelle ist großer als das Fenster. Das Fenster muss maximiert werden.");
+                // CAUTION: Changing the scrollbar position redraws the GUI components.
+                // Therefore, all object references are lost. Scrolling should not be
+                // done within a call to getWindowComponents. But rather after this 
+                // function has finished.
+                //
+                // table.VerticalScrollbar.Position += table.VisibleRowCount;
+                // table = (GuiTableControl)session.FindById(tableId);
+                // classifyTableCells(table, rowsInStore);
+                // table.VerticalScrollbar.Position = 1;
+            }
+        }
+
+        void classifyGridViewToolbar(GuiGridView gridView) {
+            var toolbarButtonCount = gridView.ToolbarButtonCount;
+            for (int i = 0; i < toolbarButtonCount; i++) {
+                var type = gridView.GetToolbarButtonType(i);
+                switch (type) {
+                    case "Button":
+                        var id = gridView.GetToolbarButtonId(i);
+                        var tooltip = gridView.GetToolbarButtonTooltip(i);
+                        buttons.add(new SAPGridViewToolbarButton(gridView, id, tooltip));
+                        break;
+                    // case "ButtonAndMenu"
+                    // case "CheckBox"
+                    // case "Menu"
+                }
+            }
+        }
+
+        void classifyToolbar(GuiToolbarControl toolbar) {
+            for (int i = 0; i < toolbar.ButtonCount; i++) {
+                switch (toolbar.GetButtonType(i)) {
+                    case "Button":
+                        var id = toolbar.GetButtonId(i);
+                        var tooltip = toolbar.GetButtonTooltip(i);
+                        buttons.add(new SAPToolbarButton(toolbar, id, tooltip));
+                        break;
+                }
+            }
+        }
+
+        void classifyTreeComponents(GuiTree tree) {
+            var columnNames = (GuiCollection)tree.GetColumnNames();
+
+            for (int i = 0; i < columnNames.Length; i++) {
+                var columnName = (string)columnNames.ElementAt(i);
+                if (columnName == null) { continue; }
+                var columnTitle = tree.GetColumnTitleFromName(columnName);
+                var columnItems = (GuiCollection)tree.GetColumnCol(columnName);
+
+                for (int index = 0; index < columnItems.Length; index++) {
+                    var itemText = (string)columnItems.ElementAt(index);
+                    var nodePath = findNodePathByIndex(index, tree);
+                    var nodeKey = tree.GetNodeKeyByPath(nodePath);
+                    var itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
+
+                    switch (itemType) {
+                        case TreeItem.Bool:
+                            checkBoxes.add(new SAPTreeCheckBox(columnName, columnTitle, nodeKey, rowNumber: index, tree.Id));
+                            break;
+                        case TreeItem.Button:
+                            buttons.add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, tree.Id));
+                            break;
+                        case TreeItem.Link:
+                            var tooltip = tree.GetItemToolTip(nodeKey, columnName);
+                            buttons.add(new SAPTreeLink(columnName, columnTitle, tooltip, nodeKey, tree.Id));
+                            break;
+                        case TreeItem.Text:
+                            labelCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
+                            break;
+                    }
+                }
+            }
+        }
+
+        string findNodePathByIndex(int itemIndex, GuiTree tree) {
+            var rootNodeKey = tree.TopNode;
+
+            if (tree.GetNodeChildrenCount(rootNodeKey) == 0) {
+                return (itemIndex + 1).ToString();
+            }
+
+            var rootPath = tree.GetNodePathByKey(rootNodeKey);
+            var paths = new Stack<string>();
+            int nodeIndex = -1;
+
+            paths.Push(rootPath);
+
+            while (paths.Count > 0) {
+                var path = paths.Pop();
+                nodeIndex++;
+
+                if (nodeIndex == itemIndex) {
+                    return path;
+                }
+
+                var nodeKey = tree.GetNodeKeyByPath(path);
+                int subNodes = tree.GetNodeChildrenCount(nodeKey);
+
+                if (subNodes > 0) {
+                    for (int i = subNodes; i > 0; i--) {
+                        var localPath = i.ToString();
+                        var absPath = $"{path}\\{localPath}";
+                        paths.Push(absPath);
+                    }
+                }
+            }
+
+            return rootPath;
+        }
+
+        GuiComponentCollection getContainerChildren(GuiComponent container) {
+            return container.Type switch {
+                "GuiContainerShell" => ((GuiContainerShell)container).Children,
+                "GuiDockShell" => ((GuiContainerShell)container).Children,
+                "GuiCustomControl" => ((GuiCustomControl)container).Children,
+                "GuiGOSShell" => ((GuiGOSShell)container).Children,
+                "GuiMenu" => ((GuiMenu)container).Children,
+                "GuiScrollContainer" => ((GuiScrollContainer)container).Children,
+                "GuiSimpleContainer" => ((GuiSimpleContainer)container).Children,
+                "GuiSplitterShell" => ((GuiSplit)container).Children,
+                "GuiTab" => ((GuiTab)container).Children,
+                "GuiTitlebar" => ((GuiTitlebar)container).Children,
+                "GuiToolbar" => ((GuiToolbar)container).Children,
+                "GuiUserArea" => ((GuiUserArea)container).Children,
+                _ => ((GuiContainer)container).Children
+            };
+        }
+
+        public enum TreeItem {
+            Hierarchy,
+            Image,
+            Text,
+            Bool,
+            Button,
+            Link,
+        }
+
+        public enum TreeType {
+            Simple,
+            List,
+            Column
+        }
+
+        void getTabStripComponents(GuiTabStrip tabStrip) {
+            var sapTabs = tabStrip.Children;
+            for (int i = 0; i < sapTabs.Length; i++) {
+                var tab = (GuiTab)sapTabs.ElementAt(i);
+                tabs.add(new SAPTab(tab));
+                getWindowComponents(tab.Children);
+            }
+        }
+
+        void getWindowComponents(GuiComponentCollection components) {
+            for (int i = 0; i < components.Length; i++) {
+                var component = (GuiComponent)components.ElementAt(i);
+
+                if (component.ContainerType) {
+                    classifyContainer(component);
+                }
+                else {
+                    classifyComponent(component);
+                }
+            }
+        }
+
+        public Button? findButton(ButtonLocator button) {
+            return buttons.get(button.locator);
+        }
+
+        public Button? findButtonCell(FilledCellLocator cell) {
+            return buttons.get(cell);
+        }
+
+        public CheckBox? findCheckBox(CheckBoxLocator checkBox) {
+            return checkBoxes.get(checkBox.locator, labels, readOnlyTextFields);
+        }
+
+        public CheckBox? findCheckBoxCell(CellLocator locator) {
+            return checkBoxes.get(locator, labels, readOnlyTextFields);
+        }
+
+        public ComboBox? findComboBox(ComboBoxLocator comboBox) {
+            return comboBoxes.get(comboBox.locator);
+        }
+
+        public Cell? findCell(CellLocator locator) {
+            return editableCells.get(locator, labelCells) ?? 
+                   labelCells.get(locator);
+        }
+
+        public IDoubleClickable? findDoubleClickableCell(CellLocator locator) {
+            var cell = editableCells.get(locator, labelCells) ??
+                       labelCells.get(locator);
+
+            if  (cell is IDoubleClickable) {
+                return cell as IDoubleClickable;
+            }
+
+            return null;
+        }
+
+        public IEditableCell? findEditableCell(CellLocator locator) {
+            return editableCells.get(locator, labelCells) as IEditableCell;
+        }
+
+        public EditableTextField? findEditableTextField(TextFieldLocator textField) {
+            return editableTextFields.get(textField.locator, labels, readOnlyTextFields, boxes);
+        }
+
+        public IHighlightable? findHighlightableButton(ButtonLocator button) {
+            return buttons.get(button.locator) switch {
+                Button b when b is IHighlightable => b as IHighlightable,
+                _ => null
+            };
+        }
+
+        public RadioButton? findRadioButton(RadioButtonLocator radioButton) {
+            return radioButtons.get(radioButton.locator, labels, readOnlyTextFields);
+        }
+        
+        public SAPTextField? findReadOnlyTextField(TextFieldLocator textField) {
+            return readOnlyTextFields.get(textField.locator, labels, readOnlyTextFields, boxes);
+        }
+
+        public SAPTab? findTab(string tabName) {
+            return tabs.get(tabName);
+        }
+
+        public SAPTextField? findTextField(TextFieldLocator textField) {
+            return findEditableTextField(textField) ?? 
+                   findReadOnlyTextField(textField);
+        }
+
+        public ITextElement? findTextLine(string content) {
+            return labels.get(content) as ITextElement ??
+                   labelCells.getByContent(content);
+        }
+
+        public List<SAPButton> getAllButtons() {
+            return new List<SAPButton>(buttons.filterBy<SAPButton>());
+        }
+
+        public List<SAPLabel> getAllLabels() {
+            return labels.getAll();
+        }
+
+        public List<SAPTableCell> getAllTableCells() {
+            return new List<SAPTableCell>(labelCells.filterBy<SAPTableCell>().Concat(editableCells.filterBy<SAPTableCell>()));
+        }
+
+        public List<SAPGridViewCell> getAllGridViewCells() {
+            return new List<SAPGridViewCell>(labelCells.filterBy<SAPGridViewCell>().Concat(editableCells.filterBy<SAPGridViewCell>()));
+        }
+
+        public List<SAPTextField> getAllTextFields() {
+            return new List<SAPTextField>(readOnlyTextFields.getAll().Concat(editableTextFields.getAll()));
+        }
+
+        public SAPStatusbar? getStatusBar() {
+            return this.statusBar;
+        }
+    }
+}
