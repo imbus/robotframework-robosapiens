@@ -82,7 +82,7 @@ namespace RoboSAPiens {
                 var connections = sap.Connections;
                 var connection = (GuiConnection)connections.ElementAt(0);
                 var sessions = connection.Sessions;
-                if (sessions.Count == 0) {
+                if (sessions.Length == 0) {
                     return new NoSessionError();
                 }
                 
