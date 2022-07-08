@@ -9,6 +9,16 @@
     <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <PublishDir>..\build</PublishDir>
+  </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)'=='Release'">
+    <Exec Command="rmdir /S /Q $(PublishDir)" />
+  </Target>
+
   <ItemGroup>
     <Reference Include="SAPFEWSELib">
       <HintPath>lib/SAPFEWSELib.dll</HintPath>
