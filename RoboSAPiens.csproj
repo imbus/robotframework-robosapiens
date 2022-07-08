@@ -16,7 +16,7 @@
       <SpecificVersion>False</SpecificVersion> 
     </Reference>
     <Reference Include="SAPROTWR.NET">
-      <HintPath>SAPROTWR.NET.DLL</HintPath>
+      <HintPath>lib/SAPROTWR.NET.DLL</HintPath>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
