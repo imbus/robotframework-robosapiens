@@ -13,16 +13,14 @@ namespace RoboSAPiens {
         }
 
         static byte[] loadDocumentation(string htmlFile) {
-            var rfDocumentation = new byte[]{};
-            try {
-                var roboSAPiensPath = System.AppContext.BaseDirectory;
-                rfDocumentation = File.ReadAllBytes(Path.Combine(roboSAPiensPath, htmlFile));
-            } 
-            catch (Exception e) {
-                error("Die Dokumentation von RoboSAPiens konnte nicht geladen werden.",
-                      $"Fehlermeldung: {e.Message}");
-            }
-            return rfDocumentation;
+            var roboSAPiensPath = System.AppContext.BaseDirectory;
+            return File.ReadAllBytes(Path.Combine(roboSAPiensPath, htmlFile));
+        }
+
+        static void showDocumentation(HttpListenerContext context, byte[] rfDocumentation) {
+            context.Response.ContentType = "text/html";
+            context.Response.OutputStream.Write(rfDocumentation, 0, rfDocumentation.Length);
+            context.Response.OutputStream.Close();
         }
 
         static void startServer(HttpListener listener, string serverAddress) {
@@ -47,11 +45,10 @@ namespace RoboSAPiens {
             var rfDocumentation = loadDocumentation(docFile);
             var httpListener = new HttpListener();
             var robotRemote = new RobotRemote(options);
+
             startServer(httpListener, serverAddress);
 
-            if (rfDocumentation.Length > 0) {
-                info($"- Die Dokumentation der verfügbaren Keywords befindet sich auf {serverAddress}/doc.");
-            }
+            info($"- Die Dokumentation der verfügbaren Keywords befindet sich auf {serverAddress}/doc.");
             if (options.debug) {
                 info("========== DEBUG-Modus aktiv ==========");
             } else {
@@ -60,24 +57,17 @@ namespace RoboSAPiens {
 
             while (httpListener.IsListening) {
                 var context = httpListener.GetContext();
-                var url = context.Request.Url;
-
-                if (url == null) {
-                    if (options.debug) {
-                        error("Die Anfrage enthält keinen URL.");
-                    }
-                    continue;
-                }
+                Uri url = context.Request.Url!;
 
                 var endpoint = String.Join("", url.Segments);
-                if (endpoint == "/doc" && rfDocumentation.Length > 0) {
-                    context.Response.ContentType = "text/html";
-                    context.Response.OutputStream.Write(rfDocumentation, 0, rfDocumentation.Length);
-                    context.Response.OutputStream.Close();
-                }
-                else {
-                    robotRemote.ProcessRequest(context);
-                }
+                switch (endpoint) {
+                    case "/doc":
+                        showDocumentation(context, rfDocumentation);
+                        break;
+                    default:
+                        robotRemote.ProcessRequest(context);
+                        break;
+                };
             }
         }
     }
