@@ -159,7 +159,7 @@ namespace RoboSAPiens {
 
                 return new Success($"'{theConnection} wurde erfolgreich hergestellt.");
             } catch (Exception e) {
-                return new ExceptionError(e, $"{theConnection} konnte nicht hergestellt werden.");
+                return new NoConnectionError(e, $"{theConnection} konnte nicht hergestellt werden.");
             }
         }
 
