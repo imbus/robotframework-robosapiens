@@ -8,11 +8,13 @@ namespace RoboSAPiens {
         const string None = "";
         public const string PASS = "PASS";
         public const string FAIL = "FAIL";
-        public string status = "";
-        public string output = "";
+        public string status = PASS;
+        public string output = None;
         public string returnValue = None;
-        public string error = "";
-        public string stacktrace = "";
+        public string error = None;
+        public string stacktrace = None;
+        public bool continuable = true;
+        public bool fatal = false;
 
         public XmlRpcStruct asXmlRpcStruct() {
             var result = new XmlRpcStruct();
@@ -21,6 +23,8 @@ namespace RoboSAPiens {
             result.Add("return", returnValue);
             result.Add("error", error);
             result.Add("traceback", stacktrace);
+            result.Add("continuable", continuable);
+            result.Add("fatal", fatal);
             return result;
         }
     }
@@ -54,8 +58,20 @@ namespace RoboSAPiens {
     }
 
 
-    // Error comprises both technical and domain errors
-    public class Error : RobotResult {}
+    // To Do: Model the errors appropriately
+    // Fatal errors: SAP GUI cannot be started, No SAP session, Scripting support not activated
+    // Non-Fatal Errors
+    public class Error : RobotResult {
+        public Error(): base() {
+            this.status = FAIL;
+        }
+    }
+
+    public class FatalError : Error {
+        public FatalError(): base() {
+            this.fatal = true;
+        }
+    }
 
     public sealed class ExceptionError : Error {
         const string errorDEBUG = "Für mehr Infos: robot --loglevel DEBUG datei.robot und dann in log.html schauen.";
@@ -63,42 +79,38 @@ namespace RoboSAPiens {
             this.output = $"*ERROR* {errorMessage}\n{errorDEBUG}";
             this.error = $"{e.Message}";
             this.stacktrace = $"{e.StackTrace}";
-            this.status = FAIL;
         }
     }
 
     public sealed class InvalidArgumentError : Error {
         public InvalidArgumentError(string message) {
             this.output = $"*ERROR* {message}";
-            this.status = FAIL;
         }
     }
 
     public sealed class InvalidFileError : Error {
         public InvalidFileError(string message) {
             this.output = $"*ERROR* {message}";
-            this.status = FAIL;
         }
     }
 
     public sealed class InvalidFormatError : Error {
         public InvalidFormatError(string message) {
             this.output = $"*ERROR* {message}";
-            this.status = FAIL;
         }
     }
 
     public sealed class InvalidValueError : Error {
         public InvalidValueError(string message) {
             this.output = $"*ERROR* {message}";
-            this.status = FAIL;
         }
     }
 
-    public sealed class NoConnectionError : Error {
-        public NoConnectionError() {
-            this.output = $"*ERROR* Keine Verbindung mit einem SAP Server vorhanden. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
-            this.status = FAIL;
+    public sealed class NoConnectionError : FatalError {
+        public NoConnectionError(Exception e, String message) {
+            this.output = $"*ERROR* {message}";
+            this.error = $"{e.Message}";
+            this.stacktrace = $"{e.StackTrace}";
         }
     }
 
@@ -108,43 +120,36 @@ namespace RoboSAPiens {
             this.output =
                 String.Join(Environment.NewLine, 
                             differences.Select(difference => $"*ERROR* {difference}"));
-            this.status = FAIL;
         }
     }
 
     public sealed class NoSapGuiError : Error {
         public NoSapGuiError() {
             this.output = $"*ERROR* Keine laufende SAP GUI gefunden. SAP Logon muss zuerst ausgeführt werden.";
-            this.status = FAIL;
         }
     }
 
-    public sealed class NoScriptingError : Error {
+    public sealed class NoScriptingError : FatalError {
         public NoScriptingError() {
             this.output = $"*ERROR* Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
-            this.status = FAIL;
         }
     }
 
-    public sealed class NoSessionError : Error {
+    public sealed class NoSessionError : FatalError {
         public NoSessionError() {
-            this.output = $"*ERROR* Keine SAP-Session vorhanden. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
-            this.status = FAIL;
+            this.error = "Keine SAP-Session vorhanden. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
         }
     }
 
     public sealed class SapError : Error {
         public SapError(string errorMessage) {
             this.output = $"*ERROR* SAP Fehlermeldung: {errorMessage}";
-            this.status = FAIL;
         }
     }
 
     public sealed class SpellingError : Error {
-        const string errorWrongSpelling = "Prüfe die Rechtschreibung";
         public SpellingError(string message) {
-            this.output = $"*ERROR* {message}\nHinweis: {errorWrongSpelling}";
-            this.status = FAIL;
+            this.output = $"*ERROR* {message}\nHinweis: Prüfe die Rechtschreibung";
         }
     }
 }
