@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Reflection;
 
 namespace RoboSAPiens {
     class _ {
@@ -12,14 +13,13 @@ namespace RoboSAPiens {
             Console.WriteLine(String.Join(Environment.NewLine, messages));
         }
 
-        static byte[] loadDocumentation(string htmlFile) {
-            var roboSAPiensPath = System.AppContext.BaseDirectory;
-            return File.ReadAllBytes(Path.Combine(roboSAPiensPath, htmlFile));
+        static Stream loadDocumentation(string htmlFile) {
+            return Assembly.GetExecutingAssembly().GetManifestResourceStream("RoboSAPiens.RoboSAPiens.html")!;
         }
 
-        static void showDocumentation(HttpListenerContext context, byte[] rfDocumentation) {
+        static void showDocumentation(HttpListenerContext context, Stream rfDocumentation) {
             context.Response.ContentType = "text/html";
-            context.Response.OutputStream.Write(rfDocumentation, 0, rfDocumentation.Length);
+            rfDocumentation.CopyTo(context.Response.OutputStream);
             context.Response.OutputStream.Close();
         }
 

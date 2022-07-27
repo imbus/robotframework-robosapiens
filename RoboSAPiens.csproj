@@ -33,7 +33,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Content Include="RoboSAPiens.html" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="RoboSAPiens.html"/>
   </ItemGroup>
 
   <ItemGroup>
