@@ -12,11 +12,18 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugSymbols>False</DebugSymbols>
     <DebugType>None</DebugType>
-    <PublishDir>..\build</PublishDir>
+    <PublishDir>build</PublishDir>
   </PropertyGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)'=='Release'">
     <Exec Command="rmdir /S /Q $(PublishDir)" />
+  </Target>
+
+  <Target Name="CopyFiles" AfterTargets="Publish">
+    <ItemGroup>
+      <BuildFiles Include="$(PublishDir)\*.*"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="python/src/RoboSAPiens/lib"/>
   </Target>
 
   <ItemGroup>

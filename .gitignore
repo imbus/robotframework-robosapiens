@@ -1,5 +1,12 @@
+.venv
 bin
-obj
+build
 lib
-*.exe
+obj
+python/dist
+python/build
+python/**/*.egg-info
+results
 *.dll
+*.exe
+*.pyc
