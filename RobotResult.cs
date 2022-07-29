@@ -13,7 +13,7 @@ namespace RoboSAPiens {
         public string returnValue = None;
         public string error = None;
         public string stacktrace = None;
-        public bool continuable = true;
+        public bool continuable = false;
         public bool fatal = false;
 
         public XmlRpcStruct asXmlRpcStruct() {
