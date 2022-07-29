@@ -399,7 +399,7 @@ namespace RoboSAPiens {
 
         [Keyword("Überschrift überprüfen"),
          Doc("Überprüfen, ob die Maske die angegebene Überschrift hat.\n\n" +
-             "| ``Überschrift überprüfen    Überschrift    Knopf``")]
+             "| ``Überschrift überprüfen    Überschrift``")]
         public RobotResult verifyFormHeading(string Ueberschrift) {
             return session switch {
                 SAPSession session => session.verifyWindowTitle(Ueberschrift),
