@@ -42,6 +42,10 @@ namespace RoboSAPiens {
             return windowType == "GuiModalWindow" && title.Contains("Information");
         }
         
+        public bool isModalWindow() {
+            return windowType == "GuiModalWindow";
+        }
+
         public void pressKey(int key) {
             self.SendVKey(key);
         }

@@ -147,6 +147,12 @@ namespace RoboSAPiens {
         }
     }
 
+    public sealed class SapModalWindow : Error {
+        public SapModalWindow(string windowTitle) {
+            this.output = $"*ERROR* Ein unerwartetes Dialogfenster ist erschienen: {windowTitle}";
+        }
+    }
+
     public sealed class SpellingError : Error {
         public SpellingError(string message) {
             this.output = $"*ERROR* {message}\nHinweis: Prüfe die Rechtschreibung";

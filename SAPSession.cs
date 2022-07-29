@@ -627,6 +627,10 @@ namespace RoboSAPiens {
                 return new SapError(window.getMessage());
             }
 
+            if (window.isModalWindow()) {
+                return new SapModalWindow(window.title);
+            }
+
             return new SpellingError($"Die Überschrift der Maske ist nicht '{title}'");
         }
     }
