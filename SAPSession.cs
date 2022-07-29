@@ -389,6 +389,11 @@ namespace RoboSAPiens {
 
         public RobotResult saveScreenshot(string path) {
             var isFile = Path.HasExtension(path);
+
+            if (!isFile && !Path.EndsInDirectorySeparator(path)) {
+                path += Path.DirectorySeparatorChar;
+            }
+            
             var directory = Path.GetDirectoryName(path);
 
             if (directory == null) {
