@@ -49,3 +49,5 @@ class RoboSAPiens:
 
     def run_keyword(self, name, args, kwargs):
         return self.RoboSAPiens.run_keyword(name, args, kwargs)
+
+    ROBOT_LIBRARY_SCOPE = 'GLOBAL'
