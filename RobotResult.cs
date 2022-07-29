@@ -49,10 +49,10 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class UnexpectedResult : RobotResult {
-        public UnexpectedResult(string returnValue, string message) {
+    public sealed class SapInfoWindow : RobotResult {
+        public SapInfoWindow(string message) {
             this.output = $"*WARN* {message}";
-            this.returnValue = returnValue;
+            this.returnValue = "FALSE";
             this.status = PASS;
         }
     }

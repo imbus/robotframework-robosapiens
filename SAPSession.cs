@@ -620,7 +620,7 @@ namespace RoboSAPiens {
             }
 
             if (window.isInfoWindow()) {
-                return new UnexpectedResult("FALSE", $"Ein unerwartetes Dialogfenster ist erschienen: {window.getMessage()}");
+                return new SapInfoWindow(window.getMessage());
             }
 
             if (window.isErrorWindow()) {
