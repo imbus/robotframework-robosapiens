@@ -36,6 +36,7 @@ namespace RoboSAPiens {
                 if (table.rowsAreMissing()) {
                     table.scroll(session);
                     classifyTableCells(table);
+                    table.scrollToFirstRow(session);
                 }
             }
         }

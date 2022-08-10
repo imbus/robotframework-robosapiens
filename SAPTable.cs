@@ -48,5 +48,12 @@ namespace RoboSAPiens {
             // Therefore, all object references are lost.
             table.VerticalScrollbar.Position += table.VisibleRowCount;
         }
+
+        public void scrollToFirstRow(GuiSession session) {
+            var table = (GuiTableControl)session.FindById(id);
+            // CAUTION: Changing the scrollbar position redraws the GUI components.
+            // Therefore, all object references are lost.
+            table.VerticalScrollbar.Position = 1;
+        }
     }
 }
