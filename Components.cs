@@ -7,7 +7,7 @@ using SAPFEWSELib;
 
 namespace RoboSAPiens {
     public sealed class Components {
-        SAPBoxStore boxes = new SAPBoxStore();
+        BoxStore boxes = new BoxStore();
         ButtonStore buttons = new ButtonStore();
         CheckBoxStore checkBoxes = new CheckBoxStore();
         ComboBoxStore comboBoxes = new ComboBoxStore();
@@ -18,15 +18,26 @@ namespace RoboSAPiens {
         RadioButtonStore radioButtons = new RadioButtonStore();
         ReadOnlyTextFieldStore readOnlyTextFields = new ReadOnlyTextFieldStore();
         SAPStatusbar? statusBar = null;
-        SAPTabStore tabs = new SAPTabStore();
+        TabStore tabs = new TabStore();
+        TableStore tables = new TableStore();
+        private GuiSession session;
 
-
-        public Components() {  
-        // Null-Object Design Pattern
+        public Components(GuiSession session) {
+            this.session = session;
+            // Null-Object Design Pattern
         }
 
-        public Components(GuiComponentCollection components) {            
+        public Components(GuiComponentCollection components, GuiSession session) {
+            this.session = session;
+
             getWindowComponents(components);
+
+            foreach (var table in tables.getAll()) {
+                if (table.rowsAreMissing()) {
+                    table.scroll(session);
+                    classifyTableCells(table);
+                }
+            }
         }
 
         void classifyComponent(GuiComponent component) {
@@ -79,7 +90,9 @@ namespace RoboSAPiens {
                     getTabStripComponents((GuiTabStrip)container);
                     break;
                 case "GuiTableControl":
-                    classifyTableCells((GuiTableControl)container);
+                    var sapTable = new SAPTable((GuiTableControl)container);
+                    tables.add(sapTable);
+                    classifyTableCells(sapTable);
                     break;
                 default:
                     getWindowComponents(getContainerChildren(container));
@@ -142,59 +155,44 @@ namespace RoboSAPiens {
             }
         }
 
-        void classifyTableCells(GuiTableControl table, int rowsInStore = 0) {
+        void classifyTableCells(SAPTable sapTable) {
+            var table = (GuiTableControl)session.FindById(sapTable.id);
             var columns = table.Columns;
-            // https://answers.sap.com/questions/11100660/how-to-get-a-correct-row-count-in-sap-table.html
-            var totalRows = table.VerticalScrollbar.Maximum + 1;
-            var visibleRows = table.VisibleRowCount;
-            var maxRows = Math.Min(visibleRows, totalRows - rowsInStore);
-            var tableId = table.Id;
+            var numRows = sapTable.getNumRows();
 
             for (int colIdx = 0; colIdx < columns.Length; colIdx++) {
                 var column = (GuiTableColumn)columns.ElementAt(colIdx);
                 var columnTitle = column.Title;
-                for (int rowIdx = 0; rowIdx < maxRows; rowIdx++) {
+
+                for (int rowIdx = 0; rowIdx < numRows; rowIdx++) {
                     try {
                         var cell = table.GetCell(rowIdx, colIdx);
                         switch (cell.Type) {
                             case "GuiButton":
-                                buttons.add(new SAPTableButton(columnTitle, rowIdx, tableId, (GuiButton)cell));
+                                buttons.add(new SAPTableButton(columnTitle, rowIdx, (GuiButton)cell, sapTable));
                                 break;
                             case "GuiCheckBox":
-                                checkBoxes.add(new SAPTableCheckBox(columnTitle, rowIdx, tableId, (GuiCheckBox)cell));
+                                checkBoxes.add(new SAPTableCheckBox(columnTitle, rowIdx, (GuiCheckBox)cell, sapTable));
                                 break;
                             case "GuiTextField":
                             case "GuiCTextField":
                                 var textField = (GuiTextField)cell;
                                 if (textField.Changeable) {
-                                    editableCells.add(new EditableTableCell(columnTitle, rowIdx, tableId, textField, visibleRows));
+                                    editableCells.add(new EditableTableCell(columnTitle, rowIdx, textField, sapTable));
                                 } else {
-                                    labelCells.add(new SAPTableCell(columnTitle, rowIdx, tableId, textField));
+                                    labelCells.add(new SAPTableCell(columnTitle, rowIdx, textField, sapTable));
                                 }
                                 break;
                         }
                     } 
                     catch (Exception) {
-                        // TODO: Do not ignore the exception. Throw it and catch it upstream in a function that can return a RobotResult.
+                        // TODO: Do not ignore the exception. Throw it and catch it upstream in a function that returns a RobotResult.
                         continue;
                     }
                 }
             }
 
-            rowsInStore += maxRows;
-
-            if (rowsInStore < totalRows) {
-                throw new Exception("Die Tabelle ist großer als das Fenster. Das Fenster muss maximiert werden.");
-                // CAUTION: Changing the scrollbar position redraws the GUI components.
-                // Therefore, all object references are lost. Scrolling should not be
-                // done within a call to getWindowComponents. But rather after this 
-                // function has finished.
-                //
-                // table.VerticalScrollbar.Position += table.VisibleRowCount;
-                // table = (GuiTableControl)session.FindById(tableId);
-                // classifyTableCells(table, rowsInStore);
-                // table.VerticalScrollbar.Position = 1;
-            }
+            sapTable.updateRowsInStore(numRows);
         }
 
         void classifyGridViewToolbar(GuiGridView gridView) {

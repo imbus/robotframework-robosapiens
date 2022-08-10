@@ -101,9 +101,9 @@ namespace RoboSAPiens {
 
     public class SAPTableCell: Cell, IFilledCell {
         public string id;
-        public string tableId {get;}
+        public SAPTable table;
 
-        public SAPTableCell(string column, int rowIndex, string tableId, GuiTextField textField): 
+        public SAPTableCell(string column, int rowIndex, GuiTextField textField, SAPTable table):
             base(rowIndex, column, textField.Text) 
         {
             this.id = textField.Id;
@@ -112,7 +112,7 @@ namespace RoboSAPiens {
                                          top: textField.ScreenTop, 
                                          width: textField.Width
                                         );
-            this.tableId = tableId;
+            this.table = table;
         }
 
         public bool isLocated(FilledCellLocator locator) {
@@ -131,13 +131,11 @@ namespace RoboSAPiens {
 
     public sealed class EditableTableCell: SAPTableCell, IEditableCell {
         int maxLength;
-        int visibleRowCount;
 
-        public EditableTableCell(string column, int rowIndex, string tableId, GuiTextField textField, int visibleRowCount): 
-            base(column, rowIndex, tableId, textField) 
+        public EditableTableCell(string column, int rowIndex, GuiTextField textField, SAPTable table):
+            base(column, rowIndex, textField, table) 
         {
             this.maxLength = textField.MaxLength;
-            this.visibleRowCount = visibleRowCount;
         }
 
         public int getMaxLength() {
@@ -145,10 +143,7 @@ namespace RoboSAPiens {
         }
 
         public void insert(string content, GuiSession session) {
-            if (rowIndex + 1 > visibleRowCount) {
-                var table = (GuiTableControl)session.FindById(tableId);
-                table.VerticalScrollbar.Position += table.VisibleRowCount;
-            }
+            table.makeSureCellIsVisible(rowIndex, session);
 
             var textField = (GuiTextField)session.FindById(id);
             textField.Text = content;

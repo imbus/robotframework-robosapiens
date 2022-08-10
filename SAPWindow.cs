@@ -12,8 +12,8 @@ namespace RoboSAPiens {
         IntPtr windowHandle;
         string windowType;
 
-        public SAPWindow(GuiFrameWindow window, bool loadComponents=false) {
-            components = loadComponents ? new Components(window.Children) : new Components();
+        public SAPWindow(GuiFrameWindow window, GuiSession session, bool loadComponents=false) {
+            components = loadComponents ? new Components(window.Children, session) : new Components(session);
             id = window.Id;
             position = new Position(
                 height: window.Height,

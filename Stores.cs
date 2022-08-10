@@ -52,9 +52,11 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPBoxStore: ContainerRepository<SAPBox> {}
+    public sealed class BoxStore: ContainerRepository<SAPBox> {}
 
-    public sealed class SAPTabStore: ContainerRepository<SAPTab> {}
+    public sealed class TabStore: ContainerRepository<SAPTab> {}
+
+    public sealed class TableStore: Repository<SAPTable> {}
 
     public sealed class EditableCellStore: EditableTextCellRepository {
         public Cell? get(ILocator locator, LabelCellStore rowLabels) {
@@ -76,13 +78,13 @@ namespace RoboSAPiens {
     }
 
     public sealed class EditableTextFieldStore: TextFieldRepository<EditableTextField> {
-        public EditableTextField? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, SAPBoxStore boxes) {
+        public EditableTextField? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, BoxStore boxes) {
             return getTextField(locator, labels, textFieldLabels, boxes) as EditableTextField;
         }
     }
 
     public sealed class ReadOnlyTextFieldStore: TextFieldRepository<SAPTextField> {
-        public SAPTextField? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, SAPBoxStore boxes) {
+        public SAPTextField? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, BoxStore boxes) {
             return getTextField(locator, labels, textFieldLabels, boxes) as SAPTextField;
         }
     }

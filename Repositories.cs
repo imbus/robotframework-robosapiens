@@ -76,7 +76,7 @@ namespace RoboSAPiens {
     }
 
     public abstract class TextFieldRepository<T>: ComponentRepository<SAPTextField> {
-        SAPTextField? findInBox(ILocator locator, SAPBoxStore boxes) {
+        SAPTextField? findInBox(ILocator locator, BoxStore boxes) {
             return locator switch {
                 HLabelVLabel(var label, var boxTitle) => 
                     items.Find(textField => textField.isContainedInBox(boxes.get(boxTitle)) &&
@@ -103,7 +103,7 @@ namespace RoboSAPiens {
             return items.Find(textElement => textElement.contains(text));
         }
 
-        public SAPTextField? getTextField(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, SAPBoxStore boxes) {
+        public SAPTextField? getTextField(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, BoxStore boxes) {
             return locator switch {
                 HLabel (var label) => 
                     getByLabelOrTooltip(label) ??

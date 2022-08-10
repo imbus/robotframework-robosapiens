@@ -18,7 +18,7 @@ namespace RoboSAPiens {
             this.sapGui = sapGui;
             this.session = session;
             this.systemName = session.Info.SystemName;
-            this.window = new SAPWindow(session.ActiveWindow, loadComponents: true);
+            this.window = new SAPWindow(session.ActiveWindow, session, loadComponents: true);
         }
 
         bool windowChanged() {
@@ -30,7 +30,7 @@ namespace RoboSAPiens {
 
         ExceptionError? updateComponents() {
             try {
-                window = new SAPWindow(session.ActiveWindow, loadComponents: true);
+                window = new SAPWindow(session.ActiveWindow, session, loadComponents: true);
                 return null;
             } 
             catch (Exception e){
@@ -421,7 +421,7 @@ namespace RoboSAPiens {
 
             try {
                 Directory.CreateDirectory(directory);
-                SAPWindow window = new SAPWindow((GuiFrameWindow)session.FindById(this.window.id));
+                SAPWindow window = new SAPWindow((GuiFrameWindow)session.FindById(this.window.id), session);
                 window.saveScreenshot(outputPath);
                 screenshotCounter++;
 

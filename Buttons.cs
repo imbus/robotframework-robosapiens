@@ -45,12 +45,12 @@ namespace RoboSAPiens {
     public sealed class SAPTableButton: SAPButton, IFilledCell {
         string column;
         int rowIndex;
-        string tableId;
+        SAPTable table;
 
-        public SAPTableButton(string column, int rowIndex, string tableId, GuiButton button): base(button) {
+        public SAPTableButton(string column, int rowIndex, GuiButton button, SAPTable table): base(button) {
             this.column = column;
             this.rowIndex = rowIndex;
-            this.tableId = tableId;
+            this.table = table;
         }
 
         public bool isLocated(FilledCellLocator locator) {
@@ -61,10 +61,7 @@ namespace RoboSAPiens {
         }
 
         public override void push(GuiSession session) {
-            var table = (GuiTableControl)session.FindById(tableId);
-            var rows = (GuiCollection)table.Rows;
-            var buttonRow = (GuiTableRow)rows.ElementAt(rowIndex);
-            buttonRow.Selected = true;
+            table.selectRow(rowIndex, session);
             var tableButton = (GuiButton)session.FindById(id);
             tableButton.Press();
         }

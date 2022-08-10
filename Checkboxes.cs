@@ -66,11 +66,11 @@ namespace RoboSAPiens {
     public sealed class SAPTableCheckBox: SAPCheckBox, IFilledCell {
         string column;
         int rowIndex;
-        string tableId;
+        SAPTable table;
 
-        public SAPTableCheckBox(string column, int rowIndex, string tableId, GuiCheckBox checkBox): base(checkBox) {
+        public SAPTableCheckBox(string column, int rowIndex, GuiCheckBox checkBox, SAPTable table): base(checkBox) {
             this.column = column;
-            this.tableId = tableId;
+            this.table = table;
             this.rowIndex = rowIndex;
         }
 
