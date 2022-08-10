@@ -290,7 +290,7 @@ namespace RoboSAPiens {
                 return new Success($"{theTextField.atLocation} wurde ausgefüllt. Neuer Inhalt: {content}.");
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht ausgefüllt werden.");
+                return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.");
             }
         }
 

@@ -222,14 +222,16 @@ namespace RoboSAPiens {
          Doc("Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.\n\n" +
              "*Textfeld mit einer Beschriftung links*\n" +
              "| ``Textfeld ausfüllen    Beschriftung    Inhalt``\n" +
-            "*Textfeld mit einer Beschriftung oben*\n" +
+             "*Textfeld mit einer Beschriftung oben*\n" +
              "| ``Textfeld ausfüllen    @ Beschriftung    Inhalt``\n" +
              "*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n" +
              "| ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``\n" +
              "*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n" +
-             "| ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``\n\n" +
-            "*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n" +
              "| ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``\n\n" +
+             "*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n" +
+             "| ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``\n\n" +
+             "*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n" +
+             "| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n" +
              "*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, " +
              "die man über die Hilfe (Taste F1) herausfinden kann.")]
         public RobotResult fillTextField(string Beschriftung_oder_Positionsgeber, string Inhalt) {
