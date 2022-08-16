@@ -74,9 +74,10 @@ namespace RoboSAPiens {
     }
 
     public sealed class ExceptionError : Error {
-        const string errorDEBUG = "Für mehr Infos: robot --loglevel DEBUG datei.robot und dann in log.html schauen.";
+        const string errorDEBUG = "Für mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.";
+
         public ExceptionError(Exception e, string errorMessage) {
-            this.output = $"*ERROR* {errorMessage}\n{errorDEBUG}";
+            this.output = $"*ERROR* {errorMessage}\n{e.Message}\n{errorDEBUG}";
             this.error = $"{e.Message}";
             this.stacktrace = $"{e.StackTrace}";
         }
