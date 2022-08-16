@@ -25,13 +25,17 @@ namespace RoboSAPiens {
             rowsInStore += rowsAdded;
         }
 
+        public int getRowsInStore() {
+            return rowsInStore;
+        }
+
         public bool rowsAreMissing() {
             return rowsInStore < totalRows;
         }
 
         public void makeSureCellIsVisible(int rowIndex, GuiSession session) {
             if (rowIndex + 1 > visibleRowCount) {
-                scroll(session);
+                scrollOnePage(session);
             }
         }
 
@@ -42,18 +46,16 @@ namespace RoboSAPiens {
             row.Selected = true;
         }
 
-        public void scroll(GuiSession session) {
+        public void scrollOnePage(GuiSession session) {
             var table = (GuiTableControl)session.FindById(id);
             // CAUTION: Changing the scrollbar position redraws the GUI components.
             // Therefore, all object references are lost.
             table.VerticalScrollbar.Position += table.VisibleRowCount;
         }
 
-        public void scrollToFirstRow(GuiSession session) {
+        public void scrollToTop(GuiSession session) {
             var table = (GuiTableControl)session.FindById(id);
-            // CAUTION: Changing the scrollbar position redraws the GUI components.
-            // Therefore, all object references are lost.
-            table.VerticalScrollbar.Position = 1;
+            table.VerticalScrollbar.Position = table.VerticalScrollbar.Minimum;
         }
     }
 }

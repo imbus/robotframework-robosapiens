@@ -34,9 +34,17 @@ namespace RoboSAPiens {
 
             foreach (var table in tables.getAll()) {
                 if (table.rowsAreMissing()) {
-                    table.scroll(session);
-                    classifyTableCells(table);
-                    table.scrollToFirstRow(session);
+                    IntPtr windowHandle = new IntPtr(session.ActiveWindow.Handle);
+                
+                    if(!ScreenCapture.windowIsMaximized(windowHandle)) {    
+                        throw new Exception("Eine Tabelle ist größer als das SAP Fenster. Bitte maximieren Sie das Fenster.");
+                    }
+                    
+                    while (table.rowsAreMissing()) {
+                        table.scrollOnePage(session);
+                        classifyTableCells(table);
+                    }
+                    table.scrollToTop(session);
                 }
             }
         }
@@ -168,24 +176,26 @@ namespace RoboSAPiens {
                 for (int rowIdx = 0; rowIdx < numRows; rowIdx++) {
                     try {
                         var cell = table.GetCell(rowIdx, colIdx);
+                        var absRowIdx = sapTable.getRowsInStore() + rowIdx;
                         switch (cell.Type) {
                             case "GuiButton":
-                                buttons.add(new SAPTableButton(columnTitle, rowIdx, (GuiButton)cell, sapTable));
+                                buttons.add(new SAPTableButton(columnTitle, absRowIdx, (GuiButton)cell, sapTable));
                                 break;
                             case "GuiCheckBox":
-                                checkBoxes.add(new SAPTableCheckBox(columnTitle, rowIdx, (GuiCheckBox)cell, sapTable));
+                                checkBoxes.add(new SAPTableCheckBox(columnTitle, absRowIdx, (GuiCheckBox)cell, sapTable));
                                 break;
                             case "GuiTextField":
                             case "GuiCTextField":
                                 var textField = (GuiTextField)cell;
                                 if (textField.Changeable) {
-                                    editableCells.add(new EditableTableCell(columnTitle, rowIdx, textField, sapTable));
-                                } else {
-                                    labelCells.add(new SAPTableCell(columnTitle, rowIdx, textField, sapTable));
+                                    editableCells.add(new EditableTableCell(columnTitle, absRowIdx, textField, sapTable));
+                                } 
+                                else {
+                                    labelCells.add(new SAPTableCell(columnTitle, absRowIdx, textField, sapTable));
                                 }
                                 break;
                         }
-                    } 
+                    }
                     catch (Exception) {
                         // TODO: Do not ignore the exception. Throw it and catch it upstream in a function that returns a RobotResult.
                         continue;
