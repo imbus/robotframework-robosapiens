@@ -24,13 +24,22 @@ namespace RoboSAPiens {
 
         public ILocatable? findClosestHorizontalComponent(List<ILocatable> components) {
             var componentsAfterLabel = components.Where(component => component.getPosition().horizontalAlignedWith(position))
-                                                 .Where(component => component.getPosition().left > position.right);
+                                                     .Where(component => component.getPosition().left > position.right);
 
-            if (componentsAfterLabel.Count() > 0) {
+            var componentsBeforeLabel = components.Where(component => component.getPosition().horizontalAlignedWith(position))
+                                                      .Where(component => component.getPosition().right < position.left);
+
+            if (componentsAfterLabel.Count() > 0){                          
                 var (distance, closestComponent) = 
                     componentsAfterLabel.Select(component => (component.getPosition().left - position.right, component))
                                         .Min();
+                return closestComponent;
+            }
 
+            if (componentsBeforeLabel.Count() > 0){                          
+                var (distance, closestComponent) = 
+                    componentsBeforeLabel.Select(component => (component.getPosition().right - position.left, component))
+                                         .Min();
                 return closestComponent;
             }
 
