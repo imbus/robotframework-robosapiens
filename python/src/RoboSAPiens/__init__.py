@@ -20,14 +20,12 @@ class RoboSAPiens:
 
         if not self.is_running():
             proc = subprocess.Popen([RoboSAPiens_path, "-p", port], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        
             time.sleep(0.3)
             returncode = proc.poll()
 
             if returncode and returncode > 0:
-                message, details = [line.decode('iso-8859-1').strip() for line in proc.stdout.readlines()]
-                logging.error(f"{message} {details}")
-                sys.exit(1)
+                message = "\n".join(line.decode('iso-8859-1').strip() for line in proc.stdout.readlines())               
+                raise Exception(message)
 
         self.RoboSAPiens = Remote(self.url)
 
