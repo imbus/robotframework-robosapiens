@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -37,7 +39,22 @@ namespace RoboSAPiens {
             }
         }
 
+        public static bool sapDLLsArePresent() {
+            var sapDLLS = new List<String>(){"SAPFEWSELib", "SAPROTWR.NET"};
+            
+            return Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+                .Select(assembly => AssemblyName.GetAssemblyName(assembly).Name)
+                .Where(assemblyName => assemblyName != null && sapDLLS.Contains(assemblyName))
+                .Count()
+                .Equals(2);
+        }
+
         public static void Main(string[] args) {
+            if (!sapDLLsArePresent()) {
+                error("Der RoboSAPiens Keywordserver konnnte nicht gestartet werden. Die SAP DLLs sind nicht vorhanden.");
+                Environment.Exit(1);
+            }
+
             const string host = "http://127.0.0.1";
             const string docFile = "RoboSAPiens.html";
             var options = new Options(args);
