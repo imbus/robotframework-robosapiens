@@ -145,6 +145,7 @@ namespace RoboSAPiens {
     public sealed class SapError : Error {
         public SapError(string errorMessage) {
             this.output = $"*ERROR* SAP Fehlermeldung: {errorMessage}";
+            this.error = $"SAP Fehlermeldung: {errorMessage}";
         }
     }
 
