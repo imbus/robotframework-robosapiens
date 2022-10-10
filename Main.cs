@@ -40,7 +40,7 @@ namespace RoboSAPiens {
         }
 
         public static bool sapDLLsArePresent() {
-            var sapDLLS = new List<String>(){"SAPFEWSELib", "SAPROTWR.NET"};
+            var sapDLLS = new List<String>(){"sapfewse", "saprotwr.net"};
             
             return Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
                 .Select(assembly => AssemblyName.GetAssemblyName(assembly).Name)

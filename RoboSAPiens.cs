@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
-using SAPFEWSELib;
-using SAPROTWR.NET;
+using sapfewse;
+using saprotwr.net;
 
 namespace RoboSAPiens {
     public class RoboSAPiens {

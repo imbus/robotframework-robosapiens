@@ -1,4 +1,4 @@
-using SAPFEWSELib;
+using sapfewse;
 
 namespace RoboSAPiens {
     public interface IDoubleClickable {
