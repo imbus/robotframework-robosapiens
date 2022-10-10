@@ -7,7 +7,6 @@ namespace RoboSAPiens {
     public sealed class NoSAPSession : ISession {}
     public sealed class SAPSession : ISession {
         GuiConnection connection;
-        int screenshotCounter;
         GuiApplication sapGui;
         string systemName;
         GuiSession session;
@@ -388,42 +387,9 @@ namespace RoboSAPiens {
         }
 
         public RobotResult saveScreenshot(string path) {
-            var isFile = Path.HasExtension(path);
-
-            if (!isFile && !Path.EndsInDirectorySeparator(path)) {
-                path += Path.DirectorySeparatorChar;
-            }
-            
-            var directory = Path.GetDirectoryName(path);
-
-            if (directory == null) {
-                return new InvalidValueError($"C: und Netzwerkverzeichnise sind nicht zulässige Ablageorte.");
-            }
-
-            if (isFile) {
-                if (!path.EndsWith(".png")) {
-                    return new InvalidValueError("Der Dateiname muss die Endung .png haben.");
-                }
-                if (directory == string.Empty) {
-                    return new InvalidValueError($"'{path}' ist kein absoluter Pfad zu einer PNG-Datei.");
-                }
-            }
-            
             try {
-                Path.GetFullPath(path);
-            }
-            catch (Exception e) {
-                return new ExceptionError(e, $"Der Pfad '{path}' existiert im Dateisystem nicht.");
-            }        
-
-            String pngFileName = $"{screenshotCounter:000}.png";
-            String outputPath = isFile ? path : Path.Combine(directory, pngFileName);
-
-            try {
-                Directory.CreateDirectory(directory);
-                SAPWindow window = new SAPWindow((GuiFrameWindow)session.FindById(this.window.id), session);
-                window.saveScreenshot(outputPath);
-                screenshotCounter++;
+                var window = (GuiFrameWindow)session.FindById(this.window.id);
+                string outputPath = window.HardCopy(path, GuiImageType.PNG);
 
                 return new Success($"Eine Aufnahme des Fensters wurde in '{outputPath}' gespeichert.");
             }
