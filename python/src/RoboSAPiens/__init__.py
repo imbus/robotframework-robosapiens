@@ -2,17 +2,16 @@ from os.path import realpath
 from pathlib import Path
 import subprocess
 import time
-import sys
 
 from robot.libraries.Remote import Remote
-from robot.api.logger import logging
 
+encoding = 'iso-8859-1'
 RoboSAPiens_exe = "RoboSAPiens.exe"
 RoboSAPiens_path = Path(realpath(__file__)).parent / "lib" / RoboSAPiens_exe
 
 class RoboSAPiens:
     def is_running(self):
-        process_list = subprocess.check_output(['TASKLIST', '/FI', f'imagename eq {RoboSAPiens_exe}']).decode('iso-8859-1')
+        process_list = subprocess.check_output(['TASKLIST', '/FI', f'imagename eq {RoboSAPiens_exe}']).decode(encoding)
         return any([line.startswith(RoboSAPiens_exe) for line in process_list.splitlines()])
 
     def __init__(self, port="8270"):
@@ -24,7 +23,8 @@ class RoboSAPiens:
             returncode = proc.poll()
 
             if returncode and returncode > 0:
-                message = "\n".join(line.decode('iso-8859-1').strip() for line in proc.stdout.readlines())               
+                assert proc.stdout != None
+                message = "\n".join(line.decode(encoding).strip() for line in proc.stdout.readlines())               
                 raise Exception(message)
 
         self.RoboSAPiens = Remote(self.url)
