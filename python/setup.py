@@ -16,7 +16,7 @@ Topic :: Software Development :: Testing
 """
 
 setup(name='robotframework-robosapiens',
-      version="1.0.2",
+      version="1.0.5",
       description='Robot Framework keyword library wrapper around the SAP scripting GUI',
       long_description="readme",
       long_description_content_type='text/markdown',
