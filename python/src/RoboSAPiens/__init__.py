@@ -3,6 +3,7 @@ from pathlib import Path
 import subprocess
 import time
 
+from .version import __version__
 from robot.libraries.Remote import Remote
 
 encoding = 'iso-8859-1'
@@ -59,3 +60,4 @@ class RoboSAPiens:
         return self.RoboSAPiens.run_keyword(name, args, kwargs)
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
+    ROBOT_LIBRARY_VERSION = __version__
