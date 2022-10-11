@@ -388,6 +388,34 @@ namespace RoboSAPiens {
 
         public RobotResult saveScreenshot(string path) {
             try {
+                Path.GetFullPath(path);
+            }
+            catch (PathTooLongException e) {
+                return new ExceptionError(e, $"Ein Pfad darf maximal 260 Zeichen enthalten. Der '{path}' enthält {path.Length} Zeichen.");
+            }
+            catch (System.Security.SecurityException e) {
+                return new ExceptionError(e, $"Der Zugang zum Pfad '{path}' ist nicht zulässig.");
+            }
+            catch (Exception e) {
+                return new ExceptionError(e, $"Der Pfad '{path}' ist ungültig.");
+            }  
+           
+            var directory = Path.GetDirectoryName(path);
+
+            if (directory == null) {
+                return new InvalidValueError($"C: und Netzwerkverzeichnise sind nicht zulässige Ablageorte.");
+            }
+
+            if (directory == string.Empty) {
+                return new InvalidValueError($"'{path}' ist kein absoluter Pfad.");
+            }
+
+            if (!Path.HasExtension(path)) {
+                path += ".png";
+            }
+
+            try {
+                Directory.CreateDirectory(directory);
                 var window = (GuiFrameWindow)session.FindById(this.window.id);
                 string outputPath = window.HardCopy(path, GuiImageType.PNG);
 
