@@ -15,6 +15,7 @@ class RoboSAPiens:
         return any([line.startswith(RoboSAPiens_exe) for line in process_list.splitlines()])
 
     def __init__(self, port="8270"):
+        self.port = port
         self.url = f"http://127.0.0.1:{port}"
 
         if not self.is_running():
@@ -40,6 +41,15 @@ class RoboSAPiens:
         return self.RoboSAPiens.get_keyword_names()
 
     def get_keyword_documentation(self, name):
+        if name == "__intro__": 
+            return "RoboSAPiens: SAP GUI-Automatisierung für Menschen"
+        
+        if name == "__init__":
+            return "\n".join([
+                "Um diese Bibliothek zu verwenden, muss der folgende Eintrag in der Tabelle ``Settings`` hinzugefügt werden:",
+                f"| ``Library   Remote   http://127.0.0.1:{self.port}/   WITH NAME   RoboSAPiens``"
+            ])
+
         return self.RoboSAPiens.get_keyword_documentation(name)
 
     def get_keyword_types(self, name):

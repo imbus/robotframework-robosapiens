@@ -82,13 +82,7 @@ namespace RoboSAPiens {
 
         [XmlRpcMethod("get_keyword_documentation")]
         public string getKeywordDocumentation(string keyword) {
-            return keyword switch {
-                "__intro__" => "RoboSAPiens: SAP GUI-Automatisierung für Menschen",
-                "__init__" => String.Join(Environment.NewLine, 
-                    $"Um diese Bibliothek zu verwenden, muss der folgende Eintrag in der Tabelle ``Settings`` hinzugefügt werden:",
-                    $"| ``Library   Remote   http://127.0.0.1:{port}/   WITH NAME   RoboSAPiens``"),
-                _ => roboSapiens.getKeyword(keyword).doc
-            };
+            return roboSapiens.getKeyword(keyword).doc;
         }
     }
 }
