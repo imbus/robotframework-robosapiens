@@ -1,13 +1,14 @@
+__pycache__
 .venv
 bin
 build
 lib
 obj
+proxy
 python/dist
 python/build
-python/**/*.egg-info
 results
-*.bat
 *.dll
+*.egg-info
 *.exe
 *.pyc
