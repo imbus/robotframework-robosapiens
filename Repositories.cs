@@ -38,7 +38,11 @@ namespace RoboSAPiens {
         }
 
         public T? getHorizontalClosestToLabel(string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
-            return labels.get(label)?.findClosestHorizontalComponent(filterBy<ILocatable>()) as T ??
+            return labels.getAll()
+                         .Where(l => l.contains(label))
+                         .Select(l => l.findClosestHorizontalComponent(filterBy<ILocatable>()))
+                         .Where(l => l != null)
+                         .FirstOrDefault() as T ??
                    textFieldLabels.getByContent(label)?.findClosestHorizontalComponent(filterBy<ILocatable>()) as T;
         }
 
