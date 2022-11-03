@@ -613,19 +613,11 @@ namespace RoboSAPiens {
                 return new Success("TRUE", $"Die Maske hat die Überschrift '{title}'");
             }
 
-            if (window.isInfoWindow()) {
-                return new SapInfoWindow(window.getMessage());
+            if (window.isInfoWindow() || window.isErrorWindow() || window.isModalWindow()) {
+                return new WrongWindow(title, window.getMessage());
             }
 
-            if (window.isErrorWindow()) {
-                return new SapError(window.getMessage());
-            }
-
-            if (window.isModalWindow()) {
-                return new SapModalWindow(window.title);
-            }
-
-            return new SpellingError($"Die Überschrift der Maske ist nicht '{title}'");
+            return new WrongWindow(title, window.title + "Hinweis: Prüfe die Rechtschreibung");
         }
     }
 }

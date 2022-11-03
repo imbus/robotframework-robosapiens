@@ -49,9 +49,9 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SapInfoWindow : RobotResult {
-        public SapInfoWindow(string message) {
-            this.output = $"*WARN* {message}";
+    public sealed class WrongWindow : RobotResult {
+        public WrongWindow(string expectedTitle, string message) {
+            this.output = $"*WARN* Die Überschrift der Maske ist nicht '{expectedTitle}'. {message}";
             this.returnValue = "FALSE";
             this.status = PASS;
         }
@@ -146,12 +146,6 @@ namespace RoboSAPiens {
         public SapError(string errorMessage) {
             this.output = $"*ERROR* SAP Fehlermeldung: {errorMessage}";
             this.error = $"SAP Fehlermeldung: {errorMessage}";
-        }
-    }
-
-    public sealed class SapModalWindow : Error {
-        public SapModalWindow(string windowTitle) {
-            this.output = $"*ERROR* Ein unerwartetes Dialogfenster ist erschienen: {windowTitle}";
         }
     }
 
