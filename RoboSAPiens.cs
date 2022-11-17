@@ -265,13 +265,13 @@ namespace RoboSAPiens {
         [Keyword("Textfeld auslesen"),
          Doc("Der Inhalt des angegebenen Textfeldes wird zurückgegeben.\n\n" +
              "*Textfeld mit einer Beschriftung links*\n" +
-             "| ``Textfeld ablesen    Beschriftung``\n" +
+             "| ``Textfeld auslesen    Beschriftung``\n" +
              "*Textfeld mit einer Beschriftung oben*\n" +
-             "| ``Textfeld ablesen    @ Beschriftung``\n" +
+             "| ``Textfeld auslesen    @ Beschriftung``\n" +
              "*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n" +
-             "| ``Textfeld ablesen    Beschriftung links @ Beschriftung oben``\n" +
+             "| ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``\n" +
              "*Textfeld mit dem angegebenen Inhalt*\n" +
-             "| ``Textfeld ablesen    = Inhalt``")]
+             "| ``Textfeld auslesen    = Inhalt``")]
         public RobotResult readTextField(string Beschriftung_oder_Positionsgeber) {
             return session switch {
                 SAPSession session => session.readTextField(Beschriftung_oder_Positionsgeber),
