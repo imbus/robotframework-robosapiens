@@ -500,7 +500,7 @@ namespace RoboSAPiens {
             }
 
             string theLine = $"Die Textzeile '{text}'";
-            var textLine = window.components.findTextLine(text);
+            var textLine = window.components.findLabel(text);
 
             if (textLine == null) {
                 return new SpellingError($"{theLine} konnte nicht gefunden werden.");

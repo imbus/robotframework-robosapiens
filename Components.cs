@@ -428,7 +428,7 @@ namespace RoboSAPiens {
                    findReadOnlyTextField(textField);
         }
 
-        public ITextElement? findTextLine(string content) {
+        public ITextElement? findLabel(string content) {
             return labels.get(content) as ITextElement ??
                    labelCells.getByContent(content);
         }
