@@ -279,6 +279,16 @@ namespace RoboSAPiens {
             };
         }
 
+        [Keyword("Text auslesen"),
+         Doc("Der Inhalt des angegebenen Texts wird zurückgegeben.\n\n" +
+             "| ``Text auslesen    Inhalt``")]
+        public RobotResult readText(string Inhalt) {
+            return session switch {
+                SAPSession session => session.readText(Inhalt),
+                _ => new NoSessionError()
+            };
+        }
+
         [Keyword("Tabellenzelle auslesen"),
          Doc("Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n" +
              "| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\n" +

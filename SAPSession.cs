@@ -385,9 +385,24 @@ namespace RoboSAPiens {
                 return new ExceptionError(e, $"Der Inhalt des Textfelds {theTextField.atLocation} konnte nicht ausgelesen werden.");
             }
         }
+
+        public RobotResult readText(string content) {
+            switch (updateComponentsIfWindowChanged()) {
+                case ExceptionError exceptionError: return exceptionError;
+            }
+
+            var label = window.components.findLabel(content);
+
+            if (label == null) {
+                return new SpellingError($"Der Text '{content}' wurde nicht gefunden.");
+            }
+
+            try {
+                var text = label.getText();
+                return new Success(text, $"Der Text '{content}' wurde ausgelesen.");
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"Der Inhalt des Textfelds {theTextField.atLocation} konnte nicht abgelesen werden.");
+                return new ExceptionError(e, $"Der Text '{content}' konnte nicht ausgelesen werden.");
             }
         }
 
