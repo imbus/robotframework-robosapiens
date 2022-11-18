@@ -24,7 +24,7 @@ namespace RoboSAPiens {
                                          left: textField.ScreenLeft,
                                          top: textField.ScreenTop, 
                                          width: textField.Width);
-            this.text = textField.Text;
+            this.text = textField.Text.Trim();
             this.tooltip = textField.Tooltip;
             this.width = textField.Width;
         }

@@ -391,15 +391,15 @@ namespace RoboSAPiens {
                 case ExceptionError exceptionError: return exceptionError;
             }
 
-            var label = window.components.findLabel(content);
+            var text = window.components.findLabel(content) ?? 
+                       window.components.findReadOnlyTextField(new TextFieldLocator($"= {content}"));
 
-            if (label == null) {
+            if (text == null) {
                 return new SpellingError($"Der Text '{content}' wurde nicht gefunden.");
             }
 
             try {
-                var text = label.getText();
-                return new Success(text, $"Der Text '{content}' wurde ausgelesen.");
+                return new Success(text.getText(), $"Der Text '{content}' wurde ausgelesen.");
             }
             catch (Exception e) {
                 return new ExceptionError(e, $"Der Text '{content}' konnte nicht ausgelesen werden.");
