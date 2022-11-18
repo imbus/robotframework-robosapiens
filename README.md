@@ -37,3 +37,7 @@ build.bat
 ```powershell
 python\build.bat
 ```
+
+## References
+
+- [SAP GUI Scripting API Documentation](https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/babdf65f4d0a4bd8b40f5ff132cb12fa.html?locale=en-US)
