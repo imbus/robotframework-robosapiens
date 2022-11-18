@@ -1,9 +1,13 @@
 using sapfewse;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace RoboSAPiens {
     public class SAPTextField: ILabeled, ILocatable, ITextElement {
+        const int maxHorizontalDistance = 20;
+        const int maxVerticalDistance = 20;
+
         string defaultTooltip;
         int height;
         public string id;
@@ -62,14 +66,14 @@ namespace RoboSAPiens {
                 var (distance, closestComponent) = 
                     componentsAfterTextField.Select(component => (component.getPosition().left - position.right, component))
                                             .Min();
-                return closestComponent;
+                if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
             }
 
             if (componentsBeforeTextField.Count() > 0){                          
                 var (distance, closestComponent) = 
                     componentsBeforeTextField.Select(component => (component.getPosition().right - position.left, component))
                                             .Min();
-                return closestComponent;
+                if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
             }
 
             return null;
@@ -83,7 +87,7 @@ namespace RoboSAPiens {
                 var (distance, closestComponent) = 
                     componentsBelowTextField.Select(component => (component.getPosition().top - position.bottom, component))
                                         .Min();
-                return closestComponent;
+                if (Math.Abs(distance) < maxVerticalDistance) return closestComponent;
             }
 
             return null;

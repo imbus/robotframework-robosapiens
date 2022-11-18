@@ -1,9 +1,13 @@
 using sapfewse;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace RoboSAPiens {
     public sealed class SAPLabel: ITextElement {
+        const int maxHorizontalDistance = 20;
+        const int maxVerticalDistance = 20;
+
         public string id;
         public Position position {get;}
         string text;
@@ -33,14 +37,14 @@ namespace RoboSAPiens {
                 var (distance, closestComponent) = 
                     componentsAfterLabel.Select(component => (component.getPosition().left - position.right, component))
                                         .Min();
-                return closestComponent;
+                if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
             }
 
             if (componentsBeforeLabel.Count() > 0){                          
                 var (distance, closestComponent) = 
                     componentsBeforeLabel.Select(component => (component.getPosition().right - position.left, component))
                                          .Min();
-                return closestComponent;
+                if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
             }
 
             return null;
@@ -55,7 +59,7 @@ namespace RoboSAPiens {
                     componentsBelowLabel.Select(component => (component.getPosition().top - position.bottom, component))
                                         .Min();
 
-                return closestComponent;
+                if (Math.Abs(distance) < maxVerticalDistance) return closestComponent;
             }
 
             return null;
