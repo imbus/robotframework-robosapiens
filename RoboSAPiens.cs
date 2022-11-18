@@ -145,6 +145,12 @@ namespace RoboSAPiens {
         public RobotResult connectToServer(string Servername) {
             string theConnection = $"Die Verbindung mit dem Server '{Servername}'";
             try {
+                var sapROTWrapper = new CSapROTWrapper();
+                object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
+                if (sapGui != null) {
+                    return new SapGuiAlreadyOpen();
+                }
+
                 var sap = new GuiApplication();
                 var connection = sap.OpenConnection(Servername);
             

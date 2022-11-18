@@ -130,6 +130,12 @@ namespace RoboSAPiens {
         }
     }
 
+    public sealed class SapGuiAlreadyOpen : Error {
+        public SapGuiAlreadyOpen() {
+            this.output = $"*ERROR* Die SAP GUI ist bereits geöffnet. Die Anwendung 'SAP Logon' muss beendet werden.";
+        }
+    }
+
     public sealed class NoScriptingError : FatalError {
         public NoScriptingError() {
             this.output = $"*ERROR* Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
