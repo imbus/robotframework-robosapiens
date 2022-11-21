@@ -37,7 +37,7 @@ namespace RoboSAPiens {
                 var (distance, closestComponent) = 
                     componentsAfterLabel.Select(component => (component.getPosition().left - position.right, component))
                                         .Min();
-                if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
+                return closestComponent;
             }
 
             if (componentsBeforeLabel.Count() > 0){                          
