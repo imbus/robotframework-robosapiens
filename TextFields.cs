@@ -7,6 +7,7 @@ namespace RoboSAPiens {
     public class SAPTextField: ILabeled, ILocatable, ITextElement {
         const int maxHorizontalDistance = 20;
         const int maxVerticalDistance = 20;
+        const int overlapTolerance = 3;
 
         string defaultTooltip;
         int height;
@@ -57,10 +58,10 @@ namespace RoboSAPiens {
 
         public ILocatable? findClosestHorizontalComponent(List<ILocatable> components) {
             var componentsAfterTextField = components.Where(component => component.getPosition().horizontalAlignedWith(position))
-                                                     .Where(component => component.getPosition().left > position.right);
+                                                     .Where(component => position.right < component.getPosition().left + overlapTolerance);
 
             var componentsBeforeTextField = components.Where(component => component.getPosition().horizontalAlignedWith(position))
-                                                      .Where(component => component.getPosition().right < position.left);
+                                                      .Where(component => component.getPosition().right - overlapTolerance < position.left);
 
             if (componentsAfterTextField.Count() > 0){                          
                 var (distance, closestComponent) = 
@@ -72,7 +73,7 @@ namespace RoboSAPiens {
             if (componentsBeforeTextField.Count() > 0){                          
                 var (distance, closestComponent) = 
                     componentsBeforeTextField.Select(component => (component.getPosition().right - position.left, component))
-                                            .Min();
+                                             .Min();
                 if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
             }
 
