@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace RoboSAPiens {
-    public sealed class SAPLabel: ITextElement {
+    public sealed class SAPLabel: ITextElement, ILocatable {
         const int maxHorizontalDistance = 20;
         const int maxVerticalDistance = 20;
 
@@ -24,6 +24,19 @@ namespace RoboSAPiens {
 
         public bool contains(string content) {
             return text.Equals(content) || text.StartsWith(content);
+        }
+
+        public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+            // TODO: Implement getHorizontalGrid in order to support the HLabelVIndex locator
+
+            return locator switch {
+                Content(string content) => content.Equals(text),
+                _ => false
+            };
+        }
+
+        public Position getPosition() {
+            return position;
         }
 
         public ILocatable? findClosestHorizontalComponent(List<ILocatable> components) {

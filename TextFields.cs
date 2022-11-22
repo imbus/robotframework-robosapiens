@@ -170,14 +170,14 @@ namespace RoboSAPiens {
                    defaultTooltip.StartsWith(label);
         }    
 
-        public bool isLocated(ILabelsLocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
             return locator switch {
                 HLabelVLabel(var hLabel, var vLabel) =>
-                    (isHorizontalAlignedWithLabel(labels.get(hLabel)) || 
+                    (isHorizontalAlignedWithLabel(labels.getByName(hLabel)) || 
                     isHorizontalAlignedWithTextField(textFieldLabels.getByContent(hLabel))) &&
-                    isVerticalAlignedWithLabel(labels.get(vLabel)),
+                    isVerticalAlignedWithLabel(labels.getByName(vLabel)),
                 HLabelHLabel(var leftLabel, var rightLabel) =>
-                    (isHorizontalAlignedWithLabel(labels.get(leftLabel)) || 
+                    (isHorizontalAlignedWithLabel(labels.getByName(leftLabel)) || 
                     isHorizontalAlignedWithTextField(textFieldLabels.getByContent(leftLabel))) &&
                     isLabeled(rightLabel),
                 _ => false

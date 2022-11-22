@@ -33,8 +33,16 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class LabelStore: Repository<SAPLabel> {
-        public SAPLabel? get(string name) {
+    public sealed class LabelStore: ComponentRepository<SAPLabel> {
+        public SAPLabel? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+            return locator switch {
+                HLabel(var label) => getHorizontalClosestToLabel(label, labels, textFieldLabels),
+                Content(var name) => getByName(name),
+                _ => null
+            };
+        }
+
+        public SAPLabel? getByName(string name){
             return items.Find(label => label.contains(name));
         }
     }
@@ -71,6 +79,7 @@ namespace RoboSAPiens {
     public sealed class LabelCellStore: TextCellRepository {
         public Cell? get(ILocator locator) {
             return locator switch {
+                Content(var content) => getByContent(content),
                 FilledCellLocator cellLocator => getFilledCell(cellLocator),
                 _ => null
             };

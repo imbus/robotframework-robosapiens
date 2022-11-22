@@ -391,8 +391,8 @@ namespace RoboSAPiens {
                 case ExceptionError exceptionError: return exceptionError;
             }
 
-            var text = window.components.findLabel(content) ?? 
-                       window.components.findReadOnlyTextField(new TextFieldLocator($"= {content}"));
+            var text = window.components.findLabel(new LabelLocator(content)) ?? 
+                       window.components.findReadOnlyTextField(new TextFieldLocator(content));
 
             if (text == null) {
                 return new SpellingError($"Der Text '{content}' wurde nicht gefunden.");
@@ -520,7 +520,7 @@ namespace RoboSAPiens {
             }
 
             string theLine = $"Die Textzeile '{text}'";
-            var textLine = window.components.findLabel(text);
+            var textLine = window.components.findLabel(new LabelLocator($"= {text}"));
 
             if (textLine == null) {
                 return new SpellingError($"{theLine} konnte nicht gefunden werden.");

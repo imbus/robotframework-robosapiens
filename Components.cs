@@ -428,9 +428,9 @@ namespace RoboSAPiens {
                    findReadOnlyTextField(textField);
         }
 
-        public ITextElement? findLabel(string content) {
-            return labels.get(content) as ITextElement ??
-                   labelCells.getByContent(content);
+        public ITextElement? findLabel(LabelLocator content) {
+            return labels.get(content.locator, labels, readOnlyTextFields) as ITextElement ??
+                   labelCells.get(content.locator);
         }
 
         public List<SAPButton> getAllButtons() {

@@ -48,11 +48,11 @@ namespace RoboSAPiens {
             return text == label;
         }
 
-        public virtual bool isLocated(ILabelsLocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public virtual bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
             return locator switch {
                 HLabelVLabel(var hLabel, var vLabel) =>
-                isHorizontalAlignedWithLabel(labels.get(hLabel)) &&
-                isVerticalAlignedWithLabel(labels.get(vLabel)),
+                isHorizontalAlignedWithLabel(labels.getByName(hLabel)) &&
+                isVerticalAlignedWithLabel(labels.getByName(vLabel)),
                 _ => false
             };
         }

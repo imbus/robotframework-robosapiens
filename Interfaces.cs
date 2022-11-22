@@ -28,7 +28,7 @@ namespace RoboSAPiens {
     }
 
     public interface ILocatable {
-        public bool isLocated(ILabelsLocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels);
+        public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels);
         public Position getPosition();
     }
 

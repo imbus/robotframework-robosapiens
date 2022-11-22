@@ -51,12 +51,12 @@ namespace RoboSAPiens {
         }
 
         public T? getVerticalClosestToLabel(string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
-            return labels.get(label)?.findClosestVerticalComponent(filterBy<ILocatable>()) as T ??
+            return labels.getByName(label)?.findClosestVerticalComponent(filterBy<ILocatable>()) as T ??
                    textFieldLabels.getByContent(label)?.findClosestVerticalComponent(filterBy<ILocatable>()) as T;
         }
 
         public T? getNearLabel(string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
-            return labels.get(label)?.findNearbyComponent(filterBy<ILocatable>()) as T ??
+            return labels.getByName(label)?.findNearbyComponent(filterBy<ILocatable>()) as T ??
                    textFieldLabels.getByContent(label)?.findNearbyComponent(filterBy<ILocatable>()) as T;
         }
     }

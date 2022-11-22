@@ -162,6 +162,10 @@ namespace RoboSAPiens {
         public ComboBoxLocator(string locator): base("Auswahlsmenü", locator) {}
     }
 
+    public class LabelLocator: ComponentLocator {
+        public LabelLocator(string locator): base("Der Text", locator) {}
+    }
+
     public class RadioButtonLocator: ComponentLocator {
         public RadioButtonLocator(string locator): base("Das Optionsfeld", locator) {}
     }

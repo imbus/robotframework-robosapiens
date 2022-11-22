@@ -41,12 +41,12 @@ namespace RoboSAPiens {
             return text == label;
         }
 
-        public bool isLocated(ILabelsLocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
             return locator switch {
                 HLabelVLabel(var hLabel, var vLabel) =>
-                    (isHorizontalAlignedWithLabel(labels.get(hLabel)) ||
+                    (isHorizontalAlignedWithLabel(labels.getByName(hLabel)) ||
                     isHorizontalAlignedWithTextField(textFieldLabels.getByContent(hLabel))) &&
-                    isVerticalAlignedWithLabel(labels.get(vLabel)),
+                    isVerticalAlignedWithLabel(labels.getByName(vLabel)),
                 _ => false
             };
         }
