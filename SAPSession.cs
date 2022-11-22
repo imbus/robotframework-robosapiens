@@ -379,10 +379,10 @@ namespace RoboSAPiens {
 
             try {
                 var text = textField.getText();
-                return new Success(text, $"Der Inhalt des Textfelds {theTextField.atLocation} wurde ausgelesen.");
+                return new Success(text, $"{theTextField.atLocation} wurde ausgelesen.");
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"Der Inhalt des Textfelds {theTextField.atLocation} konnte nicht ausgelesen werden.");
+                return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht ausgelesen werden.");
             }
         }
 
