@@ -286,7 +286,7 @@ namespace RoboSAPiens {
 
             try {
                 textField.insert(content, session);
-                return new Success($"{theTextField.atLocation} wurde ausgefüllt. Neuer Inhalt: {content}.");
+                return new Success($"{theTextField.atLocation} wurde ausgefüllt.");
             }
             catch (Exception e) {
                 return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.");
