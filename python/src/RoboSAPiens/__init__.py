@@ -48,7 +48,7 @@ class RoboSAPiens:
         if name == "__init__":
             return "\n".join([
                 "Um diese Bibliothek zu verwenden, muss der folgende Eintrag in der Tabelle ``Settings`` hinzugefügt werden:",
-                f"| ``Library   Remote   http://127.0.0.1:{self.port}/   WITH NAME   RoboSAPiens``"
+                f"| ``Library    RoboSAPiens``"
             ])
 
         return self.RoboSAPiens.get_keyword_documentation(name)
