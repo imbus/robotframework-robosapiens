@@ -113,7 +113,7 @@ namespace RoboSAPiens {
 
     public sealed class NoConnectionError : FatalError {
         public NoConnectionError() {
-            this.error = "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
+            this.error = "Es besteht keine Verbindung zu einem SAP Server.";
         }
     }
 
