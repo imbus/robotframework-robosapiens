@@ -130,9 +130,9 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SapGuiAlreadyOpen : Error {
+    public sealed class SapGuiAlreadyOpen : FatalError {
         public SapGuiAlreadyOpen() {
-            this.output = $"*ERROR* Die SAP GUI ist bereits geöffnet. Die Anwendung 'SAP Logon' muss beendet werden.";
+            this.error = "Die SAP GUI ist bereits geöffnet. Die Anwendung 'SAP Logon' muss beendet werden.";
         }
     }
 
