@@ -119,7 +119,7 @@ namespace RoboSAPiens {
 
     public sealed class NoSapGuiError : Error {
         public NoSapGuiError() {
-            this.error = $"*ERROR* Keine laufende SAP GUI gefunden. SAP Logon muss zuerst ausgeführt werden.";
+            this.error = "Keine laufende SAP GUI gefunden. SAP Logon muss zuerst ausgeführt werden.";
         }
     }
 
@@ -131,7 +131,7 @@ namespace RoboSAPiens {
 
     public sealed class NoScriptingError : FatalError {
         public NoScriptingError() {
-            this.error = $"*ERROR* Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
+            this.error = "Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
         }
     }
 
@@ -149,7 +149,7 @@ namespace RoboSAPiens {
 
     public sealed class SpellingError : Error {
         public SpellingError(string message) {
-            this.error = $"*ERROR* {message}\nHinweis: Prüfe die Rechtschreibung";
+            this.error = $"{message}\nHinweis: Prüfe die Rechtschreibung";
         }
     }
 }
