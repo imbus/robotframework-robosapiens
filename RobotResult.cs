@@ -103,11 +103,17 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class NoConnectionError : FatalError {
-        public NoConnectionError(Exception e, String message) {
+    public sealed class ConnectionFailed : FatalError {
+        public ConnectionFailed(Exception e, String message) {
             this.output = $"*ERROR* {message}";
             this.error = e.Message;
             this.stacktrace = e.StackTrace ?? "";
+        }
+    }
+
+    public sealed class NoConnectionError : FatalError {
+        public NoConnectionError() {
+            this.error = "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
         }
     }
 

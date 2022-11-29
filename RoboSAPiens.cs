@@ -80,6 +80,9 @@ namespace RoboSAPiens {
 
                 var sap = (GuiApplication)scriptingEngine;
                 var connections = sap.Connections;
+                if (connections.Length == 0) {
+                    return new NoConnectionError();
+                }
                 var connection = (GuiConnection)connections.ElementAt(0);
                 var sessions = connection.Sessions;
                 if (sessions.Length == 0) {
@@ -165,7 +168,7 @@ namespace RoboSAPiens {
 
                 return new Success($"'{theConnection} wurde erfolgreich hergestellt.");
             } catch (Exception e) {
-                return new NoConnectionError(e, $"{theConnection} konnte nicht hergestellt werden.");
+                return new ConnectionFailed(e, $"{theConnection} konnte nicht hergestellt werden.");
             }
         }
 
