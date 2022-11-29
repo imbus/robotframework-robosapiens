@@ -162,6 +162,10 @@ namespace RoboSAPiens {
                 }
 
                 var sessions = connection.Sessions;
+                if (sessions.Length == 0) {
+                    return new NoSessionError();
+                }
+
                 var guiSession = (GuiSession)sessions.ElementAt(0);
 
                 this.session = new SAPSession(guiSession, sap, connection);
