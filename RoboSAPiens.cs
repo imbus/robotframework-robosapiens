@@ -287,8 +287,10 @@ namespace RoboSAPiens {
 
         [Keyword("Text auslesen"),
          Doc("Der Inhalt des angegebenen Texts wird zurückgegeben.\n\n" +
-             "| ``Text auslesen    = Inhalt``" + 
-             "| ``Text auslesen    Beschriftung    Inhalt``")]
+             "*Text fängt mit der angegebenen Teilzeichenfolge an*\n" +
+             "| ``Text auslesen    = Teilzeichenfolge``\n" +
+             "*Text folgt einer Beschriftung*\n" +
+             "| ``Text auslesen    Beschriftung``")]
         public RobotResult readText(string Inhalt) {
             return session switch {
                 SAPSession session => session.readText(Inhalt),

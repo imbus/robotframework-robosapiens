@@ -48,7 +48,7 @@ class RoboSAPiens:
         if name == "__init__":
             return "\n".join([
                 "Um diese Bibliothek zu verwenden, muss der folgende Eintrag in der Tabelle ``Settings`` hinzugefügt werden:",
-                f"| ``Library   Remote   http://127.0.0.1:{self.port}/   WITH NAME   RoboSAPiens``"
+                f"| ``Library    RoboSAPiens``"
             ])
 
         return self.RoboSAPiens.get_keyword_documentation(name)
@@ -57,7 +57,13 @@ class RoboSAPiens:
         return self.RoboSAPiens.get_keyword_types(name)
 
     def run_keyword(self, name, args, kwargs):
-        return self.RoboSAPiens.run_keyword(name, args, kwargs)
+        try:
+            return self.RoboSAPiens.run_keyword(name, args, kwargs)
+        except RuntimeError as err:
+            if "WinError 10061" in str(err):
+                raise Exception("The RoboSAPiens keyword server terminated unexpectedly")
+            else:
+                raise err
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = __version__

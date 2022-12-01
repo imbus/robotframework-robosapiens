@@ -57,10 +57,6 @@ namespace RoboSAPiens {
         }
     }
 
-
-    // To Do: Model the errors appropriately
-    // Fatal errors: SAP GUI cannot be started, No SAP session, Scripting support not activated
-    // Non-Fatal Errors
     public class Error : RobotResult {
         public Error(): base() {
             this.status = FAIL;
@@ -78,67 +74,58 @@ namespace RoboSAPiens {
 
         public ExceptionError(Exception e, string errorMessage) {
             this.output = $"*ERROR* {errorMessage}\n{e.Message}\n{errorDEBUG}";
-            this.error = $"{e.Message}";
-            this.stacktrace = $"{e.StackTrace}";
+            this.error = e.Message;
+            this.stacktrace = e.StackTrace ?? "";
         }
     }
 
     public sealed class InvalidArgumentError : Error {
         public InvalidArgumentError(string message) {
-            this.output = $"*ERROR* {message}";
+            this.error = message;
         }
     }
 
     public sealed class InvalidFileError : Error {
         public InvalidFileError(string message) {
-            this.output = $"*ERROR* {message}";
+            this.error = message;
         }
     }
 
     public sealed class InvalidFormatError : Error {
         public InvalidFormatError(string message) {
-            this.output = $"*ERROR* {message}";
+            this.error = message;
         }
     }
 
     public sealed class InvalidValueError : Error {
         public InvalidValueError(string message) {
-            this.output = $"*ERROR* {message}";
+            this.error = message;
         }
     }
 
     public sealed class NoConnectionError : FatalError {
         public NoConnectionError(Exception e, String message) {
             this.output = $"*ERROR* {message}";
-            this.error = $"{e.Message}";
-            this.stacktrace = $"{e.StackTrace}";
-        }
-    }
-
-    public sealed class NonIdenticalFormsError : Error {
-        public NonIdenticalFormsError(string message, List<string> differences) {
-            this.error = message;
-            this.output =
-                String.Join(Environment.NewLine, 
-                            differences.Select(difference => $"*ERROR* {difference}"));
+            this.error = e.Message;
+            this.stacktrace = e.StackTrace ?? "";
         }
     }
 
     public sealed class NoSapGuiError : Error {
         public NoSapGuiError() {
-            this.output = $"*ERROR* Keine laufende SAP GUI gefunden. SAP Logon muss zuerst ausgeführt werden.";
+            this.error = $"*ERROR* Keine laufende SAP GUI gefunden. SAP Logon muss zuerst ausgeführt werden.";
         }
     }
 
-    public sealed class SapGuiAlreadyOpen : Error {
+    public sealed class SapGuiAlreadyOpen : FatalError {
         public SapGuiAlreadyOpen() {
-            this.output = $"*ERROR* Die SAP GUI ist bereits geöffnet. Die Anwendung 'SAP Logon' muss beendet werden.";
+            this.error = "Die SAP GUI ist bereits geöffnet. Die Anwendung 'SAP Logon' muss beendet werden.";
         }
     }
 
     public sealed class NoScriptingError : FatalError {
         public NoScriptingError() {
-            this.output = $"*ERROR* Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
+            this.error = $"*ERROR* Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
         }
     }
 
@@ -150,14 +137,13 @@ namespace RoboSAPiens {
 
     public sealed class SapError : Error {
         public SapError(string errorMessage) {
-            this.output = $"*ERROR* SAP Fehlermeldung: {errorMessage}";
             this.error = $"SAP Fehlermeldung: {errorMessage}";
         }
     }
 
     public sealed class SpellingError : Error {
         public SpellingError(string message) {
-            this.output = $"*ERROR* {message}\nHinweis: Prüfe die Rechtschreibung";
+            this.error = $"*ERROR* {message}\nHinweis: Prüfe die Rechtschreibung";
         }
     }
 }
