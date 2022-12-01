@@ -143,13 +143,15 @@ namespace RoboSAPiens {
         string columnTitle;
         string nodeKey;
         string label;
+        int rowNumber;
         string treeId;
 
-        public SAPTreeButton(string columnName, string columnTitle, string label, string nodeKey, string treeId) {
+        public SAPTreeButton(string columnName, string columnTitle, string label, string nodeKey, int rowNumber, string treeId) {
             this.columnName = columnName;
             this.columnTitle = columnTitle;
             this.nodeKey = nodeKey;
             this.label = label;
+            this.rowNumber = rowNumber;
             this.treeId = treeId;
         }
 
@@ -158,6 +160,10 @@ namespace RoboSAPiens {
         }
 
         public bool isLocated(FilledCellLocator locator) {
+            if (locator.rowIndex > 0) {
+                return rowNumber == locator.rowIndex - 1 && columnTitle == locator.column;
+            }
+
             if (locator.content != null) {
                 return columnTitle == locator.column && isLabeled(locator.content);
             }

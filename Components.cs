@@ -255,7 +255,7 @@ namespace RoboSAPiens {
                             checkBoxes.add(new SAPTreeCheckBox(columnName, columnTitle, nodeKey, rowNumber: index, tree.Id));
                             break;
                         case TreeItem.Button:
-                            buttons.add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, tree.Id));
+                            buttons.add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: index, tree.Id));
                             break;
                         case TreeItem.Link:
                             var tooltip = tree.GetItemToolTip(nodeKey, columnName);
