@@ -237,6 +237,7 @@ namespace RoboSAPiens {
 
         void classifyTreeComponents(GuiTree tree) {
             var columnNames = (GuiCollection)tree.GetColumnNames();
+            var paths = getPaths(tree);
 
             for (int i = 0; i < columnNames.Length; i++) {
                 var columnName = (string)columnNames.ElementAt(i);
@@ -244,9 +245,9 @@ namespace RoboSAPiens {
                 var columnTitle = tree.GetColumnTitleFromName(columnName);
                 var columnItems = (GuiCollection)tree.GetColumnCol(columnName);
 
-                for (int index = 0; index < columnItems.Length; index++) {
+                for (int index = 0; index < paths.Count; index++) {
                     var itemText = (string)columnItems.ElementAt(index);
-                    var nodePath = findNodePathByIndex(index, tree);
+                    var nodePath = paths[index];
                     var nodeKey = tree.GetNodeKeyByPath(nodePath);
                     var itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
 
@@ -267,6 +268,15 @@ namespace RoboSAPiens {
                     }
                 }
             }
+        }
+
+        List<string> getPaths(GuiTree tree) {
+            GuiCollection nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+
+            return Enumerable.Range(0, nodeKeys.Count - 1)
+                      .Select(i => (string)nodeKeys.ElementAt(i))
+                      .Select(nodeKey => tree.GetNodePathByKey(nodeKey))
+                      .ToList();
         }
 
         string findNodePathByIndex(int itemIndex, GuiTree tree) {
