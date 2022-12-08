@@ -1,5 +1,36 @@
 # C#
 
+## Design
+
+- SAPiens is a CRUD application
+
+- Data-oriented functional design
+
+- Organize the code in modules
+  - components
+    - SAPTree: Contains static methods that deal with trees
+    - SAPTable: Contains static methods that deal with tables
+
+## Architecture
+
+- Split RoboSAPiens in an XML-RPC server that implements RF's Remote API (RFRemote)
+  and a C# library that allows automating the SAP GUI using text selectors (SAPiens)
+
+## Windows
+
+- Check if a new window was added to session/window and notify the Python client
+  The client has to decide how to deal with it
+
+  More generally, use a message-passing approach for the communication between
+  the server and the client
+
+## Statusbar
+
+- Read the statusbar of the main window, not of the current window
+
+  When clicking a button on a dialog window, an error message might
+  show up in the statusbar of the main window
+
 ## Export tree
 
 - As a list of lists
