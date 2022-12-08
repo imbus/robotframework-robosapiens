@@ -22,7 +22,7 @@ namespace RoboSAPiens {
                                 top: button.ScreenTop, 
                                 width: button.Width
                             );
-            this.text = button.Text;
+            this.text = button.Text.Trim();
             this.tooltip = button.Tooltip;
         }
 
