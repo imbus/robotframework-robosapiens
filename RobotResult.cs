@@ -113,19 +113,13 @@ namespace RoboSAPiens {
 
     public sealed class NoConnectionError : FatalError {
         public NoConnectionError() {
-            this.error = "Es besteht keine Verbindung zu einem SAP Server.";
+            this.error = "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
         }
     }
 
     public sealed class NoSapGuiError : Error {
         public NoSapGuiError() {
-            this.error = "Keine laufende SAP GUI gefunden. SAP Logon muss zuerst ausgeführt werden.";
-        }
-    }
-
-    public sealed class SapGuiAlreadyOpen : FatalError {
-        public SapGuiAlreadyOpen() {
-            this.error = "Die SAP GUI ist bereits geöffnet. Die Anwendung 'SAP Logon' muss beendet werden.";
+            this.error = "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst ausgeführt werden.";
         }
     }
 
