@@ -16,6 +16,14 @@
 - Split RoboSAPiens in an XML-RPC server that implements RF's Remote API (RFRemote)
   and a C# library that allows automating the SAP GUI using text selectors (SAPiens)
 
+## Highlight Element
+
+- Refactor the Keyword "Knopfhervorhebung Umschalten" to become "Highlight Element", which highlights any element.
+
+## Documentation
+
+- The documentation of the keywords should reside on the Python side. This allows editing the documentation without having to recompile and also enables translating the documentation to other languages.
+
 ## Windows
 
 - Check if a new window was added to session/window and notify the Python client
