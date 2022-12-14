@@ -253,8 +253,9 @@ namespace RoboSAPiens {
                 return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
             }
 
-            if (content.Length > cell.getMaxLength()) {
-                return new InvalidValueError($"{locator.cell} kann maximal {cell.getMaxLength()} Zeichen enthalten.");
+            var maxLength = cell.getMaxLength();
+            if (maxLength != null && content.Length > maxLength) {
+                return new InvalidValueError($"{locator.cell} kann maximal {maxLength} Zeichen enthalten.");
             }
 
             try {

@@ -6,7 +6,7 @@ namespace RoboSAPiens {
     }
 
     public interface IEditableCell {
-        public int getMaxLength();
+        public int? getMaxLength();
         public void insert(string text, GuiSession session);
         public bool isLocated(EmptyCellLocator locator, LabelCellStore rowLabels);
     }

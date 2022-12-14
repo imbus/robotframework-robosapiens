@@ -69,18 +69,22 @@ namespace RoboSAPiens {
     }
 
     public sealed class EmptyGridViewCell: SAPGridViewCell, IEditableCell {
-        int maxLength;
+        int? maxLength;
 
         public EmptyGridViewCell(string columnId, GuiGridView gridView, int rowIndex): 
             base(columnId, gridView, rowIndex) 
         {
-            // Does not work with SAP Logon 7.60 PL 0. It works with 7.60 PL 2.
-            // https://answers.sap.com/questions/13286657/sap-grid-view-control-getcellmaxlength-throw-excep.html
-            // this.maxLength = gridView.GetCellMaxLength(rowIndex, columnId);
-            this.maxLength = 16;
+            try {
+                // Does not work with SAP Logon 7.60 PL 0. It works with 7.60 PL 2.
+                // https://answers.sap.com/questions/13286657/sap-grid-view-control-getcellmaxlength-throw-excep.html
+                this.maxLength = gridView.GetCellMaxLength(rowIndex, columnId);
+            }
+            catch {
+                this.maxLength = null;
+            }
         }
 
-        public int getMaxLength() {
+        public int? getMaxLength() {
             return maxLength;
         }
 
@@ -130,7 +134,7 @@ namespace RoboSAPiens {
     }
 
     public sealed class EditableTableCell: SAPTableCell, IEditableCell {
-        int maxLength;
+        int? maxLength;
 
         public EditableTableCell(string column, int rowIndex, GuiTextField textField, SAPTable table):
             base(column, rowIndex, textField, table) 
@@ -138,7 +142,7 @@ namespace RoboSAPiens {
             this.maxLength = textField.MaxLength;
         }
 
-        public int getMaxLength() {
+        public int? getMaxLength() {
             return maxLength;
         }
 
