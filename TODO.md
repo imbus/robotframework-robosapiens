@@ -55,6 +55,12 @@ GuiHTMLViewer.BrowserHandle.document.all(0).innerText
 - Optimize for adding new search strategies (functional extensibility rather than OO)
 
 
+## RobotResult
+
+- Begin each error message with the name of the current error subclass of RobotResult.
+   - Useful for testing that the expected error is thrown
+
+
 ## Statusbar
 
 - Always read the statusbar and return the message to the user
@@ -63,6 +69,20 @@ GuiHTMLViewer.BrowserHandle.document.all(0).innerText
 
   When clicking a button on a dialog window, an error message might
   show up in the statusbar of the main window
+
+
+## Tests
+
+- Add unit tests
+  - Functions that implement search strategies
+
+- Add acceptance tests implemented in Robot Framework
+  - One testsuite per keyword (using its English name from C#)
+
+  - Start SAP
+    - Start SAP with a wrong path should throw an exception indicating this
+    - Start SAP should be idempotent
+    - Start SAP followed by Exit SAP should work
 
 
 ## Windows
