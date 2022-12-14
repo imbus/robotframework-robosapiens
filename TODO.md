@@ -35,6 +35,11 @@ Refactor this function:
     - Do not depend on a CSV library
 
 
+## GuiHTMLViewer
+
+GuiHTMLViewer.BrowserHandle.document.all(0).innerText
+
+
 ## Highlight Element
 
 - Refactor the Keyword "Knopfhervorhebung Umschalten" to become "Highlight Element", which highlights any element.
