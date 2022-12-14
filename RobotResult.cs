@@ -113,7 +113,7 @@ namespace RoboSAPiens {
 
     public sealed class NoConnectionError : FatalError {
         public NoConnectionError() {
-            this.error = "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
+            this.error = "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.";
         }
     }
 
@@ -130,19 +130,19 @@ namespace RoboSAPiens {
 
     public sealed class NoSapGuiError : Error {
         public NoSapGuiError() {
-            this.error = "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst ausgeführt werden.";
+            this.error = "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst aufgerufen werden.";
         }
     }
 
     public sealed class NoScriptingError : FatalError {
         public NoScriptingError() {
-            this.error = "Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
+            this.error = "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.";
         }
     }
 
     public sealed class NoSessionError : FatalError {
         public NoSessionError() {
-            this.error = "Keine SAP-Session vorhanden. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
+            this.error = "Keine SAP-Session vorhanden. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.";
         }
     }
 
