@@ -47,8 +47,10 @@ class RoboSAPiens:
         
         if name == "__init__":
             return "\n".join([
-                "Um diese Bibliothek zu verwenden, muss der folgende Eintrag in der Tabelle ``Settings`` hinzugefügt werden:",
-                f"| ``Library    RoboSAPiens``"
+                "Um diese Bibliothek zu verwenden, muss das [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|Scripting auf dem SAP Server] aktiviert werden.",
+                "Außerdem muss die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung in der SAP GUI] aktiviert werden.\n\n"
+                "Diese Bibliothek implementiert die [https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#remote-library-interface|Remote Library Interface] von Robot Framework. Das heißt, ein HTTP Server läuft im Hintergrund und Robot Framework kommuniziert mit ihm. Standardmäßig lauscht der HTTP Server auf dem Port 8270. Der Port kann beim Import der Bibliothek angepasst werden:\n\n"
+                "| ``Library   RoboSAPiens  port=1234``"
             ])
 
         return self.RoboSAPiens.get_keyword_documentation(name)
