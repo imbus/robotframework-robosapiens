@@ -117,6 +117,13 @@ namespace RoboSAPiens {
         }
     }
 
+    public sealed class SAPNotStartedError : FatalError {
+        public SAPNotStartedError(string path) {
+            this.error = $"Die SAP GUI konnte nicht gestart werden. Überprüfe den Pfad '{path}'.";
+        }
+    }
+
+
     public sealed class NoSapGuiError : Error {
         public NoSapGuiError() {
             this.error = "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst ausgeführt werden.";

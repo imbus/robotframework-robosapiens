@@ -71,6 +71,10 @@ namespace RoboSAPiens {
         public RobotResult openSAP(string Pfad) {
             proc = Process.Start(Pfad);
 
+            if (proc == null) {
+                return new SAPNotStartedError(Pfad);
+            }
+
             var sapROTWrapper = new CSapROTWrapper();
             object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
 
