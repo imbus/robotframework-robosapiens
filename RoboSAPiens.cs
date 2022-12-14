@@ -192,11 +192,21 @@ namespace RoboSAPiens {
 
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult attachToRunningSAP() {
+        public RobotResult attachToRunningSAP() {        
             try {
-                return connectToServer("SAPGUI") switch {
+                var sapROTWrapper = new CSapROTWrapper();
+                object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
+
+                if (sapGui == null) {
+                    return new NoSapGuiError();
+                }
+
+                return getScriptingEngine(sapGui) switch {
                     Error error => error,
-                    _ => new Success($"Die laufende SAP GUI wurde erfolgreich übernommen."),
+                    _ => connectToServer("SAPGUI") switch {
+                        Error error => error,
+                        _ => new Success($"Die laufende SAP GUI wurde erfolgreich übernommen."),
+                    }
                 };
             } catch(Exception e) {
                 return new ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
