@@ -1,5 +1,11 @@
 # C#
 
+## Architecture
+
+- Split RoboSAPiens in an XML-RPC server that implements RF's Remote API (RFRemote)
+  and a C# library that allows automating the SAP GUI using text selectors (SAPiens)
+
+
 ## Design
 
 - SAPiens is a CRUD application
@@ -11,43 +17,27 @@
     - SAPTree: Contains static methods that deal with trees
     - SAPTable: Contains static methods that deal with tables
 
-## Architecture
-
-- Split RoboSAPiens in an XML-RPC server that implements RF's Remote API (RFRemote)
-  and a C# library that allows automating the SAP GUI using text selectors (SAPiens)
-
-## Highlight Element
-
-- Refactor the Keyword "Knopfhervorhebung Umschalten" to become "Highlight Element", which highlights any element.
 
 ## Documentation
 
 - The documentation of the keywords should reside on the Python side. This allows editing the documentation without having to recompile and also enables translating the documentation to other languages.
 
-## Windows
-
-- Check if a new window was added to session/window and notify the Python client
-  The client has to decide how to deal with it
-
-  More generally, use a message-passing approach for the communication between
-  the server and the client
-
-## Statusbar
-
-- Read the statusbar of the main window, not of the current window
-
-  When clicking a button on a dialog window, an error message might
-  show up in the statusbar of the main window
 
 ## Export tree
 
 - As a list of lists
+
 
 ## Export form
 
 Refactor this function:
     - Simple and clear
     - Do not depend on a CSV library
+
+
+## Highlight Element
+
+- Refactor the Keyword "Knopfhervorhebung Umschalten" to become "Highlight Element", which highlights any element.
 
 
 ## New implementation of the component DB
@@ -58,6 +48,25 @@ Refactor this function:
 ## Refactor the code for finding components
 
 - Optimize for adding new search strategies (functional extensibility rather than OO)
+
+
+## Statusbar
+
+- Always read the statusbar and return the message to the user
+
+- Read the statusbar of the main window, not of the current window
+
+  When clicking a button on a dialog window, an error message might
+  show up in the statusbar of the main window
+
+
+## Windows
+
+- Check if a new window was added to session/window and notify the Python client
+  The client has to decide how to deal with it
+
+  More generally, use a message-passing approach for the communication between
+  the server and the client
 
 
 # Python
