@@ -103,29 +103,29 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class NoConnectionError : FatalError {
-        public NoConnectionError(Exception e, String message) {
+    public sealed class ConnectionFailed : FatalError {
+        public ConnectionFailed(Exception e, String message) {
             this.output = $"*ERROR* {message}";
             this.error = e.Message;
             this.stacktrace = e.StackTrace ?? "";
         }
     }
 
-    public sealed class NoSapGuiError : Error {
-        public NoSapGuiError() {
-            this.error = $"*ERROR* Keine laufende SAP GUI gefunden. SAP Logon muss zuerst ausgeführt werden.";
+    public sealed class NoConnectionError : FatalError {
+        public NoConnectionError() {
+            this.error = "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbinden mit dem SAP Server' auszuführen.";
         }
     }
 
-    public sealed class SapGuiAlreadyOpen : FatalError {
-        public SapGuiAlreadyOpen() {
-            this.error = "Die SAP GUI ist bereits geöffnet. Die Anwendung 'SAP Logon' muss beendet werden.";
+    public sealed class NoSapGuiError : Error {
+        public NoSapGuiError() {
+            this.error = "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst ausgeführt werden.";
         }
     }
 
     public sealed class NoScriptingError : FatalError {
         public NoScriptingError() {
-            this.error = $"*ERROR* Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
+            this.error = "Die Skriptunterstützung ist server-seitig nicht freigeschaltet.";
         }
     }
 
@@ -143,7 +143,7 @@ namespace RoboSAPiens {
 
     public sealed class SpellingError : Error {
         public SpellingError(string message) {
-            this.error = $"*ERROR* {message}\nHinweis: Prüfe die Rechtschreibung";
+            this.error = $"{message}\nHinweis: Prüfe die Rechtschreibung";
         }
     }
 }

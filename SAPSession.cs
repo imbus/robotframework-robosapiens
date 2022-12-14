@@ -89,13 +89,13 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult closeSAP() {
+        public RobotResult closeConnection() {
             try {
                 connection.CloseConnection();                
-                return new Success("Die SAP-GUI wurde beendet.");
+                return new Success($"Die Verbindung zum Server '{systemName}' wurde getrennt.");
             } 
             catch (Exception e) {
-                return new ExceptionError(e, "Die SAP-GUI konnte nicht beendet werden.");
+                return new ExceptionError(e, "Die Verbindung zum Server konnte nicht getrennt werden.");
             }
         }
 

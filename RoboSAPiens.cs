@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Collections.Generic;
 using sapfewse;
 using saprotwr.net;
 
@@ -9,6 +10,8 @@ namespace RoboSAPiens {
     public class RoboSAPiens {
         List<RobotKeyword> keywords;
         public ISession session;
+        private GuiApplication? guiApplication = null;
+        private Process? proc = null;
 
         public RoboSAPiens() {
             session = new NoSAPSession();
@@ -62,46 +65,51 @@ namespace RoboSAPiens {
             };
         }
 
-        [Keyword("Laufende SAP GUI übernehmen"),
-         Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult attachToRunningSAP() {
-            try {
-                var sapROTWrapper = new CSapROTWrapper();
-                object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
-                if (sapGui == null) {
-                    return new NoSapGuiError();
-                }
+        [Keyword("SAP starten"),
+         Doc("Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n" +
+            @"| ``C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe``")]
+        public RobotResult openSAP(string Pfad) {
+            proc = Process.Start(Pfad);
 
-                var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
-                if (scriptingEngine == null) {
-                    return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
-                                      + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
-                }
+            var sapROTWrapper = new CSapROTWrapper();
+            object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
 
-                var sap = (GuiApplication)scriptingEngine;
-                var connections = sap.Connections;
-                var connection = (GuiConnection)connections.ElementAt(0);
-                var sessions = connection.Sessions;
-                if (sessions.Length == 0) {
-                    return new NoSessionError();
-                }
-                
-                var session = (GuiSession)sessions.ElementAt(0);
-                this.session = new SAPSession(session, sap, connection);
-
-                return new Success($"Die laufende SAP GUI wurde erfolgreich übernommen.");
-            } catch(Exception e) {
-                return new ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
+            while (sapGui == null) {
+                sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
             }
+
+            return getScriptingEngine(sapGui) switch {
+                Error error => error,
+                _ => new Success("Die SAP GUI wurde gestartet")
+            };
+        }
+
+        [Keyword("Verbindung zum Server trennen"),
+         Doc("Die Verbindung mit dem SAP Server wird beendet.")]
+        public RobotResult closeConnection() {
+            if (guiApplication == null) {
+                return new NoSapGuiError();
+            }
+
+            if (guiApplication.Connections.Length == 0) {
+                return new NoConnectionError();
+            }
+
+            return session switch {
+                SAPSession session => session.closeConnection(),
+                _ => new NoSessionError()
+            };
         }
 
         [Keyword("SAP beenden"),
-         Doc("Die SAP-GUI wird beendet.")]
+         Doc("Die SAP GUI wird beendet.")]
         public RobotResult closeSAP() {
-            return session switch {
-                SAPSession session => session.closeSAP(),
-                _ => new NoSessionError()
-            };
+            if (proc == null) {
+                return new NoSapGuiError();
+            }
+
+            proc.Kill();
+            return new Success("Die SAP GUI wurde beendet");
         }
 
         // [Keyword("Dateiexport vergleichen"),
@@ -138,34 +146,76 @@ namespace RoboSAPiens {
         //     }
         // }
 
-        [Keyword("Verbinden mit dem SAP Server"),
+        RobotResult getScriptingEngine(object sapGui) {
+            var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
+            if (scriptingEngine == null) {
+                return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
+                                  + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
+            }
+
+            guiApplication = (GuiApplication)scriptingEngine;
+
+            return new Success("Der Scripting Engine wurde erfolgreich gestartet.");
+        }
+
+        RobotResult createSession(string Servername) {
+            if (guiApplication == null) {
+                return new NoSapGuiError();
+            }
+
+            var connections = guiApplication.Connections;
+
+            if (connections.Length == 0 && Servername.Equals("SAPGUI")) {
+                return new NoConnectionError();
+            }
+
+            var connection = connections.Length switch {
+                > 0 => (GuiConnection)connections.ElementAt(0),
+                _ => guiApplication.OpenConnection(Servername)
+            };
+
+            if (connection.DisabledByServer) {
+                return new NoScriptingError();
+            }
+
+            var sessions = connection.Sessions;
+            if (sessions.Length == 0) {
+                return new NoSessionError();
+            }
+
+            var guiSession = (GuiSession)sessions.ElementAt(0);
+
+            this.session = new SAPSession(guiSession, guiApplication, connection);
+
+            return new Success("Die Session wurde erfolgreich erstellt");
+        }
+
+        [Keyword("Laufende SAP GUI übernehmen"),
+         Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
+        public RobotResult attachToRunningSAP() {
+            try {
+                return connectToServer("SAPGUI") switch {
+                    Error error => error,
+                    _ => new Success($"Die laufende SAP GUI wurde erfolgreich übernommen."),
+                };
+            } catch(Exception e) {
+                return new ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
+            }
+        }
+
+        [Keyword("Verbindung zum Server herstellen"),
          Doc("Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n" +
-             "| ``Verbinden mit dem SAP Server    Servername``\n\n" +
-             "*Hinweis*: Dieses Keyword startet die SAP GUI.")]
+             "| ``Verbindung zum Server herstellen    Servername``")]
         public RobotResult connectToServer(string Servername) {
             string theConnection = $"Die Verbindung mit dem Server '{Servername}'";
+
             try {
-                var sapROTWrapper = new CSapROTWrapper();
-                object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
-                if (sapGui != null) {
-                    return new SapGuiAlreadyOpen();
-                }
-
-                var sap = new GuiApplication();
-                var connection = sap.OpenConnection(Servername);
-            
-                if (connection.DisabledByServer) {
-                    return new NoScriptingError();
-                }
-
-                var sessions = connection.Sessions;
-                var guiSession = (GuiSession)sessions.ElementAt(0);
-
-                this.session = new SAPSession(guiSession, sap, connection);
-
-                return new Success($"'{theConnection} wurde erfolgreich hergestellt.");
+                return createSession(Servername) switch {
+                    Error error => error,
+                    _ => new Success($"{theConnection} wurde erfolgreich hergestellt.")
+                };
             } catch (Exception e) {
-                return new NoConnectionError(e, $"{theConnection} konnte nicht hergestellt werden.");
+                return new ConnectionFailed(e, $"{theConnection} konnte nicht hergestellt werden.");
             }
         }
 
