@@ -119,7 +119,11 @@ namespace RoboSAPiens {
 
     public sealed class SAPNotStartedError : FatalError {
         public SAPNotStartedError(string path) {
-            this.error = $"Die SAP GUI konnte nicht gestart werden. Überprüfe den Pfad '{path}'.";
+            this.error = $"Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{path}'.";
+        }
+
+        public SAPNotStartedError() {
+            this.error = $"Die SAP GUI konnte nicht gestartet werden.";
         }
     }
 

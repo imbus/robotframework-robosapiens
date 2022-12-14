@@ -69,23 +69,33 @@ namespace RoboSAPiens {
          Doc("Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n" +
             @"| ``C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe``")]
         public RobotResult openSAP(string Pfad) {
-            proc = Process.Start(Pfad);
+            try {
+                proc = Process.Start(Pfad);
 
-            if (proc == null) {
-                return new SAPNotStartedError(Pfad);
+                if (proc == null) {
+                    return new SAPNotStartedError();
+                }
+
+                var sapROTWrapper = new CSapROTWrapper();
+                object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
+
+                while (sapGui == null) {
+                    sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
+                }
+
+                return getScriptingEngine(sapGui) switch {
+                    Error error => error,
+                    _ => new Success("Die SAP GUI wurde gestartet")
+                };
             }
-
-            var sapROTWrapper = new CSapROTWrapper();
-            object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
-
-            while (sapGui == null) {
-                sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
+            catch (Exception e) {
+                if (e is System.ComponentModel.Win32Exception || e is System.InvalidOperationException) {
+                    return new SAPNotStartedError(Pfad);
+                }
+                else {
+                    return new ExceptionError(e, "Die SAP GUI konnte nicht gestartet werden.");
+                }
             }
-
-            return getScriptingEngine(sapGui) switch {
-                Error error => error,
-                _ => new Success("Die SAP GUI wurde gestartet")
-            };
         }
 
         [Keyword("Verbindung zum Server trennen"),
