@@ -7,14 +7,12 @@ namespace RoboSAPiens {
     public sealed class NoSAPSession : ISession {}
     public sealed class SAPSession : ISession {
         GuiConnection connection;
-        GuiApplication sapGui;
         string systemName;
         GuiSession session;
         SAPWindow window;
 
-        public SAPSession(GuiSession session, GuiApplication sapGui, GuiConnection connection) {
+        public SAPSession(GuiSession session, GuiConnection connection) {
             this.connection = connection;
-            this.sapGui = sapGui;
             this.session = session;
             this.systemName = session.Info.SystemName;
             this.window = new SAPWindow(session.ActiveWindow, session, loadComponents: true);

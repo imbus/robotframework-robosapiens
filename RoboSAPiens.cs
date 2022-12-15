@@ -10,7 +10,6 @@ namespace RoboSAPiens {
     public class RoboSAPiens {
         List<RobotKeyword> keywords;
         public ISession session;
-        private GuiApplication? guiApplication = null;
         private Process? proc = null;
 
         public RoboSAPiens() {
@@ -76,17 +75,13 @@ namespace RoboSAPiens {
                     return new SAPNotStartedError();
                 }
 
-                var sapROTWrapper = new CSapROTWrapper();
-                object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
+                var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
 
                 while (sapGui == null) {
-                    sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
+                    sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
                 }
 
-                return getScriptingEngine(sapGui) switch {
-                    Error error => error,
-                    _ => new Success("Die SAP GUI wurde gestartet")
-                };
+                return new Success("Die SAP GUI wurde gestartet");
             }
             catch (Exception e) {
                 if (e is System.ComponentModel.Win32Exception || e is System.InvalidOperationException) {
@@ -101,9 +96,18 @@ namespace RoboSAPiens {
         [Keyword("Verbindung zum Server trennen"),
          Doc("Die Verbindung mit dem SAP Server wird beendet.")]
         public RobotResult closeConnection() {
-            if (guiApplication == null) {
+            var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
+            if (sapGui == null) {
                 return new NoSapGuiError();
             }
+            
+            var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
+            if (scriptingEngine == null) {
+                return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
+                                  + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
+            }
+
+            var guiApplication = (GuiApplication)scriptingEngine;
 
             if (guiApplication.Connections.Length == 0) {
                 return new NoConnectionError();
@@ -160,38 +164,7 @@ namespace RoboSAPiens {
         //     }
         // }
 
-        RobotResult getScriptingEngine(object sapGui) {
-            var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
-            if (scriptingEngine == null) {
-                return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
-                                  + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
-            }
-
-            guiApplication = (GuiApplication)scriptingEngine;
-
-            return new Success("Der Scripting Engine wurde erfolgreich gestartet.");
-        }
-
-        RobotResult createSession(string Servername) {
-            if (guiApplication == null) {
-                return new NoSapGuiError();
-            }
-
-            var connections = guiApplication.Connections;
-
-            if (connections.Length == 0 && Servername.Equals("SAPGUI")) {
-                return new NoConnectionError();
-            }
-
-            var connection = connections.Length switch {
-                > 0 => (GuiConnection)connections.ElementAt(0),
-                _ => guiApplication.OpenConnection(Servername)
-            };
-
-            if (connection.DisabledByServer) {
-                return new NoScriptingError();
-            }
-
+        RobotResult createSession(GuiConnection connection) {
             var sessions = connection.Sessions;
             if (sessions.Length == 0) {
                 return new NoSessionError();
@@ -199,7 +172,7 @@ namespace RoboSAPiens {
 
             var guiSession = (GuiSession)sessions.ElementAt(0);
 
-            this.session = new SAPSession(guiSession, guiApplication, connection);
+            this.session = new SAPSession(guiSession, connection);
 
             return new Success("Die Session wurde erfolgreich erstellt");
         }
@@ -208,23 +181,51 @@ namespace RoboSAPiens {
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
         public RobotResult attachToRunningSAP() {        
             try {
-                var sapROTWrapper = new CSapROTWrapper();
-                object sapGui = sapROTWrapper.GetROTEntry("SAPGUI");
-
+                var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
                 if (sapGui == null) {
                     return new NoSapGuiError();
                 }
 
-                return getScriptingEngine(sapGui) switch {
+                var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
+                if (scriptingEngine == null) {
+                    return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
+                                      + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
+                }
+
+                var guiApplication = (GuiApplication)scriptingEngine;
+                var connections = guiApplication.Connections;
+
+                if (connections.Length == 0) {
+                    return new NoConnectionError();
+                }
+                
+                var connection = (GuiConnection)connections.ElementAt(0);
+
+                if (connection.DisabledByServer) {
+                    return new NoScriptingError();
+                }
+
+                return createSession(connection) switch {
                     Error error => error,
-                    _ => connectToServer("SAPGUI") switch {
-                        Error error => error,
-                        _ => new Success($"Die laufende SAP GUI wurde erfolgreich übernommen."),
-                    }
+                    _ => new Success($"Die laufende SAP GUI wurde erfolgreich übernommen."),
+                    
                 };
             } catch(Exception e) {
                 return new ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
             }
+        }
+
+        bool isConnectedToServer(GuiApplication guiApplication, string serverName) {
+            var connections = guiApplication.Connections;
+
+            for (int i=0; i < connections.Length; i++) {
+                var connection = (GuiConnection)connections.ElementAt(i);
+                if (connection.Description.Equals(serverName)) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         [Keyword("Verbindung zum Server herstellen"),
@@ -234,7 +235,34 @@ namespace RoboSAPiens {
             string theConnection = $"Die Verbindung mit dem Server '{Servername}'";
 
             try {
-                return createSession(Servername) switch {
+                var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
+                if (sapGui == null) {
+                    return new NoSapGuiError();
+                }
+                
+                var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
+                if (scriptingEngine == null) {
+                    return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
+                                    + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
+                }
+
+                var guiApplication = (GuiApplication)scriptingEngine;
+
+                if (isConnectedToServer(guiApplication, Servername)) {
+                    return new Success($"Eine Verbindung zum Server '{Servername}' besteht schon");
+                }
+
+                var connection = guiApplication.OpenConnection(Servername);
+                var connectionError = guiApplication.ConnectionErrorText;
+                if (connectionError != "") {
+                    return new SapError(connectionError);
+                }
+
+                if (connection.DisabledByServer) {
+                    return new NoScriptingError();
+                }
+
+                return createSession(connection) switch {
                     Error error => error,
                     _ => new Success($"{theConnection} wurde erfolgreich hergestellt.")
                 };
