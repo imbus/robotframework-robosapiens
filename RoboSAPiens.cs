@@ -215,17 +215,17 @@ namespace RoboSAPiens {
             }
         }
 
-        bool isConnectedToServer(GuiApplication guiApplication, string serverName) {
+        GuiConnection? getConnection(GuiApplication guiApplication, string serverName) {
             var connections = guiApplication.Connections;
 
             for (int i=0; i < connections.Length; i++) {
                 var connection = (GuiConnection)connections.ElementAt(i);
                 if (connection.Description.Equals(serverName)) {
-                    return true;
+                    return connection;
                 }
             }
 
-            return false;
+            return null;
         }
 
         [Keyword("Verbindung zum Server herstellen"),
@@ -248,11 +248,16 @@ namespace RoboSAPiens {
 
                 var guiApplication = (GuiApplication)scriptingEngine;
 
-                if (isConnectedToServer(guiApplication, Servername)) {
-                    return new Success($"Eine Verbindung zum Server '{Servername}' besteht schon");
+                var connection = getConnection(guiApplication, Servername);
+                
+                if (connection != null) {
+                    return createSession(connection) switch {
+                        Error error => error,
+                        _ => new Success($"Eine Verbindung zum Server '{Servername}' besteht schon")
+                    };
                 }
 
-                var connection = guiApplication.OpenConnection(Servername);
+                connection = guiApplication.OpenConnection(Servername);
                 var connectionError = guiApplication.ConnectionErrorText;
                 if (connectionError != "") {
                     return new SapError(connectionError);
