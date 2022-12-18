@@ -43,6 +43,13 @@ Refactor this function:
 GuiHTMLViewer.BrowserHandle.document.all(0).innerText
 
 
+## Headless mode
+
+As described in the [SAP GUI Scripting API documentation](https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf), the GUI can be embedded in another application (that supports ActiveX controls). For example Office, Internet Explorer. This can be used for headless automation:
+
+https://help.qualibrate.com/space/QXP/3960186362/Headless+Execution
+
+
 ## Highlight Element
 
 - Refactor the Keyword "Knopfhervorhebung Umschalten" to become "Highlight Element", which highlights any element.
@@ -51,6 +58,12 @@ GuiHTMLViewer.BrowserHandle.document.all(0).innerText
 ## New implementation of the component DB
 
 - With the right data structures the code will be simple
+
+
+## Record & Replay
+
+- The GuiSession object supports recording changes made to GUI elements and sends the changes to a listening server.
+  This functionality can be used for recording Robot Framework scripts, which can be later refactored into keywords. 
 
 
 ## Refactor the code for finding components
