@@ -5,6 +5,9 @@
 - Split RoboSAPiens in an XML-RPC server that implements RF's Remote API (RFRemote)
   and a C# library that allows automating the SAP GUI using text selectors (SAPiens)
 
+- It should be possible to compile SAPiens to a standalone .dll using .NET 7.0. Then
+  it is not necessary to install the .NET Runtime. The .dll can be used in Python using
+  python.NET. RoboSAPiens would become a dynamic library.
 
 ## Design
 
