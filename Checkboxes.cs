@@ -3,6 +3,7 @@ using sapfewse;
 namespace RoboSAPiens {
     public abstract class CheckBox {
         public abstract void select(GuiSession session);
+        public abstract void deselect(GuiSession session);
     }
 
     public class SAPCheckBox: CheckBox, ILabeled, ILocatable, ISelectable {
@@ -61,6 +62,11 @@ namespace RoboSAPiens {
             var guiCheckBox = (GuiCheckBox)session.FindById(id);
             guiCheckBox.Selected = true;
         }
+
+        public override void deselect(GuiSession session) {
+            var guiCheckBox = (GuiCheckBox)session.FindById(id);
+            guiCheckBox.Selected = false;
+        }
     }
 
     public sealed class SAPTableCheckBox: SAPCheckBox, IFilledCell {
@@ -106,6 +112,11 @@ namespace RoboSAPiens {
             var tree = (GuiTree)session.FindById(treeId);
             tree.SetCheckBoxState(nodeKey, columnName, 1);
         }
+
+        public override void deselect(GuiSession session) {
+            var tree = (GuiTree)session.FindById(treeId);
+            tree.SetCheckBoxState(nodeKey, columnName, 0);
+        }
     }
 
     public sealed class SAPGridViewCheckBox: CheckBox, IFilledCell, ISelectable {
@@ -133,6 +144,11 @@ namespace RoboSAPiens {
         public override void select(GuiSession session) {
             var gridView = (GuiGridView)session.FindById(gridViewId);
             gridView.ModifyCheckBox(rowIndex, columnId, true);        
+        }
+
+        public override void deselect(GuiSession session) {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.ModifyCheckBox(rowIndex, columnId, false);        
         }
     }
 }

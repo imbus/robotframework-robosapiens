@@ -505,6 +505,21 @@ namespace RoboSAPiens {
             };
         }
 
+        [Keyword("Formularfeld abwählen"),
+         Doc("Das angegebene Formularfeld wird abgewählt.\n\n" +
+             "*Formularfeld mit einer Beschriftung links oder rechts *\n" +
+             "| ``Formularfeld abwählen    Beschriftung``\n" +
+            "*Formularfeld mit einer Beschriftung oben*\n" +
+             "| ``Formularfeld abwählen    @ Beschriftung``\n" +
+             "*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n" +
+             "| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``")]
+        public RobotResult untickCheckBox(string Beschriftung_oder_Positionsgeber) {
+            return session switch {
+                SAPSession session => session.untickCheckBox(Beschriftung_oder_Positionsgeber),
+                _ => new NoSessionError()
+            };
+        }
+
         [Keyword("Tabellenzelle ankreuzen"),
          Doc("Die angegebene Tabellenzelle wird angekreuzt.\n\n" +
              "| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``")]

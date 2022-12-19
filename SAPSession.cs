@@ -581,6 +581,27 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult untickCheckBox(string labels) {
+            switch (updateComponentsIfWindowChanged()) {
+                case ExceptionError exceptionError: return exceptionError;
+            }
+
+            var theCheckBox = new CheckBoxLocator(labels);
+            var checkBox = window.components.findCheckBox(theCheckBox);
+            
+            if (checkBox == null) {
+                return new SpellingError($"{theCheckBox.atLocation} konnte nicht gefunden werden.");
+            }
+            
+            try {
+                checkBox.deselect(session);
+                return new Success($"{theCheckBox.atLocation} wurde abgewählt.");
+            }
+            catch (Exception e) {
+                return new ExceptionError(e, $"{theCheckBox.atLocation} konnte nicht abgewählt werden.");
+            }
+        }
+
         public RobotResult tickCheckBoxCell(string rowIndex, string column) {
             switch (updateComponentsIfWindowChanged()) {
                 case ExceptionError exceptionError: return exceptionError;
