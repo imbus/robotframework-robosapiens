@@ -293,7 +293,7 @@ namespace RoboSAPiens {
         }
 
         public RobotResult pushButton(string label) {
-            switch (updateComponentsIfWindowChanged()) {
+            switch (updateComponents()) {
                 case ExceptionError exceptionError: return exceptionError;
             }
             
