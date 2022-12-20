@@ -40,6 +40,8 @@ Refactor this function:
 
 ## GuiHTMLViewer
 
+When a GuiShell has subtype GuiHTMLViewer, take a screenshot and use Tesseract to get the coordinates of the labels. Then we can use the usual strategies to locate labels. Or try to get the coordinates from the Browser object. That way we spare a dependency.
+
 GuiHTMLViewer.BrowserHandle.document.all(0).innerText
 
 
@@ -85,6 +87,15 @@ https://help.qualibrate.com/space/QXP/3960186362/Headless+Execution
 
   When clicking a button on a dialog window, an error message might
   show up in the statusbar of the main window
+
+
+## TestToolMode
+
+Try this:
+
+GuiSession.TestToolMode = 1
+
+Info Dialogs are no longer shown. The statusbar is used instead.
 
 
 ## Tests
