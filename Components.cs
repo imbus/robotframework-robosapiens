@@ -20,6 +20,7 @@ namespace RoboSAPiens {
         SAPStatusbar? statusBar = null;
         TabStore tabs = new TabStore();
         TableStore tables = new TableStore();
+        SAPTree? tree = null;
         private GuiSession session;
 
         public Components(GuiSession session) {
@@ -154,6 +155,7 @@ namespace RoboSAPiens {
                     break;
                 case "Tree":
                     var tree = (GuiTree)guiShell;
+                    this.tree = new SAPTree(tree);
                     if ((TreeType)tree.GetTreeType() == TreeType.Column) {
                         classifyTreeComponents(tree);
                     }
@@ -235,9 +237,10 @@ namespace RoboSAPiens {
             }
         }
 
+        // TODO: The Tree class should take care of classifying its elements
         void classifyTreeComponents(GuiTree tree) {
             var columnNames = (GuiCollection)tree.GetColumnNames();
-            var paths = getPaths(tree);
+            var paths = SAPTree.getAllPaths(tree);
 
             for (int i = 0; i < columnNames.Length; i++) {
                 var columnName = (string)columnNames.ElementAt(i);
@@ -465,6 +468,10 @@ namespace RoboSAPiens {
 
         public SAPStatusbar? getStatusBar() {
             return this.statusBar;
+        }
+
+        public SAPTree? getTree() {
+            return this.tree;
         }
     }
 }

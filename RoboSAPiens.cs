@@ -177,6 +177,16 @@ namespace RoboSAPiens {
             return new Success("Die Session wurde erfolgreich erstellt");
         }
 
+        [Keyword("Funktionsbaum exportieren"),
+         Doc("Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n" +
+             "| ``Funktionsbaum exportieren     Dateipfad``")]
+        public RobotResult exportTree(string Dateipfad) {
+            return session switch {
+                SAPSession session => session.exportTree(Dateipfad),
+                _ => new NoSessionError()
+            };
+        }
+
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
         public RobotResult attachToRunningSAP() {        

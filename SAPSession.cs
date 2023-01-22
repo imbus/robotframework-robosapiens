@@ -1,6 +1,8 @@
 using sapfewse;
 using System;
 using System.IO;
+using System.Text.Json;
+using System.Text.Encodings.Web;
 using System.Collections.Generic;
 
 namespace RoboSAPiens {
@@ -231,6 +233,36 @@ namespace RoboSAPiens {
             }
             catch (Exception e) {
                 return new ExceptionError(e, $"Die Maske konnte nicht exportiert werden.");
+            }
+        }
+
+        public RobotResult exportTree(string filePath) {
+            var tree = window.components.getTree();
+
+            if (tree == null)
+            {
+                // Define ComponentNotFoundError
+                return new SapError("Die Maske enthält keine Baumstruktur");
+            }
+
+            try
+            {
+                var treeNodes = tree.getAllNodes(session);
+
+                var jsonOptions = new JsonSerializerOptions();
+                jsonOptions.IncludeFields = true;
+                jsonOptions.WriteIndented = true;
+                jsonOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+                
+                var json = JsonSerializer.Serialize(treeNodes, jsonOptions);
+                var utf8WithoutBom = new System.Text.UTF8Encoding(false);
+                File.WriteAllText(filePath, json, utf8WithoutBom);
+
+                return new Success($"Die Baumstruktur wurde in JSON Format in der Datei '{filePath}' gespeichert");
+            }
+            catch (Exception e)
+            {
+                return new ExceptionError(e, "Die Baumstruktur konnte nicht exportiert werden.");
             }
         }
 
