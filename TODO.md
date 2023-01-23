@@ -9,6 +9,7 @@
   it is not necessary to install the .NET Runtime. The .dll can be used in Python using
   python.NET. RoboSAPiens would become a dynamic library.
 
+
 ## Design
 
 - SAPiens is a CRUD application
@@ -24,11 +25,6 @@
 ## Documentation
 
 - The documentation of the keywords should reside on the Python side. This allows editing the documentation without having to recompile and also enables translating the documentation to other languages.
-
-
-## Export tree
-
-- As a list of lists
 
 
 ## Export form
@@ -62,6 +58,24 @@ https://help.qualibrate.com/space/QXP/3960186362/Headless+Execution
 - With the right data structures the code will be simple
 
 
+## Pop-up windows
+
+- After pushing a button check if a new window was added to the session
+
+- If a new window was created classify its components
+
+- Define a keyword "SAP Protokoll analysieren" in Python.
+  This keyword calls "Maske exportieren", reads the CSV file,
+  parses the list (a bunch of labels arranged in a grid),
+  and calls "Log" for each entry in the the SAP protocol.
+  If an error is present it calls "Fail" with the first error.
+
+  Using the keyword "Überschrift überprüfen" the user can 
+  determine if the current window is "Protokolle anzeigen" 
+  in which case the keyword "SAP Protokoll analysieren" will
+  be called.
+
+
 ## Record & Replay
 
 - The GuiSession object supports recording changes made to GUI elements and sends the changes to a listening server.
@@ -83,10 +97,25 @@ https://help.qualibrate.com/space/QXP/3960186362/Headless+Execution
 
 - Always read the statusbar and return the message to the user
 
-- Read the statusbar of the main window, not of the current window
+- Poll the statusbar of the main window after clicking a button on any window
 
   When clicking a button on a dialog window, an error message might
   show up in the statusbar of the main window
+
+
+## Tables
+
+- Add an abstract class Table
+
+- Add the following implementations of the Table class:
+  - SAPTable
+  - GridView
+  - List (a bunch of labels arranged in a grid)
+
+- Lists can be exported as Markdown tables using the Menu Item: 
+  System -> List -> Save to file -> Unconverted
+
+- Some tables can be exported as Excel spreadsheets
 
 
 ## TestToolMode
@@ -95,7 +124,12 @@ Try this:
 
 GuiSession.TestToolMode = 1
 
-Info Dialogs are no longer shown. The statusbar is used instead.
+While success (S), warning (W) and error (E) messages are always displayed
+in the statusbar, information (I) and abort (A) messages are displayed as pop-up
+windows unless testToolMode is set. 
+
+System messages are ignored so that they do not interrupt the recording or
+playback of scripts.
 
 
 ## Tests
@@ -114,11 +148,11 @@ Info Dialogs are no longer shown. The statusbar is used instead.
 
 ## Windows
 
-- Check if a new window was added to session/window and notify the Python client
+- Check if a new window was added to the session and notify the Python client
   The client has to decide how to deal with it
 
   More generally, use a message-passing approach for the communication between
-  the server and the client
+  the server and the client.
 
 
 # Python
