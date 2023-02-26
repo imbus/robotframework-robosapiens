@@ -246,12 +246,11 @@ namespace RoboSAPiens {
                 var columnName = (string)columnNames.ElementAt(i);
                 if (columnName == null) { continue; }
                 var columnTitle = tree.GetColumnTitleFromName(columnName);
-                var columnItems = (GuiCollection)tree.GetColumnCol(columnName);
 
                 for (int index = 0; index < paths.Count; index++) {
-                    var itemText = (string)columnItems.ElementAt(index);
                     var nodePath = paths[index];
                     var nodeKey = tree.GetNodeKeyByPath(nodePath);
+                    var itemText = tree.GetItemText(nodeKey, columnName);
                     var itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
 
                     switch (itemType) {
