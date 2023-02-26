@@ -36,10 +36,6 @@ namespace RoboSAPiens {
             foreach (var table in tables.getAll()) {
                 if (table.rowsAreMissing()) {
                     IntPtr windowHandle = new IntPtr(session.ActiveWindow.Handle);
-                
-                    if(!ScreenCapture.windowIsMaximized(windowHandle)) {    
-                        throw new Exception("Eine Tabelle ist größer als das SAP Fenster. Bitte maximieren Sie das Fenster.");
-                    }
                     
                     while (table.rowsAreMissing()) {
                         table.scrollOnePage(session);
