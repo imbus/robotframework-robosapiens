@@ -35,6 +35,7 @@ build.bat
 ### Build the Python wheel
 
 ```powershell
+pip install build
 python\build.bat
 ```
 
