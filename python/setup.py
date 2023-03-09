@@ -3,9 +3,10 @@
 from pathlib import Path
 from setuptools import setup
 
-version = Path("src/RoboSAPiens/version.py").read_text(encoding="utf-8")
-about = {}
-exec(version, about)
+version = Path("../VERSION").read_text(encoding="utf-8")
+
+with open(Path("src/RoboSAPiens/version.py"), "w+") as file:
+    file.write(f"__version__ = '{version}'")
 
 CLASSIFIERS = """
 Development Status :: 5 - Production/Stable
@@ -22,7 +23,7 @@ Topic :: Software Development :: Testing
 """
 
 setup(name='robotframework-robosapiens',
-    version=about["__version__"],
+    version=version,
     description='Robot Framework keyword library wrapper around the SAP scripting GUI',
     long_description="readme",
     long_description_content_type='text/markdown',
