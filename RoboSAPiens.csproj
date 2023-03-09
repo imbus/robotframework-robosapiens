@@ -4,7 +4,6 @@
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <SelfContained>False</SelfContained>
-    <PublishSingleFile>True</PublishSingleFile>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
