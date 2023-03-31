@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using sapfewse;
 
 namespace RoboSAPiens {
-    public abstract class ComboBox {
+    public abstract class ComboBox: IHighlightable {
+        protected bool focused;
         public abstract bool contains(string entry);
         public abstract void select(string entry, GuiSession session);
+        public abstract void toggleHighlight(GuiSession session);
     }
 
     public sealed class SAPComboBox: ComboBox, ILabeled {
@@ -55,6 +57,12 @@ namespace RoboSAPiens {
         public override void select(string entry, GuiSession session) {
             var guiComboBox = (GuiComboBox)session.FindById(id);
             guiComboBox.Value = entry;
+        }
+
+        public override void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var guiComboBox = (GuiComboBox)session.FindById(id);
+            guiComboBox.Visualize(focused);
         }
     }
 

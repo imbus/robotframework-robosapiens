@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace RoboSAPiens {
-    public sealed class SAPLabel: ITextElement, ILocatable {
+    public sealed class SAPLabel: ITextElement, ILocatable, IHighlightable {
         const int maxHorizontalDistance = 20;
         const int maxVerticalDistance = 20;
 
         public string id;
         public Position position {get;}
         string text;
+        private bool focused;
 
         public SAPLabel(GuiLabel label) {
             this.id = label.Id;
@@ -90,6 +91,12 @@ namespace RoboSAPiens {
             var guiLabel = (GuiLabel)session.FindById(id);
             guiLabel.SetFocus();
             guiLabel.Visualize(true);
+        }
+
+        public void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var guiLabel = (GuiLabel)session.FindById(id);
+            guiLabel.Visualize(focused);
         }
     }
 }

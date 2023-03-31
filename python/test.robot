@@ -3,4 +3,4 @@ Library    RoboSAPiens
 
 *** Test Cases ***
 Erster Test
-    Verbinden Mit Dem SAP Server    Demo Server
+    Verbindung Zum Server Herstellen    Demo Server

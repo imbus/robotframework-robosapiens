@@ -8,11 +8,13 @@ using saprotwr.net;
 
 namespace RoboSAPiens {
     public class RoboSAPiens {
+        Config.Options options;
         List<RobotKeyword> keywords;
         public ISession session;
         private Process? proc = null;
 
-        public RoboSAPiens() {
+        public RoboSAPiens(Config.Options options) {
+            this.options = options;
             session = new NoSAPSession();
             keywords = new List<RobotKeyword>();
 
@@ -172,7 +174,7 @@ namespace RoboSAPiens {
 
             var guiSession = (GuiSession)sessions.ElementAt(0);
 
-            this.session = new SAPSession(guiSession, connection);
+            this.session = new SAPSession(guiSession, connection, options);
 
             return new Success("Die Session wurde erfolgreich erstellt");
         }

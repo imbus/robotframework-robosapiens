@@ -1,13 +1,14 @@
 using sapfewse;
 
 namespace RoboSAPiens {
-    public abstract class Button {
+    public abstract class Button: IHighlightable {
+        protected bool focused;
         public abstract void push(GuiSession session);
+        public abstract void toggleHighlight(GuiSession session);
     }
 
-    public class SAPButton: Button, IHighlightable, ILabeled {
+    public class SAPButton: Button, ILabeled {
         protected string defaultTooltip;
-        protected bool focused;
         public string id;
         public Position position {get;}
         public string text;
@@ -35,7 +36,7 @@ namespace RoboSAPiens {
             guiButton.Press();
         }
 
-        public void toggleHighlight(GuiSession session) {
+        public override void toggleHighlight(GuiSession session) {
             focused = !focused;
             var guiButton = (GuiButton)session.FindById(id);
             guiButton.Visualize(focused);
@@ -94,6 +95,11 @@ namespace RoboSAPiens {
         public override void push(GuiSession session) {
         }
 
+        public override void toggleHighlight(GuiSession session)
+        {
+            throw new System.NotImplementedException();
+        }
+
     }
 
     public sealed class SAPGridViewToolbarButton: Button, ILabeled {
@@ -115,6 +121,11 @@ namespace RoboSAPiens {
             var gridView = (GuiGridView)session.FindById(gridViewId);
             gridView.PressToolbarButton(id);
         }
+
+        public override void toggleHighlight(GuiSession session)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public sealed class SAPToolbarButton: Button, ILabeled {
@@ -135,6 +146,11 @@ namespace RoboSAPiens {
         public override void push(GuiSession session) {
             var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
             toolbar.PressButton(id);
+        }
+
+        public override void toggleHighlight(GuiSession session)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -174,6 +190,11 @@ namespace RoboSAPiens {
             var tree = (GuiTree)session.FindById(treeId);
             tree.PressButton(nodeKey, columnName);
         }
+
+        public override void toggleHighlight(GuiSession session)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public sealed class SAPTreeLink: Button, IFilledCell {
@@ -205,6 +226,11 @@ namespace RoboSAPiens {
         public override void push(GuiSession session) {
             var tree = (GuiTree)session.FindById(treeId);
             tree.ClickLink(nodeKey, columnName);
+        }
+
+        public override void toggleHighlight(GuiSession session)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -16,18 +16,25 @@ namespace RoboSAPiens {
 
             try {
                 listener.Start();
-                info($"Der RoboSAPiens Keywordserver läuft auf {serverAddress}. Zum Stoppen Strg+C drücken.",
-                    "- Zur Verwendung eines anderen Port RoboSAPiens.exe -p [PORT] ausführen.");
+                info($"The RoboSAPiens keyword server runs on {serverAddress}. Press Ctrl+C to stop.");
             } catch (Exception e) {
-                error("Der RoboSAPiens Keywordserver konnnte nicht gestartet werden.",
-                      $"Fehlermeldung: {e.Message}");
+                error("The RoboSAPiens keyword server could not be started.",
+                      $"Error message: {e.Message}");
                 Environment.Exit(1);
             }
         }
 
         public static void Main(string[] args) {
+            System.Console.WriteLine("RoboSAPiens: SAP GUI automation for humans\n");
+            
+            if (args.Length == 0) {
+                info("Usage: RoboSAPiens.exe --port PORT. Type --help for additional parameters");
+                Environment.Exit(1);
+            }
+
             const string host = "http://127.0.0.1";
-            var options = new Options(args);
+            Config.parseArgs(args);
+            var options = Config.options;
             var serverAddress = $"{host}:{options.port}";
             var httpListener = new HttpListener();
             var robotRemote = new RobotRemote(options);
@@ -35,11 +42,8 @@ namespace RoboSAPiens {
             startServer(httpListener, serverAddress);
 
             if (options.debug) {
-                info("========== DEBUG-Modus aktiv ==========");
+                info("========== DEBUG-Mode active ==========");
             } 
-            else {
-                info("- Zum Debuggen RoboSAPiens.exe --debug ausführen.");
-            }
 
             while (httpListener.IsListening) {
                 robotRemote.ProcessRequest(httpListener.GetContext());

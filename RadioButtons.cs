@@ -1,8 +1,10 @@
 using sapfewse;
 
 namespace RoboSAPiens {
-    public abstract class RadioButton {
+    public abstract class RadioButton: IHighlightable {
+        protected bool focused;
         public abstract void select(GuiSession session);
+        public abstract void toggleHighlight(GuiSession session);
     }
 
     public class SAPRadioButton: RadioButton, ILabeled, ILocatable, ISelectable {
@@ -61,6 +63,12 @@ namespace RoboSAPiens {
         public override void select(GuiSession session) {
             var guiRadioButton = (GuiRadioButton)session.FindById(id);
             guiRadioButton.Select();
+        }
+
+        public override void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var guiRadioButton = (GuiRadioButton)session.FindById(id);
+            guiRadioButton.Visualize(focused);
         }
     }
 }

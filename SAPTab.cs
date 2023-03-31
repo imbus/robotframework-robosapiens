@@ -1,9 +1,10 @@
 using sapfewse;
 
 namespace RoboSAPiens {
-    public sealed class SAPTab: ILabeled {
+    public sealed class SAPTab: ILabeled, IHighlightable {
         string id;
         string label;
+        private bool focused;
 
         public SAPTab(GuiTab tab) {
             this.id = tab.Id;
@@ -17,6 +18,12 @@ namespace RoboSAPiens {
         public void select(GuiSession session) {
             var tab = (GuiTab)session.FindById(id);
             tab.Select();
+        }
+
+        public void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var tab = (GuiTab)session.FindById(id);
+            tab.Visualize(focused);
         }
     }
 }

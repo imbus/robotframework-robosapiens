@@ -12,11 +12,13 @@ namespace RoboSAPiens {
         string systemName;
         GuiSession session;
         SAPWindow window;
+        Config.Options options;
 
-        public SAPSession(GuiSession session, GuiConnection connection) {
+        public SAPSession(GuiSession session, GuiConnection connection, Config.Options options) {
             this.connection = connection;
             this.session = session;
             this.systemName = session.Info.SystemName;
+            this.options = options;
             this.window = new SAPWindow(session.ActiveWindow, session, loadComponents: true);
         }
 
@@ -67,6 +69,10 @@ namespace RoboSAPiens {
             
             if (tab == null) {
                 return new SpellingError($"{theTab} konnte nicht gefunden werden.");
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, tab)) {
+                case ExceptionError exceptionError: return exceptionError;
             }
 
             try {
@@ -130,6 +136,10 @@ namespace RoboSAPiens {
 
             if (textField == null) {
                 return new SpellingError($"{theTextField.atLocation} konnte nicht gefunden werden.");
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, textField)) {
+                case ExceptionError exceptionError: return exceptionError;
             }
 
             try {
@@ -315,12 +325,28 @@ namespace RoboSAPiens {
                 return new SpellingError($"{theTextField.atLocation} konnte nicht gefunden werden.");
             }
 
+            if (options.presenterMode) switch(highlightElement(session, textField)) {
+                case ExceptionError exceptionError: return exceptionError;
+            }
+
             try {
                 textField.insert(content, session);
                 return new Success($"{theTextField.atLocation} wurde ausgefüllt.");
             }
             catch (Exception e) {
                 return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.");
+            }
+        }
+
+        private RobotResult highlightElement(GuiSession session, IHighlightable element) {
+            try
+            {
+                element.toggleHighlight(session);
+                return new Success("Das angegebene Element wurde markiert.");
+            }
+            catch (Exception e)
+            {
+                return new ExceptionError(e, "Das angegebene Element konnte nicht markiert werden.");
             }
         }
 
@@ -334,6 +360,10 @@ namespace RoboSAPiens {
 
             if (button == null) {
                 return new SpellingError($"{theButton.atLocation} konnte nicht gefunden werden.");
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, button)) {
+                    case ExceptionError exceptionError: return exceptionError;
             }
 
             try {
@@ -365,6 +395,10 @@ namespace RoboSAPiens {
 
             if (button == null) {
                 return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, button)) {
+                case ExceptionError exceptionError: return exceptionError;
             }
 
             try {
@@ -406,6 +440,10 @@ namespace RoboSAPiens {
             var textField = window.components.findReadOnlyTextField(theTextField);
             if (textField == null) {
                 return new SpellingError($"{theTextField.atLocation} konnte nicht gefunden werden.");
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, textField)) {
+                case ExceptionError exceptionError: return exceptionError;
             }
 
             try {
@@ -515,6 +553,10 @@ namespace RoboSAPiens {
                 return new SpellingError($"{theEntry} wurde im {theComboBox.atLocation} nicht gefunden.");
             }
 
+            if (options.presenterMode) switch(highlightElement(session, comboBox)) {
+                case ExceptionError exceptionError: return exceptionError;
+            }
+
             try {
                 comboBox.select(entry, session);
                 return new Success($"{theEntry} aus dem {theComboBox.atLocation} wurde ausgewählt.");
@@ -534,6 +576,10 @@ namespace RoboSAPiens {
 
             if (textField == null) {
                 return new SpellingError($"{theTextField.atLocation} konnte nicht gefunden werden.");
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, textField)) {
+                case ExceptionError exceptionError: return exceptionError;
             }
 
             try {
@@ -578,6 +624,10 @@ namespace RoboSAPiens {
                 return new SpellingError($"{theRadioButton.atLocation} konnte nicht gefunden werden.");
             }
 
+            if (options.presenterMode) switch(highlightElement(session, radioButton)) {
+                case ExceptionError exceptionError: return exceptionError;
+            }
+
             try {
                 radioButton.select(session);
                 return new Success($"{theRadioButton.atLocation} wurde ausgewählt.");
@@ -603,6 +653,10 @@ namespace RoboSAPiens {
             if (checkBox == null) {
                 return new SpellingError($"{theCheckBox.atLocation} konnte nicht gefunden werden.");
             }
+
+            if (options.presenterMode) switch(highlightElement(session, checkBox)) {
+                case ExceptionError exceptionError: return exceptionError;
+            }
             
             try {
                 checkBox.select(session);
@@ -623,6 +677,10 @@ namespace RoboSAPiens {
             
             if (checkBox == null) {
                 return new SpellingError($"{theCheckBox.atLocation} konnte nicht gefunden werden.");
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, checkBox)) {
+                case ExceptionError exceptionError: return exceptionError;
             }
             
             try {
@@ -646,6 +704,10 @@ namespace RoboSAPiens {
                 return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
             }
 
+            if (options.presenterMode) switch(highlightElement(session, checkBox)) {
+                case ExceptionError exceptionError: return exceptionError;
+            }
+
             try {
                 checkBox.select(session);
                 return new Success($"{locator.cell} wurde angekreuzt.");
@@ -665,6 +727,10 @@ namespace RoboSAPiens {
 
             if (button == null) {
                 return new SpellingError($"{theButton.atLocation} konnte nicht gefunden werden.");
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, button)) {
+                case ExceptionError exceptionError: return exceptionError;
             }
 
             try {

@@ -1,9 +1,11 @@
 using sapfewse;
 
 namespace RoboSAPiens {
-    public abstract class CheckBox {
+    public abstract class CheckBox: IHighlightable {
+        protected bool focused;
         public abstract void select(GuiSession session);
         public abstract void deselect(GuiSession session);
+        public abstract void toggleHighlight(GuiSession session);
     }
 
     public class SAPCheckBox: CheckBox, ILabeled, ILocatable, ISelectable {
@@ -67,6 +69,12 @@ namespace RoboSAPiens {
             var guiCheckBox = (GuiCheckBox)session.FindById(id);
             guiCheckBox.Selected = false;
         }
+
+        public override void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var guiCheckBox = (GuiCheckBox)session.FindById(id);
+            guiCheckBox.Visualize(focused);
+        }
     }
 
     public sealed class SAPTableCheckBox: SAPCheckBox, IFilledCell {
@@ -117,6 +125,12 @@ namespace RoboSAPiens {
             var tree = (GuiTree)session.FindById(treeId);
             tree.SetCheckBoxState(nodeKey, columnName, 0);
         }
+
+        public override void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var tree = (GuiTree)session.FindById(treeId);
+            tree.Visualize(focused);
+        }
     }
 
     public sealed class SAPGridViewCheckBox: CheckBox, IFilledCell, ISelectable {
@@ -149,6 +163,12 @@ namespace RoboSAPiens {
         public override void deselect(GuiSession session) {
             var gridView = (GuiGridView)session.FindById(gridViewId);
             gridView.ModifyCheckBox(rowIndex, columnId, false);        
+        }
+
+        public override void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.Visualize(focused);
         }
     }
 }

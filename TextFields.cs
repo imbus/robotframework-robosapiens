@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 
 namespace RoboSAPiens {
-    public class SAPTextField: ILabeled, ILocatable, ITextElement {
+    public class SAPTextField: ILabeled, ILocatable, ITextElement, IHighlightable {
         const int maxHorizontalDistance = 20;
         const int maxVerticalDistance = 20;
         const int overlapTolerance = 3;
@@ -13,6 +13,7 @@ namespace RoboSAPiens {
         int height;
         public string id;
         public string label;
+        protected bool focused;
         List<SAPTextField> grid;
         public Position position {get;}
         public string text;
@@ -195,7 +196,12 @@ namespace RoboSAPiens {
         public void select(GuiSession session) {
             var guiTextField = (GuiTextField)session.FindById(id);
             guiTextField.SetFocus();
-            guiTextField.Visualize(true);
+        }
+
+        public void toggleHighlight(GuiSession session){
+            focused = !focused;
+            var guiTextField = (GuiTextField)session.FindById(id);
+            guiTextField.Visualize(focused);
         }
     }
 

@@ -6,8 +6,7 @@ using Horizon.XmlRpc.Core;
 namespace RoboSAPiens {
     public sealed class RobotRemote : XmlRpcListenerService {
         RoboSAPiens roboSapiens;
-        int port;
-        bool debug;
+        Config.Options options;
 
         string toPythonType(string csharpType) {
             return csharpType switch {
@@ -16,22 +15,15 @@ namespace RoboSAPiens {
             };
         }
 
-        public RobotRemote (Options options) {
-            this.debug = options.debug;
-            this.port = options.port;
-            this.roboSapiens = new RoboSAPiens();
+        public RobotRemote (Config.Options options) {
+            this.options = options;
+            this.roboSapiens = new RoboSAPiens(options);
         }
 
         [XmlRpcMethod("get_keyword_names")]
         public string[] getKeywordNames() {
-            roboSapiens = new RoboSAPiens();
+            roboSapiens = new RoboSAPiens(this.options);
             var keywordNames = roboSapiens.getKeywordNames();
-
-            if (debug) {
-                Console.WriteLine(string.Join(Environment.NewLine, 
-                                  "", "Verfügbare Keywords:", new String('-', "Verfügbare Keywords:".Length), "", 
-                                  string.Join(Environment.NewLine, keywordNames), ""));
-            }
             
             return keywordNames;
         }
@@ -45,7 +37,7 @@ namespace RoboSAPiens {
 
         [XmlRpcMethod("run_keyword")]
         public XmlRpcStruct runKeyword(string keywordName, object[] args) {
-            if (debug) {
+            if (this.options.debug) {
                 Console.WriteLine($"Keyword: {keywordName}");
                 Console.WriteLine("Arguments: " + string.Join(", ", args));
             }
