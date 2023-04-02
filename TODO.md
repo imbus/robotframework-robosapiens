@@ -157,6 +157,12 @@ playback of scripts.
 
 # Python
 
+## Assistant
+
+A small window in the lower left or upper left corner of the screen that shows the last keyword called. (Similar to the option `show_keyword_call_banner` of the Browser library)
+
+A small window that shows the RF code generated after each user action in the GUI. (Similar to playwright code-gen)
+
 ## Compare forms
 
 Given two CSV files corresponding to the data models of two forms,
