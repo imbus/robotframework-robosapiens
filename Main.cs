@@ -28,8 +28,8 @@ namespace RoboSAPiens {
             System.Console.WriteLine("RoboSAPiens: SAP GUI automation for humans\n");
             
             if (args.Length == 0) {
-                info("Usage: RoboSAPiens.exe --port PORT. Type --help for additional parameters");
-                Environment.Exit(1);
+                info("Usage: RoboSAPiens.exe --OPTION [ARG] ...\n");
+                Config.Commands.help();
             }
 
             const string host = "http://127.0.0.1";

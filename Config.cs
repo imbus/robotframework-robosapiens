@@ -11,7 +11,7 @@ public class Config
 
     public static Options options = default(Options) with {port = 8270};
 
-    private class Commands
+    public class Commands
     {
         public static void exportCli(string fileName)
         {
@@ -54,7 +54,7 @@ public class Config
 
         public static void help()
         {
-
+            System.Console.WriteLine("The following options are available:\n");
             arguments.Select(entry => $"--{entry.Key} {getPlaceholder(entry.Value.handler)}\n  {entry.Value.doc}")
                      .ToList()
                      .ForEach(line => System.Console.WriteLine(line + "\n"));
@@ -92,7 +92,7 @@ public class Config
             ArgType.Str,
             "Export the Robot Framework API specification in JSON format to the specified file and exit",
             false,
-            (path) => Commands.exportApi((string)path)
+            (filename) => Commands.exportApi((string)filename)
         )},
         {"export-cli", new Arg(
             ArgType.Str,
@@ -102,7 +102,7 @@ public class Config
         )},
         {"help", new Arg(
             ArgType.Bool,
-            "Print the help in the console and exit",
+            "Print the help to the console and exit",
             false,
             (_) => Commands.help()
         )},
