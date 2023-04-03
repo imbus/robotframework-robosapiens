@@ -1,23 +1,28 @@
-
 import json
-  
-# Opening JSON file and returns object as a dictionary
-with open('cli.json') as json_file:
-    data = json.load(json_file)
-json_file.close()
 
-# generate python-methods (with correct format) out of json-dict
-methods = ""
-for method in data:
-    methods += "\t" + str(method['name']).replace("-", "_") + ": " + str(method['type']).lower() + "\n"
+  
+with open('cli.json') as json_file:
+    cli_args = json.load(json_file)
+
+args = [
+    { 
+        "name": arg['name'].replace("-", "_"),
+        "type": arg['type'].lower()
+    }
+    for arg in cli_args
+]
+
+dict_entries = '\n'.join([
+    f"    {arg['name']}: {arg['type']}"
+    for arg in args
+])
 
 fileContent = f"""
 from typing import TypedDict
 
 class CliArgsDict(TypedDict):
-{methods}
+{dict_entries}
 """
 
-newFile = open('cli.py', 'w+')
-newFile.write(fileContent)
-newFile.close()
+with open('cli.py', 'w+') as file:
+    file.write(fileContent)

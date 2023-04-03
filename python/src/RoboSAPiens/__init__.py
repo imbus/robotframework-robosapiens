@@ -17,6 +17,8 @@ RoboSAPiens_path = Path(realpath(__file__)).parent / "lib" / RoboSAPiens_exe
 
 
 def _cli_param(name: str, value: object):
+    name = name.replace("_", "-")
+
     if type(value) == bool:
         return f"--{name}"
     else:
