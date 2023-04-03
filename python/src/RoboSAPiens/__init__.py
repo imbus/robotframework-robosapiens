@@ -2,7 +2,7 @@ import subprocess
 import time
 from os.path import realpath
 from pathlib import Path
-from typing import TypeVar
+from typing import TypeVar, List
 
 from robot.libraries.Remote import Remote
 
@@ -25,7 +25,7 @@ def _cli_param(name: str, value: object):
         return f"--{name} {value}"
 
 
-def is_running(cmd):
+def is_running(cmd: str):
     process_list = subprocess.check_output(
         ["TASKLIST", "/FI", f"imagename eq {cmd}"]
     ).decode(encoding)
@@ -34,7 +34,7 @@ def is_running(cmd):
     )
 
 
-def start_cmd(cmd: str, args: list[str]):
+def start_cmd(cmd: str, args: List[str]):
     if is_running(cmd):
         return
     
@@ -54,7 +54,7 @@ def start_cmd(cmd: str, args: list[str]):
         raise Exception(message)
 
 
-def stop_cmd(cmd):
+def stop_cmd(cmd: str):
     if is_running(cmd):
         subprocess.check_output(["TASKKILL", "/F", "/IM", cmd])
 
