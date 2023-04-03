@@ -6,7 +6,7 @@ using Horizon.XmlRpc.Core;
 namespace RoboSAPiens {
     public sealed class RobotRemote : XmlRpcListenerService {
         RoboSAPiens roboSapiens;
-        Config.Options options;
+        CLI.Options options;
 
         string toPythonType(string csharpType) {
             return csharpType switch {
@@ -15,7 +15,7 @@ namespace RoboSAPiens {
             };
         }
 
-        public RobotRemote (Config.Options options) {
+        public RobotRemote (CLI.Options options) {
             this.options = options;
             this.roboSapiens = new RoboSAPiens(options);
         }

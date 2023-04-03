@@ -12,9 +12,9 @@ namespace RoboSAPiens {
         string systemName;
         GuiSession session;
         SAPWindow window;
-        Config.Options options;
+        CLI.Options options;
 
-        public SAPSession(GuiSession session, GuiConnection connection, Config.Options options) {
+        public SAPSession(GuiSession session, GuiConnection connection, CLI.Options options) {
             this.connection = connection;
             this.session = session;
             this.systemName = session.Info.SystemName;

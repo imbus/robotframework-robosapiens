@@ -8,12 +8,12 @@ using saprotwr.net;
 
 namespace RoboSAPiens {
     public class RoboSAPiens {
-        Config.Options options;
+        CLI.Options options;
         List<RobotKeyword> keywords;
         public ISession session;
         private Process? proc = null;
 
-        public RoboSAPiens(Config.Options options) {
+        public RoboSAPiens(CLI.Options options) {
             this.options = options;
             session = new NoSAPSession();
             keywords = new List<RobotKeyword>();
