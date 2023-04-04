@@ -97,7 +97,6 @@ namespace RoboSAPiens {
 
         public override void toggleHighlight(GuiSession session)
         {
-            throw new System.NotImplementedException();
         }
 
     }
@@ -124,7 +123,6 @@ namespace RoboSAPiens {
 
         public override void toggleHighlight(GuiSession session)
         {
-            throw new System.NotImplementedException();
         }
     }
 
@@ -150,7 +148,6 @@ namespace RoboSAPiens {
 
         public override void toggleHighlight(GuiSession session)
         {
-            throw new System.NotImplementedException();
         }
     }
 
@@ -193,7 +190,6 @@ namespace RoboSAPiens {
 
         public override void toggleHighlight(GuiSession session)
         {
-            throw new System.NotImplementedException();
         }
     }
 
@@ -230,7 +226,6 @@ namespace RoboSAPiens {
 
         public override void toggleHighlight(GuiSession session)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
