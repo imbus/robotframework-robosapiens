@@ -70,6 +70,7 @@ namespace RoboSAPiens {
 
     public sealed class EmptyGridViewCell: SAPGridViewCell, IEditableCell {
         int? maxLength;
+        bool focused;
 
         public EmptyGridViewCell(string columnId, GuiGridView gridView, int rowIndex): 
             base(columnId, gridView, rowIndex) 
@@ -100,6 +101,12 @@ namespace RoboSAPiens {
                     string rowLabel => inRowOfCell(rowLabels.getByContent(rowLabel)),
                     _ => rowIndex == locator.rowIndex - 1
                 };
+        }
+
+        // From the documentation for GuiVComponent
+        // Some components such as GuiCtrlGridView support displaying the frame around inner objects, 
+        // such as cells. The format of the innerObject string is the same as for the dumpState method.
+        public void toggleHighlight(GuiSession session){
         }
     }
 
@@ -135,6 +142,7 @@ namespace RoboSAPiens {
 
     public sealed class EditableTableCell: SAPTableCell, IEditableCell {
         int? maxLength;
+        bool focused;
 
         public EditableTableCell(string column, int rowIndex, GuiTextField textField, SAPTable table):
             base(column, rowIndex, textField, table) 
@@ -160,6 +168,12 @@ namespace RoboSAPiens {
                     string rowLabel => inRowOfCell(rowLabels.getByContent(rowLabel)),
                     _ => rowIndex == locator.rowIndex - 1
                 };
+        }
+
+        public void toggleHighlight(GuiSession session){
+            focused = !focused;
+            var guiTextField = (GuiTextField)session.FindById(id);
+            guiTextField.Visualize(focused);
         }
     }
 

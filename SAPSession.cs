@@ -299,6 +299,10 @@ namespace RoboSAPiens {
                 return new InvalidValueError($"{locator.cell} kann maximal {maxLength} Zeichen enthalten.");
             }
 
+            if (options.presenterMode) switch(highlightElement(session, cell)) {
+                case ExceptionError exceptionError: return exceptionError;
+            }
+
             try {
                 cell.insert(content, session);
                 return new Success($"{locator.cell} wurde ausgefüllt. Neuer Inhalt: {content}.");
