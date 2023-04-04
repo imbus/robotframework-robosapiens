@@ -1,4 +1,3 @@
-
 from typing import TypedDict
 
 class CliArgsDict(TypedDict):

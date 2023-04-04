@@ -17,8 +17,7 @@ dict_entries = '\n'.join([
     for arg in args
 ])
 
-fileContent = f"""
-from typing import TypedDict
+fileContent = f"""from typing import TypedDict
 
 class CliArgsDict(TypedDict):
 {dict_entries}
