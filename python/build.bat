@@ -11,7 +11,7 @@ pushd src\RoboSAPiens
 python cligen.py
 
 @REM Type-Check python code
-mypy --ignore-missing-imports .
+mypy src
 popd
 
 @REM pip install build
