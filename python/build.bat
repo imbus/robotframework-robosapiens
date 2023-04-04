@@ -9,10 +9,10 @@ popd
 pushd src\RoboSAPiens
 @REM Generate Keyword-Interface
 python cligen.py
+popd
 
 @REM Type-Check python code
 mypy src
-popd
 
 @REM pip install build
 python -m build --wheel
