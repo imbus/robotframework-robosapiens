@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Encodings.Web;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace RoboSAPiens {
     public sealed class NoSAPSession : ISession {}
@@ -342,6 +343,9 @@ namespace RoboSAPiens {
             try
             {
                 element.toggleHighlight(session);
+                Thread.Sleep(500);
+                element.toggleHighlight(session);
+
                 return new Success("Das angegebene Element wurde markiert.");
             }
             catch (Exception e)
