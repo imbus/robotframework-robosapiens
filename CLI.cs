@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.IO;
 using System.Linq;
 
-namespace RoboSAPiens 
+namespace RoboSAPiens
 {
     public class CLI
     {
@@ -21,6 +22,8 @@ namespace RoboSAPiens
 
         public class Commands
         {
+            private static string cwd = AppDomain.CurrentDomain.BaseDirectory;                            
+
             public static void exportCli(string fileName)
             {
                 var fileContent = 
@@ -32,7 +35,7 @@ namespace RoboSAPiens
                                 doc = entry.Value.doc
                             });
 
-                JSON.SaveJsonFile(fileName, fileContent);
+                JSON.SaveJsonFile(Path.Combine(cwd, fileName), fileContent);
                 info($"CLI specification written to {fileName} in the current directory");
                 Environment.Exit(0);
             }
@@ -52,7 +55,7 @@ namespace RoboSAPiens
                                     })
                     });
 
-                JSON.SaveJsonFile(fileName, methods);
+                JSON.SaveJsonFile(Path.Combine(cwd, fileName), methods);
                 info($"Keyword specification written to {fileName} in the current directory");
                 Environment.Exit(0);
             }

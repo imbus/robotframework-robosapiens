@@ -259,15 +259,7 @@ namespace RoboSAPiens {
             try
             {
                 var treeNodes = tree.getAllNodes(session);
-
-                var jsonOptions = new JsonSerializerOptions();
-                jsonOptions.IncludeFields = true;
-                jsonOptions.WriteIndented = true;
-                jsonOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
-                
-                var json = JsonSerializer.Serialize(treeNodes, jsonOptions);
-                var utf8WithoutBom = new System.Text.UTF8Encoding(false);
-                File.WriteAllText(filePath, json, utf8WithoutBom);
+                JSON.SaveJsonFile(filePath, treeNodes);
 
                 return new Success($"Die Baumstruktur wurde in JSON Format in der Datei '{filePath}' gespeichert");
             }
