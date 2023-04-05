@@ -508,15 +508,15 @@ namespace RoboSAPiens {
             };
         }
 
-        [Keyword("Knopfhervorhebung umschalten"),
-         Doc("Ein rotes Rechteck um den Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird angezeigt bzw. ausgeblendet.\n\n" +
-             "| ``Knopfhervorhebung umschalten    Name oder Kurzinfo (Tooltip)``")]
-        public RobotResult toggleHighlightButton(string Name_oder_Kurzinfo) {
-            return session switch {
-                SAPSession session => session.toggleHighlightButton(Name_oder_Kurzinfo),
-                _ => new NoSessionError()
-            };
-        }
+        // [Keyword("Knopfhervorhebung umschalten"),
+        //  Doc("Ein rotes Rechteck um den Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird angezeigt bzw. ausgeblendet.\n\n" +
+        //      "| ``Knopfhervorhebung umschalten    Name oder Kurzinfo (Tooltip)``")]
+        // public RobotResult toggleHighlightButton(string Name_oder_Kurzinfo) {
+        //     return session switch {
+        //         SAPSession session => session.toggleHighlightButton(Name_oder_Kurzinfo),
+        //         _ => new NoSessionError()
+        //     };
+        // }
 
         [Keyword("Überschrift überprüfen"),
          Doc("Überprüfen, ob die Maske die angegebene Überschrift hat.\n\n" +
