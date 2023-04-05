@@ -34,7 +34,7 @@ namespace RoboSAPiens
 
                 JSON.SaveJsonFile(fileName, fileContent);
                 info($"CLI specification written to {fileName} in the current directory");
-                Environment.Exit(1);
+                Environment.Exit(0);
             }
 
             public static void exportApi(string fileName)
@@ -54,17 +54,17 @@ namespace RoboSAPiens
 
                 JSON.SaveJsonFile(fileName, methods);
                 info($"Keyword specification written to {fileName} in the current directory");
-                Environment.Exit(1);
+                Environment.Exit(0);
             }
 
             public static void help()
             {
                 info("The following options are available:");
                 arguments.Select(entry => $"--{entry.Key} {getPlaceholder(entry.Value.handler)}\n  {entry.Value.doc}")
-                        .ToList()
-                        .ForEach(line => info(line));
+                         .ToList()
+                         .ForEach(line => info(line));
                 
-                Environment.Exit(1);
+                Environment.Exit(0);
             }
         }
 
