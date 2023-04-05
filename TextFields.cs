@@ -58,41 +58,25 @@ namespace RoboSAPiens {
         }
 
         public ILocatable? findClosestHorizontalComponent(List<ILocatable> components) {
-            var componentsAfterTextField = components.Where(component => component.getPosition().horizontalAlignedWith(position))
-                                                     .Where(component => position.right < component.getPosition().left + overlapTolerance);
+            var afterTextField = (ILocatable component) => component.getPosition().left - position.right + overlapTolerance;
+            var beforeTextField = (ILocatable component) => component.getPosition().right - position.left - overlapTolerance;
+            var horizontalAligned = components.Where(_ => _.getPosition().horizontalAlignedWith(position));
 
-            var componentsBeforeTextField = components.Where(component => component.getPosition().horizontalAlignedWith(position))
-                                                      .Where(component => component.getPosition().right - overlapTolerance < position.left);
-
-            if (componentsAfterTextField.Count() > 0){                          
-                var (distance, closestComponent) = 
-                    componentsAfterTextField.Select(component => (component.getPosition().left - position.right, component))
-                                            .Min();
-                if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
-            }
-
-            if (componentsBeforeTextField.Count() > 0){                          
-                var (distance, closestComponent) = 
-                    componentsBeforeTextField.Select(component => (component.getPosition().right - position.left, component))
-                                             .Min();
-                if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
-            }
-
-            return null;
+            return horizontalAligned
+                    .Where(_ => afterTextField(_) > 0 && afterTextField(_) < maxHorizontalDistance)
+                    .MinBy(afterTextField) ??
+                   horizontalAligned
+                    .Where(_ => beforeTextField(_) < 0 && Math.Abs(beforeTextField(_)) < maxHorizontalDistance)
+                    .MinBy(beforeTextField);
         }
 
         public ILocatable? findClosestVerticalComponent(List<ILocatable> components) {
-            var componentsBelowTextField = components.Where(component => component.getPosition().verticalAlignedWith(position))
-                                                     .Where(component => component.getPosition().top > position.bottom);
+            var verticalDistance = (ILocatable component) => component.getPosition().top - position.bottom;
 
-            if (componentsBelowTextField.Count() > 0){                          
-                var (distance, closestComponent) = 
-                    componentsBelowTextField.Select(component => (component.getPosition().top - position.bottom, component))
-                                        .Min();
-                if (Math.Abs(distance) < maxVerticalDistance) return closestComponent;
-            }
-
-            return null;
+            return components
+                    .Where(_ => _.getPosition().verticalAlignedWith(position))
+                    .Where(_ => verticalDistance(_) > 0 && verticalDistance(_) < maxVerticalDistance)
+                    .MinBy(verticalDistance);
         }
 
         public ILocatable? findNearbyComponent(List<ILocatable> components) {
