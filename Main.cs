@@ -18,7 +18,7 @@ namespace RoboSAPiens {
         }
 
         public static void Main(string[] args) {
-            CLI.info("RoboSAPiens == SAP GUI automation for humans");
+            CLI.info("RoboSAPiens :: SAP GUI automation for humans");
             
             if (args.Length == 0) {
                 CLI.info("Usage: RoboSAPiens.exe --OPTION [ARG] ...");
