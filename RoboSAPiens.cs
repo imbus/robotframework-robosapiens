@@ -132,40 +132,6 @@ namespace RoboSAPiens {
             return new Success("Die SAP GUI wurde beendet");
         }
 
-        // [Keyword("Dateiexport vergleichen"),
-        //  Doc("Der Dateiexport aus einer Maske wird zwischen den angegebenen Testservern verglichen.\n\n" +
-        //      "| ``Dateiexport vergleichen     Name     Testserver1     Testserver2     Verzeichnis``\n\n" +
-        //      "Verzeichnis: Der absolute Pfad des Verzeichnisses, wo der Dateiexport abgelegt ist.\n\n" + 
-        //      "*Hinweis*: Wenn Unterschiede gefunden wurden, werden sie im Unterverzeichnis \"Unterschiede\" bildlich dokumentiert.")]
-        // public RobotResult compareForms(string Name, string Testserver1, string Testserver2, string Verzeichnis) {
-        //     Form form1;
-        //     Form form2;
-
-        //     try {
-        //         form1 = new Form(Name, Testserver1, Verzeichnis);
-        //     } catch (Exception e) {
-        //         return new ExceptionError(e, $"Die Maske konnte aus der Datei {Name}_{Testserver1}.csv nicht gelesen werden.");
-        //     }
-
-        //     try {
-        //         form2 = new Form(Name, Testserver2, Verzeichnis);
-        //     } catch (Exception e) {
-        //         return new ExceptionError(e, $"Die Maske konnte aus der Datei {Name}_{Testserver2}.csv nicht gelesen werden");
-        //     }
-
-        //     try {
-        //         (var differences, var matches) = form1.compareTo(form2, Verzeichnis);
-
-        //         if (differences.Count != 0) {
-        //             return new NonIdenticalFormsError("Unterschiede wurden festgestellt.", differences);
-        //         }
-
-        //         return new Success($"Die Maske '{Name}' hat den gleichen Inhalt in den Testservern '{Testserver1}' und '{Testserver2}'", matches);
-        //     } catch (Exception e) {
-        //         return new ExceptionError(e, $"Die Masken aus den Dateien {Name}_{Testserver1}.csv und {Name}_{Testserver2}.csv konnten nicht verglichen werden.");
-        //     }
-        // }
-
         RobotResult createSession(GuiConnection connection) {
             var sessions = connection.Sessions;
             if (sessions.Length == 0) {
