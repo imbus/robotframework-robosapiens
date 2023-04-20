@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 
 namespace RoboSAPiens {
@@ -26,8 +25,7 @@ namespace RoboSAPiens {
             }
 
             const string host = "http://127.0.0.1";
-            CLI.parseArgs(new Queue<string>(args));
-            var options = CLI.options;
+            var options = CLI.parseArgs(args);
             var serverAddress = $"{host}:{options.port}";
             var httpListener = new HttpListener();
             var robotRemote = new RobotRemote(options);
