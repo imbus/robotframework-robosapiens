@@ -10,7 +10,7 @@ namespace RoboSAPiens
     {
         public record struct Options(bool debug, int port, bool presenterMode);
 
-        public static Options options = default(Options) with {port = 8270};
+        private static Options options = default(Options) with {port = 8270};
 
         public static void error(params string[] messages) {
             Console.Error.WriteLine(String.Join(Environment.NewLine, messages));
@@ -80,76 +80,67 @@ namespace RoboSAPiens
             };
         }
 
-        private enum ArgType
-        {
-            Bool,
-            Int,
-            Str
-        }
+        private record Arg(string name, object? default_value, string doc, Action<object> handler, bool export=true);
 
-        private record Arg(ArgType type, string doc, bool export, Action<object> handler);
-
-        private static Dictionary<string, Arg> arguments = new Dictionary<string, Arg>() 
+        private static List<Arg> arguments = new List<Arg>() 
         {
-            {"debug", new Arg(
-                ArgType.Bool,
+            new Arg("export-api",
+                null,
+                "Export the RoboSAPiens API specification in JSON format to the specified file and exit",
+                (filename) => Commands.exportApi((string)filename),
+                false
+            ),
+            new Arg("debug",
+                options.debug,
                 "Print detailed information to stdout when classifying and searching GUI elements",
-                false,
-                (_) => options = options with {debug = true}
-            )},
-            {"export-api", new Arg(
-                ArgType.Str,
-                "Export the Robot Framework API specification in JSON format to the specified file and exit",
-                false,
-                (filename) => Commands.exportApi((string)filename)
-            )},
-            {"export-cli", new Arg(
-                ArgType.Str,
-                "Export the CLI specification in JSON format to the specified file and exit",
-                false,
-                (filename) => Commands.exportCli((string)filename)
-            )},
-            {"port", new Arg(
-                ArgType.Int,
+                (_) => options = options with {debug = true},
+                false
+            ),
+            new Arg("port",
+                options.port,
                 $"Set the port of the HTTP server implementing the Remote interface. (Default: {options.port})",
-                true,
                 (port) => options = options with {port = Int32.Parse((string)port)}
-            )},
-            {"presenter-mode", new Arg(
-                ArgType.Bool,
+            ),
+            new Arg("presenter-mode",
+                options.presenterMode,
                 "Highlight each GUI element acted upon",
-                true,
                 (_) => options = options with {presenterMode = true}
-            )}
+            )
         };
 
-        public static void parseArgs(Queue<string> args) 
+        public static Options parseArgs(string[] args) 
         {
-            while (args.Count > 0) {
-                string option = args.Dequeue();
+            var argsDict = arguments.ToDictionary(arg => arg.name, arg => arg);
+            var argsQueue = new Queue<string>(args);
+
+            while (argsQueue.Count > 0) 
+            {
+                string option = argsQueue.Dequeue();
                 var argName = option.Replace("--", "");
 
-                if (!arguments.ContainsKey(argName))
+                if (!argsDict.ContainsKey(argName))
                 {
                     error($"The option `{option}` is invalid. " +
-                        "Run RoboSAPiens.exe without arguments to see the list of valid options.");
+                          "Run RoboSAPiens.exe without arguments to see the list of valid options.");
                     Environment.Exit(1);
                 }
 
-                var arg = arguments[argName];
+                var arg = argsDict[argName];
 
-                if (arg.type == ArgType.Bool) {
-                    arg.handler(true);
-                }
-                else {
-                    if (args.Count > 0) arg.handler(args.Dequeue());
-                    else {
+                if (arg.default_value is bool) arg.handler(true);
+                else 
+                {
+                    if (argsQueue.Count > 0) arg.handler(argsQueue.Dequeue());
+                    else 
+                    {
                         error($"Missing argument '{getPlaceholder(arg.handler)}'. " +
-                            $"Run RoboSAPiens.exe to see the documentation for the option {option}.");
+                              $"Run RoboSAPiens.exe to see the documentation for the option {option}.");
                         Environment.Exit(1);
                     }
                 }
             }
+
+            return options;
         }
     }
 }
