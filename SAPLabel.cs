@@ -41,42 +41,22 @@ namespace RoboSAPiens {
         }
 
         public ILocatable? findClosestHorizontalComponent(List<ILocatable> components) {
-            var componentsAfterLabel = components.Where(component => component.getPosition().horizontalAlignedWith(position))
-                                                     .Where(component => component.getPosition().left > position.right);
+            var afterLabel = (ILocatable component) => component.getPosition().left - position.right;
+            var beforeLabel = (ILocatable component) => component.getPosition().right - position.left;
+            var horizontalAligned = components.Where(_ => _.getPosition().horizontalAlignedWith(position));
 
-            var componentsBeforeLabel = components.Where(component => component.getPosition().horizontalAlignedWith(position))
-                                                      .Where(component => component.getPosition().right < position.left);
-
-            if (componentsAfterLabel.Count() > 0){                          
-                var (distance, closestComponent) = 
-                    componentsAfterLabel.Select(component => (component.getPosition().left - position.right, component))
-                                        .Min();
-                return closestComponent;
-            }
-
-            if (componentsBeforeLabel.Count() > 0){                          
-                var (distance, closestComponent) = 
-                    componentsBeforeLabel.Select(component => (component.getPosition().right - position.left, component))
-                                         .Min();
-                if (Math.Abs(distance) < maxHorizontalDistance) return closestComponent;
-            }
-
-            return null;
+            return horizontalAligned.Where(_ => afterLabel(_) > 0).MinBy(afterLabel) ??
+                   horizontalAligned.Where(_ => beforeLabel(_) < 0 && Math.Abs(beforeLabel(_)) < maxHorizontalDistance)
+                                    .MinBy(beforeLabel);
         }
 
         public ILocatable? findClosestVerticalComponent(List<ILocatable> components) {
-            var componentsBelowLabel = components.Where(component => component.getPosition().verticalAlignedWith(position))
-                                                 .Where(component => component.getPosition().top > position.bottom);
+            var verticalDistance = (ILocatable component) => component.getPosition().top - position.bottom;
 
-            if (componentsBelowLabel.Count() > 0) {
-                var (distance, closestComponent) = 
-                    componentsBelowLabel.Select(component => (component.getPosition().top - position.bottom, component))
-                                        .Min();
-
-                if (Math.Abs(distance) < maxVerticalDistance) return closestComponent;
-            }
-
-            return null;
+            return components
+                .Where(_ => _.getPosition().verticalAlignedWith(position))
+                .Where(_ => verticalDistance(_) > 0 && verticalDistance(_) < maxVerticalDistance)
+                .MinBy(verticalDistance);
         }
 
         public ILocatable? findNearbyComponent(List<ILocatable> components) {

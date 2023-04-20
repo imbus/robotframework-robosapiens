@@ -37,6 +37,7 @@ namespace RoboSAPiens {
         public SAPLabel? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
             return locator switch {
                 HLabel(var label) => getHorizontalClosestToLabel(label, labels, textFieldLabels),
+                VLabel(var label) => getVerticalClosestToLabel(label, labels, textFieldLabels),
                 Content(var name) => getByName(name),
                 _ => null
             };
