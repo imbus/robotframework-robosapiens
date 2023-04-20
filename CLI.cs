@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.IO;
 using System.Linq;
 
@@ -22,25 +21,32 @@ namespace RoboSAPiens
 
         public class Commands
         {
-            private static string cwd = AppDomain.CurrentDomain.BaseDirectory;                            
-
             public static void exportApi(string fileName)
             {
-                var methods = typeof(RoboSAPiens).GetMethods()
-                    .Where(method => method.GetCustomAttribute(typeof(Keyword)) != null)
-                    .Select(method => new 
-                    {
-                        name = method.Name,
-                        args = method.GetParameters()
-                                    .Select(param => new 
-                                    {
-                                        name = param.Name,
-                                        type = param.ParameterType.ToString()
-                                    })
-                    });
+                var api = new {
+                    doc = new {
+                        intro = "This is the introduction at the beginning of the documentation",
+                        init = "This is the section 'Importing' in the documentation"
+                    },
+                    args = CLI.arguments
+                            .Where(arg => arg.export)
+                            .ToDictionary(
+                                arg => arg.name, 
+                                // We use a dictionary because an object cannot have a field called default (reserved keyword)
+                                arg => new Dictionary<string, object>()
+                                {
+                                    { "name", arg.name },
+                                    { "default", arg.default_value! },
+                                    { "doc", arg.doc }
+                                }
+                        ),
+                    keywords = RoboSAPiens.getKeywordSpecs(),
+                    specs = new {}
+                };
 
-                JSON.SaveJsonFile(Path.Combine(cwd, fileName), methods);
-                info($"Keyword specification written to {fileName} in the current directory");
+                var cwd = AppDomain.CurrentDomain.BaseDirectory;
+                JSON.SaveJsonFile(Path.Combine(cwd, fileName), api);
+                info($"RoboSAPiens specification written to {fileName} in the current directory");
                 Environment.Exit(0);
             }
 
