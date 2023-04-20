@@ -19,10 +19,7 @@ namespace RoboSAPiens {
         public static void Main(string[] args) {
             CLI.info("RoboSAPiens :: SAP GUI automation for humans");
             
-            if (args.Length == 0) {
-                CLI.info("Usage: RoboSAPiens.exe --OPTION [ARG] ...");
-                CLI.Commands.help();
-            }
+            if (args.Length == 0) CLI.Commands.help();
 
             const string host = "http://127.0.0.1";
             var options = CLI.parseArgs(args);

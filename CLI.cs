@@ -62,10 +62,11 @@ namespace RoboSAPiens
 
             public static void help()
             {
+                var genDoc = (Arg arg) => $"--{arg.name} {getPlaceholder(arg.handler)}\n  {arg.doc}";
+
+                info("Usage: RoboSAPiens.exe --OPTION [ARG] ...");
                 info("The following options are available:");
-                arguments.Select(entry => $"--{entry.Key} {getPlaceholder(entry.Value.handler)}\n  {entry.Value.doc}")
-                         .ToList()
-                         .ForEach(line => info(line));
+                arguments.Select(genDoc).ToList().ForEach(doc => info(doc));
                 
                 Environment.Exit(0);
             }
