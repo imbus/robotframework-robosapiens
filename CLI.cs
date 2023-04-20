@@ -24,22 +24,6 @@ namespace RoboSAPiens
         {
             private static string cwd = AppDomain.CurrentDomain.BaseDirectory;                            
 
-            public static void exportCli(string fileName)
-            {
-                var fileContent = 
-                    arguments.Where(entry => entry.Value.export)
-                            .Select(entry => new
-                            {
-                                name = entry.Key,
-                                type = entry.Value.type.ToString(),
-                                doc = entry.Value.doc
-                            });
-
-                JSON.SaveJsonFile(Path.Combine(cwd, fileName), fileContent);
-                info($"CLI specification written to {fileName} in the current directory");
-                Environment.Exit(0);
-            }
-
             public static void exportApi(string fileName)
             {
                 var methods = typeof(RoboSAPiens).GetMethods()
