@@ -55,6 +55,36 @@ namespace RoboSAPiens {
             return keywords.Select(keyword => keyword.name).ToArray();
         }
 
+        public static object getKeywordSpecs() {
+            return typeof(RoboSAPiens)
+                    .GetMethods()
+                    .Where(method => 
+                        method.GetCustomAttribute(typeof(Keyword)) != null &&
+                        method.GetCustomAttribute(typeof(Doc)) != null
+                    )
+                    .ToDictionary(
+                        method => method.Name,
+                        method => new 
+                            {
+                                name = ((Keyword)method.GetCustomAttribute(typeof(Keyword))!).Name,
+                                args = method.GetParameters().ToDictionary(
+                                    param => param.Name!,
+                                    param => new 
+                                    {
+                                        name = param.Name,
+                                        spec = new {}
+                                    }
+                                ),
+                                result = typeof(Result)
+                                            .GetNestedType(method.Name)
+                                            ?.GetNestedTypes()
+                                            .ToDictionary(type => type.Name, type => type.Name)
+                                            ?? new Dictionary<string, string>(),
+                                doc = ((Doc)method.GetCustomAttribute(typeof(Doc))!).DocString
+                            }
+                    );
+        }
+
 
         [Keyword("Reiter auswählen"),
          Doc("Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n" +
