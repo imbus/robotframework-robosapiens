@@ -27,7 +27,11 @@ namespace RoboSAPiens {
             result.Add("fatal", fatal);
             return result;
         }
-    }
+        public record OpenSAP {
+            public record Pass(): RobotResult.RobotPass("Die SAP GUI wurde gestartet");
+            public record SAPNotStarted(string path=""): RobotResult.RobotFail("SAPNotStarted", error: $"Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{path}'.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die SAP GUI konnte nicht gestartet werden.");
+        }
 
     public sealed class Success : RobotResult {
         public Success(string returnValue, string message) {
