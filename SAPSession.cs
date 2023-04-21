@@ -48,7 +48,7 @@ namespace RoboSAPiens {
             return null;
         }
 
-        SapError? getStatusbarError() {
+        string? getStatusbarError() {
             var statusbar = window.components.getStatusBar();
 
             if (statusbar == null) {
@@ -57,7 +57,13 @@ namespace RoboSAPiens {
 
             statusbar = new SAPStatusbar((GuiStatusbar)session.FindById(statusbar.id));
 
-            return statusbar.getErrorMessage();
+            if (statusbar.hasErrorMessage()) {
+                return statusbar.getMessage();
+            }
+
+            return null;
+        }
+
         }
 
         public RobotResult activateTab(string tabLabel) {

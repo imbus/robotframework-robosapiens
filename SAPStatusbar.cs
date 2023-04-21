@@ -32,18 +32,18 @@ namespace RoboSAPiens {
             };
         }
 
-        public SapError? getErrorMessage() {
-            var errorMessageTypes = new List<MessageType>() {
+        public bool hasErrorMessage() {
+            var errorMessageTypes = new HashSet<MessageType>() {
                 MessageType.Abort, 
                 MessageType.Error, 
                 MessageType.Warning
             };
 
-            if (errorMessageTypes.Contains(messageType)) {
-                return new SapError(message);
-            }
+            return errorMessageTypes.Contains(messageType);
+        }
 
-            return null;
+        public string getMessage() {
+            return message;
         }
     }
 }
