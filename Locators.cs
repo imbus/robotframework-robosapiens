@@ -8,7 +8,7 @@ namespace RoboSAPiens {
         public int rowIndex {get;}
 
         public CellLocator(int rowIndex, string column) {
-            this.cell = $"Die Zelle am Schnittpunkt zwischen der Zeile '{rowIndex}' und der Spalte '{column}'";
+            this.cell = $"{rowIndex}, {column}";
             this.column = column;
             this.rowIndex = rowIndex;
         }
@@ -20,7 +20,7 @@ namespace RoboSAPiens {
         EmptyCellLocator(int rowIndex, string column): base(rowIndex, column) {}
 
         EmptyCellLocator(string rowLabel, string column): base(rowIndex: 0, column: column) {
-            this.cell = $"Die Zelle am Schnittpunkt zwischen der Zeile '{rowLabel}' und der Spalte '{column}'";
+            this.cell = $"{rowLabel}, {column}";
             this.rowLabel = rowLabel;
         }
 
@@ -64,7 +64,7 @@ namespace RoboSAPiens {
         FilledCellLocator(int rowIndex, string column): base(rowIndex, column) {}
 
         FilledCellLocator(string content, string column): base(rowIndex: 0, column: column) {
-            this.cell = $"Die Zelle in der Spalte '{column}' mit dem Inhalt '{content}'";
+            this.cell = $"{column} = {content}";
             this.content = content;
         }
 
@@ -84,8 +84,8 @@ namespace RoboSAPiens {
         public string atLocation;
         public ILocator locator {get;}
 
-        public ComponentLocator(string theComponent, string locator) {
-            this.atLocation = $"{theComponent} ";
+        public ComponentLocator(string locator) {
+            this.atLocation = "";
             this.locator = parse(locator);
         }
 
@@ -93,13 +93,15 @@ namespace RoboSAPiens {
             if (locator.StartsWith('=')) {
                 var content = locator.Substring(1).Trim();
 
-                atLocation += $"mit dem Inhalt '{content}'";
+                atLocation += $"= {content}";
 
                 return new Content(content);
             }
             
             if (locator.Contains(">>")) {
                 var tokens = locator.Split(">>").Select(token => token.Trim()).ToArray();
+                atLocation += $"{tokens[0]} >> {tokens[1]}";
+                
                 return new HLabelHLabel(tokens[0], tokens[1]);
             }
 
@@ -109,7 +111,7 @@ namespace RoboSAPiens {
                 if (tokens[0] == "" && tokens[1] != "") {
                     var vLabel = tokens[1];
                     
-                    atLocation += $"mit der Beschriftung '{vLabel}' oben";
+                    atLocation += $"@ {vLabel}";
 
                     return new VLabel(name: vLabel);
                 }
@@ -120,7 +122,7 @@ namespace RoboSAPiens {
                     if (Int32.TryParse(tokens[0], out index)) {
                         var verticalLabel = tokens[1];
 
-                        atLocation += $"in der Position '{index}' unter der Beschriftung '{verticalLabel}'";
+                        atLocation += $"{index} @ {verticalLabel}";
 
                         return new HIndexVLabel(hIndex: index, verticalLabel: verticalLabel);
                     }
@@ -128,7 +130,7 @@ namespace RoboSAPiens {
                     if (Int32.TryParse(tokens[1], out index)) {
                         var horizontalLabel = tokens[0];
 
-                        atLocation += $"in der Position '{index}' rechts von der Beschriftung '{horizontalLabel}'";
+                        atLocation += $"{horizontalLabel} @ {index}";
 
                         return new HLabelVIndex(label: horizontalLabel, vIndex: index);
                     }
@@ -136,7 +138,7 @@ namespace RoboSAPiens {
                     var hLabel = tokens[0];
                     var vLabel = tokens[1];
 
-                    atLocation += $"neben der Beschriftung '{hLabel}' und unter der Beschriftung '{vLabel}'";
+                    atLocation += $"{hLabel} @ {vLabel}";
 
                     return new HLabelVLabel(label: hLabel, verticalLabel: vLabel);
                 }
@@ -144,34 +146,34 @@ namespace RoboSAPiens {
 
             var label = locator;
 
-            atLocation += $"mit der Beschriftung '{label}'";
+            atLocation += label;
 
             return new HLabel(name: label);
         }
     }
 
     public class ButtonLocator: ComponentLocator {
-        public ButtonLocator(string locator): base("Der Knopf", locator) {}
+        public ButtonLocator(string locator): base(locator) {}
     }
 
     public class CheckBoxLocator: ComponentLocator {
-        public CheckBoxLocator(string locator): base("Das Formularfeld", locator) {}
+        public CheckBoxLocator(string locator): base(locator) {}
     }
 
     public class ComboBoxLocator: ComponentLocator {
-        public ComboBoxLocator(string locator): base("Auswahlsmenü", locator) {}
+        public ComboBoxLocator(string locator): base(locator) {}
     }
 
     public class LabelLocator: ComponentLocator {
-        public LabelLocator(string locator): base("Der Text", locator) {}
+        public LabelLocator(string locator): base(locator) {}
     }
 
     public class RadioButtonLocator: ComponentLocator {
-        public RadioButtonLocator(string locator): base("Das Optionsfeld", locator) {}
+        public RadioButtonLocator(string locator): base(locator) {}
     }
 
     public class TextFieldLocator: ComponentLocator {
-        public TextFieldLocator(string locator): base("Das Textfeld", locator) {}
+        public TextFieldLocator(string locator): base(locator) {}
     }
 
     public record Content(string text): ILocator;
