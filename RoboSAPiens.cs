@@ -538,24 +538,23 @@ namespace RoboSAPiens {
             };
         }
 
-        // [Keyword("Knopfhervorhebung umschalten"),
-        //  Doc("Ein rotes Rechteck um den Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird angezeigt bzw. ausgeblendet.\n\n" +
-        //      "| ``Knopfhervorhebung umschalten    Name oder Kurzinfo (Tooltip)``")]
-        // public RobotResult toggleHighlightButton(string Name_oder_Kurzinfo) {
-        //     return session switch {
-        //         SAPSession session => session.toggleHighlightButton(Name_oder_Kurzinfo),
-        //         _ => new NoSessionError()
-        //     };
-        // }
-
-        [Keyword("Überschrift überprüfen"),
-         Doc("Überprüfen, ob die Maske die angegebene Überschrift hat.\n\n" +
-             "| ``${Ergebnis}    Überschrift überprüfen    Überschrift``\n" +
-             "| ``${Ergebnis} ist entweder \"TRUE\" oder \"FALSE\"``")]
-        public RobotResult verifyFormHeading(string Ueberschrift) {
+        [Keyword("Fenstertitel auslesen"),
+         Doc("Der Titel des Fensters im Fordergrund wird zurückgegeben.\n\n" +
+             "| ``${Titel}    Fenstertitel auslesen``")]
+        public RobotResult GetWindowTitle() {
             return session switch {
-                SAPSession session => session.verifyWindowTitle(Ueberschrift),
-                _ => new NoSessionError()
+                SAPSession session => session.getWindowTitle(),
+                _ => new Result.GetWindowTitle.NoSession()
+            };
+        }
+
+        [Keyword("Fenstertext auslesen"),
+         Doc("Der Text des Fensters im Fordergrund wird zurückgegeben.\n\n" +
+             "| ``${Text}    Fenstertext auslesen``")]
+        public RobotResult GetWindowText() {
+            return session switch {
+                SAPSession session => session.getWindowText(),
+                _ => new Result.GetWindowText.NoSession()
             };
         }
     }

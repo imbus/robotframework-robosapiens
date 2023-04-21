@@ -717,45 +717,22 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult toggleHighlightButton(string label) {
+        public RobotResult getWindowText() {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
-            }
-            
-            var theButton = new ButtonLocator(label);
-            var button = window.components.findHighlightableButton(theButton);
-
-            if (button == null) {
-                return new SpellingError($"{theButton.atLocation} konnte nicht gefunden werden.");
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            if (options.presenterMode) switch(highlightElement(session, button)) {
-                case ExceptionError exceptionError: return exceptionError;
-            }
-
-            try {
-                button.toggleHighlight(session);
-                return new Success($"{theButton.atLocation} wurde erfolgreich hervorgehoben.");
-            }
-            catch (Exception e) {
-                return new ExceptionError(e, $"{theButton.atLocation} konnte nicht hervorgehoben werden.");
-            }
+            return new Result.GetWindowText.Pass(window.getMessage());
         }
 
-        public RobotResult verifyWindowTitle(string title) {
-            switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+        public RobotResult getWindowTitle() {
+            if (windowChanged()) {
+                switch (updateWindow(updateComponents: false)) {
+                    case RobotResult.UIScanFail exceptionError: return exceptionError;
+                }
             }
 
-            if (window.title.Equals(title)) {
-                return new Success("TRUE", $"Die Maske hat die Überschrift '{title}'");
-            }
-
-            if (window.isInfoWindow() || window.isErrorWindow() || window.isModalWindow()) {
-                return new WrongWindow(title, window.getMessage());
-            }
-
-            return new WrongWindow(title, window.title + "Hinweis: Prüfe die Rechtschreibung");
+            return new Result.GetWindowTitle.Pass(window.title);
         }
     }
 }
