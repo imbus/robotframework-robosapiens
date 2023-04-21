@@ -28,18 +28,17 @@ namespace RoboSAPiens {
         }
 
         public string getMessage() {
-            var message = String.Join(" ", components.getAllTextFields()
-                                                     .Select(field => field.text));
-            return $"{title}: {message}";
-        }
+            if (components.getAllTextFields().Count > 0) {
+                return String.Join(" ", 
+                    components.getAllTextFields().Select(field => field.text));                 
+            }
+            
+            if (components.getAllLabels().Count > 0) {
+                return String.Join(" ", 
+                    components.getAllLabels().Select(label => label.getText()));                 
+            }
 
-        public bool isErrorWindow() {
-            return windowType == "GuiModalWindow" && 
-            (title.Contains("Fehler") || title.Contains("Mehrfachanmeldung"));
-        }
-
-        public bool isInfoWindow() {
-            return windowType == "GuiModalWindow" && title.Contains("Information");
+            return "";
         }
         
         public bool isModalWindow() {
