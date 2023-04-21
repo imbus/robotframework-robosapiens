@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using sapfewse;
 using saprotwr.net;
 
@@ -99,28 +100,37 @@ namespace RoboSAPiens {
         [Keyword("SAP starten"),
          Doc("Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n" +
             @"| ``C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe``")]
-        public RobotResult openSAP(string Pfad) {
+        public RobotResult OpenSAP(string Pfad) {
             try {
                 proc = Process.Start(Pfad);
 
                 if (proc == null) {
-                    return new SAPNotStartedError();
+                    return new Result.OpenSAP.SAPNotStarted();
                 }
 
-                var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
+                int timeout = 20000;    // in milliseconds
+                int elapsed = 0;
+                int waiting_time = 100; // in milliseconds
+                object? sapGui = null;
 
-                while (sapGui == null) {
+                while (sapGui == null && elapsed < timeout) {
+                    Thread.Sleep(waiting_time);
+                    elapsed += waiting_time;
                     sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
                 }
 
-                return new Success("Die SAP GUI wurde gestartet");
+                if (sapGui == null) {
+                    return new Result.OpenSAP.SAPNotStarted();
+                }
+
+                return new Result.OpenSAP.Pass();
             }
             catch (Exception e) {
                 if (e is System.ComponentModel.Win32Exception || e is System.InvalidOperationException) {
-                    return new SAPNotStartedError(Pfad);
+                    return new Result.OpenSAP.SAPNotStarted(Pfad);
                 }
                 else {
-                    return new ExceptionError(e, "Die SAP GUI konnte nicht gestartet werden.");
+                    return new Result.OpenSAP.Exception(e);
                 }
             }
         }
