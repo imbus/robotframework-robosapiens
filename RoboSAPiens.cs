@@ -90,10 +90,10 @@ namespace RoboSAPiens {
         [Keyword("Reiter auswählen"),
          Doc("Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n" +
              "| ``Reiter auswählen    Name``")]
-        public RobotResult activateTab(string Reitername) {
+        public RobotResult ActivateTab(string Reitername) {
             return session switch {
                 SAPSession session => session.activateTab(Reitername),
-                _ => new NoSessionError()
+                _ => new Result.ActivateTab.NoSession()
             };
         }
 
@@ -137,99 +137,97 @@ namespace RoboSAPiens {
 
         [Keyword("Verbindung zum Server trennen"),
          Doc("Die Verbindung mit dem SAP Server wird beendet.")]
-        public RobotResult closeConnection() {
+        public RobotResult CloseConnection() {
             var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
             if (sapGui == null) {
-                return new NoSapGuiError();
+                return new Result.CloseConnection.NoSapGui();
             }
             
             var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
             if (scriptingEngine == null) {
-                return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
-                                  + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
+                return new Result.CloseConnection.NoGuiScripting();
             }
 
             var guiApplication = (GuiApplication)scriptingEngine;
 
             if (guiApplication.Connections.Length == 0) {
-                return new NoConnectionError();
+                return new Result.CloseConnection.NoConnection();
             }
 
             return session switch {
                 SAPSession session => session.closeConnection(),
-                _ => new NoSessionError()
+                _ => new Result.CloseConnection.NoSession()
             };
         }
 
         [Keyword("SAP beenden"),
          Doc("Die SAP GUI wird beendet.")]
-        public RobotResult closeSAP() {
+        public RobotResult CloseSAP() {
             if (proc == null) {
-                return new NoSapGuiError();
+                return new Result.CloseSAP.NoSapGui();
             }
 
             proc.Kill();
-            return new Success("Die SAP GUI wurde beendet");
+            return new Result.CloseSAP.Pass();
         }
 
         RobotResult createSession(GuiConnection connection) {
             var sessions = connection.Sessions;
             if (sessions.Length == 0) {
-                return new NoSessionError();
+                return new RobotResult.NoSession();
             }
 
             var guiSession = (GuiSession)sessions.ElementAt(0);
 
             this.session = new SAPSession(guiSession, connection, options);
 
-            return new Success("Die Session wurde erfolgreich erstellt");
+            return new Success("Session successfully created");
         }
 
         [Keyword("Funktionsbaum exportieren"),
          Doc("Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n" +
              "| ``Funktionsbaum exportieren     Dateipfad``")]
-        public RobotResult exportTree(string Dateipfad) {
+        public RobotResult ExportTree(string Dateipfad) {
             return session switch {
                 SAPSession session => session.exportTree(Dateipfad),
-                _ => new NoSessionError()
+                _ => new Result.ExportTree.NoSession()
             };
         }
 
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult attachToRunningSAP() {        
+        public RobotResult AttachToRunningSAP() {        
             try {
                 var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
                 if (sapGui == null) {
-                    return new NoSapGuiError();
+                    return new Result.AttachToRunningSAP.NoSapGui();
                 }
 
                 var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
                 if (scriptingEngine == null) {
-                    return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
-                                      + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
+                    return new Result.AttachToRunningSAP.NoGuiScripting();
                 }
 
                 var guiApplication = (GuiApplication)scriptingEngine;
                 var connections = guiApplication.Connections;
 
                 if (connections.Length == 0) {
-                    return new NoConnectionError();
+                    return new Result.AttachToRunningSAP.NoConnection();
                 }
                 
                 var connection = (GuiConnection)connections.ElementAt(0);
 
                 if (connection.DisabledByServer) {
-                    return new NoScriptingError();
+                    return new Result.AttachToRunningSAP.NoServerScripting();
                 }
 
                 return createSession(connection) switch {
                     Error error => error,
-                    _ => new Success($"Die laufende SAP GUI wurde erfolgreich übernommen."),
+                    _ => new Result.AttachToRunningSAP.Pass(),
                     
                 };
             } catch(Exception e) {
-                return new ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
+                return new Result.AttachToRunningSAP.Exception(e);
             }
         }
 
@@ -249,19 +247,16 @@ namespace RoboSAPiens {
         [Keyword("Verbindung zum Server herstellen"),
          Doc("Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n" +
              "| ``Verbindung zum Server herstellen    Servername``")]
-        public RobotResult connectToServer(string Servername) {
-            string theConnection = $"Die Verbindung mit dem Server '{Servername}'";
-
+        public RobotResult ConnectToServer(string Servername) {
             try {
                 var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
                 if (sapGui == null) {
-                    return new NoSapGuiError();
+                    return new Result.ConnectToServer.NoSapGui();
                 }
                 
                 var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
                 if (scriptingEngine == null) {
-                    return new SapError("Die Skriptunterstützung ist nicht verfügbar. "
-                                    + "Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
+                    return new Result.ConnectToServer.NoGuiScripting();
                 }
 
                 var guiApplication = (GuiApplication)scriptingEngine;
@@ -269,28 +264,29 @@ namespace RoboSAPiens {
                 var connection = getConnection(guiApplication, Servername);
                 
                 if (connection != null) {
+                    // reuse existing connection
                     return createSession(connection) switch {
                         Error error => error,
-                        _ => new Success($"Eine Verbindung zum Server '{Servername}' besteht schon")
+                        _ => new Result.ConnectToServer.Pass(Servername)
                     };
                 }
 
                 connection = guiApplication.OpenConnection(Servername);
                 var connectionError = guiApplication.ConnectionErrorText;
                 if (connectionError != "") {
-                    return new SapError(connectionError);
+                    return new Result.ConnectToServer.SapError(connectionError);
                 }
 
                 if (connection.DisabledByServer) {
-                    return new NoScriptingError();
+                    return new Result.ConnectToServer.NoServerScripting();
                 }
 
                 return createSession(connection) switch {
                     Error error => error,
-                    _ => new Success($"{theConnection} wurde erfolgreich hergestellt.")
+                    _ => new Result.ConnectToServer.Pass(Servername)
                 };
             } catch (Exception e) {
-                return new ConnectionFailed(e, $"{theConnection} konnte nicht hergestellt werden.");
+                return new Result.ConnectToServer.Exception(e);
             }
         }
 
@@ -298,30 +294,30 @@ namespace RoboSAPiens {
          Doc("Die angegebene Tabellenzelle wird doppelgeklickt.\n\n" +
              "| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle.")]
-        public RobotResult doubleClickCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
+        public RobotResult DoubleClickCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
             return session switch {
                 SAPSession session => session.doubleClickCell(Zeilennummer_oder_Zellinhalt, Spaltentitel),
-                _ => new NoSessionError()
+                _ => new Result.DoubleClickCell.NoSession()
             };
         }
 
         [Keyword("Textfeld doppelklicken"),
          Doc("Das angegebene Textfeld wird doppelgeklickt.\n\n" +
              "| ``Textfeld doppelklicken     Inhalt``\n")]
-        public RobotResult doubleClickTextField(string Inhalt) {
+        public RobotResult DoubleClickTextField(string Inhalt) {
             return session switch {
                 SAPSession session => session.doubleClickTextField(Inhalt),
-                _ => new NoSessionError()
+                _ => new Result.DoubleClickTextField.NoSession()
             };
         }
 
         [Keyword("Transaktion ausführen"),
          Doc("Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n" +
               "| ``Transaktion ausführen    T-Code``")]
-        public RobotResult executeTransaction(string T_Code) {
+        public RobotResult ExecuteTransaction(string T_Code) {
             return session switch {
                 SAPSession session => session.executeTransaction(T_Code),
-                _ => new NoSessionError()
+                _ => new Result.ExecuteTransaction.NoSession()
             };
         }
 
@@ -329,10 +325,10 @@ namespace RoboSAPiens {
          Doc("Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.\n\n" +
              "| ``Maske exportieren     Name     Verzeichnis``\n" +
              "Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.")]
-        public RobotResult exportForm(string Name, string Verzeichnis) {
+        public RobotResult ExportForm(string Name, string Verzeichnis) {
             return session switch {
                 SAPSession session => session.exportForm(Name, Verzeichnis),
-                _ => new NoSessionError()
+                _ => new Result.ExportForm.NoSession()
             };
         }
 
@@ -342,10 +338,10 @@ namespace RoboSAPiens {
              "Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n" +
              "*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. " +
              "In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")]
-        public RobotResult fillTableCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel_Gleich_Inhalt) {
+        public RobotResult FillTableCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel_Gleich_Inhalt) {
             return session switch {
                 SAPSession session => session.fillTableCell(Zeilennummer_oder_Zellinhalt, Spaltentitel_Gleich_Inhalt),
-                _ => new NoSessionError()
+                _ => new Result.FillTableCell.NoSession()
             };
         }
 
@@ -365,20 +361,20 @@ namespace RoboSAPiens {
              "| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n" +
              "*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, " +
              "die man über die Hilfe (Taste F1) herausfinden kann.")]
-        public RobotResult fillTextField(string Beschriftung_oder_Positionsgeber, string Inhalt) {
+        public RobotResult FillTextField(string Beschriftung_oder_Positionsgeber, string Inhalt) {
             return session switch {
                 SAPSession session => session.fillTextField(Beschriftung_oder_Positionsgeber, Inhalt),
-                _ => new NoSessionError()
+                _ => new Result.FillTextField.NoSession()
             };
         }
 
         [Keyword("Knopf drücken"),
          Doc("Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.\n\n" +
              "| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``")]
-        public RobotResult pushButton(string Name_oder_Kurzinfo) {
+        public RobotResult PushButton(string Name_oder_Kurzinfo) {
             return session switch {
                 SAPSession session => session.pushButton(Name_oder_Kurzinfo),
-                _ => new NoSessionError()
+                _ => new Result.PushButton.NoSession()
             };
         }
 
@@ -386,10 +382,10 @@ namespace RoboSAPiens {
          Doc("Die angegebene Tabellenzelle wird gedrückt.\n\n" +
              "| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).")]
-        public RobotResult pushButtonCell(string Zeilennummer_oder_Name_oder_Kurzinfo, string Spaltentitel) {
+        public RobotResult PushButtonCell(string Zeilennummer_oder_Name_oder_Kurzinfo, string Spaltentitel) {
             return session switch {
                 SAPSession session => session.pushButtonCell(Zeilennummer_oder_Name_oder_Kurzinfo, Spaltentitel),
-                _ => new NoSessionError()
+                _ => new Result.PushButtonCell.NoSession()
             };
         }
 
@@ -403,10 +399,10 @@ namespace RoboSAPiens {
              "| ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``\n" +
              "*Textfeld mit dem angegebenen Inhalt*\n" +
              "| ``Textfeld auslesen    = Inhalt``")]
-        public RobotResult readTextField(string Beschriftung_oder_Positionsgeber) {
+        public RobotResult ReadTextField(string Beschriftung_oder_Positionsgeber) {
             return session switch {
                 SAPSession session => session.readTextField(Beschriftung_oder_Positionsgeber),
-                _ => new NoSessionError()
+                _ => new Result.ReadTextField.NoSession()
             };
         }
 
@@ -416,10 +412,10 @@ namespace RoboSAPiens {
              "| ``Text auslesen    = Teilzeichenfolge``\n" +
              "*Text folgt einer Beschriftung*\n" +
              "| ``Text auslesen    Beschriftung``")]
-        public RobotResult readText(string Inhalt) {
+        public RobotResult ReadText(string Inhalt) {
             return session switch {
                 SAPSession session => session.readText(Inhalt),
-                _ => new NoSessionError()
+                _ => new Result.ReadText.NoSession()
             };
         }
 
@@ -427,10 +423,10 @@ namespace RoboSAPiens {
          Doc("Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n" +
              "| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
-        public RobotResult readTableCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
+        public RobotResult ReadTableCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
             return session switch {
                 SAPSession session => session.readTableCell(Zeilennummer_oder_Zellinhalt, Spaltentitel),
-                _ => new NoSessionError()
+                _ => new Result.ReadTableCell.NoSession()
             };
         }
 
@@ -438,10 +434,10 @@ namespace RoboSAPiens {
          Doc("Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n" +
              "| ``Fenster aufnehmen     Dateipfad``\n" +
              "Dateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.")]
-        public RobotResult saveScreenshot(string Aufnahmenverzeichnis) {
+        public RobotResult SaveScreenshot(string Aufnahmenverzeichnis) {
             return session switch {
                 SAPSession session => session.saveScreenshot(Aufnahmenverzeichnis),
-                _ => new NoSessionError()
+                _ => new Result.SaveScreenshot.NoSession()
             };
         }
 
@@ -449,20 +445,20 @@ namespace RoboSAPiens {
          Doc("Die angegebene Tabellenzelle wird markiert.\n\n" +
              "| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
-        public RobotResult selectCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
+        public RobotResult SelectCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
             return session switch {
                 SAPSession session => session.selectCell(Zeilennummer_oder_Zellinhalt, Spaltentitel),
-                _ => new NoSessionError()
+                _ => new Result.SelectCell.NoSession()
             };
         }
 
         [Keyword("Auswahlmenüeintrag auswählen"),
          Doc("Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.\n\n" +
              "| ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``")]
-        public RobotResult selectComboBoxEntry(string Name, string Eintrag) {
+        public RobotResult SelectComboBoxEntry(string Name, string Eintrag) {
             return session switch {
                 SAPSession session => session.selectComboBoxEntry(Name, Eintrag),
-                _ => new NoSessionError()
+                _ => new Result.SelectComboBoxEntry.NoSession()
             };
         }
 
@@ -474,10 +470,10 @@ namespace RoboSAPiens {
              "| ``Optionsfeld auswählen    @ Beschriftung``\n" +
              "*Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*\n" +
              "| ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``\n")]
-        public RobotResult selectRadioButton(string Beschriftung_oder_Positionsgeber) {
+        public RobotResult SelectRadioButton(string Beschriftung_oder_Positionsgeber) {
             return session switch {
                 SAPSession session => session.selectRadioButton(Beschriftung_oder_Positionsgeber),
-                _ => new NoSessionError()
+                _ => new Result.SelectRadioButton.NoSession()
             };
         }
 
@@ -491,20 +487,20 @@ namespace RoboSAPiens {
              "| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n" +
             "*Textfeld mit dem angegebenen Inhalt*\n" +
              "| ``Textfeld markieren    = Inhalt``")]
-        public RobotResult selectTextField(string Beschriftungen_oder_Inhalt) {
+        public RobotResult SelectTextField(string Beschriftungen_oder_Inhalt) {
             return session switch {
                 SAPSession session => session.selectTextField(Beschriftungen_oder_Inhalt),
-                _ => new NoSessionError()
+                _ => new Result.SelectTextField.NoSession()
             };
         }
 
         [Keyword("Textzeile markieren"),
          Doc("Die Textzeile mit dem angegebenen Inhalt wird markiert.\n" +
              "| ``Textzeile markieren    Inhalt``")]
-        public RobotResult selectTextLine(string Inhalt) {
+        public RobotResult SelectTextLine(string Inhalt) {
             return session switch {
                 SAPSession session => session.selectTextLine(Inhalt),
-                _ => new NoSessionError()
+                _ => new Result.SelectTextLine.NoSession()
             };
         }
 
@@ -516,10 +512,10 @@ namespace RoboSAPiens {
              "| ``Formularfeld ankreuzen    @ Beschriftung``\n" +
              "*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n" +
              "| ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``")]
-        public RobotResult tickCheckBox(string Beschriftung_oder_Positionsgeber) {
+        public RobotResult TickCheckBox(string Beschriftung_oder_Positionsgeber) {
             return session switch {
                 SAPSession session => session.tickCheckBox(Beschriftung_oder_Positionsgeber),
-                _ => new NoSessionError()
+                _ => new Result.TickCheckBox.NoSession()
             };
         }
 
@@ -531,20 +527,20 @@ namespace RoboSAPiens {
              "| ``Formularfeld abwählen    @ Beschriftung``\n" +
              "*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n" +
              "| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``")]
-        public RobotResult untickCheckBox(string Beschriftung_oder_Positionsgeber) {
+        public RobotResult UntickCheckBox(string Beschriftung_oder_Positionsgeber) {
             return session switch {
                 SAPSession session => session.untickCheckBox(Beschriftung_oder_Positionsgeber),
-                _ => new NoSessionError()
+                _ => new Result.UntickCheckBox.NoSession()
             };
         }
 
         [Keyword("Tabellenzelle ankreuzen"),
          Doc("Die angegebene Tabellenzelle wird angekreuzt.\n\n" +
              "| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``")]
-        public RobotResult tickCheckBoxCell(string Zeilennummer, string Spaltentitel) {
+        public RobotResult TickCheckBoxCell(string Zeilennummer, string Spaltentitel) {
             return session switch {
                 SAPSession session => session.tickCheckBoxCell(Zeilennummer, Spaltentitel),
-                _ => new NoSessionError()
+                _ => new Result.TickCheckBoxCell.NoSession()
             };
         }
 

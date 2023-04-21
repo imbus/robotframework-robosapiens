@@ -28,19 +28,19 @@ namespace RoboSAPiens {
                    window.id != currentWindow.Id;
         }
 
-        ExceptionError? updateComponents() {
+        RobotResult.UIScanFail? updateWindow(bool updateComponents) {
             try {
-                window = new SAPWindow(session.ActiveWindow, session, loadComponents: true);
+                window = new SAPWindow(session.ActiveWindow, session, updateComponents);
                 return null;
             } 
             catch (Exception e){
-                return new ExceptionError(e, "Die Erkennung der GUI-Elementen ist fehlgeschlagen.");
+                return new RobotResult.UIScanFail(e);
             }
         }
 
-        ExceptionError? updateComponentsIfWindowChanged() {
+        RobotResult.UIScanFail? updateComponentsIfWindowChanged() {
             if (windowChanged()) {
-                return updateComponents();
+                return updateWindow(updateComponents: true);
             }
 
             return null;
@@ -62,118 +62,124 @@ namespace RoboSAPiens {
             return null;
         }
 
+        private RobotResult.HighlightFail? highlightElement(GuiSession session, IHighlightable element) {
+            try
+            {
+                element.toggleHighlight(session);
+                Thread.Sleep(500);
+                element.toggleHighlight(session);
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                return new RobotResult.HighlightFail(e);
+            }
         }
 
         public RobotResult activateTab(string tabLabel) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            string theTab = $"Der Reiter '{tabLabel}'";            
             var tab = window.components.findTab(tabLabel);
             
             if (tab == null) {
-                return new SpellingError($"{theTab} konnte nicht gefunden werden.");
+                return new Result.ActivateTab.NotFound(tabLabel);
             }
 
             if (options.presenterMode) switch(highlightElement(session, tab)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 tab.select(session);
 
                 switch (getStatusbarError()) {
-                    case SapError sapError:
-                        return sapError;
+                    case string sapError:
+                        return new Result.ActivateTab.SapError(sapError);
                 }
 
-                switch (updateComponents()) {
-                    case ExceptionError exceptionError:
+                switch (updateWindow(updateComponents: true)) {
+                    case RobotResult.UIScanFail exceptionError:
                         return exceptionError;
                 }
 
-                return new Success($"{theTab} wurde ausgewählt.");
+                return new Result.ActivateTab.Pass(tabLabel);
             } 
             catch (Exception e) {
-                return new ExceptionError(e, $"{theTab} konnte nicht ausgewählt werden.");
+                return new Result.ActivateTab.Exception(e);
             }
         }
 
         public RobotResult closeConnection() {
             try {
                 connection.CloseConnection();                
-                return new Success($"Die Verbindung zum Server '{systemName}' wurde getrennt.");
-            } 
+                return new Result.CloseConnection.Pass(systemName);
+            }
             catch (Exception e) {
-                return new ExceptionError(e, "Die Verbindung zum Server konnte nicht getrennt werden.");
+                return new Result.CloseConnection.Exception(e);
             }
         }
 
         public RobotResult doubleClickCell(string rowIndexOrContent, string column) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var locator = FilledCellLocator.of(rowIndexOrContent, column);
             var cell = window.components.findDoubleClickableCell(locator);
 
             if (cell == null) {
-                return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
+                return new Result.DoubleClickCell.NotFound(locator.cell);
             }
 
             try {
                 cell.doubleClick(session);
-                return new Success($"{locator.cell} wurde doppelgeklickt.");
+                return new Result.DoubleClickCell.Pass(locator.cell);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{locator.cell} konnte nicht doppelgeklickt werden.");
+                return new Result.DoubleClickCell.Exception(e);
             }
         }
 
         public RobotResult doubleClickTextField(string content) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theTextField = new TextFieldLocator($"= {content}");
             var textField = window.components.findTextField(theTextField);
 
             if (textField == null) {
-                return new SpellingError($"{theTextField.atLocation} konnte nicht gefunden werden.");
+                return new Result.DoubleClickTextField.NotFound(theTextField.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, textField)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 textField.select(session);
                 window.pressKey((int)VKey.F2); // Equivalent to double-click
-                return new Success($"{theTextField.atLocation} wurde doppelgeklickt.");
+                return new Result.DoubleClickTextField.Pass(theTextField.atLocation);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht markiert werden.");
+                return new Result.DoubleClickTextField.Exception(e);
             }
         }
 
         public RobotResult executeTransaction(string tCode) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
-            }
-
-            if (window.isErrorWindow()) {
-                return new SapError(window.getMessage());
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
             
-            string theTransaction = $"Die Transaktion mit T-Code '{tCode}'";
-
             try {
                 session.SendCommand(tCode);
-                return new Success($"{theTransaction} wurde erfolgreich ausgeführt.");
+                return new Result.ExecuteTransaction.Pass(tCode);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theTransaction} konnte nicht ausgeführt werden.");
+                return new Result.ExecuteTransaction.Exception(e);
             }
         }
 
@@ -244,42 +250,38 @@ namespace RoboSAPiens {
                 csv.writeRows(csvPath, formFields);
                 var pngPath = Path.Combine(directory, $"{fileName}.png");
                 saveScreenshot(pngPath);
-                return new Success($"Die Maske wurde in den Dateien {csvPath.ToString()} und {pngPath.ToString()} gespeichert");
+                return new Result.ExportForm.Pass(csvPath, pngPath);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"Die Maske konnte nicht exportiert werden.");
+                return new Result.ExportForm.Exception(e);
             }
         }
 
         public RobotResult exportTree(string filePath) {
             var tree = window.components.getTree();
 
-            if (tree == null)
-            {
-                // Define ComponentNotFoundError
-                return new SapError("Die Maske enthält keine Baumstruktur");
-            }
+            if (tree == null) return new Result.ExportTree.NotFound();
 
             try
             {
                 var treeNodes = tree.getAllNodes(session);
                 JSON.SaveJsonFile(filePath, treeNodes);
 
-                return new Success($"Die Baumstruktur wurde in JSON Format in der Datei '{filePath}' gespeichert");
+                return new Result.ExportTree.Pass(filePath);
             }
             catch (Exception e)
             {
-                return new ExceptionError(e, "Die Baumstruktur konnte nicht exportiert werden.");
+                return new Result.ExportTree.Exception(e);
             }
         }
 
         public RobotResult fillTableCell(string rowIndexOrRowLabel, string columnEqualsContent) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             if (!columnEqualsContent.Contains('=')) {
-                return new InvalidFormatError("Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen");
+                return new Result.FillTableCell.InvalidFormat();
             }
 
             (var column, var content) = EmptyCellLocator.parseColumnContent(columnEqualsContent);
@@ -287,30 +289,31 @@ namespace RoboSAPiens {
             var locator = EmptyCellLocator.of(rowIndexOrRowLabel, column);
             var cell = window.components.findEditableCell(locator);
             if (cell == null) {
-                return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
+                return new Result.FillTableCell.NotFound(locator.cell);
             }
 
-            var maxLength = cell.getMaxLength();
-            if (maxLength != null && content.Length > maxLength) {
-                return new InvalidValueError($"{locator.cell} kann maximal {maxLength} Zeichen enthalten.");
-            }
+            // TODO: If SAP checks this, get the error message from the statusbar
+            // var maxLength = cell.getMaxLength();
+            // if (maxLength != null && content.Length > maxLength) {
+            //     return new InvalidValueError($"The cell {locator.cell} may contain at most {maxLength} characters.");
+            // }
 
             if (options.presenterMode) switch(highlightElement(session, cell)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 cell.insert(content, session);
-                return new Success($"{locator.cell} wurde ausgefüllt. Neuer Inhalt: {content}.");
+                return new Result.FillTableCell.Pass(locator.cell);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{locator.cell} konnte nicht ausgefüllt werden.");
+                return new Result.FillTableCell.Exception(e);
             }
         }
 
         public RobotResult fillTextField(string labels, string content) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theTextField = new TextFieldLocator(labels);
@@ -318,189 +321,161 @@ namespace RoboSAPiens {
 
             // The Changeable property could have been set to true after the window components were first read
             if (textField == null) {
-                updateComponents();
+                updateWindow(updateComponents: true);
                 textField = window.components.findEditableTextField(theTextField);
             }
 
             if (textField == null) {
-                return new SpellingError($"{theTextField.atLocation} konnte nicht gefunden werden.");
+                return new Result.FillTextField.NotFound(theTextField.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, textField)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 textField.insert(content, session);
-                return new Success($"{theTextField.atLocation} wurde ausgefüllt.");
+                return new Result.FillTextField.Pass(theTextField.atLocation);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.");
-            }
-        }
-
-        private RobotResult highlightElement(GuiSession session, IHighlightable element) {
-            try
-            {
-                element.toggleHighlight(session);
-                Thread.Sleep(500);
-                element.toggleHighlight(session);
-
-                return new Success("Das angegebene Element wurde markiert.");
-            }
-            catch (Exception e)
-            {
-                return new ExceptionError(e, "Das angegebene Element konnte nicht markiert werden.");
+                return new Result.FillTextField.Exception(e);
             }
         }
 
         public RobotResult pushButton(string label) {
-            switch (updateComponents()) {
-                case ExceptionError exceptionError: return exceptionError;
+            switch (updateWindow(updateComponents: true)) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
             
             var theButton = new ButtonLocator(label);
             var button = window.components.findButton(theButton);
 
             if (button == null) {
-                return new SpellingError($"{theButton.atLocation} konnte nicht gefunden werden.");
+                return new Result.PushButton.NotFound(theButton.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, button)) {
-                    case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 button.push(session);
             } 
             catch (Exception e) {
-                return new ExceptionError(e, $"{theButton.atLocation} konnte nicht gedrückt werden.");
+                return new Result.PushButton.Exception(e);
             }
 
             switch (getStatusbarError()) {
-                case SapError sapError : return sapError;
+                case string sapError : return new Result.PushButton.SapError(sapError);
             }
 
-            switch (updateComponents()) {
-                case ExceptionError exceptionError:
+            switch (updateWindow(updateComponents: true)) {
+                case RobotResult.UIScanFail exceptionError:
                     return exceptionError;
             }
 
-            return new Success($"{theButton.atLocation} wurde geklickt.");
+            return new Result.PushButton.Pass(theButton.atLocation);
         }
 
         public RobotResult pushButtonCell(string rowNumberOrButtonLabel, string column) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var locator = FilledCellLocator.of(rowNumberOrButtonLabel, column);
             var button = window.components.findButtonCell(locator);
 
             if (button == null) {
-                return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
+                return new Result.PushButtonCell.NotFound(locator.cell);
             }
 
             if (options.presenterMode) switch(highlightElement(session, button)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 button.push(session);
-                return new Success($"{locator.cell} wurde gedrückt.");
+                return new Result.PushButtonCell.Pass(locator.cell);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{locator.cell} konnte nicht gedrückt werden.");
+                return new Result.PushButtonCell.Exception(e);
             }
         }
 
         public RobotResult readTableCell(string rowNumberOrButtonLabel, string column) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var locator = FilledCellLocator.of(rowNumberOrButtonLabel, column);
             var cell = window.components.findCell(locator);
 
             if (cell == null) {
-                return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
+                return new Result.ReadTableCell.NotFound(locator.cell);
             }
 
             try {
                 var text = cell.getText();
-                return new Success(text, $"{locator.cell} wurde abgelesen.");
+                return new Result.ReadTableCell.Pass(text, locator.cell);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{locator.cell} konnte nicht abgelesen werden.");
+                return new Result.ReadTableCell.Exception(e);
             }
         }
 
         public RobotResult readTextField(string labels) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theTextField = new TextFieldLocator(labels);
             var textField = window.components.findReadOnlyTextField(theTextField);
             if (textField == null) {
-                return new SpellingError($"{theTextField.atLocation} konnte nicht gefunden werden.");
+                return new Result.ReadTextField.NotFound(theTextField.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, textField)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 var text = textField.getText();
-                return new Success(text, $"{theTextField.atLocation} wurde ausgelesen.");
+                return new Result.ReadTextField.Pass(text, theTextField.atLocation);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht ausgelesen werden.");
+                return new Result.ReadTextField.Exception(e);
             }
         }
 
         public RobotResult readText(string content) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var text = window.components.findLabel(new LabelLocator(content)) ?? 
                        window.components.findReadOnlyTextField(new TextFieldLocator(content));
 
             if (text == null) {
-                return new SpellingError($"Der Text '{content}' wurde nicht gefunden.");
+                return new Result.ReadText.NotFound(content);
             }
 
             try {
-                return new Success(text.getText(), $"Der Text '{content}' wurde ausgelesen.");
+                return new Result.ReadText.Pass(text.getText());
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"Der Text '{content}' konnte nicht ausgelesen werden.");
+                return new Result.ReadText.Exception(e);
             }
         }
 
         public RobotResult saveScreenshot(string path) {
-            try {
-                Path.GetFullPath(path);
-            }
-            catch (PathTooLongException e) {
-                return new ExceptionError(e, $"Ein Pfad darf maximal 260 Zeichen enthalten. Der '{path}' enthält {path.Length} Zeichen.");
-            }
-            catch (System.Security.SecurityException e) {
-                return new ExceptionError(e, $"Der Zugang zum Pfad '{path}' ist nicht zulässig.");
-            }
-            catch (Exception e) {
-                return new ExceptionError(e, $"Der Pfad '{path}' ist ungültig.");
-            }  
-           
             var directory = Path.GetDirectoryName(path);
 
             if (directory == null) {
-                return new InvalidValueError($"C: und Netzwerkverzeichnise sind nicht zulässige Ablageorte.");
+                return new Result.SaveScreenshot.UNCPath();
             }
 
             if (directory == string.Empty) {
-                return new InvalidValueError($"'{path}' ist kein absoluter Pfad.");
+                return new Result.SaveScreenshot.NoAbsPath(path);
             }
 
             if (!Path.HasExtension(path)) {
@@ -512,212 +487,210 @@ namespace RoboSAPiens {
                 var window = (GuiFrameWindow)session.FindById(this.window.id);
                 string outputPath = window.HardCopy(path, GuiImageType.PNG);
 
-                return new Success($"Eine Aufnahme des Fensters wurde in '{outputPath}' gespeichert.");
+                return new Result.SaveScreenshot.Pass(outputPath);
             }
             catch (Exception e) {
-                return new ExceptionError(e, "Eine Aufnahme des Fensters konnte nicht gespeichert werden");
+                return new Result.SaveScreenshot.Exception(e);
             }
         }
 
         public RobotResult selectCell(string rowIndexOrCellContent, string column) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var locator = FilledCellLocator.of(rowIndexOrCellContent, column);
             var cell = window.components.findCell(locator);
 
             if (cell == null) {
-                return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
+                return new Result.SelectCell.NotFound(locator.cell);
             }
 
             try {
                 cell.select(session);
-                return new Success($"{locator.cell} wurde markiert.");
+                return new Result.SelectCell.Pass(locator.cell);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{locator.cell} konnte nicht markiert werden.");
+                return new Result.SelectCell.Exception(e);
             }
         }
 
         public RobotResult selectComboBoxEntry(string labels, string entry) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            string theEntry = $"Der Eintrag '{entry}'";
             var theComboBox = new ComboBoxLocator(labels);
             var comboBox = window.components.findComboBox(theComboBox);
             
             if (comboBox == null) {
-                return new SpellingError($"Das {theComboBox.atLocation} konnte nicht gefunden werden.");
+                return new Result.SelectComboBoxEntry.NotFound(theComboBox.atLocation);
             }
 
             if (!comboBox.contains(entry)) {
-                return new SpellingError($"{theEntry} wurde im {theComboBox.atLocation} nicht gefunden.");
+                return new Result.SelectComboBoxEntry.EntryNotFound(entry);
             }
 
             if (options.presenterMode) switch(highlightElement(session, comboBox)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 comboBox.select(entry, session);
-                return new Success($"{theEntry} aus dem {theComboBox.atLocation} wurde ausgewählt.");
+                return new Result.SelectComboBoxEntry.Pass(entry);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theEntry} aus dem {theComboBox.atLocation} konnte nicht ausgewählt werden.");
+                return new Result.SelectComboBoxEntry.Exception(e);
             }
         }
 
         public RobotResult selectTextField(string labels) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theTextField = new TextFieldLocator(labels);
             var textField = window.components.findTextField(theTextField);
 
             if (textField == null) {
-                return new SpellingError($"{theTextField.atLocation} konnte nicht gefunden werden.");
+                return new Result.SelectTextField.NotFound(theTextField.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, textField)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 textField.select(session);
-                return new Success($"{theTextField.atLocation} wurde markiert.");
+                return new Result.SelectTextField.Pass(theTextField.atLocation);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theTextField.atLocation} konnte nicht markiert werden.");
+                return new Result.SelectTextField.Exception(e);
             }
         }
         
         public RobotResult selectTextLine(string text) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            string theLine = $"Die Textzeile '{text}'";
             var textLine = window.components.findLabel(new LabelLocator($"= {text}"));
 
             if (textLine == null) {
-                return new SpellingError($"{theLine} konnte nicht gefunden werden.");
+                return new Result.SelectTextLine.NotFound(text);
             }
 
             try {
                 textLine.select(session);
-                return new Success($"{theLine} wurde markiert.");
+                return new Result.SelectTextLine.Pass(text);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theLine} konnte nicht markiert werden.");
+                return new Result.SelectTextLine.Exception(e);
             }
         }
 
         public RobotResult selectRadioButton(string labels) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theRadioButton = new RadioButtonLocator(labels);
             var radioButton = window.components.findRadioButton(theRadioButton);
 
             if (radioButton == null) {
-                return new SpellingError($"{theRadioButton.atLocation} konnte nicht gefunden werden.");
+                return new Result.SelectRadioButton.NotFound(theRadioButton.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, radioButton)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 radioButton.select(session);
-                return new Success($"{theRadioButton.atLocation} wurde ausgewählt.");
+                return new Result.SelectRadioButton.Pass(theRadioButton.atLocation);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theRadioButton.atLocation} konnte nicht ausgewählt werden.");
+                return new Result.SelectRadioButton.Exception(e);
             }
         }
 
-        // TODO: Define a keyword "Tabellenzeile markieren"
+        // TODO: Define a keyword "Select Table Row"
         // Store the tables. When this keyword is called:
         // 1. If there is more than one table, find the table using the title of the enclosing box.
         // 2. Get the row and select it.
 
         public RobotResult tickCheckBox(string labels) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theCheckBox = new CheckBoxLocator(labels);
             var checkBox = window.components.findCheckBox(theCheckBox);
             
             if (checkBox == null) {
-                return new SpellingError($"{theCheckBox.atLocation} konnte nicht gefunden werden.");
+                return new Result.TickCheckBox.NotFound(theCheckBox.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, checkBox)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
             
             try {
                 checkBox.select(session);
-                return new Success($"{theCheckBox.atLocation} wurde angekreuzt.");
+                return new Result.TickCheckBox.Pass(theCheckBox.atLocation);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theCheckBox.atLocation} konnte nicht angekreuzt werden.");
+                return new Result.TickCheckBox.Exception(e);
             }
         }
 
         public RobotResult untickCheckBox(string labels) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theCheckBox = new CheckBoxLocator(labels);
             var checkBox = window.components.findCheckBox(theCheckBox);
             
             if (checkBox == null) {
-                return new SpellingError($"{theCheckBox.atLocation} konnte nicht gefunden werden.");
+                return new Result.UntickCheckBox.NotFound(theCheckBox.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, checkBox)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
             
             try {
                 checkBox.deselect(session);
-                return new Success($"{theCheckBox.atLocation} wurde abgewählt.");
+                return new Result.UntickCheckBox.Pass(theCheckBox.atLocation);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{theCheckBox.atLocation} konnte nicht abgewählt werden.");
+                return new Result.UntickCheckBox.Exception(e);
             }
         }
 
         public RobotResult tickCheckBoxCell(string rowIndex, string column) {
             switch (updateComponentsIfWindowChanged()) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var locator = FilledCellLocator.of(rowIndex, column);
             var checkBox = window.components.findCheckBoxCell(locator);
             
             if (checkBox == null) {
-                return new SpellingError($"{locator.cell} konnte nicht gefunden werden.");
+                return new Result.TickCheckBoxCell.NotFound(locator.cell);
             }
 
             if (options.presenterMode) switch(highlightElement(session, checkBox)) {
-                case ExceptionError exceptionError: return exceptionError;
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
                 checkBox.select(session);
-                return new Success($"{locator.cell} wurde angekreuzt.");
+                return new Result.TickCheckBoxCell.Pass(locator.cell);
             }
             catch (Exception e) {
-                return new ExceptionError(e, $"{locator.cell} konnte nicht angekreuzt werden.");
+                return new Result.TickCheckBoxCell.Exception(e);
             }
         }
 
