@@ -49,7 +49,7 @@ namespace RoboSAPiens {
 		}
 
         public RobotKeyword getKeyword(string name) {
-            return keywords.Single(keyword => keyword.name == name);
+            return keywords.Single(keyword => keyword.method == name);
         }
 
         public string[] getKeywordNames() {
