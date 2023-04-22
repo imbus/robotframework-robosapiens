@@ -93,16 +93,40 @@ namespace RoboSAPiens {
             };
         }
 
+        SAPTextField? getFromVerticalGrid(int index, string label) {
+            var textField = items.Find(field => field.isLabeled(label));
+
+            if (textField == null) return null;
+
+            var verticalGrid = textField.getVerticalGrid(items);
+
+            if (index <= verticalGrid.Count - 1) {
+                return verticalGrid.ElementAt(index);
+            }
+
+            return null;
+        }
+
+        SAPTextField? getFromHorizontalGrid(int index, string label) {
+            var textField = items.Find(field => field.isLabeled(label));
+
+            if (textField == null) return null;
+
+            var horizontalGrid = textField.getHorizontalGrid(items);
+
+            if (index <= horizontalGrid.Count - 1) {
+                return horizontalGrid.ElementAt(index);
+            }
+
+            return null;
+        }
+
         SAPTextField? getByIndex(IIndexLocator locator) {
             return locator switch {
                 HIndexVLabel(int rowIndex, string label) => 
-                    items.Find(field => field.isLabeled(label))
-                        ?.getVerticalGrid(items)
-                         .ElementAt(rowIndex - 1),
+                    getFromVerticalGrid(rowIndex - 1, label),
                 HLabelVIndex(string label, int columnIndex) =>
-                    items.Find(field => field.isLabeled(label))
-                        ?.getHorizontalGrid(items)
-                         .ElementAt(columnIndex - 1),
+                    getFromHorizontalGrid(columnIndex - 1, label),
                 _ => null
             };
         }
