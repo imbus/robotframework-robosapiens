@@ -10,11 +10,13 @@ namespace RoboSAPiens {
     }
 
     public sealed class SAPComboBox: ComboBox, ILabeled {
+        string accTooltip;
         List<string> entries;
         string id;
         string label;
 
         public SAPComboBox(GuiComboBox comboBox) {
+            accTooltip = comboBox.AccTooltip.Trim();
             entries = new List<string>();
             id = comboBox.Id;
             label = getLeftLabel(comboBox);
@@ -51,8 +53,9 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return label == this.label;
-        }
+            return this.label == label || 
+                   accTooltip == label;
+            }
 
         public override void select(string entry, GuiSession session) {
             var guiComboBox = (GuiComboBox)session.FindById(id);
