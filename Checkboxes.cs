@@ -9,11 +9,13 @@ namespace RoboSAPiens {
     }
 
     public class SAPCheckBox: CheckBox, ILabeled, ILocatable, ISelectable {
+        string defaultTooltip;
         string id;
         Position position;
         string text;
 
         public SAPCheckBox(GuiCheckBox checkBox) {
+            this.defaultTooltip = checkBox.DefaultTooltip;
             this.id = checkBox.Id;
             this.position = new Position(height: checkBox.Height, 
                                 left: checkBox.ScreenLeft,
@@ -48,7 +50,8 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return text == label;
+            return text == label || 
+                   defaultTooltip == label;
         }
 
         public virtual bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
