@@ -9,6 +9,7 @@ namespace RoboSAPiens {
         const int maxVerticalDistance = 20;
         const int overlapTolerance = 3;
 
+        string accTooltip;
         string defaultTooltip;
         int height;
         public string id;
@@ -21,6 +22,7 @@ namespace RoboSAPiens {
         int width;
 
         public SAPTextField(GuiTextField textField) {
+            this.accTooltip = textField.AccTooltip.Trim();
             this.defaultTooltip = textField.DefaultTooltip;
             this.grid = new List<SAPTextField>();
             this.height = textField.Height;
@@ -152,8 +154,11 @@ namespace RoboSAPiens {
 
         public bool isLabeled(string label) {
             return this.label == label || 
+                   accTooltip == label ||
+                   defaultTooltip == label ||
+                   tooltip == label ||
                    defaultTooltip.StartsWith(label);
-        }    
+        }
 
         public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
             return locator switch {
