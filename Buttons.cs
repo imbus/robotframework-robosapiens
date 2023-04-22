@@ -56,8 +56,8 @@ namespace RoboSAPiens {
 
         public bool isLocated(FilledCellLocator locator) {
             return locator.content switch {
-                string content => isLabeled(content),
-                _ => rowIndex == locator.rowIndex
+                string content => isLabeled(content) && column == locator.column,
+                _ => rowIndex == locator.rowIndex - 1 && column == locator.column
             };
         }
 
