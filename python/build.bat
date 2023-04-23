@@ -10,7 +10,7 @@ pushd src\RoboSAPiens
 @REM Update the English schema and the schema of the translations
 python schemagen.py api.json
 python schemagen.py api.json i18n
-rm api.json
+del api.json
 popd
 
 @REM Type-Check python code
