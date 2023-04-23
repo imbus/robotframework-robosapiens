@@ -8,17 +8,14 @@ namespace RoboSAPiens {
 
             try {
                 listener.Start();
-                CLI.info($"The RoboSAPiens keyword server runs on {serverAddress}. Press Ctrl+C to stop.");
-            } catch (Exception e) {
-                CLI.error("The RoboSAPiens keyword server could not be started.",
-                      $"Error message: {e.Message}");
+                CLI.banner();
                 Environment.Exit(1);
             }
         }
 
-        public static void Main(string[] args) {
-            CLI.info("RoboSAPiens :: SAP GUI automation for humans");
-            
+
+        public static void Main(string[] args) 
+        {           
             if (args.Length == 0) CLI.Commands.help();
 
             const string host = "http://127.0.0.1";
