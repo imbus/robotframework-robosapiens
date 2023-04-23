@@ -1,19 +1,26 @@
 @echo off
 
-@REM Create .json-File with Informations for Keyword-Interface
+@REM Create .json file with the specification
 pushd src\RoboSAPiens\lib
-RoboSAPiens.exe --export-cli cli.json
-move cli.json ..
+RoboSAPiens.exe --export-api api.json
+move api.json ..
 popd
 
 pushd src\RoboSAPiens
-@REM Generate Keyword-Interface
-python cligen.py
-rm cli.json
+@REM Update the English schema and the schema of the translations
+python schemagen.py api.json
+python schemagen.py api.json i18n
+rm api.json
 popd
 
 @REM Type-Check python code
-mypy src
+mypy .
+
+@REM Generate the Python libraries
+pushd src\RoboSAPiens
+python libgen.py en
+python libgen.py de
+popd
 
 @REM pip install build
 python -m build --wheel
