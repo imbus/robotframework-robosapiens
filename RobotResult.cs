@@ -62,7 +62,7 @@ namespace RoboSAPiens {
         public record NoSapGui(): RobotFail("NoSapGui", "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst aufgerufen werden.");
         public record NoSession(): RobotFail("NoSession", "Keine SAP-Session vorhanden. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.");
         public record NotFound(string error): RobotFail("NotFound", error + "\nHinweis: Prüfe die Rechtschreibung");
-        public record SapError(string message): RobotFail("SapError", error: $"SAP Fehlermeldung: {message}");
+        public record SapError(string message): RobotFail("SapError", error: message);
         public record UIScanFail(System.Exception e): RobotException("UIScanFail", e, "Scanning the GUI elements failed.");
         public record HighlightFail(System.Exception e): RobotException("HighlightFail", e, "The element could not be highlighted");
     }
