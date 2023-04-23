@@ -11,6 +11,10 @@ namespace RoboSAPiens
 
         private static Options options = default(Options) with {port = 8270};
 
+        public static void banner() {
+            info("RoboSAPiens :: SAP GUI automation for humans");
+        }
+
         public static void error(params string[] messages) {
             Console.Error.WriteLine(String.Join(Environment.NewLine, messages));
         }
@@ -54,6 +58,7 @@ namespace RoboSAPiens
             {
                 var genDoc = (Arg arg) => $"--{arg.name} {getPlaceholder(arg.handler)}\n  {arg.doc}";
 
+                banner();
                 info("Usage: RoboSAPiens.exe --OPTION [ARG] ...");
                 info("The following options are available:");
                 arguments.Select(genDoc).ToList().ForEach(doc => info(doc));
