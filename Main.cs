@@ -3,12 +3,26 @@ using System.Net;
 
 namespace RoboSAPiens {
     class _ {
-        static void startServer(HttpListener listener, string serverAddress) {
+        static void startServer(HttpListener listener, string host, int port) 
+        {
+            var serverAddress = $"http://{host}:{port}";
             listener.Prefixes.Add($"{serverAddress}/");
 
-            try {
+            try 
+            {
                 listener.Start();
                 CLI.banner();
+                CLI.info($"The RoboSAPiens keyword server runs on {serverAddress}. Press Ctrl+C to stop it.");
+            }
+            catch (HttpListenerException e) 
+            {
+                CLI.error("The RoboSAPiens keyword server could not be started.");
+                if (e.ErrorCode == 32) {
+                    CLI.error($"The port {port} is already in use.");
+                }
+                else {
+                    CLI.error($"Error message: {e.Message}");
+                }
                 Environment.Exit(1);
             }
         }
@@ -18,13 +32,12 @@ namespace RoboSAPiens {
         {           
             if (args.Length == 0) CLI.Commands.help();
 
-            const string host = "http://127.0.0.1";
             var options = CLI.parseArgs(args);
-            var serverAddress = $"{host}:{options.port}";
+            const string host = "127.0.0.1";
             var httpListener = new HttpListener();
             var robotRemote = new RobotRemote(options);
 
-            startServer(httpListener, serverAddress);
+            startServer(httpListener, host, options.port);
 
             if (options.debug) {
                 var fence = new string('=', 10);
