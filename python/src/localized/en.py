@@ -10,7 +10,7 @@ no_gui_scripting = 'The scripting support is not activated. It must be activated
 no_connection = 'No existing connection to an SAP server. Call the keyword "Connect to Server" first.'
 no_server_scripting = 'Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.'
 not_found: Fstr = lambda msg: f"{msg} Hint: Check the spelling"
-exception: Fstr = lambda msg: f"*ERROR* {msg}" + "\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+exception: Fstr = lambda msg: f"{msg}" + "\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
 
 locales = {
     "DE": "German"

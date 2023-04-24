@@ -55,7 +55,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NotFound": "The tab '{0}' could not be found Hint: Check the spelling",
             "SapError": "SAP Error: {0}",
             "Pass": "The tab {0} was selected",
-            "Exception": "*ERROR* The tab could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The tab could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ActivateTab', list(args.values()), dict(), result) # type: ignore
     
@@ -73,7 +73,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "Pass": "The SAP GUI was opened.",
             "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
-            "Exception": "*ERROR* The SAP GUI could not be opened. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The SAP GUI could not be opened. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('OpenSAP', list(args.values()), dict(), result) # type: ignore
     
@@ -93,7 +93,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoConnection": "No existing connection to an SAP server. Call the keyword \"Connect to Server\" first.",
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "Pass": "Disconnected from the server.",
-            "Exception": "*ERROR* Could not disconnect from the server. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "Could not disconnect from the server. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('CloseConnection', list(args.values()), dict(), result) # type: ignore
     
@@ -130,7 +130,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The window contains no tree element",
             "Pass": "The function tree was exported to {0}",
-            "Exception": "*ERROR* The function tree could not be exported. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The function tree could not be exported. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ExportTree', list(args.values()), dict(), result) # type: ignore
     
@@ -150,7 +150,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoConnection": "No existing connection to an SAP server. Call the keyword \"Connect to Server\" first.",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
             "Pass": "Connected to a running SAP instance.",
-            "Exception": "*ERROR* Could not connect to a running SAP instance. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "Could not connect to a running SAP instance. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('AttachToRunningSAP', list(args.values()), dict(), result) # type: ignore
     
@@ -173,7 +173,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "Connected to the server {0}",
             "SapError": "SAP Error: {0}",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
-            "Exception": "*ERROR* Could not establish the connection. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "Could not establish the connection. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ConnectToServer', list(args.values()), dict(), result) # type: ignore
     
@@ -196,7 +196,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hint: Check the spelling",
             "Pass": "The cell with the locator {0} was double-clicked.",
-            "Exception": "*ERROR* The cell could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The cell could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('DoubleClickCell', list(args.values()), dict(), result) # type: ignore
     
@@ -217,7 +217,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The text field with the content '{0}' could not be found Hint: Check the spelling",
             "Pass": "The text field with the content '{0}' was double-clicked.",
-            "Exception": "*ERROR* The text field could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The text field could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('DoubleClickTextField', list(args.values()), dict(), result) # type: ignore
     
@@ -237,7 +237,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "Pass": "The transaction with T-Code {0} was executed.",
-            "Exception": "*ERROR* The transaction could not be executed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The transaction could not be executed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ExecuteTransaction', list(args.values()), dict(), result) # type: ignore
     
@@ -259,7 +259,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "Pass": "The Dynpro was exported to the CSV file {0} and the PNG image {1}",
-            "Exception": "*ERROR* The Dynpro could not be exported. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The Dynpro could not be exported. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ExportForm', list(args.values()), dict(), result) # type: ignore
     
@@ -285,7 +285,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "InvalidFormat": "The format of the second parameter must be 'column = content'",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found Hint: Check the spelling",
             "Pass": "The cell with the locator {0} was filled.",
-            "Exception": "*ERROR* The cell could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The cell could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('FillTableCell', list(args.values()), dict(), result) # type: ignore
     
@@ -322,7 +322,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The text field with the locator '{0}' could not be found. Hint: Check the spelling",
             "Pass": "The text field with the locator '{0}' was filled.",
-            "Exception": "*ERROR* The text field could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The text field could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('FillTextField', list(args.values()), dict(), result) # type: ignore
     
@@ -344,7 +344,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "SapError": "SAP Error: {0}",
             "NotFound": "The button '{0}' could not be found. Hint: Check the spelling",
             "Pass": "The button '{0}' was pushed.",
-            "Exception": "*ERROR* The button could not be pushed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The button could not be pushed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('PushButton', list(args.values()), dict(), result) # type: ignore
     
@@ -367,7 +367,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The button cell with the locator '{0}, {1}' could not be found. Hint: Check the spelling",
             "Pass": "The button cell with the locator '{0}' was pushed.",
-            "Exception": "*ERROR* The button cell could not be pushed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The button cell could not be pushed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('PushButtonCell', list(args.values()), dict(), result) # type: ignore
     
@@ -395,7 +395,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The text field with the locator '{0}' could not be found. Hint: Check the spelling",
             "Pass": "The text field with the locator '{0}' was read.",
-            "Exception": "*ERROR* The text field could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The text field could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ReadTextField', list(args.values()), dict(), result) # type: ignore
     
@@ -419,7 +419,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "No text with the locator '{0}' was found. Hint: Check the spelling",
             "Pass": "A text with the locator '{0}' was read.",
-            "Exception": "*ERROR* The text could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The text could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ReadText', list(args.values()), dict(), result) # type: ignore
     
@@ -442,7 +442,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hint: Check the spelling",
             "Pass": "The cell with the locator '{0}' was read.",
-            "Exception": "*ERROR* The cell could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The cell could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ReadTableCell', list(args.values()), dict(), result) # type: ignore
     
@@ -465,7 +465,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "UNCPath": "UNC paths (i.e. beginning with \\) are not allowed",
             "NoAbsPath": "The path is not an absolute path.",
             "Pass": "The screenshot was saved in {0}.",
-            "Exception": "*ERROR* The screenshot could not be saved. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The screenshot could not be saved. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('SaveScreenshot', list(args.values()), dict(), result) # type: ignore
     
@@ -488,7 +488,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hint: Check the spelling",
             "Pass": "The cell with the locator '{0}' was selected.",
-            "Exception": "*ERROR* The cell could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The cell could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('SelectCell', list(args.values()), dict(), result) # type: ignore
     
@@ -511,7 +511,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NotFound": "The dropdown menu '{0}' could not be found. Hint: Check the spelling",
             "EntryNotFound": "In the dropdown menu '{0}' no entry '{1}' could be found. Hint: Check the spelling",
             "Pass": "In the dropdown menu '{0}' the entry '{1}' was selected.",
-            "Exception": "*ERROR* The entry could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The entry could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('SelectComboBoxEntry', list(args.values()), dict(), result) # type: ignore
     
@@ -537,7 +537,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The radio button with locator '{0}' could not be found. Hint: Check the spelling",
             "Pass": "The radio button with locator '{0}' was selected.",
-            "Exception": "*ERROR* The radio button could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The radio button could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('SelectRadioButton', list(args.values()), dict(), result) # type: ignore
     
@@ -565,7 +565,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The text field with the locator '{0}' could not be found. Hint: Check the spelling",
             "Pass": "The text field with the locator '{0}' was selected.",
-            "Exception": "*ERROR* The text field could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The text field could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('SelectTextField', list(args.values()), dict(), result) # type: ignore
     
@@ -585,7 +585,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The text line starting with '{0}' could not be found. Hint: Check the spelling",
             "Pass": "The text line starting with '{0}' was selected.",
-            "Exception": "*ERROR* The text line could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The text line could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('SelectTextLine', list(args.values()), dict(), result) # type: ignore
     
@@ -611,7 +611,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The checkbox with the locator '{0}' could not be found. Hint: Check the spelling",
             "Pass": "The checkbox with the locator '{0}' was ticked.",
-            "Exception": "*ERROR* The checkbox could not be ticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The checkbox could not be ticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('TickCheckBox', list(args.values()), dict(), result) # type: ignore
     
@@ -637,7 +637,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The checkbox with the locator '{0}' could not be found. Hint: Check the spelling",
             "Pass": "The checkbox with the locator '{0}' was unticked.",
-            "Exception": "*ERROR* The checkbox could not be unticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The checkbox could not be unticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('UntickCheckBox', list(args.values()), dict(), result) # type: ignore
     
@@ -659,7 +659,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The checkbox cell with the locator '{0}, {1}' coud not be found. Hint: Check the spelling",
             "Pass": "The checkbox cell with the locator '{0}' was ticked.",
-            "Exception": "*ERROR* The checkbox cell could not be ticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The checkbox cell could not be ticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('TickCheckBoxCell', list(args.values()), dict(), result) # type: ignore
     
@@ -700,4 +700,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.1.3'
+    ROBOT_LIBRARY_VERSION = '1.1.4'
