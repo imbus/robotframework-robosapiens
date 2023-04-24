@@ -459,6 +459,7 @@ class RoboSAPiensKeywordsSavescreenshotResult(TypedDict):
     NoSession: str
     UNCPath: str
     NoAbsPath: str
+    InvalidPath: str
     Pass: str
     Exception: str
 

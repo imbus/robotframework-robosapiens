@@ -458,7 +458,8 @@ class DE(RoboSAPiensClient):
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
-            "UNCPath": "Ein UNC Pfad (d.h. beginnend mit \\) ist nicht erlaubt",
+            "InvalidPath": "Der Pfad '{0}' ist ungültig",
+            "UNCPath": "Ein UNC Pfad (d.h. beginnend mit \\\\) ist nicht erlaubt",
             "NoAbsPath": "'{0}' ist kein absoluter Pfad",
             "Pass": "Eine Aufnahme des Fensters wurde in '{0}' gespeichert.",
             "Exception": "Eine Aufnahme des Fensters konnte nicht gespeichert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."

@@ -462,8 +462,9 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
-            "UNCPath": "UNC paths (i.e. beginning with \\) are not allowed",
-            "NoAbsPath": "The path is not an absolute path.",
+            "InvalidPath": "The path '{0}' is invalid.",
+            "UNCPath": "UNC paths (i.e. beginning with \\\\) are not allowed",
+            "NoAbsPath": "The path '{0}' is not an absolute path.",
             "Pass": "The screenshot was saved in {0}.",
             "Exception": "The screenshot could not be saved. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }

@@ -353,8 +353,9 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("2754484086", no_session),
-        "UNCPath": ("2632477144", "Ein UNC Pfad (d.h. beginnend mit \\) ist nicht erlaubt"),
-        "NoAbsPath": ("588429805", "'{0}' ist kein absoluter Pfad"),
+        "InvalidPath": ("2844012395", "Der Pfad '{0}' ist ungültig"),
+        "UNCPath": ("2462162559", r"Ein UNC Pfad (d.h. beginnend mit \\) ist nicht erlaubt"),
+        "NoAbsPath": ("2858082864", "'{0}' ist kein absoluter Pfad"),
         "Pass": ("1427858469", "Eine Aufnahme des Fensters wurde in '{0}' gespeichert."),
         "Exception": ("3250735497", exception("Eine Aufnahme des Fensters konnte nicht gespeichert werden."))
       },

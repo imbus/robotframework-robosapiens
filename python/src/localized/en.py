@@ -364,8 +364,9 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "UNCPath": "UNC paths (i.e. beginning with \\) are not allowed",
-                "NoAbsPath": "The path is not an absolute path.",
+                "InvalidPath": "The path '{0}' is invalid.",
+                "UNCPath": r"UNC paths (i.e. beginning with \\) are not allowed",
+                "NoAbsPath": "The path '{0}' is not an absolute path.",
                 "Pass": "The screenshot was saved in {0}.",
                 "Exception": exception("The screenshot could not be saved. {0}")
             },

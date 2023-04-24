@@ -457,8 +457,9 @@ class LocalizedRoboSAPiensKeywordsSavescreenshotArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSavescreenshotResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
-    UNCPath: Tuple[Literal['2632477144'], str]
-    NoAbsPath: Tuple[Literal['588429805'], str]
+    InvalidPath: Tuple[Literal['2844012395'], str]
+    UNCPath: Tuple[Literal['2462162559'], str]
+    NoAbsPath: Tuple[Literal['2858082864'], str]
     Pass: Tuple[Literal['1427858469'], str]
     Exception: Tuple[Literal['3250735497'], str]
 

@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace RoboSAPiens {
     public sealed class NoSAPSession : ISession {}
@@ -468,7 +469,17 @@ namespace RoboSAPiens {
         }
 
         public RobotResult saveScreenshot(string path) {
+            if (path.StartsWith(@"\\")) return new Result.SaveScreenshot.UNCPath();
+
+            var pathRegex = new Regex(@"^(?:[a-zA-Z]\:)\\(?:[\w\s\.]+\\)*[\w\s\.]+?$");
+
+            if (!pathRegex.Match(path).Success) return new Result.SaveScreenshot.InvalidPath(path);
+
             var directory = Path.GetDirectoryName(path);
+
+            if (directory == @"\") {
+                return new Result.SaveScreenshot.InvalidPath(path);
+            }
 
             if (directory == null) {
                 return new Result.SaveScreenshot.UNCPath();
@@ -485,9 +496,12 @@ namespace RoboSAPiens {
             try {
                 Directory.CreateDirectory(directory);
                 var window = (GuiFrameWindow)session.FindById(this.window.id);
-                string outputPath = window.HardCopy(path, GuiImageType.PNG);
+                var screenshot = (byte[])window.HardCopyToMemory(GuiImageType.PNG);
 
-                return new Result.SaveScreenshot.Pass(outputPath);
+                using var writer = new BinaryWriter(File.OpenWrite(path));
+                writer.Write(screenshot);
+
+                return new Result.SaveScreenshot.Pass(path);
             }
             catch (Exception e) {
                 return new Result.SaveScreenshot.Exception(e);

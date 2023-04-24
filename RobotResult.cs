@@ -202,6 +202,7 @@ namespace RoboSAPiens {
             public record NoSession(): RobotResult.NoSession();
             public record UNCPath(): RobotResult.RobotFail("UNCPath", "Ein UNC Pfad ist nicht erlaubt");
             public record NoAbsPath(string path): RobotResult.RobotFail("NoAbsPath", $"{path} ist kein absoluter Pfad");
+            public record InvalidPath(string path): RobotResult.RobotFail("InvalidPath", $"{path} ist kein gültiger Pfad");
             public record Pass(string path): RobotResult.RobotPass($"Eine Aufnahme des Fensters wurde in '{path}' gespeichert.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Eine Aufnahme des Fensters konnte nicht gespeichert werden");
         }
