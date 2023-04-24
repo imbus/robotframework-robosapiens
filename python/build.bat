@@ -21,8 +21,7 @@ mypy .
 popd
 
 @REM Generate the documentation
-libdoc -P .\src RoboSAPiens ../docs/RoboSAPiens.html 
-libdoc -P .\src RoboSAPiens.DE ../docs/RoboSAPiens.DE.html 
+python localizedoc.py ../docs/RoboSAPiens.DE.html
 
 @REM pip install build
 python -m build --wheel
