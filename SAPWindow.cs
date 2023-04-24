@@ -48,9 +48,5 @@ namespace RoboSAPiens {
         public void pressKey(int key) {
             self.SendVKey(key);
         }
-
-        public void saveScreenshot(string filePath) {
-            ScreenCapture.saveWindowImage(windowHandle, filePath);
-        }
     }
 }
