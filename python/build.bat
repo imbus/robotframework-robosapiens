@@ -1,5 +1,8 @@
 @echo off
 
+FOR /F %%n IN (..\VERSION) DO set version=%%n
+echo __version__ = '%version%' > src/version.py
+
 @REM Create .json file with the specification
 pushd src
 RoboSAPiens\lib\RoboSAPiens.exe --export-api %~dp0\src\api.json

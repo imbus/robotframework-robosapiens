@@ -5,9 +5,6 @@ from setuptools import setup
 
 VERSION = Path("../VERSION").read_text(encoding="utf-8")
 
-with open(Path("src/version.py"), "w+") as file:
-    file.write(f"__version__ = '{VERSION}'")
-
 CLASSIFIERS = """
 Development Status :: 5 - Production/Stable
 License :: OSI Approved :: Apache Software License
