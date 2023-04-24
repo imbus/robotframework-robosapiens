@@ -11,7 +11,7 @@ with open(Path("src/version.py"), "w+") as file:
 CLASSIFIERS = """
 Development Status :: 5 - Production/Stable
 License :: OSI Approved :: Apache Software License
-Operating System :: Windows
+Operating System :: Microsoft :: Windows :: Windows 10
 Programming Language :: Python
 Programming Language :: Python :: 3
 Programming Language :: Python :: 3.7
