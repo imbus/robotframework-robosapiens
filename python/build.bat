@@ -21,6 +21,9 @@ mypy .
 popd
 
 @REM Generate the documentation
+libdoc --theme LIGHT -P .\src RoboSAPiens ../docs/RoboSAPiens.html
+libdoc --theme LIGHT -P .\src RoboSAPiens.DE ../docs/RoboSAPiens.DE.html
+
 python localizedoc.py ../docs/RoboSAPiens.DE.html
 
 @REM pip install build
