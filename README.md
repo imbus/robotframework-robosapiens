@@ -2,6 +2,8 @@
 
 ## Users
 
+**[Documentation: Importing, Keywords](https://imbus.github.io/robotframework-robosapiens/)**
+
 ### Requirements
 
 - [.NET Runtime 7.0 x86](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
@@ -16,7 +18,7 @@
 4. Install the Python wheel
 
     ```powershell
-    pip install python\dist\robotframework_robosapiens-xxx.whl
+    pip install robotframework-robosapiens
     ```
 
 
@@ -35,10 +37,11 @@ build.bat
 ### Build the Python wheel
 
 ```powershell
-pip install build
-python\build.bat
+cd python
+pip install -r requirements.txt
+build.bat
 ```
 
-## References
+### References
 
 - [SAP GUI Scripting API Documentation](https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/babdf65f4d0a4bd8b40f5ff132cb12fa.html?locale=en-US)
