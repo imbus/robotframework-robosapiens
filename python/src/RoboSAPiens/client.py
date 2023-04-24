@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Mapping
 from robot.errors import RemoteError
 from robot.libraries.Remote import ArgumentCoercer, RemoteResult, XmlRpcRemoteClient
-from .version import __version__
 
 
 def _cli_arg(name: str, value: object):
@@ -117,6 +116,3 @@ class RoboSAPiensClient(object):
                 )
             else:
                 raise err
-
-    ROBOT_LIBRARY_SCOPE = "GLOBAL"
-    ROBOT_LIBRARY_VERSION = __version__

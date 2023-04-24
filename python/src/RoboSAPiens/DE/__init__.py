@@ -695,3 +695,6 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Text des Fensters wurde ausgelesen"
         }
         return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
+    
+    ROBOT_LIBRARY_SCOPE = 'GLOBAL'
+    ROBOT_LIBRARY_VERSION = '1.1.1'
