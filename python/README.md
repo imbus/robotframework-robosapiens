@@ -25,4 +25,4 @@ pip install robotframework-robosapiens
 
 ## Usage
 
-Consult the [Documentation](https://robotframework-robosapiens.github.io).
+Consult the [Documentation](https://imbus.github.io/robotframework-robosapiens/).
