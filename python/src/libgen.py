@@ -3,6 +3,8 @@ import importlib
 import sys
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Tuple, Union, cast
+from version import __version__
+
 
 ArgsDict = Dict[str, Dict[str, Any]]
 StrDict = Dict[str, Union[str, "StrDict"]]
@@ -92,6 +94,10 @@ def generate_rf_lib(lib_name: str, lib: Any):
         "robot.api.deco": ["keyword"],
         "RoboSAPiens.client": [base_class]
     }
+    properties = [
+        "ROBOT_LIBRARY_SCOPE = 'GLOBAL'",
+        f"ROBOT_LIBRARY_VERSION = '{__version__}'"
+    ]
     doc = codegen.gen_doc(get_str(lib["doc"]["intro"]))
     init = codegen.gen_init(gen_call_args(lib["args"]), 
         codegen.gen_doc(get_str(lib["doc"]["init"]) + "\n\n" + gen_args_doc(lib["args"])),
@@ -104,7 +110,7 @@ def generate_rf_lib(lib_name: str, lib: Any):
 
     return codegen.pprint_sections([
         codegen.gen_imports(imports),
-        "\n".join(codegen.gen_class(lib_name, doc, methods, base_class))
+        "\n".join(codegen.gen_class(lib_name, properties, doc, methods, base_class))
     ])
 
 
@@ -122,10 +128,10 @@ if __name__ == "__main__":
     lib = importlib.import_module("localized." + lang, ".").lib
 
     if lang == "en":
-        filepath = Path(".")
+        filepath = Path("RoboSAPiens")
         lib_name = "RoboSAPiens"
     else:
-        filepath = Path(lang.upper())
+        filepath = Path("RoboSAPiens") / Path(lang.upper())
         lib_name = lang.upper()
 
     rf_lib = generate_rf_lib(lib_name, lib)

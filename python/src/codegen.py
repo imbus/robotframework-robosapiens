@@ -17,7 +17,7 @@ def pprint_sections(sections: Iterable[str]):
     return "\n\n".join(sections)
 
 
-def gen_class(name: str, doc: List[str], methods: List[str], superclass: str):
+def gen_class(name: str, properties: List[str], doc: List[str], methods: List[str], superclass: str):
     if superclass:
         header = f"class {name}({superclass}):"
     else:
@@ -27,7 +27,9 @@ def gen_class(name: str, doc: List[str], methods: List[str], superclass: str):
         [header], 
         doc + 
         [""] +
-        methods
+        methods +
+        [""] +
+        properties
     )
 
 
