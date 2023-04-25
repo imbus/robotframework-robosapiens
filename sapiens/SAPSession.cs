@@ -34,6 +34,7 @@ namespace RoboSAPiens {
                 return null;
             } 
             catch (Exception e){
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new RobotResult.UIScanFail(e);
             }
         }
@@ -73,6 +74,7 @@ namespace RoboSAPiens {
             }
             catch (Exception e)
             {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new RobotResult.HighlightFail(e);
             }
         }
@@ -108,6 +110,7 @@ namespace RoboSAPiens {
                 return new Result.ActivateTab.Pass(tabLabel);
             } 
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.ActivateTab.Exception(e);
             }
         }
@@ -118,6 +121,7 @@ namespace RoboSAPiens {
                 return new Result.CloseConnection.Pass(systemName);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.CloseConnection.Exception(e);
             }
         }
@@ -139,6 +143,7 @@ namespace RoboSAPiens {
                 return new Result.DoubleClickCell.Pass(locator.cell);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.DoubleClickCell.Exception(e);
             }
         }
@@ -165,6 +170,7 @@ namespace RoboSAPiens {
                 return new Result.DoubleClickTextField.Pass(theTextField.atLocation);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.DoubleClickTextField.Exception(e);
             }
         }
@@ -179,6 +185,7 @@ namespace RoboSAPiens {
                 return new Result.ExecuteTransaction.Pass(tCode);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.ExecuteTransaction.Exception(e);
             }
         }
@@ -253,6 +260,7 @@ namespace RoboSAPiens {
                 return new Result.ExportForm.Pass(csvPath, pngPath);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.ExportForm.Exception(e);
             }
         }
@@ -271,6 +279,7 @@ namespace RoboSAPiens {
             }
             catch (Exception e)
             {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.ExportTree.Exception(e);
             }
         }
@@ -307,6 +316,7 @@ namespace RoboSAPiens {
                 return new Result.FillTableCell.Pass(locator.cell);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.FillTableCell.Exception(e);
             }
         }
@@ -338,6 +348,7 @@ namespace RoboSAPiens {
                 return new Result.FillTextField.Pass(theTextField.atLocation);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.FillTextField.Exception(e);
             }
         }
@@ -362,6 +373,7 @@ namespace RoboSAPiens {
                 button.push(session);
             } 
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.PushButton.Exception(e);
             }
 
@@ -398,6 +410,7 @@ namespace RoboSAPiens {
                 return new Result.PushButtonCell.Pass(locator.cell);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.PushButtonCell.Exception(e);
             }
         }
@@ -419,6 +432,7 @@ namespace RoboSAPiens {
                 return new Result.ReadTableCell.Pass(text, locator.cell);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.ReadTableCell.Exception(e);
             }
         }
@@ -443,6 +457,7 @@ namespace RoboSAPiens {
                 return new Result.ReadTextField.Pass(text, theTextField.atLocation);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.ReadTextField.Exception(e);
             }
         }
@@ -463,6 +478,7 @@ namespace RoboSAPiens {
                 return new Result.ReadText.Pass(text.getText());
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.ReadText.Exception(e);
             }
         }
@@ -499,6 +515,7 @@ namespace RoboSAPiens {
                 return new Result.SaveScreenshot.Pass(path);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.SaveScreenshot.Exception(e);
             }
         }
@@ -520,6 +537,7 @@ namespace RoboSAPiens {
                 return new Result.SelectCell.Pass(locator.cell);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.SelectCell.Exception(e);
             }
         }
@@ -549,6 +567,7 @@ namespace RoboSAPiens {
                 return new Result.SelectComboBoxEntry.Pass(entry);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.SelectComboBoxEntry.Exception(e);
             }
         }
@@ -574,6 +593,7 @@ namespace RoboSAPiens {
                 return new Result.SelectTextField.Pass(theTextField.atLocation);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.SelectTextField.Exception(e);
             }
         }
@@ -594,6 +614,7 @@ namespace RoboSAPiens {
                 return new Result.SelectTextLine.Pass(text);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.SelectTextLine.Exception(e);
             }
         }
@@ -619,6 +640,7 @@ namespace RoboSAPiens {
                 return new Result.SelectRadioButton.Pass(theRadioButton.atLocation);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.SelectRadioButton.Exception(e);
             }
         }
@@ -649,6 +671,7 @@ namespace RoboSAPiens {
                 return new Result.TickCheckBox.Pass(theCheckBox.atLocation);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.TickCheckBox.Exception(e);
             }
         }
@@ -674,6 +697,7 @@ namespace RoboSAPiens {
                 return new Result.UntickCheckBox.Pass(theCheckBox.atLocation);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.UntickCheckBox.Exception(e);
             }
         }
@@ -699,6 +723,7 @@ namespace RoboSAPiens {
                 return new Result.TickCheckBoxCell.Pass(locator.cell);
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.TickCheckBoxCell.Exception(e);
             }
         }

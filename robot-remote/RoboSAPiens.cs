@@ -126,6 +126,7 @@ namespace RoboSAPiens {
                 return new Result.OpenSAP.Pass();
             }
             catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 if (e is System.ComponentModel.Win32Exception || e is System.InvalidOperationException) {
                     return new Result.OpenSAP.SAPNotStarted(Pfad);
                 }
@@ -227,6 +228,7 @@ namespace RoboSAPiens {
                     
                 };
             } catch(Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.AttachToRunningSAP.Exception(e);
             }
         }
@@ -286,6 +288,7 @@ namespace RoboSAPiens {
                     _ => new Result.ConnectToServer.Pass(Servername)
                 };
             } catch (Exception e) {
+                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
                 return new Result.ConnectToServer.Exception(e);
             }
         }
