@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
-using System.Text.RegularExpressions;
 
 namespace RoboSAPiens {
     public sealed class NoSAPSession : ISession {}
@@ -471,10 +470,6 @@ namespace RoboSAPiens {
         public RobotResult saveScreenshot(string path) {
             if (path.StartsWith(@"\\")) return new Result.SaveScreenshot.UNCPath();
 
-            var pathRegex = new Regex(@"^(?:[a-zA-Z]\:)\\(?:[\w\s\.]+\\)*[\w\s\.]+?$");
-
-            if (!pathRegex.Match(path).Success) return new Result.SaveScreenshot.InvalidPath(path);
-
             var directory = Path.GetDirectoryName(path);
 
             if (directory == @"\") {
@@ -482,7 +477,7 @@ namespace RoboSAPiens {
             }
 
             if (directory == null) {
-                return new Result.SaveScreenshot.UNCPath();
+                return new Result.SaveScreenshot.InvalidPath(path);
             }
 
             if (directory == string.Empty) {
