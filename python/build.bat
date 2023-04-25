@@ -26,5 +26,6 @@ libdoc --theme LIGHT -P .\src RoboSAPiens.DE ../docs/RoboSAPiens.DE.html
 
 python localizedoc.py ../docs/RoboSAPiens.DE.html
 
-@REM pip install build
+@REM Build the wheel
+rmdir /S /Q dist
 python -m build --wheel

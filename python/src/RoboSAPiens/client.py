@@ -1,84 +1,64 @@
+import asyncio
 import subprocess
 import sys
-import time
 from os.path import realpath
 from pathlib import Path
-from typing import Any, Dict, List, Mapping
+from typing import Any, Dict, List, Mapping, Tuple
 from robot.errors import RemoteError
 from robot.libraries.Remote import ArgumentCoercer, RemoteResult, XmlRpcRemoteClient
 
 
-def _cli_arg(name: str, value: object):
-    name = name.replace("_", "-")
+def _cli_args(args: List[Tuple[str, Any]]) -> List[str]:
+    if len(args) == 0:
+        return []
+
+    (name, value), *rest = args
+
+    name = '--' + name.replace("_", "-")
 
     if type(value) == bool:
-        return f"--{name}"
-    else:
-        return f"--{name} {value}"
+        return [name] + _cli_args(rest)
+    
+    return [name, str(value)] + _cli_args(rest)
 
 
-def is_running(cmd: str):
+def _is_running(cmd: str):
     process_list = subprocess.check_output(
         # Set the character page to 65001 = UTF-8
         f'chcp 65001 | TASKLIST /FI "IMAGENAME eq {cmd}"', shell=True
-    ).decode('utf-8')
+    ).decode()
 
     return any(line.startswith(cmd) for line in process_list.splitlines())
-
-
-def start_cmd(cmd: Path, args: List[str]):
-    if is_running(cmd.name):
-        return
-
-    cmd_args = " ".join([str(cmd)] + args)
-
-    return subprocess.Popen(
-        cmd_args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-    )
-
-
-def check_alive(proc: subprocess.Popen): # type: ignore
-    timeout = 0.5 # seconds
-    elapsed = 0.0 # seconds
-    waiting = 0.1 # seconds
-
-    while elapsed < timeout:
-        time.sleep(waiting)
-        elapsed += waiting
-
-        returncode = proc.poll()
-
-        if returncode and returncode > 0:
-            message = "\n".join(
-                line.decode('utf-8').strip() for line in proc.stdout.readlines() # type: ignore
-            )
-            raise RemoteError(message)
 
 
 class RoboSAPiensClient(object):
     def __init__(self, args: Mapping[str, Any]):
         uri = f"http://127.0.0.1:{args['port']}"
-        server = Path(realpath(__file__)).parent / "lib" / "RoboSAPiens.exe"
+        server_cmd = Path(realpath(__file__)).parent / "lib" / "RoboSAPiens.exe"
 
-        self.server = self._start_server(server, args)
-        self.client = self._start_client(uri)
+        self._start_server(server_cmd, _cli_args(list(args.items())))
+        self.client = XmlRpcRemoteClient(uri)
 
+    def _start_server(self, server: Path, args: List[str]):
+        if _is_running(server.name):
+            return
 
-    def _start_client(self, uri: str):
-        if self.server:
-            check_alive(self.server)
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.start_cmd(server, args))
 
-        return XmlRpcRemoteClient(uri)
+    async def start_cmd(self, cmd: Path, args: List[str]):
+        self.server = await asyncio.create_subprocess_exec(
+            str(cmd), *args, 
+            stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )
 
+        try:
+            _, stderr = await asyncio.wait_for(self.server.communicate(), timeout=0.5)
 
-    def _start_server(self, server: Path, args: Mapping[str, Any]):
-        cli_args = [
-            _cli_arg(name, value) 
-            for name, value in args.items() 
-            if value
-        ]
-
-        return start_cmd(server, cli_args)
+            if self.server.returncode and self.server.returncode > 0:
+                raise RemoteError(stderr.decode())
+        except asyncio.TimeoutError:
+            pass
 
     def __del__(self):
         if self.server:
