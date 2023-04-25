@@ -698,4 +698,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.1.4'
+    ROBOT_LIBRARY_VERSION = '1.1.5'
