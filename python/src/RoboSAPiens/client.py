@@ -17,7 +17,10 @@ def _cli_args(args: List[Tuple[str, Any]]) -> List[str]:
     name = '--' + name.replace("_", "-")
 
     if type(value) == bool:
-        return [name] + _cli_args(rest)
+        if value:
+            return [name] + _cli_args(rest)
+        else:
+            return _cli_args(rest)
     
     return [name, str(value)] + _cli_args(rest)
 
