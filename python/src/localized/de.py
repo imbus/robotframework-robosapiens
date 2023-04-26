@@ -229,7 +229,8 @@ lib: LocalizedRoboSAPiens = {
         "NoSession": ("2754484086", no_session),
         "InvalidFormat": ("280110049", "Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen"),
         "NotFound": ("3381319755", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "Pass": ("927017588", "Die Zelle mit dem Lokator '{0}' wurde ausgefüllt."),
+        "NotChangeable": ("2078310074", "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar."),
+        "Pass": ("2876607603", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt."),
         "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
       },
       "doc": ("917168571", "Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.\n\n| ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``\nZeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")

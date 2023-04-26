@@ -279,7 +279,8 @@ class LocalizedRoboSAPiensKeywordsFilltablecellResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
     InvalidFormat: Tuple[Literal['280110049'], str]
     NotFound: Tuple[Literal['3381319755'], str]
-    Pass: Tuple[Literal['927017588'], str]
+    NotChangeable: Tuple[Literal['2078310074'], str]
+    Pass: Tuple[Literal['2876607603'], str]
     Exception: Tuple[Literal['1958379303'], str]
 
 class LocalizedRoboSAPiensKeywordsFilltablecell(TypedDict):

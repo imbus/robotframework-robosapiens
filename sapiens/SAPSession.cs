@@ -312,8 +312,11 @@ namespace RoboSAPiens {
             }
 
             try {
-                cell.insert(content, session);
-                return new Result.FillTableCell.Pass(locator.cell);
+                // The Changeable property could have been set to false after the window components were first read
+                switch(cell.insert(content, session)) {
+                    case RobotResult.NotChangeable: return new Result.FillTableCell.NotChangeable(locator.cell);
+                    default: return new Result.FillTableCell.Pass(locator.cell);
+                };
             }
             catch (Exception e) {
                 if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");

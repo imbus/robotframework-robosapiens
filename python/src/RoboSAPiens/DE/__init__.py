@@ -280,7 +280,8 @@ class DE(RoboSAPiensClient):
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "InvalidFormat": "Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
-            "Pass": "Die Zelle mit dem Lokator '{0}' wurde ausgefüllt.",
+            "NotChangeable": "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar.",
+            "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt.",
             "Exception": "Die Zelle konnte nicht ausgefüllt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('FillTableCell', list(args.values()), dict(), result) # type: ignore

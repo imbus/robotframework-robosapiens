@@ -7,7 +7,7 @@ namespace RoboSAPiens {
 
     public interface IEditableCell: IHighlightable {
         public int? getMaxLength();
-        public void insert(string text, GuiSession session);
+        public RobotResult.NotChangeable? insert(string text, GuiSession session);
         public bool isLocated(EmptyCellLocator locator, LabelCellStore rowLabels);
     }
 

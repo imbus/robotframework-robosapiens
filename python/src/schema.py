@@ -279,6 +279,7 @@ class RoboSAPiensKeywordsFilltablecellResult(TypedDict):
     NoSession: str
     InvalidFormat: str
     NotFound: str
+    NotChangeable: str
     Pass: str
     Exception: str
 

@@ -284,7 +284,8 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "InvalidFormat": "The format of the second parameter must be 'column = content'",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found Hint: Check the spelling",
-            "Pass": "The cell with the locator {0} was filled.",
+            "NotChangeable": "The cell with the locator '{0}, {1}' is not changeable.",
+            "Pass": "The cell with the locator '{0}, {1}' was filled.",
             "Exception": "The cell could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('FillTableCell', list(args.values()), dict(), result) # type: ignore

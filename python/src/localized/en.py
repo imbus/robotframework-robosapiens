@@ -240,7 +240,8 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "InvalidFormat": "The format of the second parameter must be 'column = content'",
                 "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found"),
-                "Pass": "The cell with the locator {0} was filled.",
+                "NotChangeable": "The cell with the locator '{0}, {1}' is not changeable.",
+                "Pass": "The cell with the locator '{0}, {1}' was filled.",
                 "Exception": exception("The cell could not be filled. {0}")
             },
             "doc": "Fill the cell at the intersection of the row and the column specified with the content provided.\n\n| ``Fill Cell     row     column = content``\nrow: either the row number or the contents of a cell in the row.\n\n*Hint*: Some cells can be filled using the keyword 'Fill Text Field' providing as locator the description obtained by selecting the cell and pressing F1."

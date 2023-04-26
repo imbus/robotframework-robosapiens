@@ -89,10 +89,15 @@ namespace RoboSAPiens {
             return maxLength;
         }
 
-        public void insert(string content, GuiSession session) {
+        public RobotResult.NotChangeable? insert(string content, GuiSession session) {
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.ModifyCell(rowIndex, columnId, content);
-            text = content;
+
+            if (gridView.GetCellChangeable(rowIndex, columnId)) {
+                gridView.ModifyCell(rowIndex, columnId, content);
+                text = content;
+                return null;
+            }
+            else return new RobotResult.NotChangeable();
         }
 
         public bool isLocated(EmptyCellLocator locator, LabelCellStore rowLabels) {
@@ -154,12 +159,17 @@ namespace RoboSAPiens {
             return maxLength;
         }
 
-        public void insert(string content, GuiSession session) {
+        public RobotResult.NotChangeable? insert(string content, GuiSession session) {
             table.makeSureCellIsVisible(rowIndex, session);
 
             var textField = (GuiTextField)session.FindById(id);
-            textField.Text = content;
-            text = content;
+
+            if (textField.Changeable) {
+                textField.Text = content;
+                text = content;
+                return null;
+            }
+            else return new RobotResult.NotChangeable();
         }
 
         public bool isLocated(EmptyCellLocator locator, LabelCellStore rowLabels) {

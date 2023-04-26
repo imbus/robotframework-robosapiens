@@ -62,6 +62,7 @@ namespace RoboSAPiens {
         public record NoSapGui(): RobotFail("NoSapGui", "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst aufgerufen werden.");
         public record NoSession(): RobotFail("NoSession", "Keine SAP-Session vorhanden. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.");
         public record NotFound(string error): RobotFail("NotFound", error + "\nHinweis: Prüfe die Rechtschreibung");
+        public record NotChangeable(string error = "Die Komponente ist schreibgeschützt."): RobotFail("NotChangeable", error);
         public record SapError(string message): RobotFail("SapError", error: message);
         public record UIScanFail(System.Exception e): RobotException("UIScanFail", e, "Scanning the GUI elements failed.");
         public record HighlightFail(System.Exception e): RobotException("HighlightFail", e, "The element could not be highlighted");
@@ -151,6 +152,7 @@ namespace RoboSAPiens {
             public record NoSession(): RobotResult.NoSession();
             public record InvalidFormat(): RobotResult.RobotFail("InvalidFormat", "Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen");
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist schreibgeschützt.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde ausgefüllt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht ausgefüllt werden.");
         }
