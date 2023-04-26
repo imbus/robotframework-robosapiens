@@ -297,6 +297,13 @@ namespace RoboSAPiens {
 
             var locator = EmptyCellLocator.of(rowIndexOrRowLabel, column);
             var cell = window.components.findEditableCell(locator);
+
+            // The Changeable property could have been set to true after the window components were first read
+            if (cell == null) {
+                updateWindow(updateComponents: true);
+                cell = window.components.findEditableCell(locator);
+            }
+
             if (cell == null) {
                 return new Result.FillTableCell.NotFound(locator.cell);
             }
