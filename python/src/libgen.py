@@ -114,14 +114,11 @@ def generate_rf_lib(lib_name: str, lib: Any):
     ])
 
 
-# TODO: generate dynamically from the list of files in localized
-languages = {"en", "de"}
-
 if __name__ == "__main__":
     _, *args = sys.argv
 
     if not args:
-        print(f"Usage: python libgen.py language\nSupported languages: {languages}")
+        print(f"Usage: python libgen.py language")
         sys.exit(1)
 
     lang = args[0]
