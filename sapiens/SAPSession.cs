@@ -191,7 +191,6 @@ namespace RoboSAPiens {
         }
 
         public RobotResult exportForm(string formName, string directory) {
-            // TODO: Write a function to replace invalid chars in the formName
             var fileName = $"{formName}_{systemName}".Replace("/", "_");
             var csv = new CSVWriter<FormField>(delimiter: ";");
             var formFields = new List<FormField>();
@@ -308,10 +307,11 @@ namespace RoboSAPiens {
                 return new Result.FillTableCell.NotFound(locator.cell);
             }
 
-            // TODO: If SAP checks this, get the error message from the statusbar
+            // Disabled because it could happen that the result of getMaxLength()
+            // does not correspond with the actual maximum length.
             // var maxLength = cell.getMaxLength();
             // if (maxLength != null && content.Length > maxLength) {
-            //     return new InvalidValueError($"The cell {locator.cell} may contain at most {maxLength} characters.");
+            //     return new Result.FillTableCell.TooManyChars(locator.cell, maxLength);
             // }
 
             if (options.presenterMode) switch(highlightElement(session, cell)) {
@@ -662,11 +662,6 @@ namespace RoboSAPiens {
                 return new Result.SelectRadioButton.Exception(e);
             }
         }
-
-        // TODO: Define a keyword "Select Table Row"
-        // Store the tables. When this keyword is called:
-        // 1. If there is more than one table, find the table using the title of the enclosing box.
-        // 2. Get the row and select it.
 
         public RobotResult tickCheckBox(string labels) {
             switch (updateComponentsIfWindowChanged()) {
