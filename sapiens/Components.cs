@@ -164,7 +164,17 @@ namespace RoboSAPiens {
                 var columnTitle = column.Title;
 
                 for (int rowIdx = 0; rowIdx < numRows; rowIdx++) {
-                    var cell = table.GetCell(rowIdx, colIdx);
+                    dynamic cell;
+
+                    // Tables are not necessarily rectangular grids
+                    // A column may have a hole. Holes are skipped
+                    try {
+                        cell = table.GetCell(rowIdx, colIdx);
+                    }
+                    catch (Exception) {
+                        continue;
+                    }
+
                     var absRowIdx = sapTable.getRowsInStore() + rowIdx;
                     switch (cell.Type) {
                         case "GuiButton":
