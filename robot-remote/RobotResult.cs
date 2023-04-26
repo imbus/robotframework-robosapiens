@@ -64,8 +64,8 @@ namespace RoboSAPiens {
         public record NotFound(string error): RobotFail("NotFound", error + "\nHinweis: Prüfe die Rechtschreibung");
         public record NotChangeable(string error = "Die Komponente ist schreibgeschützt."): RobotFail("NotChangeable", error);
         public record SapError(string message): RobotFail("SapError", error: message);
-        public record UIScanFail(System.Exception e): RobotException("UIScanFail", e, "Scanning the GUI elements failed.");
-        public record HighlightFail(System.Exception e): RobotException("HighlightFail", e, "The element could not be highlighted");
+        public record UIScanFail(System.Exception e): ExceptionError(e, "Scanning the GUI components failed.");
+        public record HighlightFail(System.Exception e): ExceptionError(e, "The component could not be highlighted.");
     }
 
     public record Result {
