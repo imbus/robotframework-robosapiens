@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using sapfewse;
-// using shdocvw.net;
-// using MSHTML;
+
 
 namespace RoboSAPiens {
     public sealed class Components {
@@ -135,17 +134,6 @@ namespace RoboSAPiens {
                     classifyGridViewToolbar(gridView);
                     classifyGridViewCells(gridView);
                     break;
-                // case "HTMLViewer":
-                //     var htmlViewer = (GuiHTMLViewer)guiShell;
-                //     var browser = (InternetExplorer)htmlViewer.BrowserHandle;
-                //     // var document = (HTMLDocument)browser.Document;
-
-                //     // var pdfTab = document.getElementById("A:LE:J_action_shipmentEventPreview_t_0");
-                //     // if (pdfTab != null) {
-                //     //     pdfTab.click();
-                //     // }
-
-                //     break;
                 case "Toolbar":
                     classifyToolbar((GuiToolbarControl)guiShell);
                     break;
