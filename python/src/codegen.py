@@ -3,6 +3,10 @@ import json
 import re
 
 
+def camel_to_snake(s: str):
+    return ''.join(['_' + c.lower() if c.isupper() else c for c in s]).lstrip('_')
+
+
 def pprint_code_block(header: List[str], body: Iterable[str]):
     return header + pprint_indented(body)
 
