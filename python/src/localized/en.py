@@ -169,7 +169,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
-                "Pass": "The cell with the locator {0} was double-clicked.",
+                "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
                 "Exception": exception("The cell could not be double-clicked. {0}")
             },
             "doc": "Double-click the cell at the intersection of the row and the column provided.\n\n| ``Double-click Cell     row_locator     column``\nrow_locator: either the row number or the content of a cell in the row."
@@ -350,7 +350,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
-                "Pass": "The cell with the locator '{0}' was read.",
+                "Pass": "The cell with the locator '{0}, {1}' was read.",
                 "Exception": exception("The cell could not be read. {0}")
             },
             "doc": "Read the contents of the cell at the intersection of the row and column provided.\n\n| ``Read Cell     row_locator     column``\nrow_locator: either the row number or the contents of a cell in the row."
@@ -388,7 +388,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
-                "Pass": "The cell with the locator '{0}' was selected.",
+                "Pass": "The cell with the locator '{0}, {1}' was selected.",
                 "Exception": exception("The cell could not be selected. {0}")
             },
             "doc": "Select the cell at the intersection of the row and column provided.\n\n| ``Select Cell     row_locator     column``\nrow_locator: either the row number or the contents of a cell in the row."

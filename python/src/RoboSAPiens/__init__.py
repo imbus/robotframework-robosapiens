@@ -195,7 +195,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hint: Check the spelling",
-            "Pass": "The cell with the locator {0} was double-clicked.",
+            "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
             "Exception": "The cell could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('DoubleClickCell', list(args.values()), dict(), result) # type: ignore
@@ -442,7 +442,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hint: Check the spelling",
-            "Pass": "The cell with the locator '{0}' was read.",
+            "Pass": "The cell with the locator '{0}, {1}' was read.",
             "Exception": "The cell could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ReadTableCell', list(args.values()), dict(), result) # type: ignore
@@ -489,7 +489,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hint: Check the spelling",
-            "Pass": "The cell with the locator '{0}' was selected.",
+            "Pass": "The cell with the locator '{0}, {1}' was selected.",
             "Exception": "The cell could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('SelectCell', list(args.values()), dict(), result) # type: ignore

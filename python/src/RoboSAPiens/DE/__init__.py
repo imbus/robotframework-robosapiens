@@ -190,7 +190,7 @@ class DE(RoboSAPiensClient):
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
-            "Pass": "Die Zelle mit dem Lokator '{0}' wurde doppelgeklickt.",
+            "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt.",
             "Exception": "Die Zelle konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('DoubleClickCell', list(args.values()), dict(), result) # type: ignore
@@ -363,7 +363,7 @@ class DE(RoboSAPiensClient):
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
-            "Pass": "Die Zelle mit dem Lokator '{0}' wurde gedrückt.",
+            "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt.",
             "Exception": "Die Zelle konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('PushButtonCell', list(args.values()), dict(), result) # type: ignore
@@ -438,7 +438,7 @@ class DE(RoboSAPiensClient):
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
-            "Pass": "Die Zelle mit dem Lokator '{0}' wurde ausgelesen.",
+            "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen.",
             "Exception": "Die Zelle konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('ReadTableCell', list(args.values()), dict(), result) # type: ignore
@@ -485,7 +485,7 @@ class DE(RoboSAPiensClient):
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
-            "Pass": "Die Zelle mit dem Lokator '{0}' wurde markiert.",
+            "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert.",
             "Exception": "Die Zelle konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('SelectCell', list(args.values()), dict(), result) # type: ignore
@@ -657,7 +657,7 @@ class DE(RoboSAPiensClient):
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
-            "Pass": "Die Zelle mit dem Lokator '{0}' wurde angekreuzt.",
+            "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt.",
             "Exception": "Die Zelle konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('TickCheckBoxCell', list(args.values()), dict(), result) # type: ignore

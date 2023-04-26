@@ -158,7 +158,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("2754484086", no_session),
         "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "Pass": ("1249017752", "Die Zelle mit dem Lokator '{0}' wurde doppelgeklickt."),
+        "Pass": ("4023459711", "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt."),
         "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
       },
       "doc": ("1790929105", "Die angegebene Tabellenzelle wird doppelgeklickt.\n\n| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\nPositionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle.")
@@ -287,7 +287,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("2754484086", no_session),
         "NotFound": ("2199892932", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "Pass": ("1649470590", "Die Zelle mit dem Lokator '{0}' wurde gedrückt."),
+        "Pass": ("1649470590", "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt."),
         "Exception": ("1751102722", exception("Die Zelle konnte nicht gedrückt werden."))
       },
       "doc": ("3042146913", "Die angegebene Tabellenzelle wird gedrückt.\n\n| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).")
@@ -339,7 +339,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("2754484086", no_session),
         "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "Pass": ("2745435444", "Die Zelle mit dem Lokator '{0}' wurde ausgelesen."),
+        "Pass": ("4222878164", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen."),
         "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
       },
       "doc": ("666704855", "Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.")
@@ -377,7 +377,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("2754484086", no_session),
         "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "Pass": ("3085393420", "Die Zelle mit dem Lokator '{0}' wurde markiert."),
+        "Pass": ("1239645311", "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert."),
         "Exception": ("2355177759", exception("Die Zelle konnte nicht markiert werden."))
       },
       "doc": ("497443824", "Die angegebene Tabellenzelle wird markiert.\n\n| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.")
@@ -498,7 +498,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("2754484086", no_session),
         "NotFound": ("2481184945", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "Pass": ("1580249093", "Die Zelle mit dem Lokator '{0}' wurde angekreuzt."),
+        "Pass": ("1580249093", "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt."),
         "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
       },
       "doc": ("3059587832", "Die angegebene Tabellenzelle wird angekreuzt.\n\n| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``")
