@@ -39,7 +39,7 @@ class RoboSAPiensClient(object):
         uri = f"http://127.0.0.1:{args['port']}"
         server_cmd = Path(realpath(__file__)).parent / "lib" / "RoboSAPiens.exe"
 
-        self._start_server(server_cmd, _cli_args(list(args.items())))
+        self.server = self._start_server(server_cmd, _cli_args(list(args.items())))
         self.client = XmlRpcRemoteClient(uri)
 
     def _start_server(self, server: Path, args: List[str]):
@@ -47,21 +47,21 @@ class RoboSAPiensClient(object):
             return
 
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.start_cmd(server, args))
+        return loop.run_until_complete(self.start_cmd(server, args))
 
     async def start_cmd(self, cmd: Path, args: List[str]):
-        self.server = await asyncio.create_subprocess_exec(
+        proc = await asyncio.create_subprocess_exec(
             str(cmd), *args, 
             stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
 
         try:
-            _, stderr = await asyncio.wait_for(self.server.communicate(), timeout=0.5)
+            _, stderr = await asyncio.wait_for(proc.communicate(), timeout=0.5)
 
-            if self.server.returncode and self.server.returncode > 0:
+            if proc.returncode and proc.returncode > 0:
                 raise RemoteError(stderr.decode())
         except asyncio.TimeoutError:
-            pass
+            return proc
 
     def __del__(self):
         if self.server:
