@@ -391,9 +391,13 @@ namespace RoboSAPiens {
                 case string sapError : return new Result.PushButton.SapError(sapError);
             }
 
-            switch (updateWindow(updateComponents: true)) {
-                case RobotResult.UIScanFail exceptionError:
-                    return exceptionError;
+            // Pushing a Button may result in the window being rerendered,
+            // and the properties of some components may change.
+            if (!windowChanged()) {
+                switch (updateWindow(updateComponents: true)) {
+                    case RobotResult.UIScanFail exceptionError:
+                        return exceptionError;
+                }
             }
 
             return new Result.PushButton.Pass(theButton.atLocation);
@@ -494,6 +498,10 @@ namespace RoboSAPiens {
         }
 
         public RobotResult saveScreenshot(string path) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
             if (path.StartsWith(@"\\")) return new Result.SaveScreenshot.UNCPath();
 
             var directory = Path.GetDirectoryName(path);
@@ -747,10 +755,8 @@ namespace RoboSAPiens {
         }
 
         public RobotResult getWindowTitle() {
-            if (windowChanged()) {
-                switch (updateWindow(updateComponents: false)) {
-                    case RobotResult.UIScanFail exceptionError: return exceptionError;
-                }
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             return new Result.GetWindowTitle.Pass(window.title);
