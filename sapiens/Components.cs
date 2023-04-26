@@ -164,31 +164,25 @@ namespace RoboSAPiens {
                 var columnTitle = column.Title;
 
                 for (int rowIdx = 0; rowIdx < numRows; rowIdx++) {
-                    try {
-                        var cell = table.GetCell(rowIdx, colIdx);
-                        var absRowIdx = sapTable.getRowsInStore() + rowIdx;
-                        switch (cell.Type) {
-                            case "GuiButton":
-                                buttons.add(new SAPTableButton(columnTitle, absRowIdx, (GuiButton)cell, sapTable));
-                                break;
-                            case "GuiCheckBox":
-                                checkBoxes.add(new SAPTableCheckBox(columnTitle, absRowIdx, (GuiCheckBox)cell, sapTable));
-                                break;
-                            case "GuiTextField":
-                            case "GuiCTextField":
-                                var textField = (GuiTextField)cell;
-                                if (textField.Changeable) {
-                                    editableCells.add(new EditableTableCell(columnTitle, absRowIdx, textField, sapTable));
-                                } 
-                                else {
-                                    labelCells.add(new SAPTableCell(columnTitle, absRowIdx, textField, sapTable));
-                                }
-                                break;
-                        }
-                    }
-                    catch (Exception) {
-                        // TODO: Do not ignore the exception. Throw it and catch it upstream in a function that returns a RobotResult.
-                        continue;
+                    var cell = table.GetCell(rowIdx, colIdx);
+                    var absRowIdx = sapTable.getRowsInStore() + rowIdx;
+                    switch (cell.Type) {
+                        case "GuiButton":
+                            buttons.add(new SAPTableButton(columnTitle, absRowIdx, (GuiButton)cell, sapTable));
+                            break;
+                        case "GuiCheckBox":
+                            checkBoxes.add(new SAPTableCheckBox(columnTitle, absRowIdx, (GuiCheckBox)cell, sapTable));
+                            break;
+                        case "GuiTextField":
+                        case "GuiCTextField":
+                            var textField = (GuiTextField)cell;
+                            if (textField.Changeable) {
+                                editableCells.add(new EditableTableCell(columnTitle, absRowIdx, textField, sapTable));
+                            } 
+                            else {
+                                labelCells.add(new SAPTableCell(columnTitle, absRowIdx, textField, sapTable));
+                            }
+                            break;
                     }
                 }
             }
