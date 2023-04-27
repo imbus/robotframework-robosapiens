@@ -7,7 +7,6 @@
 - Build: RoboSAPiens 32-bit and 64-bit, Wheel, Documentation
 - Publish on Pypi
 
-- Chooose a build tool: just, cake, tox, nox, invoke
 - Setup the build environment: Appveyor
 
 
