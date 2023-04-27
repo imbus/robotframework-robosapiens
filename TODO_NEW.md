@@ -79,6 +79,8 @@ As described in the [SAP GUI Scripting API documentation](https://www.synactive.
 
 https://help.qualibrate.com/space/QXP/3960186362/Headless+Execution
 
+Moreover, there is [SAP GUI for HTML](https://help.sap.com/docs/SAP_NETWEAVER_700/1095c5c36c531014a190e3910e107855/4c3a83ddb48f1ca9e10000000a42189e.html?locale=en-US), maps SAP screens to HTML pages.
+
 
 ## Record & Replay: RF Code Generator
 
