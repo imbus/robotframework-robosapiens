@@ -1,6 +1,8 @@
 import codegen
 import importlib
+import os
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Tuple, Union, cast
 from version import __version__
@@ -8,6 +10,12 @@ from version import __version__
 
 ArgsDict = Dict[str, Dict[str, Any]]
 StrDict = Dict[str, Union[str, "StrDict"]]
+
+@dataclass
+class LocalizedLib:
+    name: str
+    path: Path
+    spec: Dict
 
 
 def get_str(arg: Union[str, Tuple[str, str]]):
@@ -87,7 +95,8 @@ def gen_methods(keywords: Dict[str, Dict[str, Any]]):
     return methods
 
 
-def generate_rf_lib(lib_name: str, lib: Any):
+def generate_rf_lib(lib: LocalizedLib, version: str):
+    spec = lib.spec
     base_class = "RoboSAPiensClient"
     imports = { 
         "robot.api.deco": ["keyword"],
@@ -95,44 +104,59 @@ def generate_rf_lib(lib_name: str, lib: Any):
     }
     properties = [
         "ROBOT_LIBRARY_SCOPE = 'GLOBAL'",
-        f"ROBOT_LIBRARY_VERSION = '{__version__}'"
+        f"ROBOT_LIBRARY_VERSION = '{version}'"
     ]
-    doc = codegen.gen_doc(get_str(lib["doc"]["intro"]))
-    init = codegen.gen_init(gen_call_args(lib["args"]), 
-        codegen.gen_doc(get_str(lib["doc"]["init"]) + "\n\n" + gen_args_doc(lib["args"])),
+    doc = codegen.gen_doc(get_str(spec["doc"]["intro"]))
+    init = codegen.gen_init(gen_call_args(spec["args"]), 
+        codegen.gen_doc(get_str(spec["doc"]["init"]) + "\n\n" + gen_args_doc(spec["args"])),
         [""] + 
-        gen_args(lib["args"]) +
+        gen_args(spec["args"]) +
         [""] + 
         ["super().__init__(args)"]
     )
-    methods = init + gen_methods(lib['keywords'])
+    methods = init + gen_methods(spec['keywords'])
 
     return codegen.pprint_sections([
         codegen.gen_imports(imports),
-        "\n".join(codegen.gen_class(lib_name, properties, doc, methods, base_class))
+        "\n".join(codegen.gen_class(lib.name, properties, doc, methods, base_class))
     ])
+
+
+def get_localizations(path: Path):
+    return [
+        LocalizedLib(
+            name = get_lib_name(lang),
+            path = get_lib_path(lang),
+            spec = importlib.import_module(f"{path}.{lang}", ".").lib
+        )
+        for file in os.listdir(path) if not file.startswith("__")
+        for lang in [Path(file).stem]
+    ]
+
+
+def get_lib_path(lang: str):
+    if lang == "en":
+        return Path("RoboSAPiens") / "__init__.py"
+    else:
+        return Path("RoboSAPiens") / Path(lang.upper()) / "__init__.py"
+
+
+def get_lib_name(lang: str):
+    if lang == "en":
+        return "RoboSAPiens"
+    else:
+        return lang.upper()
 
 
 if __name__ == "__main__":
     _, *args = sys.argv
 
-    if not args:
-        print(f"Usage: python libgen.py language")
-        sys.exit(1)
+    localized_libs = get_localizations(Path("localized"))
 
-    lang = args[0]
-    lib = importlib.import_module("localized." + lang, ".").lib
-
-    if lang == "en":
-        filepath = Path("RoboSAPiens")
-        lib_name = "RoboSAPiens"
-    else:
-        filepath = Path("RoboSAPiens") / Path(lang.upper())
-        lib_name = lang.upper()
-
-    rf_lib = generate_rf_lib(lib_name, lib)
+    for lib in localized_libs:
+        rf_lib = generate_rf_lib(lib, __version__)
     
-    with open(filepath/"__init__.py", "w", encoding="utf-8") as file:
-        file.write(rf_lib)
+        with open(lib.path, "w", encoding="utf-8") as file:
+            file.write(rf_lib)
 
     sys.exit(0)
