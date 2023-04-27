@@ -36,11 +36,20 @@ def _is_running(cmd: str):
 
 class RoboSAPiensClient(object):
     def __init__(self, args: Mapping[str, Any]):
-        uri = f"http://127.0.0.1:{args['port']}"
-        server_cmd = Path(realpath(__file__)).parent / "lib" / "RoboSAPiens.exe"
+        self.args = list(args.items())
+        self.server_cmd = Path(realpath(__file__)).parent / "lib" / "RoboSAPiens.exe"
+        self.uri = f"http://127.0.0.1:{args['port']}"
 
-        self.server = self._start_server(server_cmd, _cli_args(list(args.items())))
-        self.client = XmlRpcRemoteClient(uri)
+        self._server = self.server
+        self._client = self.client
+
+    @property
+    def server(self):
+        return self._start_server(self.server_cmd, _cli_args(self.args))
+
+    @property
+    def client(self):
+        return XmlRpcRemoteClient(self.uri)
 
     def _start_server(self, server: Path, args: List[str]):
         if _is_running(server.name):
@@ -64,8 +73,8 @@ class RoboSAPiensClient(object):
             return proc
 
     def __del__(self):
-        if self.server:
-            self.server.terminate()
+        if self._server:
+            self._server.terminate()
 
     def run_keyword(self, name: str, args: List[Any], kwargs: Dict[str, Any], result: Dict[str, Any]): # type: ignore
         coercer = ArgumentCoercer()
