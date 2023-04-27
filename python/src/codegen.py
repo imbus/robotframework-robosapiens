@@ -62,8 +62,9 @@ def gen_str_dict(name: str, input: Any):
 def gen_doc(doc: str):
     doc_lines = (line.lstrip() for line in doc.split("\n"))
 
-    while (first := next(doc_lines)) == "":
-        ...
+    first = next(doc_lines)
+    while (first) == "":
+        first = next(doc_lines)
 
     return ['"""'] + [first] + list(doc_lines) + ['"""']
 

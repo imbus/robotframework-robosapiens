@@ -65,7 +65,7 @@ def gen_types(type_name: str, node: StrDict, gen_str_type: Func) -> str:
 
 def generate_api_code(
     api: Any,
-    imports: Dict[str, List[str]] = {"typing": ["Literal", "TypedDict"]},
+    imports: Dict[str, List[str]] = {"typing_extensions": ["Literal", "TypedDict"]},
     gen_str_type: Func = lambda name: "str",
     type_name: str = "RoboSAPiens"
 ):
@@ -76,7 +76,10 @@ def generate_api_code(
 
 
 def generate_localized_schema(api: Any):
-    imports = { "typing": ["Literal", "Tuple", "TypedDict"] }
+    imports = { 
+        "typing_extensions": ["Literal", "TypedDict"],
+        "typing": ["Tuple"] 
+    }
     gen_str_type: Func = (
         lambda value: f"Tuple[Literal['{crc32(value.encode('utf-8'))}'], str]"
     )

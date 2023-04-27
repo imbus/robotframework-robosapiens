@@ -39,4 +39,5 @@ setup(
     install_requires=[
         'robotframework',
     ],
+    python_requires='>=3.7.9'
 )

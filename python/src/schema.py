@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict
+from typing_extensions import Literal, TypedDict
 
 class RoboSAPiensDoc(TypedDict):
     intro: str

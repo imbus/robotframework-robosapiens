@@ -1,4 +1,5 @@
-from typing import Literal, Tuple, TypedDict
+from typing_extensions import Literal, TypedDict
+from typing import Tuple
 
 class LocalizedRoboSAPiensDoc(TypedDict):
     intro: Tuple[Literal['2676661990'], str]

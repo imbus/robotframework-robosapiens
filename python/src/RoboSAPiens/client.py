@@ -55,6 +55,7 @@ class RoboSAPiensClient(object):
         if _is_running(server.name):
             return
 
+        asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
         loop = asyncio.get_event_loop()
         return loop.run_until_complete(self.start_cmd(server, args))
 

@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
-from typing import Dict, TypedDict
+from typing import Dict
+from typing_extensions import TypedDict
 
 
 class Headings(TypedDict):
