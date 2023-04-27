@@ -2,12 +2,21 @@
 ## Continuous Integration
 
 - Static analysis
-- Tests
 - Linter
+- Tests
 - Build: RoboSAPiens 32-bit and 64-bit, Wheel, Documentation
 - Publish on Pypi
 
 - Setup the build environment: Appveyor
+
+
+## Landing page
+
+- GIF showing RF and SAP side-by-side. Using presenter-mode one can see what each keywords does to the GUI.
+  - English
+  - German
+
+- Link to the docs
 
 
 ## Support SAP GUI 8.0
