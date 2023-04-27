@@ -34,7 +34,7 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Reiter auswählen') # type: ignore
-    def ActivateTab(self, Reitername: str): # type: ignore
+    def activate_tab(self, Reitername: str): # type: ignore
         """
         Der Reiter mit dem angegebenen Name wird ausgewählt.
         
@@ -52,11 +52,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Reiter '{0}' wurde ausgewählt.",
             "Exception": "Der Reiter konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ActivateTab', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ActivateTab', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('SAP starten') # type: ignore
-    def OpenSAP(self, Pfad: str): # type: ignore
+    def open_s_a_p(self, Pfad: str): # type: ignore
         """
         Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
         """
@@ -70,11 +70,11 @@ class DE(RoboSAPiensClient):
             "SAPNotStarted": "Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{0}'.",
             "Exception": "Die SAP GUI konnte nicht gestartet werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('OpenSAP', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('OpenSAP', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Verbindung zum Server trennen') # type: ignore
-    def CloseConnection(self, ): # type: ignore
+    def close_connection(self, ): # type: ignore
         """
         Die Verbindung mit dem SAP Server wird beendet.
         """
@@ -90,11 +90,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Verbindung zum Server wurde getrennt.",
             "Exception": "Die Verbindung zum Server konnte nicht getrennt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('CloseConnection', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('CloseConnection', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('SAP beenden') # type: ignore
-    def CloseSAP(self, ): # type: ignore
+    def close_s_a_p(self, ): # type: ignore
         """
         Die SAP GUI wird beendet.
         """
@@ -106,11 +106,11 @@ class DE(RoboSAPiensClient):
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
             "Pass": "Die SAP GUI wurde beendet"
         }
-        return super()._run_keyword('CloseSAP', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('CloseSAP', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Funktionsbaum exportieren') # type: ignore
-    def ExportTree(self, Dateipfad: str): # type: ignore
+    def export_tree(self, Dateipfad: str): # type: ignore
         """
         Der Funktionsbaum wird in der angegebenen Datei gespeichert.
         
@@ -127,11 +127,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Baumstruktur wurde in JSON Format in der Datei '{0}' gespeichert",
             "Exception": "Die Baumstruktur konnte nicht exportiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExportTree', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ExportTree', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
-    def AttachToRunningSAP(self, ): # type: ignore
+    def attach_to_running_s_a_p(self, ): # type: ignore
         """
         Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
         """
@@ -147,11 +147,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die laufende SAP GUI wurde erfolgreich übernommen.",
             "Exception": "Die laufende SAP GUI konnte nicht übernommen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('AttachToRunningSAP', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('AttachToRunningSAP', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Verbindung zum Server herstellen') # type: ignore
-    def ConnectToServer(self, Servername: str): # type: ignore
+    def connect_to_server(self, Servername: str): # type: ignore
         """
         Die Verbindung mit dem angegebenen SAP Server wird hergestellt.
         
@@ -170,11 +170,11 @@ class DE(RoboSAPiensClient):
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
             "Exception": "Die Verbindung konnte nicht hergestellt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ConnectToServer', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ConnectToServer', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Tabellenzelle doppelklicken') # type: ignore
-    def DoubleClickCell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
+    def double_click_cell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
         """
         Die angegebene Tabellenzelle wird doppelgeklickt.
         
@@ -193,11 +193,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt.",
             "Exception": "Die Zelle konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('DoubleClickCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('DoubleClickCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Textfeld doppelklicken') # type: ignore
-    def DoubleClickTextField(self, Inhalt: str): # type: ignore
+    def double_click_text_field(self, Inhalt: str): # type: ignore
         """
         Das angegebene Textfeld wird doppelgeklickt.
         
@@ -215,11 +215,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde doppelgeklickt.",
             "Exception": "Das Textfeld konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('DoubleClickTextField', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('DoubleClickTextField', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Transaktion ausführen') # type: ignore
-    def ExecuteTransaction(self, T_Code: str): # type: ignore
+    def execute_transaction(self, T_Code: str): # type: ignore
         """
         Die Transaktion mit dem angegebenen T-Code wird ausgeführt.
         
@@ -235,11 +235,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Transaktion mit T-Code '{0}' wurde erfolgreich ausgeführt.",
             "Exception": "Die Transaktion konnte nicht ausgeführt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExecuteTransaction', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ExecuteTransaction', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Maske exportieren') # type: ignore
-    def ExportForm(self, Name: str, Verzeichnis: str): # type: ignore
+    def export_form(self, Name: str, Verzeichnis: str): # type: ignore
         """
         Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
         
@@ -257,11 +257,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert",
             "Exception": "Die Maske konnte nicht exportiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExportForm', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ExportForm', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Tabellenzelle ausfüllen') # type: ignore
-    def FillTableCell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel_Gleich_Inhalt: str): # type: ignore
+    def fill_table_cell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel_Gleich_Inhalt: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
         
@@ -284,11 +284,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt.",
             "Exception": "Die Zelle konnte nicht ausgefüllt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('FillTableCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('FillTableCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Textfeld ausfüllen') # type: ignore
-    def FillTextField(self, Beschriftung_oder_Positionsgeber: str, Inhalt: str): # type: ignore
+    def fill_text_field(self, Beschriftung_oder_Positionsgeber: str, Inhalt: str): # type: ignore
         """
         Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
         
@@ -321,11 +321,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgefüllt.",
             "Exception": "Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('FillTextField', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('FillTextField', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Knopf drücken') # type: ignore
-    def PushButton(self, Name_oder_Kurzinfo: str): # type: ignore
+    def push_button(self, Name_oder_Kurzinfo: str): # type: ignore
         """
         Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.
         
@@ -343,11 +343,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Knopf '{0}' wurde gedrückt.",
             "Exception": "Der Knopf konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('PushButton', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('PushButton', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Tabellenzelle drücken') # type: ignore
-    def PushButtonCell(self, Zeilennummer_oder_Name_oder_Kurzinfo: str, Spaltentitel: str): # type: ignore
+    def push_button_cell(self, Zeilennummer_oder_Name_oder_Kurzinfo: str, Spaltentitel: str): # type: ignore
         """
         Die angegebene Tabellenzelle wird gedrückt.
         
@@ -366,11 +366,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt.",
             "Exception": "Die Zelle konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('PushButtonCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('PushButtonCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Textfeld auslesen') # type: ignore
-    def ReadTextField(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
+    def read_text_field(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
         """
         Der Inhalt des angegebenen Textfeldes wird zurückgegeben.
         
@@ -394,11 +394,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgelesen.",
             "Exception": "Das Textfeld konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadTextField', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ReadTextField', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Text auslesen') # type: ignore
-    def ReadText(self, Inhalt: str): # type: ignore
+    def read_text(self, Inhalt: str): # type: ignore
         """
         Der Inhalt des angegebenen Texts wird zurückgegeben.
         
@@ -418,11 +418,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Text mit dem Lokator '{0}' wurde ausgelesen.",
             "Exception": "Der Text konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadText', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ReadText', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Tabellenzelle auslesen') # type: ignore
-    def ReadTableCell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
+    def read_table_cell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
         """
         Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.
         
@@ -441,11 +441,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen.",
             "Exception": "Die Zelle konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadTableCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ReadTableCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Fenster aufnehmen') # type: ignore
-    def SaveScreenshot(self, Aufnahmenverzeichnis: str): # type: ignore
+    def save_screenshot(self, Aufnahmenverzeichnis: str): # type: ignore
         """
         Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.
         
@@ -465,11 +465,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Eine Aufnahme des Fensters wurde in '{0}' gespeichert.",
             "Exception": "Eine Aufnahme des Fensters konnte nicht gespeichert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SaveScreenshot', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SaveScreenshot', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Tabellenzelle markieren') # type: ignore
-    def SelectCell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
+    def select_cell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
         """
         Die angegebene Tabellenzelle wird markiert.
         
@@ -488,11 +488,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert.",
             "Exception": "Die Zelle konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Auswahlmenüeintrag auswählen') # type: ignore
-    def SelectComboBoxEntry(self, Name: str, Eintrag: str): # type: ignore
+    def select_combo_box_entry(self, Name: str, Eintrag: str): # type: ignore
         """
         Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.
         
@@ -511,11 +511,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Eintrag '{1}' wurde ausgewählt.",
             "Exception": "Der Eintrag konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectComboBoxEntry', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectComboBoxEntry', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Optionsfeld auswählen') # type: ignore
-    def SelectRadioButton(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
+    def select_radio_button(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
         """
         Das angegebene Optionsfeld wird ausgewählt.
         
@@ -538,11 +538,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Optionsfeld mit dem Lokator '{0}' wurde ausgewählt.",
             "Exception": "Das Optionsfeld konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectRadioButton', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectRadioButton', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Textfeld markieren') # type: ignore
-    def SelectTextField(self, Beschriftungen_oder_Inhalt: str): # type: ignore
+    def select_text_field(self, Beschriftungen_oder_Inhalt: str): # type: ignore
         """
         Das angegebene Textfeld wird markiert.
         
@@ -566,11 +566,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde markiert.",
             "Exception": "Das Textfeld konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectTextField', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectTextField', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Textzeile markieren') # type: ignore
-    def SelectTextLine(self, Inhalt: str): # type: ignore
+    def select_text_line(self, Inhalt: str): # type: ignore
         """
         Die Textzeile mit dem angegebenen Inhalt wird markiert.
         | ``Textzeile markieren    Inhalt``
@@ -586,11 +586,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Textzeile mit dem Inhalt '{0}' wurde markiert.",
             "Exception": "Die Textzeile konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectTextLine', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectTextLine', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Formularfeld ankreuzen') # type: ignore
-    def TickCheckBox(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
+    def tick_check_box(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
         """
         Das angegebene Formularfeld wird angekreuzt.
         
@@ -612,11 +612,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Formularfeld mit dem Lokator '{0}' wurde angekreuzt.",
             "Exception": "Das Formularfeld konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('TickCheckBox', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('TickCheckBox', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Formularfeld abwählen') # type: ignore
-    def UntickCheckBox(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
+    def untick_check_box(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
         """
         Das angegebene Formularfeld wird abgewählt.
         
@@ -638,11 +638,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Formularfeld mit dem Lokator '{0}' wurde abgewählt.",
             "Exception": "Das Formularfeld konnte nicht abgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('UntickCheckBox', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('UntickCheckBox', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Tabellenzelle ankreuzen') # type: ignore
-    def TickCheckBoxCell(self, Zeilennummer: str, Spaltentitel: str): # type: ignore
+    def tick_check_box_cell(self, Zeilennummer: str, Spaltentitel: str): # type: ignore
         """
         Die angegebene Tabellenzelle wird angekreuzt.
         
@@ -660,11 +660,11 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt.",
             "Exception": "Die Zelle konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('TickCheckBoxCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('TickCheckBoxCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Fenstertitel auslesen') # type: ignore
-    def GetWindowTitle(self, ): # type: ignore
+    def get_window_title(self, ): # type: ignore
         """
         Der Titel des Fensters im Fordergrund wird zurückgegeben.
         
@@ -678,11 +678,11 @@ class DE(RoboSAPiensClient):
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "Pass": "Der Fenstertitel wurde ausgelesen"
         }
-        return super()._run_keyword('GetWindowTitle', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('GetWindowTitle', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Fenstertext auslesen') # type: ignore
-    def GetWindowText(self, ): # type: ignore
+    def get_window_text(self, ): # type: ignore
         """
         Der Text des Fensters im Fordergrund wird zurückgegeben.
         
@@ -696,7 +696,7 @@ class DE(RoboSAPiensClient):
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "Pass": "Der Text des Fensters wurde ausgelesen"
         }
-        return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = '1.1.6'

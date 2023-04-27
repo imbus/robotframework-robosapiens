@@ -39,7 +39,7 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Select Tab') # type: ignore
-    def ActivateTab(self, tabname: str): # type: ignore
+    def activate_tab(self, tabname: str): # type: ignore
         """
         Select the tab with the name provided.
         
@@ -57,11 +57,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The tab {0} was selected",
             "Exception": "The tab could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ActivateTab', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ActivateTab', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Open SAP') # type: ignore
-    def OpenSAP(self, path: str): # type: ignore
+    def open_s_a_p(self, path: str): # type: ignore
         """
         Open the SAP GUI. The standard path is\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
         """
@@ -75,11 +75,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
             "Exception": "The SAP GUI could not be opened. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('OpenSAP', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('OpenSAP', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Disconnect from Server') # type: ignore
-    def CloseConnection(self, ): # type: ignore
+    def close_connection(self, ): # type: ignore
         """
         Terminate the connection to the SAP server.
         """
@@ -95,11 +95,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "Disconnected from the server.",
             "Exception": "Could not disconnect from the server. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('CloseConnection', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('CloseConnection', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Close SAP') # type: ignore
-    def CloseSAP(self, ): # type: ignore
+    def close_s_a_p(self, ): # type: ignore
         """
         Close the SAP GUI
         """
@@ -111,11 +111,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
             "Pass": "The SAP GUI was closed."
         }
-        return super()._run_keyword('CloseSAP', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('CloseSAP', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Export Function Tree') # type: ignore
-    def ExportTree(self, filepath: str): # type: ignore
+    def export_tree(self, filepath: str): # type: ignore
         """
         Export the function tree in JSON format to the file provided.
         
@@ -132,11 +132,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The function tree was exported to {0}",
             "Exception": "The function tree could not be exported. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ExportTree', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ExportTree', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Connect to Running SAP') # type: ignore
-    def AttachToRunningSAP(self, ): # type: ignore
+    def attach_to_running_s_a_p(self, ): # type: ignore
         """
         Connect to a running SAP instance and take control of it.
         """
@@ -152,11 +152,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "Connected to a running SAP instance.",
             "Exception": "Could not connect to a running SAP instance. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('AttachToRunningSAP', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('AttachToRunningSAP', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Connect to Server') # type: ignore
-    def ConnectToServer(self, servername: str): # type: ignore
+    def connect_to_server(self, servername: str): # type: ignore
         """
         Connect to the SAP Server provided.
         
@@ -175,11 +175,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
             "Exception": "Could not establish the connection. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ConnectToServer', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ConnectToServer', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Double-click Cell') # type: ignore
-    def DoubleClickCell(self, row_number_or_cell_content: str, column: str): # type: ignore
+    def double_click_cell(self, row_number_or_cell_content: str, column: str): # type: ignore
         """
         Double-click the cell at the intersection of the row and the column provided.
         
@@ -198,11 +198,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
             "Exception": "The cell could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('DoubleClickCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('DoubleClickCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Double-click Text Field') # type: ignore
-    def DoubleClickTextField(self, content: str): # type: ignore
+    def double_click_text_field(self, content: str): # type: ignore
         """
         Double click the text field with the content provided.
         
@@ -219,11 +219,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The text field with the content '{0}' was double-clicked.",
             "Exception": "The text field could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('DoubleClickTextField', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('DoubleClickTextField', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Execute Transaction') # type: ignore
-    def ExecuteTransaction(self, T_Code: str): # type: ignore
+    def execute_transaction(self, T_Code: str): # type: ignore
         """
         Execute the transaction with the given T-Code.
         
@@ -239,11 +239,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The transaction with T-Code {0} was executed.",
             "Exception": "The transaction could not be executed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ExecuteTransaction', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ExecuteTransaction', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Export Dynpro') # type: ignore
-    def ExportForm(self, name: str, directory: str): # type: ignore
+    def export_form(self, name: str, directory: str): # type: ignore
         """
         Write all texts in the Dynpro to a CSV file. Also a screenshot will be saved in PNG format.
         
@@ -261,11 +261,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The Dynpro was exported to the CSV file {0} and the PNG image {1}",
             "Exception": "The Dynpro could not be exported. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ExportForm', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ExportForm', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Fill Cell') # type: ignore
-    def FillTableCell(self, row_number_or_content: str, column_equals_content: str): # type: ignore
+    def fill_table_cell(self, row_number_or_content: str, column_equals_content: str): # type: ignore
         """
         Fill the cell at the intersection of the row and the column specified with the content provided.
         
@@ -288,11 +288,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The cell with the locator '{0}, {1}' was filled.",
             "Exception": "The cell could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('FillTableCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('FillTableCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Fill Text Field') # type: ignore
-    def FillTextField(self, locator: str, content: str): # type: ignore
+    def fill_text_field(self, locator: str, content: str): # type: ignore
         """
         Fill the text Field specified by the locator with the content provided.
         
@@ -325,11 +325,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The text field with the locator '{0}' was filled.",
             "Exception": "The text field could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('FillTextField', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('FillTextField', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Push Button') # type: ignore
-    def PushButton(self, name_or_tooltip: str): # type: ignore
+    def push_button(self, name_or_tooltip: str): # type: ignore
         """
         Push the button with the given name or tooltip.
         
@@ -347,11 +347,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The button '{0}' was pushed.",
             "Exception": "The button could not be pushed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('PushButton', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('PushButton', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Push Button Cell') # type: ignore
-    def PushButtonCell(self, row_index_label_tooltip: str, column: str): # type: ignore
+    def push_button_cell(self, row_index_label_tooltip: str, column: str): # type: ignore
         """
         Push the button cell located at the intersection of the row and column provided.
         
@@ -370,11 +370,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The button cell with the locator '{0}' was pushed.",
             "Exception": "The button cell could not be pushed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('PushButtonCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('PushButtonCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Read Text Field') # type: ignore
-    def ReadTextField(self, locator: str): # type: ignore
+    def read_text_field(self, locator: str): # type: ignore
         """
         Read the contents of the text field specified by the locator.
         
@@ -398,11 +398,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The text field with the locator '{0}' was read.",
             "Exception": "The text field could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ReadTextField', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ReadTextField', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Read Text') # type: ignore
-    def ReadText(self, content: str): # type: ignore
+    def read_text(self, content: str): # type: ignore
         """
         Read the text specified by the locator.
         
@@ -422,11 +422,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "A text with the locator '{0}' was read.",
             "Exception": "The text could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ReadText', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ReadText', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Read Cell') # type: ignore
-    def ReadTableCell(self, row_number_or_content: str, column: str): # type: ignore
+    def read_table_cell(self, row_number_or_content: str, column: str): # type: ignore
         """
         Read the contents of the cell at the intersection of the row and column provided.
         
@@ -445,11 +445,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The cell with the locator '{0}, {1}' was read.",
             "Exception": "The cell could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ReadTableCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('ReadTableCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Save Screenshot') # type: ignore
-    def SaveScreenshot(self, filepath: str): # type: ignore
+    def save_screenshot(self, filepath: str): # type: ignore
         """
         Save a screenshot of the current window in the file provided.
         
@@ -469,11 +469,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The screenshot was saved in {0}.",
             "Exception": "The screenshot could not be saved. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('SaveScreenshot', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SaveScreenshot', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Select Cell') # type: ignore
-    def SelectCell(self, row_number_or_content: str, column: str): # type: ignore
+    def select_cell(self, row_number_or_content: str, column: str): # type: ignore
         """
         Select the cell at the intersection of the row and column provided.
         
@@ -492,11 +492,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The cell with the locator '{0}, {1}' was selected.",
             "Exception": "The cell could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('SelectCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Select Dropdown Menu Entry') # type: ignore
-    def SelectComboBoxEntry(self, dropdown_menu: str, entry: str): # type: ignore
+    def select_combo_box_entry(self, dropdown_menu: str, entry: str): # type: ignore
         """
         Select the specified entry from the dropdown menu provided.
         
@@ -515,11 +515,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "In the dropdown menu '{0}' the entry '{1}' was selected.",
             "Exception": "The entry could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('SelectComboBoxEntry', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectComboBoxEntry', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Select Radio Button') # type: ignore
-    def SelectRadioButton(self, locator: str): # type: ignore
+    def select_radio_button(self, locator: str): # type: ignore
         """
         Select the radio button specified by the locator.
         
@@ -541,11 +541,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The radio button with locator '{0}' was selected.",
             "Exception": "The radio button could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('SelectRadioButton', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectRadioButton', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Select Text Field') # type: ignore
-    def SelectTextField(self, locator: str): # type: ignore
+    def select_text_field(self, locator: str): # type: ignore
         """
         Select the text field specified by the locator.
         
@@ -569,11 +569,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The text field with the locator '{0}' was selected.",
             "Exception": "The text field could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('SelectTextField', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectTextField', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Select Text Line') # type: ignore
-    def SelectTextLine(self, content: str): # type: ignore
+    def select_text_line(self, content: str): # type: ignore
         """
         Select the text line starting with the given content.
         | ``Select Text Line    content``
@@ -589,11 +589,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The text line starting with '{0}' was selected.",
             "Exception": "The text line could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('SelectTextLine', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('SelectTextLine', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Tick Checkbox') # type: ignore
-    def TickCheckBox(self, locator: str): # type: ignore
+    def tick_check_box(self, locator: str): # type: ignore
         """
         Tick the checkbox specified by the locator.
         
@@ -615,11 +615,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The checkbox with the locator '{0}' was ticked.",
             "Exception": "The checkbox could not be ticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('TickCheckBox', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('TickCheckBox', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Untick Checkbox') # type: ignore
-    def UntickCheckBox(self, locator: str): # type: ignore
+    def untick_check_box(self, locator: str): # type: ignore
         """
         Untick the checkbox specified by the locator.
         
@@ -641,11 +641,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The checkbox with the locator '{0}' was unticked.",
             "Exception": "The checkbox could not be unticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('UntickCheckBox', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('UntickCheckBox', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Tick Checkbox Cell') # type: ignore
-    def TickCheckBoxCell(self, row_number: str, column: str): # type: ignore
+    def tick_check_box_cell(self, row_number: str, column: str): # type: ignore
         """
         Tick the checkbox cell at the intersection of the row and the column provided.
         
@@ -663,11 +663,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The checkbox cell with the locator '{0}' was ticked.",
             "Exception": "The checkbox cell could not be ticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('TickCheckBoxCell', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('TickCheckBoxCell', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Get Window Title') # type: ignore
-    def GetWindowTitle(self, ): # type: ignore
+    def get_window_title(self, ): # type: ignore
         """
         Get the title of the window in the foreground.
         
@@ -681,11 +681,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "Pass": "The title of the window was obtained."
         }
-        return super()._run_keyword('GetWindowTitle', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('GetWindowTitle', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Get Window Text') # type: ignore
-    def GetWindowText(self, ): # type: ignore
+    def get_window_text(self, ): # type: ignore
         """
         Get the text message of the window in the foreground.
         
@@ -699,7 +699,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "Pass": "The text message of the window was obtained."
         }
-        return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
+        return super().run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = '1.1.6'
