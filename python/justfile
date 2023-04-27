@@ -7,7 +7,7 @@ gen-robosapiens: python-requirements
     Get-Content ../VERSION | Join-String -FormatString "__version__ = '{0}'" | Set-Content src/version.py
     cd src; just build
 
-build-wheel: gen-robosapiens clean
+build-wheel: gen-robosapiens
     python -m build --wheel
 
 gendoc:
@@ -18,4 +18,4 @@ gendoc:
 clean:
     if (Test-Path dist) { rm -r dist }
 
-build: build-wheel gendoc
+build: clean build-wheel gendoc

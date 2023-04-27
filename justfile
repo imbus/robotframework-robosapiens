@@ -12,7 +12,6 @@ clean:
     if (Test-Path bin) { rm -r bin }
     if (Test-Path build) { rm -r build }
     if (Test-Path obj) { rm -r obj }
-    cd python; just clean
 
-build: build-exe
+build: clean build-exe
     cd python; just build
