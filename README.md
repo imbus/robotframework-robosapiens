@@ -1,8 +1,8 @@
 # RoboSAPiens: SAP GUI Automation for Humans
-https://img.shields.io/pypi/v/robotframework-robosapiens
-https://img.shields.io/pypi/dm/robotframework-robosapiens
-https://img.shields.io/pypi/pyversions/robotframework-robosapiens
-https://img.shields.io/github/commit-activity/m/imbus/robotframework-robosapiens
+![PyPI - Version](https://img.shields.io/pypi/v/robotframework-robosapiens)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/robotframework-robosapiens)
+![Python - Versions](https://img.shields.io/pypi/pyversions/robotframework-robosapiens)
+![GitHub - Commit Activity](https://img.shields.io/github/commit-activity/m/imbus/robotframework-robosapiens)
 
 ## Users
 
