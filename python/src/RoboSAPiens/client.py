@@ -57,9 +57,9 @@ class RoboSAPiensClient(object):
 
         asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
         loop = asyncio.get_event_loop()
-        return loop.run_until_complete(self.start_cmd(server, args))
+        return loop.run_until_complete(self._start_cmd(server, args))
 
-    async def start_cmd(self, cmd: Path, args: List[str]):
+    async def _start_cmd(self, cmd: Path, args: List[str]):
         proc = await asyncio.create_subprocess_exec(
             str(cmd), *args, 
             stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
@@ -77,7 +77,8 @@ class RoboSAPiensClient(object):
         if self._server:
             self._server.terminate()
 
-    def run_keyword(self, name: str, args: List[Any], kwargs: Dict[str, Any], result: Dict[str, Any]): # type: ignore
+    # All methods have to be private so that they are not interpreted as keywords by RF
+    def _run_keyword(self, name: str, args: List[Any], kwargs: Dict[str, Any], result: Dict[str, Any]): # type: ignore
         coercer = ArgumentCoercer()
         args = coercer.coerce(args) # type: ignore
         kwargs = coercer.coerce(kwargs) # type: ignore
