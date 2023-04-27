@@ -1,0 +1,21 @@
+set windows-shell := ["pwsh.exe", "-nop", "-c"]
+
+python-requirements:
+    pip install -r requirements.txt
+
+gen-robosapiens: python-requirements
+    Get-Content ../VERSION | Join-String -FormatString "__version__ = '{0}'" | Set-Content src/version.py
+    cd src; just build
+
+build-wheel: gen-robosapiens clean
+    python -m build --wheel
+
+gendoc:
+    libdoc --theme LIGHT -P .\src RoboSAPiens ../docs/RoboSAPiens.html
+    libdoc --theme LIGHT -P .\src RoboSAPiens.DE ../docs/RoboSAPiens.DE.html
+    python localizedoc.py ../docs/RoboSAPiens.DE.html
+
+clean:
+    if (Test-Path dist) { rm -r dist }
+
+build: build-wheel gendoc
