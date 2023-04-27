@@ -27,19 +27,12 @@
 ### Requirements
 
 - [.NET SDK 7.0 x64](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+- [just](https://github.com/casey/just/)
 
-### Compile RoboSAPiens.exe
+To build the wheel:
 
-```powershell
-build.bat
 ```
-
-### Build the Python wheel
-
-```powershell
-cd python
-pip install -r requirements.txt
-build.bat
+just build
 ```
 
 ### References
