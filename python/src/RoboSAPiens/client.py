@@ -67,7 +67,7 @@ class RoboSAPiensClient(object):
         if self.server:
             self.server.terminate()
 
-    def _run_keyword(self, name: str, args: List[Any], kwargs: Dict[str, Any], result: Dict[str, Any]): # type: ignore
+    def run_keyword(self, name: str, args: List[Any], kwargs: Dict[str, Any], result: Dict[str, Any]): # type: ignore
         coercer = ArgumentCoercer()
         args = coercer.coerce(args) # type: ignore
         kwargs = coercer.coerce(kwargs) # type: ignore

@@ -88,7 +88,7 @@ def gen_methods(keywords: Dict[str, Dict[str, Any]]):
             [""] +
             gen_result(result) +
             [
-            f"return super()._run_keyword('{keyword}', list(args.values()), dict(), result) # type: ignore"
+            f"return super().run_keyword('{keyword}', list(args.values()), dict(), result) # type: ignore"
             ]
         )
 
