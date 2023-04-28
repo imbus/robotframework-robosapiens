@@ -31,6 +31,7 @@
 ### Requirements
 
 - [.NET SDK 7.0 x64](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+- [PowerShell 7](https://github.com/PowerShell/PowerShell)
 - [just](https://github.com/casey/just/)
 
 To build the wheel:
