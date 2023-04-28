@@ -34,6 +34,13 @@ When exporting the API in C# add
 new Arg("32-bit", "Whether to launch the 32-bit server or the 64-bit server", default: true, export: true).
 
 
+## Screenshot on error
+
+For SapError and NotFound set the output to:
+
+*HTML* <img f'src="data:image/png;base64,{screenshot_as_base64}"' width=f"{width}px">
+
+
 # C#
 
 ## Keywords
