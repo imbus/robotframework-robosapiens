@@ -6,34 +6,36 @@
         <meta http-equiv="Expires" content="0" />
         <style>
             body { font-family: "Lato", sans-serif;}
-            .sidenav { height: 100%; width: 200; position: fixed; z-index: 1; top: 5; left: 0; text-align: left;
-            background-color: #ffffff; overflow: auto; resize: none;  font-size: 16px;}
+            .main { height: 100%; display: flex; flex-wrap: wrap; }
+            .sidenav { height: 100%; display: flex; flex-flow: column; flex-basis: 12rem; flex-grow: 1; text-align: left; font-size: 16px; }
+            .footer { width: 99%; min-height: 3.6vh; color: #818181; font-size: 9px; text-align: left; }
+            .doc { height: 100%; flex-basis: 0; flex-grow: 999; }
             .link_not_selected { padding: 6px 6px 6px 32px; text-decoration: none; color: #818181; display: block;}
             .link_selected {padding: 6px 6px 6px 32px; text-decoration: none; font-weight: bold; color: rgb(0, 0, 0); display: block;}    
-            .sidenav p { padding: 0px 0px 0px 12px; color: #818181; position: relative; bottom: 0}
-            .main { margin-left: 200; height: 100%}
         </style>
     </head>
     <body>
     
     <div id="main" class="main">
-        <iframe name="targetFrame" src="RoboSAPiens.html" allowTransparency="true" frameborder="0" width="100%" height="98%">
-        </iframe>
+        <div id="sidenav" class="sidenav">
+            <div style="text-align:center; margin-bottom: 20;">
+                <img src="RoboSAPiens.png" width="128">
+            </div>
+            <div>
+              <a class="link_selected" href="RoboSAPiens.html" target="targetFrame">RoboSAPiens</a>
+              <a class="link_not_selected" href="RoboSAPiens.DE.html" target="targetFrame">RoboSAPiens.DE</a>
+            </div>
+            <div style="flex: 1; overflow: auto"></div>
+            <div id="footer" class="footer">
+                <p style="padding-left: 30;">Logo: FreeImages.com/Svengraph</p>
+            </div>
+        </div>
+        <div id="doc" class="doc">
+            <iframe name="targetFrame" src="RoboSAPiens.html" allowTransparency="true" frameborder="0" width="100%" height="100%">
+            </iframe>    
+        </div>
     </div>
-    
-    <div id="sidenav" class="sidenav">
-        <div style="text-align:center; margin-bottom: 20;">
-            <img src="RoboSAPiens.png" width="128">
-        </div>
-        <div>
-          <a class="link_selected" href="RoboSAPiens.html" target="targetFrame">RoboSAPiens</a>
-          <a class="link_not_selected" href="RoboSAPiens.DE.html" target="targetFrame">RoboSAPiens.DE</a>
-        </div>
-        <div style="height: 72%;"></div>
-        <div style="text-align: center;">
-            <p style="font-size: 9px;">Logo: FreeImages.com/Svengraph</p>
-        </div>
-    </div>
+
     <script>
         var links = document.querySelectorAll("#sidenav a");
         links.forEach(link => {
