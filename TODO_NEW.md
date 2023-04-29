@@ -41,6 +41,12 @@ For SapError and NotFound set the output to:
 *HTML* <img f'src="data:image/png;base64,{screenshot_as_base64}"' width=f"{width}px">
 
 
+## Non-unique locators
+
+Handle the case when a locator corresponds to more than one component.
+The current solution is to always return the first match.
+
+
 # C#
 
 ## Keywords
