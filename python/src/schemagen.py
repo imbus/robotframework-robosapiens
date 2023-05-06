@@ -4,16 +4,18 @@ import sys
 from importlib import import_module
 from typing import Any, Callable, Dict, List, Tuple, Union
 from zlib import crc32
+from changeset import changeset
 
 StrDict = Dict[str, Union[str, "StrDict"]]
 Fields = Dict[str, str]
-Func = Callable[[str], str]
+Func = Callable[[str, str], str]
 
 
 def process_tree(
     type_name: str,
     node: StrDict,
-    todo: List[Tuple[str, StrDict]],
+    path: List[str],
+    todo: List[Tuple[List[str], str, StrDict]],
     done: List[Tuple[str, Fields]],
     gen_str_type: Func,
 ):
@@ -33,12 +35,12 @@ def process_tree(
         if type(val) is dict:
             field_type = type_name + name.title()
             fields[field_name] = field_type
-            todo.append((field_type, val))
+            todo.append((path + [name], field_type, val))
         elif type(val) == str:
             if type_name.endswith("Specs"):
                 fields[field_name] = f"Literal[r'{val}']"
             else:
-                fields[field_name] = gen_str_type(val)
+                fields[field_name] = gen_str_type(".".join(path + [name]), val)
         else:
             fields[field_name] = f"Literal[{str(val)}]"
 
@@ -48,15 +50,17 @@ def process_tree(
 
 
 def gen_types(type_name: str, node: StrDict, gen_str_type: Func) -> str:
-    todo: List[Tuple[str, StrDict]] = []
+    todo: List[Tuple[List[str], str, StrDict]] = []
     done: List[Tuple[str, Fields]] = []
 
     # breadth-first tree traversal
-    todo, done = process_tree(type_name, node, todo, done, gen_str_type)
+    path = []
+    todo, done = process_tree(type_name, node, path, todo, done, gen_str_type)
 
     while len(todo) > 0:
-        name, val = todo.pop()
-        todo, done = process_tree(name, val, todo, done, gen_str_type)
+        todo_first, *todo_rest = todo
+        path, name, val = todo_first
+        todo, done = process_tree(name, val, path, todo_rest, done, gen_str_type)
 
     return codegen.pprint_sections(
         "\n".join(codegen.gen_typed_dict(name, entries)) for name, entries in reversed(done)
@@ -66,7 +70,7 @@ def gen_types(type_name: str, node: StrDict, gen_str_type: Func) -> str:
 def generate_api_code(
     api: Any,
     imports: Dict[str, List[str]] = {"typing_extensions": ["Literal", "TypedDict"]},
-    gen_str_type: Func = lambda name: "str",
+    gen_str_type: Func = lambda path, name: "str",
     type_name: str = "RoboSAPiens"
 ):
     return codegen.pprint_sections([
@@ -80,9 +84,13 @@ def generate_localized_schema(api: Any):
         "typing_extensions": ["Literal", "TypedDict"],
         "typing": ["Tuple"] 
     }
-    gen_str_type: Func = (
-        lambda value: f"Tuple[Literal['{crc32(value.encode('utf-8'))}'], str]"
-    )
+
+    def gen_str_type(path, value):
+        if path in changeset:
+            return f"Tuple[Literal['{crc32(value.encode('utf-8'))}'], str]"
+
+        return "Tuple[str, str]"
+    
     typename = "LocalizedRoboSAPiens"
     
     return generate_api_code(api, imports, gen_str_type, typename)
