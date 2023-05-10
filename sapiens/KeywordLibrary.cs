@@ -7,57 +7,56 @@ using System.Threading;
 using sapfewse;
 using saprotwr.net;
 
-namespace RoboSAPiens {
-    public class RoboSAPiens {
-        CLI.Options options;
-        List<RobotKeyword> keywords;
+namespace SAPiens 
+{
+    public record struct Options(bool debug, int port, bool presenterMode);
+
+    public class KeywordLibrary 
+    {
+        Options options;
+        ILogger logger;
         public ISession session;
         private Process? proc = null;
 
-        public RoboSAPiens(CLI.Options options) {
+        public KeywordLibrary(Options options, ILogger logger) {
+            this.logger = logger;
             this.options = options;
             session = new NoSAPSession();
-            keywords = new List<RobotKeyword>();
+        }
 
-            typeof(RoboSAPiens)
-                .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-                .ToList()
-                .ForEach(methodInfo => {
-                    var attrKeyword = methodInfo.GetCustomAttribute(typeof(Keyword));
-                    var attrDoc = methodInfo.GetCustomAttribute(typeof(Doc));
+        public RobotResult callKeyword(string methodName, object[] args) 
+        {
+            try
+            {
+                var result = InvokeMethod(this, methodName, args);
 
-                    if (attrKeyword != null && attrDoc != null) {
-                        var name = ((Keyword)attrKeyword).Name;
-                        var method = methodInfo.Name;
-                        var args = methodInfo.GetParameters()
-                                             .Select(param => param.Name ?? "").ToArray();
-                        var types = methodInfo.GetParameters()
-                                              .Select(param => param.ParameterType.ToString())
-                                              .ToArray();
-                        var doc = ((Doc)attrDoc).DocString;
-                        keywords.Add(new RobotKeyword(name, method, args, types, doc));
-                    }
-                });
+                if (result != null)
+                    return (RobotResult)result;
+                else
+                    return new Result.KeywordLibrary.KeywordNotFound(methodName);
+            }
+            catch (Exception e)
+            {
+                return new Result.KeywordLibrary.Exception(methodName, e);   
+            }
         }
 
 		dynamic? InvokeMethod(object obj, string methodName, object[]? methodParams = null) {
-            return obj.GetType().InvokeMember(methodName,
-                                              System.Reflection.BindingFlags.InvokeMethod,
-                                              null,
-                                              obj,
-                                              methodParams);
+            return obj
+                .GetType()
+                .InvokeMember
+                (
+                    name: methodName,
+                    invokeAttr: System.Reflection.BindingFlags.InvokeMethod,
+                    binder: null,
+                    target: obj,
+                    args: methodParams
+                );
 		}
 
-        public RobotKeyword getKeyword(string name) {
-            return keywords.Single(keyword => keyword.method == name);
-        }
-
-        public string[] getKeywordNames() {
-            return keywords.Select(keyword => keyword.name).ToArray();
-        }
-
-        public static object getKeywordSpecs() {
-            return typeof(RoboSAPiens)
+        public static object getKeywordSpecs() 
+        {
+            return typeof(KeywordLibrary)
                     .GetMethods()
                     .Where(method => 
                         method.GetCustomAttribute(typeof(Keyword)) != null &&
@@ -86,6 +85,32 @@ namespace RoboSAPiens {
                     );
         }
 
+        record EitherSapGui {
+            public record Ok(GuiApplication sapGui): EitherSapGui;
+            public record Err(RobotResult.RobotFail robotFail): EitherSapGui;
+        };
+
+        EitherSapGui getSapGui() {
+            try
+            {
+                var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
+                if (sapGui == null) {
+                    return new EitherSapGui.Err(new RobotResult.NoSapGui());
+                }
+                
+                var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
+                
+                if (scriptingEngine == null) {
+                    return new EitherSapGui.Err(new RobotResult.NoGuiScripting());
+                }
+
+                return new EitherSapGui.Ok((GuiApplication)scriptingEngine);
+            }
+            catch (System.Exception e)
+            {
+                return new EitherSapGui.Err(new RobotResult.ExceptionError(e, "An unexpected error occurred."));
+            }
+        }
 
         [Keyword("Reiter auswählen"),
          Doc("Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n" +
@@ -126,7 +151,7 @@ namespace RoboSAPiens {
                 return new Result.OpenSAP.Pass();
             }
             catch (Exception e) {
-                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 if (e is System.ComponentModel.Win32Exception || e is System.InvalidOperationException) {
                     return new Result.OpenSAP.SAPNotStarted(Pfad);
                 }
@@ -139,20 +164,22 @@ namespace RoboSAPiens {
         [Keyword("Verbindung zum Server trennen"),
          Doc("Die Verbindung mit dem SAP Server wird beendet.")]
         public RobotResult CloseConnection() {
-            var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
-            if (sapGui == null) {
-                return new Result.CloseConnection.NoSapGui();
-            }
-            
-            var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
-            if (scriptingEngine == null) {
-                return new Result.CloseConnection.NoGuiScripting();
-            }
+            switch(getSapGui()) 
+            {
+                case EitherSapGui.Err(RobotResult.RobotFail.NoSapGui):
+                    return new Result.CloseConnection.NoSapGui();
+                
+                case EitherSapGui.Err(RobotResult.RobotFail.NoGuiScripting):
+                    return new Result.CloseConnection.NoGuiScripting();
 
-            var guiApplication = (GuiApplication)scriptingEngine;
+                case EitherSapGui.Err(RobotResult.ExceptionError(System.Exception e, string errorMessage)):
+                    return new Result.CloseConnection.Exception(e);
 
-            if (guiApplication.Connections.Length == 0) {
-                return new Result.CloseConnection.NoConnection();
+                case EitherSapGui.Ok(GuiApplication guiApplication):
+                    if (guiApplication.Connections.Length == 0) {
+                        return new Result.CloseConnection.NoConnection();
+                    }
+                    break;
             }
 
             return session switch {
@@ -180,7 +207,7 @@ namespace RoboSAPiens {
 
             var guiSession = (GuiSession)sessions.ElementAt(0);
 
-            this.session = new SAPSession(guiSession, connection, options);
+            this.session = new SAPSession(guiSession, connection, options, logger);
 
             return new Success("Session successfully created");
         }
@@ -197,20 +224,28 @@ namespace RoboSAPiens {
 
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult AttachToRunningSAP() {        
-            try {
-                var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
-                if (sapGui == null) {
+        public RobotResult AttachToRunningSAP() {   
+            GuiApplication? guiApplication = null;
+
+            switch(getSapGui()) 
+            {
+                case EitherSapGui.Err(RobotResult.RobotFail.NoSapGui):
                     return new Result.AttachToRunningSAP.NoSapGui();
-                }
-
-                var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
-                if (scriptingEngine == null) {
+                
+                case EitherSapGui.Err(RobotResult.RobotFail.NoGuiScripting):
                     return new Result.AttachToRunningSAP.NoGuiScripting();
-                }
 
-                var guiApplication = (GuiApplication)scriptingEngine;
-                var connections = guiApplication.Connections;
+                case EitherSapGui.Err(RobotResult.ExceptionError(System.Exception e, string errorMessage)):
+                    return new Result.AttachToRunningSAP.Exception(e);
+
+                case EitherSapGui.Ok(GuiApplication sapGui):
+                    guiApplication = sapGui;
+                    break;
+            }
+
+            try
+            {
+                var connections = guiApplication!.Connections;
 
                 if (connections.Length == 0) {
                     return new Result.AttachToRunningSAP.NoConnection();
@@ -227,13 +262,16 @@ namespace RoboSAPiens {
                     _ => new Result.AttachToRunningSAP.Pass(),
                     
                 };
-            } catch(Exception e) {
-                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
+            } 
+            catch(Exception e) 
+            {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new Result.AttachToRunningSAP.Exception(e);
             }
         }
 
-        GuiConnection? getConnection(GuiApplication guiApplication, string serverName) {
+        GuiConnection? getConnection(GuiApplication guiApplication, string serverName) 
+        {
             var connections = guiApplication.Connections;
 
             for (int i=0; i < connections.Length; i++) {
@@ -250,45 +288,55 @@ namespace RoboSAPiens {
          Doc("Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n" +
              "| ``Verbindung zum Server herstellen    Servername``")]
         public RobotResult ConnectToServer(string Servername) {
-            try {
-                var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
-                if (sapGui == null) {
+            GuiApplication? guiApplication = null;
+
+            switch(getSapGui()) 
+            {
+                case EitherSapGui.Err(RobotResult.RobotFail.NoSapGui):
                     return new Result.ConnectToServer.NoSapGui();
-                }
                 
-                var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
-                if (scriptingEngine == null) {
+                case EitherSapGui.Err(RobotResult.RobotFail.NoGuiScripting):
                     return new Result.ConnectToServer.NoGuiScripting();
-                }
 
-                var guiApplication = (GuiApplication)scriptingEngine;
+                case EitherSapGui.Err(RobotResult.ExceptionError(System.Exception e, string errorMessage)):
+                    return new Result.ConnectToServer.Exception(e);
 
-                var connection = getConnection(guiApplication, Servername);
-                
-                if (connection != null) {
+                case EitherSapGui.Ok(GuiApplication sapGui):
+                    guiApplication = sapGui;
+                    break;
+            }
+
+            try 
+            {
+                var connection = getConnection(guiApplication!, Servername);
+
+                if (connection != null) 
+                {
                     // reuse existing connection
-                    return createSession(connection) switch {
+                    return createSession(connection) switch 
+                    {
                         Error error => error,
                         _ => new Result.ConnectToServer.Pass(Servername)
                     };
                 }
 
-                connection = guiApplication.OpenConnection(Servername);
+                connection = guiApplication!.OpenConnection(Servername);
                 var connectionError = guiApplication.ConnectionErrorText;
-                if (connectionError != "") {
+                if (connectionError != "")
                     return new Result.ConnectToServer.SapError(connectionError);
-                }
 
-                if (connection.DisabledByServer) {
+                if (connection.DisabledByServer)
                     return new Result.ConnectToServer.NoServerScripting();
-                }
 
-                return createSession(connection) switch {
+                return createSession(connection) switch 
+                {
                     Error error => error,
                     _ => new Result.ConnectToServer.Pass(Servername)
                 };
-            } catch (Exception e) {
-                if (options.debug) CLI.error(e.Message, e.StackTrace ?? "");
+            } 
+            catch (Exception e) 
+            {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new Result.ConnectToServer.Exception(e);
             }
         }

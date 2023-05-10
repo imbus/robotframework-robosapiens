@@ -1,4 +1,4 @@
-set windows-shell := ["pwsh.exe", "-nop", "-c"]
+set windows-shell := ["pwsh.exe", "-NoProfile", "-Command"]
 
 version := `Get-Content VERSION`
 
@@ -6,7 +6,7 @@ default:
     @just --list
 
 build-exe:
-    dotnet publish -c Release /property:Version={{version}}
+    cd robosapiens; dotnet publish -c Release /property:Version={{version}}
 
 clean:
     if (Test-Path bin) { rm -r bin }

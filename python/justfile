@@ -1,4 +1,4 @@
-set windows-shell := ["pwsh.exe", "-nop", "-c"]
+set windows-shell := ["pwsh.exe", "-NoProfile", "-Command"]
 
 python-requirements:
     pip install -r requirements.txt

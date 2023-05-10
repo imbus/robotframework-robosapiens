@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using sapfewse;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public abstract class ComboBox: IHighlightable {
         protected bool focused;
         public abstract bool contains(string entry);

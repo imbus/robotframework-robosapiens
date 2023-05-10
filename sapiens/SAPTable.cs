@@ -1,7 +1,7 @@
 using sapfewse;
 using System;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public class SAPTable {
         public string id {get;}
         int visibleRowCount;

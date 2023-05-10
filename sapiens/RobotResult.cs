@@ -1,9 +1,8 @@
 using System;
-using Horizon.XmlRpc.Core;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public record RobotResult(
         string status = "PASS",
         string output = "",
@@ -15,19 +14,7 @@ namespace RoboSAPiens {
     ) {
         public const string PASS = "PASS";
         public const string FAIL = "FAIL";
-
-        public XmlRpcStruct asXmlRpcStruct() {
-            var result = new XmlRpcStruct();
-            result.Add("status", status);
-            result.Add("output", output);
-            result.Add("return", returnValue);
-            result.Add("error", error);
-            result.Add("traceback", stacktrace);
-            result.Add("continuable", continuable);
-            result.Add("fatal", fatal);
-            return result;
-        }
-        
+       
         public record RobotPass: RobotResult {
             public RobotPass(string output, string returnValue=""): base(
                 status: "PASS", 
@@ -69,6 +56,15 @@ namespace RoboSAPiens {
     }
 
     public record Result {
+        public record KeywordLibrary {
+            public record KeywordNotFound(string kwName): RobotResult.RobotFail("KeywordNotFound", $"The keyword '{kwName}' was not found. Check the spelling.");
+            public record Exception(string kwName, System.Exception e): RobotResult.ExceptionError(e, $"An error occurred when calling the keyword '{kwName}'");
+        }
+
+        public record RobotRemote {
+            public record InvalidArgumentType(string arg, string rfType, string kwType): RobotResult.RobotFail("InvalidArgumentType", $"The argument '{arg}' has type '{rfType}'. It must have type '{kwType}'");
+        }
+
         public record ActivateTab {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string theTab): RobotResult.NotFound($"Der Reiter {theTab} konnte nicht gefunden werden.");

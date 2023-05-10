@@ -1,6 +1,6 @@
 using sapfewse;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public abstract class Cell: ITextElement {
         public string column;
         public Position position;

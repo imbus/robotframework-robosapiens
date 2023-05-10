@@ -1,6 +1,6 @@
 using sapfewse;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public abstract class RadioButton: IHighlightable {
         protected bool focused;
         public abstract void select(GuiSession session);

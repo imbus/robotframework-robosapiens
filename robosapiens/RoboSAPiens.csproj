@@ -21,14 +21,16 @@
 
   <Target Name="CopyFiles" AfterTargets="Publish">
     <ItemGroup>
-      <BuildFiles Include="$(PublishDir)\*.*"/>
+      <BuildFiles Include="$(PublishDir)\*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="python/src/RoboSAPiens/lib"/>
+    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="../python/src/RoboSAPiens/lib" />
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="27.2.1" />
     <PackageReference Include="Horizon.XmlRpc.Server" Version="2.5.0" />
-    <PackageReference Include="SAP.GUI.Scripting.net" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\sapiens\SAPiens.csproj" />
   </ItemGroup>
 </Project>

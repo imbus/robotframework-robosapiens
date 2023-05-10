@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public sealed class SAPLabel: ITextElement, ILocatable, IHighlightable {
         const int maxHorizontalDistance = 20;
         const int maxVerticalDistance = 20;

@@ -1,6 +1,6 @@
 using sapfewse;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public interface IDoubleClickable {
         public void doubleClick(GuiSession session);
     }
@@ -43,5 +43,10 @@ namespace RoboSAPiens {
     public interface ITextElement: ISelectable {
         public bool contains(string text);
         public string getText();
+    }
+
+    public interface ILogger {
+        public void error(params string[] messages);
+        public void info(params string[] messages);
     }
 }

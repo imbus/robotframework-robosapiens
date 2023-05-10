@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public abstract class Repository<T> {
         protected List<T> items;
 

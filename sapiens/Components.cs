@@ -4,7 +4,7 @@ using System.Linq;
 using sapfewse;
 
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public sealed class Components {
         BoxStore boxes = new BoxStore();
         ButtonStore buttons = new ButtonStore();

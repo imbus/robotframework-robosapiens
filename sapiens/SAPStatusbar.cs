@@ -1,7 +1,7 @@
 using sapfewse;
 using System.Collections.Generic;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public class SAPStatusbar {
         enum MessageType {
             Abort,

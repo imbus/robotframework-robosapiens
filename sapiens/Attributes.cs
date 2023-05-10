@@ -1,6 +1,6 @@
 using System;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public class Keyword : Attribute {
         public string Name;
         
@@ -16,6 +16,4 @@ namespace RoboSAPiens {
             DocString = docString;
         }
     }
-
-    public record RobotKeyword(string name, string method, string[] args, string[] types, string doc) {}
 }

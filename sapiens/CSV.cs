@@ -5,7 +5,7 @@ using System.IO;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace RoboSAPiens {
+namespace SAPiens {
     public sealed record FormField(string Text, string Id, int Left, int Top, int Width, int Height): IEquatable<FormField> {
         public bool Equals(FormField? other) {
             if (other is null)
