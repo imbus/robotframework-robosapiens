@@ -1,15 +1,15 @@
-set windows-shell := ["pwsh.exe", "-nop", "-c"]
+set windows-shell := ["pwsh.exe", "-NoProfile", "-Command"]
 
 api-json:
     RoboSAPiens\lib\RoboSAPiens.exe --export-api ((pwd).path + "\api.json")
 
 localize-en: api-json
-    #!powershell
+    #!pwsh
     python schemagen.py api.json
     mypy localized/en.py
 
 localize-i18n: localize-en
-    #!powershell
+    #!pwsh
     python schemagen.py api.json i18n
     rm api.json
     mypy localized/
