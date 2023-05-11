@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+.parcel-cache
+dist
+wwwroot
+
 # User-specific files
 *.rsuser
 *.suo
