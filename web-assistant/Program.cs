@@ -48,16 +48,15 @@ class Program
             .RegisterWebMessageReceivedHandler((object sender, string message) =>
             {
                 var window = (PhotinoWindow)sender;
-                var result = proxy.runKeyword("AttachToRunningSAP", new String[]{});
-                result = proxy.runKeyword(message, new String[]{"Benutzer", "Student001"});
 
-                // The message argument is coming in from sendMessage.
-                // "window.external.sendMessage(message: string)"
-                string response = $"Received message: \"{message}\"";
-
-                // Send a message back the to JavaScript event handler.
-                // "window.external.receiveMessage(callback: Function)"
-                window.SendWebMessage((string)result["output"]);
+                if (message == "FillTextField") {
+                    var result = proxy.runKeyword("AttachToRunningSAP", new String[]{});
+                    result = proxy.runKeyword(message, new String[]{"Benutzer", "Student001"});
+                    window.SendWebMessage((string)result["output"]);
+                }
+                else {
+                    window.SendWebMessage($"Unknown keyword: {message}");
+                }
             })
             .Load($"{baseUrl}/index.html"); // Can be used with relative path strings or "new URI()" instance to load a website.
 
