@@ -2,6 +2,7 @@
     "recommendations": [
         "dbaeumer.vscode-eslint",
         "pushqrdx.inline-html",
-        "christian-kohler.npm-intellisense"
+        "christian-kohler.npm-intellisense",
+        "usernamehw.errorlens"
     ]
 }
