@@ -87,9 +87,9 @@ def generate_localized_schema(api: Any):
 
     def gen_str_type(path, value):
         if path in changeset:
-            return f"Tuple[Literal['{crc32(value.encode('utf-8'))}'], str]"
+            return "Tuple[str, str]"
 
-        return "Tuple[str, str]"
+        return f"Tuple[Literal['{crc32(value.encode('utf-8'))}'], str]"
     
     typename = "LocalizedRoboSAPiens"
     
