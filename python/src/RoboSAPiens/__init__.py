@@ -20,7 +20,6 @@ class RoboSAPiens(RoboSAPiensClient):
     
     This library is also available in the following languages:
     - RoboSAPiens.DE (German)
-    
     """
     
     def __init__(self, port: int=8270, presenter_mode: bool=False):
@@ -39,15 +38,15 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Select Tab') # type: ignore
-    def activate_tab(self, tabname: str): # type: ignore
+    def activate_tab(self, tab_name: str): # type: ignore
         """
         Select the tab with the name provided.
         
-        | ``Select Tab    tabname``
+        | ``Select Tab    tab_name``
         """
         
         args = {
-            'Reitername': tabname,
+            'tab': tab_name,
         }
         
         result = {
@@ -61,13 +60,15 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Open SAP') # type: ignore
-    def open_s_a_p(self, path: str): # type: ignore
+    def open_sap(self, path: str): # type: ignore
         """
-        Open the SAP GUI. The standard path is\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+        Open the SAP GUI. The standard path is
+        
+        | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
         """
         
         args = {
-            'Pfad': path,
+            'path': path,
         }
         
         result = {
@@ -75,11 +76,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
             "Exception": "The SAP GUI could not be opened. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('OpenSAP', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('OpenSap', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Disconnect from Server') # type: ignore
-    def close_connection(self, ): # type: ignore
+    def close_connection(self): # type: ignore
         """
         Terminate the connection to the SAP server.
         """
@@ -99,7 +100,7 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Close SAP') # type: ignore
-    def close_s_a_p(self, ): # type: ignore
+    def close_sap(self): # type: ignore
         """
         Close the SAP GUI
         """
@@ -111,7 +112,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
             "Pass": "The SAP GUI was closed."
         }
-        return super()._run_keyword('CloseSAP', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('CloseSap', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Export Function Tree') # type: ignore
@@ -123,7 +124,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         
         args = {
-            'Dateipfad': filepath,
+            'filepath': filepath,
         }
         
         result = {
@@ -136,7 +137,7 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Connect to Running SAP') # type: ignore
-    def attach_to_running_s_a_p(self, ): # type: ignore
+    def attach_to_running_sap(self): # type: ignore
         """
         Connect to a running SAP instance and take control of it.
         """
@@ -152,11 +153,11 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "Connected to a running SAP instance.",
             "Exception": "Could not connect to a running SAP instance. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('AttachToRunningSAP', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('AttachToRunningSap', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Connect to Server') # type: ignore
-    def connect_to_server(self, servername: str): # type: ignore
+    def connect_to_server(self, server_name: str): # type: ignore
         """
         Connect to the SAP Server provided.
         
@@ -164,7 +165,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         
         args = {
-            'Servername': servername,
+            'server': server_name,
         }
         
         result = {
@@ -179,17 +180,18 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Double-click Cell') # type: ignore
-    def double_click_cell(self, row_number_or_cell_content: str, column: str): # type: ignore
+    def double_click_cell(self, row_locator: str, column: str): # type: ignore
         """
         Double-click the cell at the intersection of the row and the column provided.
         
         | ``Double-click Cell     row_locator     column``
+        
         row_locator: either the row number or the content of a cell in the row.
         """
         
         args = {
-            'Zeilennummer_oder_Zellinhalt': row_number_or_cell_content,
-            'Spaltentitel': column,
+            'row_locator': row_locator,
+            'column': column,
         }
         
         result = {
@@ -210,7 +212,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         
         args = {
-            'Inhalt': content,
+            'content': content,
         }
         
         result = {
@@ -248,12 +250,13 @@ class RoboSAPiens(RoboSAPiensClient):
         Write all texts in the Dynpro to a CSV file. Also a screenshot will be saved in PNG format.
         
         | ``Export Dynpro     name     directory``
+        
         directory: Absolute path to the directory where the files will be saved.
         """
         
         args = {
-            'Name': name,
-            'Verzeichnis': directory,
+            'name': name,
+            'directory': directory,
         }
         
         result = {
@@ -265,19 +268,20 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Fill Cell') # type: ignore
-    def fill_table_cell(self, row_number_or_content: str, column_equals_content: str): # type: ignore
+    def fill_table_cell(self, row_locator: str, column_content: str): # type: ignore
         """
         Fill the cell at the intersection of the row and the column specified with the content provided.
         
         | ``Fill Cell     row     column = content``
+        
         row: either the row number or the contents of a cell in the row.
         
         *Hint*: Some cells can be filled using the keyword 'Fill Text Field' providing as locator the description obtained by selecting the cell and pressing F1.
         """
         
         args = {
-            'Zeilennummer_oder_Zellinhalt': row_number_or_content,
-            'Spaltentitel_Gleich_Inhalt': column_equals_content,
+            'row_locator': row_locator,
+            'column_content': column_content,
         }
         
         result = {
@@ -298,10 +302,13 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Text field with a label to its left*
         | ``Fill Text Field    label    content``
+        
         *Text field with a label above*
         | ``Fill Text Field    @ label    content``
+        
         *Text field at the intersection of a label to its left and a label above it (including a heading)*
         | ``Fill Text Field    label to its left @ label above it    content``
+        
         *Text field without label below a text field with a label (e.g. an address line)*
         | ``Fill Text Field    position (1,2,..) @ label    content``
         
@@ -315,8 +322,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': locator,
-            'Inhalt': content,
+            'locator': locator,
+            'content': content,
         }
         
         result = {
@@ -337,7 +344,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         
         args = {
-            'Name_oder_Kurzinfo': name_or_tooltip,
+            'button': name_or_tooltip,
         }
         
         result = {
@@ -351,17 +358,18 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Push Button Cell') # type: ignore
-    def push_button_cell(self, row_index_label_tooltip: str, column: str): # type: ignore
+    def push_button_cell(self, row_or_label: str, column: str): # type: ignore
         """
         Push the button cell located at the intersection of the row and column provided.
         
         | ``Push Button Cell     row_locator     column``
+        
         row_locator: Row number, label or tooltip.
         """
         
         args = {
-            'Zeilennummer_oder_Name_oder_Kurzinfo': row_index_label_tooltip,
-            'Spaltentitel': column,
+            'row_or_label': row_or_label,
+            'column': column,
         }
         
         result = {
@@ -380,16 +388,19 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Text field with a label to its left*
         | ``Read Text Field    label``
+        
         *Text field with a label above it*
         | ``Read Text Field    @ label``
+        
         *Text field at the intersection of a label to its left and a label above it*
         | ``Read Text Field    left label @ label above``
+        
         *Text field whose content starts with a given text*
         | ``Read Text Field    = text``
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': locator,
+            'locator': locator,
         }
         
         result = {
@@ -402,18 +413,19 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Read Text') # type: ignore
-    def read_text(self, content: str): # type: ignore
+    def read_text(self, locator: str): # type: ignore
         """
         Read the text specified by the locator.
         
         *Text starting with a given substring*
         | ``Read Text    = substring``
+        
         *Text following a label*
         | ``Read Text    Label``
         """
         
         args = {
-            'Inhalt': content,
+            'locator': locator,
         }
         
         result = {
@@ -426,17 +438,18 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Read Cell') # type: ignore
-    def read_table_cell(self, row_number_or_content: str, column: str): # type: ignore
+    def read_table_cell(self, row_locator: str, column: str): # type: ignore
         """
         Read the contents of the cell at the intersection of the row and column provided.
         
         | ``Read Cell     row_locator     column``
+        
         row_locator: either the row number or the contents of a cell in the row.
         """
         
         args = {
-            'Zeilennummer_oder_Zellinhalt': row_number_or_content,
-            'Spaltentitel': column,
+            'row_locator': row_locator,
+            'column': column,
         }
         
         result = {
@@ -454,11 +467,12 @@ class RoboSAPiens(RoboSAPiensClient):
         Save a screenshot of the current window in the file provided.
         
         | ``Save Screenshot     filepath``
+        
         filepath: Absolute path to a .png file.
         """
         
         args = {
-            'Aufnahmenverzeichnis': filepath,
+            'filepath': filepath,
         }
         
         result = {
@@ -473,17 +487,18 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Select Cell') # type: ignore
-    def select_cell(self, row_number_or_content: str, column: str): # type: ignore
+    def select_cell(self, row_locator: str, column: str): # type: ignore
         """
         Select the cell at the intersection of the row and column provided.
         
         | ``Select Cell     row_locator     column``
+        
         row_locator: either the row number or the contents of a cell in the row.
         """
         
         args = {
-            'Zeilennummer_oder_Zellinhalt': row_number_or_content,
-            'Spaltentitel': column,
+            'row_locator': row_locator,
+            'column': column,
         }
         
         result = {
@@ -504,8 +519,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         
         args = {
-            'Name': dropdown_menu,
-            'Eintrag': entry,
+            'comboBox': dropdown_menu,
+            'entry': entry,
         }
         
         result = {
@@ -525,14 +540,16 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Radio button with a label to its left or its right*
         | ``Select Radio Button    label``
+        
         *Radio button with a label above it*
         | ``Select Radio Button    @ label``
+        
         *Radio button at the intersection of a label to its left or its right and a label above it*
         | ``Select Radio Button    left or right label @ label above``
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': locator,
+            'locator': locator,
         }
         
         result = {
@@ -551,16 +568,19 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Text field with a label to its left*
         | ``Select Text Field    label``
+        
         *Text field with a label above it*
         | ``Select Text Field    @ label``
+        
         *Text field at the intersection of a label to its left and a label above it*
         | ``Select Text Field    left label @ label above``
+        
         *Text field whose content starts with the given text*
         | ``Select Text Field    = text``
         """
         
         args = {
-            'Beschriftungen_oder_Inhalt': locator,
+            'locator': locator,
         }
         
         result = {
@@ -576,11 +596,12 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_text_line(self, content: str): # type: ignore
         """
         Select the text line starting with the given content.
+        
         | ``Select Text Line    content``
         """
         
         args = {
-            'Inhalt': content,
+            'content': content,
         }
         
         result = {
@@ -599,14 +620,16 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Checkbox with a label to its left or its right*
         | ``Tick Checkbox    label``
+        
         *Checkbox with a label above it*
         | ``Tick Checkbox    @ label``
+        
         *Checkbox at the intersection of a label to its left and a label above it*
         | ``Tick Checkbox    left label @ label above``
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': locator,
+            'locator': locator,
         }
         
         result = {
@@ -625,14 +648,16 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Checkbox with a label to its left or its right*
         | ``Untick Checkbox    label``
+        
         *Checkbox with a label above it*
         | ``Untick Checkbox    @ label``
+        
         *Checkbox at the intersection of a label to its left and a label above it*
         | ``Untick Checkbox    left label @ label above``
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': locator,
+            'locator': locator,
         }
         
         result = {
@@ -653,8 +678,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         
         args = {
-            'Zeilennummer': row_number,
-            'Spaltentitel': column,
+            'row': row_number,
+            'column': column,
         }
         
         result = {
@@ -667,7 +692,7 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Get Window Title') # type: ignore
-    def get_window_title(self, ): # type: ignore
+    def get_window_title(self): # type: ignore
         """
         Get the title of the window in the foreground.
         
@@ -685,7 +710,7 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Get Window Text') # type: ignore
-    def get_window_text(self, ): # type: ignore
+    def get_window_text(self): # type: ignore
         """
         Get the text message of the window in the foreground.
         

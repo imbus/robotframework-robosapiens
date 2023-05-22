@@ -1,76 +1,94 @@
 from typing_extensions import Literal, TypedDict
 from typing import Tuple
 
-class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsSpaltentitelSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsColumnSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsZeilennummerSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsRowSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsUntickcheckboxArgsBeschriftung_Oder_PositionsgeberSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsUntickcheckboxArgsLocatorSpec(TypedDict):
+    HLabel: Tuple[Literal['4229670492'], str]
+    VLabel: Tuple[Literal['474824962'], str]
+    HLabelVLabel: Tuple[Literal['1999142431'], str]
+
+class LocalizedRoboSAPiensKeywordsTickcheckboxArgsLocatorSpec(TypedDict):
+    HLabel: Tuple[Literal['4229670492'], str]
+    VLabel: Tuple[Literal['474824962'], str]
+    HLabelVLabel: Tuple[Literal['1999142431'], str]
+
+class LocalizedRoboSAPiensKeywordsSelecttextlineArgsContentSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsTickcheckboxArgsBeschriftung_Oder_PositionsgeberSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec(TypedDict):
+    HLabel: Tuple[Literal['4229670492'], str]
+    VLabel: Tuple[Literal['474824962'], str]
+    HLabelVLabel: Tuple[Literal['1999142431'], str]
+    Content: Tuple[Literal['880934240'], str]
+
+class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsLocatorSpec(TypedDict):
+    HLabel: Tuple[Literal['4229670492'], str]
+    VLabel: Tuple[Literal['474824962'], str]
+    HLabelVLabel: Tuple[Literal['1999142431'], str]
+
+class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEntrySpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsSelecttextlineArgsInhaltSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsSelecttextfieldArgsBeschriftungen_Oder_InhaltSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsSelectcellArgsColumnSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsBeschriftung_Oder_PositionsgeberSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEintragSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepathSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsNameSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsReadtablecellArgsColumnSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsSelectcellArgsSpaltentitelSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsReadtablecellArgsRow_LocatorSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsSelectcellArgsZeilennummer_Oder_ZellinhaltSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsReadtextArgsLocatorSpec(TypedDict):
+    HLabel: Tuple[Literal['4229670492'], str]
+    Content: Tuple[Literal['880934240'], str]
+
+class LocalizedRoboSAPiensKeywordsReadtextfieldArgsLocatorSpec(TypedDict):
+    HLabel: Tuple[Literal['4229670492'], str]
+    VLabel: Tuple[Literal['474824962'], str]
+    HLabelVLabel: Tuple[Literal['1999142431'], str]
+    Content: Tuple[Literal['880934240'], str]
+
+class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsColumnSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsSavescreenshotArgsAufnahmenverzeichnisSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsReadtablecellArgsSpaltentitelSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsPushbuttonArgsButtonSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsReadtablecellArgsZeilennummer_Oder_ZellinhaltSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsFilltextfieldArgsContentSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsReadtextArgsInhaltSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsFilltextfieldArgsLocatorSpec(TypedDict):
+    HLabel: Tuple[Literal['4229670492'], str]
+    VLabel: Tuple[Literal['474824962'], str]
+    HLabelVLabel: Tuple[Literal['1999142431'], str]
+    HLabelHLabel: Tuple[Literal['3678957963'], str]
+    HIndexVLabel: Tuple[Literal['3606518505'], str]
+    HLabelVIndex: Tuple[Literal['509417766'], str]
+
+class LocalizedRoboSAPiensKeywordsFilltablecellArgsColumn_ContentSpec(TypedDict):
+    ColumnContent: Tuple[Literal['2284019715'], str]
+
+class LocalizedRoboSAPiensKeywordsFilltablecellArgsRow_LocatorSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsReadtextfieldArgsBeschriftung_Oder_PositionsgeberSpec(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsSpaltentitelSpec(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsZeilennummer_Oder_Name_Oder_KurzinfoSpec(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsPushbuttonArgsName_Oder_KurzinfoSpec(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsFilltextfieldArgsInhaltSpec(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsFilltextfieldArgsBeschriftung_Oder_PositionsgeberSpec(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsFilltablecellArgsSpaltentitel_Gleich_InhaltSpec(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsFilltablecellArgsZeilennummer_Oder_ZellinhaltSpec(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsExportformArgsVerzeichnisSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsExportformArgsDirectorySpec(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsExportformArgsNameSpec(TypedDict):
@@ -79,627 +97,627 @@ class LocalizedRoboSAPiensKeywordsExportformArgsNameSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsInhaltSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsContentSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsSpaltentitelSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsColumnSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsZeilennummer_Oder_ZellinhaltSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsRow_LocatorSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServernameSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServerSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsExporttreeArgsDateipfadSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepathSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsOpensapArgsPfadSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsOpensapArgsPathSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsActivatetabArgsReiternameSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsActivatetabArgsTabSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsSpaltentitel(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsSpaltentitelSpec
+class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsColumn(TypedDict):
+    name: Tuple[Literal['2102626174'], str]
+    spec: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsColumnSpec
 
-class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsZeilennummer(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsZeilennummerSpec
+class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsRow(TypedDict):
+    name: Tuple[Literal['3333868678'], str]
+    spec: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsRowSpec
 
-class LocalizedRoboSAPiensKeywordsUntickcheckboxArgsBeschriftung_Oder_Positionsgeber(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsUntickcheckboxArgsBeschriftung_Oder_PositionsgeberSpec
+class LocalizedRoboSAPiensKeywordsUntickcheckboxArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    spec: LocalizedRoboSAPiensKeywordsUntickcheckboxArgsLocatorSpec
 
-class LocalizedRoboSAPiensKeywordsTickcheckboxArgsBeschriftung_Oder_Positionsgeber(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsTickcheckboxArgsBeschriftung_Oder_PositionsgeberSpec
+class LocalizedRoboSAPiensKeywordsTickcheckboxArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    spec: LocalizedRoboSAPiensKeywordsTickcheckboxArgsLocatorSpec
 
-class LocalizedRoboSAPiensKeywordsSelecttextlineArgsInhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsSelecttextlineArgsInhaltSpec
+class LocalizedRoboSAPiensKeywordsSelecttextlineArgsContent(TypedDict):
+    name: Tuple[Literal['4274335913'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelecttextlineArgsContentSpec
 
-class LocalizedRoboSAPiensKeywordsSelecttextfieldArgsBeschriftungen_Oder_Inhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsSelecttextfieldArgsBeschriftungen_Oder_InhaltSpec
+class LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec
 
-class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsBeschriftung_Oder_Positionsgeber(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsBeschriftung_Oder_PositionsgeberSpec
+class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsLocatorSpec
 
-class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEintrag(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEintragSpec
+class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEntry(TypedDict):
+    name: Tuple[Literal['723623280'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEntrySpec
 
-class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsName(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsNameSpec
+class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsCombobox(TypedDict):
+    name: Tuple[Literal['3378336226'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec
 
-class LocalizedRoboSAPiensKeywordsSelectcellArgsSpaltentitel(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsSelectcellArgsSpaltentitelSpec
+class LocalizedRoboSAPiensKeywordsSelectcellArgsColumn(TypedDict):
+    name: Tuple[Literal['2102626174'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelectcellArgsColumnSpec
 
-class LocalizedRoboSAPiensKeywordsSelectcellArgsZeilennummer_Oder_Zellinhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsSelectcellArgsZeilennummer_Oder_ZellinhaltSpec
+class LocalizedRoboSAPiensKeywordsSelectcellArgsRow_Locator(TypedDict):
+    name: Tuple[Literal['315353924'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec
 
-class LocalizedRoboSAPiensKeywordsSavescreenshotArgsAufnahmenverzeichnis(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsSavescreenshotArgsAufnahmenverzeichnisSpec
+class LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepath(TypedDict):
+    name: Tuple[Literal['1769741420'], str]
+    spec: LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepathSpec
 
-class LocalizedRoboSAPiensKeywordsReadtablecellArgsSpaltentitel(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsReadtablecellArgsSpaltentitelSpec
+class LocalizedRoboSAPiensKeywordsReadtablecellArgsColumn(TypedDict):
+    name: Tuple[Literal['2102626174'], str]
+    spec: LocalizedRoboSAPiensKeywordsReadtablecellArgsColumnSpec
 
-class LocalizedRoboSAPiensKeywordsReadtablecellArgsZeilennummer_Oder_Zellinhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsReadtablecellArgsZeilennummer_Oder_ZellinhaltSpec
+class LocalizedRoboSAPiensKeywordsReadtablecellArgsRow_Locator(TypedDict):
+    name: Tuple[Literal['315353924'], str]
+    spec: LocalizedRoboSAPiensKeywordsReadtablecellArgsRow_LocatorSpec
 
-class LocalizedRoboSAPiensKeywordsReadtextArgsInhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsReadtextArgsInhaltSpec
+class LocalizedRoboSAPiensKeywordsReadtextArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    spec: LocalizedRoboSAPiensKeywordsReadtextArgsLocatorSpec
 
-class LocalizedRoboSAPiensKeywordsReadtextfieldArgsBeschriftung_Oder_Positionsgeber(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsReadtextfieldArgsBeschriftung_Oder_PositionsgeberSpec
+class LocalizedRoboSAPiensKeywordsReadtextfieldArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    spec: LocalizedRoboSAPiensKeywordsReadtextfieldArgsLocatorSpec
 
-class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsSpaltentitel(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsSpaltentitelSpec
+class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsColumn(TypedDict):
+    name: Tuple[Literal['2102626174'], str]
+    spec: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsColumnSpec
 
-class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsZeilennummer_Oder_Name_Oder_Kurzinfo(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsZeilennummer_Oder_Name_Oder_KurzinfoSpec
+class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
+    name: Tuple[Literal['2392311166'], str]
+    spec: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec
 
-class LocalizedRoboSAPiensKeywordsPushbuttonArgsName_Oder_Kurzinfo(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsPushbuttonArgsName_Oder_KurzinfoSpec
+class LocalizedRoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
+    name: Tuple[Literal['894332414'], str]
+    spec: LocalizedRoboSAPiensKeywordsPushbuttonArgsButtonSpec
 
-class LocalizedRoboSAPiensKeywordsFilltextfieldArgsInhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsFilltextfieldArgsInhaltSpec
+class LocalizedRoboSAPiensKeywordsFilltextfieldArgsContent(TypedDict):
+    name: Tuple[Literal['4274335913'], str]
+    spec: LocalizedRoboSAPiensKeywordsFilltextfieldArgsContentSpec
 
-class LocalizedRoboSAPiensKeywordsFilltextfieldArgsBeschriftung_Oder_Positionsgeber(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsFilltextfieldArgsBeschriftung_Oder_PositionsgeberSpec
+class LocalizedRoboSAPiensKeywordsFilltextfieldArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    spec: LocalizedRoboSAPiensKeywordsFilltextfieldArgsLocatorSpec
 
-class LocalizedRoboSAPiensKeywordsFilltablecellArgsSpaltentitel_Gleich_Inhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsFilltablecellArgsSpaltentitel_Gleich_InhaltSpec
+class LocalizedRoboSAPiensKeywordsFilltablecellArgsColumn_Content(TypedDict):
+    name: Tuple[Literal['4122925101'], str]
+    spec: LocalizedRoboSAPiensKeywordsFilltablecellArgsColumn_ContentSpec
 
-class LocalizedRoboSAPiensKeywordsFilltablecellArgsZeilennummer_Oder_Zellinhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsFilltablecellArgsZeilennummer_Oder_ZellinhaltSpec
+class LocalizedRoboSAPiensKeywordsFilltablecellArgsRow_Locator(TypedDict):
+    name: Tuple[Literal['315353924'], str]
+    spec: LocalizedRoboSAPiensKeywordsFilltablecellArgsRow_LocatorSpec
 
-class LocalizedRoboSAPiensKeywordsExportformArgsVerzeichnis(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsExportformArgsVerzeichnisSpec
+class LocalizedRoboSAPiensKeywordsExportformArgsDirectory(TypedDict):
+    name: Tuple[Literal['1182287066'], str]
+    spec: LocalizedRoboSAPiensKeywordsExportformArgsDirectorySpec
 
 class LocalizedRoboSAPiensKeywordsExportformArgsName(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1579384326'], str]
     spec: LocalizedRoboSAPiensKeywordsExportformArgsNameSpec
 
 class LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_Code(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1795027938'], str]
     spec: LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec
 
-class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsInhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsInhaltSpec
+class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsContent(TypedDict):
+    name: Tuple[Literal['4274335913'], str]
+    spec: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsContentSpec
 
-class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsSpaltentitel(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsSpaltentitelSpec
+class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsColumn(TypedDict):
+    name: Tuple[Literal['2102626174'], str]
+    spec: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsColumnSpec
 
-class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsZeilennummer_Oder_Zellinhalt(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsZeilennummer_Oder_ZellinhaltSpec
+class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsRow_Locator(TypedDict):
+    name: Tuple[Literal['315353924'], str]
+    spec: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsRow_LocatorSpec
 
-class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServername(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsConnecttoserverArgsServernameSpec
+class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
+    name: Tuple[Literal['3584233446'], str]
+    spec: LocalizedRoboSAPiensKeywordsConnecttoserverArgsServerSpec
 
-class LocalizedRoboSAPiensKeywordsExporttreeArgsDateipfad(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsExporttreeArgsDateipfadSpec
+class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
+    name: Tuple[Literal['1769741420'], str]
+    spec: LocalizedRoboSAPiensKeywordsExporttreeArgsFilepathSpec
 
-class LocalizedRoboSAPiensKeywordsOpensapArgsPfad(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsOpensapArgsPfadSpec
+class LocalizedRoboSAPiensKeywordsOpensapArgsPath(TypedDict):
+    name: Tuple[Literal['190089999'], str]
+    spec: LocalizedRoboSAPiensKeywordsOpensapArgsPathSpec
 
-class LocalizedRoboSAPiensKeywordsActivatetabArgsReitername(TypedDict):
-    name: Tuple[str, str]
-    spec: LocalizedRoboSAPiensKeywordsActivatetabArgsReiternameSpec
+class LocalizedRoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
+    name: Tuple[Literal['3772862467'], str]
+    spec: LocalizedRoboSAPiensKeywordsActivatetabArgsTabSpec
 
 class LocalizedRoboSAPiensKeywordsGetwindowtextResult(TypedDict):
-    NoSession: Tuple[str, str]
-    Pass: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    Pass: Tuple[Literal['2562559050'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtextArgs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsGetwindowtitleResult(TypedDict):
-    NoSession: Tuple[str, str]
-    Pass: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    Pass: Tuple[Literal['2852411998'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtitleArgs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsTickcheckboxcellResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2481184945'], str]
+    Pass: Tuple[Literal['1580249093'], str]
+    Exception: Tuple[Literal['870126097'], str]
 
 class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgs(TypedDict):
-    a1Zeilennummer: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsZeilennummer
-    a2Spaltentitel: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsSpaltentitel
+    a1row: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsRow
+    a2column: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsColumn
 
 class LocalizedRoboSAPiensKeywordsUntickcheckboxResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['3274358834'], str]
+    Pass: Tuple[Literal['1077869101'], str]
+    Exception: Tuple[Literal['1479426504'], str]
 
 class LocalizedRoboSAPiensKeywordsUntickcheckboxArgs(TypedDict):
-    Beschriftung_oder_Positionsgeber: LocalizedRoboSAPiensKeywordsUntickcheckboxArgsBeschriftung_Oder_Positionsgeber
+    locator: LocalizedRoboSAPiensKeywordsUntickcheckboxArgsLocator
 
 class LocalizedRoboSAPiensKeywordsTickcheckboxResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['3274358834'], str]
+    Pass: Tuple[Literal['999358000'], str]
+    Exception: Tuple[Literal['1153105219'], str]
 
 class LocalizedRoboSAPiensKeywordsTickcheckboxArgs(TypedDict):
-    Beschriftung_oder_Positionsgeber: LocalizedRoboSAPiensKeywordsTickcheckboxArgsBeschriftung_Oder_Positionsgeber
+    locator: LocalizedRoboSAPiensKeywordsTickcheckboxArgsLocator
 
 class LocalizedRoboSAPiensKeywordsSelecttextlineResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['1356747844'], str]
+    Pass: Tuple[Literal['792202299'], str]
+    Exception: Tuple[Literal['528079567'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttextlineArgs(TypedDict):
-    Inhalt: LocalizedRoboSAPiensKeywordsSelecttextlineArgsInhalt
+    content: LocalizedRoboSAPiensKeywordsSelecttextlineArgsContent
 
 class LocalizedRoboSAPiensKeywordsSelecttextfieldResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2917845132'], str]
+    Pass: Tuple[Literal['3773273557'], str]
+    Exception: Tuple[Literal['1228826942'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttextfieldArgs(TypedDict):
-    Beschriftungen_oder_Inhalt: LocalizedRoboSAPiensKeywordsSelecttextfieldArgsBeschriftungen_Oder_Inhalt
+    locator: LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocator
 
 class LocalizedRoboSAPiensKeywordsSelectradiobuttonResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2755548585'], str]
+    Pass: Tuple[Literal['259379063'], str]
+    Exception: Tuple[Literal['218028187'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgs(TypedDict):
-    Beschriftung_oder_Positionsgeber: LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsBeschriftung_Oder_Positionsgeber
+    locator: LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsLocator
 
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    EntryNotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['3185471891'], str]
+    EntryNotFound: Tuple[Literal['1357582115'], str]
+    Pass: Tuple[Literal['2235674925'], str]
+    Exception: Tuple[Literal['2433413970'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgs(TypedDict):
-    a1Name: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsName
-    a2Eintrag: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEintrag
+    a1comboBox: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsCombobox
+    a2entry: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEntry
 
 class LocalizedRoboSAPiensKeywordsSelectcellResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2770335633'], str]
+    Pass: Tuple[Literal['1239645311'], str]
+    Exception: Tuple[Literal['2355177759'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcellArgs(TypedDict):
-    a1Zeilennummer_oder_Zellinhalt: LocalizedRoboSAPiensKeywordsSelectcellArgsZeilennummer_Oder_Zellinhalt
-    a2Spaltentitel: LocalizedRoboSAPiensKeywordsSelectcellArgsSpaltentitel
+    a1row_locator: LocalizedRoboSAPiensKeywordsSelectcellArgsRow_Locator
+    a2column: LocalizedRoboSAPiensKeywordsSelectcellArgsColumn
 
 class LocalizedRoboSAPiensKeywordsSavescreenshotResult(TypedDict):
-    NoSession: Tuple[str, str]
-    InvalidPath: Tuple[str, str]
-    UNCPath: Tuple[str, str]
-    NoAbsPath: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    InvalidPath: Tuple[Literal['2844012395'], str]
+    UNCPath: Tuple[Literal['2462162559'], str]
+    NoAbsPath: Tuple[Literal['2858082864'], str]
+    Pass: Tuple[Literal['1427858469'], str]
+    Exception: Tuple[Literal['3250735497'], str]
 
 class LocalizedRoboSAPiensKeywordsSavescreenshotArgs(TypedDict):
-    Aufnahmenverzeichnis: LocalizedRoboSAPiensKeywordsSavescreenshotArgsAufnahmenverzeichnis
+    filepath: LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepath
 
 class LocalizedRoboSAPiensKeywordsReadtablecellResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2770335633'], str]
+    Pass: Tuple[Literal['4222878164'], str]
+    Exception: Tuple[Literal['1272098876'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtablecellArgs(TypedDict):
-    a1Zeilennummer_oder_Zellinhalt: LocalizedRoboSAPiensKeywordsReadtablecellArgsZeilennummer_Oder_Zellinhalt
-    a2Spaltentitel: LocalizedRoboSAPiensKeywordsReadtablecellArgsSpaltentitel
+    a1row_locator: LocalizedRoboSAPiensKeywordsReadtablecellArgsRow_Locator
+    a2column: LocalizedRoboSAPiensKeywordsReadtablecellArgsColumn
 
 class LocalizedRoboSAPiensKeywordsReadtextResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['837183792'], str]
+    Pass: Tuple[Literal['1360175273'], str]
+    Exception: Tuple[Literal['3136337781'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtextArgs(TypedDict):
-    Inhalt: LocalizedRoboSAPiensKeywordsReadtextArgsInhalt
+    locator: LocalizedRoboSAPiensKeywordsReadtextArgsLocator
 
 class LocalizedRoboSAPiensKeywordsReadtextfieldResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2917845132'], str]
+    Pass: Tuple[Literal['2524131110'], str]
+    Exception: Tuple[Literal['2613451948'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtextfieldArgs(TypedDict):
-    Beschriftung_oder_Positionsgeber: LocalizedRoboSAPiensKeywordsReadtextfieldArgsBeschriftung_Oder_Positionsgeber
+    locator: LocalizedRoboSAPiensKeywordsReadtextfieldArgsLocator
 
 class LocalizedRoboSAPiensKeywordsPushbuttoncellResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2199892932'], str]
+    Pass: Tuple[Literal['1649470590'], str]
+    Exception: Tuple[Literal['1751102722'], str]
 
 class LocalizedRoboSAPiensKeywordsPushbuttoncellArgs(TypedDict):
-    a1Zeilennummer_oder_Name_oder_Kurzinfo: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsZeilennummer_Oder_Name_Oder_Kurzinfo
-    a2Spaltentitel: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsSpaltentitel
+    a1row_or_label: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label
+    a2column: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsColumn
 
 class LocalizedRoboSAPiensKeywordsPushbuttonResult(TypedDict):
-    NoSession: Tuple[str, str]
-    SapError: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    SapError: Tuple[Literal['3246364722'], str]
+    NotFound: Tuple[Literal['3063247197'], str]
+    Pass: Tuple[Literal['2346783035'], str]
+    Exception: Tuple[Literal['1002997848'], str]
 
 class LocalizedRoboSAPiensKeywordsPushbuttonArgs(TypedDict):
-    Name_oder_Kurzinfo: LocalizedRoboSAPiensKeywordsPushbuttonArgsName_Oder_Kurzinfo
+    button: LocalizedRoboSAPiensKeywordsPushbuttonArgsButton
 
 class LocalizedRoboSAPiensKeywordsFilltextfieldResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2917845132'], str]
+    Pass: Tuple[Literal['1361669956'], str]
+    Exception: Tuple[Literal['3667643114'], str]
 
 class LocalizedRoboSAPiensKeywordsFilltextfieldArgs(TypedDict):
-    a1Beschriftung_oder_Positionsgeber: LocalizedRoboSAPiensKeywordsFilltextfieldArgsBeschriftung_Oder_Positionsgeber
-    a2Inhalt: LocalizedRoboSAPiensKeywordsFilltextfieldArgsInhalt
+    a1locator: LocalizedRoboSAPiensKeywordsFilltextfieldArgsLocator
+    a2content: LocalizedRoboSAPiensKeywordsFilltextfieldArgsContent
 
 class LocalizedRoboSAPiensKeywordsFilltablecellResult(TypedDict):
-    NoSession: Tuple[str, str]
-    InvalidFormat: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    NotChangeable: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    InvalidFormat: Tuple[Literal['280110049'], str]
+    NotFound: Tuple[Literal['3381319755'], str]
+    NotChangeable: Tuple[Literal['2078310074'], str]
+    Pass: Tuple[Literal['2876607603'], str]
+    Exception: Tuple[Literal['1958379303'], str]
 
 class LocalizedRoboSAPiensKeywordsFilltablecellArgs(TypedDict):
-    a1Zeilennummer_oder_Zellinhalt: LocalizedRoboSAPiensKeywordsFilltablecellArgsZeilennummer_Oder_Zellinhalt
-    a2Spaltentitel_Gleich_Inhalt: LocalizedRoboSAPiensKeywordsFilltablecellArgsSpaltentitel_Gleich_Inhalt
+    a1row_locator: LocalizedRoboSAPiensKeywordsFilltablecellArgsRow_Locator
+    a2column_content: LocalizedRoboSAPiensKeywordsFilltablecellArgsColumn_Content
 
 class LocalizedRoboSAPiensKeywordsExportformResult(TypedDict):
-    NoSession: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    Pass: Tuple[Literal['1972246596'], str]
+    Exception: Tuple[Literal['487625120'], str]
 
 class LocalizedRoboSAPiensKeywordsExportformArgs(TypedDict):
-    a1Name: LocalizedRoboSAPiensKeywordsExportformArgsName
-    a2Verzeichnis: LocalizedRoboSAPiensKeywordsExportformArgsVerzeichnis
+    a1name: LocalizedRoboSAPiensKeywordsExportformArgsName
+    a2directory: LocalizedRoboSAPiensKeywordsExportformArgsDirectory
 
 class LocalizedRoboSAPiensKeywordsExecutetransactionResult(TypedDict):
-    NoSession: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    Pass: Tuple[Literal['468573121'], str]
+    Exception: Tuple[Literal['3958687903'], str]
 
 class LocalizedRoboSAPiensKeywordsExecutetransactionArgs(TypedDict):
     T_Code: LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_Code
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['3855369076'], str]
+    Pass: Tuple[Literal['1611309101'], str]
+    Exception: Tuple[Literal['504842288'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgs(TypedDict):
-    Inhalt: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsInhalt
+    content: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsContent
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcellResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2770335633'], str]
+    Pass: Tuple[Literal['4023459711'], str]
+    Exception: Tuple[Literal['2384367029'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcellArgs(TypedDict):
-    a1Zeilennummer_oder_Zellinhalt: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsZeilennummer_Oder_Zellinhalt
-    a2Spaltentitel: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsSpaltentitel
+    a1row_locator: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsRow_Locator
+    a2column: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsColumn
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverResult(TypedDict):
-    NoSapGui: Tuple[str, str]
-    NoGuiScripting: Tuple[str, str]
-    Pass: Tuple[str, str]
-    SapError: Tuple[str, str]
-    NoServerScripting: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSapGui: Tuple[Literal['2987622841'], str]
+    NoGuiScripting: Tuple[Literal['2929771598'], str]
+    Pass: Tuple[Literal['1014238539'], str]
+    SapError: Tuple[Literal['3246364722'], str]
+    NoServerScripting: Tuple[Literal['3495213352'], str]
+    Exception: Tuple[Literal['667377482'], str]
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverArgs(TypedDict):
-    Servername: LocalizedRoboSAPiensKeywordsConnecttoserverArgsServername
+    server: LocalizedRoboSAPiensKeywordsConnecttoserverArgsServer
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
-    NoSapGui: Tuple[str, str]
-    NoGuiScripting: Tuple[str, str]
-    NoConnection: Tuple[str, str]
-    NoServerScripting: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSapGui: Tuple[Literal['2987622841'], str]
+    NoGuiScripting: Tuple[Literal['2929771598'], str]
+    NoConnection: Tuple[Literal['509780556'], str]
+    NoServerScripting: Tuple[Literal['3495213352'], str]
+    Pass: Tuple[Literal['2481655346'], str]
+    Exception: Tuple[Literal['3120673076'], str]
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapArgs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsExporttreeResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['811568965'], str]
+    Pass: Tuple[Literal['176551133'], str]
+    Exception: Tuple[Literal['1542087750'], str]
 
 class LocalizedRoboSAPiensKeywordsExporttreeArgs(TypedDict):
-    Dateipfad: LocalizedRoboSAPiensKeywordsExporttreeArgsDateipfad
+    filepath: LocalizedRoboSAPiensKeywordsExporttreeArgsFilepath
 
 class LocalizedRoboSAPiensKeywordsClosesapResult(TypedDict):
-    NoSapGui: Tuple[str, str]
-    Pass: Tuple[str, str]
+    NoSapGui: Tuple[Literal['2987622841'], str]
+    Pass: Tuple[Literal['2970606098'], str]
 
 class LocalizedRoboSAPiensKeywordsClosesapArgs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsCloseconnectionResult(TypedDict):
-    NoSapGui: Tuple[str, str]
-    NoGuiScripting: Tuple[str, str]
-    NoConnection: Tuple[str, str]
-    NoSession: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSapGui: Tuple[Literal['2987622841'], str]
+    NoGuiScripting: Tuple[Literal['2929771598'], str]
+    NoConnection: Tuple[Literal['509780556'], str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    Pass: Tuple[Literal['1657006605'], str]
+    Exception: Tuple[Literal['2209141929'], str]
 
 class LocalizedRoboSAPiensKeywordsCloseconnectionArgs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsOpensapResult(TypedDict):
-    Pass: Tuple[str, str]
-    SAPNotStarted: Tuple[str, str]
-    Exception: Tuple[str, str]
+    Pass: Tuple[Literal['3933791589'], str]
+    SAPNotStarted: Tuple[Literal['4005776825'], str]
+    Exception: Tuple[Literal['2772047805'], str]
 
 class LocalizedRoboSAPiensKeywordsOpensapArgs(TypedDict):
-    Pfad: LocalizedRoboSAPiensKeywordsOpensapArgsPfad
+    path: LocalizedRoboSAPiensKeywordsOpensapArgsPath
 
 class LocalizedRoboSAPiensKeywordsActivatetabResult(TypedDict):
-    NoSession: Tuple[str, str]
-    NotFound: Tuple[str, str]
-    SapError: Tuple[str, str]
-    Pass: Tuple[str, str]
-    Exception: Tuple[str, str]
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2994771228'], str]
+    SapError: Tuple[Literal['3246364722'], str]
+    Pass: Tuple[Literal['4294349699'], str]
+    Exception: Tuple[Literal['2577256712'], str]
 
 class LocalizedRoboSAPiensKeywordsActivatetabArgs(TypedDict):
-    Reitername: LocalizedRoboSAPiensKeywordsActivatetabArgsReitername
+    tab: LocalizedRoboSAPiensKeywordsActivatetabArgsTab
 
 class LocalizedRoboSAPiensKeywordsGetwindowtext(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1085911504'], str]
     args: LocalizedRoboSAPiensKeywordsGetwindowtextArgs
     result: LocalizedRoboSAPiensKeywordsGetwindowtextResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['1240406406'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtitle(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['2828980154'], str]
     args: LocalizedRoboSAPiensKeywordsGetwindowtitleArgs
     result: LocalizedRoboSAPiensKeywordsGetwindowtitleResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['985497510'], str]
 
 class LocalizedRoboSAPiensKeywordsTickcheckboxcell(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['3286561809'], str]
     args: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgs
     result: LocalizedRoboSAPiensKeywordsTickcheckboxcellResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3815558161'], str]
 
 class LocalizedRoboSAPiensKeywordsUntickcheckbox(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['47381427'], str]
     args: LocalizedRoboSAPiensKeywordsUntickcheckboxArgs
     result: LocalizedRoboSAPiensKeywordsUntickcheckboxResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['2004880129'], str]
 
 class LocalizedRoboSAPiensKeywordsTickcheckbox(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['2471720243'], str]
     args: LocalizedRoboSAPiensKeywordsTickcheckboxArgs
     result: LocalizedRoboSAPiensKeywordsTickcheckboxResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3375625571'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttextline(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['4264534869'], str]
     args: LocalizedRoboSAPiensKeywordsSelecttextlineArgs
     result: LocalizedRoboSAPiensKeywordsSelecttextlineResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['1037973034'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttextfield(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['335907869'], str]
     args: LocalizedRoboSAPiensKeywordsSelecttextfieldArgs
     result: LocalizedRoboSAPiensKeywordsSelecttextfieldResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['1350596231'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectradiobutton(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['2985728785'], str]
     args: LocalizedRoboSAPiensKeywordsSelectradiobuttonArgs
     result: LocalizedRoboSAPiensKeywordsSelectradiobuttonResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['532570380'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentry(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['2133292945'], str]
     args: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgs
     result: LocalizedRoboSAPiensKeywordsSelectcomboboxentryResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['1593493126'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcell(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1049942265'], str]
     args: LocalizedRoboSAPiensKeywordsSelectcellArgs
     result: LocalizedRoboSAPiensKeywordsSelectcellResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['219237540'], str]
 
 class LocalizedRoboSAPiensKeywordsSavescreenshot(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['2178392450'], str]
     args: LocalizedRoboSAPiensKeywordsSavescreenshotArgs
     result: LocalizedRoboSAPiensKeywordsSavescreenshotResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['313859733'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtablecell(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['389153112'], str]
     args: LocalizedRoboSAPiensKeywordsReadtablecellArgs
     result: LocalizedRoboSAPiensKeywordsReadtablecellResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3644317529'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtext(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['3879608701'], str]
     args: LocalizedRoboSAPiensKeywordsReadtextArgs
     result: LocalizedRoboSAPiensKeywordsReadtextResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['1046178438'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtextfield(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['490498248'], str]
     args: LocalizedRoboSAPiensKeywordsReadtextfieldArgs
     result: LocalizedRoboSAPiensKeywordsReadtextfieldResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3457248680'], str]
 
 class LocalizedRoboSAPiensKeywordsPushbuttoncell(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['349686496'], str]
     args: LocalizedRoboSAPiensKeywordsPushbuttoncellArgs
     result: LocalizedRoboSAPiensKeywordsPushbuttoncellResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['2366408483'], str]
 
 class LocalizedRoboSAPiensKeywordsPushbutton(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['2326550334'], str]
     args: LocalizedRoboSAPiensKeywordsPushbuttonArgs
     result: LocalizedRoboSAPiensKeywordsPushbuttonResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['1332516663'], str]
 
 class LocalizedRoboSAPiensKeywordsFilltextfield(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['3103200585'], str]
     args: LocalizedRoboSAPiensKeywordsFilltextfieldArgs
     result: LocalizedRoboSAPiensKeywordsFilltextfieldResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['1588888798'], str]
 
 class LocalizedRoboSAPiensKeywordsFilltablecell(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1010164935'], str]
     args: LocalizedRoboSAPiensKeywordsFilltablecellArgs
     result: LocalizedRoboSAPiensKeywordsFilltablecellResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3041188501'], str]
 
 class LocalizedRoboSAPiensKeywordsExportform(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1168873090'], str]
     args: LocalizedRoboSAPiensKeywordsExportformArgs
     result: LocalizedRoboSAPiensKeywordsExportformResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['2371593263'], str]
 
 class LocalizedRoboSAPiensKeywordsExecutetransaction(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['2997404008'], str]
     args: LocalizedRoboSAPiensKeywordsExecutetransactionArgs
     result: LocalizedRoboSAPiensKeywordsExecutetransactionResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['1005778151'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktextfield(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['3737103423'], str]
     args: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgs
     result: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['878856351'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcell(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['2108476291'], str]
     args: LocalizedRoboSAPiensKeywordsDoubleclickcellArgs
     result: LocalizedRoboSAPiensKeywordsDoubleclickcellResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['185276928'], str]
 
 class LocalizedRoboSAPiensKeywordsConnecttoserver(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1377779562'], str]
     args: LocalizedRoboSAPiensKeywordsConnecttoserverArgs
     result: LocalizedRoboSAPiensKeywordsConnecttoserverResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['2007383915'], str]
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsap(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['4126309856'], str]
     args: LocalizedRoboSAPiensKeywordsAttachtorunningsapArgs
     result: LocalizedRoboSAPiensKeywordsAttachtorunningsapResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3968519172'], str]
 
 class LocalizedRoboSAPiensKeywordsExporttree(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1188312707'], str]
     args: LocalizedRoboSAPiensKeywordsExporttreeArgs
     result: LocalizedRoboSAPiensKeywordsExporttreeResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['4252712479'], str]
 
 class LocalizedRoboSAPiensKeywordsClosesap(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1795765665'], str]
     args: LocalizedRoboSAPiensKeywordsClosesapArgs
     result: LocalizedRoboSAPiensKeywordsClosesapResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3092056753'], str]
 
 class LocalizedRoboSAPiensKeywordsCloseconnection(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['938374979'], str]
     args: LocalizedRoboSAPiensKeywordsCloseconnectionArgs
     result: LocalizedRoboSAPiensKeywordsCloseconnectionResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3955335875'], str]
 
 class LocalizedRoboSAPiensKeywordsOpensap(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1259182241'], str]
     args: LocalizedRoboSAPiensKeywordsOpensapArgs
     result: LocalizedRoboSAPiensKeywordsOpensapResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['2645300475'], str]
 
 class LocalizedRoboSAPiensKeywordsActivatetab(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1870139227'], str]
     args: LocalizedRoboSAPiensKeywordsActivatetabArgs
     result: LocalizedRoboSAPiensKeywordsActivatetabResult
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3801089437'], str]
 
 class LocalizedRoboSAPiensArgsPresenter_Mode(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['781265386'], str]
     default: Literal[False]
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['3421082408'], str]
 
 class LocalizedRoboSAPiensArgsPort(TypedDict):
-    name: Tuple[str, str]
+    name: Tuple[Literal['1133600204'], str]
     default: Literal[8270]
-    doc: Tuple[str, str]
+    doc: Tuple[Literal['2718491382'], str]
 
 class LocalizedRoboSAPiensSpecs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywords(TypedDict):
     ActivateTab: LocalizedRoboSAPiensKeywordsActivatetab
-    OpenSAP: LocalizedRoboSAPiensKeywordsOpensap
+    OpenSap: LocalizedRoboSAPiensKeywordsOpensap
     CloseConnection: LocalizedRoboSAPiensKeywordsCloseconnection
-    CloseSAP: LocalizedRoboSAPiensKeywordsClosesap
+    CloseSap: LocalizedRoboSAPiensKeywordsClosesap
     ExportTree: LocalizedRoboSAPiensKeywordsExporttree
-    AttachToRunningSAP: LocalizedRoboSAPiensKeywordsAttachtorunningsap
+    AttachToRunningSap: LocalizedRoboSAPiensKeywordsAttachtorunningsap
     ConnectToServer: LocalizedRoboSAPiensKeywordsConnecttoserver
     DoubleClickCell: LocalizedRoboSAPiensKeywordsDoubleclickcell
     DoubleClickTextField: LocalizedRoboSAPiensKeywordsDoubleclicktextfield
@@ -729,8 +747,8 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2presenter_mode: LocalizedRoboSAPiensArgsPresenter_Mode
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[str, str]
-    init: Tuple[str, str]
+    intro: Tuple[Literal['2676661990'], str]
+    init: Tuple[Literal['0'], str]
 
 class LocalizedRoboSAPiens(TypedDict):
     doc: LocalizedRoboSAPiensDoc

@@ -12,21 +12,33 @@ no_server_scripting = 'Das Scripting ist auf dem SAP Server nicht freigeschaltet
 not_found: Fstr = lambda msg: f"{msg}\nHinweis: Prüfe die Rechtschreibung"
 exception: Fstr = lambda msg: f"{msg}" + "\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
 
+HLabel = "::Beschriftung"
+VLabel = ":@:Beschriftung oben"
+HLabelVLabel = "Beschriftung:@:Beschriftung oben"
+HLabelHLabel = "Beschriftung links:>>:Beschriftung"
+HLabelVIndex = "Beschriftung:@:Position"
+HIndexVLabel = "Position:@:Beschriftung oben"
+Content = ":=:Inhalt"
+ColumnContent = "Spaltentitel:=:Inhalt"
+
 lib: LocalizedRoboSAPiens = {
   "doc": {
-    "intro": ("2676661990", """RoboSAPiens: SAP GUI-Automatisierung für Menschen
+    "intro": (
+        "2676661990", 
+        """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
-    Um diese Bibliothek zu verwenden, müssen drei Bedigungen erfüllt werden:
+        Um diese Bibliothek zu verwenden, müssen drei Bedigungen erfüllt werden:
 
-    - Das .NET Runtime 7.0 x86 muss [https://dotnet.microsoft.com/en-us/download/dotnet/7.0|installiert] werden. 
-    
-    - Das [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|Scripting] muss auf dem SAP Server aktiviert werden.
-    
-    - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
+        - Das .NET Runtime 7.0 x86 muss [https://dotnet.microsoft.com/en-us/download/dotnet/7.0|installiert] werden. 
+        
+        - Das [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|Scripting] muss auf dem SAP Server aktiviert werden.
+        
+        - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
 
-    Diese Bibliothek implementiert die [https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#remote-library-interface|Remote Library Interface] von Robot Framework. Das heißt, ein HTTP Server läuft im Hintergrund und Robot Framework kommuniziert mit ihm. Standardmäßig lauscht der HTTP Server auf dem Port 8270. Der Port kann beim Import der Bibliothek angepasst werden:
-    | ``Library   RoboSAPiens  port=1234``
-    """),
+        Diese Bibliothek implementiert die [https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#remote-library-interface|Remote Library Interface] von Robot Framework. Das heißt, ein HTTP Server läuft im Hintergrund und Robot Framework kommuniziert mit ihm. Standardmäßig lauscht der HTTP Server auf dem Port 8270. Der Port kann beim Import der Bibliothek angepasst werden:
+        | ``Library   RoboSAPiens  port=1234``
+        """
+    ),
     "init": ("0", ""),
   },
   "args": {
@@ -45,8 +57,8 @@ lib: LocalizedRoboSAPiens = {
     "ActivateTab": {
       "name": ("1870139227", "Reiter auswählen"),
       "args": {
-        "Reitername": {
-          "name": ("3665195662", "Reitername"),
+        "tab": {
+          "name": ("3772862467", "Reitername"),
           "spec": {}
         }
       },
@@ -57,12 +69,18 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("4294349699", "Der Reiter '{0}' wurde ausgewählt."),
         "Exception": ("2577256712", exception("Der Reiter konnte nicht ausgewählt werden."))
       },
-      "doc": ("2453389726", "Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n| ``Reiter auswählen    Name``")
+      "doc": (
+          "3801089437", 
+          """Der Reiter mit dem angegebenen Namen wird ausgewählt.
+
+          | ``Reiter auswählen    Reitername``
+          """
+      )
     },
-    "OpenSAP": {
+    "OpenSap": {
       "name": ("1259182241", "SAP starten"),
       "args": {
-        "Pfad": {
+        "path": {
           "name": ("190089999", "Pfad"),
           "spec": {}
         }
@@ -72,7 +90,13 @@ lib: LocalizedRoboSAPiens = {
         "SAPNotStarted": ("4005776825", "Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{0}'."),
         "Exception": ("2772047805", exception("Die SAP GUI konnte nicht gestartet werden."))
       },
-      "doc": ("309583061", r"Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``")
+      "doc": (
+          "2645300475", 
+          r"""Die SAP GUI wird gestartet. Der übliche Pfad ist
+          
+          | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+          """
+      )
     },
     "CloseConnection": {
       "name": ("938374979", "Verbindung zum Server trennen"),
@@ -85,21 +109,31 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1657006605", "Die Verbindung zum Server wurde getrennt."),
         "Exception": ("2209141929", exception("Die Verbindung zum Server konnte nicht getrennt werden."))
       },
-      "doc": ("1736796211", "Die Verbindung mit dem SAP Server wird beendet.")
+      "doc": (
+          "3955335875", 
+          """
+          Die Verbindung mit dem SAP Server wird getrennt.
+          """
+      )
     },
-    "CloseSAP": {
+    "CloseSap": {
       "name": ("1795765665", "SAP beenden"),
       "args": {},
       "result": {
         "NoSapGui": ("2987622841", no_sap_gui),
         "Pass": ("2970606098", "Die SAP GUI wurde beendet")
       },
-      "doc": ("1112371689", "Die SAP GUI wird beendet.")
+      "doc": (
+          "3092056753", 
+          """
+          Die SAP GUI wird beendet.
+          """
+      )
     },
     "ExportTree": {
       "name": ("1188312707", "Funktionsbaum exportieren"),
       "args": {
-        "Dateipfad": {
+        "filepath": {
           "name": ("1769741420", "Dateipfad"),
           "spec": {}
         }
@@ -110,9 +144,16 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("176551133", "Die Baumstruktur wurde in JSON Format in der Datei '{0}' gespeichert"),
         "Exception": ("1542087750", exception("Die Baumstruktur konnte nicht exportiert werden."))
       },
-      "doc": ("1719447038", "Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n| ``Funktionsbaum exportieren     Dateipfad``")
+      "doc": (
+          "4252712479", 
+          """
+          Der Funktionsbaum wird in der angegebenen Datei gespeichert.
+          
+          | ``Funktionsbaum exportieren     Dateipfad``
+          """
+      )
     },
-    "AttachToRunningSAP": {
+    "AttachToRunningSap": {
       "name": ("4126309856", "Laufende SAP GUI übernehmen"),
       "args": {},
       "result": {
@@ -123,13 +164,18 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
         "Exception": ("3120673076", exception("Die laufende SAP GUI konnte nicht übernommen werden."))
       },
-      "doc": ("866468958", "Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")
+      "doc": (
+          "3968519172", 
+          """
+          Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
+          """
+      )
     },
     "ConnectToServer": {
       "name": ("1377779562", "Verbindung zum Server herstellen"),
       "args": {
-        "Servername": {
-          "name": ("763456934", "Servername"),
+        "server": {
+          "name": ("3584233446", "Servername"),
           "spec": {}
         }
       },
@@ -141,16 +187,23 @@ lib: LocalizedRoboSAPiens = {
         "NoServerScripting": ("3495213352", no_server_scripting),
         "Exception": ("667377482", exception("Die Verbindung konnte nicht hergestellt werden."))
       },
-      "doc": ("287368400", "Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n| ``Verbindung zum Server herstellen    Servername``")
+      "doc": (
+          "2007383915", 
+          """
+          Die Verbindung mit dem angegebenen SAP Server wird hergestellt.
+          
+          | ``Verbindung zum Server herstellen    Servername``
+          """
+      )
     },
     "DoubleClickCell": {
       "name": ("2108476291", "Tabellenzelle doppelklicken"),
       "args": {
-        "a1Zeilennummer_oder_Zellinhalt": {
-          "name": ("3668559387", "Zeilennummer_oder_Zellinhalt"),
+        "a1row_locator": {
+          "name": ("315353924", "Zeile"),
           "spec": {}
         },
-        "a2Spaltentitel": {
+        "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {}
         }
@@ -161,12 +214,21 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("4023459711", "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt."),
         "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
       },
-      "doc": ("1790929105", "Die angegebene Tabellenzelle wird doppelgeklickt.\n\n| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\nPositionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle.")
+      "doc": (
+          "185276928", 
+          """
+          Die angegebene Tabellenzelle wird doppelgeklickt.
+          
+          | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
+          
+          Zeile: entweder die Zeilennummer oder der Inhalt der Zelle.
+          """
+      )
     },
     "DoubleClickTextField": {
       "name": ("3737103423", "Textfeld doppelklicken"),
       "args": {
-        "Inhalt": {
+        "content": {
           "name": ("4274335913", "Inhalt"),
           "spec": {}
         }
@@ -177,7 +239,14 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1611309101", "Das Textfeld mit dem Lokator '{0}' wurde doppelgeklickt."),
         "Exception": ("504842288", exception("Das Textfeld konnte nicht doppelgeklickt werden."))
       },
-      "doc": ("2849153724", "Das angegebene Textfeld wird doppelgeklickt.\n\n| ``Textfeld doppelklicken     Inhalt``\n")
+      "doc": (
+          "878856351", 
+          """
+          Das angegebene Textfeld wird doppelgeklickt.
+          
+          | ``Textfeld doppelklicken     Inhalt``
+          """
+      )
     },
     "ExecuteTransaction": {
       "name": ("2997404008", "Transaktion ausführen"),
@@ -192,16 +261,23 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("468573121", "Die Transaktion mit T-Code '{0}' wurde erfolgreich ausgeführt."),
         "Exception": ("3958687903", exception("Die Transaktion konnte nicht ausgeführt werden."))
       },
-      "doc": ("4152429702", "Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n| ``Transaktion ausführen    T-Code``")
+      "doc": (
+          "1005778151", 
+          """
+          Die Transaktion mit dem angegebenen T-Code wird ausgeführt.
+          
+          | ``Transaktion ausführen    T-Code``
+          """
+      )
     },
     "ExportForm": {
       "name": ("1168873090", "Maske exportieren"),
       "args": {
-        "a1Name": {
+        "a1name": {
           "name": ("1579384326", "Name"),
           "spec": {}
         },
-        "a2Verzeichnis": {
+        "a2directory": {
           "name": ("1182287066", "Verzeichnis"),
           "spec": {}
         }
@@ -211,18 +287,29 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1972246596", "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert"),
         "Exception": ("487625120", exception("Die Maske konnte nicht exportiert werden."))
       },
-      "doc": ("3527465284", "Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.\n\n| ``Maske exportieren     Name     Verzeichnis``\nVerzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.")
+      "doc": (
+          "2371593263", 
+          """
+          Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
+          
+          | ``Maske exportieren     Name     Verzeichnis``
+          
+          Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.
+          """
+      )
     },
     "FillTableCell": {
       "name": ("1010164935", "Tabellenzelle ausfüllen"),
       "args": {
-        "a1Zeilennummer_oder_Zellinhalt": {
-          "name": ("3954689097", "Zeilennummer_oder_Zellinhalt"),
+        "a1row_locator": {
+          "name": ("315353924", "Zeile"),
           "spec": {}
         },
-        "a2Spaltentitel_Gleich_Inhalt": {
-          "name": ("2701366812", "Spaltentitel_Gleich_Inhalt"),
-          "spec": {}
+        "a2column_content": {
+          "name": ("4122925101", "Spaltentitel_gleich_Inhalt"),
+          "spec": {
+              "ColumnContent": ("2284019715", ColumnContent)
+          }
         }
       },
       "result": {
@@ -233,16 +320,34 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("2876607603", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt."),
         "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
       },
-      "doc": ("917168571", "Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.\n\n| ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``\nZeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")
+      "doc": (
+          "3041188501", 
+          """
+          Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
+          
+          | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``
+          
+          Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.
+          
+          *Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.
+          """
+      )
     },
     "FillTextField": {
       "name": ("3103200585", "Textfeld ausfüllen"),
       "args": {
-        "a1Beschriftung_oder_Positionsgeber": {
-          "name": ("2051440239", "Beschriftung_oder_Positionsgeber"),
-          "spec": {}
+        "a1locator": {
+          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "spec": {
+              "HLabel": ("4229670492", HLabel),
+              "VLabel": ("474824962", VLabel),
+              "HLabelVLabel": ("1999142431", HLabelVLabel),
+              "HLabelHLabel": ("3678957963", HLabelHLabel),
+              "HLabelVIndex": ("509417766", HLabelVIndex),
+              "HIndexVLabel": ("3606518505", HIndexVLabel)
+          }
         },
-        "a2Inhalt": {
+        "a2content": {
           "name": ("4274335913", "Inhalt"),
           "spec": {}
         }
@@ -253,12 +358,37 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1361669956", "Das Textfeld mit dem Lokator '{0}' wurde ausgefüllt."),
         "Exception": ("3667643114", exception("Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt."))
       },
-      "doc": ("3658065712", "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld ausfüllen    Beschriftung    Inhalt``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld ausfüllen    @ Beschriftung    Inhalt``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n| ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann.")
+      "doc": (
+          "1588888798", 
+          """
+          Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
+          
+          *Textfeld mit einer Beschriftung links*
+          | ``Textfeld ausfüllen    Beschriftung    Inhalt``
+          
+          *Textfeld mit einer Beschriftung oben*
+          | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``
+          
+          *Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*
+          | ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``
+          
+          *Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*
+          | ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``
+          
+          *Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*
+          | ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``
+          
+          *Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*
+          | ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``
+          
+          *Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann.
+          """
+      )
     },
     "PushButton": {
       "name": ("2326550334", "Knopf drücken"),
       "args": {
-        "Name_oder_Kurzinfo": {
+        "button": {
           "name": ("894332414", "Name_oder_Kurzinfo"),
           "spec": {}
         }
@@ -270,16 +400,23 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("2346783035", "Der Knopf '{0}' wurde gedrückt."),
         "Exception": ("1002997848", exception("Der Knopf konnte nicht gedrückt werden."))
       },
-      "doc": ("1916622155", "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.\n\n| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``")
+      "doc": (
+          "1332516663", 
+          """
+          Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.
+          
+          | ``Knopf drücken    Name oder Kurzinfo (Tooltip)``
+          """
+      )
     },
     "PushButtonCell": {
       "name": ("349686496", "Tabellenzelle drücken"),
       "args": {
-        "a1Zeilennummer_oder_Name_oder_Kurzinfo": {
-          "name": ("1299279537", "Zeilennummer_oder_Name_oder_Kurzinfo"),
+        "a1row_or_label": {
+          "name": ("2392311166", "Zeile"),
           "spec": {}
         },
-        "a2Spaltentitel": {
+        "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {}
         }
@@ -290,14 +427,28 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1649470590", "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt."),
         "Exception": ("1751102722", exception("Die Zelle konnte nicht gedrückt werden."))
       },
-      "doc": ("3042146913", "Die angegebene Tabellenzelle wird gedrückt.\n\n| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).")
+      "doc": (
+          "2366408483", 
+          """
+          Die angegebene Tabellenzelle wird gedrückt.
+          
+          | ``Tabellenzelle drücken     Zeile     Spaltentitel``
+          
+          Zeile: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).
+          """
+      )
     },
     "ReadTextField": {
       "name": ("490498248", "Textfeld auslesen"),
       "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": ("2051440239", "Beschriftung_oder_Positionsgeber"),
-          "spec": {}
+        "locator": {
+          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "spec": {
+              "HLabel": ("4229670492", HLabel),
+              "VLabel": ("474824962", VLabel),
+              "HLabelVLabel": ("1999142431", HLabelVLabel),
+              "Content": ("880934240", Content)
+          }
         }
       },
       "result": {
@@ -306,14 +457,34 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("2524131110", "Das Textfeld mit dem Lokator '{0}' wurde ausgelesen."),
         "Exception": ("2613451948", exception("Das Textfeld konnte nicht ausgelesen werden."))
       },
-      "doc": ("912380966", "Der Inhalt des angegebenen Textfeldes wird zurückgegeben.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld auslesen    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld auslesen    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld auslesen    = Inhalt``")
+      "doc": (
+          "3457248680", 
+          """
+          Der Inhalt des angegebenen Textfeldes wird zurückgegeben.
+          
+          *Textfeld mit einer Beschriftung links*
+          | ``Textfeld auslesen    Beschriftung``
+          
+          *Textfeld mit einer Beschriftung oben*
+          | ``Textfeld auslesen    @ Beschriftung``
+          
+          *Textfeld am Schnittpunkt einer Beschriftung links und einer oben*
+          | ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``
+          
+          *Textfeld mit dem angegebenen Inhalt*
+          | ``Textfeld auslesen    = Inhalt``
+          """
+      )
     },
     "ReadText": {
       "name": ("3879608701", "Text auslesen"),
       "args": {
-        "Inhalt": {
-          "name": ("4274335913", "Inhalt"),
-          "spec": {}
+        "locator": {
+          "name": ("2051440239", "Lokator"),
+          "spec": {
+              "HLabel": ("4229670492", HLabel),
+              "Content": ("880934240", Content)
+          }
         }
       },
       "result": {
@@ -322,16 +493,27 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1360175273", "Der Text mit dem Lokator '{0}' wurde ausgelesen."),
         "Exception": ("3136337781", exception("Der Text konnte nicht ausgelesen werden."))
       },
-      "doc": ("858400447", "Der Inhalt des angegebenen Texts wird zurückgegeben.\n\n*Text fängt mit der angegebenen Teilzeichenfolge an*\n| ``Text auslesen    = Teilzeichenfolge``\n*Text folgt einer Beschriftung*\n| ``Text auslesen    Beschriftung``")
+      "doc": (
+          "1046178438", 
+          """
+          Der Inhalt des angegebenen Texts wird zurückgegeben.
+          
+          *Text beginnt mit der angegebenen Teilzeichenfolge*
+          | ``Text auslesen    = Teilzeichenfolge``
+          
+          *Text folgt einer Beschriftung*
+          | ``Text auslesen    Beschriftung``
+          """
+      )
     },
     "ReadTableCell": {
       "name": ("389153112", "Tabellenzelle auslesen"),
       "args": {
-        "a1Zeilennummer_oder_Zellinhalt": {
-          "name": ("3954689097", "Zeilennummer_oder_Zellinhalt"),
+        "a1row_locator": {
+          "name": ("315353924", "Zeile"),
           "spec": {}
         },
-        "a2Spaltentitel": {
+        "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {}
         }
@@ -342,12 +524,21 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("4222878164", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen."),
         "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
       },
-      "doc": ("666704855", "Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.")
+      "doc": (
+          "3644317529", 
+          """
+          Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.
+          
+          | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
+          
+          Zeile: Zeilennummer oder Zellinhalt.
+          """
+      )
     },
     "SaveScreenshot": {
       "name": ("2178392450", "Fenster aufnehmen"),
       "args": {
-        "Aufnahmenverzeichnis": {
+        "filepath": {
           "name": ("1769741420", "Aufnahmenverzeichnis"),
           "spec": {}
         }
@@ -360,16 +551,24 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1427858469", "Eine Aufnahme des Fensters wurde in '{0}' gespeichert."),
         "Exception": ("3250735497", exception("Eine Aufnahme des Fensters konnte nicht gespeichert werden."))
       },
-      "doc": ("3488461470", "Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n| ``Fenster aufnehmen     Dateipfad``\nDateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.")
+      "doc": (
+          "313859733", 
+          """
+          Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.
+          | ``Fenster aufnehmen     Dateipfad``
+          
+          Dateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.
+          """
+      )
     },
     "SelectCell": {
       "name": ("1049942265", "Tabellenzelle markieren"),
       "args": {
-        "a1Zeilennummer_oder_Zellinhalt": {
-          "name": ("3954689097", "Zeilennummer_oder_Zellinhalt"),
+        "a1row_locator": {
+          "name": ("315353924", "Zeile"),
           "spec": {}
         },
-        "a2Spaltentitel": {
+        "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {}
         }
@@ -380,16 +579,25 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1239645311", "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert."),
         "Exception": ("2355177759", exception("Die Zelle konnte nicht markiert werden."))
       },
-      "doc": ("497443824", "Die angegebene Tabellenzelle wird markiert.\n\n| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.")
+      "doc": (
+          "219237540", 
+          """
+          Die angegebene Tabellenzelle wird markiert.
+          
+          | ``Tabellenzelle markieren     Zeile     Spaltentitel``
+          
+          Zeile: Zeilennummer oder Zellinhalt.
+          """
+      )
     },
     "SelectComboBoxEntry": {
       "name": ("2133292945", "Auswahlmenüeintrag auswählen"),
       "args": {
-        "a1Name": {
+        "a1comboBox": {
           "name": ("3378336226", "Name"),
           "spec": {}
         },
-        "a2Eintrag": {
+        "a2entry": {
           "name": ("723623280", "Eintrag"),
           "spec": {}
         }
@@ -401,14 +609,25 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("2235674925", "Der Eintrag '{1}' wurde ausgewählt."),
         "Exception": ("2433413970", exception("Der Eintrag konnte nicht ausgewählt werden."))
       },
-      "doc": ("92484869", "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.\n\n| ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``")
+      "doc": (
+          "1593493126", 
+          """
+          Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.
+          
+          | ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``
+          """
+      )
     },
     "SelectRadioButton": {
       "name": ("2985728785", "Optionsfeld auswählen"),
       "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": ("2051440239", "Beschriftung_oder_Positionsgeber"),
-          "spec": {}
+        "locator": {
+          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "spec": {
+              "HLabel": ("4229670492", HLabel),
+              "VLabel": ("474824962", VLabel),
+              "HLabelVLabel": ("1999142431", HLabelVLabel)
+          }
         }
       },
       "result": {
@@ -417,14 +636,33 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("259379063", "Das Optionsfeld mit dem Lokator '{0}' wurde ausgewählt."),
         "Exception": ("218028187", exception("Das Optionsfeld konnte nicht ausgewählt werden."))
       },
-      "doc": ("2939575456", "Das angegebene Optionsfeld wird ausgewählt.\n\n*Optionsfeld mit einer Beschriftung links oder rechts*\n| ``Optionsfeld auswählen    Beschriftung``\n*Optionsfeld mit einer Beschriftung oben*\n| ``Optionsfeld auswählen    @ Beschriftung``\n*Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*\n| ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``\n")
+      "doc": (
+          "532570380", 
+          """
+          Das angegebene Optionsfeld wird ausgewählt.
+          
+          *Optionsfeld mit einer Beschriftung links oder rechts*
+          | ``Optionsfeld auswählen    Beschriftung``
+          
+          *Optionsfeld mit einer Beschriftung oben*
+          | ``Optionsfeld auswählen    @ Beschriftung``
+          
+          *Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*
+          | ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``
+          """
+      )
     },
     "SelectTextField": {
       "name": ("335907869", "Textfeld markieren"),
       "args": {
-        "Beschriftungen_oder_Inhalt": {
-          "name": ("2051440239", "Beschriftungen_oder_Inhalt"),
-          "spec": {}
+        "locator": {
+          "name": ("2051440239", "Beschriftungen_oder_Lokator"),
+          "spec": {
+              "HLabel": ("4229670492", HLabel),
+              "VLabel": ("474824962", VLabel),
+              "HLabelVLabel": ("1999142431", HLabelVLabel),
+              "Content": ("880934240", Content)
+          }
         }
       },
       "result": {
@@ -433,12 +671,29 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("3773273557", "Das Textfeld mit dem Lokator '{0}' wurde markiert."),
         "Exception": ("1228826942", exception("Das Textfeld konnte nicht markiert werden."))
       },
-      "doc": ("2308992901", "Das angegebene Textfeld wird markiert.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld markieren    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld markieren    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld markieren    = Inhalt``")
+      "doc": (
+          "1350596231", 
+          """
+          Das angegebene Textfeld wird markiert.
+          
+          *Textfeld mit einer Beschriftung links*
+          | ``Textfeld markieren    Beschriftung``
+          
+          *Textfeld mit einer Beschriftung oben*
+          | ``Textfeld markieren    @ Beschriftung``
+          
+          *Textfeld am Schnittpunkt einer Beschriftung links und einer oben*
+          | ``Textfeld markieren    Beschriftung links @ Beschriftung oben``
+          
+          *Textfeld mit dem angegebenen Inhalt*
+          | ``Textfeld markieren    = Inhalt``
+          """
+      )
     },
     "SelectTextLine": {
       "name": ("4264534869", "Textzeile markieren"),
       "args": {
-        "Inhalt": {
+        "content": {
           "name": ("4274335913", "Inhalt"),
           "spec": {}
         }
@@ -449,14 +704,25 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("792202299", "Die Textzeile mit dem Inhalt '{0}' wurde markiert."),
         "Exception": ("528079567", exception("Die Textzeile konnte nicht markiert werden."))
       },
-      "doc": ("4023168358", "Die Textzeile mit dem angegebenen Inhalt wird markiert.\n| ``Textzeile markieren    Inhalt``")
+      "doc": (
+          "1037973034", 
+          """
+          Die Textzeile mit dem angegebenen Inhalt wird markiert.
+          
+          | ``Textzeile markieren    Inhalt``
+          """
+      )
     },
     "TickCheckBox": {
       "name": ("2471720243", "Formularfeld ankreuzen"),
       "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": ("2051440239", "Beschriftung_oder_Positionsgeber"),
-          "spec": {}
+        "locator": {
+          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "spec": {
+              "HLabel": ("4229670492", HLabel),
+              "VLabel": ("474824962", VLabel),
+              "HLabelVLabel": ("1999142431", HLabelVLabel)
+          }
         }
       },
       "result": {
@@ -465,14 +731,32 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("999358000", "Das Formularfeld mit dem Lokator '{0}' wurde angekreuzt."),
         "Exception": ("1153105219", exception("Das Formularfeld konnte nicht angekreuzt werden."))
       },
-      "doc": ("3559298022", "Das angegebene Formularfeld wird angekreuzt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld ankreuzen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld ankreuzen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``")
+      "doc": (
+          "3375625571", 
+          """
+          Das angegebene Formularfeld wird angekreuzt.
+          
+          *Formularfeld mit einer Beschriftung links oder rechts *
+          | ``Formularfeld ankreuzen    Beschriftung``
+          
+          *Formularfeld mit einer Beschriftung oben*
+          | ``Formularfeld ankreuzen    @ Beschriftung``
+          
+          *Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*
+          | ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``
+          """
+      )
     },
     "UntickCheckBox": {
       "name": ("47381427", "Formularfeld abwählen"),
       "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": ("2051440239", "Beschriftung_oder_Positionsgeber"),
-          "spec": {}
+        "locator": {
+          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "spec": {
+              "HLabel": ("4229670492", HLabel),
+              "VLabel": ("474824962", VLabel),
+              "HLabelVLabel": ("1999142431", HLabelVLabel)
+          }
         }
       },
       "result": {
@@ -481,16 +765,30 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1077869101", "Das Formularfeld mit dem Lokator '{0}' wurde abgewählt."),
         "Exception": ("1479426504", exception("Das Formularfeld konnte nicht abgewählt werden."))
       },
-      "doc": ("2834166382", "Das angegebene Formularfeld wird abgewählt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld abwählen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld abwählen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``")
+      "doc": (
+          "2004880129", 
+          """
+          Das angegebene Formularfeld wird abgewählt.
+          
+          *Formularfeld mit einer Beschriftung links oder rechts*
+          | ``Formularfeld abwählen    Beschriftung``
+          
+          *Formularfeld mit einer Beschriftung oben*
+          | ``Formularfeld abwählen    @ Beschriftung``
+          
+          *Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*
+          | ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``
+          """
+      )
     },
     "TickCheckBoxCell": {
       "name": ("3286561809", "Tabellenzelle ankreuzen"),
       "args": {
-        "a1Zeilennummer": {
+        "a1row": {
           "name": ("3333868678", "Zeilennummer"),
           "spec": {}
         },
-        "a2Spaltentitel": {
+        "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {}
         }
@@ -501,7 +799,14 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("1580249093", "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt."),
         "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
       },
-      "doc": ("3059587832", "Die angegebene Tabellenzelle wird angekreuzt.\n\n| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``")
+      "doc": (
+          "3815558161", 
+          """
+          Die angegebene Tabellenzelle wird angekreuzt.
+          
+          | ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``
+          """
+      )
     },
     "GetWindowTitle": {
       "name": ("2828980154", "Fenstertitel auslesen"),
@@ -510,7 +815,14 @@ lib: LocalizedRoboSAPiens = {
         "NoSession": ("2754484086", no_session),
         "Pass": ("2852411998", "Der Fenstertitel wurde ausgelesen")
       },
-      "doc": ("1638398427", "Der Titel des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Titel}    Fenstertitel auslesen``")
+      "doc": (
+          "985497510", 
+          """
+          Der Titel des Fensters im Fordergrund wird zurückgegeben.
+          
+          | ``${Titel}    Fenstertitel auslesen``
+          """
+      )
     },
     "GetWindowText": {
       "name": ("1085911504", "Fenstertext auslesen"),
@@ -519,7 +831,14 @@ lib: LocalizedRoboSAPiens = {
         "NoSession": ("2754484086", no_session),
         "Pass": ("2562559050", "Der Text des Fensters wurde ausgelesen")
       },
-      "doc": ("2803599762", "Der Text des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Text}    Fenstertext auslesen``")
+      "doc": (
+          "1240406406", 
+          """
+          Der Text des Fensters im Fordergrund wird zurückgegeben.
+          
+          | ``${Text}    Fenstertext auslesen``
+          """
+      )
     }
   },
   "specs": {}

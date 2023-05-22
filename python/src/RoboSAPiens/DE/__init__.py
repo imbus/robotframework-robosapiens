@@ -15,7 +15,6 @@ class DE(RoboSAPiensClient):
     
     Diese Bibliothek implementiert die [https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#remote-library-interface|Remote Library Interface] von Robot Framework. Das heißt, ein HTTP Server läuft im Hintergrund und Robot Framework kommuniziert mit ihm. Standardmäßig lauscht der HTTP Server auf dem Port 8270. Der Port kann beim Import der Bibliothek angepasst werden:
     | ``Library   RoboSAPiens  port=1234``
-    
     """
     
     def __init__(self, port: int=8270, vortragsmodus: bool=False):
@@ -36,13 +35,13 @@ class DE(RoboSAPiensClient):
     @keyword('Reiter auswählen') # type: ignore
     def activate_tab(self, Reitername: str): # type: ignore
         """
-        Der Reiter mit dem angegebenen Name wird ausgewählt.
+        Der Reiter mit dem angegebenen Namen wird ausgewählt.
         
-        | ``Reiter auswählen    Name``
+        | ``Reiter auswählen    Reitername``
         """
         
         args = {
-            'Reitername': Reitername,
+            'tab': Reitername,
         }
         
         result = {
@@ -56,13 +55,15 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('SAP starten') # type: ignore
-    def open_s_a_p(self, Pfad: str): # type: ignore
+    def open_sap(self, Pfad: str): # type: ignore
         """
-        Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+        Die SAP GUI wird gestartet. Der übliche Pfad ist
+        
+        | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
         """
         
         args = {
-            'Pfad': Pfad,
+            'path': Pfad,
         }
         
         result = {
@@ -70,13 +71,13 @@ class DE(RoboSAPiensClient):
             "SAPNotStarted": "Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{0}'.",
             "Exception": "Die SAP GUI konnte nicht gestartet werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('OpenSAP', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('OpenSap', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Verbindung zum Server trennen') # type: ignore
-    def close_connection(self, ): # type: ignore
+    def close_connection(self): # type: ignore
         """
-        Die Verbindung mit dem SAP Server wird beendet.
+        Die Verbindung mit dem SAP Server wird getrennt.
         """
         
         args = {
@@ -94,7 +95,7 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('SAP beenden') # type: ignore
-    def close_s_a_p(self, ): # type: ignore
+    def close_sap(self): # type: ignore
         """
         Die SAP GUI wird beendet.
         """
@@ -106,7 +107,7 @@ class DE(RoboSAPiensClient):
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
             "Pass": "Die SAP GUI wurde beendet"
         }
-        return super()._run_keyword('CloseSAP', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('CloseSap', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Funktionsbaum exportieren') # type: ignore
@@ -118,7 +119,7 @@ class DE(RoboSAPiensClient):
         """
         
         args = {
-            'Dateipfad': Dateipfad,
+            'filepath': Dateipfad,
         }
         
         result = {
@@ -131,7 +132,7 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
-    def attach_to_running_s_a_p(self, ): # type: ignore
+    def attach_to_running_sap(self): # type: ignore
         """
         Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
         """
@@ -147,7 +148,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die laufende SAP GUI wurde erfolgreich übernommen.",
             "Exception": "Die laufende SAP GUI konnte nicht übernommen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('AttachToRunningSAP', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('AttachToRunningSap', list(args.values()), dict(), result) # type: ignore
     
 
     @keyword('Verbindung zum Server herstellen') # type: ignore
@@ -159,7 +160,7 @@ class DE(RoboSAPiensClient):
         """
         
         args = {
-            'Servername': Servername,
+            'server': Servername,
         }
         
         result = {
@@ -174,17 +175,18 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Tabellenzelle doppelklicken') # type: ignore
-    def double_click_cell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
+    def double_click_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Die angegebene Tabellenzelle wird doppelgeklickt.
         
-        | ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``
-        Positionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle.
+        | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
+        
+        Zeile: entweder die Zeilennummer oder der Inhalt der Zelle.
         """
         
         args = {
-            'Zeilennummer_oder_Zellinhalt': Zeilennummer_oder_Zellinhalt,
-            'Spaltentitel': Spaltentitel,
+            'row_locator': Zeile,
+            'column': Spaltentitel,
         }
         
         result = {
@@ -202,11 +204,10 @@ class DE(RoboSAPiensClient):
         Das angegebene Textfeld wird doppelgeklickt.
         
         | ``Textfeld doppelklicken     Inhalt``
-        
         """
         
         args = {
-            'Inhalt': Inhalt,
+            'content': Inhalt,
         }
         
         result = {
@@ -244,12 +245,13 @@ class DE(RoboSAPiensClient):
         Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
         
         | ``Maske exportieren     Name     Verzeichnis``
+        
         Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.
         """
         
         args = {
-            'Name': Name,
-            'Verzeichnis': Verzeichnis,
+            'name': Name,
+            'directory': Verzeichnis,
         }
         
         result = {
@@ -261,19 +263,20 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Tabellenzelle ausfüllen') # type: ignore
-    def fill_table_cell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel_Gleich_Inhalt: str): # type: ignore
+    def fill_table_cell(self, Zeile: str, Spaltentitel_gleich_Inhalt: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
         
         | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``
+        
         Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.
         
         *Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.
         """
         
         args = {
-            'Zeilennummer_oder_Zellinhalt': Zeilennummer_oder_Zellinhalt,
-            'Spaltentitel_Gleich_Inhalt': Spaltentitel_Gleich_Inhalt,
+            'row_locator': Zeile,
+            'column_content': Spaltentitel_gleich_Inhalt,
         }
         
         result = {
@@ -288,16 +291,19 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Textfeld ausfüllen') # type: ignore
-    def fill_text_field(self, Beschriftung_oder_Positionsgeber: str, Inhalt: str): # type: ignore
+    def fill_text_field(self, Beschriftung_oder_Lokator: str, Inhalt: str): # type: ignore
         """
         Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
         
         *Textfeld mit einer Beschriftung links*
         | ``Textfeld ausfüllen    Beschriftung    Inhalt``
+        
         *Textfeld mit einer Beschriftung oben*
         | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``
+        
         *Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*
         | ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``
+        
         *Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*
         | ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``
         
@@ -311,8 +317,8 @@ class DE(RoboSAPiensClient):
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': Beschriftung_oder_Positionsgeber,
-            'Inhalt': Inhalt,
+            'locator': Beschriftung_oder_Lokator,
+            'content': Inhalt,
         }
         
         result = {
@@ -333,7 +339,7 @@ class DE(RoboSAPiensClient):
         """
         
         args = {
-            'Name_oder_Kurzinfo': Name_oder_Kurzinfo,
+            'button': Name_oder_Kurzinfo,
         }
         
         result = {
@@ -347,17 +353,18 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Tabellenzelle drücken') # type: ignore
-    def push_button_cell(self, Zeilennummer_oder_Name_oder_Kurzinfo: str, Spaltentitel: str): # type: ignore
+    def push_button_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Die angegebene Tabellenzelle wird gedrückt.
         
-        | ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``
-        Positionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).
+        | ``Tabellenzelle drücken     Zeile     Spaltentitel``
+        
+        Zeile: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).
         """
         
         args = {
-            'Zeilennummer_oder_Name_oder_Kurzinfo': Zeilennummer_oder_Name_oder_Kurzinfo,
-            'Spaltentitel': Spaltentitel,
+            'row_or_label': Zeile,
+            'column': Spaltentitel,
         }
         
         result = {
@@ -370,22 +377,25 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Textfeld auslesen') # type: ignore
-    def read_text_field(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
+    def read_text_field(self, Beschriftung_oder_Lokator: str): # type: ignore
         """
         Der Inhalt des angegebenen Textfeldes wird zurückgegeben.
         
         *Textfeld mit einer Beschriftung links*
         | ``Textfeld auslesen    Beschriftung``
+        
         *Textfeld mit einer Beschriftung oben*
         | ``Textfeld auslesen    @ Beschriftung``
+        
         *Textfeld am Schnittpunkt einer Beschriftung links und einer oben*
         | ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``
+        
         *Textfeld mit dem angegebenen Inhalt*
         | ``Textfeld auslesen    = Inhalt``
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': Beschriftung_oder_Positionsgeber,
+            'locator': Beschriftung_oder_Lokator,
         }
         
         result = {
@@ -398,18 +408,19 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Text auslesen') # type: ignore
-    def read_text(self, Inhalt: str): # type: ignore
+    def read_text(self, Lokator: str): # type: ignore
         """
         Der Inhalt des angegebenen Texts wird zurückgegeben.
         
-        *Text fängt mit der angegebenen Teilzeichenfolge an*
+        *Text beginnt mit der angegebenen Teilzeichenfolge*
         | ``Text auslesen    = Teilzeichenfolge``
+        
         *Text folgt einer Beschriftung*
         | ``Text auslesen    Beschriftung``
         """
         
         args = {
-            'Inhalt': Inhalt,
+            'locator': Lokator,
         }
         
         result = {
@@ -422,17 +433,18 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Tabellenzelle auslesen') # type: ignore
-    def read_table_cell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
+    def read_table_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.
         
-        | ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``
-        Positionsgeber: Zeilennummer oder Zellinhalt.
+        | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
+        
+        Zeile: Zeilennummer oder Zellinhalt.
         """
         
         args = {
-            'Zeilennummer_oder_Zellinhalt': Zeilennummer_oder_Zellinhalt,
-            'Spaltentitel': Spaltentitel,
+            'row_locator': Zeile,
+            'column': Spaltentitel,
         }
         
         result = {
@@ -448,13 +460,13 @@ class DE(RoboSAPiensClient):
     def save_screenshot(self, Aufnahmenverzeichnis: str): # type: ignore
         """
         Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.
-        
         | ``Fenster aufnehmen     Dateipfad``
+        
         Dateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.
         """
         
         args = {
-            'Aufnahmenverzeichnis': Aufnahmenverzeichnis,
+            'filepath': Aufnahmenverzeichnis,
         }
         
         result = {
@@ -469,17 +481,18 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Tabellenzelle markieren') # type: ignore
-    def select_cell(self, Zeilennummer_oder_Zellinhalt: str, Spaltentitel: str): # type: ignore
+    def select_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Die angegebene Tabellenzelle wird markiert.
         
-        | ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``
-        Positionsgeber: Zeilennummer oder Zellinhalt.
+        | ``Tabellenzelle markieren     Zeile     Spaltentitel``
+        
+        Zeile: Zeilennummer oder Zellinhalt.
         """
         
         args = {
-            'Zeilennummer_oder_Zellinhalt': Zeilennummer_oder_Zellinhalt,
-            'Spaltentitel': Spaltentitel,
+            'row_locator': Zeile,
+            'column': Spaltentitel,
         }
         
         result = {
@@ -500,8 +513,8 @@ class DE(RoboSAPiensClient):
         """
         
         args = {
-            'Name': Name,
-            'Eintrag': Eintrag,
+            'comboBox': Name,
+            'entry': Eintrag,
         }
         
         result = {
@@ -515,21 +528,22 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Optionsfeld auswählen') # type: ignore
-    def select_radio_button(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
+    def select_radio_button(self, Beschriftung_oder_Lokator: str): # type: ignore
         """
         Das angegebene Optionsfeld wird ausgewählt.
         
         *Optionsfeld mit einer Beschriftung links oder rechts*
         | ``Optionsfeld auswählen    Beschriftung``
+        
         *Optionsfeld mit einer Beschriftung oben*
         | ``Optionsfeld auswählen    @ Beschriftung``
+        
         *Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*
         | ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``
-        
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': Beschriftung_oder_Positionsgeber,
+            'locator': Beschriftung_oder_Lokator,
         }
         
         result = {
@@ -542,22 +556,25 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Textfeld markieren') # type: ignore
-    def select_text_field(self, Beschriftungen_oder_Inhalt: str): # type: ignore
+    def select_text_field(self, Beschriftungen_oder_Lokator: str): # type: ignore
         """
         Das angegebene Textfeld wird markiert.
         
         *Textfeld mit einer Beschriftung links*
         | ``Textfeld markieren    Beschriftung``
+        
         *Textfeld mit einer Beschriftung oben*
         | ``Textfeld markieren    @ Beschriftung``
+        
         *Textfeld am Schnittpunkt einer Beschriftung links und einer oben*
         | ``Textfeld markieren    Beschriftung links @ Beschriftung oben``
+        
         *Textfeld mit dem angegebenen Inhalt*
         | ``Textfeld markieren    = Inhalt``
         """
         
         args = {
-            'Beschriftungen_oder_Inhalt': Beschriftungen_oder_Inhalt,
+            'locator': Beschriftungen_oder_Lokator,
         }
         
         result = {
@@ -573,11 +590,12 @@ class DE(RoboSAPiensClient):
     def select_text_line(self, Inhalt: str): # type: ignore
         """
         Die Textzeile mit dem angegebenen Inhalt wird markiert.
+        
         | ``Textzeile markieren    Inhalt``
         """
         
         args = {
-            'Inhalt': Inhalt,
+            'content': Inhalt,
         }
         
         result = {
@@ -590,20 +608,22 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Formularfeld ankreuzen') # type: ignore
-    def tick_check_box(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
+    def tick_check_box(self, Beschriftung_oder_Lokator: str): # type: ignore
         """
         Das angegebene Formularfeld wird angekreuzt.
         
         *Formularfeld mit einer Beschriftung links oder rechts *
         | ``Formularfeld ankreuzen    Beschriftung``
+        
         *Formularfeld mit einer Beschriftung oben*
         | ``Formularfeld ankreuzen    @ Beschriftung``
+        
         *Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*
         | ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': Beschriftung_oder_Positionsgeber,
+            'locator': Beschriftung_oder_Lokator,
         }
         
         result = {
@@ -616,20 +636,22 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Formularfeld abwählen') # type: ignore
-    def untick_check_box(self, Beschriftung_oder_Positionsgeber: str): # type: ignore
+    def untick_check_box(self, Beschriftung_oder_Lokator: str): # type: ignore
         """
         Das angegebene Formularfeld wird abgewählt.
         
-        *Formularfeld mit einer Beschriftung links oder rechts *
+        *Formularfeld mit einer Beschriftung links oder rechts*
         | ``Formularfeld abwählen    Beschriftung``
+        
         *Formularfeld mit einer Beschriftung oben*
         | ``Formularfeld abwählen    @ Beschriftung``
+        
         *Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*
         | ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``
         """
         
         args = {
-            'Beschriftung_oder_Positionsgeber': Beschriftung_oder_Positionsgeber,
+            'locator': Beschriftung_oder_Lokator,
         }
         
         result = {
@@ -650,8 +672,8 @@ class DE(RoboSAPiensClient):
         """
         
         args = {
-            'Zeilennummer': Zeilennummer,
-            'Spaltentitel': Spaltentitel,
+            'row': Zeilennummer,
+            'column': Spaltentitel,
         }
         
         result = {
@@ -664,7 +686,7 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Fenstertitel auslesen') # type: ignore
-    def get_window_title(self, ): # type: ignore
+    def get_window_title(self): # type: ignore
         """
         Der Titel des Fensters im Fordergrund wird zurückgegeben.
         
@@ -682,7 +704,7 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Fenstertext auslesen') # type: ignore
-    def get_window_text(self, ): # type: ignore
+    def get_window_text(self): # type: ignore
         """
         Der Text des Fensters im Fordergrund wird zurückgegeben.
         

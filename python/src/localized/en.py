@@ -12,6 +12,15 @@ no_server_scripting = 'Scripting is not activated on the server side. Please con
 not_found: Fstr = lambda msg: f"{msg} Hint: Check the spelling"
 exception: Fstr = lambda msg: f"{msg}" + "\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
 
+HLabel = "::label"
+VLabel = ":@:label above"
+HLabelVLabel = "label:@:label above"
+HLabelHLabel = "left label:>>:right label"
+HIndexVLabel = "index:@:label above"
+HLabelVIndex = "label:@:index"
+Content = ":=:content"
+ColumnContent = "column:=:content"
+
 locales = {
     "DE": "German"
 }
@@ -42,23 +51,23 @@ lib: RoboSAPiens = {
     },
     "args": {
         "a1port": {
-        "name": "port",
-        "default": 8270,
-        "doc": "Set the port of the HTTP server implementing the Remote interface."
+            "name": "port",
+            "default": 8270,
+            "doc": "Set the port of the HTTP server implementing the Remote interface."
         },
         "a2presenter_mode": {
-        "name": "presenter_mode",
-        "default": False,
-        "doc": "Highlight each GUI element acted upon"
+            "name": "presenter_mode",
+            "default": False,
+            "doc": "Highlight each GUI element acted upon"
         }
     },
     "keywords": {
         "ActivateTab": {
             "name": "Select Tab",
             "args": {
-                "Reitername": {
-                "name": "tabname",
-                "spec": {}
+                "tab": {
+                    "name": "tab_name",
+                    "spec": {}
                 }
             },
             "result": {
@@ -68,14 +77,18 @@ lib: RoboSAPiens = {
                 "Pass": "The tab {0} was selected",
                 "Exception": exception("The tab could not be selected. {0}")
             },
-            "doc": "Select the tab with the name provided.\n\n| ``Select Tab    tabname``"
+            "doc": """
+            Select the tab with the name provided.
+            
+            | ``Select Tab    tab_name``
+            """
         },
-        "OpenSAP": {
+        "OpenSap": {
             "name": "Open SAP",
             "args": {
-                "Pfad": {
-                "name": "path",
-                "spec": {}
+                "path": {
+                    "name": "path",
+                    "spec": {}
                 }
             },
             "result": {
@@ -83,7 +96,11 @@ lib: RoboSAPiens = {
                 "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
                 "Exception": exception("The SAP GUI could not be opened. {0}")
             },
-            "doc": r"Open the SAP GUI. The standard path is\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``"
+            "doc": r"""
+            Open the SAP GUI. The standard path is
+            
+            | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+            """
         },
         "CloseConnection": {
             "name": "Disconnect from Server",
@@ -96,23 +113,27 @@ lib: RoboSAPiens = {
                 "Pass": "Disconnected from the server.",
                 "Exception": exception("Could not disconnect from the server. {0}")
             },
-            "doc": "Terminate the connection to the SAP server."
+            "doc": """
+            Terminate the connection to the SAP server.
+            """
         },
-        "CloseSAP": {
+        "CloseSap": {
             "name": "Close SAP",
             "args": {},
             "result": {
                 "NoSapGui": no_sap_gui,
                 "Pass": "The SAP GUI was closed."
             },
-            "doc": "Close the SAP GUI"
+            "doc": """
+            Close the SAP GUI
+            """
         },
         "ExportTree": {
             "name": "Export Function Tree",
             "args": {
-                "Dateipfad": {
-                "name": "filepath",
-                "spec": {}
+                "filepath": {
+                    "name": "filepath",
+                    "spec": {}
                 }
             },
             "result": {
@@ -121,9 +142,13 @@ lib: RoboSAPiens = {
                 "Pass": "The function tree was exported to {0}",
                 "Exception": exception("The function tree could not be exported. {0}")
             },
-            "doc": "Export the function tree in JSON format to the file provided.\n\n| ``Export Function Tree     filepath``"
+            "doc": """
+            Export the function tree in JSON format to the file provided.
+            
+            | ``Export Function Tree     filepath``
+            """
         },
-        "AttachToRunningSAP": {
+        "AttachToRunningSap": {
             "name": "Connect to Running SAP",
             "args": {},
             "result": {
@@ -134,14 +159,16 @@ lib: RoboSAPiens = {
                 "Pass": "Connected to a running SAP instance.",
                 "Exception": exception("Could not connect to a running SAP instance. {0}")
             },
-            "doc": "Connect to a running SAP instance and take control of it."
+            "doc": """
+            Connect to a running SAP instance and take control of it.
+            """
         },
         "ConnectToServer": {
             "name": "Connect to Server",
             "args": {
-                "Servername": {
-                "name": "servername",
-                "spec": {}
+                "server": {
+                    "name": "server_name",
+                    "spec": {}
                 }
             },
             "result": {
@@ -152,18 +179,22 @@ lib: RoboSAPiens = {
                 "NoServerScripting": no_server_scripting,
                 "Exception": exception("Could not establish the connection. {0}")
             },
-            "doc": "Connect to the SAP Server provided.\n\n| ``Connect to Server    servername``"
+            "doc": """
+            Connect to the SAP Server provided.
+            
+            | ``Connect to Server    servername``
+            """
         },
         "DoubleClickCell": {
             "name": "Double-click Cell",
             "args": {
-                "a1Zeilennummer_oder_Zellinhalt": {
-                "name": "row_number_or_cell_content",
-                "spec": {}
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "spec": {}
                 },
-                "a2Spaltentitel": {
-                "name": "column",
-                "spec": {}
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
                 }
             },
             "result": {
@@ -172,14 +203,20 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
                 "Exception": exception("The cell could not be double-clicked. {0}")
             },
-            "doc": "Double-click the cell at the intersection of the row and the column provided.\n\n| ``Double-click Cell     row_locator     column``\nrow_locator: either the row number or the content of a cell in the row."
+            "doc": """
+            Double-click the cell at the intersection of the row and the column provided.
+            
+            | ``Double-click Cell     row_locator     column``
+            
+            row_locator: either the row number or the content of a cell in the row.
+            """
         },
         "DoubleClickTextField": {
             "name": "Double-click Text Field",
             "args": {
-                "Inhalt": {
-                "name": "content",
-                "spec": {}
+                "content": {
+                    "name": "content",
+                    "spec": {}
                 }
             },
             "result": {
@@ -188,14 +225,18 @@ lib: RoboSAPiens = {
                 "Pass": "The text field with the content '{0}' was double-clicked.",
                 "Exception": exception("The text field could not be double-clicked. {0}")
             },
-            "doc": "Double click the text field with the content provided.\n\n| ``Double-click Text Field     Content``"
+            "doc": """
+            Double click the text field with the content provided.
+            
+            | ``Double-click Text Field     Content``
+            """
         },
         "ExecuteTransaction": {
             "name": "Execute Transaction",
             "args": {
                 "T_Code": {
-                "name": "T_Code",
-                "spec": {}
+                    "name": "T_Code",
+                    "spec": {}
                 }
             },
             "result": {
@@ -203,18 +244,22 @@ lib: RoboSAPiens = {
                 "Pass": "The transaction with T-Code {0} was executed.",
                 "Exception": exception("The transaction could not be executed. {0}")
             },
-            "doc": "Execute the transaction with the given T-Code.\n\n| ``Execute Transaction    T_Code``"
+            "doc": """
+            Execute the transaction with the given T-Code.
+            
+            | ``Execute Transaction    T_Code``
+            """
         },
         "ExportForm": {
             "name": "Export Dynpro",
             "args": {
-                "a1Name": {
-                "name": "name",
-                "spec": {}
+                "a1name": {
+                    "name": "name",
+                    "spec": {}
                 },
-                "a2Verzeichnis": {
-                "name": "directory",
-                "spec": {}
+                "a2directory": {
+                    "name": "directory",
+                    "spec": {}
                 }
             },
             "result": {
@@ -222,18 +267,26 @@ lib: RoboSAPiens = {
                 "Pass": "The Dynpro was exported to the CSV file {0} and the PNG image {1}",
                 "Exception": exception("The Dynpro could not be exported. {0}")
             },
-            "doc": "Write all texts in the Dynpro to a CSV file. Also a screenshot will be saved in PNG format.\n\n| ``Export Dynpro     name     directory``\ndirectory: Absolute path to the directory where the files will be saved."
+            "doc": """
+            Write all texts in the Dynpro to a CSV file. Also a screenshot will be saved in PNG format.
+            
+            | ``Export Dynpro     name     directory``
+            
+            directory: Absolute path to the directory where the files will be saved.
+            """
         },
         "FillTableCell": {
             "name": "Fill Cell",
             "args": {
-                "a1Zeilennummer_oder_Zellinhalt": {
-                "name": "row_number_or_content",
-                "spec": {}
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "spec": {}
                 },
-                "a2Spaltentitel_Gleich_Inhalt": {
-                "name": "column_equals_content",
-                "spec": {}
+                "a2column_content": {
+                    "name": "column_content",
+                    "spec": {
+                        "ColumnContent": ColumnContent
+                    }
                 }
             },
             "result": {
@@ -244,18 +297,33 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was filled.",
                 "Exception": exception("The cell could not be filled. {0}")
             },
-            "doc": "Fill the cell at the intersection of the row and the column specified with the content provided.\n\n| ``Fill Cell     row     column = content``\nrow: either the row number or the contents of a cell in the row.\n\n*Hint*: Some cells can be filled using the keyword 'Fill Text Field' providing as locator the description obtained by selecting the cell and pressing F1."
+            "doc": """
+            Fill the cell at the intersection of the row and the column specified with the content provided.
+            
+            | ``Fill Cell     row     column = content``
+            
+            row: either the row number or the contents of a cell in the row.
+            
+            *Hint*: Some cells can be filled using the keyword 'Fill Text Field' providing as locator the description obtained by selecting the cell and pressing F1.
+            """
         },
         "FillTextField": {
             "name": "Fill Text Field",
             "args": {
-                "a1Beschriftung_oder_Positionsgeber": {
-                "name": "locator",
-                "spec": {}
+                "a1locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": HLabel,
+                        "VLabel": VLabel,
+                        "HLabelVLabel": HLabelVLabel,
+                        "HLabelHLabel": HLabelHLabel,
+                        "HIndexVLabel": HIndexVLabel,
+                        "HLabelVIndex": HLabelVIndex
+                    }
                 },
-                "a2Inhalt": {
-                "name": "content",
-                "spec": {}
+                "a2content": {
+                    "name": "content",
+                    "spec": {}
                 }
             },
             "result": {
@@ -264,14 +332,36 @@ lib: RoboSAPiens = {
                 "Pass": "The text field with the locator '{0}' was filled.",
                 "Exception": exception("The text field could not be filled. {0}")
             },
-            "doc": "Fill the text Field specified by the locator with the content provided.\n\n*Text field with a label to its left*\n| ``Fill Text Field    label    content``\n*Text field with a label above*\n| ``Fill Text Field    @ label    content``\n*Text field at the intersection of a label to its left and a label above it (including a heading)*\n| ``Fill Text Field    label to its left @ label above it    content``\n*Text field without label below a text field with a label (e.g. an address line)*\n| ``Fill Text Field    position (1,2,..) @ label    content``\n\n*Text field without a label to the right of a text field with a label*\n| ``Fill Text Field    label @ position (1,2,..)    content``\n\n*Text field with a non-unique label to the right of a text field with a label*\n| ``Fill Text Field    left label >> right label    content``\n\n*Hint*: The description obtained by selecting a text field and pressing F1 can also be used as label."
+            "doc": """
+            Fill the text Field specified by the locator with the content provided.
+            
+            *Text field with a label to its left*
+            | ``Fill Text Field    label    content``
+            
+            *Text field with a label above*
+            | ``Fill Text Field    @ label    content``
+            
+            *Text field at the intersection of a label to its left and a label above it (including a heading)*
+            | ``Fill Text Field    label to its left @ label above it    content``
+            
+            *Text field without label below a text field with a label (e.g. an address line)*
+            | ``Fill Text Field    position (1,2,..) @ label    content``
+            
+            *Text field without a label to the right of a text field with a label*
+            | ``Fill Text Field    label @ position (1,2,..)    content``
+            
+            *Text field with a non-unique label to the right of a text field with a label*
+            | ``Fill Text Field    left label >> right label    content``
+            
+            *Hint*: The description obtained by selecting a text field and pressing F1 can also be used as label.
+            """
         },
         "PushButton": {
             "name": "Push Button",
             "args": {
-                "Name_oder_Kurzinfo": {
-                "name": "name_or_tooltip",
-                "spec": {}
+                "button": {
+                    "name": "name_or_tooltip",
+                    "spec": {}
                 }
             },
             "result": {
@@ -281,18 +371,22 @@ lib: RoboSAPiens = {
                 "Pass": "The button '{0}' was pushed.",
                 "Exception": exception("The button could not be pushed. {0}")
             },
-            "doc": "Push the button with the given name or tooltip.\n\n| ``Push Button    name or tooltip``"
+            "doc": """
+            Push the button with the given name or tooltip.
+            
+            | ``Push Button    name or tooltip``
+            """
         },
         "PushButtonCell": {
             "name": "Push Button Cell",
             "args": {
-                "a1Zeilennummer_oder_Name_oder_Kurzinfo": {
-                "name": "row_index_label_tooltip",
-                "spec": {}
+                "a1row_or_label": {
+                    "name": "row_or_label",
+                    "spec": {}
                 },
-                "a2Spaltentitel": {
-                "name": "column",
-                "spec": {}
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
                 }
             },
             "result": {
@@ -301,14 +395,25 @@ lib: RoboSAPiens = {
                 "Pass": "The button cell with the locator '{0}' was pushed.",
                 "Exception": exception("The button cell could not be pushed. {0}")
             },
-            "doc": "Push the button cell located at the intersection of the row and column provided.\n\n| ``Push Button Cell     row_locator     column``\nrow_locator: Row number, label or tooltip."
+            "doc": """
+            Push the button cell located at the intersection of the row and column provided.
+            
+            | ``Push Button Cell     row_locator     column``
+            
+            row_locator: Row number, label or tooltip.
+            """
         },
         "ReadTextField": {
             "name": "Read Text Field",
             "args": {
-                "Beschriftung_oder_Positionsgeber": {
-                "name": "locator",
-                "spec": {}
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": HLabel,
+                        "VLabel": VLabel,
+                        "HLabelVLabel": HLabelVLabel,
+                        "Content": Content
+                    }
                 }
             },
             "result": {
@@ -317,14 +422,31 @@ lib: RoboSAPiens = {
                 "Pass": "The text field with the locator '{0}' was read.",
                 "Exception": exception("The text field could not be read. {0}")
             },
-            "doc": "Read the contents of the text field specified by the locator.\n\n*Text field with a label to its left*\n| ``Read Text Field    label``\n*Text field with a label above it*\n| ``Read Text Field    @ label``\n*Text field at the intersection of a label to its left and a label above it*\n| ``Read Text Field    left label @ label above``\n*Text field whose content starts with a given text*\n| ``Read Text Field    = text``"
+            "doc": """
+            Read the contents of the text field specified by the locator.
+            
+            *Text field with a label to its left*
+            | ``Read Text Field    label``
+            
+            *Text field with a label above it*
+            | ``Read Text Field    @ label``
+            
+            *Text field at the intersection of a label to its left and a label above it*
+            | ``Read Text Field    left label @ label above``
+            
+            *Text field whose content starts with a given text*
+            | ``Read Text Field    = text``
+            """
         },
         "ReadText": {
             "name": "Read Text",
             "args": {
-                "Inhalt": {
-                "name": "content",
-                "spec": {}
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": HLabel,
+                        "Content": Content
+                    }
                 }
             },
             "result": {
@@ -333,18 +455,26 @@ lib: RoboSAPiens = {
                 "Pass": "A text with the locator '{0}' was read.",
                 "Exception": exception("The text could not be read. {0}")
             },
-            "doc": "Read the text specified by the locator.\n\n*Text starting with a given substring*\n| ``Read Text    = substring``\n*Text following a label*\n| ``Read Text    Label``"
+            "doc": """
+            Read the text specified by the locator.
+            
+            *Text starting with a given substring*
+            | ``Read Text    = substring``
+            
+            *Text following a label*
+            | ``Read Text    Label``
+            """
         },
         "ReadTableCell": {
             "name": "Read Cell",
             "args": {
-                "a1Zeilennummer_oder_Zellinhalt": {
-                "name": "row_number_or_content",
-                "spec": {}
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "spec": {}
                 },
-                "a2Spaltentitel": {
-                "name": "column",
-                "spec": {}
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
                 }
             },
             "result": {
@@ -353,14 +483,20 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was read.",
                 "Exception": exception("The cell could not be read. {0}")
             },
-            "doc": "Read the contents of the cell at the intersection of the row and column provided.\n\n| ``Read Cell     row_locator     column``\nrow_locator: either the row number or the contents of a cell in the row."
+            "doc": """
+            Read the contents of the cell at the intersection of the row and column provided.
+
+            | ``Read Cell     row_locator     column``
+            
+            row_locator: either the row number or the contents of a cell in the row.
+            """
         },
         "SaveScreenshot": {
             "name": "Save Screenshot",
             "args": {
-                "Aufnahmenverzeichnis": {
-                "name": "filepath",
-                "spec": {}
+                "filepath": {
+                    "name": "filepath",
+                    "spec": {}
                 }
             },
             "result": {
@@ -371,18 +507,24 @@ lib: RoboSAPiens = {
                 "Pass": "The screenshot was saved in {0}.",
                 "Exception": exception("The screenshot could not be saved. {0}")
             },
-            "doc": "Save a screenshot of the current window in the file provided.\n\n| ``Save Screenshot     filepath``\nfilepath: Absolute path to a .png file."
+            "doc": """
+            Save a screenshot of the current window in the file provided.
+            
+            | ``Save Screenshot     filepath``
+            
+            filepath: Absolute path to a .png file.
+            """
         },
         "SelectCell": {
             "name": "Select Cell",
             "args": {
-                "a1Zeilennummer_oder_Zellinhalt": {
-                "name": "row_number_or_content",
-                "spec": {}
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "spec": {}
                 },
-                "a2Spaltentitel": {
-                "name": "column",
-                "spec": {}
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
                 }
             },
             "result": {
@@ -391,18 +533,24 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was selected.",
                 "Exception": exception("The cell could not be selected. {0}")
             },
-            "doc": "Select the cell at the intersection of the row and column provided.\n\n| ``Select Cell     row_locator     column``\nrow_locator: either the row number or the contents of a cell in the row."
+            "doc": """
+            Select the cell at the intersection of the row and column provided.
+            
+            | ``Select Cell     row_locator     column``
+            
+            row_locator: either the row number or the contents of a cell in the row.
+            """
         },
         "SelectComboBoxEntry": {
             "name": "Select Dropdown Menu Entry",
             "args": {
-                "a1Name": {
-                "name": "dropdown_menu",
-                "spec": {}
+                "a1comboBox": {
+                    "name": "dropdown_menu",
+                    "spec": {}
                 },
-                "a2Eintrag": {
-                "name": "entry",
-                "spec": {}
+                "a2entry": {
+                    "name": "entry",
+                    "spec": {}
                 }
             },
             "result": {
@@ -412,14 +560,22 @@ lib: RoboSAPiens = {
                 "Pass": "In the dropdown menu '{0}' the entry '{1}' was selected.",
                 "Exception": exception("The entry could not be selected. {0}")
             },
-            "doc": "Select the specified entry from the dropdown menu provided.\n\n| ``Select Dropdown Menu Entry   dropdown menu    entry``"
+            "doc": """
+            Select the specified entry from the dropdown menu provided.
+            
+            | ``Select Dropdown Menu Entry   dropdown menu    entry``
+            """
         },
         "SelectRadioButton": {
             "name": "Select Radio Button",
             "args": {
-                "Beschriftung_oder_Positionsgeber": {
-                "name": "locator",
-                "spec": {}
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": HLabel,
+                        "VLabel": VLabel,
+                        "HLabelVLabel": HLabelVLabel
+                    }
                 }
             },
             "result": {
@@ -428,14 +584,30 @@ lib: RoboSAPiens = {
                 "Pass": "The radio button with locator '{0}' was selected.",
                 "Exception": exception("The radio button could not be selected. {0}")
             },
-            "doc": "Select the radio button specified by the locator.\n\n*Radio button with a label to its left or its right*\n| ``Select Radio Button    label``\n*Radio button with a label above it*\n| ``Select Radio Button    @ label``\n*Radio button at the intersection of a label to its left or its right and a label above it*\n| ``Select Radio Button    left or right label @ label above``"
+            "doc": """
+            Select the radio button specified by the locator.
+            
+            *Radio button with a label to its left or its right*
+            | ``Select Radio Button    label``
+            
+            *Radio button with a label above it*
+            | ``Select Radio Button    @ label``
+            
+            *Radio button at the intersection of a label to its left or its right and a label above it*
+            | ``Select Radio Button    left or right label @ label above``
+            """
         },
         "SelectTextField": {
             "name": "Select Text Field",
             "args": {
-                "Beschriftungen_oder_Inhalt": {
-                "name": "locator",
-                "spec": {}
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": HLabel,
+                        "VLabel": VLabel,
+                        "HLabelVLabel": HLabelVLabel,
+                        "Content": Content
+                    }
                 }
             },
             "result": {
@@ -444,14 +616,28 @@ lib: RoboSAPiens = {
                 "Pass": "The text field with the locator '{0}' was selected.",
                 "Exception": exception("The text field could not be selected. {0}")
             },
-            "doc": "Select the text field specified by the locator.\n\n*Text field with a label to its left*\n| ``Select Text Field    label``\n*Text field with a label above it*\n| ``Select Text Field    @ label``\n*Text field at the intersection of a label to its left and a label above it*\n| ``Select Text Field    left label @ label above``\n*Text field whose content starts with the given text*\n| ``Select Text Field    = text``"
+            "doc": """
+            Select the text field specified by the locator.
+            
+            *Text field with a label to its left*
+            | ``Select Text Field    label``
+            
+            *Text field with a label above it*
+            | ``Select Text Field    @ label``
+            
+            *Text field at the intersection of a label to its left and a label above it*
+            | ``Select Text Field    left label @ label above``
+            
+            *Text field whose content starts with the given text*
+            | ``Select Text Field    = text``
+            """
         },
         "SelectTextLine": {
             "name": "Select Text Line",
             "args": {
-                "Inhalt": {
-                "name": "content",
-                "spec": {}
+                "content": {
+                    "name": "content",
+                    "spec": {}
                 }
             },
             "result": {
@@ -460,14 +646,22 @@ lib: RoboSAPiens = {
                 "Pass": "The text line starting with '{0}' was selected.",
                 "Exception": exception("The text line could not be selected. {0}")
             },
-            "doc": "Select the text line starting with the given content.\n| ``Select Text Line    content``"
+            "doc": """
+            Select the text line starting with the given content.
+            
+            | ``Select Text Line    content``
+            """
         },
         "TickCheckBox": {
             "name": "Tick Checkbox",
             "args": {
-                "Beschriftung_oder_Positionsgeber": {
-                "name": "locator",
-                "spec": {}
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": HLabel,
+                        "VLabel": VLabel,
+                        "HLabelVLabel": HLabelVLabel
+                    }
                 }
             },
             "result": {
@@ -476,14 +670,29 @@ lib: RoboSAPiens = {
                 "Pass": "The checkbox with the locator '{0}' was ticked.",
                 "Exception": exception("The checkbox could not be ticked. {0}")
             },
-            "doc": "Tick the checkbox specified by the locator.\n\n*Checkbox with a label to its left or its right*\n| ``Tick Checkbox    label``\n*Checkbox with a label above it*\n| ``Tick Checkbox    @ label``\n*Checkbox at the intersection of a label to its left and a label above it*\n| ``Tick Checkbox    left label @ label above``"
+            "doc": """
+            Tick the checkbox specified by the locator.
+            
+            *Checkbox with a label to its left or its right*
+            | ``Tick Checkbox    label``
+            
+            *Checkbox with a label above it*
+            | ``Tick Checkbox    @ label``
+            
+            *Checkbox at the intersection of a label to its left and a label above it*
+            | ``Tick Checkbox    left label @ label above``
+            """
         },
         "UntickCheckBox": {
             "name": "Untick Checkbox",
             "args": {
-                "Beschriftung_oder_Positionsgeber": {
-                "name": "locator",
-                "spec": {}
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": HLabel,
+                        "VLabel": VLabel,
+                        "HLabelVLabel": HLabelVLabel
+                    }
                 }
             },
             "result": {
@@ -492,18 +701,29 @@ lib: RoboSAPiens = {
                 "Pass": "The checkbox with the locator '{0}' was unticked.",
                 "Exception": exception("The checkbox could not be unticked. {0}")
             },
-            "doc": "Untick the checkbox specified by the locator.\n\n*Checkbox with a label to its left or its right*\n| ``Untick Checkbox    label``\n*Checkbox with a label above it*\n| ``Untick Checkbox    @ label``\n*Checkbox at the intersection of a label to its left and a label above it*\n| ``Untick Checkbox    left label @ label above``"
+            "doc": """
+            Untick the checkbox specified by the locator.
+            
+            *Checkbox with a label to its left or its right*
+            | ``Untick Checkbox    label``
+            
+            *Checkbox with a label above it*
+            | ``Untick Checkbox    @ label``
+            
+            *Checkbox at the intersection of a label to its left and a label above it*
+            | ``Untick Checkbox    left label @ label above``
+            """
         },
         "TickCheckBoxCell": {
             "name": "Tick Checkbox Cell",
             "args": {
-                "a1Zeilennummer": {
-                "name": "row_number",
-                "spec": {}
+                "a1row": {
+                    "name": "row_number",
+                    "spec": {}
                 },
-                "a2Spaltentitel": {
-                "name": "column",
-                "spec": {}
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
                 }
             },
             "result": {
@@ -512,7 +732,11 @@ lib: RoboSAPiens = {
                 "Pass": "The checkbox cell with the locator '{0}' was ticked.",
                 "Exception": exception("The checkbox cell could not be ticked. {0}")
             },
-            "doc": "Tick the checkbox cell at the intersection of the row and the column provided.\n\n| ``Tick Checkbox Cell     row number     column``"
+            "doc": """
+            Tick the checkbox cell at the intersection of the row and the column provided.
+            
+            | ``Tick Checkbox Cell     row number     column``
+            """
         },
         "GetWindowTitle": {
             "name": "Get Window Title",
@@ -521,7 +745,11 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "Pass": "The title of the window was obtained."
             },
-            "doc": "Get the title of the window in the foreground.\n\n| ``${Title}    Get Window Title``"
+            "doc": """
+            Get the title of the window in the foreground.
+            
+            | ``${Title}    Get Window Title``
+            """
         },
         "GetWindowText": {
             "name": "Get Window Text",
@@ -530,7 +758,11 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "Pass": "The text message of the window was obtained."
             },
-            "doc": "Get the text message of the window in the foreground.\n\n| ``${Text}    Get Window Text``"
+            "doc": """
+            Get the text message of the window in the foreground.
+            
+            | ``${Text}    Get Window Text``
+            """
         }
     },
     "specs": {}
