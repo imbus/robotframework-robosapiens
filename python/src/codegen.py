@@ -37,9 +37,9 @@ def gen_class(name: str, properties: List[str], doc: List[str], methods: List[st
     )
 
 
-def gen_init(args: str, doc: List[str], body: List[str]):
+def gen_init(args: List[str], doc: List[str], body: List[str]):
     return pprint_code_block(
-        [f"def __init__(self, {args}):"],
+        [f"def __init__({', '.join(['self'] + args)}):"],
         doc +
         body
     )

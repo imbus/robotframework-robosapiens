@@ -39,7 +39,7 @@ def gen_call_args(args: ArgsDict):
         else:
             args_list.append(f"{name}: str")
 
-    return ", ".join(args_list)
+    return args_list
 
 
 def gen_args_doc(args: Dict[str, Dict[str, Union[str, Tuple[str,str]]]]):
@@ -80,7 +80,7 @@ def gen_methods(keywords: Dict[str, Dict[str, Any]]):
         result = keywords[keyword]['result']
         methods += ["\n"] + codegen.pprint_code_block(
             [f"@keyword('{get_str(keywords[keyword]['name'])}') # type: ignore",
-            f"def {codegen.camel_to_snake(keyword)}(self, {gen_call_args(args)}): # type: ignore"],
+            f"def {codegen.camel_to_snake(keyword)}({', '.join(['self'] + gen_call_args(args))}): # type: ignore"],
             codegen.gen_doc(get_str(keywords[keyword]['doc'])) +
             [""] +
             # TODO: validate that the arguments satisfy their spec
