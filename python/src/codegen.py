@@ -59,14 +59,24 @@ def gen_str_dict(name: str, input: Any):
         ensure_ascii=False)).split("\n")
 
 
+def remove_empty_lines(lines: List[str]) -> List[str]:
+    first, *rest = lines
+
+    if first == "":
+        return remove_empty_lines(rest)
+
+    *previous, last = lines
+
+    if last == "":
+        return remove_empty_lines(previous)
+    
+    return lines
+
+
 def gen_doc(doc: str):
-    doc_lines = (line.lstrip() for line in doc.split("\n"))
+    doc_lines = [line.lstrip() for line in doc.split("\n")]
 
-    first = next(doc_lines)
-    while (first) == "":
-        first = next(doc_lines)
-
-    return ['"""'] + [first] + list(doc_lines) + ['"""']
+    return ['"""'] + remove_empty_lines(doc_lines) + ['"""']
 
 
 def gen_typed_dict(name: str, dict_entries: Dict[str, str]):
