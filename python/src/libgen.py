@@ -129,7 +129,7 @@ def get_localizations(path: Path):
             path = get_lib_path(lang),
             spec = importlib.import_module(f"{path}.{lang}", ".").lib
         )
-        for file in os.listdir(path) if not file.startswith("__")
+        for file in os.listdir(path) if file.endswith(".py") and not file.startswith("__")
         for lang in [Path(file).stem]
     ]
 
