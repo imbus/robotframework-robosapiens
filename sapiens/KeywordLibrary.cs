@@ -125,12 +125,12 @@ namespace SAPiens
         [Keyword("SAP starten"),
          Doc("Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n" +
             @"| ``C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe``")]
-        public RobotResult OpenSAP(string Pfad) {
+        public RobotResult OpenSap(string path) {
             try {
-                proc = Process.Start(Pfad);
+                proc = Process.Start(path);
 
                 if (proc == null) {
-                    return new Result.OpenSAP.SAPNotStarted();
+                    return new Result.OpenSap.SAPNotStarted();
                 }
 
                 int timeout = 20000;    // in milliseconds
@@ -145,18 +145,18 @@ namespace SAPiens
                 }
 
                 if (sapGui == null) {
-                    return new Result.OpenSAP.SAPNotStarted();
+                    return new Result.OpenSap.SAPNotStarted();
                 }
 
-                return new Result.OpenSAP.Pass();
+                return new Result.OpenSap.Pass();
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 if (e is System.ComponentModel.Win32Exception || e is System.InvalidOperationException) {
-                    return new Result.OpenSAP.SAPNotStarted(Pfad);
+                    return new Result.OpenSap.SAPNotStarted(path);
                 }
                 else {
-                    return new Result.OpenSAP.Exception(e);
+                    return new Result.OpenSap.Exception(e);
                 }
             }
         }
@@ -190,13 +190,13 @@ namespace SAPiens
 
         [Keyword("SAP beenden"),
          Doc("Die SAP GUI wird beendet.")]
-        public RobotResult CloseSAP() {
+        public RobotResult CloseSap() {
             if (proc == null) {
-                return new Result.CloseSAP.NoSapGui();
+                return new Result.CloseSap.NoSapGui();
             }
 
             proc.Kill();
-            return new Result.CloseSAP.Pass();
+            return new Result.CloseSap.Pass();
         }
 
         RobotResult createSession(GuiConnection connection) {
@@ -224,19 +224,19 @@ namespace SAPiens
 
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult AttachToRunningSAP() {   
+        public RobotResult AttachToRunningSap() {   
             GuiApplication? guiApplication = null;
 
             switch(getSapGui()) 
             {
                 case EitherSapGui.Err(RobotResult.RobotFail.NoSapGui):
-                    return new Result.AttachToRunningSAP.NoSapGui();
+                    return new Result.AttachToRunningSap.NoSapGui();
                 
                 case EitherSapGui.Err(RobotResult.RobotFail.NoGuiScripting):
-                    return new Result.AttachToRunningSAP.NoGuiScripting();
+                    return new Result.AttachToRunningSap.NoGuiScripting();
 
                 case EitherSapGui.Err(RobotResult.ExceptionError(System.Exception e, string errorMessage)):
-                    return new Result.AttachToRunningSAP.Exception(e);
+                    return new Result.AttachToRunningSap.Exception(e);
 
                 case EitherSapGui.Ok(GuiApplication sapGui):
                     guiApplication = sapGui;
@@ -248,25 +248,25 @@ namespace SAPiens
                 var connections = guiApplication!.Connections;
 
                 if (connections.Length == 0) {
-                    return new Result.AttachToRunningSAP.NoConnection();
+                    return new Result.AttachToRunningSap.NoConnection();
                 }
                 
                 var connection = (GuiConnection)connections.ElementAt(0);
 
                 if (connection.DisabledByServer) {
-                    return new Result.AttachToRunningSAP.NoServerScripting();
+                    return new Result.AttachToRunningSap.NoServerScripting();
                 }
 
                 return createSession(connection) switch {
                     Error error => error,
-                    _ => new Result.AttachToRunningSAP.Pass(),
+                    _ => new Result.AttachToRunningSap.Pass(),
                     
                 };
             } 
             catch(Exception e) 
             {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
-                return new Result.AttachToRunningSAP.Exception(e);
+                return new Result.AttachToRunningSap.Exception(e);
             }
         }
 

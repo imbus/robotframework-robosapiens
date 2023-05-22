@@ -73,7 +73,7 @@ namespace SAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Reiter konnte nicht ausgewählt werden.");
         }
 
-        public record OpenSAP {
+        public record OpenSap {
             public record Pass(): RobotResult.RobotPass("Die SAP GUI wurde gestartet");
             public record SAPNotStarted(string path=""): RobotResult.RobotFail("SAPNotStarted", error: $"Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad {path}.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die SAP GUI konnte nicht gestartet werden.");
@@ -88,7 +88,7 @@ namespace SAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Verbindung zum Server konnte nicht getrennt werden.");
         }
 
-        public record CloseSAP {
+        public record CloseSap {
             public record NoSapGui(): RobotResult.NoSapGui();
             public record Pass(): RobotResult.RobotPass("Die SAP GUI wurde beendet");
         }
@@ -100,7 +100,7 @@ namespace SAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Baumstruktur konnte nicht exportiert werden.");
         }
 
-        public record AttachToRunningSAP {
+        public record AttachToRunningSap {
             public record NoSapGui(): RobotResult.NoSapGui();
             public record NoGuiScripting(): RobotResult.NoGuiScripting();
             public record NoConnection(): RobotResult.NoConnection();
