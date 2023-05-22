@@ -183,4 +183,15 @@ namespace SAPiens {
     public record HLabelHLabel(string leftLabel, string rightLabel): ILabelsLocator;
     public record VLabel(string name): ILocator;
     public record HLabelVIndex(string label, int vIndex): IIndexLocator;
+
+    public static class Loc {
+        public const string HLabel = "HLabel";
+        public const string VLabel = "VLabel";
+        public const string HLabelVLabel = "HLabelVLabel";
+        public const string ColumnContent = "ColumnContent";
+        public const string Content = "Content";
+        public const string HLabelHLabel = "HLabelHLabel";
+        public const string HLabelVIndex = "HLabelVIndex";
+        public const string HIndexVLabel = "HIndexVLabel";
+    }
 }

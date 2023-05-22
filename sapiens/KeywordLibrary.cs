@@ -72,7 +72,10 @@ namespace SAPiens
                                     param => new 
                                     {
                                         name = param.Name,
-                                        spec = new {}
+                                        spec = param.GetCustomAttribute(typeof(Locator)) switch {
+                                            Locator locator => locator.locators.ToDictionary(key => key, value => value),
+                                            _ => new Dictionary<string, string>()
+                                        }
                                     }
                                 ),
                                 result = typeof(Result)
@@ -115,9 +118,9 @@ namespace SAPiens
         [Keyword("Reiter auswählen"),
          Doc("Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n" +
              "| ``Reiter auswählen    Name``")]
-        public RobotResult ActivateTab(string Reitername) {
+        public RobotResult ActivateTab(string tab) {
             return session switch {
-                SAPSession session => session.activateTab(Reitername),
+                SAPSession session => session.activateTab(tab),
                 _ => new Result.ActivateTab.NoSession()
             };
         }
@@ -215,9 +218,9 @@ namespace SAPiens
         [Keyword("Funktionsbaum exportieren"),
          Doc("Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n" +
              "| ``Funktionsbaum exportieren     Dateipfad``")]
-        public RobotResult ExportTree(string Dateipfad) {
+        public RobotResult ExportTree(string filepath) {
             return session switch {
-                SAPSession session => session.exportTree(Dateipfad),
+                SAPSession session => session.exportTree(filepath),
                 _ => new Result.ExportTree.NoSession()
             };
         }
@@ -287,7 +290,7 @@ namespace SAPiens
         [Keyword("Verbindung zum Server herstellen"),
          Doc("Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n" +
              "| ``Verbindung zum Server herstellen    Servername``")]
-        public RobotResult ConnectToServer(string Servername) {
+        public RobotResult ConnectToServer(string server) {
             GuiApplication? guiApplication = null;
 
             switch(getSapGui()) 
@@ -308,7 +311,7 @@ namespace SAPiens
 
             try 
             {
-                var connection = getConnection(guiApplication!, Servername);
+                var connection = getConnection(guiApplication!, server);
 
                 if (connection != null) 
                 {
@@ -316,11 +319,11 @@ namespace SAPiens
                     return createSession(connection) switch 
                     {
                         Error error => error,
-                        _ => new Result.ConnectToServer.Pass(Servername)
+                        _ => new Result.ConnectToServer.Pass(server)
                     };
                 }
 
-                connection = guiApplication!.OpenConnection(Servername);
+                connection = guiApplication!.OpenConnection(server);
                 var connectionError = guiApplication.ConnectionErrorText;
                 if (connectionError != "")
                     return new Result.ConnectToServer.SapError(connectionError);
@@ -331,7 +334,7 @@ namespace SAPiens
                 return createSession(connection) switch 
                 {
                     Error error => error,
-                    _ => new Result.ConnectToServer.Pass(Servername)
+                    _ => new Result.ConnectToServer.Pass(server)
                 };
             } 
             catch (Exception e) 
@@ -345,9 +348,9 @@ namespace SAPiens
          Doc("Die angegebene Tabellenzelle wird doppelgeklickt.\n\n" +
              "| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle.")]
-        public RobotResult DoubleClickCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
+        public RobotResult DoubleClickCell(string row_locator, string column) {
             return session switch {
-                SAPSession session => session.doubleClickCell(Zeilennummer_oder_Zellinhalt, Spaltentitel),
+                SAPSession session => session.doubleClickCell(row_locator, column),
                 _ => new Result.DoubleClickCell.NoSession()
             };
         }
@@ -355,9 +358,9 @@ namespace SAPiens
         [Keyword("Textfeld doppelklicken"),
          Doc("Das angegebene Textfeld wird doppelgeklickt.\n\n" +
              "| ``Textfeld doppelklicken     Inhalt``\n")]
-        public RobotResult DoubleClickTextField(string Inhalt) {
+        public RobotResult DoubleClickTextField(string content) {
             return session switch {
-                SAPSession session => session.doubleClickTextField(Inhalt),
+                SAPSession session => session.doubleClickTextField(content),
                 _ => new Result.DoubleClickTextField.NoSession()
             };
         }
@@ -376,9 +379,9 @@ namespace SAPiens
          Doc("Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.\n\n" +
              "| ``Maske exportieren     Name     Verzeichnis``\n" +
              "Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.")]
-        public RobotResult ExportForm(string Name, string Verzeichnis) {
+        public RobotResult ExportForm(string name, string directory) {
             return session switch {
-                SAPSession session => session.exportForm(Name, Verzeichnis),
+                SAPSession session => session.exportForm(name, directory),
                 _ => new Result.ExportForm.NoSession()
             };
         }
@@ -389,9 +392,9 @@ namespace SAPiens
              "Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n" +
              "*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. " +
              "In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")]
-        public RobotResult FillTableCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel_Gleich_Inhalt) {
+        public RobotResult FillTableCell(string row_locator, [Locator(Loc.ColumnContent)] string column_content) {
             return session switch {
-                SAPSession session => session.fillTableCell(Zeilennummer_oder_Zellinhalt, Spaltentitel_Gleich_Inhalt),
+                SAPSession session => session.fillTableCell(row_locator, column_content),
                 _ => new Result.FillTableCell.NoSession()
             };
         }
@@ -412,9 +415,9 @@ namespace SAPiens
              "| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n" +
              "*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, " +
              "die man über die Hilfe (Taste F1) herausfinden kann.")]
-        public RobotResult FillTextField(string Beschriftung_oder_Positionsgeber, string Inhalt) {
+        public RobotResult FillTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.HIndexVLabel, Loc.HLabelVIndex, Loc.HLabelHLabel)] string locator, string content) {
             return session switch {
-                SAPSession session => session.fillTextField(Beschriftung_oder_Positionsgeber, Inhalt),
+                SAPSession session => session.fillTextField(locator, content),
                 _ => new Result.FillTextField.NoSession()
             };
         }
@@ -422,9 +425,9 @@ namespace SAPiens
         [Keyword("Knopf drücken"),
          Doc("Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.\n\n" +
              "| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``")]
-        public RobotResult PushButton(string Name_oder_Kurzinfo) {
+        public RobotResult PushButton(string button) {
             return session switch {
-                SAPSession session => session.pushButton(Name_oder_Kurzinfo),
+                SAPSession session => session.pushButton(button),
                 _ => new Result.PushButton.NoSession()
             };
         }
@@ -433,9 +436,9 @@ namespace SAPiens
          Doc("Die angegebene Tabellenzelle wird gedrückt.\n\n" +
              "| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).")]
-        public RobotResult PushButtonCell(string Zeilennummer_oder_Name_oder_Kurzinfo, string Spaltentitel) {
+        public RobotResult PushButtonCell(string row_or_label, string column) {
             return session switch {
-                SAPSession session => session.pushButtonCell(Zeilennummer_oder_Name_oder_Kurzinfo, Spaltentitel),
+                SAPSession session => session.pushButtonCell(row_or_label, column),
                 _ => new Result.PushButtonCell.NoSession()
             };
         }
@@ -450,9 +453,9 @@ namespace SAPiens
              "| ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``\n" +
              "*Textfeld mit dem angegebenen Inhalt*\n" +
              "| ``Textfeld auslesen    = Inhalt``")]
-        public RobotResult ReadTextField(string Beschriftung_oder_Positionsgeber) {
+        public RobotResult ReadTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.Content)] string locator) {
             return session switch {
-                SAPSession session => session.readTextField(Beschriftung_oder_Positionsgeber),
+                SAPSession session => session.readTextField(locator),
                 _ => new Result.ReadTextField.NoSession()
             };
         }
@@ -463,9 +466,9 @@ namespace SAPiens
              "| ``Text auslesen    = Teilzeichenfolge``\n" +
              "*Text folgt einer Beschriftung*\n" +
              "| ``Text auslesen    Beschriftung``")]
-        public RobotResult ReadText(string Inhalt) {
+        public RobotResult ReadText([Locator(Loc.Content, Loc.HLabel)] string locator) {
             return session switch {
-                SAPSession session => session.readText(Inhalt),
+                SAPSession session => session.readText(locator),
                 _ => new Result.ReadText.NoSession()
             };
         }
@@ -474,9 +477,9 @@ namespace SAPiens
          Doc("Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n" +
              "| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
-        public RobotResult ReadTableCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
+        public RobotResult ReadTableCell(string row_locator, string column) {
             return session switch {
-                SAPSession session => session.readTableCell(Zeilennummer_oder_Zellinhalt, Spaltentitel),
+                SAPSession session => session.readTableCell(row_locator, column),
                 _ => new Result.ReadTableCell.NoSession()
             };
         }
@@ -485,9 +488,9 @@ namespace SAPiens
          Doc("Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n" +
              "| ``Fenster aufnehmen     Dateipfad``\n" +
              "Dateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.")]
-        public RobotResult SaveScreenshot(string Aufnahmenverzeichnis) {
+        public RobotResult SaveScreenshot(string filepath) {
             return session switch {
-                SAPSession session => session.saveScreenshot(Aufnahmenverzeichnis),
+                SAPSession session => session.saveScreenshot(filepath),
                 _ => new Result.SaveScreenshot.NoSession()
             };
         }
@@ -496,9 +499,9 @@ namespace SAPiens
          Doc("Die angegebene Tabellenzelle wird markiert.\n\n" +
              "| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
-        public RobotResult SelectCell(string Zeilennummer_oder_Zellinhalt, string Spaltentitel) {
+        public RobotResult SelectCell(string row_locator, string column) {
             return session switch {
-                SAPSession session => session.selectCell(Zeilennummer_oder_Zellinhalt, Spaltentitel),
+                SAPSession session => session.selectCell(row_locator, column),
                 _ => new Result.SelectCell.NoSession()
             };
         }
@@ -506,9 +509,9 @@ namespace SAPiens
         [Keyword("Auswahlmenüeintrag auswählen"),
          Doc("Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.\n\n" +
              "| ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``")]
-        public RobotResult SelectComboBoxEntry(string Name, string Eintrag) {
+        public RobotResult SelectComboBoxEntry(string comboBox, string entry) {
             return session switch {
-                SAPSession session => session.selectComboBoxEntry(Name, Eintrag),
+                SAPSession session => session.selectComboBoxEntry(comboBox, entry),
                 _ => new Result.SelectComboBoxEntry.NoSession()
             };
         }
@@ -521,9 +524,9 @@ namespace SAPiens
              "| ``Optionsfeld auswählen    @ Beschriftung``\n" +
              "*Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*\n" +
              "| ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``\n")]
-        public RobotResult SelectRadioButton(string Beschriftung_oder_Positionsgeber) {
+        public RobotResult SelectRadioButton([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel)] string locator) {
             return session switch {
-                SAPSession session => session.selectRadioButton(Beschriftung_oder_Positionsgeber),
+                SAPSession session => session.selectRadioButton(locator),
                 _ => new Result.SelectRadioButton.NoSession()
             };
         }
@@ -538,9 +541,9 @@ namespace SAPiens
              "| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n" +
             "*Textfeld mit dem angegebenen Inhalt*\n" +
              "| ``Textfeld markieren    = Inhalt``")]
-        public RobotResult SelectTextField(string Beschriftungen_oder_Inhalt) {
+        public RobotResult SelectTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.Content)] string locator) {
             return session switch {
-                SAPSession session => session.selectTextField(Beschriftungen_oder_Inhalt),
+                SAPSession session => session.selectTextField(locator),
                 _ => new Result.SelectTextField.NoSession()
             };
         }
@@ -548,9 +551,9 @@ namespace SAPiens
         [Keyword("Textzeile markieren"),
          Doc("Die Textzeile mit dem angegebenen Inhalt wird markiert.\n" +
              "| ``Textzeile markieren    Inhalt``")]
-        public RobotResult SelectTextLine(string Inhalt) {
+        public RobotResult SelectTextLine(string content) {
             return session switch {
-                SAPSession session => session.selectTextLine(Inhalt),
+                SAPSession session => session.selectTextLine(content),
                 _ => new Result.SelectTextLine.NoSession()
             };
         }
@@ -563,9 +566,9 @@ namespace SAPiens
              "| ``Formularfeld ankreuzen    @ Beschriftung``\n" +
              "*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n" +
              "| ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``")]
-        public RobotResult TickCheckBox(string Beschriftung_oder_Positionsgeber) {
+        public RobotResult TickCheckBox([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel)] string locator) {
             return session switch {
-                SAPSession session => session.tickCheckBox(Beschriftung_oder_Positionsgeber),
+                SAPSession session => session.tickCheckBox(locator),
                 _ => new Result.TickCheckBox.NoSession()
             };
         }
@@ -578,9 +581,9 @@ namespace SAPiens
              "| ``Formularfeld abwählen    @ Beschriftung``\n" +
              "*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n" +
              "| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``")]
-        public RobotResult UntickCheckBox(string Beschriftung_oder_Positionsgeber) {
+        public RobotResult UntickCheckBox([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel)] string locator) {
             return session switch {
-                SAPSession session => session.untickCheckBox(Beschriftung_oder_Positionsgeber),
+                SAPSession session => session.untickCheckBox(locator),
                 _ => new Result.UntickCheckBox.NoSession()
             };
         }
@@ -588,9 +591,9 @@ namespace SAPiens
         [Keyword("Tabellenzelle ankreuzen"),
          Doc("Die angegebene Tabellenzelle wird angekreuzt.\n\n" +
              "| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``")]
-        public RobotResult TickCheckBoxCell(string Zeilennummer, string Spaltentitel) {
+        public RobotResult TickCheckBoxCell(string row, string column) {
             return session switch {
-                SAPSession session => session.tickCheckBoxCell(Zeilennummer, Spaltentitel),
+                SAPSession session => session.tickCheckBoxCell(row, column),
                 _ => new Result.TickCheckBoxCell.NoSession()
             };
         }

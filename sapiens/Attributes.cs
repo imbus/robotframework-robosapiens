@@ -16,4 +16,13 @@ namespace SAPiens {
             DocString = docString;
         }
     }
+
+    [AttributeUsageAttribute(AttributeTargets.Parameter)]
+    public class Locator : Attribute {
+        public string[] locators;
+
+        public Locator(params string[] locators) {
+            this.locators = locators;
+        }
+    }
 }
