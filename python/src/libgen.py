@@ -49,18 +49,15 @@ def gen_args_doc(args: Dict[str, Dict[str, Union[str, Tuple[str,str]]]]):
     ])
 
 
-def rec_map_values_in_place(d: StrDict, f: Callable[[str, str], str]):
-    for k, v in d.items():
-        if isinstance(v, dict):
-            rec_map_values_in_place(v, f)
-        else:
-            d[k] = f(k,v)
+def rec_map_values(d: StrDict, f: Callable[[str, str], str]):
+    return {
+        k: f(k, v) if not isinstance(v, dict) else rec_map_values(v, f)
+        for k, v in d.items()
+    }
 
 
 def gen_result(result: StrDict):
-    rec_map_values_in_place(result, lambda k, v: get_str(v))
-
-    return codegen.gen_str_dict("result", result)
+    return codegen.gen_str_dict("result", rec_map_values(result, lambda k, v: get_str(v)))
 
 
 def gen_args(args: ArgsDict):
