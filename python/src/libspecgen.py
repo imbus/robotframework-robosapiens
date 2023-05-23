@@ -18,14 +18,14 @@ if __name__ == "__main__":
     lib = importlib.import_module(f"{localized}.{lang}", ".").lib
     libspec = {
         "name": "RoboSAPiens" + (lang != "en")*f".{lang.upper()}",
-        "keywords": [
+        "keywords": sorted([
             {
                 "id": kw_name,
                 "name": get_str(kw["name"]),
                 "args": [rec_map_values(arg, lambda k, v: get_str(v)) for arg_name, arg in kw["args"].items()]
             }
             for kw_name, kw in lib["keywords"].items()
-        ]
+        ], key=lambda keyword: keyword["name"])
     }
 
     with open(Path(f"{lang}.json"), "w", encoding="utf-8") as file:
