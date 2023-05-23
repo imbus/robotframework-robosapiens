@@ -1,39 +1,34 @@
 import api from '../api.json';
 import {html} from 'code-tag';
-import Sortable from 'sortablejs'
+import {Sortable, OnSpill} from 'sortablejs/modular/sortable.core.esm';
 
+Sortable.mount(OnSpill);
 
 function keywordCall(name) {
     const keyword = api.keywords[name];
-    var args = '';
-    for (const arg of Object.keys(keyword.args)) {
+    var args = '<div>';
+    const keyword_args = Object.entries(keyword.args);
+    for (const [arg_id, arg] of keyword_args) {
       args += html`
-        <div>
-          <input type="text" name="${arg}" placeholder="${arg}">
-        </div>
+          <input type="text" name="${arg_id}" placeholder="${arg.name}" style="width: ${100/keyword_args.length - 2}%">
       `;
     }
-
-    return html`
-      <div id="${name}" class="row row-cols-auto list-group-item">
-        <div >
-          <button class="primary center" onclick="callKeyword('${name}')" style="font-size:1rem;">▶</button>
-        </div>
-        <div >
-          <p>${keyword.name}</p>
-        </div>
+    args += '</div>';
+ 
+    const keywordCall_innerHTML = html`
+      <div id="${name}">
+        <button class="primary center" onclick="callKeyword('${name}')" style="font-size:1rem; dispay:inline; border: 0px; padding: 0px; margin: 0px; background-color: #fff;">▶</button>
+        <span>${keyword.name}</span>
+        <!-- <span style="font-size:1rem;">🖼</span> -->
         ${args}
       </div>
     `;
-
-    // <div>
-    // <p style="font-size:2rem;">🖼</p>
-    // </div>
+    return keywordCall_innerHTML;
   }
 
 function keywordList() {
   var keywords = '';
-  for (const keyword of Object.keys(api.keywords).slice(0,4)) {
+  for (const keyword of Object.keys(api.keywords)) {
     keywords += html`<div class="list-group-item" id="${keyword}">${api.keywords[keyword].name}</div>`;
   }
 
@@ -44,28 +39,36 @@ const keywords = document.getElementById("keywords");
 keywords.innerHTML = keywordList()
 
 const keyword_list = document.getElementById("keyword-list");
-new Sortable(keyword_list, {
-    group: {
-    name: 'shared',
-    pull: 'clone', // To clone: set pull to 'clone'
-    put: false
+new Sortable(
+  keyword_list, 
+  {
+    group: 
+    {
+      name: 'shared',
+      pull: 'clone',
+      put: false
     },
-animation: 150,
-sort: false // To disable sorting: set sort to falseSAP starten
-});  
+    animation: 150,
+    sort: false,
+    onClone: function(event) {
+      event.clone.id = event.item.id
+    }
+  }
+);
 
 
 var steps = document.getElementById('keyword-calls');           
-new Sortable(steps, {
-    group: {
-    name: 'shared',
+new Sortable(
+  steps, 
+  {
+    group: 
+    {
+      name: 'shared',
     },
-removeOnSpill: true,    
-animation: 150,
-onAdd: function(event){
-  steps.innerHTML += keywordCall(event.item.id)
-  // Sortable.clone.innerHTML = keywordCall(event.item.id)
-  Sortable._hideClone()
-},
-removeCloneOnHide: false
-});   
+    removeOnSpill: true,    
+    animation: 150,
+    onAdd: function(event) {
+      event.item.innerHTML = keywordCall(event.item.id)
+    },
+  }
+);

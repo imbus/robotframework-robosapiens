@@ -1,500 +1,311 @@
 {
-  "doc": {
-    "intro": "This is the introduction at the beginning of the documentation",
-    "init": "This is the section 'Importing' in the documentation"
-  },
-  "args": {
-    "port": {
-      "name": "port",
-      "default": 8270,
-      "doc": "Set the port of the HTTP server implementing the Remote interface. (Default: 8270)"
-    },
-    "presenter-mode": {
-      "name": "presenter-mode",
-      "default": false,
-      "doc": "Highlight each GUI element acted upon"
+    "name": "RoboSAPiens",
+    "keywords": {
+        "ActivateTab": {
+            "name": "Select Tab",
+            "args": {
+                "tab": {
+                    "name": "tab_name",
+                    "spec": {}
+                }
+            }
+        },
+        "OpenSap": {
+            "name": "Open SAP",
+            "args": {
+                "path": {
+                    "name": "path",
+                    "spec": {}
+                }
+            }
+        },
+        "CloseConnection": {
+            "name": "Disconnect from Server",
+            "args": {}
+        },
+        "CloseSap": {
+            "name": "Close SAP",
+            "args": {}
+        },
+        "ExportTree": {
+            "name": "Export Function Tree",
+            "args": {
+                "filepath": {
+                    "name": "filepath",
+                    "spec": {}
+                }
+            }
+        },
+        "AttachToRunningSap": {
+            "name": "Connect to Running SAP",
+            "args": {}
+        },
+        "ConnectToServer": {
+            "name": "Connect to Server",
+            "args": {
+                "server": {
+                    "name": "server_name",
+                    "spec": {}
+                }
+            }
+        },
+        "DoubleClickCell": {
+            "name": "Double-click Cell",
+            "args": {
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "spec": {}
+                },
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
+                }
+            }
+        },
+        "DoubleClickTextField": {
+            "name": "Double-click Text Field",
+            "args": {
+                "content": {
+                    "name": "content",
+                    "spec": {}
+                }
+            }
+        },
+        "ExecuteTransaction": {
+            "name": "Execute Transaction",
+            "args": {
+                "T_Code": {
+                    "name": "T_Code",
+                    "spec": {}
+                }
+            }
+        },
+        "ExportForm": {
+            "name": "Export Dynpro",
+            "args": {
+                "a1name": {
+                    "name": "name",
+                    "spec": {}
+                },
+                "a2directory": {
+                    "name": "directory",
+                    "spec": {}
+                }
+            }
+        },
+        "FillTableCell": {
+            "name": "Fill Cell",
+            "args": {
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "spec": {}
+                },
+                "a2column_content": {
+                    "name": "column_content",
+                    "spec": {
+                        "ColumnContent": "column:=:content"
+                    }
+                }
+            }
+        },
+        "FillTextField": {
+            "name": "Fill Text Field",
+            "args": {
+                "a1locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "VLabel": ":@:label above",
+                        "HLabelVLabel": "label:@:label above",
+                        "HLabelHLabel": "left label:>>:right label",
+                        "HIndexVLabel": "index:@:label above",
+                        "HLabelVIndex": "label:@:index"
+                    }
+                },
+                "a2content": {
+                    "name": "content",
+                    "spec": {}
+                }
+            }
+        },
+        "PushButton": {
+            "name": "Push Button",
+            "args": {
+                "button": {
+                    "name": "name_or_tooltip",
+                    "spec": {}
+                }
+            }
+        },
+        "PushButtonCell": {
+            "name": "Push Button Cell",
+            "args": {
+                "a1row_or_label": {
+                    "name": "row_or_label",
+                    "spec": {}
+                },
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
+                }
+            }
+        },
+        "ReadTextField": {
+            "name": "Read Text Field",
+            "args": {
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "VLabel": ":@:label above",
+                        "HLabelVLabel": "label:@:label above",
+                        "Content": ":=:content"
+                    }
+                }
+            }
+        },
+        "ReadText": {
+            "name": "Read Text",
+            "args": {
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "Content": ":=:content"
+                    }
+                }
+            }
+        },
+        "ReadTableCell": {
+            "name": "Read Cell",
+            "args": {
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "spec": {}
+                },
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
+                }
+            }
+        },
+        "SaveScreenshot": {
+            "name": "Save Screenshot",
+            "args": {
+                "filepath": {
+                    "name": "filepath",
+                    "spec": {}
+                }
+            }
+        },
+        "SelectCell": {
+            "name": "Select Cell",
+            "args": {
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "spec": {}
+                },
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
+                }
+            }
+        },
+        "SelectComboBoxEntry": {
+            "name": "Select Dropdown Menu Entry",
+            "args": {
+                "a1comboBox": {
+                    "name": "dropdown_menu",
+                    "spec": {}
+                },
+                "a2entry": {
+                    "name": "entry",
+                    "spec": {}
+                }
+            }
+        },
+        "SelectRadioButton": {
+            "name": "Select Radio Button",
+            "args": {
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "VLabel": ":@:label above",
+                        "HLabelVLabel": "label:@:label above"
+                    }
+                }
+            }
+        },
+        "SelectTextField": {
+            "name": "Select Text Field",
+            "args": {
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "VLabel": ":@:label above",
+                        "HLabelVLabel": "label:@:label above",
+                        "Content": ":=:content"
+                    }
+                }
+            }
+        },
+        "SelectTextLine": {
+            "name": "Select Text Line",
+            "args": {
+                "content": {
+                    "name": "content",
+                    "spec": {}
+                }
+            }
+        },
+        "TickCheckBox": {
+            "name": "Tick Checkbox",
+            "args": {
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "VLabel": ":@:label above",
+                        "HLabelVLabel": "label:@:label above"
+                    }
+                }
+            }
+        },
+        "UntickCheckBox": {
+            "name": "Untick Checkbox",
+            "args": {
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "VLabel": ":@:label above",
+                        "HLabelVLabel": "label:@:label above"
+                    }
+                }
+            }
+        },
+        "TickCheckBoxCell": {
+            "name": "Tick Checkbox Cell",
+            "args": {
+                "a1row": {
+                    "name": "row_number",
+                    "spec": {}
+                },
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
+                }
+            }
+        },
+        "GetWindowTitle": {
+            "name": "Get Window Title",
+            "args": {}
+        },
+        "GetWindowText": {
+            "name": "Get Window Text",
+            "args": {}
+        }
     }
-  },
-  "keywords": {
-    "ActivateTab": {
-      "name": "Reiter auswählen",
-      "args": {
-        "Reitername": {
-          "name": "Reitername",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "SapError": "SapError",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n| ``Reiter auswählen    Name``"
-    },
-    "OpenSAP": {
-      "name": "SAP starten",
-      "args": {
-        "Pfad": {
-          "name": "Pfad",
-          "spec": {}
-        }
-      },
-      "result": {
-        "Pass": "Pass",
-        "SAPNotStarted": "SAPNotStarted",
-        "Exception": "Exception"
-      },
-      "doc": "Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``"
-    },
-    "CloseConnection": {
-      "name": "Verbindung zum Server trennen",
-      "args": {},
-      "result": {
-        "NoSapGui": "NoSapGui",
-        "NoGuiScripting": "NoGuiScripting",
-        "NoConnection": "NoConnection",
-        "NoSession": "NoSession",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Die Verbindung mit dem SAP Server wird beendet."
-    },
-    "CloseSAP": {
-      "name": "SAP beenden",
-      "args": {},
-      "result": {
-        "NoSapGui": "NoSapGui",
-        "Pass": "Pass"
-      },
-      "doc": "Die SAP GUI wird beendet."
-    },
-    "ExportTree": {
-      "name": "Funktionsbaum exportieren",
-      "args": {
-        "Dateipfad": {
-          "name": "Dateipfad",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n| ``Funktionsbaum exportieren     Dateipfad``"
-    },
-    "AttachToRunningSAP": {
-      "name": "Laufende SAP GUI übernehmen",
-      "args": {},
-      "result": {
-        "NoSapGui": "NoSapGui",
-        "NoGuiScripting": "NoGuiScripting",
-        "NoConnection": "NoConnection",
-        "NoServerScripting": "NoServerScripting",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden."
-    },
-    "ConnectToServer": {
-      "name": "Verbindung zum Server herstellen",
-      "args": {
-        "Servername": {
-          "name": "Servername",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSapGui": "NoSapGui",
-        "NoGuiScripting": "NoGuiScripting",
-        "Pass": "Pass",
-        "SapError": "SapError",
-        "NoServerScripting": "NoServerScripting",
-        "Exception": "Exception"
-      },
-      "doc": "Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n| ``Verbindung zum Server herstellen    Servername``"
-    },
-    "DoubleClickCell": {
-      "name": "Tabellenzelle doppelklicken",
-      "args": {
-        "Zeilennummer_oder_Zellinhalt": {
-          "name": "Zeilennummer_oder_Zellinhalt",
-          "spec": {}
-        },
-        "Spaltentitel": {
-          "name": "Spaltentitel",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Die angegebene Tabellenzelle wird doppelgeklickt.\n\n| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\nPositionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle."
-    },
-    "DoubleClickTextField": {
-      "name": "Textfeld doppelklicken",
-      "args": {
-        "Inhalt": {
-          "name": "Inhalt",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Das angegebene Textfeld wird doppelgeklickt.\n\n| ``Textfeld doppelklicken     Inhalt``\n"
-    },
-    "ExecuteTransaction": {
-      "name": "Transaktion ausführen",
-      "args": {
-        "T_Code": {
-          "name": "T_Code",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n| ``Transaktion ausführen    T-Code``"
-    },
-    "ExportForm": {
-      "name": "Maske exportieren",
-      "args": {
-        "Name": {
-          "name": "Name",
-          "spec": {}
-        },
-        "Verzeichnis": {
-          "name": "Verzeichnis",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.\n\n| ``Maske exportieren     Name     Verzeichnis``\nVerzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden."
-    },
-    "FillTableCell": {
-      "name": "Tabellenzelle ausfüllen",
-      "args": {
-        "Zeilennummer_oder_Zellinhalt": {
-          "name": "Zeilennummer_oder_Zellinhalt",
-          "spec": {}
-        },
-        "Spaltentitel_Gleich_Inhalt": {
-          "name": "Spaltentitel_Gleich_Inhalt",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "InvalidFormat": "InvalidFormat",
-        "NotFound": "NotFound",
-        "NotChangeable": "NotChangeable",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.\n\n| ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``\nZeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen."
-    },
-    "FillTextField": {
-      "name": "Textfeld ausfüllen",
-      "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": "Beschriftung_oder_Positionsgeber",
-          "spec": {}
-        },
-        "Inhalt": {
-          "name": "Inhalt",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld ausfüllen    Beschriftung    Inhalt``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld ausfüllen    @ Beschriftung    Inhalt``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n| ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann."
-    },
-    "PushButton": {
-      "name": "Knopf drücken",
-      "args": {
-        "Name_oder_Kurzinfo": {
-          "name": "Name_oder_Kurzinfo",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "SapError": "SapError",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.\n\n| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``"
-    },
-    "PushButtonCell": {
-      "name": "Tabellenzelle drücken",
-      "args": {
-        "Zeilennummer_oder_Name_oder_Kurzinfo": {
-          "name": "Zeilennummer_oder_Name_oder_Kurzinfo",
-          "spec": {}
-        },
-        "Spaltentitel": {
-          "name": "Spaltentitel",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Die angegebene Tabellenzelle wird gedrückt.\n\n| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip)."
-    },
-    "ReadTextField": {
-      "name": "Textfeld auslesen",
-      "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": "Beschriftung_oder_Positionsgeber",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Der Inhalt des angegebenen Textfeldes wird zurückgegeben.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld auslesen    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld auslesen    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld auslesen    = Inhalt``"
-    },
-    "ReadText": {
-      "name": "Text auslesen",
-      "args": {
-        "Inhalt": {
-          "name": "Inhalt",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Der Inhalt des angegebenen Texts wird zurückgegeben.\n\n*Text fängt mit der angegebenen Teilzeichenfolge an*\n| ``Text auslesen    = Teilzeichenfolge``\n*Text folgt einer Beschriftung*\n| ``Text auslesen    Beschriftung``"
-    },
-    "ReadTableCell": {
-      "name": "Tabellenzelle auslesen",
-      "args": {
-        "Zeilennummer_oder_Zellinhalt": {
-          "name": "Zeilennummer_oder_Zellinhalt",
-          "spec": {}
-        },
-        "Spaltentitel": {
-          "name": "Spaltentitel",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt."
-    },
-    "SaveScreenshot": {
-      "name": "Fenster aufnehmen",
-      "args": {
-        "Aufnahmenverzeichnis": {
-          "name": "Aufnahmenverzeichnis",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "UNCPath": "UNCPath",
-        "NoAbsPath": "NoAbsPath",
-        "InvalidPath": "InvalidPath",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n| ``Fenster aufnehmen     Dateipfad``\nDateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses."
-    },
-    "SelectCell": {
-      "name": "Tabellenzelle markieren",
-      "args": {
-        "Zeilennummer_oder_Zellinhalt": {
-          "name": "Zeilennummer_oder_Zellinhalt",
-          "spec": {}
-        },
-        "Spaltentitel": {
-          "name": "Spaltentitel",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Die angegebene Tabellenzelle wird markiert.\n\n| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt."
-    },
-    "SelectComboBoxEntry": {
-      "name": "Auswahlmenüeintrag auswählen",
-      "args": {
-        "Name": {
-          "name": "Name",
-          "spec": {}
-        },
-        "Eintrag": {
-          "name": "Eintrag",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "EntryNotFound": "EntryNotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.\n\n| ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``"
-    },
-    "SelectRadioButton": {
-      "name": "Optionsfeld auswählen",
-      "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": "Beschriftung_oder_Positionsgeber",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Das angegebene Optionsfeld wird ausgewählt.\n\n*Optionsfeld mit einer Beschriftung links oder rechts*\n| ``Optionsfeld auswählen    Beschriftung``\n*Optionsfeld mit einer Beschriftung oben*\n| ``Optionsfeld auswählen    @ Beschriftung``\n*Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*\n| ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``\n"
-    },
-    "SelectTextField": {
-      "name": "Textfeld markieren",
-      "args": {
-        "Beschriftungen_oder_Inhalt": {
-          "name": "Beschriftungen_oder_Inhalt",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Das angegebene Textfeld wird markiert.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld markieren    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld markieren    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld markieren    = Inhalt``"
-    },
-    "SelectTextLine": {
-      "name": "Textzeile markieren",
-      "args": {
-        "Inhalt": {
-          "name": "Inhalt",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Die Textzeile mit dem angegebenen Inhalt wird markiert.\n| ``Textzeile markieren    Inhalt``"
-    },
-    "TickCheckBox": {
-      "name": "Formularfeld ankreuzen",
-      "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": "Beschriftung_oder_Positionsgeber",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Das angegebene Formularfeld wird angekreuzt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld ankreuzen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld ankreuzen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``"
-    },
-    "UntickCheckBox": {
-      "name": "Formularfeld abwählen",
-      "args": {
-        "Beschriftung_oder_Positionsgeber": {
-          "name": "Beschriftung_oder_Positionsgeber",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Das angegebene Formularfeld wird abgewählt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld abwählen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld abwählen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``"
-    },
-    "TickCheckBoxCell": {
-      "name": "Tabellenzelle ankreuzen",
-      "args": {
-        "Zeilennummer": {
-          "name": "Zeilennummer",
-          "spec": {}
-        },
-        "Spaltentitel": {
-          "name": "Spaltentitel",
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "NotFound": "NotFound",
-        "Pass": "Pass",
-        "Exception": "Exception"
-      },
-      "doc": "Die angegebene Tabellenzelle wird angekreuzt.\n\n| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``"
-    },
-    "GetWindowTitle": {
-      "name": "Fenstertitel auslesen",
-      "args": {},
-      "result": {
-        "NoSession": "NoSession",
-        "Pass": "Pass"
-      },
-      "doc": "Der Titel des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Titel}    Fenstertitel auslesen``"
-    },
-    "GetWindowText": {
-      "name": "Fenstertext auslesen",
-      "args": {},
-      "result": {
-        "NoSession": "NoSession",
-        "Pass": "Pass"
-      },
-      "doc": "Der Text des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Text}    Fenstertext auslesen``"
-    }
-  },
-  "specs": {}
 }
