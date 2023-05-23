@@ -32,7 +32,7 @@ function keywordCall(name) {
 
 function keywordList() {
   var keywords = '';
-  for (const keyword of Object.keys(api.keywords)) {
+  for (const keyword of Object.keys(api.keywords).sort()) {
     keywords += html`<div class="list-group-item" id="${keyword}" style="cursor: grab">${api.keywords[keyword].name}</div>`;
   }
 
