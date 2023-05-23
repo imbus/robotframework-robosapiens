@@ -22,7 +22,10 @@ if __name__ == "__main__":
             {
                 "id": kw_name,
                 "name": get_str(kw["name"]),
-                "args": [rec_map_values(arg, lambda k, v: get_str(v)) for arg_name, arg in kw["args"].items()]
+                "args": [
+                    dict({"id": arg_name, **rec_map_values(arg, lambda k, v: get_str(v))})
+                    for arg_name, arg in kw["args"].items()
+                ]
             }
             for kw_name, kw in lib["keywords"].items()
         ], key=lambda keyword: keyword["name"])
