@@ -4,14 +4,14 @@ import {Sortable, OnSpill} from 'sortablejs/modular/sortable.core.esm';
 
 Sortable.mount(OnSpill);
 
-const keywords_by_id = Object.fromEntries(newMap(api.keywords.map(keyword => [keyword.id, keyword])));
+const keywords_by_id = Object.fromEntries(new Map(api.keywords.map(keyword => [keyword.id, keyword])));
 
 function keywordCall(id) {
     const keyword = keywords_by_id[id];
     const args = [
       '<div style="padding: 2px">', 
       keyword.args.map(arg => 
-        html`<input type="text" name="${arg.id}" placeholder="${arg.name}" style="width: ${100/keyword.args.length - 1}%">`
+        html`<input type="text" name="${arg.id}" placeholder="${arg.name}" style="width: ${100/keyword.args.length-2}%; margin: 2px;">`
       ).join(''),  
       '</div>'
     ].join('');

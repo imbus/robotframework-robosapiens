@@ -1,117 +1,121 @@
 {
     "name": "RoboSAPiens",
-    "keywords": {
-        "ActivateTab": {
-            "name": "Select Tab",
-            "args": {
-                "tab": {
-                    "name": "tab_name",
-                    "spec": {}
-                }
-            }
-        },
-        "OpenSap": {
-            "name": "Open SAP",
-            "args": {
-                "path": {
-                    "name": "path",
-                    "spec": {}
-                }
-            }
-        },
-        "CloseConnection": {
-            "name": "Disconnect from Server",
-            "args": {}
-        },
-        "CloseSap": {
+    "keywords": [
+        {
+            "id": "CloseSap",
             "name": "Close SAP",
-            "args": {}
+            "args": []
         },
-        "ExportTree": {
-            "name": "Export Function Tree",
-            "args": {
-                "filepath": {
-                    "name": "filepath",
-                    "spec": {}
-                }
-            }
-        },
-        "AttachToRunningSap": {
+        {
+            "id": "AttachToRunningSap",
             "name": "Connect to Running SAP",
-            "args": {}
+            "args": []
         },
-        "ConnectToServer": {
+        {
+            "id": "ConnectToServer",
             "name": "Connect to Server",
-            "args": {
-                "server": {
+            "args": [
+                {
+                    "id": "server",
                     "name": "server_name",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "DoubleClickCell": {
+        {
+            "id": "CloseConnection",
+            "name": "Disconnect from Server",
+            "args": []
+        },
+        {
+            "id": "DoubleClickCell",
             "name": "Double-click Cell",
-            "args": {
-                "a1row_locator": {
+            "args": [
+                {
+                    "id": "a1row_locator",
                     "name": "row_locator",
                     "spec": {}
                 },
-                "a2column": {
+                {
+                    "id": "a2column",
                     "name": "column",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "DoubleClickTextField": {
+        {
+            "id": "DoubleClickTextField",
             "name": "Double-click Text Field",
-            "args": {
-                "content": {
+            "args": [
+                {
+                    "id": "content",
                     "name": "content",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "ExecuteTransaction": {
+        {
+            "id": "ExecuteTransaction",
             "name": "Execute Transaction",
-            "args": {
-                "T_Code": {
+            "args": [
+                {
+                    "id": "T_Code",
                     "name": "T_Code",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "ExportForm": {
+        {
+            "id": "ExportForm",
             "name": "Export Dynpro",
-            "args": {
-                "a1name": {
+            "args": [
+                {
+                    "id": "a1name",
                     "name": "name",
                     "spec": {}
                 },
-                "a2directory": {
+                {
+                    "id": "a2directory",
                     "name": "directory",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "FillTableCell": {
+        {
+            "id": "ExportTree",
+            "name": "Export Function Tree",
+            "args": [
+                {
+                    "id": "filepath",
+                    "name": "filepath",
+                    "spec": {}
+                }
+            ]
+        },
+        {
+            "id": "FillTableCell",
             "name": "Fill Cell",
-            "args": {
-                "a1row_locator": {
+            "args": [
+                {
+                    "id": "a1row_locator",
                     "name": "row_locator",
                     "spec": {}
                 },
-                "a2column_content": {
+                {
+                    "id": "a2column_content",
                     "name": "column_content",
                     "spec": {
                         "ColumnContent": "column:=:content"
                     }
                 }
-            }
+            ]
         },
-        "FillTextField": {
+        {
+            "id": "FillTextField",
             "name": "Fill Text Field",
-            "args": {
-                "a1locator": {
+            "args": [
+                {
+                    "id": "a1locator",
                     "name": "locator",
                     "spec": {
                         "HLabel": "::label",
@@ -122,38 +126,97 @@
                         "HLabelVIndex": "label:@:index"
                     }
                 },
-                "a2content": {
+                {
+                    "id": "a2content",
                     "name": "content",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "PushButton": {
+        {
+            "id": "GetWindowText",
+            "name": "Get Window Text",
+            "args": []
+        },
+        {
+            "id": "GetWindowTitle",
+            "name": "Get Window Title",
+            "args": []
+        },
+        {
+            "id": "OpenSap",
+            "name": "Open SAP",
+            "args": [
+                {
+                    "id": "path",
+                    "name": "path",
+                    "spec": {}
+                }
+            ]
+        },
+        {
+            "id": "PushButton",
             "name": "Push Button",
-            "args": {
-                "button": {
+            "args": [
+                {
+                    "id": "button",
                     "name": "name_or_tooltip",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "PushButtonCell": {
+        {
+            "id": "PushButtonCell",
             "name": "Push Button Cell",
-            "args": {
-                "a1row_or_label": {
+            "args": [
+                {
+                    "id": "a1row_or_label",
                     "name": "row_or_label",
                     "spec": {}
                 },
-                "a2column": {
+                {
+                    "id": "a2column",
                     "name": "column",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "ReadTextField": {
+        {
+            "id": "ReadTableCell",
+            "name": "Read Cell",
+            "args": [
+                {
+                    "id": "a1row_locator",
+                    "name": "row_locator",
+                    "spec": {}
+                },
+                {
+                    "id": "a2column",
+                    "name": "column",
+                    "spec": {}
+                }
+            ]
+        },
+        {
+            "id": "ReadText",
+            "name": "Read Text",
+            "args": [
+                {
+                    "id": "locator",
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "Content": ":=:content"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "ReadTextField",
             "name": "Read Text Field",
-            "args": {
-                "locator": {
+            "args": [
+                {
+                    "id": "locator",
                     "name": "locator",
                     "spec": {
                         "HLabel": "::label",
@@ -162,72 +225,57 @@
                         "Content": ":=:content"
                     }
                 }
-            }
+            ]
         },
-        "ReadText": {
-            "name": "Read Text",
-            "args": {
-                "locator": {
-                    "name": "locator",
-                    "spec": {
-                        "HLabel": "::label",
-                        "Content": ":=:content"
-                    }
-                }
-            }
-        },
-        "ReadTableCell": {
-            "name": "Read Cell",
-            "args": {
-                "a1row_locator": {
-                    "name": "row_locator",
-                    "spec": {}
-                },
-                "a2column": {
-                    "name": "column",
-                    "spec": {}
-                }
-            }
-        },
-        "SaveScreenshot": {
+        {
+            "id": "SaveScreenshot",
             "name": "Save Screenshot",
-            "args": {
-                "filepath": {
+            "args": [
+                {
+                    "id": "filepath",
                     "name": "filepath",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "SelectCell": {
+        {
+            "id": "SelectCell",
             "name": "Select Cell",
-            "args": {
-                "a1row_locator": {
+            "args": [
+                {
+                    "id": "a1row_locator",
                     "name": "row_locator",
                     "spec": {}
                 },
-                "a2column": {
+                {
+                    "id": "a2column",
                     "name": "column",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "SelectComboBoxEntry": {
+        {
+            "id": "SelectComboBoxEntry",
             "name": "Select Dropdown Menu Entry",
-            "args": {
-                "a1comboBox": {
+            "args": [
+                {
+                    "id": "a1comboBox",
                     "name": "dropdown_menu",
                     "spec": {}
                 },
-                "a2entry": {
+                {
+                    "id": "a2entry",
                     "name": "entry",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "SelectRadioButton": {
+        {
+            "id": "SelectRadioButton",
             "name": "Select Radio Button",
-            "args": {
-                "locator": {
+            "args": [
+                {
+                    "id": "locator",
                     "name": "locator",
                     "spec": {
                         "HLabel": "::label",
@@ -235,12 +283,25 @@
                         "HLabelVLabel": "label:@:label above"
                     }
                 }
-            }
+            ]
         },
-        "SelectTextField": {
+        {
+            "id": "ActivateTab",
+            "name": "Select Tab",
+            "args": [
+                {
+                    "id": "tab",
+                    "name": "tab_name",
+                    "spec": {}
+                }
+            ]
+        },
+        {
+            "id": "SelectTextField",
             "name": "Select Text Field",
-            "args": {
-                "locator": {
+            "args": [
+                {
+                    "id": "locator",
                     "name": "locator",
                     "spec": {
                         "HLabel": "::label",
@@ -249,21 +310,25 @@
                         "Content": ":=:content"
                     }
                 }
-            }
+            ]
         },
-        "SelectTextLine": {
+        {
+            "id": "SelectTextLine",
             "name": "Select Text Line",
-            "args": {
-                "content": {
+            "args": [
+                {
+                    "id": "content",
                     "name": "content",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "TickCheckBox": {
+        {
+            "id": "TickCheckBox",
             "name": "Tick Checkbox",
-            "args": {
-                "locator": {
+            "args": [
+                {
+                    "id": "locator",
                     "name": "locator",
                     "spec": {
                         "HLabel": "::label",
@@ -271,41 +336,38 @@
                         "HLabelVLabel": "label:@:label above"
                     }
                 }
-            }
+            ]
         },
-        "UntickCheckBox": {
-            "name": "Untick Checkbox",
-            "args": {
-                "locator": {
-                    "name": "locator",
-                    "spec": {
-                        "HLabel": "::label",
-                        "VLabel": ":@:label above",
-                        "HLabelVLabel": "label:@:label above"
-                    }
-                }
-            }
-        },
-        "TickCheckBoxCell": {
+        {
+            "id": "TickCheckBoxCell",
             "name": "Tick Checkbox Cell",
-            "args": {
-                "a1row": {
+            "args": [
+                {
+                    "id": "a1row",
                     "name": "row_number",
                     "spec": {}
                 },
-                "a2column": {
+                {
+                    "id": "a2column",
                     "name": "column",
                     "spec": {}
                 }
-            }
+            ]
         },
-        "GetWindowTitle": {
-            "name": "Get Window Title",
-            "args": {}
-        },
-        "GetWindowText": {
-            "name": "Get Window Text",
-            "args": {}
+        {
+            "id": "UntickCheckBox",
+            "name": "Untick Checkbox",
+            "args": [
+                {
+                    "id": "locator",
+                    "name": "locator",
+                    "spec": {
+                        "HLabel": "::label",
+                        "VLabel": ":@:label above",
+                        "HLabelVLabel": "label:@:label above"
+                    }
+                }
+            ]
         }
-    }
+    ]
 }
