@@ -16,11 +16,8 @@ if __name__ == "__main__":
 
     lang = args[0]
     lib = importlib.import_module(f"{localized}.{lang}", ".").lib
-    libspec = {
-        "library": "RoboSAPiens" + (lang != "en")*f".{lang.upper()}",
-        "version": __version__,
-        "doc": "https://imbus.github.io/robotframework-robosapiens/",
-        "keywords": sorted([
+    keywords = sorted(
+        [
             {
                 "id": kw_name,
                 "name": get_str(kw["name"]),
@@ -31,7 +28,18 @@ if __name__ == "__main__":
                 "returnValue": kw_name.startswith("Get") or kw_name.startswith("Read")
             }
             for kw_name, kw in lib["keywords"].items()
-        ], key=lambda keyword: keyword["name"])
+        ], 
+        key=lambda keyword: keyword["name"]
+    )
+
+    libspec = {
+        "library": "RoboSAPiens" + (lang != "en")*f".{lang.upper()}",
+        "version": __version__,
+        "doc": "https://imbus.github.io/robotframework-robosapiens/",
+        "keywords": {
+            keyword["id"]: keyword
+            for keyword in keywords
+        }
     }
 
     with open(Path(f"{lang}.json"), "w", encoding="utf-8") as file:
