@@ -25,6 +25,10 @@ if __name__ == "__main__":
                     dict({"order": order, **rec_map_values(kw["args"][arg], lambda k, v: get_str(v))})
                     for order, arg in enumerate(kw["args"], start=1)
                 ],
+                "result": {
+                    result_name: get_str(result)
+                    for result_name, result in kw["result"].items()
+                },
                 "returnValue": kw_name.startswith("Get") or kw_name.startswith("Read")
             }
             for kw_name, kw in lib["keywords"].items()
