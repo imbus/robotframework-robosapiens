@@ -37,6 +37,7 @@ namespace SAPiens
             }
             catch (Exception e)
             {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new Result.KeywordLibrary.Exception(methodName, e);   
             }
         }
@@ -111,6 +112,7 @@ namespace SAPiens
             }
             catch (System.Exception e)
             {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new EitherSapGui.Err(new RobotResult.ExceptionError(e, "An unexpected error occurred."));
             }
         }
