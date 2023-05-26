@@ -458,7 +458,7 @@ namespace SAPiens {
             }
 
             var theTextField = new TextFieldLocator(labels);
-            var textField = window.components.findReadOnlyTextField(theTextField);
+            var textField = window.components.findTextField(theTextField);
             if (textField == null) {
                 return new Result.ReadTextField.NotFound(theTextField.atLocation);
             }
