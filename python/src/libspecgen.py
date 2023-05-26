@@ -22,8 +22,15 @@ if __name__ == "__main__":
                 "id": kw_name,
                 "name": get_str(kw["name"]),
                 "args": [
-                    dict({"order": order, **rec_map_values(kw["args"][arg], lambda k, v: get_str(v))})
-                    for order, arg in enumerate(kw["args"], start=1)
+                    {
+                        "name": arg_name,
+                        "desc": get_str(arg["name"]).replace("_", " "),
+                        "spec": {
+                            spec_name: get_str(spec)
+                            for spec_name, spec in arg["spec"].items()
+                        }
+                    }
+                    for arg_name, arg in kw["args"].items()
                 ],
                 "result": {
                     result_name: get_str(result)
@@ -32,7 +39,7 @@ if __name__ == "__main__":
                 "returnValue": kw_name.startswith("Get") or kw_name.startswith("Read")
             }
             for kw_name, kw in lib["keywords"].items()
-        ], 
+        ],
         key=lambda keyword: keyword["name"]
     )
 
