@@ -813,7 +813,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {},
       "result": {
         "NoSession": ("2754484086", no_session),
-        "Pass": ("2852411998", "Der Fenstertitel wurde ausgelesen")
+        "Pass": ("2852411998", "Der Fenstertitel wurde ausgelesen"),
+        "Exception": ("2687794215", exception("Der Titel des Fensters konnte nicht ausgelesen werden."))
       },
       "doc": (
           "985497510", 
@@ -829,7 +830,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {},
       "result": {
         "NoSession": ("2754484086", no_session),
-        "Pass": ("2562559050", "Der Text des Fensters wurde ausgelesen")
+        "Pass": ("2562559050", "Der Text des Fensters wurde ausgelesen"),
+        "Exception": ("922315409", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
       },
       "doc": (
           "1240406406", 
