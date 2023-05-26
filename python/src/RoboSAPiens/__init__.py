@@ -704,7 +704,8 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
-            "Pass": "The title of the window was obtained."
+            "Pass": "The title of the window was obtained.",
+            "Exception": "The window title could not be read.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('GetWindowTitle', list(args.values()), dict(), result) # type: ignore
     
@@ -722,9 +723,10 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
-            "Pass": "The text message of the window was obtained."
+            "Pass": "The text message of the window was obtained.",
+            "Exception": "The text message of the window could not be read.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.1.7'
+    ROBOT_LIBRARY_VERSION = '1.1.8'

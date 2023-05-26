@@ -253,6 +253,7 @@ class LocalizedRoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
 class LocalizedRoboSAPiensKeywordsGetwindowtextResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
     Pass: Tuple[Literal['2562559050'], str]
+    Exception: Tuple[Literal['922315409'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtextArgs(TypedDict):
     ...
@@ -260,6 +261,7 @@ class LocalizedRoboSAPiensKeywordsGetwindowtextArgs(TypedDict):
 class LocalizedRoboSAPiensKeywordsGetwindowtitleResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
     Pass: Tuple[Literal['2852411998'], str]
+    Exception: Tuple[Literal['2687794215'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtitleArgs(TypedDict):
     ...

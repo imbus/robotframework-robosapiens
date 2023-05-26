@@ -252,6 +252,7 @@ class RoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
 class RoboSAPiensKeywordsGetwindowtextResult(TypedDict):
     NoSession: str
     Pass: str
+    Exception: str
 
 class RoboSAPiensKeywordsGetwindowtextArgs(TypedDict):
     ...
@@ -259,6 +260,7 @@ class RoboSAPiensKeywordsGetwindowtextArgs(TypedDict):
 class RoboSAPiensKeywordsGetwindowtitleResult(TypedDict):
     NoSession: str
     Pass: str
+    Exception: str
 
 class RoboSAPiensKeywordsGetwindowtitleArgs(TypedDict):
     ...

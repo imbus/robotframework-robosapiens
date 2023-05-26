@@ -698,7 +698,8 @@ class DE(RoboSAPiensClient):
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
-            "Pass": "Der Fenstertitel wurde ausgelesen"
+            "Pass": "Der Fenstertitel wurde ausgelesen",
+            "Exception": "Der Titel des Fensters konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('GetWindowTitle', list(args.values()), dict(), result) # type: ignore
     
@@ -716,9 +717,10 @@ class DE(RoboSAPiensClient):
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
-            "Pass": "Der Text des Fensters wurde ausgelesen"
+            "Pass": "Der Text des Fensters wurde ausgelesen",
+            "Exception": "Der Text des Fensters konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.1.7'
+    ROBOT_LIBRARY_VERSION = '1.1.8'

@@ -266,11 +266,13 @@ namespace SAPiens {
         public record GetWindowTitle {
             public record NoSession(): RobotResult.NoSession();
             public record Pass(string title): RobotResult.RobotPass("Der Fenstertitel wurde ausgelesen", returnValue: title);
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
         }
 
         public record GetWindowText {
             public record NoSession(): RobotResult.NoSession();
             public record Pass(string text): RobotResult.RobotPass("Der Text des Fensters wurde ausgelesen", returnValue: text);
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
         }
     }
 

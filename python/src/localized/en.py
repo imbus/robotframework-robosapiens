@@ -743,7 +743,8 @@ lib: RoboSAPiens = {
             "args": {},
             "result": {
                 "NoSession": no_session,
-                "Pass": "The title of the window was obtained."
+                "Pass": "The title of the window was obtained.",
+                "Exception": exception("The window title could not be read.")
             },
             "doc": """
             Get the title of the window in the foreground.
@@ -756,7 +757,8 @@ lib: RoboSAPiens = {
             "args": {},
             "result": {
                 "NoSession": no_session,
-                "Pass": "The text message of the window was obtained."
+                "Pass": "The text message of the window was obtained.",
+                "Exception": exception("The text message of the window could not be read.")
             },
             "doc": """
             Get the text message of the window in the foreground.
