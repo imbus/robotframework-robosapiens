@@ -164,7 +164,7 @@ namespace SAPiens {
                 var columnTitle = column.Title;
 
                 for (int rowIdx = 0; rowIdx < numRows; rowIdx++) {
-                    dynamic cell;
+                    GuiVComponent cell;
 
                     // Tables are not necessarily rectangular grids
                     // A column may have a hole. Holes are skipped
