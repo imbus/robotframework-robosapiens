@@ -351,6 +351,26 @@ lib: RoboSAPiens = {
             *Hint*: The description obtained by selecting a text field and pressing F1 can also be used as label.
             """
         },
+        "HighlightButton": {
+            "name": "Highlight Button",
+            "args": {
+                "button": {
+                    "name": "name_or_tooltip",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The button '{0}' could not be found."),
+                "Pass": "The button '{0}' was highlighted.",
+                "Exception": exception("The button could not be highlighted. {0}")
+            },
+            "doc": """
+            Highlight the button with the given name or tooltip.
+            
+            | ``Highlight Button    name or tooltip``
+            """
+        },
         "PushButton": {
             "name": "Push Button",
             "args": {
