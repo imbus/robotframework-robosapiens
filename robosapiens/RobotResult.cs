@@ -6,11 +6,11 @@ namespace RoboSAPiens {
     public record RobotResult(
         string status = "PASS",
         string output = "",
-        string returnValue = "",
+        string @return = "",
         string error = "",
-        string stacktrace = "",
-        bool continuable = false,
-        bool fatal = false
+        string traceback = "",
+        bool fatal = false,
+        bool continuable = false
     ) {
         public const string PASS = "PASS";
         public const string FAIL = "FAIL";
@@ -19,9 +19,9 @@ namespace RoboSAPiens {
             public RobotPass(string output, string returnValue=""): base(
                 status: "PASS", 
                 output: "*INFO* " + "Pass|" + output, 
-                returnValue: returnValue, 
+                @return: returnValue, 
                 error: "", 
-                stacktrace: "", 
+                traceback: "", 
                 continuable: false, 
                 fatal: false
             ) {}
@@ -31,9 +31,9 @@ namespace RoboSAPiens {
             public RobotFail(string failure, string error, string output = "", bool fatal=false, string stacktrace=""): base(
                 status: "FAIL", 
                 output: output, 
-                returnValue: "", 
+                @return: "", 
                 error: failure + "|" + error, 
-                stacktrace: stacktrace, 
+                traceback: stacktrace, 
                 continuable: false, 
                 fatal: fatal
             ) {}
@@ -278,7 +278,7 @@ namespace RoboSAPiens {
 
     public sealed record Success : RobotResult {
         public Success(string returnValue, string message) {
-            this.returnValue = returnValue;
+            this.@return = returnValue;
             this.output = $"*INFO* {message}";
             this.status = PASS;
         }
@@ -299,7 +299,7 @@ namespace RoboSAPiens {
     public sealed record WrongWindow : RobotResult {
         public WrongWindow(string expectedTitle, string message) {
             this.output = $"*WARN* Die Überschrift der Maske ist nicht '{expectedTitle}'. {message}";
-            this.returnValue = "FALSE";
+            this.@return = "FALSE";
             this.status = PASS;
         }
     }
@@ -322,7 +322,7 @@ namespace RoboSAPiens {
         public ExceptionError(Exception e, string errorMessage) {
             this.output = $"*ERROR* {errorMessage}\n{e.Message}\n{errorDEBUG}";
             this.error = e.Message;
-            this.stacktrace = e.StackTrace ?? "";
+            this.traceback = e.StackTrace ?? "";
         }
     }
 
@@ -354,7 +354,7 @@ namespace RoboSAPiens {
         public ConnectionFailed(Exception e, String message) {
             this.output = $"*ERROR* {message}";
             this.error = e.Message;
-            this.stacktrace = e.StackTrace ?? "";
+            this.traceback = e.StackTrace ?? "";
         }
     }
 
