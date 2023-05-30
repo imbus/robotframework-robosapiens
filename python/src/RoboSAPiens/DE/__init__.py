@@ -324,7 +324,23 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgefüllt.",
             "Exception": "Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('FillTextField', list(args.values()), dict(), result) # type: ignore
+    @keyword('Knopf hervorheben') # type: ignore
+    def highlight_button(self, Name_oder_Kurzinfo: str): # type: ignore
+        """
+        Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.
+        
+        | ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``
+        """
+        
+        args = [Name_oder_Kurzinfo]
+        
+        result = {
+            "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+            "NotFound": "Der Knopf '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+            "Pass": "Der Knopf '{0}' wurde hervorgehoben.",
+            "Exception": "Der Knopf konnte nicht hervorgehoben werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('HighlightButton', args, result) # type: ignore
     
 
     @keyword('Knopf drücken') # type: ignore

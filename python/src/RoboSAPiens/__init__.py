@@ -329,7 +329,23 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The text field with the locator '{0}' was filled.",
             "Exception": "The text field could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('FillTextField', list(args.values()), dict(), result) # type: ignore
+    @keyword('Highlight Button') # type: ignore
+    def highlight_button(self, name_or_tooltip: str): # type: ignore
+        """
+        Highlight the button with the given name or tooltip.
+        
+        | ``Highlight Button    name or tooltip``
+        """
+        
+        args = [name_or_tooltip]
+        
+        result = {
+            "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
+            "NotFound": "The button '{0}' could not be found. Hint: Check the spelling",
+            "Pass": "The button '{0}' was highlighted.",
+            "Exception": "The button could not be highlighted. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('HighlightButton', args, result) # type: ignore
     
 
     @keyword('Push Button') # type: ignore

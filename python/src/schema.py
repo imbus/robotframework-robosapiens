@@ -67,6 +67,9 @@ class RoboSAPiensKeywordsPushbuttoncellArgsColumnSpec(TypedDict):
 class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsPushbuttonArgsButtonSpec(TypedDict):
     ...
 
@@ -188,6 +191,10 @@ class RoboSAPiensKeywordsPushbuttoncellArgsColumn(TypedDict):
 class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
     name: str
     spec: RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec
+
+class RoboSAPiensKeywordsHighlightbuttonArgsButton(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec
 
 class RoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
     name: str
@@ -389,6 +396,15 @@ class RoboSAPiensKeywordsPushbuttoncellResult(TypedDict):
 class RoboSAPiensKeywordsPushbuttoncellArgs(TypedDict):
     a1row_or_label: RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label
     a2column: RoboSAPiensKeywordsPushbuttoncellArgsColumn
+
+class RoboSAPiensKeywordsHighlightbuttonResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
+    button: RoboSAPiensKeywordsHighlightbuttonArgsButton
 
 class RoboSAPiensKeywordsPushbuttonResult(TypedDict):
     NoSession: str
@@ -615,6 +631,12 @@ class RoboSAPiensKeywordsPushbuttoncell(TypedDict):
     result: RoboSAPiensKeywordsPushbuttoncellResult
     doc: str
 
+class RoboSAPiensKeywordsHighlightbutton(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsHighlightbuttonArgs
+    result: RoboSAPiensKeywordsHighlightbuttonResult
+    doc: str
+
 class RoboSAPiensKeywordsPushbutton(TypedDict):
     name: str
     args: RoboSAPiensKeywordsPushbuttonArgs
@@ -722,6 +744,7 @@ class RoboSAPiensKeywords(TypedDict):
     FillTableCell: RoboSAPiensKeywordsFilltablecell
     FillTextField: RoboSAPiensKeywordsFilltextfield
     PushButton: RoboSAPiensKeywordsPushbutton
+    HighlightButton: RoboSAPiensKeywordsHighlightbutton
     PushButtonCell: RoboSAPiensKeywordsPushbuttoncell
     ReadTextField: RoboSAPiensKeywordsReadtextfield
     ReadText: RoboSAPiensKeywordsReadtext

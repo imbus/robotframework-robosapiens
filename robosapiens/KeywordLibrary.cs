@@ -41,6 +41,7 @@ namespace RoboSAPiens
                     Keywords.ExportTree => ExportTree(args[0]),
                     Keywords.FillTableCell => FillTableCell(args[0], args[1]),
                     Keywords.FillTextField => FillTextField(args[0], args[1]),
+                    Keywords.HighlightButton => HighlightButton(args[0]),
                     Keywords.GetWindowText => GetWindowText(),
                     Keywords.GetWindowTitle => GetWindowTitle(),
                     Keywords.OpenSap => OpenSap(args[0]),
@@ -416,6 +417,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.pushButton(button),
                 _ => new Result.PushButton.NoSession()
+            };
+        }
+
+        [Keyword("Knopf hervorheben"),
+         Doc("Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.\n\n" +
+             "| ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``")]
+        public RobotResult HighlightButton(string button) {
+            return session switch {
+                SAPSession session => session.highlightButton(button),
+                _ => new Result.HighlightButton.NoSession()
             };
         }
 

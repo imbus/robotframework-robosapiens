@@ -363,6 +363,25 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult highlightButton(string label) {
+            switch (updateWindow(updateComponents: true)) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+            
+            var theButton = new ButtonLocator(label);
+            var button = window.components.findButton(theButton);
+
+            if (button == null) {
+                return new Result.HighlightButton.NotFound(theButton.atLocation);
+            }
+
+            return highlightElement(session, button) switch {
+                RobotResult.HighlightFail(var exception) => 
+                    new Result.HighlightButton.Exception(exception),
+                _ => new Result.HighlightButton.Pass(theButton.atLocation)
+            };
+        }
+
         public RobotResult pushButton(string label) {
             switch (updateWindow(updateComponents: true)) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

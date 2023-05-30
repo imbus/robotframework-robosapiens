@@ -15,6 +15,7 @@ namespace RoboSAPiens
         public const string ExportForm = "ExportForm";
         public const string FillTableCell = "FillTableCell";
         public const string FillTextField = "FillTextField";
+        public const string HighlightButton = "HighlightButton";
         public const string PushButton = "PushButton";
         public const string PushButtonCell = "PushButtonCell";
         public const string ReadTextField = "ReadTextField";

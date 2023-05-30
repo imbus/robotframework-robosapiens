@@ -71,6 +71,9 @@ class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsPushbuttonArgsButtonSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButtonSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsFilltextfieldArgsContentSpec(TypedDict):
     ...
 
@@ -193,6 +196,10 @@ class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
 class LocalizedRoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
     name: Tuple[Literal['894332414'], str]
     spec: LocalizedRoboSAPiensKeywordsPushbuttonArgsButtonSpec
+
+class LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButton(TypedDict):
+    name: Tuple[Literal['894332414'], str]
+    spec: LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButtonSpec
 
 class LocalizedRoboSAPiensKeywordsFilltextfieldArgsContent(TypedDict):
     name: Tuple[Literal['4274335913'], str]
@@ -401,6 +408,15 @@ class LocalizedRoboSAPiensKeywordsPushbuttonResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsPushbuttonArgs(TypedDict):
     button: LocalizedRoboSAPiensKeywordsPushbuttonArgsButton
 
+class LocalizedRoboSAPiensKeywordsHighlightbuttonResult(TypedDict):
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['3063247197'], str]
+    Pass: Tuple[Literal['2149046612'], str]
+    Exception: Tuple[Literal['1973912995'], str]
+
+class LocalizedRoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
+    button: LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButton
+
 class LocalizedRoboSAPiensKeywordsFilltextfieldResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
     NotFound: Tuple[Literal['2917845132'], str]
@@ -425,7 +441,7 @@ class LocalizedRoboSAPiensKeywordsFilltablecellArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsExportformResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
-    Pass: Tuple[Literal['1972246596'], str]
+    Pass: Tuple[Literal['319055629'], str]
     Exception: Tuple[Literal['487625120'], str]
 
 class LocalizedRoboSAPiensKeywordsExportformArgs(TypedDict):
@@ -622,6 +638,12 @@ class LocalizedRoboSAPiensKeywordsPushbutton(TypedDict):
     result: LocalizedRoboSAPiensKeywordsPushbuttonResult
     doc: Tuple[Literal['1332516663'], str]
 
+class LocalizedRoboSAPiensKeywordsHighlightbutton(TypedDict):
+    name: Tuple[Literal['2180269929'], str]
+    args: LocalizedRoboSAPiensKeywordsHighlightbuttonArgs
+    result: LocalizedRoboSAPiensKeywordsHighlightbuttonResult
+    doc: Tuple[Literal['782818376'], str]
+
 class LocalizedRoboSAPiensKeywordsFilltextfield(TypedDict):
     name: Tuple[Literal['3103200585'], str]
     args: LocalizedRoboSAPiensKeywordsFilltextfieldArgs
@@ -638,7 +660,7 @@ class LocalizedRoboSAPiensKeywordsExportform(TypedDict):
     name: Tuple[Literal['1168873090'], str]
     args: LocalizedRoboSAPiensKeywordsExportformArgs
     result: LocalizedRoboSAPiensKeywordsExportformResult
-    doc: Tuple[Literal['2371593263'], str]
+    doc: Tuple[Literal['4292940885'], str]
 
 class LocalizedRoboSAPiensKeywordsExecutetransaction(TypedDict):
     name: Tuple[Literal['2997404008'], str]
@@ -722,6 +744,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     ExportForm: LocalizedRoboSAPiensKeywordsExportform
     FillTableCell: LocalizedRoboSAPiensKeywordsFilltablecell
     FillTextField: LocalizedRoboSAPiensKeywordsFilltextfield
+    HighlightButton: LocalizedRoboSAPiensKeywordsHighlightbutton
     PushButton: LocalizedRoboSAPiensKeywordsPushbutton
     PushButtonCell: LocalizedRoboSAPiensKeywordsPushbuttoncell
     ReadTextField: LocalizedRoboSAPiensKeywordsReadtextfield
@@ -743,7 +766,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     presenter_mode: LocalizedRoboSAPiensArgsPresenter_Mode
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['2676661990'], str]
+    intro: Tuple[Literal['284571434'], str]
     init: Tuple[Literal['0'], str]
 
 class LocalizedRoboSAPiens(TypedDict):
