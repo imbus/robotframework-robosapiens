@@ -81,11 +81,11 @@ def gen_methods(keywords: Dict[str, Dict[str, Any]]):
             codegen.gen_doc(get_str(keywords[keyword]['doc'])) +
             [""] +
             # TODO: validate that the arguments satisfy their spec
-            gen_args(args) +
+            ["args = [" + ", ".join([get_str(arg['name']) for _, arg in args.items()]) + "]"] +
             [""] +
             gen_result(result) +
             [
-            f"return super()._run_keyword('{keyword}', list(args.values()), dict(), result) # type: ignore"
+            f"return super()._run_keyword('{keyword}', args, result) # type: ignore"
             ]
         )
 
