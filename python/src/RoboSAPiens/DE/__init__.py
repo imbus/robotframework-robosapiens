@@ -5,16 +5,11 @@ class DE(RoboSAPiensClient):
     """
     RoboSAPiens: SAP GUI-Automatisierung für Menschen
     
-    Um diese Bibliothek zu verwenden, müssen drei Bedigungen erfüllt werden:
-    
-    - Das .NET Runtime 7.0 x86 muss [https://dotnet.microsoft.com/en-us/download/dotnet/7.0|installiert] werden. 
+    Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
     
     - Das [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|Scripting] muss auf dem SAP Server aktiviert werden.
     
     - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
-    
-    Diese Bibliothek implementiert die [https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#remote-library-interface|Remote Library Interface] von Robot Framework. Das heißt, ein HTTP Server läuft im Hintergrund und Robot Framework kommuniziert mit ihm. Standardmäßig lauscht der HTTP Server auf dem Port 8270. Der Port kann beim Import der Bibliothek angepasst werden:
-    | ``Library   RoboSAPiens  port=1234``
     """
     
     def __init__(self, vortragsmodus: bool=False):
@@ -37,9 +32,7 @@ class DE(RoboSAPiensClient):
         | ``Reiter auswählen    Reitername``
         """
         
-        args = {
-            'tab': Reitername,
-        }
+        args = [Reitername]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -48,7 +41,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Reiter '{0}' wurde ausgewählt.",
             "Exception": "Der Reiter konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ActivateTab', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('ActivateTab', args, result) # type: ignore
     
 
     @keyword('SAP starten') # type: ignore
@@ -59,16 +52,14 @@ class DE(RoboSAPiensClient):
         | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
         """
         
-        args = {
-            'path': Pfad,
-        }
+        args = [Pfad]
         
         result = {
             "Pass": "Die SAP GUI wurde gestartet",
             "SAPNotStarted": "Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{0}'.",
             "Exception": "Die SAP GUI konnte nicht gestartet werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('OpenSap', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('OpenSap', args, result) # type: ignore
     
 
     @keyword('Verbindung zum Server trennen') # type: ignore
@@ -77,8 +68,7 @@ class DE(RoboSAPiensClient):
         Die Verbindung mit dem SAP Server wird getrennt.
         """
         
-        args = {
-        }
+        args = []
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
@@ -88,7 +78,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Verbindung zum Server wurde getrennt.",
             "Exception": "Die Verbindung zum Server konnte nicht getrennt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('CloseConnection', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('CloseConnection', args, result) # type: ignore
     
 
     @keyword('SAP beenden') # type: ignore
@@ -97,14 +87,13 @@ class DE(RoboSAPiensClient):
         Die SAP GUI wird beendet.
         """
         
-        args = {
-        }
+        args = []
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
             "Pass": "Die SAP GUI wurde beendet"
         }
-        return super()._run_keyword('CloseSap', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('CloseSap', args, result) # type: ignore
     
 
     @keyword('Funktionsbaum exportieren') # type: ignore
@@ -115,9 +104,7 @@ class DE(RoboSAPiensClient):
         | ``Funktionsbaum exportieren     Dateipfad``
         """
         
-        args = {
-            'filepath': Dateipfad,
-        }
+        args = [Dateipfad]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -125,7 +112,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Baumstruktur wurde in JSON Format in der Datei '{0}' gespeichert",
             "Exception": "Die Baumstruktur konnte nicht exportiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExportTree', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('ExportTree', args, result) # type: ignore
     
 
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
@@ -134,8 +121,7 @@ class DE(RoboSAPiensClient):
         Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
         """
         
-        args = {
-        }
+        args = []
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
@@ -145,7 +131,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die laufende SAP GUI wurde erfolgreich übernommen.",
             "Exception": "Die laufende SAP GUI konnte nicht übernommen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('AttachToRunningSap', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('AttachToRunningSap', args, result) # type: ignore
     
 
     @keyword('Verbindung zum Server herstellen') # type: ignore
@@ -156,9 +142,7 @@ class DE(RoboSAPiensClient):
         | ``Verbindung zum Server herstellen    Servername``
         """
         
-        args = {
-            'server': Servername,
-        }
+        args = [Servername]
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
@@ -168,7 +152,7 @@ class DE(RoboSAPiensClient):
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
             "Exception": "Die Verbindung konnte nicht hergestellt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ConnectToServer', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('ConnectToServer', args, result) # type: ignore
     
 
     @keyword('Tabellenzelle doppelklicken') # type: ignore
@@ -181,10 +165,7 @@ class DE(RoboSAPiensClient):
         Zeile: entweder die Zeilennummer oder der Inhalt der Zelle.
         """
         
-        args = {
-            'row_locator': Zeile,
-            'column': Spaltentitel,
-        }
+        args = [Zeile, Spaltentitel]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -192,7 +173,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt.",
             "Exception": "Die Zelle konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('DoubleClickCell', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('DoubleClickCell', args, result) # type: ignore
     
 
     @keyword('Textfeld doppelklicken') # type: ignore
@@ -203,9 +184,7 @@ class DE(RoboSAPiensClient):
         | ``Textfeld doppelklicken     Inhalt``
         """
         
-        args = {
-            'content': Inhalt,
-        }
+        args = [Inhalt]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -213,7 +192,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde doppelgeklickt.",
             "Exception": "Das Textfeld konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('DoubleClickTextField', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('DoubleClickTextField', args, result) # type: ignore
     
 
     @keyword('Transaktion ausführen') # type: ignore
@@ -224,39 +203,34 @@ class DE(RoboSAPiensClient):
         | ``Transaktion ausführen    T-Code``
         """
         
-        args = {
-            'T_Code': T_Code,
-        }
+        args = [T_Code]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "Pass": "Die Transaktion mit T-Code '{0}' wurde erfolgreich ausgeführt.",
             "Exception": "Die Transaktion konnte nicht ausgeführt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExecuteTransaction', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('ExecuteTransaction', args, result) # type: ignore
     
 
     @keyword('Maske exportieren') # type: ignore
     def export_form(self, Name: str, Verzeichnis: str): # type: ignore
         """
-        Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
+        Alle Texte in der aktuellen Maske werden in einer JSON-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
         
         | ``Maske exportieren     Name     Verzeichnis``
         
         Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.
         """
         
-        args = {
-            'name': Name,
-            'directory': Verzeichnis,
-        }
+        args = [Name, Verzeichnis]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "Pass": "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert",
             "Exception": "Die Maske konnte nicht exportiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExportForm', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('ExportForm', args, result) # type: ignore
     
 
     @keyword('Tabellenzelle ausfüllen') # type: ignore
@@ -271,10 +245,7 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.
         """
         
-        args = {
-            'row_locator': Zeile,
-            'column_content': Spaltentitel_gleich_Inhalt,
-        }
+        args = [Zeile, Spaltentitel_gleich_Inhalt]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -284,7 +255,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt.",
             "Exception": "Die Zelle konnte nicht ausgefüllt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('FillTableCell', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('FillTableCell', args, result) # type: ignore
     
 
     @keyword('Textfeld ausfüllen') # type: ignore
@@ -313,10 +284,7 @@ class DE(RoboSAPiensClient):
         *Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann.
         """
         
-        args = {
-            'locator': Beschriftung_oder_Lokator,
-            'content': Inhalt,
-        }
+        args = [Beschriftung_oder_Lokator, Inhalt]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -324,6 +292,9 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgefüllt.",
             "Exception": "Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
+        return super()._run_keyword('FillTextField', args, result) # type: ignore
+    
+
     @keyword('Knopf hervorheben') # type: ignore
     def highlight_button(self, Name_oder_Kurzinfo: str): # type: ignore
         """
@@ -351,9 +322,7 @@ class DE(RoboSAPiensClient):
         | ``Knopf drücken    Name oder Kurzinfo (Tooltip)``
         """
         
-        args = {
-            'button': Name_oder_Kurzinfo,
-        }
+        args = [Name_oder_Kurzinfo]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -362,7 +331,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Knopf '{0}' wurde gedrückt.",
             "Exception": "Der Knopf konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('PushButton', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('PushButton', args, result) # type: ignore
     
 
     @keyword('Tabellenzelle drücken') # type: ignore
@@ -375,10 +344,7 @@ class DE(RoboSAPiensClient):
         Zeile: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).
         """
         
-        args = {
-            'row_or_label': Zeile,
-            'column': Spaltentitel,
-        }
+        args = [Zeile, Spaltentitel]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -386,7 +352,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt.",
             "Exception": "Die Zelle konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('PushButtonCell', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('PushButtonCell', args, result) # type: ignore
     
 
     @keyword('Textfeld auslesen') # type: ignore
@@ -407,9 +373,7 @@ class DE(RoboSAPiensClient):
         | ``Textfeld auslesen    = Inhalt``
         """
         
-        args = {
-            'locator': Beschriftung_oder_Lokator,
-        }
+        args = [Beschriftung_oder_Lokator]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -417,7 +381,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgelesen.",
             "Exception": "Das Textfeld konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadTextField', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('ReadTextField', args, result) # type: ignore
     
 
     @keyword('Text auslesen') # type: ignore
@@ -432,9 +396,7 @@ class DE(RoboSAPiensClient):
         | ``Text auslesen    Beschriftung``
         """
         
-        args = {
-            'locator': Lokator,
-        }
+        args = [Lokator]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -442,7 +404,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Text mit dem Lokator '{0}' wurde ausgelesen.",
             "Exception": "Der Text konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadText', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('ReadText', args, result) # type: ignore
     
 
     @keyword('Tabellenzelle auslesen') # type: ignore
@@ -455,10 +417,7 @@ class DE(RoboSAPiensClient):
         Zeile: Zeilennummer oder Zellinhalt.
         """
         
-        args = {
-            'row_locator': Zeile,
-            'column': Spaltentitel,
-        }
+        args = [Zeile, Spaltentitel]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -466,7 +425,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen.",
             "Exception": "Die Zelle konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadTableCell', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('ReadTableCell', args, result) # type: ignore
     
 
     @keyword('Fenster aufnehmen') # type: ignore
@@ -478,9 +437,7 @@ class DE(RoboSAPiensClient):
         Dateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.
         """
         
-        args = {
-            'filepath': Aufnahmenverzeichnis,
-        }
+        args = [Aufnahmenverzeichnis]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -490,7 +447,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Eine Aufnahme des Fensters wurde in '{0}' gespeichert.",
             "Exception": "Eine Aufnahme des Fensters konnte nicht gespeichert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SaveScreenshot', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('SaveScreenshot', args, result) # type: ignore
     
 
     @keyword('Tabellenzelle markieren') # type: ignore
@@ -503,10 +460,7 @@ class DE(RoboSAPiensClient):
         Zeile: Zeilennummer oder Zellinhalt.
         """
         
-        args = {
-            'row_locator': Zeile,
-            'column': Spaltentitel,
-        }
+        args = [Zeile, Spaltentitel]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -514,7 +468,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert.",
             "Exception": "Die Zelle konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectCell', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('SelectCell', args, result) # type: ignore
     
 
     @keyword('Auswahlmenüeintrag auswählen') # type: ignore
@@ -525,10 +479,7 @@ class DE(RoboSAPiensClient):
         | ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``
         """
         
-        args = {
-            'comboBox': Name,
-            'entry': Eintrag,
-        }
+        args = [Name, Eintrag]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -537,7 +488,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Eintrag '{1}' wurde ausgewählt.",
             "Exception": "Der Eintrag konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectComboBoxEntry', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('SelectComboBoxEntry', args, result) # type: ignore
     
 
     @keyword('Optionsfeld auswählen') # type: ignore
@@ -555,9 +506,7 @@ class DE(RoboSAPiensClient):
         | ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``
         """
         
-        args = {
-            'locator': Beschriftung_oder_Lokator,
-        }
+        args = [Beschriftung_oder_Lokator]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -565,7 +514,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Optionsfeld mit dem Lokator '{0}' wurde ausgewählt.",
             "Exception": "Das Optionsfeld konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectRadioButton', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
 
     @keyword('Textfeld markieren') # type: ignore
@@ -586,9 +535,7 @@ class DE(RoboSAPiensClient):
         | ``Textfeld markieren    = Inhalt``
         """
         
-        args = {
-            'locator': Beschriftungen_oder_Lokator,
-        }
+        args = [Beschriftungen_oder_Lokator]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -596,7 +543,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde markiert.",
             "Exception": "Das Textfeld konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectTextField', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('SelectTextField', args, result) # type: ignore
     
 
     @keyword('Textzeile markieren') # type: ignore
@@ -607,9 +554,7 @@ class DE(RoboSAPiensClient):
         | ``Textzeile markieren    Inhalt``
         """
         
-        args = {
-            'content': Inhalt,
-        }
+        args = [Inhalt]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -617,7 +562,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Textzeile mit dem Inhalt '{0}' wurde markiert.",
             "Exception": "Die Textzeile konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectTextLine', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('SelectTextLine', args, result) # type: ignore
     
 
     @keyword('Formularfeld ankreuzen') # type: ignore
@@ -635,9 +580,7 @@ class DE(RoboSAPiensClient):
         | ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``
         """
         
-        args = {
-            'locator': Beschriftung_oder_Lokator,
-        }
+        args = [Beschriftung_oder_Lokator]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -645,7 +588,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Formularfeld mit dem Lokator '{0}' wurde angekreuzt.",
             "Exception": "Das Formularfeld konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('TickCheckBox', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('TickCheckBox', args, result) # type: ignore
     
 
     @keyword('Formularfeld abwählen') # type: ignore
@@ -663,9 +606,7 @@ class DE(RoboSAPiensClient):
         | ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``
         """
         
-        args = {
-            'locator': Beschriftung_oder_Lokator,
-        }
+        args = [Beschriftung_oder_Lokator]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -673,7 +614,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Formularfeld mit dem Lokator '{0}' wurde abgewählt.",
             "Exception": "Das Formularfeld konnte nicht abgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('UntickCheckBox', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('UntickCheckBox', args, result) # type: ignore
     
 
     @keyword('Tabellenzelle ankreuzen') # type: ignore
@@ -684,10 +625,7 @@ class DE(RoboSAPiensClient):
         | ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``
         """
         
-        args = {
-            'row': Zeilennummer,
-            'column': Spaltentitel,
-        }
+        args = [Zeilennummer, Spaltentitel]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -695,7 +633,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt.",
             "Exception": "Die Zelle konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('TickCheckBoxCell', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('TickCheckBoxCell', args, result) # type: ignore
     
 
     @keyword('Fenstertitel auslesen') # type: ignore
@@ -706,15 +644,14 @@ class DE(RoboSAPiensClient):
         | ``${Titel}    Fenstertitel auslesen``
         """
         
-        args = {
-        }
+        args = []
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "Pass": "Der Fenstertitel wurde ausgelesen",
             "Exception": "Der Titel des Fensters konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('GetWindowTitle', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('GetWindowTitle', args, result) # type: ignore
     
 
     @keyword('Fenstertext auslesen') # type: ignore
@@ -725,15 +662,14 @@ class DE(RoboSAPiensClient):
         | ``${Text}    Fenstertext auslesen``
         """
         
-        args = {
-        }
+        args = []
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "Pass": "Der Text des Fensters wurde ausgelesen",
             "Exception": "Der Text des Fensters konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
+        return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = '1.2.0'
