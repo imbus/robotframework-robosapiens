@@ -24,19 +24,14 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 lib: LocalizedRoboSAPiens = {
   "doc": {
     "intro": (
-        "2676661990", 
+        "284571434", 
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
-        Um diese Bibliothek zu verwenden, müssen drei Bedigungen erfüllt werden:
+        Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
 
-        - Das .NET Runtime 7.0 x86 muss [https://dotnet.microsoft.com/en-us/download/dotnet/7.0|installiert] werden. 
-        
         - Das [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|Scripting] muss auf dem SAP Server aktiviert werden.
         
         - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
-
-        Diese Bibliothek implementiert die [https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#remote-library-interface|Remote Library Interface] von Robot Framework. Das heißt, ein HTTP Server läuft im Hintergrund und Robot Framework kommuniziert mit ihm. Standardmäßig lauscht der HTTP Server auf dem Port 8270. Der Port kann beim Import der Bibliothek angepasst werden:
-        | ``Library   RoboSAPiens  port=1234``
         """
     ),
     "init": ("0", ""),
@@ -279,13 +274,13 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("2754484086", no_session),
-        "Pass": ("1972246596", "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert"),
+        "Pass": ("319055629", "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert"),
         "Exception": ("487625120", exception("Die Maske konnte nicht exportiert werden."))
       },
       "doc": (
-          "2371593263", 
+          "4292940885", 
           """
-          Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
+          Alle Texte in der aktuellen Maske werden in einer JSON-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
           
           | ``Maske exportieren     Name     Verzeichnis``
           

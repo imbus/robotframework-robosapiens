@@ -31,18 +31,11 @@ lib: RoboSAPiens = {
     "doc": {
         "intro": f"""RoboSAPiens: SAP GUI-Automation for Humans
 
-        In order to use this library three requirements must be satisfied:
+        In order to use this library the following requirements must be satisfied:
 
-        - .NET Runtime 7.0 x86 must be [https://dotnet.microsoft.com/en-us/download/dotnet/7.0|installed].
-        
         - Scripting on the SAP Server must be [https://help.sap.com/saphelp_aii710/helpdata/en/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|activated].
         
         - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
-
-        This library implements the [https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#remote-library-interface|Remote Library Interface] of Robot Framework.
-        That is, an HTTP server is started in the background and Robot Framework communicates with it. The standard port is 8270.
-        A different port can be chosen when importing the library:
-        | ``Library   RoboSAPiens    port=1234``
 
         This library is also available in the following languages:
         {locales_bullet_list()}
@@ -259,11 +252,11 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "Pass": "The Dynpro was exported to the CSV file {0} and the PNG image {1}",
+                "Pass": "The Dynpro was exported to the JSON file {0} and the PNG image {1}",
                 "Exception": exception("The Dynpro could not be exported. {0}")
             },
             "doc": """
-            Write all texts in the Dynpro to a CSV file. Also a screenshot will be saved in PNG format.
+            Write all texts in the Dynpro to a JSON file. Also a screenshot will be saved in PNG format.
             
             | ``Export Dynpro     name     directory``
             
