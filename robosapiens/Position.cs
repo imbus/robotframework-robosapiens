@@ -1,6 +1,6 @@
 using System;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public struct Position {
         const int horizontalDeviation = 5;
         const int verticalDeviation = 5;

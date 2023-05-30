@@ -704,11 +704,6 @@ class RoboSAPiensArgsPresenter_Mode(TypedDict):
     default: Literal[False]
     doc: str
 
-class RoboSAPiensArgsPort(TypedDict):
-    name: str
-    default: Literal[8270]
-    doc: str
-
 class RoboSAPiensSpecs(TypedDict):
     ...
 
@@ -744,8 +739,7 @@ class RoboSAPiensKeywords(TypedDict):
     GetWindowText: RoboSAPiensKeywordsGetwindowtext
 
 class RoboSAPiensArgs(TypedDict):
-    a1port: RoboSAPiensArgsPort
-    a2presenter_mode: RoboSAPiensArgsPresenter_Mode
+    presenter_mode: RoboSAPiensArgsPresenter_Mode
 
 class RoboSAPiensDoc(TypedDict):
     intro: str
