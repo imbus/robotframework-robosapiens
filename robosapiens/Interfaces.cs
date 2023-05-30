@@ -1,6 +1,6 @@
 using sapfewse;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public interface IDoubleClickable {
         public void doubleClick(GuiSession session);
     }

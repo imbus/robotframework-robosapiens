@@ -1,6 +1,6 @@
 using sapfewse;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public sealed class SAPTab: ILabeled, IHighlightable {
         string tooltip;
         string id;

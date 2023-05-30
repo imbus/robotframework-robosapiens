@@ -50,12 +50,7 @@ lib: RoboSAPiens = {
         "init": ""
     },
     "args": {
-        "a1port": {
-            "name": "port",
-            "default": 8270,
-            "doc": "Set the port of the HTTP server implementing the Remote interface."
-        },
-        "a2presenter_mode": {
+        "presenter_mode": {
             "name": "presenter_mode",
             "default": False,
             "doc": "Highlight each GUI element acted upon"

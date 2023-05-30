@@ -1,6 +1,6 @@
 using sapfewse;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public sealed class SAPBox: ILabeled {
         string title;
         Position position;

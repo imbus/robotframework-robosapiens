@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public record RobotResult(
         string status = "PASS",
         string output = "",

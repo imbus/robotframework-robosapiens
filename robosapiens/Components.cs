@@ -4,7 +4,7 @@ using System.Linq;
 using sapfewse;
 
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public sealed class Components {
         BoxStore boxes = new BoxStore();
         ButtonStore buttons = new ButtonStore();
@@ -465,4 +465,6 @@ namespace SAPiens {
             return this.tree;
         }
     }
+
+    public record FormField(string Text, string Id, int Left, int Top, int Width, int Height);
 }
