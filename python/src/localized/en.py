@@ -1,5 +1,5 @@
-from schema import RoboSAPiens
 from typing import Callable
+from schema import RoboSAPiens
 
 Fstr = Callable[[str], str]
 
