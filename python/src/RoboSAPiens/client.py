@@ -21,8 +21,8 @@ class RoboSAPiensClient(object):
 
     def _start_server(self, server: Path, args: List[str]):
         return Popen(
-            [str(server)] + args, 
-            stdout=PIPE, 
+            [str(server)] + args,
+            stdout=PIPE,
             stdin=PIPE,
             bufsize=1,
             universal_newlines=True,
@@ -33,7 +33,7 @@ class RoboSAPiensClient(object):
         self._server.terminate()
 
     # All methods have to be private so that they are not interpreted as keywords by RF
-    def _run_keyword(self, name: str, args: List[Any], kwargs: Dict[str, Any], result: Dict[str, Any]): # type: ignore
+    def _run_keyword(self, name: str, args: List[str], result: Dict[str, str]): # type: ignore
         request = {
             "jsonrpc": "2.0",
             "method": name,
@@ -45,17 +45,14 @@ class RoboSAPiensClient(object):
         assert self._server.stdin is not None
 
         self._server.stdin.write(json.dumps(request) + '\n')
-        response = []
-        for line in iter(self._server.stdout.readline, '\n'):
-            response.append(line)
-
-        json_response = json.loads(''.join(response))
+        response = ''.join(list(iter(self._server.stdout.readline, '\n')))
+        json_response = json.loads(response)
 
         if json_response["result"]:
-           rf_result = RemoteResult(json_response["result"])
+            rf_result = RemoteResult(json_response["result"])
         else:
             rf_result = RemoteResult(json_response["error"]["data"])
-        
+
         if rf_result.status != "PASS": # type: ignore
             error_type, error_message = rf_result.error.split("|")
 
@@ -65,14 +62,14 @@ class RoboSAPiensClient(object):
                 message = result[error_type].format(*args)
 
             raise RemoteError(
-                message, 
-                rf_result.traceback, 
+                message,
+                rf_result.traceback,
                 rf_result.fatal,
                 rf_result.continuable
             )
-        else:
-            sys.stdout.write(result["Pass"].format(*args))
-            return rf_result.return_ # type: ignore
+
+        sys.stdout.write(result["Pass"].format(*args))
+        return rf_result.return_ # type: ignore
 
 
 def _cli_args(args: List[Tuple[str, Any]]) -> List[str]:
@@ -83,10 +80,10 @@ def _cli_args(args: List[Tuple[str, Any]]) -> List[str]:
 
     name = '--' + name.replace("_", "-")
 
-    if type(value) == bool:
+    if isinstance(value, bool):
         if value:
             return [name] + _cli_args(rest)
-        else:
-            return _cli_args(rest)
-    
+
+        return _cli_args(rest)
+
     return [name, str(value)] + _cli_args(rest)
