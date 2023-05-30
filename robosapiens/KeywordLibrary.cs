@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading;
 using sapfewse;
 using saprotwr.net;
@@ -80,8 +81,13 @@ namespace RoboSAPiens
                     return new EitherSapGui.Err(new RobotResult.NoSapGui());
                 }
                 
-                GuiApplication? scriptingEngine = null;
-                // var scriptingEngine = sapGui.GetScriptingEngine();
+                var scriptingEngine = sapGui.GetType().InvokeMember(
+                    "GetScriptingEngine",
+                    BindingFlags.InvokeMethod,
+                    null,
+                    sapGui,
+                    null
+                );
                 
                 if (scriptingEngine == null) {
                     return new EitherSapGui.Err(new RobotResult.NoGuiScripting());
