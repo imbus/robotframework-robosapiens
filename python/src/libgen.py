@@ -1,10 +1,10 @@
-import codegen
 import importlib
 import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Tuple, Union, cast
+import codegen
 from version import __version__
 
 
@@ -19,11 +19,11 @@ class LocalizedLib:
 
 
 def get_str(arg: Union[str, Tuple[str, str]]):
-    if type(arg) != str:
+    if not isinstance(arg, str):
         _, name = cast(Tuple[str, str], arg)
         return name
-    else:
-        return arg
+
+    return arg
 
 
 def gen_call_args(args: ArgsDict):
@@ -95,7 +95,7 @@ def gen_methods(keywords: Dict[str, Dict[str, Any]]):
 def generate_rf_lib(lib: LocalizedLib, version: str):
     spec = lib.spec
     base_class = "RoboSAPiensClient"
-    imports = { 
+    imports = {
         "robot.api.deco": ["keyword"],
         "RoboSAPiens.client": [base_class]
     }
@@ -104,11 +104,11 @@ def generate_rf_lib(lib: LocalizedLib, version: str):
         f"ROBOT_LIBRARY_VERSION = '{version}'"
     ]
     doc = codegen.gen_doc(get_str(spec["doc"]["intro"]))
-    init = codegen.gen_init(gen_call_args(spec["args"]), 
+    init = codegen.gen_init(gen_call_args(spec["args"]),
         codegen.gen_doc(get_str(spec["doc"]["init"]) + "\n\n" + gen_args_doc(spec["args"])),
-        [""] + 
+        [""] +
         gen_args(spec["args"]) +
-        [""] + 
+        [""] +
         ["super().__init__(args)"]
     )
     methods = init + gen_methods(spec['keywords'])
@@ -152,7 +152,7 @@ if __name__ == "__main__":
 
     for lib in localized_libs:
         rf_lib = generate_rf_lib(lib, __version__)
-    
+
         with open(lib.path, "w", encoding="utf-8") as file:
             file.write(rf_lib)
 

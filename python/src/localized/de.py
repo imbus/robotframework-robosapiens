@@ -1,5 +1,5 @@
-from schema_i18n import LocalizedRoboSAPiens
 from typing import Callable
+from schema_i18n import LocalizedRoboSAPiens
 
 Fstr = Callable[[str], str]
 
