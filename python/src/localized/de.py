@@ -380,6 +380,29 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "HighlightButton": {
+      "name": ("2180269929", "Knopf hervorheben"),
+      "args": {
+        "button": {
+          "name": ("894332414", "Name_oder_Kurzinfo"),
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": ("2754484086", no_session),
+        "NotFound": ("3063247197", not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
+        "Pass": ("2149046612", "Der Knopf '{0}' wurde hervorgehoben."),
+        "Exception": ("1973912995", exception("Der Knopf konnte nicht hervorgehoben werden."))
+      },
+      "doc": (
+          "782818376", 
+          """
+          Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.
+          
+          | ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``
+          """
+      )
+    },
     "PushButton": {
       "name": ("2326550334", "Knopf drücken"),
       "args": {

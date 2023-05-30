@@ -160,6 +160,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.");
         }
 
+        public record HighlightButton {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record Pass(string locator): RobotResult.RobotPass($"Der Knopf mit dem Lokator '{locator}' wurde hervorgehoben.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Knopf konnte nicht hervorgehoben werden.");
+        }
+
         public record PushButton {
             public record NoSession(): RobotResult.NoSession();
             public record SapError(string message): RobotResult.SapError(message);
