@@ -705,11 +705,6 @@ class LocalizedRoboSAPiensArgsPresenter_Mode(TypedDict):
     default: Literal[False]
     doc: Tuple[Literal['3421082408'], str]
 
-class LocalizedRoboSAPiensArgsPort(TypedDict):
-    name: Tuple[Literal['1133600204'], str]
-    default: Literal[8270]
-    doc: Tuple[Literal['2718491382'], str]
-
 class LocalizedRoboSAPiensSpecs(TypedDict):
     ...
 
@@ -745,8 +740,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     GetWindowText: LocalizedRoboSAPiensKeywordsGetwindowtext
 
 class LocalizedRoboSAPiensArgs(TypedDict):
-    a1port: LocalizedRoboSAPiensArgsPort
-    a2presenter_mode: LocalizedRoboSAPiensArgsPresenter_Mode
+    presenter_mode: LocalizedRoboSAPiensArgsPresenter_Mode
 
 class LocalizedRoboSAPiensDoc(TypedDict):
     intro: Tuple[Literal['2676661990'], str]

@@ -3,7 +3,10 @@
     <TargetFramework>netcoreapp7.0</TargetFramework>
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
-    <SelfContained>False</SelfContained>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
+    <!-- <PublishSingleFile>true</PublishSingleFile> -->
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <NoWarn>NU1701</NoWarn>
@@ -27,10 +30,6 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="Horizon.XmlRpc.Server" Version="2.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\sapiens\SAPiens.csproj" />
+    <PackageReference Include="SAP.GUI.Scripting.net" Version="1.0.1" />
   </ItemGroup>
 </Project>

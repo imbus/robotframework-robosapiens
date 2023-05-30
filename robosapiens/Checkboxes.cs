@@ -1,6 +1,6 @@
 using sapfewse;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public abstract class CheckBox: IHighlightable {
         protected bool focused;
         public abstract void select(GuiSession session);

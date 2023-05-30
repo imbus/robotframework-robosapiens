@@ -1,6 +1,6 @@
 using sapfewse;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public abstract class Button: IHighlightable {
         protected bool focused;
         public abstract void push(GuiSession session);

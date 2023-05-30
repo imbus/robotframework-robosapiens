@@ -4,7 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public sealed class NoSAPSession : ISession {}
     public sealed class SAPSession : ISession {
         GuiConnection connection;
@@ -194,7 +194,6 @@ namespace SAPiens {
 
         public RobotResult exportForm(string formName, string directory) {
             var fileName = $"{formName}_{systemName}".Replace("/", "_");
-            var csv = new CSVWriter<FormField>(delimiter: ";");
             var formFields = new List<FormField>();
 
             var buttons = window.components.getAllButtons();
@@ -254,11 +253,11 @@ namespace SAPiens {
             });
 
             try {
-                var csvPath = Path.Combine(directory, $"{fileName}.csv");
-                csv.writeRows(csvPath, formFields);
+                var jsonPath = Path.Combine(directory, $"{fileName}.json");
+                JSON.writeFile(jsonPath, JSON.serialize(formFields, typeof(List<FormField>)));
                 var pngPath = Path.Combine(directory, $"{fileName}.png");
                 saveScreenshot(pngPath);
-                return new Result.ExportForm.Pass(csvPath, pngPath);
+                return new Result.ExportForm.Pass(jsonPath, pngPath);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -274,7 +273,7 @@ namespace SAPiens {
             try
             {
                 var treeNodes = tree.getAllNodes(session);
-                JSON.writeFile(filePath, JSON.serialize(treeNodes));
+                JSON.writeFile(filePath, JSON.serialize(treeNodes, typeof(List<SAPTree.Node>)));
                 return new Result.ExportTree.Pass(filePath);
             }
             catch (Exception e)

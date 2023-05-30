@@ -1,4 +1,4 @@
-namespace SAPiens {
+namespace RoboSAPiens {
     public sealed class ButtonStore: ComponentRepository<Button> {
         public Button? get(ILocator locator) {
             return locator switch {

@@ -2,7 +2,7 @@ using sapfewse;
 using System;
 using System.Linq;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public class SAPWindow {
         public Components components;
         public string id {get;}

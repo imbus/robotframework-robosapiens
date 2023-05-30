@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace SAPiens {
+namespace RoboSAPiens {
     public abstract class CellLocator: ILocator {
         public string cell;
         public string column {get;}

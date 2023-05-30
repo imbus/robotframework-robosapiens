@@ -17,15 +17,12 @@ class DE(RoboSAPiensClient):
     | ``Library   RoboSAPiens  port=1234``
     """
     
-    def __init__(self, port: int=8270, vortragsmodus: bool=False):
+    def __init__(self, vortragsmodus: bool=False):
         """
-        *port*: Port des HTTP servers.
-        
         *vortragsmodus*: Jedes GUI Element wird vor seiner Betätigung bzw. Änderung kurz hervorgehoben
         """
         
         args = {
-            'port': port,
             'presenter_mode': vortragsmodus,
         }
         
@@ -723,4 +720,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.1.8'
+    ROBOT_LIBRARY_VERSION = '1.2.0'

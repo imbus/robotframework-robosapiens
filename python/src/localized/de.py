@@ -42,12 +42,7 @@ lib: LocalizedRoboSAPiens = {
     "init": ("0", ""),
   },
   "args": {
-    "a1port": {
-      "name": ("1133600204", "port"),
-      "default": 8270,
-      "doc": ("2718491382", "Port des HTTP servers.")
-    },
-    "a2presenter_mode": {
+    "presenter_mode": {
       "name": ("781265386", "vortragsmodus"),
       "default": False,
       "doc": ("3421082408", "Jedes GUI Element wird vor seiner Betätigung bzw. Änderung kurz hervorgehoben")

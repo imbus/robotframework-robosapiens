@@ -22,15 +22,12 @@ class RoboSAPiens(RoboSAPiensClient):
     - RoboSAPiens.DE (German)
     """
     
-    def __init__(self, port: int=8270, presenter_mode: bool=False):
+    def __init__(self, presenter_mode: bool=False):
         """
-        *port*: Set the port of the HTTP server implementing the Remote interface.
-        
         *presenter_mode*: Highlight each GUI element acted upon
         """
         
         args = {
-            'port': port,
             'presenter_mode': presenter_mode,
         }
         
@@ -729,4 +726,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', list(args.values()), dict(), result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.1.8'
+    ROBOT_LIBRARY_VERSION = '1.2.0'

@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
 using sapfewse;
 using saprotwr.net;
 
-namespace SAPiens 
+namespace RoboSAPiens 
 {
     public record struct Options(bool debug, int port, bool presenterMode);
 
@@ -24,69 +21,50 @@ namespace SAPiens
             session = new NoSAPSession();
         }
 
-        public RobotResult callKeyword(string methodName, object[] args) 
+        // TODO: Implement a test to verify that this function handles all keywords
+        // That is, the function should not return KeywordNotFound.
+        public RobotResult callKeyword(string methodName, string[] args) 
         {
             try
             {
-                var result = InvokeMethod(this, methodName, args);
-
-                if (result != null)
-                    return (RobotResult)result;
-                else
-                    return new Result.KeywordLibrary.KeywordNotFound(methodName);
+                return methodName switch {
+                    Keywords.ActivateTab => ActivateTab(args[0]),
+                    Keywords.AttachToRunningSap => AttachToRunningSap(),
+                    Keywords.CloseConnection => CloseConnection(),
+                    Keywords.CloseSap => CloseSap(),
+                    Keywords.ConnectToServer => ConnectToServer(args[0]),
+                    Keywords.DoubleClickCell => DoubleClickCell(args[0], args[1]),
+                    Keywords.DoubleClickTextField => DoubleClickTextField(args[0]),
+                    Keywords.ExecuteTransaction => ExecuteTransaction(args[0]),
+                    Keywords.ExportForm => ExportForm(args[0], args[1]),
+                    Keywords.ExportTree => ExportTree(args[0]),
+                    Keywords.FillTableCell => FillTableCell(args[0], args[1]),
+                    Keywords.FillTextField => FillTextField(args[0], args[1]),
+                    Keywords.GetWindowText => GetWindowText(),
+                    Keywords.GetWindowTitle => GetWindowTitle(),
+                    Keywords.OpenSap => OpenSap(args[0]),
+                    Keywords.PushButton => PushButton(args[0]),
+                    Keywords.PushButtonCell => PushButtonCell(args[0], args[1]),
+                    Keywords.ReadTableCell => ReadTableCell(args[0], args[1]),
+                    Keywords.ReadText => ReadText(args[0]),
+                    Keywords.ReadTextField => ReadTextField(args[0]),
+                    Keywords.SaveScreenshot => SaveScreenshot(args[0]),
+                    Keywords.SelectCell => SelectCell(args[0], args[1]),
+                    Keywords.SelectComboBoxEntry => SelectComboBoxEntry(args[0], args[1]),
+                    Keywords.SelectRadioButton => SelectRadioButton(args[0]),
+                    Keywords.SelectTextField => SelectTextField(args[0]),
+                    Keywords.SelectTextLine => SelectTextLine(args[0]),
+                    Keywords.TickCheckBox => TickCheckBox(args[0]),
+                    Keywords.TickCheckBoxCell => TickCheckBoxCell(args[0], args[1]),
+                    Keywords.UntickCheckBox => UntickCheckBox(args[0]),
+                    _ => new Result.KeywordLibrary.KeywordNotFound(methodName)
+                };
             }
             catch (Exception e)
             {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new Result.KeywordLibrary.Exception(methodName, e);   
             }
-        }
-
-		dynamic? InvokeMethod(object obj, string methodName, object[]? methodParams = null) {
-            return obj
-                .GetType()
-                .InvokeMember
-                (
-                    name: methodName,
-                    invokeAttr: System.Reflection.BindingFlags.InvokeMethod,
-                    binder: null,
-                    target: obj,
-                    args: methodParams
-                );
-		}
-
-        public static object getKeywordSpecs() 
-        {
-            return typeof(KeywordLibrary)
-                    .GetMethods()
-                    .Where(method => 
-                        method.GetCustomAttribute(typeof(Keyword)) != null &&
-                        method.GetCustomAttribute(typeof(Doc)) != null
-                    )
-                    .ToDictionary(
-                        method => method.Name,
-                        method => new 
-                            {
-                                name = ((Keyword)method.GetCustomAttribute(typeof(Keyword))!).Name,
-                                args = method.GetParameters().ToDictionary(
-                                    param => param.Name!,
-                                    param => new 
-                                    {
-                                        name = param.Name,
-                                        spec = param.GetCustomAttribute(typeof(Locator)) switch {
-                                            Locator locator => locator.locators.ToDictionary(key => key, value => value),
-                                            _ => new Dictionary<string, string>()
-                                        }
-                                    }
-                                ),
-                                result = typeof(Result)
-                                            .GetNestedType(method.Name)
-                                            ?.GetNestedTypes()
-                                            .ToDictionary(type => type.Name, type => type.Name)
-                                            ?? new Dictionary<string, string>(),
-                                doc = ((Doc)method.GetCustomAttribute(typeof(Doc))!).DocString
-                            }
-                    );
         }
 
         record EitherSapGui {
@@ -102,7 +80,8 @@ namespace SAPiens
                     return new EitherSapGui.Err(new RobotResult.NoSapGui());
                 }
                 
-                var scriptingEngine = InvokeMethod(sapGui, "GetScriptingEngine");
+                GuiApplication? scriptingEngine = null;
+                // var scriptingEngine = sapGui.GetScriptingEngine();
                 
                 if (scriptingEngine == null) {
                     return new EitherSapGui.Err(new RobotResult.NoGuiScripting());
