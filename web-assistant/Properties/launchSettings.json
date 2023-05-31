@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "HelloPhotino.StaticFileServer": {
-      "commandName": "Project",
-      "nativeDebugging": true
-    }
-  }
-}
