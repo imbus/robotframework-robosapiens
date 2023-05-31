@@ -1,24 +1,52 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using PhotinoNET;
 using PhotinoNET.Server;
-using Horizon.XmlRpc.Client;
 
-namespace WebAssistant;
+namespace Playground;
 
 class Program
 {
+    public static string handleResponse(string response)
+    {
+        var jsonResponse = JSON.deserialize(response);
+
+        if (jsonResponse != null) 
+        {
+            var error = jsonResponse.error;
+            if (error != null)
+            {
+                var robotResult = error.data;
+                return robotResult.error;
+            }
+
+            var result = jsonResponse.result;
+            if (result != null)
+            {
+                return result.output;
+            }
+        }
+
+        return "Received null";
+    }
+
     [STAThread]
     public static void Main(string[] args)
     {
+        var process = new Process();
+        process.StartInfo.RedirectStandardInput = true;
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.StandardOutputEncoding = Encoding.UTF8;
+        process.StartInfo.FileName = "RoboSAPiens.exe";
+        process.Start();
+
+
         PhotinoServer
             .CreateStaticFileServer(args, out string baseUrl)
             .RunAsync();
 
-        var proxy = XmlRpcProxyGen.Create<IRobotProxy>();
-        proxy.Url = "http://127.0.0.1:8270";
-
         // Window title declared here for visibility
-        string windowTitle = "RoboSAPiens Web Assistant";
+        string windowTitle = "RoboSAPiens Playground";
 
         // Creating a new PhotinoWindow instance with the fluent API
         var window = new PhotinoWindow()
@@ -49,14 +77,16 @@ class Program
             {
                 var window = (PhotinoWindow)sender;
 
-                if (message == "FillTextField") {
-                    var result = proxy.runKeyword("AttachToRunningSAP", new String[]{});
-                    result = proxy.runKeyword(message, new String[]{"Benutzer", "Student001"});
-                    window.SendWebMessage((string)result["output"]);
-                }
-                else {
-                    window.SendWebMessage($"Unknown keyword: {message}");
-                }
+                // var attachToRunningSap = @"{""jsonrpc"": ""2.0"",""id"": 1,""method"": ""AttachToRunningSap"",""params"": []}";
+                process.StandardInput.WriteLine(message);
+
+                StringBuilder sb = new StringBuilder();
+                for(string? line; !String.IsNullOrEmpty(line = process.StandardOutput.ReadLine());)
+                    sb.Append(line);
+
+                var result = handleResponse(sb.ToString());
+                window.SendWebMessage(result);
+
             })
             .Load($"{baseUrl}/index.html"); // Can be used with relative path strings or "new URI()" instance to load a website.
 
