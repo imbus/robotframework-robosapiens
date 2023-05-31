@@ -266,6 +266,10 @@ namespace RoboSAPiens {
         }
 
         public RobotResult exportTree(string filePath) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
             var tree = window.components.getTree();
 
             if (tree == null) return new Result.ExportTree.NotFound();
