@@ -5,6 +5,7 @@ import webview
 from threading import Thread
 from time import sleep
 from http.client import HTTPConnection
+import sys
 
 host = "127.0.0.1"
 port = 8000
@@ -12,7 +13,7 @@ port = 8000
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'playground.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -22,6 +23,8 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
 
+    # execute_from_command_line(sys.argv)
+
     t = Thread(target=execute_from_command_line, args=(["manage.py", "runserver", "--noreload"],))
     t.daemon = True
     t.start()
@@ -29,7 +32,7 @@ def main():
     while not url_ok(host, port):
         sleep(0.1)
 
-    webview.create_window("MyApp", f"http://{host}:{port}", min_size=(800, 600))
+    webview.create_window("RoboSAPiens Playground", f"http://{host}:{port}", min_size=(960, 600))
     webview.start()
 
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load component_tags %}
+{% load static %}
+<head>    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboSAPiens Playground</title>
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
+    <script src="{% static 'js/Sortable.min.js' %}"></script>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    {% component_css_dependencies %}
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <br>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

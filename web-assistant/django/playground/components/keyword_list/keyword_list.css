@@ -1,0 +1,28 @@
+html {
+    --scrollbarBG: #CFD8DC;
+    --thumbBG: #90A4AE;
+}
+
+#keyword-list::-webkit-scrollbar {
+    width: 11px;
+}
+
+#keyword-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+#keyword-list::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+}
+
+#keyword-list::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG) ;
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+}
+
+#keyword-list {
+    max-height: 70vh;
+    overflow-y: auto;
+}

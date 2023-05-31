@@ -1,0 +1,2 @@
+[tool.pylint.string]
+check-str-concat-over-line-jumps = true

@@ -1,0 +1,5 @@
+<div id="keyword-list" class="list-group">
+    {% for keyword in keywords %}
+        <div class="list-group-item" id="{{keyword.id}}" style="cursor: grab">{{keyword.name}}</div>
+    {% endfor %}
+</div>

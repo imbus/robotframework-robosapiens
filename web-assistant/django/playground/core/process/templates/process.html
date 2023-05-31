@@ -1,0 +1,16 @@
+﻿{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+    <div class="row g-5">
+        <div class="col-sm-7">
+            {% component "keyword_call_list" %}
+        </div>    
+        <div class="col-sm-5 col-lg-3">
+            <div id="keywords" class="row">
+                {% component "keyword_list" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% component_js_dependencies %}
+{% endblock %}

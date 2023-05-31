@@ -1,0 +1,582 @@
+{
+    "library": "RoboSAPiens.DE",
+    "version": "1.1.8",
+    "doc": "https://imbus.github.io/robotframework-robosapiens/",
+    "keywords": {
+        "SelectComboBoxEntry": {
+            "id": "SelectComboBoxEntry",
+            "name": "Auswahlmenüeintrag auswählen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Name",
+                    "spec": {}
+                },
+                {
+                    "order": 2,
+                    "name": "Eintrag",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Das Auswahlmenü mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "EntryNotFound": "Der Eintrag '{1}' wurde im Auswahlmenü '{0}' nicht gefunden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Der Eintrag '{1}' wurde ausgewählt.",
+                "Exception": "Der Eintrag konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "SaveScreenshot": {
+            "id": "SaveScreenshot",
+            "name": "Fenster aufnehmen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Aufnahmenverzeichnis",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "InvalidPath": "Der Pfad '{0}' ist ungültig",
+                "UNCPath": "Ein UNC Pfad (d.h. beginnend mit \\\\) ist nicht erlaubt",
+                "NoAbsPath": "'{0}' ist kein absoluter Pfad",
+                "Pass": "Eine Aufnahme des Fensters wurde in '{0}' gespeichert.",
+                "Exception": "Eine Aufnahme des Fensters konnte nicht gespeichert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "GetWindowText": {
+            "id": "GetWindowText",
+            "name": "Fenstertext auslesen",
+            "args": [],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "Pass": "Der Text des Fensters wurde ausgelesen"
+            },
+            "returnValue": true
+        },
+        "GetWindowTitle": {
+            "id": "GetWindowTitle",
+            "name": "Fenstertitel auslesen",
+            "args": [],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "Pass": "Der Fenstertitel wurde ausgelesen"
+            },
+            "returnValue": true
+        },
+        "UntickCheckBox": {
+            "id": "UntickCheckBox",
+            "name": "Formularfeld abwählen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Beschriftung oder Lokator",
+                    "spec": {
+                        "HLabel": "::Beschriftung",
+                        "VLabel": ":@:Beschriftung oben",
+                        "HLabelVLabel": "Beschriftung:@:Beschriftung oben"
+                    }
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Das Formularfeld mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Das Formularfeld mit dem Lokator '{0}' wurde abgewählt.",
+                "Exception": "Das Formularfeld konnte nicht abgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "TickCheckBox": {
+            "id": "TickCheckBox",
+            "name": "Formularfeld ankreuzen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Beschriftung oder Lokator",
+                    "spec": {
+                        "HLabel": "::Beschriftung",
+                        "VLabel": ":@:Beschriftung oben",
+                        "HLabelVLabel": "Beschriftung:@:Beschriftung oben"
+                    }
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Das Formularfeld mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Das Formularfeld mit dem Lokator '{0}' wurde angekreuzt.",
+                "Exception": "Das Formularfeld konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "ExportTree": {
+            "id": "ExportTree",
+            "name": "Funktionsbaum exportieren",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Dateipfad",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Die Maske enthält keine Baumstruktur",
+                "Pass": "Die Baumstruktur wurde in JSON Format in der Datei '{0}' gespeichert",
+                "Exception": "Die Baumstruktur konnte nicht exportiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "PushButton": {
+            "id": "PushButton",
+            "name": "Knopf drücken",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Name oder Kurzinfo",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "SapError": "SAP Fehlermeldung: {0}",
+                "NotFound": "Der Knopf '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Der Knopf '{0}' wurde gedrückt.",
+                "Exception": "Der Knopf konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "AttachToRunningSap": {
+            "id": "AttachToRunningSap",
+            "name": "Laufende SAP GUI übernehmen",
+            "args": [],
+            "result": {
+                "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
+                "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.",
+                "NoConnection": "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
+                "Pass": "Die laufende SAP GUI wurde erfolgreich übernommen.",
+                "Exception": "Die laufende SAP GUI konnte nicht übernommen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "ExportForm": {
+            "id": "ExportForm",
+            "name": "Maske exportieren",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Name",
+                    "spec": {}
+                },
+                {
+                    "order": 2,
+                    "name": "Verzeichnis",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "Pass": "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert",
+                "Exception": "Die Maske konnte nicht exportiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "SelectRadioButton": {
+            "id": "SelectRadioButton",
+            "name": "Optionsfeld auswählen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Beschriftung oder Lokator",
+                    "spec": {
+                        "HLabel": "::Beschriftung",
+                        "VLabel": ":@:Beschriftung oben",
+                        "HLabelVLabel": "Beschriftung:@:Beschriftung oben"
+                    }
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Das Optionsfeld mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Das Optionsfeld mit dem Lokator '{0}' wurde ausgewählt.",
+                "Exception": "Das Optionsfeld konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "ActivateTab": {
+            "id": "ActivateTab",
+            "name": "Reiter auswählen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Reitername",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Der Reiter '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "SapError": "SAP Fehlermeldung: {0}",
+                "Pass": "Der Reiter '{0}' wurde ausgewählt.",
+                "Exception": "Der Reiter konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "CloseSap": {
+            "id": "CloseSap",
+            "name": "SAP beenden",
+            "args": [],
+            "result": {
+                "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
+                "Pass": "Die SAP GUI wurde beendet"
+            },
+            "returnValue": false
+        },
+        "OpenSap": {
+            "id": "OpenSap",
+            "name": "SAP starten",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Pfad",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "Pass": "Die SAP GUI wurde gestartet",
+                "SAPNotStarted": "Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{0}'.",
+                "Exception": "Die SAP GUI konnte nicht gestartet werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "TickCheckBoxCell": {
+            "id": "TickCheckBoxCell",
+            "name": "Tabellenzelle ankreuzen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Zeilennummer",
+                    "spec": {}
+                },
+                {
+                    "order": 2,
+                    "name": "Spaltentitel",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt.",
+                "Exception": "Die Zelle konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "FillTableCell": {
+            "id": "FillTableCell",
+            "name": "Tabellenzelle ausfüllen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Zeile",
+                    "spec": {}
+                },
+                {
+                    "order": 2,
+                    "name": "Spaltentitel gleich Inhalt",
+                    "spec": {
+                        "ColumnContent": "Spaltentitel:=:Inhalt"
+                    }
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "InvalidFormat": "Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen",
+                "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "NotChangeable": "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar.",
+                "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt.",
+                "Exception": "Die Zelle konnte nicht ausgefüllt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "ReadTableCell": {
+            "id": "ReadTableCell",
+            "name": "Tabellenzelle auslesen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Zeile",
+                    "spec": {}
+                },
+                {
+                    "order": 2,
+                    "name": "Spaltentitel",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen.",
+                "Exception": "Die Zelle konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": true
+        },
+        "DoubleClickCell": {
+            "id": "DoubleClickCell",
+            "name": "Tabellenzelle doppelklicken",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Zeile",
+                    "spec": {}
+                },
+                {
+                    "order": 2,
+                    "name": "Spaltentitel",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt.",
+                "Exception": "Die Zelle konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "PushButtonCell": {
+            "id": "PushButtonCell",
+            "name": "Tabellenzelle drücken",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Zeile",
+                    "spec": {}
+                },
+                {
+                    "order": 2,
+                    "name": "Spaltentitel",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt.",
+                "Exception": "Die Zelle konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "SelectCell": {
+            "id": "SelectCell",
+            "name": "Tabellenzelle markieren",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Zeile",
+                    "spec": {}
+                },
+                {
+                    "order": 2,
+                    "name": "Spaltentitel",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert.",
+                "Exception": "Die Zelle konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "ReadText": {
+            "id": "ReadText",
+            "name": "Text auslesen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Lokator",
+                    "spec": {
+                        "HLabel": "::Beschriftung",
+                        "Content": ":=:Inhalt"
+                    }
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Der Text mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Der Text mit dem Lokator '{0}' wurde ausgelesen.",
+                "Exception": "Der Text konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": true
+        },
+        "FillTextField": {
+            "id": "FillTextField",
+            "name": "Textfeld ausfüllen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Beschriftung oder Lokator",
+                    "spec": {
+                        "HLabel": "::Beschriftung",
+                        "VLabel": ":@:Beschriftung oben",
+                        "HLabelVLabel": "Beschriftung:@:Beschriftung oben",
+                        "HLabelHLabel": "Beschriftung links:>>:Beschriftung",
+                        "HLabelVIndex": "Beschriftung:@:Position",
+                        "HIndexVLabel": "Position:@:Beschriftung oben"
+                    }
+                },
+                {
+                    "order": 2,
+                    "name": "Inhalt",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgefüllt.",
+                "Exception": "Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "ReadTextField": {
+            "id": "ReadTextField",
+            "name": "Textfeld auslesen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Beschriftung oder Lokator",
+                    "spec": {
+                        "HLabel": "::Beschriftung",
+                        "VLabel": ":@:Beschriftung oben",
+                        "HLabelVLabel": "Beschriftung:@:Beschriftung oben",
+                        "Content": ":=:Inhalt"
+                    }
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgelesen.",
+                "Exception": "Das Textfeld konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": true
+        },
+        "DoubleClickTextField": {
+            "id": "DoubleClickTextField",
+            "name": "Textfeld doppelklicken",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Inhalt",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Das Textfeld mit dem Lokator '{0}' wurde doppelgeklickt.",
+                "Exception": "Das Textfeld konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "SelectTextField": {
+            "id": "SelectTextField",
+            "name": "Textfeld markieren",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Beschriftungen oder Lokator",
+                    "spec": {
+                        "HLabel": "::Beschriftung",
+                        "VLabel": ":@:Beschriftung oben",
+                        "HLabelVLabel": "Beschriftung:@:Beschriftung oben",
+                        "Content": ":=:Inhalt"
+                    }
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Das Textfeld mit dem Lokator '{0}' wurde markiert.",
+                "Exception": "Das Textfeld konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "SelectTextLine": {
+            "id": "SelectTextLine",
+            "name": "Textzeile markieren",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Inhalt",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NotFound": "Die Textzeile mit dem Inhalt '{0}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+                "Pass": "Die Textzeile mit dem Inhalt '{0}' wurde markiert.",
+                "Exception": "Die Textzeile konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "ExecuteTransaction": {
+            "id": "ExecuteTransaction",
+            "name": "Transaktion ausführen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "T Code",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "Pass": "Die Transaktion mit T-Code '{0}' wurde erfolgreich ausgeführt.",
+                "Exception": "Die Transaktion konnte nicht ausgeführt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "ConnectToServer": {
+            "id": "ConnectToServer",
+            "name": "Verbindung zum Server herstellen",
+            "args": [
+                {
+                    "order": 1,
+                    "name": "Servername",
+                    "spec": {}
+                }
+            ],
+            "result": {
+                "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
+                "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.",
+                "Pass": "Die Verbindung mit dem Server '{0}' wurde erfolgreich hergestellt.",
+                "SapError": "SAP Fehlermeldung: {0}",
+                "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
+                "Exception": "Die Verbindung konnte nicht hergestellt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        },
+        "CloseConnection": {
+            "id": "CloseConnection",
+            "name": "Verbindung zum Server trennen",
+            "args": [],
+            "result": {
+                "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
+                "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.",
+                "NoConnection": "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+                "Pass": "Die Verbindung zum Server wurde getrennt.",
+                "Exception": "Die Verbindung zum Server konnte nicht getrennt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            },
+            "returnValue": false
+        }
+    }
+}

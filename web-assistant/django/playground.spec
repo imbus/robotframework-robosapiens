@@ -1,6 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-
+import sys
+from os import path
+site_packages = next(p for p in sys.path if 'site-packages' in p)
 block_cipher = None
 
 
@@ -8,8 +10,15 @@ a = Analysis(
     ['playground\\manage.py'],
     pathex=[],
     binaries=[],
-    datas=[],
-    hiddenimports=['django.contrib.admin.apps', 'django.contrib.auth.apps', 'django.contrib.contenttypes.apps', 'django.contrib.sessions.apps', 'django.contrib.messages.apps', 'django.contrib.staticfiles.apps', 'django.contrib.messages.middleware', 'django.contrib.sessions.middleware', 'django.contrib.sessions.serializers', 'django.template.loaders', 'django.contrib.auth.context_processors', 'django.contrib.messages.context_processors'],
+    datas=[
+        (path.join(site_packages, "RoboSAPiens"), "RoboSAPiens"), 
+        (path.join("playground", "core"), "core"), 
+        (path.join("playground", "endpoints"), "endpoints"),
+        (path.join("playground", "static"), "static"),
+        (path.join("playground", "components"), "components"),
+        (path.join("playground", "templates"), "templates")
+    ],
+    hiddenimports=['RoboSAPiens', 'core', 'endpoints', 'static', 'components', 'templates'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

@@ -1,0 +1,17 @@
+<div hx-target="#keyword-call-output" hx-swap="innerHTML" class="row g-1">
+    <div class="handle col-1" style="cursor: grab; width: auto; font-size:13px;">📌</div>
+    <div class="col">
+        <form hx-post="{% url 'endpoints.runKeyword' %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+            <button type="submit" class="primary center" style="font-size:1rem; display:inline; border: 0px; padding: 0px; margin: 0px; background-color: #fff;">▶</button>
+            <span>{{keyword.name}}</span>
+            <input type="hidden" name="keyword" value="{{keyword.id}}">
+            <div class="row">
+                {% for arg in keyword.args %}
+                <div class="col">
+                    <input type="text" name="{{arg.order}}{{arg.name}}" placeholder="{{arg.name}}" style="width: 100%;">
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</div>
