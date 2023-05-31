@@ -32,7 +32,7 @@ def main():
     while not url_ok(host, port):
         sleep(0.1)
 
-    webview.create_window("RoboSAPiens Playground", f"http://{host}:{port}", min_size=(960, 600))
+    webview.create_window("RoboSAPiens Playground", f"http://{host}:{port}", min_size=(980, 1000))
     webview.start()
 
 
