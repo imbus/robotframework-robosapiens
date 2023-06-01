@@ -38,6 +38,7 @@ exe = EXE(
     name='playground',
     debug=False,
     bootloader_ignore_signals=False,
+    icon='RoboSAPiens.ico',
     strip=False,
     upx=True,
     console=False,
