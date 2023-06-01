@@ -1,5 +1,7 @@
 - Django is overkill. Use CherryPy.
 
+- Find out how to avoid that a console window is shown when starting RoboSAPiens
+
 - Group keywords by GUI element
 
 - On startup choose the language of the RoboSAPiens library
