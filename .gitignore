@@ -2,11 +2,10 @@ __pycache__
 .venv
 bin
 build
+dist
 lib
 obj
 proxy
-python/dist
-python/build
 results
 *.dll
 *.egg-info
