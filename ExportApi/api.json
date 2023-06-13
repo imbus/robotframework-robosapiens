@@ -1,0 +1,547 @@
+{
+  "doc": {
+    "intro": "This is the introduction at the beginning of the documentation",
+    "init": "This is the section 'Importing' in the documentation"
+  },
+  "args": {
+    "presenter-mode": {
+      "name": "presenter-mode",
+      "default": false,
+      "doc": "Highlight each GUI element acted upon"
+    }
+  },
+  "keywords": {
+    "ActivateTab": {
+      "name": "Reiter auswählen",
+      "args": {
+        "tab": {
+          "name": "tab",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "SapError": "SapError",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n| ``Reiter auswählen    Name``"
+    },
+    "OpenSap": {
+      "name": "SAP starten",
+      "args": {
+        "path": {
+          "name": "path",
+          "spec": {}
+        }
+      },
+      "result": {
+        "Pass": "Pass",
+        "SAPNotStarted": "SAPNotStarted",
+        "Exception": "Exception"
+      },
+      "doc": "Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``"
+    },
+    "CloseConnection": {
+      "name": "Verbindung zum Server trennen",
+      "args": {},
+      "result": {
+        "NoSapGui": "NoSapGui",
+        "NoGuiScripting": "NoGuiScripting",
+        "NoConnection": "NoConnection",
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die Verbindung mit dem SAP Server wird beendet."
+    },
+    "CloseSap": {
+      "name": "SAP beenden",
+      "args": {},
+      "result": {
+        "NoSapGui": "NoSapGui",
+        "Pass": "Pass"
+      },
+      "doc": "Die SAP GUI wird beendet."
+    },
+    "ExportTree": {
+      "name": "Funktionsbaum exportieren",
+      "args": {
+        "filepath": {
+          "name": "filepath",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n| ``Funktionsbaum exportieren     Dateipfad``"
+    },
+    "AttachToRunningSap": {
+      "name": "Laufende SAP GUI übernehmen",
+      "args": {},
+      "result": {
+        "NoSapGui": "NoSapGui",
+        "NoGuiScripting": "NoGuiScripting",
+        "NoConnection": "NoConnection",
+        "NoServerScripting": "NoServerScripting",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden."
+    },
+    "ConnectToServer": {
+      "name": "Verbindung zum Server herstellen",
+      "args": {
+        "server": {
+          "name": "server",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSapGui": "NoSapGui",
+        "NoGuiScripting": "NoGuiScripting",
+        "Pass": "Pass",
+        "SapError": "SapError",
+        "NoServerScripting": "NoServerScripting",
+        "Exception": "Exception"
+      },
+      "doc": "Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n| ``Verbindung zum Server herstellen    Servername``"
+    },
+    "DoubleClickCell": {
+      "name": "Tabellenzelle doppelklicken",
+      "args": {
+        "row_locator": {
+          "name": "row_locator",
+          "spec": {}
+        },
+        "column": {
+          "name": "column",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die angegebene Tabellenzelle wird doppelgeklickt.\n\n| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\nPositionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle."
+    },
+    "DoubleClickTextField": {
+      "name": "Textfeld doppelklicken",
+      "args": {
+        "content": {
+          "name": "content",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Das angegebene Textfeld wird doppelgeklickt.\n\n| ``Textfeld doppelklicken     Inhalt``\n"
+    },
+    "ExecuteTransaction": {
+      "name": "Transaktion ausführen",
+      "args": {
+        "T_Code": {
+          "name": "T_Code",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n| ``Transaktion ausführen    T-Code``"
+    },
+    "ExportForm": {
+      "name": "Maske exportieren",
+      "args": {
+        "name": {
+          "name": "name",
+          "spec": {}
+        },
+        "directory": {
+          "name": "directory",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.\n\n| ``Maske exportieren     Name     Verzeichnis``\nVerzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden."
+    },
+    "FillTableCell": {
+      "name": "Tabellenzelle ausfüllen",
+      "args": {
+        "row_locator": {
+          "name": "row_locator",
+          "spec": {}
+        },
+        "column_content": {
+          "name": "column_content",
+          "spec": {
+            "ColumnContent": "ColumnContent"
+          }
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "InvalidFormat": "InvalidFormat",
+        "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.\n\n| ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``\nZeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen."
+    },
+    "FillTextField": {
+      "name": "Textfeld ausfüllen",
+      "args": {
+        "locator": {
+          "name": "locator",
+          "spec": {
+            "HLabel": "HLabel",
+            "VLabel": "VLabel",
+            "HLabelVLabel": "HLabelVLabel",
+            "HIndexVLabel": "HIndexVLabel",
+            "HLabelVIndex": "HLabelVIndex",
+            "HLabelHLabel": "HLabelHLabel"
+          }
+        },
+        "content": {
+          "name": "content",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld ausfüllen    Beschriftung    Inhalt``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld ausfüllen    @ Beschriftung    Inhalt``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n| ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann."
+    },
+    "PushButton": {
+      "name": "Knopf drücken",
+      "args": {
+        "button": {
+          "name": "button",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "SapError": "SapError",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.\n\n| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``"
+    },
+    "HighlightButton": {
+      "name": "Knopf hervorheben",
+      "args": {
+        "button": {
+          "name": "button",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.\n\n| ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``"
+    },
+    "PushButtonCell": {
+      "name": "Tabellenzelle drücken",
+      "args": {
+        "row_or_label": {
+          "name": "row_or_label",
+          "spec": {}
+        },
+        "column": {
+          "name": "column",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die angegebene Tabellenzelle wird gedrückt.\n\n| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip)."
+    },
+    "ReadTextField": {
+      "name": "Textfeld auslesen",
+      "args": {
+        "locator": {
+          "name": "locator",
+          "spec": {
+            "HLabel": "HLabel",
+            "VLabel": "VLabel",
+            "HLabelVLabel": "HLabelVLabel",
+            "Content": "Content"
+          }
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Inhalt des angegebenen Textfeldes wird zurückgegeben.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld auslesen    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld auslesen    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld auslesen    = Inhalt``"
+    },
+    "ReadText": {
+      "name": "Text auslesen",
+      "args": {
+        "locator": {
+          "name": "locator",
+          "spec": {
+            "Content": "Content",
+            "HLabel": "HLabel"
+          }
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Inhalt des angegebenen Texts wird zurückgegeben.\n\n*Text fängt mit der angegebenen Teilzeichenfolge an*\n| ``Text auslesen    = Teilzeichenfolge``\n*Text folgt einer Beschriftung*\n| ``Text auslesen    Beschriftung``"
+    },
+    "ReadTableCell": {
+      "name": "Tabellenzelle auslesen",
+      "args": {
+        "row_locator": {
+          "name": "row_locator",
+          "spec": {}
+        },
+        "column": {
+          "name": "column",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt."
+    },
+    "SaveScreenshot": {
+      "name": "Fenster aufnehmen",
+      "args": {
+        "filepath": {
+          "name": "filepath",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "UNCPath": "UNCPath",
+        "NoAbsPath": "NoAbsPath",
+        "InvalidPath": "InvalidPath",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n| ``Fenster aufnehmen     Dateipfad``\nDateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses."
+    },
+    "SelectCell": {
+      "name": "Tabellenzelle markieren",
+      "args": {
+        "row_locator": {
+          "name": "row_locator",
+          "spec": {}
+        },
+        "column": {
+          "name": "column",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die angegebene Tabellenzelle wird markiert.\n\n| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt."
+    },
+    "SelectComboBoxEntry": {
+      "name": "Auswahlmenüeintrag auswählen",
+      "args": {
+        "comboBox": {
+          "name": "comboBox",
+          "spec": {}
+        },
+        "entry": {
+          "name": "entry",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "EntryNotFound": "EntryNotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.\n\n| ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``"
+    },
+    "SelectRadioButton": {
+      "name": "Optionsfeld auswählen",
+      "args": {
+        "locator": {
+          "name": "locator",
+          "spec": {
+            "HLabel": "HLabel",
+            "VLabel": "VLabel",
+            "HLabelVLabel": "HLabelVLabel"
+          }
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Das angegebene Optionsfeld wird ausgewählt.\n\n*Optionsfeld mit einer Beschriftung links oder rechts*\n| ``Optionsfeld auswählen    Beschriftung``\n*Optionsfeld mit einer Beschriftung oben*\n| ``Optionsfeld auswählen    @ Beschriftung``\n*Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*\n| ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``\n"
+    },
+    "SelectTextField": {
+      "name": "Textfeld markieren",
+      "args": {
+        "locator": {
+          "name": "locator",
+          "spec": {
+            "HLabel": "HLabel",
+            "VLabel": "VLabel",
+            "HLabelVLabel": "HLabelVLabel",
+            "Content": "Content"
+          }
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Das angegebene Textfeld wird markiert.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld markieren    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld markieren    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld markieren    = Inhalt``"
+    },
+    "SelectTextLine": {
+      "name": "Textzeile markieren",
+      "args": {
+        "content": {
+          "name": "content",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die Textzeile mit dem angegebenen Inhalt wird markiert.\n| ``Textzeile markieren    Inhalt``"
+    },
+    "TickCheckBox": {
+      "name": "Formularfeld ankreuzen",
+      "args": {
+        "locator": {
+          "name": "locator",
+          "spec": {
+            "HLabel": "HLabel",
+            "VLabel": "VLabel",
+            "HLabelVLabel": "HLabelVLabel"
+          }
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Das angegebene Formularfeld wird angekreuzt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld ankreuzen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld ankreuzen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``"
+    },
+    "UntickCheckBox": {
+      "name": "Formularfeld abwählen",
+      "args": {
+        "locator": {
+          "name": "locator",
+          "spec": {
+            "HLabel": "HLabel",
+            "VLabel": "VLabel",
+            "HLabelVLabel": "HLabelVLabel"
+          }
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Das angegebene Formularfeld wird abgewählt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld abwählen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld abwählen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``"
+    },
+    "TickCheckBoxCell": {
+      "name": "Tabellenzelle ankreuzen",
+      "args": {
+        "row": {
+          "name": "row",
+          "spec": {}
+        },
+        "column": {
+          "name": "column",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die angegebene Tabellenzelle wird angekreuzt.\n\n| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``"
+    },
+    "GetWindowTitle": {
+      "name": "Fenstertitel auslesen",
+      "args": {},
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Titel des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Titel}    Fenstertitel auslesen``"
+    },
+    "GetWindowText": {
+      "name": "Fenstertext auslesen",
+      "args": {},
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Text des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Text}    Fenstertext auslesen``"
+    }
+  },
+  "specs": {}
+}
