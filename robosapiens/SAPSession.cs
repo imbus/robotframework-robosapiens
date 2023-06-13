@@ -1,7 +1,8 @@
 using sapfewse;
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace RoboSAPiens {
@@ -192,8 +193,18 @@ namespace RoboSAPiens {
             }
         }
 
+        public string toValidFilename(String filename)
+        {
+            var forbiddenChars = new List<char>
+            {
+                '/', '<', '>', ':', '"', '/', '\\', '|', '?', '*'
+            };
+
+            return String.Join("", filename.Where(c => !forbiddenChars.Contains(c)));
+        }
+
         public RobotResult exportForm(string formName, string directory) {
-            var fileName = $"{formName}_{systemName}".Replace("/", "_");
+            var fileName = toValidFilename(formName);
             var formFields = new List<FormField>();
 
             var buttons = window.components.getAllButtons();
