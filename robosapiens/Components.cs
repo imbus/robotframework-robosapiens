@@ -8,6 +8,7 @@ namespace RoboSAPiens {
     public sealed class Components {
         BoxStore boxes = new BoxStore();
         ButtonStore buttons = new ButtonStore();
+        ButtonStore toolbarButtons = new ButtonStore();
         CheckBoxStore checkBoxes = new CheckBoxStore();
         ComboBoxStore comboBoxes = new ComboBoxStore();
         EditableCellStore editableCells = new EditableCellStore();
@@ -103,6 +104,9 @@ namespace RoboSAPiens {
                     tables.add(sapTable);
                     classifyTableCells(sapTable);
                     break;
+                case "GuiToolbar":
+                    classifyToolbar((GuiToolbar)container);
+                    break;
                 default:
                     getWindowComponents(getContainerChildren(container));
                     break;
@@ -139,7 +143,7 @@ namespace RoboSAPiens {
                     classifyGridViewCells(gridView);
                     break;
                 case "Toolbar":
-                    classifyToolbar((GuiToolbarControl)guiShell);
+                    classifyToolbarControl((GuiToolbarControl)guiShell);
                     break;
                 case "Tree":
                     var tree = (GuiTree)guiShell;
@@ -217,13 +221,28 @@ namespace RoboSAPiens {
             }
         }
 
-        void classifyToolbar(GuiToolbarControl toolbar) {
+        void classifyToolbarControl(GuiToolbarControl toolbar) {
             for (int i = 0; i < toolbar.ButtonCount; i++) {
                 switch (toolbar.GetButtonType(i)) {
                     case "Button":
                         var id = toolbar.GetButtonId(i);
                         var tooltip = toolbar.GetButtonTooltip(i);
-                        buttons.add(new SAPToolbarButton(toolbar, id, tooltip));
+                        toolbarButtons.add(new SAPToolbarButton(toolbar, id, tooltip));
+                        break;
+                }
+            }
+        }
+
+        void classifyToolbar(GuiToolbar toolbar) {
+            var toolbarComponents = toolbar.Children;
+
+            for (int i = 0; i < toolbarComponents.Length; i++)
+            {
+                var component = toolbarComponents.ElementAt(i);
+                switch (component.Type)
+                {
+                    case "GuiButton":
+                        toolbarButtons.add(new SAPButton((GuiButton)component));
                         break;
                 }
             }
@@ -365,7 +384,7 @@ namespace RoboSAPiens {
         }
 
         public Button? findButton(ButtonLocator button) {
-            return buttons.get(button.locator);
+            return buttons.get(button.locator) ?? toolbarButtons.get(button.locator);
         }
 
         public Button? findButtonCell(FilledCellLocator cell) {
