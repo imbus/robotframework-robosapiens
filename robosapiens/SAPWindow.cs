@@ -29,12 +29,12 @@ namespace RoboSAPiens {
 
         public string getMessage() {
             if (components.getAllTextFields().Count > 0) {
-                return String.Join(" ", 
+                return String.Join("\n", 
                     components.getAllTextFields().Select(field => field.text));                 
             }
             
             if (components.getAllLabels().Count > 0) {
-                return String.Join(" ", 
+                return String.Join("\n", 
                     components.getAllLabels().Select(label => label.getText()));                 
             }
 
