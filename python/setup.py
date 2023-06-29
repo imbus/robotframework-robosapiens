@@ -37,7 +37,7 @@ setup(
     package_dir={'': 'src'},
     packages=['RoboSAPiens'],
     install_requires=[
-        'robotframework',
+        'robotframework>=5.0.1',
     ],
     python_requires='>=3.7.9'
 )
