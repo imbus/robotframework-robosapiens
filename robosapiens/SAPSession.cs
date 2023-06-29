@@ -264,6 +264,7 @@ namespace RoboSAPiens {
             });
 
             try {
+                Directory.CreateDirectory(directory);
                 var jsonPath = Path.Combine(directory, $"{fileName}.json");
                 JSON.writeFile(jsonPath, JSON.serialize(formFields, typeof(List<FormField>)));
                 var pngPath = Path.Combine(directory, $"{fileName}.png");
