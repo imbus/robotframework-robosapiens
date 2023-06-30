@@ -552,7 +552,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("2178392450", "Fenster aufnehmen"),
       "args": {
         "filepath": {
-          "name": ("1769741420", "Aufnahmenverzeichnis"),
+          "name": ("1769741420", "Dateipfad"),
           "spec": {}
         }
       },
@@ -570,7 +570,7 @@ lib: LocalizedRoboSAPiens = {
           Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.
           | ``Fenster aufnehmen     Dateipfad``
           
-          Dateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.
+          Dateifpad: Der absolute Pfad einer .png Datei.
           """
       )
     },

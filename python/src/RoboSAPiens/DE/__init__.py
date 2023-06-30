@@ -429,15 +429,15 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Fenster aufnehmen') # type: ignore
-    def save_screenshot(self, Aufnahmenverzeichnis: str): # type: ignore
+    def save_screenshot(self, Dateipfad: str): # type: ignore
         """
         Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.
         | ``Fenster aufnehmen     Dateipfad``
         
-        Dateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.
+        Dateifpad: Der absolute Pfad einer .png Datei.
         """
         
-        args = [Aufnahmenverzeichnis]
+        args = [Dateipfad]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
