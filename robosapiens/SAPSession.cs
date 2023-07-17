@@ -220,7 +220,7 @@ namespace RoboSAPiens {
                 var top = button.position.top - window.position.top;
                 var height = bottom - top;
                 var width = right - left;
-                formFields.Add(new FormField(button.text, button.id, left, top, width, height));
+                formFields.Add(new FormField(button.text, "", button.id, left, top, width, height));
             });
 
             labels.ForEach(label => {
@@ -230,7 +230,7 @@ namespace RoboSAPiens {
                 var top = label.position.top - window.position.top;
                 var height = bottom - top;
                 var width = right - left;
-                formFields.Add(new FormField(label.getText(), label.id, left, top, width, height));
+                formFields.Add(new FormField(label.getText(), "", label.id, left, top, width, height));
             });
 
             tableCells.ForEach(cell => {
@@ -240,7 +240,7 @@ namespace RoboSAPiens {
                 var top = cell.position.top - window.position.top;
                 var height = bottom - top;
                 var width = right - left;
-                formFields.Add(new FormField(cell.text, cell.id, left, top, width, height));
+                formFields.Add(new FormField(cell.text, "", cell.id, left, top, width, height));
             });
 
             gridViewCells.ForEach(cell => {
@@ -250,7 +250,7 @@ namespace RoboSAPiens {
                 var top = cell.position.top - window.position.top;
                 var height = bottom - top;
                 var width = right - left;
-                formFields.Add(new FormField(cell.text, cell.columnId, left, top, width, height));
+                formFields.Add(new FormField(cell.text, "", cell.columnId, left, top, width, height));
             });
 
             textFields.ForEach(textField => {
@@ -260,7 +260,11 @@ namespace RoboSAPiens {
                 var top = textField.position.top - window.position.top;
                 var height = bottom - top;
                 var width = right - left;
-                formFields.Add(new FormField(textField.text, textField.id, left, top, width, height));
+
+                var sapLabel = textField.findClosestHorizontalComponent(labels.Cast<ILocatable>().ToList()) as SAPLabel;
+                var label = sapLabel?.getText() ?? "";
+
+                formFields.Add(new FormField(textField.text, label, textField.id, left, top, width, height));
             });
 
             try {

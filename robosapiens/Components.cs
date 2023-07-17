@@ -485,5 +485,5 @@ namespace RoboSAPiens {
         }
     }
 
-    public record FormField(string Text, string Id, int Left, int Top, int Width, int Height);
+    public record FormField(string Text, string Label, string Id, int Left, int Top, int Width, int Height);
 }
