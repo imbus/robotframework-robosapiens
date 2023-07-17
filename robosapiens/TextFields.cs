@@ -5,7 +5,7 @@ using System;
 
 namespace RoboSAPiens {
     public class SAPTextField: ILabeled, ILocatable, ITextElement, IHighlightable {
-        const int maxHorizontalDistance = 20;
+        const int maxHorizontalDistance = 22;
         const int maxVerticalDistance = 20;
         const int overlapTolerance = 3;
 
@@ -59,17 +59,34 @@ namespace RoboSAPiens {
             return text.Equals(content) || text.StartsWith(content);
         }
 
+
+        int distanceBeforeTextField(ILocatable component) {
+            var distance = component.getPosition().right - position.left;
+
+            return distance switch {
+                <= 0 => distance,
+                > 0 => distance - overlapTolerance
+            };
+        }
+
+        int distanceAfterTextField(ILocatable component) {
+            var distance = component.getPosition().left - position.right;
+
+            return distance switch {
+                >= 0 => distance,
+                < 0 => distance + overlapTolerance
+            };
+        }
+
         public ILocatable? findClosestHorizontalComponent(List<ILocatable> components) {
-            var afterTextField = (ILocatable component) => component.getPosition().left - position.right + overlapTolerance;
-            var beforeTextField = (ILocatable component) => component.getPosition().right - position.left - overlapTolerance;
             var horizontalAligned = components.Where(_ => _.getPosition().horizontalAlignedWith(position));
 
             return horizontalAligned
-                    .Where(_ => afterTextField(_) > 0 && afterTextField(_) < maxHorizontalDistance)
-                    .MinBy(afterTextField) ??
+                    .Where(_ => distanceBeforeTextField(_) <= 0 && Math.Abs(distanceBeforeTextField(_)) <= maxHorizontalDistance)
+                    .MaxBy(distanceBeforeTextField) ??
                    horizontalAligned
-                    .Where(_ => beforeTextField(_) < 0 && Math.Abs(beforeTextField(_)) < maxHorizontalDistance)
-                    .MinBy(beforeTextField);
+                    .Where(_ => distanceAfterTextField(_) >= 0 && distanceAfterTextField(_) <= maxHorizontalDistance)
+                    .MinBy(distanceAfterTextField);
         }
 
         public ILocatable? findClosestVerticalComponent(List<ILocatable> components) {
