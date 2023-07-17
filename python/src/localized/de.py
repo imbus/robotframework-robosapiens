@@ -120,6 +120,31 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "ExportSpreadsheet": {
+        "name": ("3046426513", "Tabellenkalkulation exportieren"),
+        "args": {
+            "index": {
+                "name": ("2358225529", "Tabellenindex"),
+                "spec": {}
+            }
+        },
+        "result": {
+            "NoSession": ("2754484086", no_session),
+            "NotFound": ("2133429715", not_found("Keine Tabelle wurde gefunden, welche die Export-Funktion 'Tabellenkalkulation' unterstützt")),
+            "Exception": ("1364348396", exception("Die Export-Funktion 'Tabellenkalkulation' konnte nicht aufgerufen werden")),
+            "Pass": ("2225629927", "Die Export-Funktion 'Tabellenkalkulation' wurde für die Tabelle mit Index {0} aufgerufen")
+        },
+        "doc": (
+            "2824371354", 
+            """
+              Die Export-Funktion 'Tabellenkalkulation' wird für die angegebene Tabelle aufgerufen, falls vorhanden.
+
+              | ``Tabellenkalkulation exportieren   Tabellenindex``
+
+              Tabellenindex: 1, 2,...
+            """
+        )
+    },
     "ExportTree": {
       "name": ("1188312707", "Funktionsbaum exportieren"),
       "args": {

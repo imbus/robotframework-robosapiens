@@ -116,6 +116,28 @@ lib: RoboSAPiens = {
             Close the SAP GUI
             """
         },
+        "ExportSpreadsheet": {
+            "name": "Export Spreadsheet",
+            "args": {
+                "index": {
+                    "name": "table_index",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "Exception": exception("The export function 'Spreadsheet' could not be called"),
+                "NotFound": not_found("No table was found that supports the export function 'Spreadsheet'"),
+                "Pass": "The export function 'Spreadsheet' was successfully called on the table with index {0}."
+            },
+            "doc": """
+            The export function 'Spreadsheet' will be executed for the specified table, if available.
+
+            | ``Export spreadsheet    table_index``
+
+            table_index: 1, 2,...
+            """
+        },
         "ExportTree": {
             "name": "Export Function Tree",
             "args": {

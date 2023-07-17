@@ -39,6 +39,7 @@ namespace RoboSAPiens
                     "ExecuteTransaction" => ExecuteTransaction(args[0]),
                     "ExportForm" => ExportForm(args[0], args[1]),
                     "ExportTree" => ExportTree(args[0]),
+                    "ExportSpreadsheet" => ExportSpreadsheet(args[0]),
                     "FillTableCell" => FillTableCell(args[0], args[1]),
                     "FillTextField" => FillTextField(args[0], args[1]),
                     "GetWindowText" => GetWindowText(),
@@ -360,6 +361,17 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.executeTransaction(T_Code),
                 _ => new Result.ExecuteTransaction.NoSession()
+            };
+        }
+
+        [Keyword("Tabellenkalkulation exportieren"),
+         Doc("Die Export-Funktion 'Tabellenkalkulation' wird für die angegebene Tabelle aufgerufen, falls vorhanden.\n\n" +
+             "| ``Tabellenkalkulation exportieren   Index``\n" + 
+             "Index: 1, 2,...")]
+        public RobotResult ExportSpreadsheet(string index) {
+            return session switch {
+                SAPSession session => session.exportSpreadsheet(index),
+                _ => new Result.ExportSpreadsheet.NoSession()
             };
         }
 

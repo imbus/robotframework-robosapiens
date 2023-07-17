@@ -115,6 +115,9 @@ class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServerSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepathSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsExportspreadsheetArgsIndexSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsOpensapArgsPathSpec(TypedDict):
     ...
 
@@ -248,6 +251,10 @@ class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
 class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
     name: Tuple[Literal['1769741420'], str]
     spec: LocalizedRoboSAPiensKeywordsExporttreeArgsFilepathSpec
+
+class LocalizedRoboSAPiensKeywordsExportspreadsheetArgsIndex(TypedDict):
+    name: Tuple[Literal['2358225529'], str]
+    spec: LocalizedRoboSAPiensKeywordsExportspreadsheetArgsIndexSpec
 
 class LocalizedRoboSAPiensKeywordsOpensapArgsPath(TypedDict):
     name: Tuple[Literal['190089999'], str]
@@ -506,6 +513,15 @@ class LocalizedRoboSAPiensKeywordsExporttreeResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsExporttreeArgs(TypedDict):
     filepath: LocalizedRoboSAPiensKeywordsExporttreeArgsFilepath
 
+class LocalizedRoboSAPiensKeywordsExportspreadsheetResult(TypedDict):
+    NoSession: Tuple[Literal['2754484086'], str]
+    Exception: Tuple[Literal['1364348396'], str]
+    NotFound: Tuple[Literal['2133429715'], str]
+    Pass: Tuple[Literal['2225629927'], str]
+
+class LocalizedRoboSAPiensKeywordsExportspreadsheetArgs(TypedDict):
+    index: LocalizedRoboSAPiensKeywordsExportspreadsheetArgsIndex
+
 class LocalizedRoboSAPiensKeywordsClosesapResult(TypedDict):
     NoSapGui: Tuple[Literal['2987622841'], str]
     Pass: Tuple[Literal['2970606098'], str]
@@ -698,6 +714,12 @@ class LocalizedRoboSAPiensKeywordsExporttree(TypedDict):
     result: LocalizedRoboSAPiensKeywordsExporttreeResult
     doc: Tuple[Literal['4252712479'], str]
 
+class LocalizedRoboSAPiensKeywordsExportspreadsheet(TypedDict):
+    name: Tuple[Literal['3046426513'], str]
+    args: LocalizedRoboSAPiensKeywordsExportspreadsheetArgs
+    result: LocalizedRoboSAPiensKeywordsExportspreadsheetResult
+    doc: Tuple[Literal['2824371354'], str]
+
 class LocalizedRoboSAPiensKeywordsClosesap(TypedDict):
     name: Tuple[Literal['1795765665'], str]
     args: LocalizedRoboSAPiensKeywordsClosesapArgs
@@ -735,6 +757,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     OpenSap: LocalizedRoboSAPiensKeywordsOpensap
     CloseConnection: LocalizedRoboSAPiensKeywordsCloseconnection
     CloseSap: LocalizedRoboSAPiensKeywordsClosesap
+    ExportSpreadsheet: LocalizedRoboSAPiensKeywordsExportspreadsheet
     ExportTree: LocalizedRoboSAPiensKeywordsExporttree
     AttachToRunningSap: LocalizedRoboSAPiensKeywordsAttachtorunningsap
     ConnectToServer: LocalizedRoboSAPiensKeywordsConnecttoserver

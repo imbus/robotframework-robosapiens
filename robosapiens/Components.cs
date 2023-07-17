@@ -20,6 +20,7 @@ namespace RoboSAPiens {
         SAPStatusbar? statusBar = null;
         TabStore tabs = new TabStore();
         TableStore tables = new TableStore();
+        GridViewStore gridViews = new GridViewStore();
         SAPTree? tree = null;
         private GuiSession session;
 
@@ -139,6 +140,7 @@ namespace RoboSAPiens {
             switch (guiShell.SubType) {
                 case "GridView":
                     var gridView = (GuiGridView)guiShell;
+                    gridViews.add(new SAPGridView(gridView));
                     classifyGridViewToolbar(gridView);
                     classifyGridViewCells(gridView);
                     break;
@@ -478,6 +480,10 @@ namespace RoboSAPiens {
 
         public SAPStatusbar? getStatusBar() {
             return this.statusBar;
+        }
+
+        public List<SAPGridView> getGridViews() {
+            return this.gridViews.getAll();
         }
 
         public SAPTree? getTree() {

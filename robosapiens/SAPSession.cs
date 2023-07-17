@@ -203,6 +203,28 @@ namespace RoboSAPiens {
             return String.Join("", filename.Where(c => !forbiddenChars.Contains(c)));
         }
 
+        public RobotResult exportSpreadsheet(string index) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var gridViews = window.components.getGridViews();
+
+            try 
+            {
+                int idx = Int32.Parse(index) - 1;
+
+                if (idx > gridViews.Count - 1) return new Result.ExportSpreadsheet.NotFound();
+
+                gridViews[idx].exportSpreadsheet(session);
+                return new Result.ExportSpreadsheet.Pass();
+            }
+            catch (Exception e) 
+            {
+                return new Result.ExportSpreadsheet.Exception(e);
+            }
+        }
+
         public RobotResult exportForm(string formName, string directory) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
@@ -212,7 +234,6 @@ namespace RoboSAPiens {
             var formFields = new List<FormField>();
 
             var buttons = window.components.getAllButtons();
-            var gridViewCells = window.components.getAllGridViewCells();
             var labels = window.components.getAllLabels();
             var tableCells = window.components.getAllTableCells();
             var textFields = window.components.getAllTextFields();
@@ -245,16 +266,6 @@ namespace RoboSAPiens {
                 var height = bottom - top;
                 var width = right - left;
                 formFields.Add(new FormField(cell.text, "", cell.id, left, top, width, height));
-            });
-
-            gridViewCells.ForEach(cell => {
-                var bottom = cell.position.bottom - window.position.top;
-                var left = cell.position.left - window.position.left;
-                var right = cell.position.right - window.position.left;
-                var top = cell.position.top - window.position.top;
-                var height = bottom - top;
-                var width = right - left;
-                formFields.Add(new FormField(cell.text, "", cell.columnId, left, top, width, height));
             });
 
             textFields.ForEach(textField => {

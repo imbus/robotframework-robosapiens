@@ -96,6 +96,9 @@ class RoboSAPiensKeywordsExportformArgsDirectorySpec(TypedDict):
 class RoboSAPiensKeywordsExportformArgsNameSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsExportspreadsheetArgsIndexSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec(TypedDict):
     ...
 
@@ -223,6 +226,10 @@ class RoboSAPiensKeywordsExportformArgsDirectory(TypedDict):
 class RoboSAPiensKeywordsExportformArgsName(TypedDict):
     name: str
     spec: RoboSAPiensKeywordsExportformArgsNameSpec
+
+class RoboSAPiensKeywordsExportspreadsheetArgsIndex(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsExportspreadsheetArgsIndexSpec
 
 class RoboSAPiensKeywordsExecutetransactionArgsT_Code(TypedDict):
     name: str
@@ -447,6 +454,15 @@ class RoboSAPiensKeywordsExportformArgs(TypedDict):
     a1name: RoboSAPiensKeywordsExportformArgsName
     a2directory: RoboSAPiensKeywordsExportformArgsDirectory
 
+class RoboSAPiensKeywordsExportspreadsheetResult(TypedDict):
+    NoSession: str
+    Pass: str
+    Exception: str
+    NotFound: str
+
+class RoboSAPiensKeywordsExportspreadsheetArgs(TypedDict):
+    index: RoboSAPiensKeywordsExportspreadsheetArgsIndex
+
 class RoboSAPiensKeywordsExecutetransactionResult(TypedDict):
     NoSession: str
     Pass: str
@@ -661,6 +677,12 @@ class RoboSAPiensKeywordsExportform(TypedDict):
     result: RoboSAPiensKeywordsExportformResult
     doc: str
 
+class RoboSAPiensKeywordsExportspreadsheet(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsExportspreadsheetArgs
+    result: RoboSAPiensKeywordsExportspreadsheetResult
+    doc: str
+
 class RoboSAPiensKeywordsExecutetransaction(TypedDict):
     name: str
     args: RoboSAPiensKeywordsExecutetransactionArgs
@@ -740,6 +762,7 @@ class RoboSAPiensKeywords(TypedDict):
     DoubleClickCell: RoboSAPiensKeywordsDoubleclickcell
     DoubleClickTextField: RoboSAPiensKeywordsDoubleclicktextfield
     ExecuteTransaction: RoboSAPiensKeywordsExecutetransaction
+    ExportSpreadsheet: RoboSAPiensKeywordsExportspreadsheet
     ExportForm: RoboSAPiensKeywordsExportform
     FillTableCell: RoboSAPiensKeywordsFilltablecell
     FillTextField: RoboSAPiensKeywordsFilltextfield

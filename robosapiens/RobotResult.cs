@@ -144,6 +144,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Maske konnte nicht exportiert werden.");
         }
 
+        public record ExportSpreadsheet {
+            public record NoSession(): RobotResult.NoSession();
+            public record Pass(): RobotResult.RobotPass("Die Export-Funktion Tabellenkalkulation wurde aufgerufen.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Export-Funktion Tabellenkalkulation konnte nicht aufgerufen werden.");
+            public record NotFound(): RobotResult.NotFound("Keine Tabelle wurde gefunden, welche die Export-Funktion Tabellenkalkulation unterstützt.");
+        }
+
         public record FillTableCell {
             public record NoSession(): RobotResult.NoSession();
             public record InvalidFormat(): RobotResult.RobotFail("InvalidFormat", "Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen");

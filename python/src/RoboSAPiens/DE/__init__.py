@@ -96,6 +96,27 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('CloseSap', args, result) # type: ignore
     
 
+    @keyword('Tabellenkalkulation exportieren') # type: ignore
+    def export_spreadsheet(self, Tabellenindex: str): # type: ignore
+        """
+        Die Export-Funktion 'Tabellenkalkulation' wird für die angegebene Tabelle aufgerufen, falls vorhanden.
+        
+        | ``Tabellenkalkulation exportieren   Tabellenindex``
+        
+        Tabellenindex: 1, 2,...
+        """
+        
+        args = [Tabellenindex]
+        
+        result = {
+            "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+            "NotFound": "Keine Tabelle wurde gefunden, welche die Export-Funktion 'Tabellenkalkulation' unterstützt\nHinweis: Prüfe die Rechtschreibung",
+            "Exception": "Die Export-Funktion 'Tabellenkalkulation' konnte nicht aufgerufen werden\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
+            "Pass": "Die Export-Funktion 'Tabellenkalkulation' wurde für die Tabelle mit Index {0} aufgerufen"
+        }
+        return super()._run_keyword('ExportSpreadsheet', args, result) # type: ignore
+    
+
     @keyword('Funktionsbaum exportieren') # type: ignore
     def export_tree(self, Dateipfad: str): # type: ignore
         """

@@ -63,6 +63,8 @@ namespace RoboSAPiens {
 
     public sealed class BoxStore: ContainerRepository<SAPBox> {}
 
+    public sealed class GridViewStore: Repository<SAPGridView> {}
+
     public sealed class TabStore: ContainerRepository<SAPTab> {}
 
     public sealed class TableStore: Repository<SAPTable> {}

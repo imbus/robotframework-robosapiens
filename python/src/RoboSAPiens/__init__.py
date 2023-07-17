@@ -99,6 +99,27 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('CloseSap', args, result) # type: ignore
     
 
+    @keyword('Export Spreadsheet') # type: ignore
+    def export_spreadsheet(self, table_index: str): # type: ignore
+        """
+        The export function 'Spreadsheet' will be executed for the specified table, if available.
+        
+        | ``Export spreadsheet    table_index``
+        
+        table_index: 1, 2,...
+        """
+        
+        args = [table_index]
+        
+        result = {
+            "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
+            "Exception": "The export function 'Spreadsheet' could not be called\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "NotFound": "No table was found that supports the export function 'Spreadsheet' Hint: Check the spelling",
+            "Pass": "The export function 'Spreadsheet' was successfully called on the table with index {0}."
+        }
+        return super()._run_keyword('ExportSpreadsheet', args, result) # type: ignore
+    
+
     @keyword('Export Function Tree') # type: ignore
     def export_tree(self, filepath: str): # type: ignore
         """

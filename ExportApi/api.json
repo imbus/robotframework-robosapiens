@@ -163,6 +163,22 @@
       },
       "doc": "Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n| ``Transaktion ausführen    T-Code``"
     },
+    "ExportSpreadsheet": {
+      "name": "Tabellenkalkulation exportieren",
+      "args": {
+        "index": {
+          "name": "index",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception",
+        "NotFound": "NotFound"
+      },
+      "doc": "Die Export-Funktion 'Tabellenkalkulation' wird für die angegebene Tabelle aufgerufen, falls vorhanden.\n\n| ``Tabellenkalkulation exportieren   Index``\nIndex: 1, 2,..."
+    },
     "ExportForm": {
       "name": "Maske exportieren",
       "args": {
