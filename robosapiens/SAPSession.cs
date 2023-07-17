@@ -204,6 +204,10 @@ namespace RoboSAPiens {
         }
 
         public RobotResult exportForm(string formName, string directory) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
             var fileName = toValidFilename(formName);
             var formFields = new List<FormField>();
 
