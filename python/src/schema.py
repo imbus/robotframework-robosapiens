@@ -404,6 +404,15 @@ class RoboSAPiensKeywordsPushbuttoncellArgs(TypedDict):
     a1row_or_label: RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label
     a2column: RoboSAPiensKeywordsPushbuttoncellArgsColumn
 
+class RoboSAPiensKeywordsReadstatusbarResult(TypedDict):
+    NoSession: str
+    Pass: str
+    Exception: str
+    NotFound: str
+
+class RoboSAPiensKeywordsReadstatusbarArgs(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsHighlightbuttonResult(TypedDict):
     NoSession: str
     NotFound: str
@@ -647,6 +656,12 @@ class RoboSAPiensKeywordsPushbuttoncell(TypedDict):
     result: RoboSAPiensKeywordsPushbuttoncellResult
     doc: str
 
+class RoboSAPiensKeywordsReadstatusbar(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsReadstatusbarArgs
+    result: RoboSAPiensKeywordsReadstatusbarResult
+    doc: str
+
 class RoboSAPiensKeywordsHighlightbutton(TypedDict):
     name: str
     args: RoboSAPiensKeywordsHighlightbuttonArgs
@@ -768,6 +783,7 @@ class RoboSAPiensKeywords(TypedDict):
     FillTextField: RoboSAPiensKeywordsFilltextfield
     PushButton: RoboSAPiensKeywordsPushbutton
     HighlightButton: RoboSAPiensKeywordsHighlightbutton
+    ReadStatusbar: RoboSAPiensKeywordsReadstatusbar
     PushButtonCell: RoboSAPiensKeywordsPushbuttoncell
     ReadTextField: RoboSAPiensKeywordsReadtextfield
     ReadText: RoboSAPiensKeywordsReadtext

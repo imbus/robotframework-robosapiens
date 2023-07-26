@@ -48,6 +48,7 @@ namespace RoboSAPiens
                     "OpenSap" => OpenSap(args[0]),
                     "PushButton" => PushButton(args[0]),
                     "PushButtonCell" => PushButtonCell(args[0], args[1]),
+                    "ReadStatusbar" => ReadStatusbar(),
                     "ReadTableCell" => ReadTableCell(args[0], args[1]),
                     "ReadText" => ReadText(args[0]),
                     "ReadTextField" => ReadTextField(args[0]),
@@ -439,6 +440,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.highlightButton(button),
                 _ => new Result.HighlightButton.NoSession()
+            };
+        }
+
+        [Keyword("Statusleiste auslesen"),
+         Doc("Die Statusleiste wird ausgelesen.\n\n" +
+             "| ``Statusleiste auslesen``")]
+        public RobotResult ReadStatusbar() {
+            return session switch {
+                SAPSession session => session.readStatusbar(),
+                _ => new Result.ReadStatusbar.NoSession()
             };
         }
 

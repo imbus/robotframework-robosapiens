@@ -282,6 +282,17 @@
       },
       "doc": "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.\n\n| ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``"
     },
+    "ReadStatusbar": {
+      "name": "Statusleiste auslesen",
+      "args": {},
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception",
+        "NotFound": "NotFound"
+      },
+      "doc": "Die Statusleiste wird ausgelesen.\n\n| ``Statusleiste auslesen``"
+    },
     "PushButtonCell": {
       "name": "Tabellenzelle drücken",
       "args": {

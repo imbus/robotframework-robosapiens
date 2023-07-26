@@ -127,7 +127,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "Exception": exception("The export function 'Spreadsheet' could not be called"),
-                "NotFound": not_found("No table was found that supports the export function 'Spreadsheet'"),
+                "NotFound": "No table was found that supports the export function 'Spreadsheet'",
                 "Pass": "The export function 'Spreadsheet' was successfully called on the table with index {0}."
             },
             "doc": """
@@ -431,6 +431,21 @@ lib: RoboSAPiens = {
             | ``Push Button Cell     row_locator     column``
             
             row_locator: Row number, label or tooltip.
+            """
+        },
+        "ReadStatusbar": {
+            "name": "Read Statusbar",
+            "args": {},
+            "result": {
+                "NoSession": no_session,
+                "NotFound": "No statusbar was found.",
+                "Pass": "The statusbar was read.",
+                "Exception": exception("The statusbar could not be read")
+            },
+            "doc": """
+            Read the message in the statusbar.
+
+            | ``Read Statusbar``
             """
         },
         "ReadTextField": {

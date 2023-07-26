@@ -395,6 +395,15 @@ class LocalizedRoboSAPiensKeywordsReadtextfieldResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsReadtextfieldArgs(TypedDict):
     locator: LocalizedRoboSAPiensKeywordsReadtextfieldArgsLocator
 
+class LocalizedRoboSAPiensKeywordsReadstatusbarResult(TypedDict):
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2342000252'], str]
+    Pass: Tuple[Literal['1105532895'], str]
+    Exception: Tuple[Literal['803476123'], str]
+
+class LocalizedRoboSAPiensKeywordsReadstatusbarArgs(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsPushbuttoncellResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
     NotFound: Tuple[Literal['2199892932'], str]
@@ -516,7 +525,7 @@ class LocalizedRoboSAPiensKeywordsExporttreeArgs(TypedDict):
 class LocalizedRoboSAPiensKeywordsExportspreadsheetResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
     Exception: Tuple[Literal['1364348396'], str]
-    NotFound: Tuple[Literal['2133429715'], str]
+    NotFound: Tuple[Literal['275602004'], str]
     Pass: Tuple[Literal['2225629927'], str]
 
 class LocalizedRoboSAPiensKeywordsExportspreadsheetArgs(TypedDict):
@@ -641,6 +650,12 @@ class LocalizedRoboSAPiensKeywordsReadtextfield(TypedDict):
     args: LocalizedRoboSAPiensKeywordsReadtextfieldArgs
     result: LocalizedRoboSAPiensKeywordsReadtextfieldResult
     doc: Tuple[Literal['3457248680'], str]
+
+class LocalizedRoboSAPiensKeywordsReadstatusbar(TypedDict):
+    name: Tuple[Literal['118752925'], str]
+    args: LocalizedRoboSAPiensKeywordsReadstatusbarArgs
+    result: LocalizedRoboSAPiensKeywordsReadstatusbarResult
+    doc: Tuple[Literal['3222829205'], str]
 
 class LocalizedRoboSAPiensKeywordsPushbuttoncell(TypedDict):
     name: Tuple[Literal['349686496'], str]
@@ -770,6 +785,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     HighlightButton: LocalizedRoboSAPiensKeywordsHighlightbutton
     PushButton: LocalizedRoboSAPiensKeywordsPushbutton
     PushButtonCell: LocalizedRoboSAPiensKeywordsPushbuttoncell
+    ReadStatusbar: LocalizedRoboSAPiensKeywordsReadstatusbar
     ReadTextField: LocalizedRoboSAPiensKeywordsReadtextfield
     ReadText: LocalizedRoboSAPiensKeywordsReadtext
     ReadTableCell: LocalizedRoboSAPiensKeywordsReadtablecell

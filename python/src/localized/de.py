@@ -130,7 +130,7 @@ lib: LocalizedRoboSAPiens = {
         },
         "result": {
             "NoSession": ("2754484086", no_session),
-            "NotFound": ("2133429715", not_found("Keine Tabelle wurde gefunden, welche die Export-Funktion 'Tabellenkalkulation' unterstützt")),
+            "NotFound": ("275602004", not_found("Keine Tabelle wurde gefunden, welche die Export-Funktion 'Tabellenkalkulation' unterstützt")),
             "Exception": ("1364348396", exception("Die Export-Funktion 'Tabellenkalkulation' konnte nicht aufgerufen werden")),
             "Pass": ("2225629927", "Die Export-Funktion 'Tabellenkalkulation' wurde für die Tabelle mit Index {0} aufgerufen")
         },
@@ -784,6 +784,21 @@ lib: LocalizedRoboSAPiens = {
           | ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``
           """
       )
+    },
+    "ReadStatusbar": {
+        "name": ("118752925", "Statusleiste auslesen"),
+        "args": {},
+        "result": {
+            "NoSession": ("2754484086", no_session),
+            "NotFound": ("2342000252", "Keine Statusleiste gefunden."),
+            "Exception": ("803476123", exception("Die Statusleiste konnte nicht ausgelesen werden.")),
+            "Pass": ("1105532895", "Die Statusleiste wurde ausgelesen.")
+        },
+        "doc": ("3222829205", """
+          Die Nachricht der Statusleiste wird ausgelesen.
+          
+          ``Statusleiste auslesen``
+         """)
     },
     "UntickCheckBox": {
       "name": ("47381427", "Formularfeld abwählen"),

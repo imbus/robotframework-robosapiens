@@ -612,6 +612,25 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('TickCheckBox', args, result) # type: ignore
     
 
+    @keyword('Statusleiste auslesen') # type: ignore
+    def read_statusbar(self): # type: ignore
+        """
+        Die Nachricht der Statusleiste wird ausgelesen.
+        
+        ``Statusleiste auslesen``
+        """
+        
+        args = []
+        
+        result = {
+            "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+            "NotFound": "Keine Statusleiste gefunden.",
+            "Exception": "Die Statusleiste konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
+            "Pass": "Die Statusleiste wurde ausgelesen."
+        }
+        return super()._run_keyword('ReadStatusbar', args, result) # type: ignore
+    
+
     @keyword('Formularfeld abwählen') # type: ignore
     def untick_check_box(self, Beschriftung_oder_Lokator: str): # type: ignore
         """
@@ -693,4 +712,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.5'
+    ROBOT_LIBRARY_VERSION = '1.2.6'

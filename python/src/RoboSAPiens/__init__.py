@@ -114,7 +114,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "Exception": "The export function 'Spreadsheet' could not be called\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
-            "NotFound": "No table was found that supports the export function 'Spreadsheet' Hint: Check the spelling",
+            "NotFound": "No table was found that supports the export function 'Spreadsheet'",
             "Pass": "The export function 'Spreadsheet' was successfully called on the table with index {0}."
         }
         return super()._run_keyword('ExportSpreadsheet', args, result) # type: ignore
@@ -377,6 +377,25 @@ class RoboSAPiens(RoboSAPiensClient):
             "Exception": "The button cell could not be pushed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('PushButtonCell', args, result) # type: ignore
+    
+
+    @keyword('Read Statusbar') # type: ignore
+    def read_statusbar(self): # type: ignore
+        """
+        Read the message in the statusbar.
+        
+        | ``Read Statusbar``
+        """
+        
+        args = []
+        
+        result = {
+            "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
+            "NotFound": "No statusbar was found.",
+            "Pass": "The statusbar was read.",
+            "Exception": "The statusbar could not be read\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('ReadStatusbar', args, result) # type: ignore
     
 
     @keyword('Read Text Field') # type: ignore
@@ -697,4 +716,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.5'
+    ROBOT_LIBRARY_VERSION = '1.2.6'

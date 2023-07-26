@@ -43,7 +43,9 @@ namespace RoboSAPiens {
         }
 
         public string getMessage() {
-            return message;
+            if (messageType == MessageType.Empty) return "";
+
+            return $"{messageType} | {message}";
         }
     }
 }

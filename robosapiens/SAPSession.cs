@@ -100,11 +100,6 @@ namespace RoboSAPiens {
             try {
                 tab.select(session);
 
-                switch (getStatusbarError()) {
-                    case string sapError:
-                        return new Result.ActivateTab.SapError(sapError);
-                }
-
                 switch (updateWindow(updateComponents: true)) {
                     case RobotResult.UIScanFail exceptionError:
                         return exceptionError;
@@ -481,6 +476,22 @@ namespace RoboSAPiens {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new Result.PushButtonCell.Exception(e);
             }
+        }
+
+        public RobotResult readStatusbar() {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var statusbar = window.components.getStatusBar();
+
+            if (statusbar == null) {
+                return new Result.ReadStatusbar.NotFound();
+            }
+
+            statusbar = new SAPStatusbar((GuiStatusbar)session.FindById(statusbar.id));
+
+            return new Result.ReadStatusbar.Pass(statusbar.getMessage());
         }
 
         public RobotResult readTableCell(string rowNumberOrButtonLabel, string column) {

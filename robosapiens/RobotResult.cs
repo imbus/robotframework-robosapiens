@@ -189,6 +189,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht gedrückt werden.");
         }
 
+        public record ReadStatusbar {
+            public record NoSession(): RobotResult.NoSession();
+            public record Pass(string message): RobotResult.RobotPass("Die Statusleiste wurde ausgelesen.", returnValue: message);
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Statusleiste konnte nicht ausgelesen werden.");
+            public record NotFound(): RobotResult.NotFound("Die Maske enthält keine Stastusleiste");
+        }
+
         public record ReadTextField {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
