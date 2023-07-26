@@ -642,6 +642,26 @@ lib: RoboSAPiens = {
             | ``Select Radio Button    left or right label @ label above``
             """
         },
+        "SelectTableRow": {
+            "name": "Select Row",
+            "args": {
+                "row_number": {
+                    "name": "row_number",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "Exception": exception("The row with index '{0}' could not be selected"),
+                "NotFound": "The table contains no row with index '{0}'",
+                "Pass": "The row with index '{0}' was selected"
+            },
+            "doc": """
+            Select the row with the given index
+
+            ``Select Row    row_number``
+            """
+        },
         "SelectTextField": {
             "name": "Select Text Field",
             "args": {

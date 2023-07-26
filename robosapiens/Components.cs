@@ -486,6 +486,10 @@ namespace RoboSAPiens {
             return this.gridViews.getAll();
         }
 
+        public List<SAPTable> getTables(){
+            return this.tables.getAll();
+        }
+
         public SAPTree? getTree() {
             return this.tree;
         }

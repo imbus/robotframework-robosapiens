@@ -249,6 +249,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Optionsfeld konnte nicht ausgewählt werden.");
         }
 
+        public record SelectTableRow {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(): RobotResult.NotFound("Die Maske enthält keine Tabelle");
+            public record Pass(int rowIndex): RobotResult.RobotPass($"Die Zeile mit dem Index '{rowIndex}' wurde markiert");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zeile konnte nicht markiert werden.");
+        }
+
         public record SelectTextField {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");

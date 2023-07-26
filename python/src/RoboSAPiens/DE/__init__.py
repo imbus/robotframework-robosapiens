@@ -538,6 +538,25 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
 
+    @keyword('Tabellenzeile markieren') # type: ignore
+    def select_table_row(self, Zeilennummer: str): # type: ignore
+        """
+        Die angegebene Zeile wird markiert.
+        
+        ``Tabellenzeile markieren    Zeilennummer``
+        """
+        
+        args = [Zeilennummer]
+        
+        result = {
+            "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+            "Exception": "Die Zeile '{0}' konnte nicht markiert werden\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
+            "NotFound": "Die Tabelle enthält keine Zeile '{0}'",
+            "Pass": "Die Zeile '{0}' wurde markiert"
+        }
+        return super()._run_keyword('SelectTableRow', args, result) # type: ignore
+    
+
     @keyword('Textfeld markieren') # type: ignore
     def select_text_field(self, Beschriftungen_oder_Lokator: str): # type: ignore
         """
@@ -712,4 +731,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.6'
+    ROBOT_LIBRARY_VERSION = '1.2.7'

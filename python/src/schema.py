@@ -61,6 +61,9 @@ class RoboSAPiensKeywordsReadtextfieldArgsLocatorSpec(TypedDict):
     HLabelVLabel: str
     Content: str
 
+class RoboSAPiensKeywordsSelecttablerowArgsRow_NumberSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsPushbuttoncellArgsColumnSpec(TypedDict):
     ...
 
@@ -186,6 +189,10 @@ class RoboSAPiensKeywordsReadtextArgsLocator(TypedDict):
 class RoboSAPiensKeywordsReadtextfieldArgsLocator(TypedDict):
     name: str
     spec: RoboSAPiensKeywordsReadtextfieldArgsLocatorSpec
+
+class RoboSAPiensKeywordsSelecttablerowArgsRow_Number(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsSelecttablerowArgsRow_NumberSpec
 
 class RoboSAPiensKeywordsPushbuttoncellArgsColumn(TypedDict):
     name: str
@@ -393,6 +400,15 @@ class RoboSAPiensKeywordsReadtextfieldResult(TypedDict):
 
 class RoboSAPiensKeywordsReadtextfieldArgs(TypedDict):
     locator: RoboSAPiensKeywordsReadtextfieldArgsLocator
+
+class RoboSAPiensKeywordsSelecttablerowResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsSelecttablerowArgs(TypedDict):
+    row_number: RoboSAPiensKeywordsSelecttablerowArgsRow_Number
 
 class RoboSAPiensKeywordsPushbuttoncellResult(TypedDict):
     NoSession: str
@@ -650,6 +666,12 @@ class RoboSAPiensKeywordsReadtextfield(TypedDict):
     result: RoboSAPiensKeywordsReadtextfieldResult
     doc: str
 
+class RoboSAPiensKeywordsSelecttablerow(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsSelecttablerowArgs
+    result: RoboSAPiensKeywordsSelecttablerowResult
+    doc: str
+
 class RoboSAPiensKeywordsPushbuttoncell(TypedDict):
     name: str
     args: RoboSAPiensKeywordsPushbuttoncellArgs
@@ -785,6 +807,7 @@ class RoboSAPiensKeywords(TypedDict):
     HighlightButton: RoboSAPiensKeywordsHighlightbutton
     ReadStatusbar: RoboSAPiensKeywordsReadstatusbar
     PushButtonCell: RoboSAPiensKeywordsPushbuttoncell
+    SelectTableRow: RoboSAPiensKeywordsSelecttablerow
     ReadTextField: RoboSAPiensKeywordsReadtextfield
     ReadText: RoboSAPiensKeywordsReadtext
     ReadTableCell: RoboSAPiensKeywordsReadtablecell

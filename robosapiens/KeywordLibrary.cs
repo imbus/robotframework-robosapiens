@@ -56,6 +56,7 @@ namespace RoboSAPiens
                     "SelectCell" => SelectCell(args[0], args[1]),
                     "SelectComboBoxEntry" => SelectComboBoxEntry(args[0], args[1]),
                     "SelectRadioButton" => SelectRadioButton(args[0]),
+                    "SelectTableRow" => SelectTableRow(args[0]),
                     "SelectTextField" => SelectTextField(args[0]),
                     "SelectTextLine" => SelectTextLine(args[0]),
                     "TickCheckBox" => TickCheckBox(args[0]),
@@ -461,6 +462,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.pushButtonCell(row_or_label, column),
                 _ => new Result.PushButtonCell.NoSession()
+            };
+        }
+
+        [Keyword("Tabellenzeile markieren"),
+         Doc("Die angegebene Tabellenzeile wird markiert.\n\n" +
+             "| ``Tabellenzeile markieren     Zeilennummer``")]
+        public RobotResult SelectTableRow(string row_number) {
+            return session switch {
+                SAPSession session => session.selectTableRow(row_number),
+                _ => new Result.SelectTableRow.NoSession()
             };
         }
 

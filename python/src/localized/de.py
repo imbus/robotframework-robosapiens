@@ -690,6 +690,26 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "SelectTableRow": {
+      "name": ("2561391244", "Tabellenzeile markieren"),
+      "args": {
+          "row_number": {
+              "name": ("3333868678", "Zeilennummer"),
+              "spec": {}
+          }
+      },
+      "result": {
+          "NoSession": ("2754484086", no_session),
+          "Exception": ("2370701678", exception("Die Zeile '{0}' konnte nicht markiert werden")),
+          "NotFound": ("2402373821", "Die Tabelle enthält keine Zeile '{0}'"),
+          "Pass": ("1473660338", "Die Zeile '{0}' wurde markiert")
+      },
+      "doc": ("3522340432", """
+        Die angegebene Zeile wird markiert.
+              
+        ``Tabellenzeile markieren    Zeilennummer``
+        """)
+    },
     "SelectTextField": {
       "name": ("335907869", "Textfeld markieren"),
       "args": {

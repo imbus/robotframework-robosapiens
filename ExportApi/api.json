@@ -313,6 +313,22 @@
       },
       "doc": "Die angegebene Tabellenzelle wird gedrückt.\n\n| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip)."
     },
+    "SelectTableRow": {
+      "name": "Tabellenzeile markieren",
+      "args": {
+        "row_number": {
+          "name": "row_number",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die angegebene Tabellenzeile wird markiert.\n\n| ``Tabellenzeile markieren     Zeilennummer``"
+    },
     "ReadTextField": {
       "name": "Textfeld auslesen",
       "args": {

@@ -561,6 +561,25 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
 
+    @keyword('Select Row') # type: ignore
+    def select_table_row(self, row_number: str): # type: ignore
+        """
+        Select the row with the given index
+        
+        ``Select Row    row_number``
+        """
+        
+        args = [row_number]
+        
+        result = {
+            "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
+            "Exception": "The row with index '{0}' could not be selected\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "NotFound": "The table contains no row with index '{0}'",
+            "Pass": "The row with index '{0}' was selected"
+        }
+        return super()._run_keyword('SelectTableRow', args, result) # type: ignore
+    
+
     @keyword('Select Text Field') # type: ignore
     def select_text_field(self, locator: str): # type: ignore
         """
@@ -716,4 +735,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.6'
+    ROBOT_LIBRARY_VERSION = '1.2.7'

@@ -26,6 +26,9 @@ class LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec(TypedDict):
     HLabelVLabel: Tuple[Literal['1999142431'], str]
     Content: Tuple[Literal['880934240'], str]
 
+class LocalizedRoboSAPiensKeywordsSelecttablerowArgsRow_NumberSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsLocatorSpec(TypedDict):
     HLabel: Tuple[Literal['4229670492'], str]
     VLabel: Tuple[Literal['474824962'], str]
@@ -147,6 +150,10 @@ class LocalizedRoboSAPiensKeywordsSelecttextlineArgsContent(TypedDict):
 class LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocator(TypedDict):
     name: Tuple[Literal['2051440239'], str]
     spec: LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec
+
+class LocalizedRoboSAPiensKeywordsSelecttablerowArgsRow_Number(TypedDict):
+    name: Tuple[Literal['3333868678'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelecttablerowArgsRow_NumberSpec
 
 class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsLocator(TypedDict):
     name: Tuple[Literal['2051440239'], str]
@@ -325,6 +332,15 @@ class LocalizedRoboSAPiensKeywordsSelecttextfieldResult(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelecttextfieldArgs(TypedDict):
     locator: LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocator
+
+class LocalizedRoboSAPiensKeywordsSelecttablerowResult(TypedDict):
+    NoSession: Tuple[Literal['2754484086'], str]
+    Exception: Tuple[Literal['2370701678'], str]
+    NotFound: Tuple[Literal['2402373821'], str]
+    Pass: Tuple[Literal['1473660338'], str]
+
+class LocalizedRoboSAPiensKeywordsSelecttablerowArgs(TypedDict):
+    row_number: LocalizedRoboSAPiensKeywordsSelecttablerowArgsRow_Number
 
 class LocalizedRoboSAPiensKeywordsSelectradiobuttonResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
@@ -609,6 +625,12 @@ class LocalizedRoboSAPiensKeywordsSelecttextfield(TypedDict):
     result: LocalizedRoboSAPiensKeywordsSelecttextfieldResult
     doc: Tuple[Literal['1350596231'], str]
 
+class LocalizedRoboSAPiensKeywordsSelecttablerow(TypedDict):
+    name: Tuple[Literal['2561391244'], str]
+    args: LocalizedRoboSAPiensKeywordsSelecttablerowArgs
+    result: LocalizedRoboSAPiensKeywordsSelecttablerowResult
+    doc: Tuple[Literal['3522340432'], str]
+
 class LocalizedRoboSAPiensKeywordsSelectradiobutton(TypedDict):
     name: Tuple[Literal['2985728785'], str]
     args: LocalizedRoboSAPiensKeywordsSelectradiobuttonArgs
@@ -793,6 +815,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     SelectCell: LocalizedRoboSAPiensKeywordsSelectcell
     SelectComboBoxEntry: LocalizedRoboSAPiensKeywordsSelectcomboboxentry
     SelectRadioButton: LocalizedRoboSAPiensKeywordsSelectradiobutton
+    SelectTableRow: LocalizedRoboSAPiensKeywordsSelecttablerow
     SelectTextField: LocalizedRoboSAPiensKeywordsSelecttextfield
     SelectTextLine: LocalizedRoboSAPiensKeywordsSelecttextline
     TickCheckBox: LocalizedRoboSAPiensKeywordsTickcheckbox

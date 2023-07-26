@@ -655,6 +655,28 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult selectTableRow(string rowIndex) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var tables = window.components.getTables();
+
+            if (tables.Count() == 0) {
+                return new Result.SelectTableRow.NotFound();
+            }
+
+            try {
+                int intRowIndex = Int32.Parse(rowIndex);
+                tables.First().selectRow(intRowIndex - 1, session);
+                return new Result.SelectTableRow.Pass(intRowIndex);
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.SelectTableRow.Exception(e);
+            }
+        }
+
         public RobotResult selectTextField(string labels) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
