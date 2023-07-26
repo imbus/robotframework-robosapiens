@@ -239,40 +239,40 @@ namespace RoboSAPiens {
             var textFields = window.components.getAllTextFields();
 
             buttons.ForEach(button => {
-                var bottom = button.position.bottom - window.position.top;
-                var left = button.position.left - window.position.left;
-                var right = button.position.right - window.position.left;
-                var top = button.position.top - window.position.top;
+                var bottom = button.position.bottom;
+                var left = button.position.left;
+                var right = button.position.right;
+                var top = button.position.top;
                 var height = bottom - top;
                 var width = right - left;
                 formFields.Add(new FormField(button.text, "", button.id, left, top, width, height));
             });
 
             labels.ForEach(label => {
-                var bottom = label.position.bottom - window.position.top;
-                var left = label.position.left - window.position.left;
-                var right = label.position.right - window.position.left;
-                var top = label.position.top - window.position.top;
+                var bottom = label.position.bottom;
+                var left = label.position.left;
+                var right = label.position.right;
+                var top = label.position.top;
                 var height = bottom - top;
                 var width = right - left;
                 formFields.Add(new FormField(label.getText(), "", label.id, left, top, width, height));
             });
 
             tableCells.ForEach(cell => {
-                var bottom = cell.position.bottom - window.position.top;
-                var left = cell.position.left - window.position.left;
-                var right = cell.position.right - window.position.left;
-                var top = cell.position.top - window.position.top;
+                var bottom = cell.position.bottom;
+                var left = cell.position.left;
+                var right = cell.position.right;
+                var top = cell.position.top;
                 var height = bottom - top;
                 var width = right - left;
                 formFields.Add(new FormField(cell.text, "", cell.id, left, top, width, height));
             });
 
             textFields.ForEach(textField => {
-                var bottom = textField.position.bottom - window.position.top;
-                var left = textField.position.left - window.position.left;
-                var right = textField.position.right - window.position.left;
-                var top = textField.position.top - window.position.top;
+                var bottom = textField.position.bottom;
+                var left = textField.position.left;
+                var right = textField.position.right;
+                var top = textField.position.top;
                 var height = bottom - top;
                 var width = right - left;
 
