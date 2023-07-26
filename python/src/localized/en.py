@@ -643,7 +643,7 @@ lib: RoboSAPiens = {
             """
         },
         "SelectTableRow": {
-            "name": "Select Row",
+            "name": "Select Table Row",
             "args": {
                 "row_number": {
                     "name": "row_number",
@@ -657,9 +657,9 @@ lib: RoboSAPiens = {
                 "Pass": "The row with index '{0}' was selected"
             },
             "doc": """
-            Select the row with the given index
+            Select the specified table row.
 
-            ``Select Row    row_number``
+            | ``Select Table Row    row_number``
             """
         },
         "SelectTextField": {

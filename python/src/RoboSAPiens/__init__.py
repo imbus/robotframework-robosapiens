@@ -561,12 +561,12 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
 
-    @keyword('Select Row') # type: ignore
+    @keyword('Select Table Row') # type: ignore
     def select_table_row(self, row_number: str): # type: ignore
         """
-        Select the row with the given index
+        Select the specified table row.
         
-        ``Select Row    row_number``
+        | ``Select Table Row    row_number``
         """
         
         args = [row_number]

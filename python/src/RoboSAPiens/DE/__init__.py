@@ -541,9 +541,9 @@ class DE(RoboSAPiensClient):
     @keyword('Tabellenzeile markieren') # type: ignore
     def select_table_row(self, Zeilennummer: str): # type: ignore
         """
-        Die angegebene Zeile wird markiert.
+        Die angegebene Tabellenzeile wird markiert.
         
-        ``Tabellenzeile markieren    Zeilennummer``
+        | ``Tabellenzeile markieren    Zeilennummer``
         """
         
         args = [Zeilennummer]

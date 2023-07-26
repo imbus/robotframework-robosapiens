@@ -626,10 +626,10 @@ class LocalizedRoboSAPiensKeywordsSelecttextfield(TypedDict):
     doc: Tuple[Literal['1350596231'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttablerow(TypedDict):
-    name: Tuple[Literal['2561391244'], str]
+    name: Tuple[Literal['1966160675'], str]
     args: LocalizedRoboSAPiensKeywordsSelecttablerowArgs
     result: LocalizedRoboSAPiensKeywordsSelecttablerowResult
-    doc: Tuple[Literal['3522340432'], str]
+    doc: Tuple[Literal['398985647'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectradiobutton(TypedDict):
     name: Tuple[Literal['2985728785'], str]
