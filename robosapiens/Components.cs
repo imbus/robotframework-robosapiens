@@ -95,7 +95,7 @@ namespace RoboSAPiens {
                     classifyGuiShell((GuiShell)container);
                     break;
                 case "GuiStatusbar":
-                    this.statusBar = new SAPStatusbar((GuiStatusbar)container);
+                    statusBar = new SAPStatusbar((GuiStatusbar)container);
                     break;
                 case "GuiTabStrip":
                     getTabStripComponents((GuiTabStrip)container);
@@ -285,51 +285,6 @@ namespace RoboSAPiens {
             }
         }
 
-        List<string> getPaths(GuiTree tree) {
-            GuiCollection nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
-
-            return Enumerable.Range(0, nodeKeys.Count - 1)
-                      .Select(i => (string)nodeKeys.ElementAt(i))
-                      .Select(nodeKey => tree.GetNodePathByKey(nodeKey))
-                      .ToList();
-        }
-
-        string findNodePathByIndex(int itemIndex, GuiTree tree) {
-            var rootNodeKey = tree.TopNode;
-
-            if (tree.GetNodeChildrenCount(rootNodeKey) == 0) {
-                return (itemIndex + 1).ToString();
-            }
-
-            var rootPath = tree.GetNodePathByKey(rootNodeKey);
-            var paths = new Stack<string>();
-            int nodeIndex = -1;
-
-            paths.Push(rootPath);
-
-            while (paths.Count > 0) {
-                var path = paths.Pop();
-                nodeIndex++;
-
-                if (nodeIndex == itemIndex) {
-                    return path;
-                }
-
-                var nodeKey = tree.GetNodeKeyByPath(path);
-                int subNodes = tree.GetNodeChildrenCount(nodeKey);
-
-                if (subNodes > 0) {
-                    for (int i = subNodes; i > 0; i--) {
-                        var localPath = i.ToString();
-                        var absPath = $"{path}\\{localPath}";
-                        paths.Push(absPath);
-                    }
-                }
-            }
-
-            return rootPath;
-        }
-
         GuiComponentCollection getContainerChildren(GuiComponent container) {
             return container.Type switch {
                 "GuiContainerShell" => ((GuiContainerShell)container).Children,
@@ -479,19 +434,19 @@ namespace RoboSAPiens {
         }
 
         public SAPStatusbar? getStatusBar() {
-            return this.statusBar;
+            return statusBar;
         }
 
         public List<SAPGridView> getGridViews() {
-            return this.gridViews.getAll();
+            return gridViews.getAll();
         }
 
         public List<SAPTable> getTables(){
-            return this.tables.getAll();
+            return tables.getAll();
         }
 
         public SAPTree? getTree() {
-            return this.tree;
+            return tree;
         }
     }
 

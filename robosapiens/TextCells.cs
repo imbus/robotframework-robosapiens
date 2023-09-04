@@ -25,7 +25,7 @@ namespace RoboSAPiens {
 
         protected bool inRowOfCell(Cell? cell) {
             return cell switch {
-                Cell => this.rowIndex == cell.rowIndex,
+                Cell => rowIndex == cell.rowIndex,
                 _ => false
             };
         }
@@ -39,8 +39,8 @@ namespace RoboSAPiens {
             base(rowIndex, column: gridView.GetDisplayedColumnTitle(columnId), text: gridView.GetCellValue(rowIndex, columnId)) 
         {
             this.columnId = columnId;
-            this.gridViewId = gridView.Id;
-            this.position = new Position(height: gridView.GetCellHeight(rowIndex, columnId), 
+            gridViewId = gridView.Id;
+            position = new Position(height: gridView.GetCellHeight(rowIndex, columnId), 
                                          left: gridView.GetCellLeft(rowIndex, columnId),
                                          top: gridView.GetCellTop(rowIndex, columnId), 
                                          width: gridView.GetCellWidth(rowIndex, columnId)
@@ -70,7 +70,6 @@ namespace RoboSAPiens {
 
     public sealed class EmptyGridViewCell: SAPGridViewCell, IEditableCell {
         int? maxLength;
-        bool focused;
 
         public EmptyGridViewCell(string columnId, GuiGridView gridView, int rowIndex): 
             base(columnId, gridView, rowIndex) 
@@ -78,10 +77,10 @@ namespace RoboSAPiens {
             try {
                 // Does not work with SAP Logon 7.60 PL 0. It works with 7.60 PL 2.
                 // https://answers.sap.com/questions/13286657/sap-grid-view-control-getcellmaxlength-throw-excep.html
-                this.maxLength = gridView.GetCellMaxLength(rowIndex, columnId);
+                maxLength = gridView.GetCellMaxLength(rowIndex, columnId);
             }
             catch {
-                this.maxLength = null;
+                maxLength = null;
             }
         }
 
@@ -122,8 +121,8 @@ namespace RoboSAPiens {
         public SAPTableCell(string column, int rowIndex, GuiTextField textField, SAPTable table):
             base(rowIndex, column, textField.Text) 
         {
-            this.id = textField.Id;
-            this.position = new Position(height: textField.Height, 
+            id = textField.Id;
+            position = new Position(height: textField.Height, 
                                          left: textField.ScreenLeft,
                                          top: textField.ScreenTop, 
                                          width: textField.Width
@@ -152,7 +151,7 @@ namespace RoboSAPiens {
         public EditableTableCell(string column, int rowIndex, GuiTextField textField, SAPTable table):
             base(column, rowIndex, textField, table) 
         {
-            this.maxLength = textField.MaxLength;
+            maxLength = textField.MaxLength;
         }
 
         public int? getMaxLength() {
@@ -197,12 +196,12 @@ namespace RoboSAPiens {
         {
             this.columnName = columnName;
             this.nodeKey = nodeKey;
-            this.position = new Position(height: tree.GetItemHeight(nodeKey, columnName), 
+            position = new Position(height: tree.GetItemHeight(nodeKey, columnName), 
                                          left: tree.GetItemLeft(nodeKey, columnName),
                                          top: tree.GetItemTop(nodeKey, columnName), 
                                          width: tree.GetItemWidth(nodeKey, columnName)
                                         );
-            this.treeId = tree.Id;
+            treeId = tree.Id;
         }
 
         public bool isLocated(FilledCellLocator locator) {
