@@ -114,7 +114,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public class SAPTableCell: Cell, IFilledCell {
+    public class SAPTableCell: Cell, IDoubleClickable, IFilledCell {
         public string id;
         public SAPTable table;
 
@@ -128,6 +128,12 @@ namespace RoboSAPiens {
                                          width: textField.Width
                                         );
             this.table = table;
+        }
+
+        public void doubleClick(GuiSession session)
+        {
+            select(session);
+            session.ActiveWindow.SendVKey((int)VKey.F2);
         }
 
         public bool isLocated(FilledCellLocator locator) {
@@ -214,8 +220,7 @@ namespace RoboSAPiens {
 
         public void doubleClick(GuiSession session) {
             var tree = (GuiTree)session.FindById(treeId);
-            tree.SelectItem(nodeKey, columnName);
-            tree.DoubleClickItem(nodeKey, columnName);
+            tree.DoubleClickNode(nodeKey);
         }
 
         public override void select(GuiSession session) {
