@@ -164,7 +164,7 @@ namespace RoboSAPiens {
 
             try {
                 textField.select(session);
-                window.pressKey((int)VKey.F2); // Equivalent to double-click
+                window.pressKey((int)VKeys.getKeyCombination("F2")!); // Equivalent to double-click
                 return new Result.DoubleClickTextField.Pass(theTextField.atLocation);
             }
             catch (Exception e) {
@@ -410,6 +410,22 @@ namespace RoboSAPiens {
                     new Result.HighlightButton.Exception(exception),
                 _ => new Result.HighlightButton.Pass(theButton.atLocation)
             };
+        }
+
+        public RobotResult pressKeyCombination(string keyCombination) {
+            int? vkey = VKeys.getKeyCombination(keyCombination);
+            
+            if (vkey == null ) {
+                return new Result.PressKeyCombination.NotFound(keyCombination);
+            }
+            
+            try {
+               window.pressKey((int)vkey!);
+               return new Result.PressKeyCombination.Pass(keyCombination);
+            }
+            catch (Exception ex) {
+                return new Result.PressKeyCombination.Exception(ex);
+            }
         }
 
         public RobotResult pushButton(string label) {

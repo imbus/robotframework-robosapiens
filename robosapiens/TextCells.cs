@@ -133,7 +133,7 @@ namespace RoboSAPiens {
         public void doubleClick(GuiSession session)
         {
             select(session);
-            session.ActiveWindow.SendVKey((int)VKey.F2);
+            session.ActiveWindow.SendVKey((int)VKeys.getKeyCombination("F2")!);
         }
 
         public bool isLocated(FilledCellLocator locator) {

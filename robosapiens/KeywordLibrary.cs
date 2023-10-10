@@ -46,6 +46,7 @@ namespace RoboSAPiens
                     "GetWindowTitle" => GetWindowTitle(),
                     "HighlightButton" => HighlightButton(args[0]),
                     "OpenSap" => OpenSap(args[0]),
+                    "PressKeyCombination" => PressKeyCombination(args[0]),
                     "PushButton" => PushButton(args[0]),
                     "PushButtonCell" => PushButtonCell(args[0], args[1]),
                     "ReadStatusbar" => ReadStatusbar(),
@@ -472,6 +473,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.selectTableRow(row_number),
                 _ => new Result.SelectTableRow.NoSession()
+            };
+        }
+
+        [Keyword("Tastenkombination drücken"),
+         Doc("Die angegebene Tastenkombination wird gedrückt.\n\n" +
+             "| ``Tastenkombination drücken    Tastenkombination``")]
+        public RobotResult PressKeyCombination(string keyCombination) {
+            return session switch {
+                SAPSession session => session.pressKeyCombination(keyCombination),
+                _ => new Result.PressKeyCombination.NoSession()
             };
         }
 

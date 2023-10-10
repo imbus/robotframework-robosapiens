@@ -174,6 +174,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Knopf konnte nicht hervorgehoben werden.");
         }
 
+        public record PressKeyCombination {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string keyCombination): RobotResult.NotFound($"Die Tastenkombination '{keyCombination}' ist nicht vorhanden.");
+            public record Pass(string keyCombination): RobotResult.RobotPass($"Die Tastenkombination '{keyCombination}' wurde gedrückt.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Tastenkombination konnte nicht gedrückt werden.");
+        }
+
         public record PushButton {
             public record NoSession(): RobotResult.NoSession();
             public record SapError(string message): RobotResult.SapError(message);
