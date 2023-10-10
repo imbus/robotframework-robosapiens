@@ -348,7 +348,7 @@ class DE(RoboSAPiensClient):
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "Exception": "Die Tastenkombination konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
-            "NotFound": "Die Tastenkombination '{0}' ist nicht vorhanden. Sehe die Dokumentation.",
+            "NotFound": "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen.",
             "Pass": "Die Tastenkombination '{0}' wurde gedrückt."
         }
         return super()._run_keyword('PressKeyCombination', args, result) # type: ignore

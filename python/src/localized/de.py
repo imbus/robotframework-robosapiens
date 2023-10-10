@@ -434,7 +434,7 @@ lib: LocalizedRoboSAPiens = {
         "result": {
             "NoSession": ("2754484086", no_session),
             "Exception": ("3348926009", exception("Die Tastenkombination konnte nicht gedrückt werden.")),
-            "NotFound": ("2294374604", "Die Tastenkombination '{0}' ist nicht vorhanden. Sehe die Dokumentation."),
+            "NotFound": ("2294374604", "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen."),
             "Pass": ("3497306705", "Die Tastenkombination '{0}' wurde gedrückt.")
         },
         "doc": ("1367562599",
