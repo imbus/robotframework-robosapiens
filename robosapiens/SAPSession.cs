@@ -50,21 +50,6 @@ namespace RoboSAPiens {
             return null;
         }
 
-        string? getStatusbarError() {
-            var statusbar = window.components.getStatusBar();
-
-            if (statusbar == null) {
-                return null;
-            }
-
-            statusbar = new SAPStatusbar((GuiStatusbar)session.FindById(statusbar.id));
-
-            if (statusbar.hasErrorMessage()) {
-                return statusbar.getMessage();
-            }
-
-            return null;
-        }
 
         private RobotResult.HighlightFail? highlightElement(GuiSession session, IHighlightable element) {
             try
@@ -450,10 +435,6 @@ namespace RoboSAPiens {
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new Result.PushButton.Exception(e);
-            }
-
-            switch (getStatusbarError()) {
-                case string sapError : return new Result.PushButton.SapError(sapError);
             }
 
             // Pushing a Button may result in the window being rerendered,
