@@ -386,6 +386,28 @@ lib: RoboSAPiens = {
             | ``Highlight Button    name or tooltip``
             """
         },
+        "PressKeyCombination": {
+            "name": "Press Key Combination",
+            "args": {
+                "keyCombination": {
+                    "name": "key_combination",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
+                "Pass": "The key combination '{0}' was pressed.",
+                "Exception": exception("The key combination '{0}' could not be pressed.")
+            },
+            "doc": """
+            Press the given key combination. Valid key combinations are the keyboard shortcuts
+            in the context menu (shown when the right mouse button is pressed). For a full list 
+            of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation].
+            
+            | ``Press Key Combination    key combination``
+            """
+        },
         "PushButton": {
             "name": "Push Button",
             "args": {

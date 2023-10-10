@@ -61,6 +61,9 @@ class RoboSAPiensKeywordsReadtextfieldArgsLocatorSpec(TypedDict):
     HLabelVLabel: str
     Content: str
 
+class RoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsSelecttablerowArgsRow_NumberSpec(TypedDict):
     ...
 
@@ -189,6 +192,10 @@ class RoboSAPiensKeywordsReadtextArgsLocator(TypedDict):
 class RoboSAPiensKeywordsReadtextfieldArgsLocator(TypedDict):
     name: str
     spec: RoboSAPiensKeywordsReadtextfieldArgsLocatorSpec
+
+class RoboSAPiensKeywordsPresskeycombinationArgsKeycombination(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec
 
 class RoboSAPiensKeywordsSelecttablerowArgsRow_Number(TypedDict):
     name: str
@@ -400,6 +407,15 @@ class RoboSAPiensKeywordsReadtextfieldResult(TypedDict):
 
 class RoboSAPiensKeywordsReadtextfieldArgs(TypedDict):
     locator: RoboSAPiensKeywordsReadtextfieldArgsLocator
+
+class RoboSAPiensKeywordsPresskeycombinationResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsPresskeycombinationArgs(TypedDict):
+    keyCombination: RoboSAPiensKeywordsPresskeycombinationArgsKeycombination
 
 class RoboSAPiensKeywordsSelecttablerowResult(TypedDict):
     NoSession: str
@@ -666,6 +682,12 @@ class RoboSAPiensKeywordsReadtextfield(TypedDict):
     result: RoboSAPiensKeywordsReadtextfieldResult
     doc: str
 
+class RoboSAPiensKeywordsPresskeycombination(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsPresskeycombinationArgs
+    result: RoboSAPiensKeywordsPresskeycombinationResult
+    doc: str
+
 class RoboSAPiensKeywordsSelecttablerow(TypedDict):
     name: str
     args: RoboSAPiensKeywordsSelecttablerowArgs
@@ -808,6 +830,7 @@ class RoboSAPiensKeywords(TypedDict):
     ReadStatusbar: RoboSAPiensKeywordsReadstatusbar
     PushButtonCell: RoboSAPiensKeywordsPushbuttoncell
     SelectTableRow: RoboSAPiensKeywordsSelecttablerow
+    PressKeyCombination: RoboSAPiensKeywordsPresskeycombination
     ReadTextField: RoboSAPiensKeywordsReadtextfield
     ReadText: RoboSAPiensKeywordsReadtext
     ReadTableCell: RoboSAPiensKeywordsReadtablecell

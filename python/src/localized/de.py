@@ -423,6 +423,28 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "PressKeyCombination": {
+        "name": ("2814882499", "Tastenkombination drücken"),
+        "args": {
+            "keyCombination": {
+                "name": ("2238126572", "Tastenkombination"),
+                "spec": {}
+            }
+        },
+        "result": {
+            "NoSession": ("2754484086", no_session),
+            "Exception": ("3348926009", exception("Die Tastenkombination konnte nicht gedrückt werden.")),
+            "NotFound": ("2294374604", "Die Tastenkombination '{0}' ist nicht vorhanden. Sehe die Dokumentation."),
+            "Pass": ("3497306705", "Die Tastenkombination '{0}' wurde gedrückt.")
+        },
+        "doc": ("1367562599",
+        """
+        Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt. Zulässige Tastenkombinationen sind u.a. die Tastenkürzel
+        im Kontextmenü (angezeigt, wenn die rechte Maustaste gedrückt wird). Die vollständige Liste der zulässigen
+        Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation].
+        """
+        )
+    },
     "PushButton": {
       "name": ("2326550334", "Knopf drücken"),
       "args": {

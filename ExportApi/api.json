@@ -329,6 +329,22 @@
       },
       "doc": "Die angegebene Tabellenzeile wird markiert.\n\n| ``Tabellenzeile markieren     Zeilennummer``"
     },
+    "PressKeyCombination": {
+      "name": "Tastenkombination drücken",
+      "args": {
+        "keyCombination": {
+          "name": "keyCombination",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die angegebene Tastenkombination wird gedrückt.\n\n| ``Tastenkombination drücken    Tastenkombination``"
+    },
     "ReadTextField": {
       "name": "Textfeld auslesen",
       "args": {

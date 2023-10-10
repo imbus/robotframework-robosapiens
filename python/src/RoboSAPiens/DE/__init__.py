@@ -335,6 +335,25 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('HighlightButton', args, result) # type: ignore
     
 
+    @keyword('Tastenkombination drücken') # type: ignore
+    def press_key_combination(self, Tastenkombination: str): # type: ignore
+        """
+        Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt. Zulässige Tastenkombinationen sind u.a. die Tastenkürzel
+        im Kontextmenü (angezeigt, wenn die rechte Maustaste gedrückt wird). Die vollständige Liste der zulässigen
+        Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation].
+        """
+        
+        args = [Tastenkombination]
+        
+        result = {
+            "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+            "Exception": "Die Tastenkombination konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
+            "NotFound": "Die Tastenkombination '{0}' ist nicht vorhanden. Sehe die Dokumentation.",
+            "Pass": "Die Tastenkombination '{0}' wurde gedrückt."
+        }
+        return super()._run_keyword('PressKeyCombination', args, result) # type: ignore
+    
+
     @keyword('Knopf drücken') # type: ignore
     def push_button(self, Name_oder_Kurzinfo: str): # type: ignore
         """
@@ -731,4 +750,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.8'
+    ROBOT_LIBRARY_VERSION = '1.2.9'

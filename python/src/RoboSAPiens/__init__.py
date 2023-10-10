@@ -338,6 +338,27 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('HighlightButton', args, result) # type: ignore
     
 
+    @keyword('Press Key Combination') # type: ignore
+    def press_key_combination(self, key_combination: str): # type: ignore
+        """
+        Press the given key combination. Valid key combinations are the keyboard shortcuts
+        in the context menu (shown when the right mouse button is pressed). For a full list 
+        of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation].
+        
+        | ``Press Key Combination    key combination``
+        """
+        
+        args = [key_combination]
+        
+        result = {
+            "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
+            "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
+            "Pass": "The key combination '{0}' was pressed.",
+            "Exception": "The key combination '{0}' could not be pressed.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('PressKeyCombination', args, result) # type: ignore
+    
+
     @keyword('Push Button') # type: ignore
     def push_button(self, name_or_tooltip: str): # type: ignore
         """
@@ -735,4 +756,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.8'
+    ROBOT_LIBRARY_VERSION = '1.2.9'
