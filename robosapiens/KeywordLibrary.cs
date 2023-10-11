@@ -7,7 +7,6 @@ using saprotwr.net;
 
 namespace RoboSAPiens 
 {
-    public record struct Options(bool debug, int port, bool presenterMode);
 
     public class KeywordLibrary 
     {

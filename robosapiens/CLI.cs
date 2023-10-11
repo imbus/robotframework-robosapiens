@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace RoboSAPiens
 {
+    public record struct Options(bool debug, bool presenterMode);
+
     public class CLI
     {
         public class Logger: RoboSAPiens.ILogger {
@@ -48,7 +50,7 @@ namespace RoboSAPiens
 
         public CLI() {
             // must be initialized before the arguments
-            this.options = default(Options) with {port = 8270};
+            this.options = new Options(debug: false, presenterMode: false);
             this.arguments = new Arguments(new List<Arg>
             {
                 new Arg("debug",
