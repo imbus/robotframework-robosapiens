@@ -21,7 +21,7 @@ namespace RoboSAPiens {
             this.session = session;
             this.systemName = session.Info.SystemName;
             this.options = options;
-            this.window = new SAPWindow(session.ActiveWindow, session, loadComponents: true);
+            this.window = new SAPWindow(session.ActiveWindow, session, loadComponents: true, debug: options.debug);
         }
 
         bool windowChanged() {

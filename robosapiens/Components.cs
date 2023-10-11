@@ -23,13 +23,16 @@ namespace RoboSAPiens {
         GridViewStore gridViews = new GridViewStore();
         SAPTree? tree = null;
         private GuiSession session;
+        private bool debug;
+        private string indentation = "";
 
         public Components(GuiSession session) {
             this.session = session;
             // Null-Object Design Pattern
         }
 
-        public Components(GuiComponentCollection components, GuiSession session) {
+        public Components(GuiComponentCollection components, GuiSession session, bool debug=false) {
+            this.debug = debug;
             this.session = session;
 
             getWindowComponents(components);
@@ -117,12 +120,19 @@ namespace RoboSAPiens {
         void classifyGridViewCells(GuiGridView gridView) {
             var columnCount = gridView.ColumnCount;
             var rowCount = gridView.RowCount;
-
             var columnIds = (GuiCollection)gridView.ColumnOrder;
-            for (int column = 0; column < columnCount; column++) {
-                var columnId = (string)columnIds.ElementAt(column);
-                for (int row = 0; row < rowCount; row++) {
+
+            for (int row = 0; row < rowCount; row++) 
+            {
+                if (debug) Console.Write(row + ": ");
+
+                for (int column = 0; column < columnCount; column++) 
+                {
+                    var columnId = (string)columnIds.ElementAt(column);
                     var type = gridView.GetCellType(row, columnId);
+
+                    if (debug) Console.Write(type + ", ");
+
                     switch (type) {
                         case "Normal":
                             if (gridView.GetCellChangeable(row, columnId)) {
@@ -133,10 +143,14 @@ namespace RoboSAPiens {
                             break;
                     }
                 }
+
+                if (debug) Console.WriteLine();
             }
         }
     
         void classifyGuiShell(GuiShell guiShell) {
+            if (debug) Console.Write(": " + guiShell.SubType);
+
             switch (guiShell.SubType) {
                 case "GridView":
                     var gridView = (GuiGridView)guiShell;
@@ -328,8 +342,13 @@ namespace RoboSAPiens {
         }
 
         void getWindowComponents(GuiComponentCollection components) {
+            var localIndentation = indentation;
+            indentation += "|  ";
+
             for (int i = 0; i < components.Length; i++) {
                 var component = (GuiComponent)components.ElementAt(i);
+                if (debug) Console.WriteLine();
+                if (debug) Console.Write(localIndentation + component.Type);
 
                 if (component.ContainerType) {
                     classifyContainer(component);
@@ -338,6 +357,8 @@ namespace RoboSAPiens {
                     classifyComponent(component);
                 }
             }
+
+            indentation = localIndentation;
         }
 
         public Button? findButton(ButtonLocator button) {
