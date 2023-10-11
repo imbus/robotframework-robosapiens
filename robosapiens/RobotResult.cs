@@ -1,10 +1,13 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace RoboSAPiens {
+    public class Status
+    {
+        public const string 
+            FAIL = "FAIL",
+            PASS = "PASS";
+    }
+
     public record RobotResult(
-        string status = "PASS",
+        string status = Status.PASS,
         string output = "",
         string @return = "",
         string error = "",
@@ -12,13 +15,10 @@ namespace RoboSAPiens {
         bool fatal = false,
         bool continuable = false
     ) {
-        public const string PASS = "PASS";
-        public const string FAIL = "FAIL";
-       
         public record RobotPass: RobotResult {
             public RobotPass(string output, string returnValue=""): base(
-                status: "PASS", 
-                output: "*INFO* " + "Pass|" + output, 
+                status: Status.PASS, 
+                output: output, 
                 @return: returnValue, 
                 error: "", 
                 traceback: "", 
@@ -29,7 +29,7 @@ namespace RoboSAPiens {
 
         public record RobotFail: RobotResult {
             public RobotFail(string failure, string error, string output = "", bool fatal=false, string stacktrace=""): base(
-                status: "FAIL", 
+                status: Status.FAIL, 
                 output: output, 
                 @return: "", 
                 error: failure + "|" + error, 
@@ -105,6 +105,7 @@ namespace RoboSAPiens {
             public record NoGuiScripting(): RobotResult.NoGuiScripting();
             public record NoConnection(): RobotResult.NoConnection();
             public record NoServerScripting(): RobotResult.NoServerScripting();
+            public record NoSession(): RobotResult.NoSession();
             public record Pass(): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
         }
@@ -308,135 +309,6 @@ namespace RoboSAPiens {
             public record NoSession(): RobotResult.NoSession();
             public record Pass(string text): RobotResult.RobotPass("Der Text des Fensters wurde ausgelesen", returnValue: text);
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
-        }
-    }
-
-    public sealed record Success : RobotResult {
-        public Success(string returnValue, string message) {
-            this.@return = returnValue;
-            this.output = $"*INFO* {message}";
-            this.status = PASS;
-        }
-
-        public Success(string message, List<string> positiveTests) {
-            this.output =
-                String.Join(Environment.NewLine, 
-                            positiveTests.Select(test => $"*INFO* {test}"));
-            this.status = PASS;
-        }
-
-        public Success(string message) {
-            this.output = $"*INFO* {message}";
-            this.status = PASS;
-        }
-    }
-
-    public sealed record WrongWindow : RobotResult {
-        public WrongWindow(string expectedTitle, string message) {
-            this.output = $"*WARN* Die Überschrift der Maske ist nicht '{expectedTitle}'. {message}";
-            this.@return = "FALSE";
-            this.status = PASS;
-        }
-    }
-
-    public record Error : RobotResult {
-        public Error(): base() {
-            this.status = FAIL;
-        }
-    }
-
-    public record FatalError : Error {
-        public FatalError(): base() {
-            this.fatal = true;
-        }
-    }
-
-    public sealed record ExceptionError : Error {
-        const string errorDEBUG = "Für mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.";
-
-        public ExceptionError(Exception e, string errorMessage) {
-            this.output = $"*ERROR* {errorMessage}\n{e.Message}\n{errorDEBUG}";
-            this.error = e.Message;
-            this.traceback = e.StackTrace ?? "";
-        }
-    }
-
-    public sealed record InvalidArgumentError : Error {
-        public InvalidArgumentError(string message) {
-            this.error = message;
-        }
-    }
-
-    public sealed record InvalidFileError : Error {
-        public InvalidFileError(string message) {
-            this.error = message;
-        }
-    }
-
-    public sealed record InvalidFormatError : Error {
-        public InvalidFormatError(string message) {
-            this.error = message;
-        }
-    }
-
-    public sealed record InvalidValueError : Error {
-        public InvalidValueError(string message) {
-            this.error = message;
-        }
-    }
-
-    public sealed record ConnectionFailed : FatalError {
-        public ConnectionFailed(Exception e, String message) {
-            this.output = $"*ERROR* {message}";
-            this.error = e.Message;
-            this.traceback = e.StackTrace ?? "";
-        }
-    }
-
-    public sealed record NoConnectionError : FatalError {
-        public NoConnectionError() {
-            this.error = "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.";
-        }
-    }
-
-    public sealed record SAPNotStartedError : FatalError {
-        public SAPNotStartedError(string path) {
-            this.error = $"Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{path}'.";
-        }
-
-        public SAPNotStartedError() {
-            this.error = $"Die SAP GUI konnte nicht gestartet werden.";
-        }
-    }
-
-
-    public sealed record NoSapGuiError : Error {
-        public NoSapGuiError() {
-            this.error = "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst aufgerufen werden.";
-        }
-    }
-
-    public sealed record NoScriptingError : FatalError {
-        public NoScriptingError() {
-            this.error = "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.";
-        }
-    }
-
-    public sealed record NoSessionError : FatalError {
-        public NoSessionError() {
-            this.error = "Keine SAP-Session vorhanden. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.";
-        }
-    }
-
-    public sealed record SapError : Error {
-        public SapError(string errorMessage) {
-            this.error = $"SAP Fehlermeldung: {errorMessage}";
-        }
-    }
-
-    public sealed record SpellingError : Error {
-        public SpellingError(string message) {
-            this.error = $"{message}\nHinweis: Prüfe die Rechtschreibung";
         }
     }
 }
