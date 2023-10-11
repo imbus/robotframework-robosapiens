@@ -1,12 +1,10 @@
 set windows-shell := ["pwsh.exe", "-NoProfile", "-Command"]
 
 localize-en:
-    #!pwsh
     python schemagen.py api.json
     mypy localized/en.py
 
 localize-i18n: localize-en
-    #!pwsh
     python schemagen.py api.json i18n
     rm api.json
     mypy localized/
