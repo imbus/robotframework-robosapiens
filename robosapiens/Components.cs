@@ -122,6 +122,8 @@ namespace RoboSAPiens {
             var rowCount = gridView.RowCount;
             var columnIds = (GuiCollection)gridView.ColumnOrder;
 
+            if (debug) Console.WriteLine();
+            
             for (int row = 0; row < rowCount; row++) 
             {
                 if (debug) Console.Write(row + ": ");
