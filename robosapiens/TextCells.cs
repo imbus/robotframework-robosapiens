@@ -36,7 +36,7 @@ namespace RoboSAPiens {
         protected string gridViewId;
 
         public SAPGridViewCell(string columnId, GuiGridView gridView, int rowIndex): 
-            base(rowIndex, column: gridView.GetDisplayedColumnTitle(columnId), text: gridView.GetCellValue(rowIndex, columnId)) 
+            base(rowIndex, column: gridView.GetDisplayedColumnTitle(columnId).Trim(), text: gridView.GetCellValue(rowIndex, columnId)) 
         {
             this.columnId = columnId;
             gridViewId = gridView.Id;

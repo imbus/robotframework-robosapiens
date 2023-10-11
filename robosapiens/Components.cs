@@ -130,7 +130,7 @@ namespace RoboSAPiens {
                 {
                     var columnId = (string)columnIds.ElementAt(column);
                     var columnTitle = gridView.GetDisplayedColumnTitle(columnId);
-                    Console.Write(columnTitle + ", ");
+                    Console.Write($"'{columnTitle}', ");
                 }
 
                 Console.WriteLine();
