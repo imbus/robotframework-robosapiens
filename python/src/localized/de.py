@@ -175,6 +175,7 @@ lib: LocalizedRoboSAPiens = {
         "NoSapGui": ("2987622841", no_sap_gui),
         "NoGuiScripting": ("2929771598", no_gui_scripting),
         "NoConnection": ("509780556", no_connection),
+        "NoSession": ("2754484086", no_session),
         "NoServerScripting": ("3495213352", no_server_scripting),
         "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
         "Exception": ("3120673076", exception("Die laufende SAP GUI konnte nicht übernommen werden."))

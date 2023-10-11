@@ -151,6 +151,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
             "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of SAP Logon.",
             "NoConnection": "No existing connection to an SAP server. Call the keyword \"Connect to Server\" first.",
+            "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
             "Pass": "Connected to a running SAP instance.",
             "Exception": "Could not connect to a running SAP instance. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"

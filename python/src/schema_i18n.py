@@ -538,6 +538,7 @@ class LocalizedRoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
     NoSapGui: Tuple[Literal['2987622841'], str]
     NoGuiScripting: Tuple[Literal['2929771598'], str]
     NoConnection: Tuple[Literal['509780556'], str]
+    NoSession: Tuple[Literal['2754484086'], str]
     NoServerScripting: Tuple[Literal['3495213352'], str]
     Pass: Tuple[Literal['2481655346'], str]
     Exception: Tuple[Literal['3120673076'], str]

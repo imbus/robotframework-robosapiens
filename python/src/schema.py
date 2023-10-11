@@ -547,6 +547,7 @@ class RoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
     NoGuiScripting: str
     NoConnection: str
     NoServerScripting: str
+    NoSession: str
     Pass: str
     Exception: str
 

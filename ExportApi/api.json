@@ -89,6 +89,7 @@
         "NoGuiScripting": "NoGuiScripting",
         "NoConnection": "NoConnection",
         "NoServerScripting": "NoServerScripting",
+        "NoSession": "NoSession",
         "Pass": "Pass",
         "Exception": "Exception"
       },

@@ -166,6 +166,7 @@ lib: RoboSAPiens = {
                 "NoSapGui": no_sap_gui,
                 "NoGuiScripting": no_gui_scripting,
                 "NoConnection": no_connection,
+                "NoSession": no_session,
                 "NoServerScripting": no_server_scripting,
                 "Pass": "Connected to a running SAP instance.",
                 "Exception": exception("Could not connect to a running SAP instance. {0}")

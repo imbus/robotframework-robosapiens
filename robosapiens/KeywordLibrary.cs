@@ -194,18 +194,6 @@ namespace RoboSAPiens
             return new Result.CloseSap.Pass();
         }
 
-        RobotResult createSession(GuiConnection connection) {
-            var sessions = connection.Sessions;
-            if (sessions.Length == 0) {
-                return new RobotResult.NoSession();
-            }
-
-            var guiSession = (GuiSession)sessions.ElementAt(0);
-
-            this.session = new SAPSession(guiSession, connection, options, logger);
-
-            return new Success("Session successfully created");
-        }
 
         [Keyword("Funktionsbaum exportieren"),
          Doc("Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n" +
@@ -252,11 +240,14 @@ namespace RoboSAPiens
                     return new Result.AttachToRunningSap.NoServerScripting();
                 }
 
-                return createSession(connection) switch {
-                    Error error => error,
-                    _ => new Result.AttachToRunningSap.Pass(),
-                    
-                };
+                if (connection.Sessions.Length == 0) {
+                    return new Result.AttachToRunningSap.NoSession();
+                }
+
+                var guiSession = (GuiSession)connection.Sessions.ElementAt(0);
+                this.session = new SAPSession(guiSession, connection, options, logger);
+
+                return new Result.AttachToRunningSap.Pass();
             } 
             catch(Exception e) 
             {
@@ -303,16 +294,15 @@ namespace RoboSAPiens
 
             try 
             {
+                // reuse existing connection
                 var connection = getConnection(guiApplication!, server);
 
-                if (connection != null) 
+                if (connection != null && connection.Sessions.Length != 0) 
                 {
-                    // reuse existing connection
-                    return createSession(connection) switch 
-                    {
-                        Error error => error,
-                        _ => new Result.ConnectToServer.Pass(server)
-                    };
+                    var currentSession = (GuiSession)connection.Sessions.ElementAt(0);
+                    this.session = new SAPSession(currentSession, connection, options, logger);
+
+                    return new Result.ConnectToServer.Pass(server);
                 }
 
                 connection = guiApplication!.OpenConnection(server);
@@ -323,11 +313,11 @@ namespace RoboSAPiens
                 if (connection.DisabledByServer)
                     return new Result.ConnectToServer.NoServerScripting();
 
-                return createSession(connection) switch 
-                {
-                    Error error => error,
-                    _ => new Result.ConnectToServer.Pass(server)
-                };
+                var guiSession = (GuiSession)connection.Sessions.ElementAt(0);
+                this.session = new SAPSession(guiSession, connection, options, logger);
+
+                return new Result.ConnectToServer.Pass(server);
+            
             } 
             catch (Exception e) 
             {
