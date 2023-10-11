@@ -25,7 +25,8 @@ locales = {
     "DE": "German"
 }
 
-locales_bullet_list = lambda: "\n".join([f"- RoboSAPiens.{country} ({lang})" for country, lang in locales.items()])
+def locales_bullet_list() -> str:
+    return "\n".join([f"- RoboSAPiens.{country} ({lang})" for country, lang in locales.items()])
 
 lib: RoboSAPiens = {
     "doc": {
