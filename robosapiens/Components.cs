@@ -287,7 +287,14 @@ namespace RoboSAPiens {
             for (int i = 0; i < columnNames.Length; i++) {
                 var columnName = (string)columnNames.ElementAt(i);
                 if (columnName == null) { continue; }
-                var columnTitle = tree.GetColumnTitleFromName(columnName);
+
+                string columnTitle;
+                try {
+                    columnTitle = tree.GetColumnTitleFromName(columnName);
+                }
+                catch (Exception) {
+                    continue;
+                }
 
                 for (int index = 0; index < paths.Count; index++) {
                     var nodePath = paths[index];
