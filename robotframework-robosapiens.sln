@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExportApi", "ExportApi\ExportApi.csproj", "{CE878E50-5F93-4517-AC59-B74BC1A0A290}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoboSAPiens", "robosapiens\RoboSAPiens.csproj", "{581D7CA1-00F1-490E-AB83-7A68B5B84598}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE878E50-5F93-4517-AC59-B74BC1A0A290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE878E50-5F93-4517-AC59-B74BC1A0A290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE878E50-5F93-4517-AC59-B74BC1A0A290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE878E50-5F93-4517-AC59-B74BC1A0A290}.Release|Any CPU.Build.0 = Release|Any CPU
+		{581D7CA1-00F1-490E-AB83-7A68B5B84598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581D7CA1-00F1-490E-AB83-7A68B5B84598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581D7CA1-00F1-490E-AB83-7A68B5B84598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581D7CA1-00F1-490E-AB83-7A68B5B84598}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7EC15E8-45A6-4EC8-BD57-911511259C7A}
+	EndGlobalSection
+EndGlobal
