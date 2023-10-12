@@ -225,7 +225,7 @@ namespace RoboSAPiens {
 
         public override void select(GuiSession session) {
             var tree = (GuiTree)session.FindById(treeId);
-            tree.SelectItem(nodeKey, columnName);
+            tree.SelectNode(nodeKey);
         }
     }
 }
