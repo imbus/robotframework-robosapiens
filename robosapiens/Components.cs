@@ -192,7 +192,9 @@ namespace RoboSAPiens {
                 case "Tree":
                     var tree = (GuiTree)guiShell;
                     this.tree = new SAPTree(tree);
-                    if ((TreeType)tree.GetTreeType() == TreeType.Column) {
+                    TreeType treeType = (TreeType)tree.GetTreeType();
+                    if (debug) Console.Write($" ({treeType})");
+                    if (treeType == TreeType.Column || treeType == TreeType.List) {
                         classifyTreeComponents(tree);
                     }
                     break;
@@ -295,40 +297,47 @@ namespace RoboSAPiens {
         // TODO: The Tree class should take care of classifying its elements
         void classifyTreeComponents(GuiTree tree) {
             var columnNames = (GuiCollection)tree.GetColumnNames();
-            var paths = SAPTree.getAllPaths(tree);
 
-            for (int i = 0; i < columnNames.Length; i++) {
-                var columnName = (string)columnNames.ElementAt(i);
-                if (columnName == null) { continue; }
+            if (columnNames != null)
+            {
+                var paths = SAPTree.getAllPaths(tree);
 
-                string columnTitle;
-                try {
-                    columnTitle = tree.GetColumnTitleFromName(columnName);
-                }
-                catch (Exception) {
-                    continue;
-                }
+                for (int i = 0; i < columnNames.Length; i++) 
+                {
+                    var columnName = (string)columnNames.ElementAt(i);
+                    if (columnName == null) { continue; }
 
-                for (int index = 0; index < paths.Count; index++) {
-                    var nodePath = paths[index];
-                    var nodeKey = tree.GetNodeKeyByPath(nodePath);
-                    var itemText = tree.GetItemText(nodeKey, columnName);
-                    var itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
+                    string columnTitle;
+                    try {
+                        columnTitle = tree.GetColumnTitleFromName(columnName);
+                    }
+                    catch (Exception) {
+                        continue;
+                    }
 
-                    switch (itemType) {
-                        case TreeItem.Bool:
-                            checkBoxes.add(new SAPTreeCheckBox(columnName, columnTitle, nodeKey, rowNumber: index, tree.Id));
-                            break;
-                        case TreeItem.Button:
-                            buttons.add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: index, tree.Id));
-                            break;
-                        case TreeItem.Link:
-                            var tooltip = tree.GetItemToolTip(nodeKey, columnName);
-                            buttons.add(new SAPTreeLink(columnName, columnTitle, tooltip, nodeKey, tree.Id));
-                            break;
-                        case TreeItem.Text:
-                            labelCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
-                            break;
+                    for (int index = 0; index < paths.Count; index++) 
+                    {
+                        var nodePath = paths[index];
+                        var nodeKey = tree.GetNodeKeyByPath(nodePath);
+                        var itemText = tree.GetItemText(nodeKey, columnName);
+                        var itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
+
+                        switch (itemType) 
+                        {
+                            case TreeItem.Bool:
+                                checkBoxes.add(new SAPTreeCheckBox(columnName, columnTitle, nodeKey, rowNumber: index, tree.Id));
+                                break;
+                            case TreeItem.Button:
+                                buttons.add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: index, tree.Id));
+                                break;
+                            case TreeItem.Link:
+                                var tooltip = tree.GetItemToolTip(nodeKey, columnName);
+                                buttons.add(new SAPTreeLink(columnName, columnTitle, tooltip, nodeKey, tree.Id));
+                                break;
+                            case TreeItem.Text:
+                                labelCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
+                                break;
+                        }
                     }
                 }
             }
