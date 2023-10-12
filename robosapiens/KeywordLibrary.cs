@@ -263,7 +263,11 @@ namespace RoboSAPiens
             } 
             catch(Exception e) 
             {
-                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                if (options.debug) 
+                {
+                    Console.WriteLine();
+                    logger.error(e.Message, e.StackTrace ?? "");
+                }
                 return new Result.AttachToRunningSap.Exception(e);
             }
         }
