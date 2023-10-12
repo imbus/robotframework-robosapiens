@@ -138,7 +138,8 @@ namespace RoboSAPiens {
 
             for (int row = 0; row < rowCount; row++) 
             {
-                if (debug) Console.Write(row + ": ");
+                if (debug) Console.WriteLine();
+                if (debug) Console.Write(row + 1 + ": ");
 
                 for (int column = 0; column < columnCount; column++) 
                 {
