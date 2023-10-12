@@ -5,40 +5,60 @@ namespace RoboSAPiens
 {
     class _ 
     {
+        public static string? readInput()
+        {
+            Console.Write("> ");
+            return Console.ReadLine();
+        }
+
         public static void Main(string[] args) 
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             CLI cli = new CLI();
             var options = cli.parseArgs(args);
-            if (options.debug) cli.logger.info($"===== DEBUG-Mode active =====");
+            if (options.debug) 
+            {
+                cli.logger.info($"=============== DEBUG-Mode active ===============");
+                cli.logger.info("Type `help` to get the list of available keywords.");
+                cli.logger.info("Type `KeywordName  Args...` to call a keyword.");
+                cli.logger.info("Type `quit` to exit.");
+
+            }
             var keywordLibrary = new KeywordLibrary(options, cli.logger);
             string? input;
 
-            while ((input = Console.ReadLine()) != null && input != "quit")
+            while ((input = readInput()) != null && input != "quit")
             {
                 try
                 {
                     if (options.debug)
                     {
-                        var result = Regex.Split(input, @"\s\s+") switch {
-                            [] => null,
-                            [var method, ..var @params] => keywordLibrary.callKeyword(method, @params),
-                        };
-
-                        if (result == null) {
-                            Console.WriteLine("Invalid input. Expected: MethodName  Args... using at least two spaces as delimiter.");
-                        }
-
-                        var response = result!.status switch
+                        if (input == "help")
                         {
-                            Status.FAIL => result.error,
-                            Status.PASS => result.output,
-                            _ => throw new NotImplementedException()
-                        };
+                            keywordLibrary.getKeywordNames().ForEach(Console.WriteLine);
+                        }
+                        else
+                        {
+                        var result = Regex.Split(input, @"\s\s+") switch {
+                                [] => null,
+                                [var method, ..var @params] => keywordLibrary.callKeyword(method, @params),
+                            };
 
-                        Console.WriteLine();
-                        Console.WriteLine("> " + response);
+                            if (result == null) {
+                                Console.WriteLine("Invalid input. Expected: MethodName  Args... using at least two spaces as delimiter.");
+                            }
+
+                            var response = result!.status switch
+                            {
+                                Status.FAIL => result.error + Environment.NewLine + result.traceback,
+                                Status.PASS => result.output,
+                                _ => throw new NotImplementedException()
+                            };
+                            
+                            Console.WriteLine();
+                            Console.WriteLine(response);
+                        }
                     }
                     else
                     {

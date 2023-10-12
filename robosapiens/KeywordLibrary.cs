@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using sapfewse;
@@ -7,69 +9,80 @@ using saprotwr.net;
 
 namespace RoboSAPiens 
 {
-
     public class KeywordLibrary 
     {
-        Options options;
-        ILogger logger;
-        public ISession session;
+        private readonly Dictionary<string, Func<string[], RobotResult>> keywords;
+        private ILogger logger;
+        private Options options;
         private Process? proc = null;
+        private ISession session;
 
-        public KeywordLibrary(Options options, ILogger logger) {
+        public KeywordLibrary(Options options, ILogger logger) 
+        {
             this.logger = logger;
             this.options = options;
             session = new NoSAPSession();
+            keywords = new Dictionary<string, Func<string[], RobotResult>>()
+            {
+                {"ActivateTab", args => ActivateTab(args[0])},
+                {"AttachToRunningSap", args => AttachToRunningSap()},
+                {"CloseConnection", args => CloseConnection()},
+                {"CloseSap", args => CloseSap()},
+                {"ConnectToServer", args => ConnectToServer(args[0])},
+                {"DoubleClickCell", args => DoubleClickCell(args[0], args[1])},
+                {"DoubleClickTextField", args => DoubleClickTextField(args[0])},
+                {"ExecuteTransaction", args => ExecuteTransaction(args[0])},
+                {"ExportForm", args => ExportForm(args[0], args[1])},
+                {"ExportSpreadsheet", args => ExportSpreadsheet(args[0])},
+                {"ExportTree", args => ExportTree(args[0])},
+                {"FillTableCell", args => FillTableCell(args[0], args[1])},
+                {"FillTextField", args => FillTextField(args[0], args[1])},
+                {"GetWindowText", args => GetWindowText()},
+                {"GetWindowTitle", args => GetWindowTitle()},
+                {"HighlightButton", args => HighlightButton(args[0])},
+                {"OpenSap", args => OpenSap(args[0])},
+                {"PressKeyCombination", args => PressKeyCombination(args[0])},
+                {"PushButton", args => PushButton(args[0])},
+                {"PushButtonCell", args => PushButtonCell(args[0], args[1])},
+                {"ReadStatusbar", args => ReadStatusbar()},
+                {"ReadTableCell", args => ReadTableCell(args[0], args[1])},
+                {"ReadText", args => ReadText(args[0])},
+                {"ReadTextField", args => ReadTextField(args[0])},
+                {"SaveScreenshot", args => SaveScreenshot(args[0])},
+                {"SelectCell", args => SelectCell(args[0], args[1])},
+                {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
+                {"SelectRadioButton", args => SelectRadioButton(args[0])},
+                {"SelectTableRow", args => SelectTableRow(args[0])},
+                {"SelectTextField", args => SelectTextField(args[0])},
+                {"SelectTextLine", args => SelectTextLine(args[0])},
+                {"TickCheckBox", args => TickCheckBox(args[0])},
+                {"TickCheckBoxCell", args => TickCheckBoxCell(args[0], args[1])},
+                {"UntickCheckBox", args => UntickCheckBox(args[0])},
+            };
         }
 
         // TODO: Implement a test to verify that this function handles all keywords
         // That is, the function should not return KeywordNotFound.
         public RobotResult callKeyword(string methodName, string[] args) 
         {
+            if (!keywords.ContainsKey(methodName)) {
+                return new Result.KeywordLibrary.KeywordNotFound(methodName);
+            }
+
             try
             {
-                return methodName switch {
-                    "ActivateTab" => ActivateTab(args[0]),
-                    "AttachToRunningSap" => AttachToRunningSap(),
-                    "CloseConnection" => CloseConnection(),
-                    "CloseSap" => CloseSap(),
-                    "ConnectToServer" => ConnectToServer(args[0]),
-                    "DoubleClickCell" => DoubleClickCell(args[0], args[1]),
-                    "DoubleClickTextField" => DoubleClickTextField(args[0]),
-                    "ExecuteTransaction" => ExecuteTransaction(args[0]),
-                    "ExportForm" => ExportForm(args[0], args[1]),
-                    "ExportTree" => ExportTree(args[0]),
-                    "ExportSpreadsheet" => ExportSpreadsheet(args[0]),
-                    "FillTableCell" => FillTableCell(args[0], args[1]),
-                    "FillTextField" => FillTextField(args[0], args[1]),
-                    "GetWindowText" => GetWindowText(),
-                    "GetWindowTitle" => GetWindowTitle(),
-                    "HighlightButton" => HighlightButton(args[0]),
-                    "OpenSap" => OpenSap(args[0]),
-                    "PressKeyCombination" => PressKeyCombination(args[0]),
-                    "PushButton" => PushButton(args[0]),
-                    "PushButtonCell" => PushButtonCell(args[0], args[1]),
-                    "ReadStatusbar" => ReadStatusbar(),
-                    "ReadTableCell" => ReadTableCell(args[0], args[1]),
-                    "ReadText" => ReadText(args[0]),
-                    "ReadTextField" => ReadTextField(args[0]),
-                    "SaveScreenshot" => SaveScreenshot(args[0]),
-                    "SelectCell" => SelectCell(args[0], args[1]),
-                    "SelectComboBoxEntry" => SelectComboBoxEntry(args[0], args[1]),
-                    "SelectRadioButton" => SelectRadioButton(args[0]),
-                    "SelectTableRow" => SelectTableRow(args[0]),
-                    "SelectTextField" => SelectTextField(args[0]),
-                    "SelectTextLine" => SelectTextLine(args[0]),
-                    "TickCheckBox" => TickCheckBox(args[0]),
-                    "TickCheckBoxCell" => TickCheckBoxCell(args[0], args[1]),
-                    "UntickCheckBox" => UntickCheckBox(args[0]),
-                    _ => new Result.KeywordLibrary.KeywordNotFound(methodName)
-                };
+                return keywords[methodName].Invoke(args);
             }
             catch (Exception e)
             {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new Result.KeywordLibrary.Exception(methodName, e);   
             }
+        }
+
+        public List<string> getKeywordNames()
+        {
+            return keywords.Keys.ToList();
         }
 
         record EitherSapGui {
