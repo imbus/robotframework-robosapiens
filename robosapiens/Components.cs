@@ -129,8 +129,21 @@ namespace RoboSAPiens {
                 for (int column = 0; column < columnCount; column++) 
                 {
                     var columnId = (string)columnIds.ElementAt(column);
-                    var columnTitle = gridView.GetDisplayedColumnTitle(columnId);
-                    Console.Write($"'{columnTitle}', ");
+                    GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
+                    Console.Write("[");
+                    for (int i = 0; i < columnTitles.Length; i++) 
+                    {
+                        var columnTitle = (string)columnTitles.ElementAt(i);
+
+                        if (columnTitle.Equals(gridView.GetDisplayedColumnTitle(columnId)))
+                        {
+                            Console.Write($"*{columnTitle}*, ");
+                        }
+                        else {
+                            Console.Write($"'{columnTitle}', ");
+                        }
+                    }
+                    Console.Write("]; ");
                 }
 
                 Console.WriteLine();
