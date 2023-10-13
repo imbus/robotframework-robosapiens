@@ -337,7 +337,7 @@ namespace RoboSAPiens {
                                 buttons.add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: index, tree.Id));
                                 break;
                             case TreeItem.Link:
-                                buttons.add(new SAPTreeLink(columnName, columnTitle, itemTooltip, nodeKey, tree.Id));
+                                buttons.add(new SAPTreeLink(columnName, columnTitle, itemText, itemTooltip, nodeKey, tree.Id));
                                 break;
                             case TreeItem.Text:
                                 labelCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));

@@ -197,19 +197,21 @@ namespace RoboSAPiens {
         string columnName;
         string columnTitle;
         string nodeKey;
+        string text;
         string tooltip;
         string treeId;
 
-        public SAPTreeLink(string columnName, string columnTitle, string tooltip, string nodeKey, string treeId) {
+        public SAPTreeLink(string columnName, string columnTitle, string text, string tooltip, string nodeKey, string treeId) {
             this.columnName = columnName;
             this.columnTitle = columnTitle;
             this.nodeKey = nodeKey;
+            this.text = text;
             this.tooltip = tooltip;
             this.treeId = treeId;
         }
 
         public bool isLabeled(string label) {
-            return this.tooltip == label;
+            return this.tooltip == label || this.text == label;
         }
 
         public bool isLocated(FilledCellLocator locator) {
