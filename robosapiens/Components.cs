@@ -302,6 +302,8 @@ namespace RoboSAPiens {
             {
                 var paths = SAPTree.getAllPaths(tree);
 
+                if (debug) Console.WriteLine();
+
                 for (int i = 0; i < columnNames.Length; i++) 
                 {
                     var columnName = (string)columnNames.ElementAt(i);
@@ -310,6 +312,7 @@ namespace RoboSAPiens {
                     string columnTitle;
                     try {
                         columnTitle = tree.GetColumnTitleFromName(columnName);
+                        if (debug) Console.WriteLine(columnTitle);
                     }
                     catch (Exception) {
                         continue;
@@ -320,7 +323,10 @@ namespace RoboSAPiens {
                         var nodePath = paths[index];
                         var nodeKey = tree.GetNodeKeyByPath(nodePath);
                         var itemText = tree.GetItemText(nodeKey, columnName);
+                        var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
                         var itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
+
+                        if (debug) Console.WriteLine($"{nodePath}: {itemType} [{itemText}, {itemTooltip}]");
 
                         switch (itemType) 
                         {
@@ -331,8 +337,7 @@ namespace RoboSAPiens {
                                 buttons.add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: index, tree.Id));
                                 break;
                             case TreeItem.Link:
-                                var tooltip = tree.GetItemToolTip(nodeKey, columnName);
-                                buttons.add(new SAPTreeLink(columnName, columnTitle, tooltip, nodeKey, tree.Id));
+                                buttons.add(new SAPTreeLink(columnName, columnTitle, itemTooltip, nodeKey, tree.Id));
                                 break;
                             case TreeItem.Text:
                                 labelCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
