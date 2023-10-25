@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using sapfewse;
 
 namespace RoboSAPiens {
@@ -70,7 +71,7 @@ namespace RoboSAPiens {
 
     public sealed class SAPGridViewButton: Button, IFilledCell {
         string columnId;
-        string columnTitle;
+        public HashSet<string> columnTitles;
         string gridViewId;
         // string buttonId; // must start with &
         int rowIndex;
@@ -78,11 +79,18 @@ namespace RoboSAPiens {
 
         public SAPGridViewButton(string columnId, GuiGridView gridView, int rowIndex) {
             this.columnId = columnId;
-            this.columnTitle = gridView.GetDisplayedColumnTitle(columnId);
+            this.columnTitles = new HashSet<string>(){};
             this.gridViewId = gridView.Id;
             // this.buttonId = buttonId;
             this.rowIndex = rowIndex;
             this.tooltip = gridView.GetCellTooltip(rowIndex, columnId);
+
+            // GetDisplayedColumnTitle might not be reliable
+            GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
+            for (int i = 0; i < columnTitles.Length; i++) 
+            {
+                this.columnTitles.Add((string)columnTitles.ElementAt(i));
+            }
         }
 
         public bool isLabeled(string label) {
@@ -90,8 +98,8 @@ namespace RoboSAPiens {
         }
 
         public bool isLocated(FilledCellLocator locator) {
-            return locator.rowIndex == this.rowIndex - 1 && 
-                   locator.column == columnTitle;
+            return columnTitles.Contains(locator.column) && 
+                   rowIndex == locator.rowIndex - 1;
         }
 
         public override void push(GuiSession session) {

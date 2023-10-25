@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using sapfewse;
 
 namespace RoboSAPiens {
@@ -138,20 +139,27 @@ namespace RoboSAPiens {
 
     public sealed class SAPGridViewCheckBox: CheckBox, IFilledCell, ISelectable {
         string columnId;
-        string columnTitle;
+        public HashSet<string> columnTitles;
         string gridViewId;
         int rowIndex;
 
         public SAPGridViewCheckBox(string columnId, GuiGridView gridView, int rowIndex) {
             this.columnId = columnId;
-            this.columnTitle = gridView.GetDisplayedColumnTitle(columnId);
+            this.columnTitles = new HashSet<string>(){};
             this.gridViewId = gridView.Id;
             this.rowIndex = rowIndex;
+
+            // GetDisplayedColumnTitle might not be reliable
+            GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
+            for (int i = 0; i < columnTitles.Length; i++) 
+            {
+                this.columnTitles.Add((string)columnTitles.ElementAt(i));
+            }
         }
 
         public bool isLocated(FilledCellLocator locator) {
-            return locator.rowIndex == this.rowIndex - 1 && 
-                   locator.column == columnTitle;
+            return columnTitles.Contains(locator.column) && 
+                   rowIndex == locator.rowIndex - 1;
         }
 
         public override void select(GuiSession session) {
