@@ -107,12 +107,10 @@ namespace RoboSAPiens {
             gridView.PressButton(rowIndex, columnId);
         }
 
-        public override void toggleHighlight(GuiSession session)
-        {
-            focused = !focused;
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.Visualize(focused);
-        }
+        // From the documentation for GuiVComponent
+        // Some components such as GuiCtrlGridView support displaying the frame around inner objects, 
+        // such as cells. The format of the innerObject string is the same as for the dumpState method.
+        public override void toggleHighlight(GuiSession session) {}
     }
 
     public sealed class SAPGridViewToolbarButton: Button, ILabeled {
