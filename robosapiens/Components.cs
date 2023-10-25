@@ -201,7 +201,7 @@ namespace RoboSAPiens {
                     TreeType treeType = (TreeType)tree.GetTreeType();
                     if (debug) Console.Write($" ({treeType})");
                     if (treeType == TreeType.Column || treeType == TreeType.List) {
-                        classifyTreeComponents(tree);
+                        classifyTreeItems(tree);
                     }
                     break;
                 default:
@@ -301,7 +301,7 @@ namespace RoboSAPiens {
         }
 
         // TODO: The Tree class should take care of classifying its elements
-        void classifyTreeComponents(GuiTree tree) {
+        void classifyTreeItems(GuiTree tree) {
             var columnNames = (GuiCollection)tree.GetColumnNames();
 
             if (columnNames != null)
@@ -328,11 +328,14 @@ namespace RoboSAPiens {
                     {
                         var nodePath = paths[index];
                         var nodeKey = tree.GetNodeKeyByPath(nodePath);
+
+                        TreeItem itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
+                        if (itemType == TreeItem.Hierarchy) continue;
+
                         var itemText = tree.GetItemText(nodeKey, columnName);
                         var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
-                        var itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
 
-                        if (debug) Console.WriteLine($"{nodePath}: {itemType} [{itemText}, {itemTooltip}]");
+                        if (debug) Console.WriteLine($"{nodePath}: ({itemText}, {itemTooltip}) [{itemType}]");
 
                         switch (itemType) 
                         {
