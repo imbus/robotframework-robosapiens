@@ -139,18 +139,14 @@ namespace RoboSAPiens {
     public sealed class SAPGridViewCheckBox: CheckBox, IFilledCell, ISelectable {
         string columnId;
         string columnTitle;
-        GuiGridView gridView;
         string gridViewId;
         int rowIndex;
-        string tooltip;
 
         public SAPGridViewCheckBox(string columnId, GuiGridView gridView, int rowIndex) {
             this.columnId = columnId;
             this.columnTitle = gridView.GetDisplayedColumnTitle(columnId);
-            this.gridView = gridView;
             this.gridViewId = gridView.Id;
             this.rowIndex = rowIndex;
-            this.tooltip = gridView.GetCellTooltip(rowIndex, columnId);
         }
 
         public bool isLocated(FilledCellLocator locator) {
