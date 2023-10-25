@@ -357,12 +357,14 @@ namespace RoboSAPiens {
         GuiComponentCollection getContainerChildren(GuiComponent container) {
             return container.Type switch {
                 "GuiContainerShell" => ((GuiContainerShell)container).Children,
-                "GuiDockShell" => ((GuiContainerShell)container).Children,
                 "GuiCustomControl" => ((GuiCustomControl)container).Children,
+                "GuiDialogShell" => ((GuiDialogShell)container).Children,
+                "GuiDockShell" => ((GuiContainerShell)container).Children,
                 "GuiGOSShell" => ((GuiGOSShell)container).Children,
                 "GuiMenu" => ((GuiMenu)container).Children,
                 "GuiScrollContainer" => ((GuiScrollContainer)container).Children,
                 "GuiSimpleContainer" => ((GuiSimpleContainer)container).Children,
+                "GuiSplitterContainer" => ((GuiSplitterContainer)container).Children,
                 "GuiSplitterShell" => ((GuiSplit)container).Children,
                 "GuiTab" => ((GuiTab)container).Children,
                 "GuiTitlebar" => ((GuiTitlebar)container).Children,
