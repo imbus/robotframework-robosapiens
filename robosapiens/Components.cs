@@ -162,6 +162,9 @@ namespace RoboSAPiens {
                     if (debug) Console.Write(type + ", ");
 
                     switch (type) {
+                        case "Button":
+                            buttons.add(new SAPGridViewButton(columnId, gridView, row));
+                            break;
                         case "Normal":
                             if (gridView.GetCellChangeable(row, columnId)) {
                                 editableCells.add(new EmptyGridViewCell(columnId, gridView, row));

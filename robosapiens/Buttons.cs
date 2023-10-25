@@ -69,12 +69,16 @@ namespace RoboSAPiens {
     }
 
     public sealed class SAPGridViewButton: Button, IFilledCell {
+        string columnId;
+        string columnTitle;
         string gridViewId;
         // string buttonId; // must start with &
         int rowIndex;
         string tooltip;
 
         public SAPGridViewButton(string columnId, GuiGridView gridView, int rowIndex) {
+            this.columnId = columnId;
+            this.columnTitle = gridView.GetDisplayedColumnTitle(columnId);
             this.gridViewId = gridView.Id;
             // this.buttonId = buttonId;
             this.rowIndex = rowIndex;
@@ -86,19 +90,21 @@ namespace RoboSAPiens {
         }
 
         public bool isLocated(FilledCellLocator locator) {
-            return locator.content switch {
-                string content => isLabeled(content),
-                _ => rowIndex == locator.rowIndex
-            };
+            return locator.rowIndex == this.rowIndex - 1 && 
+                   locator.column == columnTitle;
         }
 
         public override void push(GuiSession session) {
+            GuiGridView gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.PressButton(rowIndex, columnId);
         }
 
         public override void toggleHighlight(GuiSession session)
         {
+            focused = !focused;
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.Visualize(focused);
         }
-
     }
 
     public sealed class SAPGridViewToolbarButton: Button, ILabeled {
