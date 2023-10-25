@@ -42,7 +42,7 @@ namespace RoboSAPiens {
         public void selectRow(int rowIndex, GuiSession session) {
             var table = (GuiTableControl)session.FindById(id);
             var rows = (GuiCollection)table.Rows;
-            var row = (GuiTableRow)rows.ElementAt(rowIndex);
+            var row = (GuiTableRow)rows.ElementAt(rowIndex - 1);
             row.Selected = true;
         }
 

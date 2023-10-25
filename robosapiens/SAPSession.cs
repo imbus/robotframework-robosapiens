@@ -658,14 +658,19 @@ namespace RoboSAPiens {
             }
 
             var tables = window.components.getTables();
+            var gridViews = window.components.getGridViews();
 
-            if (tables.Count() == 0) {
+            if (tables.Count() == 0 && gridViews.Count() == 0)
                 return new Result.SelectTableRow.NotFound();
-            }
 
             try {
                 int intRowIndex = Int32.Parse(rowIndex);
-                tables.First().selectRow(intRowIndex - 1, session);
+                if (tables.Count() > 0) {
+                    tables.First().selectRow(intRowIndex, session);
+                }
+                if (gridViews.Count() > 0) {
+                    gridViews.First().selectRow(intRowIndex, session);
+                }
                 return new Result.SelectTableRow.Pass(intRowIndex);
             }
             catch (Exception e) {
