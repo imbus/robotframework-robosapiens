@@ -165,6 +165,9 @@ namespace RoboSAPiens {
                         case "Button":
                             buttons.add(new SAPGridViewButton(columnId, gridView, row));
                             break;
+                        case "Checkbox":
+                            checkBoxes.add(new SAPGridViewCheckBox(columnId, gridView, row));
+                            break;
                         case "Normal":
                             if (gridView.GetCellChangeable(row, columnId)) {
                                 editableCells.add(new EmptyGridViewCell(columnId, gridView, row));
