@@ -219,7 +219,7 @@ namespace RoboSAPiens
 
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult AttachToRunningSap() {   
+        public RobotResult AttachToRunningSap() {
             GuiApplication? guiApplication = null;
 
             switch(getSapGui()) 
@@ -246,20 +246,30 @@ namespace RoboSAPiens
                     return new Result.AttachToRunningSap.NoConnection();
                 }
                 
-                var connection = (GuiConnection)connections.ElementAt(0);
+                var result = new RobotResult();
 
-                if (connection.DisabledByServer) {
-                    return new Result.AttachToRunningSap.NoServerScripting();
+                for (int c = 0; c < connections.Length; c++)
+                {
+                    var connection = (GuiConnection)connections.ElementAt(c);
+
+                    if (connection.DisabledByServer) 
+                    {
+                        result = new Result.AttachToRunningSap.NoServerScripting();
+                    }
+                    else if (connection.Sessions.Length == 0) 
+                    {
+                        result = new Result.AttachToRunningSap.NoSession();
+                    }
+                    else 
+                    {
+                        var guiSession = (GuiSession)connection.Sessions.ElementAt(0);
+                        this.session = new SAPSession(guiSession, connection, options, logger);
+                        result = new Result.AttachToRunningSap.Pass();
+                        break;
+                    }
                 }
 
-                if (connection.Sessions.Length == 0) {
-                    return new Result.AttachToRunningSap.NoSession();
-                }
-
-                var guiSession = (GuiSession)connection.Sessions.ElementAt(0);
-                this.session = new SAPSession(guiSession, connection, options, logger);
-
-                return new Result.AttachToRunningSap.Pass();
+                return result;
             } 
             catch(Exception e) 
             {
