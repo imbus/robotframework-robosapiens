@@ -68,7 +68,11 @@ class RoboSAPiensClient(object):
                 rf_result.continuable
             )
 
-        sys.stdout.write(result["Pass"].format(*args))
+        if "Log" in result:
+            sys.stdout.write(str(rf_result.return_))
+        else:
+            sys.stdout.write(result["Pass"].format(*args))
+
         return rf_result.return_ # type: ignore
 
 

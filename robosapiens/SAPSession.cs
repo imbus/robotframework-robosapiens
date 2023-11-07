@@ -564,31 +564,38 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            if (path.StartsWith(@"\\")) return new Result.SaveScreenshot.UNCPath();
-
-            var directory = Path.GetDirectoryName(path);
-
-            if (directory == @"\") {
-                return new Result.SaveScreenshot.InvalidPath(path);
-            }
-
-            if (directory == null) {
-                return new Result.SaveScreenshot.InvalidPath(path);
-            }
-
-            if (directory == string.Empty) {
-                return new Result.SaveScreenshot.NoAbsPath(path);
-            }
-
-            if (!Path.HasExtension(path)) {
-                path += ".png";
-            }
-
             try {
-                Directory.CreateDirectory(directory);
                 var window = (GuiFrameWindow)session.FindById(this.window.id);
                 var screenshot = (byte[])window.HardCopyToMemory(GuiImageType.PNG);
 
+                if (path.Equals("LOG"))
+                {
+                    var img_b64 = Convert.ToBase64String(screenshot);
+                    var log_image = $"*HTML* <img src='data:image/png;base64, {img_b64}'>";
+                    return new Result.SaveScreenshot.Log(log_image);
+                }
+                
+                if (path.StartsWith(@"\\")) return new Result.SaveScreenshot.UNCPath();
+
+                var directory = Path.GetDirectoryName(path);
+
+                if (directory == @"\") {
+                    return new Result.SaveScreenshot.InvalidPath(path);
+                }
+
+                if (directory == null) {
+                    return new Result.SaveScreenshot.InvalidPath(path);
+                }
+
+                if (directory == string.Empty) {
+                    return new Result.SaveScreenshot.NoAbsPath(path);
+                }
+
+                if (!Path.HasExtension(path)) {
+                    path += ".png";
+                }
+
+                Directory.CreateDirectory(directory);
                 using var writer = new BinaryWriter(File.OpenWrite(path));
                 writer.Write(screenshot);
 

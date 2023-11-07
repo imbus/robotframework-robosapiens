@@ -600,7 +600,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("2178392450", "Fenster aufnehmen"),
       "args": {
         "filepath": {
-          "name": ("1769741420", "Dateipfad"),
+          "name": ("1053179562", "Speicherort"),
           "spec": {}
         }
       },
@@ -609,16 +609,17 @@ lib: LocalizedRoboSAPiens = {
         "InvalidPath": ("2844012395", "Der Pfad '{0}' ist ungültig"),
         "UNCPath": ("2462162559", r"Ein UNC Pfad (d.h. beginnend mit \\) ist nicht erlaubt"),
         "NoAbsPath": ("2858082864", "'{0}' ist kein absoluter Pfad"),
+        "Log": ("3424982757", "Der Rückgabewert wird in das Protokoll geschrieben."),
         "Pass": ("1427858469", "Eine Aufnahme des Fensters wurde in '{0}' gespeichert."),
         "Exception": ("3250735497", exception("Eine Aufnahme des Fensters konnte nicht gespeichert werden."))
       },
       "doc": (
-          "313859733", 
+          "1785221691", 
           """
-          Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.
-          | ``Fenster aufnehmen     Dateipfad``
+          Eine Bildschirmaufnahme des Fensters wird im eingegebenen Speicherort gespeichert.
+          | ``Fenster aufnehmen     Speicherort``
           
-          Dateifpad: Der absolute Pfad einer .png Datei.
+          Speicherort: Entweder der absolute Pfad einer .png Datei oder LOG, um das Bild in das Protokoll einzubetten. 
           """
       )
     },

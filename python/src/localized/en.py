@@ -564,7 +564,7 @@ lib: RoboSAPiens = {
             "name": "Save Screenshot",
             "args": {
                 "filepath": {
-                    "name": "filepath",
+                    "name": "destination",
                     "spec": {}
                 }
             },
@@ -573,15 +573,16 @@ lib: RoboSAPiens = {
                 "InvalidPath": "The path '{0}' is invalid.",
                 "UNCPath": r"UNC paths (i.e. beginning with \\) are not allowed",
                 "NoAbsPath": "The path '{0}' is not an absolute path.",
+                "Log": "The return value will be written to the protocol",
                 "Pass": "The screenshot was saved in {0}.",
                 "Exception": exception("The screenshot could not be saved. {0}")
             },
             "doc": """
-            Save a screenshot of the current window in the file provided.
+            Save a screenshot of the current window to the given destination.
             
-            | ``Save Screenshot     filepath``
+            | ``Save Screenshot     destination``
             
-            filepath: Absolute path to a .png file.
+            destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
             """
         },
         "SelectCell": {
