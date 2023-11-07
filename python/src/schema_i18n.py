@@ -179,7 +179,7 @@ class LocalizedRoboSAPiensKeywordsSelectcellArgsRow_Locator(TypedDict):
     spec: LocalizedRoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec
 
 class LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepath(TypedDict):
-    name: Tuple[Literal['1769741420'], str]
+    name: Tuple[Literal['1053179562'], str]
     spec: LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepathSpec
 
 class LocalizedRoboSAPiensKeywordsReadtablecellArgsColumn(TypedDict):
@@ -384,6 +384,7 @@ class LocalizedRoboSAPiensKeywordsSavescreenshotResult(TypedDict):
     InvalidPath: Tuple[Literal['2844012395'], str]
     UNCPath: Tuple[Literal['2462162559'], str]
     NoAbsPath: Tuple[Literal['2858082864'], str]
+    Log: Tuple[Literal['3424982757'], str]
     Pass: Tuple[Literal['1427858469'], str]
     Exception: Tuple[Literal['3250735497'], str]
 
@@ -670,7 +671,7 @@ class LocalizedRoboSAPiensKeywordsSavescreenshot(TypedDict):
     name: Tuple[Literal['2178392450'], str]
     args: LocalizedRoboSAPiensKeywordsSavescreenshotArgs
     result: LocalizedRoboSAPiensKeywordsSavescreenshotResult
-    doc: Tuple[Literal['313859733'], str]
+    doc: Tuple[Literal['1785221691'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtablecell(TypedDict):
     name: Tuple[Literal['389153112'], str]

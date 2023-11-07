@@ -470,21 +470,22 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Fenster aufnehmen') # type: ignore
-    def save_screenshot(self, Dateipfad: str): # type: ignore
+    def save_screenshot(self, Speicherort: str): # type: ignore
         """
-        Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.
-        | ``Fenster aufnehmen     Dateipfad``
+        Eine Bildschirmaufnahme des Fensters wird im eingegebenen Speicherort gespeichert.
+        | ``Fenster aufnehmen     Speicherort``
         
-        Dateifpad: Der absolute Pfad einer .png Datei.
+        Speicherort: Entweder der absolute Pfad einer .png Datei oder LOG, um das Bild in das Protokoll einzubetten. 
         """
         
-        args = [Dateipfad]
+        args = [Speicherort]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "InvalidPath": "Der Pfad '{0}' ist ungültig",
             "UNCPath": "Ein UNC Pfad (d.h. beginnend mit \\\\) ist nicht erlaubt",
             "NoAbsPath": "'{0}' ist kein absoluter Pfad",
+            "Log": "Der Rückgabewert wird in das Protokoll geschrieben.",
             "Pass": "Eine Aufnahme des Fensters wurde in '{0}' gespeichert.",
             "Exception": "Eine Aufnahme des Fensters konnte nicht gespeichert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
@@ -751,4 +752,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.14'
+    ROBOT_LIBRARY_VERSION = '1.2.15'

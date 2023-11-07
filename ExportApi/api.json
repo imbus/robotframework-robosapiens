@@ -419,6 +419,7 @@
         "UNCPath": "UNCPath",
         "NoAbsPath": "NoAbsPath",
         "InvalidPath": "InvalidPath",
+        "Log": "Log",
         "Pass": "Pass",
         "Exception": "Exception"
       },

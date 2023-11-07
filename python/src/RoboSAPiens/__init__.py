@@ -494,22 +494,23 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Save Screenshot') # type: ignore
-    def save_screenshot(self, filepath: str): # type: ignore
+    def save_screenshot(self, destination: str): # type: ignore
         """
-        Save a screenshot of the current window in the file provided.
+        Save a screenshot of the current window to the given destination.
         
-        | ``Save Screenshot     filepath``
+        | ``Save Screenshot     destination``
         
-        filepath: Absolute path to a .png file.
+        destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
         """
         
-        args = [filepath]
+        args = [destination]
         
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
             "InvalidPath": "The path '{0}' is invalid.",
             "UNCPath": "UNC paths (i.e. beginning with \\\\) are not allowed",
             "NoAbsPath": "The path '{0}' is not an absolute path.",
+            "Log": "The return value will be written to the protocol",
             "Pass": "The screenshot was saved in {0}.",
             "Exception": "The screenshot could not be saved. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -757,4 +758,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.14'
+    ROBOT_LIBRARY_VERSION = '1.2.15'
