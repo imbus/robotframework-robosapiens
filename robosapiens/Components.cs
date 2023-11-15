@@ -266,9 +266,14 @@ namespace RoboSAPiens {
                         var tooltip = gridView.GetToolbarButtonTooltip(i);
                         buttons.add(new SAPGridViewToolbarButton(gridView, id, tooltip));
                         break;
-                    // case "ButtonAndMenu"
+                    case "ButtonAndMenu":
+                    case "Menu":
+                        var buttonId = gridView.GetToolbarButtonId(i);
+                        var buttonTooltip = gridView.GetToolbarButtonTooltip(i);
+                        buttons.add(new SAPGridViewToolbarButtonMenu(gridView, buttonId, buttonTooltip));
+                        comboBoxes.add(new SAPGridViewToolbarButtonMenuComboBox(gridView, buttonTooltip));
+                        break;
                     // case "CheckBox"
-                    // case "Menu"
                 }
             }
         }

@@ -69,6 +69,68 @@ namespace RoboSAPiens {
         }
     }
 
-    // public class GridViewValueList: ComboBox, ILocated {
-    // }
+    public sealed class SAPGridViewToolbarButtonMenuComboBox: ComboBox, ILabeled 
+    {
+        string gridViewId;
+        string tooltip;
+
+        public SAPGridViewToolbarButtonMenuComboBox(GuiGridView gridView, string tooltip) 
+        {
+            this.gridViewId = gridView.Id;
+            this.tooltip = tooltip;
+        }
+
+        public override bool contains(string entry)
+        {
+            return true;
+        }
+
+        public bool isLabeled(string label) 
+        {
+            return tooltip == label;
+        }
+
+        public override void select(string entry, GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.SelectContextMenuItemByText(entry);
+        }
+
+        public override void toggleHighlight(GuiSession session) {}
+    }
+
+    public sealed class SAPGridViewToolbarMenu: ComboBox, ILabeled 
+    {
+        string gridViewId;
+        string tooltip;
+
+        public SAPGridViewToolbarMenu(GuiGridView gridView, string tooltip) 
+        {
+            this.gridViewId = gridView.Id;
+            this.tooltip = tooltip;
+        }
+
+        public override bool contains(string entry)
+        {
+            return true;
+        }
+
+        public bool isLabeled(string label) 
+        {
+            return tooltip == label;
+        }
+
+        public override void select(string entry, GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.SelectContextMenuItemByText(entry);
+        }
+
+        public override void toggleHighlight(GuiSession session) {}
+    }
+
+
+    // public class GridViewValueList: ComboBox, ILocated {}
+    // According to SAP it is not possible to automate a GuiGridView cell of type ValueList
+    // https://answers.sap.com/questions/13469233/sap-gui-scripting-selecting-valuelist-in-a-guigrid.html
 }

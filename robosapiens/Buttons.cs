@@ -138,6 +138,33 @@ namespace RoboSAPiens {
         }
     }
 
+    public sealed class SAPGridViewToolbarButtonMenu: Button, ILabeled 
+    {
+        string gridViewId;
+        string id;
+        string tooltip;
+
+        public SAPGridViewToolbarButtonMenu(GuiGridView gridView, string id, string tooltip) 
+        {
+            this.gridViewId = gridView.Id;
+            this.id = id;
+            this.tooltip = tooltip;
+        }
+
+        public bool isLabeled(string label) 
+        {
+            return tooltip == label;
+        }
+    
+        public override void push(GuiSession session) 
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.PressToolbarContextButton(id);
+        }
+
+        public override void toggleHighlight(GuiSession session) {}
+    }
+
     public sealed class SAPToolbarButton: Button, ILabeled {
         string toolbarId;
         string id;
