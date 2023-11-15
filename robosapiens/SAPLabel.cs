@@ -70,7 +70,6 @@ namespace RoboSAPiens {
         public void select(GuiSession session) {
             var guiLabel = (GuiLabel)session.FindById(id);
             guiLabel.SetFocus();
-            guiLabel.Visualize(true);
         }
 
         public void toggleHighlight(GuiSession session) {
