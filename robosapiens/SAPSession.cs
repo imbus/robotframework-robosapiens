@@ -400,12 +400,20 @@ namespace RoboSAPiens {
         public RobotResult pressKeyCombination(string keyCombination) {
             int? vkey = VKeys.getKeyCombination(keyCombination);
             
-            if (vkey == null ) {
+            if (vkey == null) {
                 return new Result.PressKeyCombination.NotFound(keyCombination);
             }
             
-            try {
-               window.pressKey((int)vkey!);
+            try 
+            {
+                if (keyCombination == "F1" || keyCombination == "F4")
+                {
+                    var gridView = window.components.getGridViews().FirstOrDefault();
+                    if (gridView != null) gridView.pressKey(keyCombination, session);
+                    else window.pressKey((int)vkey!);
+                }
+                else window.pressKey((int)vkey!);
+
                return new Result.PressKeyCombination.Pass(keyCombination);
             }
             catch (Exception ex) {

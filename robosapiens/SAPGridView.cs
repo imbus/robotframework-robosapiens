@@ -22,11 +22,19 @@ namespace RoboSAPiens {
             guiGridView.SelectContextMenuItem("&XXL");
         }
 
+        public void pressKey(string key, GuiSession session) 
+        {
+            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
+
+            if (key == "F1") guiGridView.PressF1();
+            if (key == "F4") guiGridView.PressF4();
+        }
+
         public void selectRow(int rowIdx, GuiSession session)
         {
-             GuiGridView guiGridView = (GuiGridView)session.FindById(id);
-             guiGridView.CurrentCellRow = rowIdx - 1;
-             guiGridView.SelectedRows = $"{rowIdx - 1}";
+            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
+            guiGridView.CurrentCellRow = rowIdx - 1;
+            guiGridView.SelectedRows = $"{rowIdx - 1}";
         }
     }
 }
