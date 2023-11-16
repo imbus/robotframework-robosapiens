@@ -637,6 +637,32 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult selectCellValue(string rowIndexOrCellContent, string column, string entry) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var locator = FilledCellLocator.of(rowIndexOrCellContent, column);
+            var cell = window.components.findComboBoxCell(locator);
+
+            if (cell == null) {
+                return new Result.SelectCellValue.NotFound(locator.cell);
+            }
+
+            if (!cell.contains(entry)) {
+                return new Result.SelectCellValue.EntryNotFound(entry);
+            }
+
+            try {
+                cell.select(entry, session);
+                return new Result.SelectCellValue.Pass(entry, locator.cell);
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.SelectCellValue.Exception(e);
+            }
+        }
+
         public RobotResult selectComboBoxEntry(string labels, string entry) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

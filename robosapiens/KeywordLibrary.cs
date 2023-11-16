@@ -50,6 +50,7 @@ namespace RoboSAPiens
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
                 {"SelectCell", args => SelectCell(args[0], args[1])},
+                {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
                 {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
                 {"SelectRadioButton", args => SelectRadioButton(args[0])},
                 {"SelectTableRow", args => SelectTableRow(args[0])},
@@ -562,6 +563,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.selectCell(row_locator, column),
                 _ => new Result.SelectCell.NoSession()
+            };
+        }
+
+        [Keyword("Tabellenzellenwert auswählen"),
+         Doc("In der spezifizierten Zelle wird der angegebene Wert ausgewählt.\n\n" +
+             "| ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Eintrag``")]
+        public RobotResult SelectCellValue(string row_locator, string column, string entry) {
+            return session switch {
+                SAPSession session => session.selectCellValue(row_locator, column, entry),
+                _ => new Result.SelectCellValue.NoSession()
             };
         }
 

@@ -9,7 +9,7 @@ namespace RoboSAPiens {
         public abstract void toggleHighlight(GuiSession session);
     }
 
-    public sealed class SAPComboBox: ComboBox, ILabeled {
+    public class SAPComboBox: ComboBox, ILabeled {
         string accTooltip;
         List<string> entries;
         string id;
@@ -66,6 +66,23 @@ namespace RoboSAPiens {
             focused = !focused;
             var guiComboBox = (GuiComboBox)session.FindById(id);
             guiComboBox.Visualize(focused);
+        }
+    }
+
+    public sealed class SAPTableComboBox: SAPComboBox, IFilledCell {
+        string column;
+        int rowIndex;
+
+        public SAPTableComboBox(string column, int rowIndex, GuiComboBox comboBox): base(comboBox) 
+        {
+            this.column = column;
+            this.rowIndex = rowIndex;
+        }
+
+        public bool isLocated(FilledCellLocator locator)
+        {
+            return column == locator.column && 
+                   rowIndex == locator.rowIndex - 1;
         }
     }
 

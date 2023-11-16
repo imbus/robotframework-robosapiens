@@ -48,6 +48,7 @@ namespace RoboSAPiens {
         public record NoServerScripting(): RobotFail("NoServerScripting", "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.");
         public record NoSapGui(): RobotFail("NoSapGui", "Keine laufende SAP GUI gefunden. Das Keyword 'SAP starten' muss zuerst aufgerufen werden.");
         public record NoSession(): RobotFail("NoSession", "Keine SAP-Session vorhanden. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.");
+        public record EntryNotFound(string error): RobotFail("EntryNotFound", error + "\nHinweis: Prüfe die Rechtschreibung");
         public record NotFound(string error): RobotFail("NotFound", error + "\nHinweis: Prüfe die Rechtschreibung");
         public record NotChangeable(string error = "Die Komponente ist schreibgeschützt."): RobotFail("NotChangeable", error);
         public record SapError(string message): RobotFail("SapError", error: message);
@@ -243,10 +244,19 @@ namespace RoboSAPiens {
 
         }
 
+        public record SelectCellValue {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record EntryNotFound(string value): RobotResult.EntryNotFound($"Der Wert '{value}' ist in der Zelle nicht vorhanden.");
+            public record Pass(string value, string locator): RobotResult.RobotPass($"Der Wert '{value}' wurde in der Zelle mit dem Lokator '{locator}' ausgewählt.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Wert konnte nicht ausgewählt werden.");
+
+        }
+
         public record SelectComboBoxEntry {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Das Auswahlmenü mit dem Lokator '{locator}' konnte nicht gefunden werden.");
-            public record EntryNotFound(string item): RobotResult.NotFound($"Der Eintrag '{item}' wurde im Auswahlmenü nicht gefunden.");
+            public record EntryNotFound(string item): RobotResult.EntryNotFound($"Der Eintrag '{item}' wurde im Auswahlmenü nicht gefunden.");
             public record Pass(string item): RobotResult.RobotPass($"Der Eintrag '{item}' wurde ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Eintrag konnte nicht ausgewählt werden.");
         }

@@ -611,6 +611,35 @@ lib: RoboSAPiens = {
             row_locator: either the row number or the contents of a cell in the row.
             """
         },
+        "SelectCellValue": {
+            "name": "Select Cell Value",
+            "args": {
+                "a1row_locator": {
+                    "name": "row_number",
+                    "spec": {}
+                },
+                "a2column": {
+                    "name": "column",
+                    "spec": {}
+                },
+                "a3entry": {
+                    "name": "value",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "EntryNotFound": not_found("The value '{2}' is not available in the cell with locator '{1}'."),
+                "Exception": exception("The value could not be selected. {0}"),
+                "Pass": "The value '{2}' was selected."
+            },
+            "doc": """
+            Select the specified value in the cell at the intersection of the row and column provided.
+            
+            | ``Select Cell Value    row_number    column    value``
+            """
+        },
         "SelectComboBoxEntry": {
             "name": "Select Dropdown Menu Entry",
             "args": {

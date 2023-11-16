@@ -249,6 +249,10 @@ namespace RoboSAPiens {
                                 labelCells.add(new SAPTableCell(columnTitle, absRowIdx, textField, sapTable));
                             }
                             break;
+                        case "GuiComboBox":
+                            var comboBox = (GuiComboBox)cell;
+                            comboBoxes.add(new SAPTableComboBox(columnTitle, rowIdx, comboBox));
+                            break;
                     }
                 }
             }
@@ -449,6 +453,10 @@ namespace RoboSAPiens {
         public Cell? findCell(CellLocator locator) {
             return editableCells.get(locator, labelCells) ?? 
                    labelCells.get(locator);
+        }
+
+        public ComboBox? findComboBoxCell(FilledCellLocator locator) {
+            return comboBoxes.get(locator);
         }
 
         public IDoubleClickable? findDoubleClickableCell(CellLocator locator) {

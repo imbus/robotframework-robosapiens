@@ -652,6 +652,35 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "SelectCellValue": {
+    "name": ("993388184", "Tabellenzellenwert auswählen"),
+    "args": {
+        "a1row_locator": {
+            "name": ("3333868678", "Zeilennummer"),
+            "spec": {}
+        },
+        "a2column": {
+            "name": ("2102626174", "Spaltentitel"),
+            "spec": {}
+        },
+        "a3entry": {
+            "name": ("494360628", "Wert"),
+            "spec": {}
+        }
+    },
+    "result": {
+        "NoSession": ("2754484086", no_session),
+        "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "EntryNotFound": ("1635727028", not_found("Der Wert '{2}' ist in der Zelle mit dem Lokator '{1}' nicht vorhanden.")),
+        "Exception": ("813375986", exception("Der Wert konnte nicht ausgewählt werden. {0}")),
+        "Pass": ("1530467143", "Der Wert '{2}' wurde ausgewählt.")
+    },
+    "doc": ("3815658751", """
+      In der spezifizierten Zelle wird der angegebene Wert ausgewählt.
+      
+      | ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Wert``
+      """)
+    },
     "SelectComboBoxEntry": {
       "name": ("2133292945", "Auswahlmenüeintrag auswählen"),
       "args": {
