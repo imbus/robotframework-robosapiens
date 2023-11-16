@@ -36,6 +36,15 @@ class RoboSAPiensKeywordsSelectcomboboxentryArgsEntrySpec(TypedDict):
 class RoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsSelectcellvalueArgsEntrySpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsSelectcellvalueArgsColumnSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsSelectcellvalueArgsRow_LocatorSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsSelectcellArgsColumnSpec(TypedDict):
     ...
 
@@ -164,6 +173,18 @@ class RoboSAPiensKeywordsSelectcomboboxentryArgsEntry(TypedDict):
 class RoboSAPiensKeywordsSelectcomboboxentryArgsCombobox(TypedDict):
     name: str
     spec: RoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec
+
+class RoboSAPiensKeywordsSelectcellvalueArgsEntry(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsSelectcellvalueArgsEntrySpec
+
+class RoboSAPiensKeywordsSelectcellvalueArgsColumn(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsSelectcellvalueArgsColumnSpec
+
+class RoboSAPiensKeywordsSelectcellvalueArgsRow_Locator(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsSelectcellvalueArgsRow_LocatorSpec
 
 class RoboSAPiensKeywordsSelectcellArgsColumn(TypedDict):
     name: str
@@ -358,6 +379,18 @@ class RoboSAPiensKeywordsSelectcomboboxentryResult(TypedDict):
 class RoboSAPiensKeywordsSelectcomboboxentryArgs(TypedDict):
     a1comboBox: RoboSAPiensKeywordsSelectcomboboxentryArgsCombobox
     a2entry: RoboSAPiensKeywordsSelectcomboboxentryArgsEntry
+
+class RoboSAPiensKeywordsSelectcellvalueResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    EntryNotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsSelectcellvalueArgs(TypedDict):
+    a1row_locator: RoboSAPiensKeywordsSelectcellvalueArgsRow_Locator
+    a2column: RoboSAPiensKeywordsSelectcellvalueArgsColumn
+    a3entry: RoboSAPiensKeywordsSelectcellvalueArgsEntry
 
 class RoboSAPiensKeywordsSelectcellResult(TypedDict):
     NoSession: str
@@ -654,6 +687,12 @@ class RoboSAPiensKeywordsSelectcomboboxentry(TypedDict):
     result: RoboSAPiensKeywordsSelectcomboboxentryResult
     doc: str
 
+class RoboSAPiensKeywordsSelectcellvalue(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsSelectcellvalueArgs
+    result: RoboSAPiensKeywordsSelectcellvalueResult
+    doc: str
+
 class RoboSAPiensKeywordsSelectcell(TypedDict):
     name: str
     args: RoboSAPiensKeywordsSelectcellArgs
@@ -838,6 +877,7 @@ class RoboSAPiensKeywords(TypedDict):
     ReadTableCell: RoboSAPiensKeywordsReadtablecell
     SaveScreenshot: RoboSAPiensKeywordsSavescreenshot
     SelectCell: RoboSAPiensKeywordsSelectcell
+    SelectCellValue: RoboSAPiensKeywordsSelectcellvalue
     SelectComboBoxEntry: RoboSAPiensKeywordsSelectcomboboxentry
     SelectRadioButton: RoboSAPiensKeywordsSelectradiobutton
     SelectTextField: RoboSAPiensKeywordsSelecttextfield

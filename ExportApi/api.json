@@ -445,6 +445,31 @@
       },
       "doc": "Die angegebene Tabellenzelle wird markiert.\n\n| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt."
     },
+    "SelectCellValue": {
+      "name": "Tabellenzellenwert auswählen",
+      "args": {
+        "row_locator": {
+          "name": "row_locator",
+          "spec": {}
+        },
+        "column": {
+          "name": "column",
+          "spec": {}
+        },
+        "entry": {
+          "name": "entry",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "EntryNotFound": "EntryNotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "In der spezifizierten Zelle wird der angegebene Wert ausgewählt.\n\n| ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Eintrag``"
+    },
     "SelectComboBoxEntry": {
       "name": "Auswahlmenüeintrag auswählen",
       "args": {

@@ -513,6 +513,26 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('SelectCell', args, result) # type: ignore
     
 
+    @keyword('Tabellenzellenwert auswählen') # type: ignore
+    def select_cell_value(self, Zeilennummer: str, Spaltentitel: str, Wert: str): # type: ignore
+        """
+        In der spezifizierten Zelle wird der angegebene Wert ausgewählt.
+        
+        | ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Wert``
+        """
+        
+        args = [Zeilennummer, Spaltentitel, Wert]
+        
+        result = {
+            "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
+            "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
+            "EntryNotFound": "Der Wert '{2}' ist in der Zelle mit dem Lokator '{1}' nicht vorhanden.\nHinweis: Prüfe die Rechtschreibung",
+            "Exception": "Der Wert konnte nicht ausgewählt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
+            "Pass": "Der Wert '{2}' wurde ausgewählt."
+        }
+        return super()._run_keyword('SelectCellValue', args, result) # type: ignore
+    
+
     @keyword('Auswahlmenüeintrag auswählen') # type: ignore
     def select_combo_box_entry(self, Name: str, Eintrag: str): # type: ignore
         """
@@ -752,4 +772,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.17'
+    ROBOT_LIBRARY_VERSION = '1.2.18'

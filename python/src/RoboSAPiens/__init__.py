@@ -538,6 +538,26 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('SelectCell', args, result) # type: ignore
     
 
+    @keyword('Select Cell Value') # type: ignore
+    def select_cell_value(self, row_number: str, column: str, value: str): # type: ignore
+        """
+        Select the specified value in the cell at the intersection of the row and column provided.
+        
+        | ``Select Cell Value    row_number    column    value``
+        """
+        
+        args = [row_number, column, value]
+        
+        result = {
+            "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
+            "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hint: Check the spelling",
+            "EntryNotFound": "The value '{2}' is not available in the cell with locator '{1}'. Hint: Check the spelling",
+            "Exception": "The value could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "Pass": "The value '{2}' was selected."
+        }
+        return super()._run_keyword('SelectCellValue', args, result) # type: ignore
+    
+
     @keyword('Select Dropdown Menu Entry') # type: ignore
     def select_combo_box_entry(self, dropdown_menu: str, entry: str): # type: ignore
         """
@@ -758,4 +778,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.17'
+    ROBOT_LIBRARY_VERSION = '1.2.18'

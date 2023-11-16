@@ -40,6 +40,15 @@ class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEntrySpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsEntrySpec(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsColumnSpec(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsRow_LocatorSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsSelectcellArgsColumnSpec(TypedDict):
     ...
 
@@ -169,6 +178,18 @@ class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEntry(TypedDict):
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsCombobox(TypedDict):
     name: Tuple[Literal['3378336226'], str]
     spec: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec
+
+class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsEntry(TypedDict):
+    name: Tuple[Literal['494360628'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelectcellvalueArgsEntrySpec
+
+class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsColumn(TypedDict):
+    name: Tuple[Literal['2102626174'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelectcellvalueArgsColumnSpec
+
+class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsRow_Locator(TypedDict):
+    name: Tuple[Literal['3333868678'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelectcellvalueArgsRow_LocatorSpec
 
 class LocalizedRoboSAPiensKeywordsSelectcellArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
@@ -368,6 +389,18 @@ class LocalizedRoboSAPiensKeywordsSelectcomboboxentryResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgs(TypedDict):
     a1comboBox: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsCombobox
     a2entry: LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsEntry
+
+class LocalizedRoboSAPiensKeywordsSelectcellvalueResult(TypedDict):
+    NoSession: Tuple[Literal['2754484086'], str]
+    NotFound: Tuple[Literal['2770335633'], str]
+    EntryNotFound: Tuple[Literal['1635727028'], str]
+    Exception: Tuple[Literal['813375986'], str]
+    Pass: Tuple[Literal['1530467143'], str]
+
+class LocalizedRoboSAPiensKeywordsSelectcellvalueArgs(TypedDict):
+    a1row_locator: LocalizedRoboSAPiensKeywordsSelectcellvalueArgsRow_Locator
+    a2column: LocalizedRoboSAPiensKeywordsSelectcellvalueArgsColumn
+    a3entry: LocalizedRoboSAPiensKeywordsSelectcellvalueArgsEntry
 
 class LocalizedRoboSAPiensKeywordsSelectcellResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
@@ -661,6 +694,12 @@ class LocalizedRoboSAPiensKeywordsSelectcomboboxentry(TypedDict):
     result: LocalizedRoboSAPiensKeywordsSelectcomboboxentryResult
     doc: Tuple[Literal['1593493126'], str]
 
+class LocalizedRoboSAPiensKeywordsSelectcellvalue(TypedDict):
+    name: Tuple[Literal['993388184'], str]
+    args: LocalizedRoboSAPiensKeywordsSelectcellvalueArgs
+    result: LocalizedRoboSAPiensKeywordsSelectcellvalueResult
+    doc: Tuple[Literal['3815658751'], str]
+
 class LocalizedRoboSAPiensKeywordsSelectcell(TypedDict):
     name: Tuple[Literal['1049942265'], str]
     args: LocalizedRoboSAPiensKeywordsSelectcellArgs
@@ -838,6 +877,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     ReadTableCell: LocalizedRoboSAPiensKeywordsReadtablecell
     SaveScreenshot: LocalizedRoboSAPiensKeywordsSavescreenshot
     SelectCell: LocalizedRoboSAPiensKeywordsSelectcell
+    SelectCellValue: LocalizedRoboSAPiensKeywordsSelectcellvalue
     SelectComboBoxEntry: LocalizedRoboSAPiensKeywordsSelectcomboboxentry
     SelectRadioButton: LocalizedRoboSAPiensKeywordsSelectradiobutton
     SelectTableRow: LocalizedRoboSAPiensKeywordsSelecttablerow
