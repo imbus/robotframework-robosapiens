@@ -175,6 +175,9 @@ namespace RoboSAPiens {
                                 labelCells.add(new SAPGridViewCell(columnId, gridView, row));
                             }
                             break;
+                        case "ValueList":
+                            labelCells.add(new SAPGridViewCell(columnId, gridView, row));
+                            break;
                     }
                 }
 
