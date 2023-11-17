@@ -56,7 +56,8 @@ lib: RoboSAPiens = {
             "args": {
                 "tab": {
                     "name": "tab_name",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -77,7 +78,8 @@ lib: RoboSAPiens = {
             "args": {
                 "path": {
                     "name": "path",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -122,7 +124,8 @@ lib: RoboSAPiens = {
             "args": {
                 "index": {
                     "name": "table_index",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -144,7 +147,8 @@ lib: RoboSAPiens = {
             "args": {
                 "filepath": {
                     "name": "filepath",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -180,7 +184,8 @@ lib: RoboSAPiens = {
             "args": {
                 "server": {
                     "name": "server_name",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -202,11 +207,13 @@ lib: RoboSAPiens = {
             "args": {
                 "a1row_locator": {
                     "name": "row_locator",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a2column": {
                     "name": "column",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -228,7 +235,8 @@ lib: RoboSAPiens = {
             "args": {
                 "content": {
                     "name": "content",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -248,7 +256,8 @@ lib: RoboSAPiens = {
             "args": {
                 "T_Code": {
                     "name": "T_Code",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -267,11 +276,13 @@ lib: RoboSAPiens = {
             "args": {
                 "a1name": {
                     "name": "name",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a2directory": {
                     "name": "directory",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -331,11 +342,13 @@ lib: RoboSAPiens = {
                         "HLabelHLabel": HLabelHLabel,
                         "HIndexVLabel": HIndexVLabel,
                         "HLabelVIndex": HLabelVIndex
-                    }
+                    },
+                    "optional": False
                 },
                 "a2content": {
                     "name": "content",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -373,7 +386,8 @@ lib: RoboSAPiens = {
             "args": {
                 "button": {
                     "name": "name_or_tooltip",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -393,7 +407,8 @@ lib: RoboSAPiens = {
             "args": {
                 "keyCombination": {
                     "name": "key_combination",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -415,7 +430,8 @@ lib: RoboSAPiens = {
             "args": {
                 "button": {
                     "name": "name_or_tooltip",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -436,11 +452,13 @@ lib: RoboSAPiens = {
             "args": {
                 "a1row_or_label": {
                     "name": "row_or_label",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a2column": {
                     "name": "column",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -482,7 +500,8 @@ lib: RoboSAPiens = {
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel,
                         "Content": Content
-                    }
+                    },
+                    "optional": False
                 }
             },
             "result": {
@@ -515,7 +534,8 @@ lib: RoboSAPiens = {
                     "spec": {
                         "HLabel": HLabel,
                         "Content": Content
-                    }
+                    },
+                    "optional": False
                 }
             },
             "result": {
@@ -539,11 +559,13 @@ lib: RoboSAPiens = {
             "args": {
                 "a1row_locator": {
                     "name": "row_locator",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a2column": {
                     "name": "column",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -565,7 +587,8 @@ lib: RoboSAPiens = {
             "args": {
                 "filepath": {
                     "name": "destination",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -590,11 +613,13 @@ lib: RoboSAPiens = {
             "args": {
                 "a1row_locator": {
                     "name": "row_locator",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a2column": {
                     "name": "column",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -616,15 +641,18 @@ lib: RoboSAPiens = {
             "args": {
                 "a1row_locator": {
                     "name": "row_number",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a2column": {
                     "name": "column",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a3entry": {
                     "name": "value",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -645,11 +673,13 @@ lib: RoboSAPiens = {
             "args": {
                 "a1comboBox": {
                     "name": "dropdown_menu",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a2entry": {
                     "name": "entry",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -674,7 +704,8 @@ lib: RoboSAPiens = {
                         "HLabel": HLabel,
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
-                    }
+                    },
+                    "optional": False
                 }
             },
             "result": {
@@ -701,7 +732,8 @@ lib: RoboSAPiens = {
             "args": {
                 "row_number": {
                     "name": "row_number",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -726,7 +758,8 @@ lib: RoboSAPiens = {
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel,
                         "Content": Content
-                    }
+                    },
+                    "optional": False
                 }
             },
             "result": {
@@ -756,7 +789,8 @@ lib: RoboSAPiens = {
             "args": {
                 "content": {
                     "name": "content",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {
@@ -780,7 +814,8 @@ lib: RoboSAPiens = {
                         "HLabel": HLabel,
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
-                    }
+                    },
+                    "optional": False
                 }
             },
             "result": {
@@ -811,7 +846,8 @@ lib: RoboSAPiens = {
                         "HLabel": HLabel,
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
-                    }
+                    },
+                    "optional": False
                 }
             },
             "result": {
@@ -838,11 +874,13 @@ lib: RoboSAPiens = {
             "args": {
                 "a1row": {
                     "name": "row_number",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 },
                 "a2column": {
                     "name": "column",
-                    "spec": {}
+                    "spec": {},
+                    "optional": False
                 }
             },
             "result": {

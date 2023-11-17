@@ -49,7 +49,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "tab": {
           "name": ("3772862467", "Reitername"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -72,7 +73,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "path": {
           "name": ("190089999", "Pfad"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -125,7 +127,8 @@ lib: LocalizedRoboSAPiens = {
         "args": {
             "index": {
                 "name": ("2358225529", "Tabellenindex"),
-                "spec": {}
+                "spec": {},
+                "optional": False
             }
         },
         "result": {
@@ -150,7 +153,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "filepath": {
           "name": ("1769741420", "Dateipfad"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -192,7 +196,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "server": {
           "name": ("3584233446", "Servername"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -217,11 +222,13 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "a1row_locator": {
           "name": ("315353924", "Zeile"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -246,7 +253,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "content": {
           "name": ("4274335913", "Inhalt"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -269,7 +277,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "T_Code": {
           "name": ("1795027938", "T_Code"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -291,11 +300,13 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "a1name": {
           "name": ("1579384326", "Name"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         },
         "a2directory": {
           "name": ("1182287066", "Verzeichnis"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -361,11 +372,13 @@ lib: LocalizedRoboSAPiens = {
               "HLabelHLabel": ("3678957963", HLabelHLabel),
               "HLabelVIndex": ("509417766", HLabelVIndex),
               "HIndexVLabel": ("3606518505", HIndexVLabel)
-          }
+          },
+          "optional": False
         },
         "a2content": {
           "name": ("4274335913", "Inhalt"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -406,7 +419,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "button": {
           "name": ("894332414", "Name_oder_Kurzinfo"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -429,7 +443,8 @@ lib: LocalizedRoboSAPiens = {
         "args": {
             "keyCombination": {
                 "name": ("2238126572", "Tastenkombination"),
-                "spec": {}
+                "spec": {},
+                "optional": False
             }
         },
         "result": {
@@ -451,7 +466,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "button": {
           "name": ("894332414", "Name_oder_Kurzinfo"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -475,11 +491,13 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "a1row_or_label": {
           "name": ("2392311166", "Zeile"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -509,7 +527,8 @@ lib: LocalizedRoboSAPiens = {
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel),
               "Content": ("880934240", Content)
-          }
+          },
+          "optional": False
         }
       },
       "result": {
@@ -545,7 +564,8 @@ lib: LocalizedRoboSAPiens = {
           "spec": {
               "HLabel": ("4229670492", HLabel),
               "Content": ("880934240", Content)
-          }
+          },
+          "optional": False
         }
       },
       "result": {
@@ -572,11 +592,13 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "a1row_locator": {
           "name": ("315353924", "Zeile"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -601,7 +623,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "filepath": {
           "name": ("1053179562", "Speicherort"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -628,11 +651,13 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "a1row_locator": {
           "name": ("315353924", "Zeile"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -657,15 +682,18 @@ lib: LocalizedRoboSAPiens = {
     "args": {
         "a1row_locator": {
             "name": ("3333868678", "Zeilennummer"),
-            "spec": {}
+            "spec": {},
+            "optional": False
         },
         "a2column": {
             "name": ("2102626174", "Spaltentitel"),
-            "spec": {}
+            "spec": {},
+            "optional": False
         },
         "a3entry": {
             "name": ("494360628", "Wert"),
-            "spec": {}
+            "spec": {},
+            "optional": False
         }
     },
     "result": {
@@ -686,11 +714,13 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "a1comboBox": {
           "name": ("3378336226", "Name"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         },
         "a2entry": {
           "name": ("723623280", "Eintrag"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -718,7 +748,8 @@ lib: LocalizedRoboSAPiens = {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel)
-          }
+          },
+          "optional": False
         }
       },
       "result": {
@@ -748,7 +779,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
           "row_number": {
               "name": ("3333868678", "Zeilennummer"),
-              "spec": {}
+              "spec": {},
+              "optional": False
           }
       },
       "result": {
@@ -773,7 +805,8 @@ lib: LocalizedRoboSAPiens = {
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel),
               "Content": ("880934240", Content)
-          }
+          },
+          "optional": False
         }
       },
       "result": {
@@ -806,7 +839,8 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "content": {
           "name": ("4274335913", "Inhalt"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {
@@ -833,7 +867,8 @@ lib: LocalizedRoboSAPiens = {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel)
-          }
+          },
+          "optional": False
         }
       },
       "result": {
@@ -882,7 +917,8 @@ lib: LocalizedRoboSAPiens = {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel)
-          }
+          },
+          "optional": False
         }
       },
       "result": {
@@ -912,11 +948,13 @@ lib: LocalizedRoboSAPiens = {
       "args": {
         "a1row": {
           "name": ("3333868678", "Zeilennummer"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
-          "spec": {}
+          "spec": {},
+          "optional": False
         }
       },
       "result": {

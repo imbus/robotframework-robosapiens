@@ -43,6 +43,22 @@ public class _
         return JsonSerializer.Serialize(content, options);
     }
 
+    static bool isNullable(ParameterInfo param) 
+    {
+        var nullabilityInfoContext = new NullabilityInfoContext();
+        var nullabilityInfo = nullabilityInfoContext.Create(param);
+
+        return nullabilityInfo.ReadState == NullabilityState.Nullable;
+    }
+
+    static Dictionary<string, string> getSpec(ParameterInfo param)
+    {
+        return param.GetCustomAttribute(typeof(Locator)) switch {
+            Locator locator => locator.locators.ToDictionary(key => key, value => value),
+            _ => new Dictionary<string, string>()
+        };
+    }
+
     static object getKeywordSpecs() 
     {
         return typeof(KeywordLibrary)
@@ -61,10 +77,8 @@ public class _
                             param => new 
                             {
                                 name = param.Name,
-                                spec = param.GetCustomAttribute(typeof(Locator)) switch {
-                                    Locator locator => locator.locators.ToDictionary(key => key, value => value),
-                                    _ => new Dictionary<string, string>()
-                                }
+                                optional = isNullable(param),
+                                spec = getSpec(param)
                             }
                         ),
                         result = typeof(Result)

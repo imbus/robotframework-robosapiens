@@ -37,7 +37,10 @@ def gen_call_args(args: ArgsDict):
             arg_type = type(default).__name__
             args_list.append(f"{name}: {arg_type}={default}")
         else:
-            args_list.append(f"{name}: str")
+            if args[arg]["optional"]:
+                args_list.append(f"{name}: str=None")
+            else:
+                args_list.append(f"{name}: str")
 
     return args_list
 

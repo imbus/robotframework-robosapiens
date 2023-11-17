@@ -28,7 +28,8 @@ if __name__ == "__main__":
                         "spec": {
                             spec_name: get_str(spec)
                             for spec_name, spec in arg["spec"].items()
-                        }
+                        },
+                        "optional": arg["optional"]
                     }
                     for arg_name, arg in kw["args"].items()
                 ],
