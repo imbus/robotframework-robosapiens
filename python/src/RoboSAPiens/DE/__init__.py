@@ -256,22 +256,21 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Tabellenzelle ausfüllen') # type: ignore
-    def fill_table_cell(self, Zeile: str, Spaltentitel_gleich_Inhalt: str): # type: ignore
+    def fill_table_cell(self, Zeile: str, Spaltentitel: str, Inhalt: str=None): # type: ignore
         """
-        Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
+        Die Zelle am Schnittpunkt der Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
         
-        | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``
+        | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel     Inhalt``
         
-        Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.
+        Zeile: entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile.
         
-        *Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.
+        *Warnung*: Das Schlüsselwort mit zwei Parametern ist veraltet und wird in einer zukünftigen Version entfernt. Der Parameter `Inhalt` ist derzeit optional, um bestehende Skripte nicht zu zerstören.
         """
         
-        args = [Zeile, Spaltentitel_gleich_Inhalt]
+        args = [Zeile, Spaltentitel, Inhalt]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
-            "InvalidFormat": "Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.\nHinweis: Prüfe die Rechtschreibung",
             "NotChangeable": "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt.",
@@ -772,4 +771,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.19'
+    ROBOT_LIBRARY_VERSION = '1.2.20'

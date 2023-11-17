@@ -16,6 +16,7 @@
       "args": {
         "tab": {
           "name": "tab",
+          "optional": false,
           "spec": {}
         }
       },
@@ -33,6 +34,7 @@
       "args": {
         "path": {
           "name": "path",
+          "optional": false,
           "spec": {}
         }
       },
@@ -70,6 +72,7 @@
       "args": {
         "filepath": {
           "name": "filepath",
+          "optional": false,
           "spec": {}
         }
       },
@@ -100,6 +103,7 @@
       "args": {
         "server": {
           "name": "server",
+          "optional": false,
           "spec": {}
         }
       },
@@ -118,10 +122,12 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
+          "optional": false,
           "spec": {}
         }
       },
@@ -138,6 +144,7 @@
       "args": {
         "content": {
           "name": "content",
+          "optional": false,
           "spec": {}
         }
       },
@@ -154,6 +161,7 @@
       "args": {
         "T_Code": {
           "name": "T_Code",
+          "optional": false,
           "spec": {}
         }
       },
@@ -169,6 +177,7 @@
       "args": {
         "index": {
           "name": "index",
+          "optional": false,
           "spec": {}
         }
       },
@@ -185,10 +194,12 @@
       "args": {
         "name": {
           "name": "name",
+          "optional": false,
           "spec": {}
         },
         "directory": {
           "name": "directory",
+          "optional": false,
           "spec": {}
         }
       },
@@ -204,18 +215,24 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "optional": false,
           "spec": {}
         },
         "column_content": {
           "name": "column_content",
+          "optional": false,
           "spec": {
             "ColumnContent": "ColumnContent"
           }
+        },
+        "content": {
+          "name": "content",
+          "optional": true,
+          "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
-        "InvalidFormat": "InvalidFormat",
         "NotFound": "NotFound",
         "NotChangeable": "NotChangeable",
         "Pass": "Pass",
@@ -228,6 +245,7 @@
       "args": {
         "locator": {
           "name": "locator",
+          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -239,6 +257,7 @@
         },
         "content": {
           "name": "content",
+          "optional": false,
           "spec": {}
         }
       },
@@ -255,6 +274,7 @@
       "args": {
         "button": {
           "name": "button",
+          "optional": false,
           "spec": {}
         }
       },
@@ -272,6 +292,7 @@
       "args": {
         "button": {
           "name": "button",
+          "optional": false,
           "spec": {}
         }
       },
@@ -299,10 +320,12 @@
       "args": {
         "row_or_label": {
           "name": "row_or_label",
+          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
+          "optional": false,
           "spec": {}
         }
       },
@@ -319,6 +342,7 @@
       "args": {
         "row_number": {
           "name": "row_number",
+          "optional": false,
           "spec": {}
         }
       },
@@ -335,6 +359,7 @@
       "args": {
         "keyCombination": {
           "name": "keyCombination",
+          "optional": false,
           "spec": {}
         }
       },
@@ -351,6 +376,7 @@
       "args": {
         "locator": {
           "name": "locator",
+          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -372,6 +398,7 @@
       "args": {
         "locator": {
           "name": "locator",
+          "optional": false,
           "spec": {
             "Content": "Content",
             "HLabel": "HLabel"
@@ -391,10 +418,12 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
+          "optional": false,
           "spec": {}
         }
       },
@@ -411,6 +440,7 @@
       "args": {
         "filepath": {
           "name": "filepath",
+          "optional": false,
           "spec": {}
         }
       },
@@ -430,10 +460,12 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
+          "optional": false,
           "spec": {}
         }
       },
@@ -450,14 +482,17 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
+          "optional": false,
           "spec": {}
         },
         "entry": {
           "name": "entry",
+          "optional": false,
           "spec": {}
         }
       },
@@ -475,10 +510,12 @@
       "args": {
         "comboBox": {
           "name": "comboBox",
+          "optional": false,
           "spec": {}
         },
         "entry": {
           "name": "entry",
+          "optional": false,
           "spec": {}
         }
       },
@@ -496,6 +533,7 @@
       "args": {
         "locator": {
           "name": "locator",
+          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -516,6 +554,7 @@
       "args": {
         "locator": {
           "name": "locator",
+          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -537,6 +576,7 @@
       "args": {
         "content": {
           "name": "content",
+          "optional": false,
           "spec": {}
         }
       },
@@ -553,6 +593,7 @@
       "args": {
         "locator": {
           "name": "locator",
+          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -573,6 +614,7 @@
       "args": {
         "locator": {
           "name": "locator",
+          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -593,10 +635,12 @@
       "args": {
         "row": {
           "name": "row",
+          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
+          "optional": false,
           "spec": {}
         }
       },

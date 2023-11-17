@@ -259,22 +259,21 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Fill Cell') # type: ignore
-    def fill_table_cell(self, row_locator: str, column_content: str): # type: ignore
+    def fill_table_cell(self, row: str, column: str, content: str=None): # type: ignore
         """
-        Fill the cell at the intersection of the row and the column specified with the content provided.
+        Fill the cell at the intersection of the row and column with the content provided.
         
-        | ``Fill Cell     row     column = content``
+        | ``Fill Cell    row    column   content``
         
         row: either the row number or the contents of a cell in the row.
         
-        *Hint*: Some cells can be filled using the keyword 'Fill Text Field' providing as locator the description obtained by selecting the cell and pressing F1.
+        *Warning*: The keyword with two arguments is deprecated and will be removed in a future version. The argument `content` is currently optional in order to not break existing scripts.
         """
         
-        args = [row_locator, column_content]
+        args = [row, column, content]
         
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
-            "InvalidFormat": "The format of the second parameter must be 'column = content'",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found Hint: Check the spelling",
             "NotChangeable": "The cell with the locator '{0}, {1}' is not changeable.",
             "Pass": "The cell with the locator '{0}, {1}' was filled.",
@@ -778,4 +777,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.19'
+    ROBOT_LIBRARY_VERSION = '1.2.20'
