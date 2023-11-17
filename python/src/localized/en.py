@@ -608,7 +608,7 @@ lib: RoboSAPiens = {
             
             | ``Select Cell     row_locator     column``
             
-            row_locator: either the row number or the contents of a cell in the row.
+            row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
             """
         },
         "SelectCellValue": {

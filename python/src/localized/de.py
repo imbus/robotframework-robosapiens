@@ -642,13 +642,13 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2355177759", exception("Die Zelle konnte nicht markiert werden."))
       },
       "doc": (
-          "219237540", 
+          "1368817353", 
           """
           Die angegebene Tabellenzelle wird markiert.
           
           | ``Tabellenzelle markieren     Zeile     Spaltentitel``
           
-          Zeile: Zeilennummer oder Zellinhalt.
+          Zeile: Zeilennummer oder Zellinhalt. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.
           """
       )
     },

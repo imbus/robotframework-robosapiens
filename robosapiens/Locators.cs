@@ -74,7 +74,7 @@ namespace RoboSAPiens {
             if (Int32.TryParse(rowIndexOrContent, out index)) {
                 return new FilledCellLocator(rowIndex: index, column: column);
             } else {
-                string content = rowIndexOrContent;
+                string content = rowIndexOrContent.Trim('"');
                 return new FilledCellLocator(content: content, column: column);
             }
         }
