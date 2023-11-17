@@ -524,7 +524,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Select Cell     row_locator     column``
         
-        row_locator: either the row number or the contents of a cell in the row.
+        row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         """
         
         args = [row_locator, column]
@@ -778,4 +778,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.18'
+    ROBOT_LIBRARY_VERSION = '1.2.19'

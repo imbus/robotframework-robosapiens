@@ -499,7 +499,7 @@ class DE(RoboSAPiensClient):
         
         | ``Tabellenzelle markieren     Zeile     Spaltentitel``
         
-        Zeile: Zeilennummer oder Zellinhalt.
+        Zeile: Zeilennummer oder Zellinhalt. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.
         """
         
         args = [Zeile, Spaltentitel]
@@ -772,4 +772,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.18'
+    ROBOT_LIBRARY_VERSION = '1.2.19'

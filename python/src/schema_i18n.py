@@ -704,7 +704,7 @@ class LocalizedRoboSAPiensKeywordsSelectcell(TypedDict):
     name: Tuple[Literal['1049942265'], str]
     args: LocalizedRoboSAPiensKeywordsSelectcellArgs
     result: LocalizedRoboSAPiensKeywordsSelectcellResult
-    doc: Tuple[Literal['219237540'], str]
+    doc: Tuple[Literal['1368817353'], str]
 
 class LocalizedRoboSAPiensKeywordsSavescreenshot(TypedDict):
     name: Tuple[Literal['2178392450'], str]
