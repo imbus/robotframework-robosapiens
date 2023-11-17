@@ -35,7 +35,7 @@ namespace RoboSAPiens
                 {"ExportForm", args => ExportForm(args[0], args[1])},
                 {"ExportSpreadsheet", args => ExportSpreadsheet(args[0])},
                 {"ExportTree", args => ExportTree(args[0])},
-                {"FillTableCell", args => FillTableCell(args[0], args[1])},
+                {"FillTableCell", args => FillTableCell(args[0], args[1], args[2])},
                 {"FillTextField", args => FillTextField(args[0], args[1])},
                 {"GetWindowText", args => GetWindowText()},
                 {"GetWindowTitle", args => GetWindowTitle()},
@@ -412,9 +412,9 @@ namespace RoboSAPiens
              "Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n" +
              "*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. " +
              "In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")]
-        public RobotResult FillTableCell(string row_locator, [Locator(Loc.ColumnContent)] string column_content) {
+        public RobotResult FillTableCell(string row_locator, [Locator(Loc.ColumnContent)] string column_content, string? content) {
             return session switch {
-                SAPSession session => session.fillTableCell(row_locator, column_content),
+                SAPSession session => session.fillTableCell(row_locator, column_content, content),
                 _ => new Result.FillTableCell.NoSession()
             };
         }

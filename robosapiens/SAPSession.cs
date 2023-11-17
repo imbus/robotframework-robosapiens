@@ -298,16 +298,16 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult fillTableCell(string rowIndexOrRowLabel, string columnEqualsContent) {
+        public RobotResult fillTableCell(string rowIndexOrRowLabel, string columnEqualsContent, string? text) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            if (!columnEqualsContent.Contains('=')) {
-                return new Result.FillTableCell.InvalidFormat();
-            }
-
-            (var column, var content) = EmptyCellLocator.parseColumnContent(columnEqualsContent);
+            (var column, var content) = text switch
+            {
+                string => EmptyCellLocator.parseColumnContent(columnEqualsContent + " = " + text),
+                null => EmptyCellLocator.parseColumnContent(columnEqualsContent)
+            };
 
             var locator = EmptyCellLocator.of(rowIndexOrRowLabel, column);
             var cell = window.components.findEditableCell(locator);

@@ -329,34 +329,40 @@ lib: LocalizedRoboSAPiens = {
       "name": ("1010164935", "Tabellenzelle ausfüllen"),
       "args": {
         "a1row_locator": {
-          "name": ("315353924", "Zeile"),
-          "spec": {}
+          "name": ("2217801435", "Zeile"),
+          "spec": {},
+          "optional": False
         },
         "a2column_content": {
-          "name": ("4122925101", "Spaltentitel_gleich_Inhalt"),
+          "name": ("2102626174", "Spaltentitel"),
           "spec": {
               "ColumnContent": ("2284019715", ColumnContent)
-          }
+          },
+          "optional": False
+        },
+        "a3content": {
+            "name": ("4274335913", "Inhalt"),
+            "spec": {},
+            "optional": True
         }
       },
       "result": {
         "NoSession": ("2754484086", no_session),
-        "InvalidFormat": ("280110049", "Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen"),
         "NotFound": ("3381319755", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "NotChangeable": ("2078310074", "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar."),
         "Pass": ("2876607603", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt."),
         "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
       },
       "doc": (
-          "3041188501", 
+          "1965400230", 
           """
-          Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
+          Die Zelle am Schnittpunkt der Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
           
-          | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``
+          | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel     Inhalt``
           
-          Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.
+          Zeile: entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile.
           
-          *Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.
+          *Warnung*: Das Schlüsselwort mit zwei Parametern ist veraltet und wird in einer zukünftigen Version entfernt. Der Parameter `Inhalt` ist derzeit optional, um bestehende Skripte nicht zu zerstören.
           """
       )
     },

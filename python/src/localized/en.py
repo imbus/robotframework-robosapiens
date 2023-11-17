@@ -302,32 +302,38 @@ lib: RoboSAPiens = {
             "name": "Fill Cell",
             "args": {
                 "a1row_locator": {
-                    "name": "row_locator",
-                    "spec": {}
+                    "name": "row",
+                    "spec": {},
+                    "optional": False
                 },
                 "a2column_content": {
-                    "name": "column_content",
+                    "name": "column",
                     "spec": {
                         "ColumnContent": ColumnContent
-                    }
+                    },
+                    "optional": False
+                },
+                "a3content": {
+                    "name": "content",
+                    "spec": {},
+                    "optional": True
                 }
             },
             "result": {
                 "NoSession": no_session,
-                "InvalidFormat": "The format of the second parameter must be 'column = content'",
                 "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found"),
                 "NotChangeable": "The cell with the locator '{0}, {1}' is not changeable.",
                 "Pass": "The cell with the locator '{0}, {1}' was filled.",
                 "Exception": exception("The cell could not be filled. {0}")
             },
             "doc": """
-            Fill the cell at the intersection of the row and the column specified with the content provided.
-            
-            | ``Fill Cell     row     column = content``
-            
+            Fill the cell at the intersection of the row and column with the content provided.
+
+            | ``Fill Cell    row    column   content``
+
             row: either the row number or the contents of a cell in the row.
-            
-            *Hint*: Some cells can be filled using the keyword 'Fill Text Field' providing as locator the description obtained by selecting the cell and pressing F1.
+
+            *Warning*: The keyword with two arguments is deprecated and will be removed in a future version. The argument `content` is currently optional in order to not break existing scripts.
             """
         },
         "FillTextField": {

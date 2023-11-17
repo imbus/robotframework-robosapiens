@@ -155,7 +155,6 @@ namespace RoboSAPiens {
 
         public record FillTableCell {
             public record NoSession(): RobotResult.NoSession();
-            public record InvalidFormat(): RobotResult.RobotFail("InvalidFormat", "Das zweite Argument muss dem Muster `Spalte = Inhalt` entsprechen");
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist schreibgeschützt.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde ausgefüllt.");
