@@ -11,8 +11,8 @@ build-wheel: gen-robosapiens
     python -m build --wheel
 
 gendoc:
-    libdoc --theme LIGHT -P .\src RoboSAPiens ../docs/RoboSAPiens.html
-    libdoc --theme LIGHT -P .\src RoboSAPiens.DE ../docs/RoboSAPiens.DE.html
+    libdoc -P .\src RoboSAPiens ../docs/RoboSAPiens.html
+    libdoc -P .\src RoboSAPiens.DE ../docs/RoboSAPiens.DE.html
     python localizedoc.py ../docs/RoboSAPiens.DE.html
 
 clean:

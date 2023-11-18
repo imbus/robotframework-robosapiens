@@ -5,13 +5,40 @@
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
         <style>
-            body { font-family: "Lato", sans-serif;}
+            :root 
+            {
+                --background-color: white;
+                --text-color: black;
+                --border-color: #e0e0e2;
+                --light-background-color: #f3f3f3;
+                --robot-highlight: #00c0b5;
+                --highlighted-color: var(--text-color);
+                --highlighted-background-color: yellow;
+                --less-important-text-color: gray;
+                --link-color: #0000ee;
+                --selected-link-color: black;
+            }
+            [data-theme="dark"] 
+            {
+                --background-color: #1c2227;
+                --text-color: #e2e1d7;
+                --border-color: #4e4e4e;
+                --light-background-color: #002b36;
+                --robot-highlight: yellow;
+                --highlighted-color: var(--background-color);
+                --highlighted-background-color: yellow;
+                --less-important-text-color: #5b6a6f;
+                --link-color: #52adff;
+                --selected-link-color: #818181;
+                color-scheme: dark;
+            }
+            body { font-family: "Lato", sans-serif; }
             .main { height: 100%; display: flex; flex-wrap: wrap; }
             .sidenav { height: 100%; display: flex; flex-flow: column; flex-basis: 12rem; flex-grow: 1; text-align: left; font-size: 16px; }
             .footer { width: 99%; min-height: 3.6vh; color: #818181; font-size: 9px; text-align: left; }
             .doc { height: 100%; flex-basis: 0; flex-grow: 999; }
-            .link_not_selected { padding: 6px 6px 6px 32px; text-decoration: none; color: #818181; display: block;}
-            .link_selected {padding: 6px 6px 6px 32px; text-decoration: none; font-weight: bold; color: rgb(0, 0, 0); display: block;}    
+            .link_not_selected { padding: 6px 6px 6px 32px; text-decoration: none; color: #818181; display: block; }
+            .link_selected { padding: 6px 6px 6px 32px; text-decoration: none; font-weight: bold; color: var(--selected-link-color); display: block; }
         </style>
     </head>
     <body>
@@ -37,6 +64,17 @@
     </div>
 
     <script>
+        function setTheme() 
+        {
+            document.documentElement.setAttribute('data-theme', getTheme());
+        }
+        function getTheme() 
+        {
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+                return 'dark';
+            else 
+                return 'light';
+        }
         var links = document.querySelectorAll("#sidenav a");
         links.forEach(link => {
             link.addEventListener("click", function() {
@@ -44,7 +82,10 @@
                 [...links].filter(link => link.getAttribute("href") !== this.getAttribute("href"))
                           .forEach(link => link.className = "link_not_selected")
             })
-        })
+        });
+        (function() {
+            setTheme();
+        })();
     </script>
     </body>
 </html>
