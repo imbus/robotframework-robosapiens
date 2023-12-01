@@ -404,9 +404,22 @@ namespace RoboSAPiens {
             Column
         }
 
-        void getTabStripComponents(GuiTabStrip tabStrip) {
+        void getTabStripComponents(GuiTabStrip tabStrip)
+        {
             var sapTabs = tabStrip.Children;
-            for (int i = 0; i < sapTabs.Length; i++) {
+
+            if (debug)
+            {
+                Console.Write(" | ");
+                for (int i = 0; i < sapTabs.Length; i++) 
+                {
+                    var tab = (GuiTab)sapTabs.ElementAt(i);
+                    Console.Write(tab.Text + " | ");
+                } 
+            }
+
+            for (int i = 0; i < sapTabs.Length; i++)
+            {
                 var tab = (GuiTab)sapTabs.ElementAt(i);
                 tabs.add(new SAPTab(tab));
                 getWindowComponents(tab.Children);
