@@ -10,7 +10,7 @@ namespace RoboSAPiens {
         public SAPTab(GuiTab tab) {
             this.tooltip = tab.Tooltip;
             this.id = tab.Id;
-            this.label = tab.Text;
+            this.label = tab.Text.Trim();
         }
 
         public bool isLabeled(string label) {
