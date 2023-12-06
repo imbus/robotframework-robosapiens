@@ -76,7 +76,9 @@ namespace RoboSAPiens {
 
         public record OpenSap {
             public record Pass(): RobotResult.RobotPass("Die SAP GUI wurde gestartet");
-            public record SAPNotStarted(string path=""): RobotResult.RobotFail("SAPNotStarted", error: $"Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad {path}.");
+            public record SAPNotStarted(string path): RobotResult.RobotFail("SAPNotStarted", error: $"Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad {path}.");
+            public record NoGuiScripting(): RobotResult.NoGuiScripting();
+            public record SAPAlreadyRunning(): RobotResult.RobotFail("SAPAlreadyRunning", error: "Die SAP GUI wird gerade ausgeführt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die SAP GUI konnte nicht gestartet werden.");
         }
 

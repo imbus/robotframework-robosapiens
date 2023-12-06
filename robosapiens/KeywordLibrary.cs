@@ -133,34 +133,42 @@ namespace RoboSAPiens
         [Keyword("SAP starten"),
          Doc("Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n" +
             @"| ``C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe``")]
-        public RobotResult OpenSap(string path) {
-            try {
+        public RobotResult OpenSap(string path)
+        {
+            try
+            {
                 proc = Process.Start(path);
 
-                if (proc == null) {
-                    return new Result.OpenSap.SAPNotStarted();
+                Thread.Sleep(500);
+                if (proc.HasExited)
+                {
+                    return new Result.OpenSap.SAPAlreadyRunning();
                 }
 
-                int timeout = 20000;    // in milliseconds
+                int timeout = 10000;    // in milliseconds
                 int elapsed = 0;
                 int waiting_time = 100; // in milliseconds
                 object? sapGui = null;
 
-                while (sapGui == null && elapsed < timeout) {
+                while (sapGui == null && elapsed < timeout)
+                {
                     Thread.Sleep(waiting_time);
                     elapsed += waiting_time;
                     sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
                 }
 
                 if (sapGui == null) {
-                    return new Result.OpenSap.SAPNotStarted();
+                    return new Result.OpenSap.NoGuiScripting();
                 }
 
                 return new Result.OpenSap.Pass();
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
-                if (e is System.ComponentModel.Win32Exception || e is System.InvalidOperationException) {
+
+                if (e is System.ComponentModel.Win32Exception)
+                {
                     return new Result.OpenSap.SAPNotStarted(path);
                 }
                 else {
