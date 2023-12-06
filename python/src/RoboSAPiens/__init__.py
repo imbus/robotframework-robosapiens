@@ -59,6 +59,8 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "Pass": "The SAP GUI was opened.",
+            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of SAP Logon.",
+            "SAPAlreadyRunning": "The SAP GUI is already running. It must be closed before calling this keyword.",
             "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
             "Exception": "The SAP GUI could not be opened. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -777,4 +779,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '1.2.21'
+    ROBOT_LIBRARY_VERSION = '1.2.22'

@@ -666,6 +666,8 @@ class RoboSAPiensKeywordsCloseconnectionArgs(TypedDict):
 class RoboSAPiensKeywordsOpensapResult(TypedDict):
     Pass: str
     SAPNotStarted: str
+    NoGuiScripting: str
+    SAPAlreadyRunning: str
     Exception: str
 
 class RoboSAPiensKeywordsOpensapArgs(TypedDict):

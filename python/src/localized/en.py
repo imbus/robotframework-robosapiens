@@ -84,6 +84,8 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "Pass": "The SAP GUI was opened.",
+                "NoGuiScripting": no_gui_scripting,
+                "SAPAlreadyRunning": "The SAP GUI is already running. It must be closed before calling this keyword.",
                 "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
                 "Exception": exception("The SAP GUI could not be opened. {0}")
             },

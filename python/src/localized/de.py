@@ -79,6 +79,8 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "Pass": ("3933791589", "Die SAP GUI wurde gestartet"),
+        "NoGuiScripting": ("2929771598", no_gui_scripting),
+        "SAPAlreadyRunning": ("1210765504", "Die SAP GUI läuft gerade. Es muss vor dem Aufruf dieses Schlüsselworts beendet werden."),
         "SAPNotStarted": ("4005776825", "Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{0}'."),
         "Exception": ("2772047805", exception("Die SAP GUI konnte nicht gestartet werden."))
       },

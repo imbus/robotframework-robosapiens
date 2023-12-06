@@ -666,6 +666,8 @@ class LocalizedRoboSAPiensKeywordsCloseconnectionArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsOpensapResult(TypedDict):
     Pass: Tuple[Literal['3933791589'], str]
+    NoGuiScripting: Tuple[Literal['2929771598'], str]
+    SAPAlreadyRunning: Tuple[Literal['1210765504'], str]
     SAPNotStarted: Tuple[Literal['4005776825'], str]
     Exception: Tuple[Literal['2772047805'], str]
 

@@ -41,6 +41,8 @@
       "result": {
         "Pass": "Pass",
         "SAPNotStarted": "SAPNotStarted",
+        "NoGuiScripting": "NoGuiScripting",
+        "SAPAlreadyRunning": "SAPAlreadyRunning",
         "Exception": "Exception"
       },
       "doc": "Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``"
