@@ -49,6 +49,8 @@ namespace RoboSAPiens
         private static List<T> getAll<T>(GuiTree tree, Func<GuiTree, string, T> getByKey) 
         {
             GuiCollection nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+            if (nodeKeys == null) return new List<T>();
+
             int numNodeKeys = nodeKeys.Count;
 
             List<T> result = new List<T>(numNodeKeys);
