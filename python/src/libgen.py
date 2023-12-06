@@ -103,7 +103,7 @@ def generate_rf_lib(lib: LocalizedLib, version: str):
         "RoboSAPiens.client": [base_class]
     }
     properties = [
-        "ROBOT_LIBRARY_SCOPE = 'GLOBAL'",
+        "ROBOT_LIBRARY_SCOPE = 'SUITE'",
         f"ROBOT_LIBRARY_VERSION = '{version}'"
     ]
     doc = codegen.gen_doc(get_str(spec["doc"]["intro"]))
