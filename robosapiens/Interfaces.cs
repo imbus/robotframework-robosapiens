@@ -39,7 +39,7 @@ namespace RoboSAPiens {
 
     public interface ISession {}
 
-    public interface ITextElement: ISelectable {
+    public interface ITextElement: ISelectable, IHighlightable {
         public bool contains(string text);
         public string getText();
     }

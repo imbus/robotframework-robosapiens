@@ -47,6 +47,8 @@ namespace RoboSAPiens
 
         public abstract void select(GuiSession session);
 
+        public abstract void toggleHighlight(GuiSession session);
+
         protected bool inRowOfCell(Cell? cell) 
         {
             return cell switch {
@@ -98,7 +100,7 @@ namespace RoboSAPiens
         // From the documentation for GuiVComponent
         // Some components such as GuiCtrlGridView support displaying the frame around inner objects, 
         // such as cells. The format of the innerObject string is the same as for the dumpState method.
-        public void toggleHighlight(GuiSession session){}
+        public override void toggleHighlight(GuiSession session) {}
     }
 
     public sealed class EmptyGridViewCell: SAPGridViewCell, IEditableCell 
@@ -151,7 +153,7 @@ namespace RoboSAPiens
             guiTextField.SetFocus();
         }
 
-        public void toggleHighlight(GuiSession session)
+        public override void toggleHighlight(GuiSession session)
         {
             focused = !focused;
             var guiTextField = (GuiTextField)session.FindById(id);
@@ -208,5 +210,7 @@ namespace RoboSAPiens
             var tree = (GuiTree)session.FindById(treeId);
             tree.SelectNode(nodeKey);
         }
+
+        public override void toggleHighlight(GuiSession session) {}
     }
 }
