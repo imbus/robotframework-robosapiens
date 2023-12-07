@@ -235,22 +235,32 @@ lib: RoboSAPiens = {
         "DoubleClickTextField": {
             "name": "Double-click Text Field",
             "args": {
-                "content": {
-                    "name": "content",
-                    "spec": {},
+                "locator": {
+                    "name": "locator",
+                    "spec": {
+                        "Content": Content,
+                        "HLabel": HLabel,
+                        "VLabel": VLabel,
+                        "HLabelVLabel": HLabelVLabel,
+                        "HLabelHLabel": HLabelHLabel,
+                        "HIndexVLabel": HIndexVLabel,
+                        "HLabelVIndex": HLabelVIndex
+                    },
                     "optional": False
                 }
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The text field with the content '{0}' could not be found"),
-                "Pass": "The text field with the content '{0}' was double-clicked.",
+                "NotFound": not_found("The text field with the locator '{0}' could not be found"),
+                "Pass": "The text field with the locator '{0}' was double-clicked.",
                 "Exception": exception("The text field could not be double-clicked. {0}")
             },
             "doc": """
-            Double click the text field with the content provided.
+            Double click the text field specified by the locator.
             
-            | ``Double-click Text Field     Content``
+            | ``Double-click Text Field     Locator``
+
+            Text field locators are documented in the keyword Fill Text Field.
             """
         },
         "ExecuteTransaction": {

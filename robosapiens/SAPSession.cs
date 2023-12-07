@@ -131,12 +131,12 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult doubleClickTextField(string content) {
+        public RobotResult doubleClickTextField(string label) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var theTextField = new TextFieldLocator($"= {content}");
+            var theTextField = new TextFieldLocator(label);
             var textField = window.components.findTextField(theTextField);
 
             if (textField == null) {

@@ -374,10 +374,24 @@ namespace RoboSAPiens
 
         [Keyword("Textfeld doppelklicken"),
          Doc("Das angegebene Textfeld wird doppelgeklickt.\n\n" +
-             "| ``Textfeld doppelklicken     Inhalt``\n")]
-        public RobotResult DoubleClickTextField(string content) {
+            "*Textfeld mit einer Beschriftung links*\n" +
+             "| ``Textfeld doppelklicken    Beschriftung``\n" +
+             "*Textfeld mit einer Beschriftung oben*\n" +
+             "| ``Textfeld doppelklicken    @ Beschriftung``\n" +
+             "*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n" +
+             "| ``Textfeld doppelklicken    Beschriftung links @ Beschriftung oben``\n" +
+             "*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n" +
+             "| ``Textfeld doppelklicken    Position (1,2,..) @ Beschriftung``\n\n" +
+             "*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n" +
+             "| ``Textfeld doppelklicken    Beschriftung @ Position (1,2,..)``\n\n" +
+             "*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n" +
+             "| ``Textfeld doppelklicken    Beschriftung des linken Textfelds >> Beschriftung``\n\n" +
+            "*Textfeld mit dem angegebenen Inhalt*\n" +
+             "| ``Textfeld doppelklicken    = Inhalt``"
+             )]
+        public RobotResult DoubleClickTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.HIndexVLabel, Loc.HLabelVIndex, Loc.HLabelHLabel, Loc.Content)] string locator) {
             return session switch {
-                SAPSession session => session.doubleClickTextField(content),
+                SAPSession session => session.doubleClickTextField(locator),
                 _ => new Result.DoubleClickTextField.NoSession()
             };
         }

@@ -253,24 +253,34 @@ lib: LocalizedRoboSAPiens = {
     "DoubleClickTextField": {
       "name": ("3737103423", "Textfeld doppelklicken"),
       "args": {
-        "content": {
-          "name": ("4274335913", "Inhalt"),
-          "spec": {},
+        "locator": {
+          "name": ("2051440239", "Lokator"),
+          "spec": {
+            "Content": ("880934240", Content),
+            "HLabel": ("4229670492", HLabel),
+            "VLabel": ("474824962", VLabel),
+            "HLabelVLabel": ("1999142431", HLabelVLabel),
+            "HLabelHLabel": ("3678957963", HLabelHLabel),
+            "HLabelVIndex": ("509417766", HLabelVIndex),
+            "HIndexVLabel": ("3606518505", HIndexVLabel)
+          },
           "optional": False
         }
       },
       "result": {
         "NoSession": ("2754484086", no_session),
-        "NotFound": ("3855369076", not_found("Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
-        "Pass": ("1611309101", "Das Textfeld mit dem Lokator '{0}' wurde doppelgeklickt."),
+        "NotFound": ("1367926790", not_found("Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
+        "Pass": ("727284193", "Das Textfeld mit dem Lokator '{0}' wurde doppelgeklickt."),
         "Exception": ("504842288", exception("Das Textfeld konnte nicht doppelgeklickt werden."))
       },
       "doc": (
-          "878856351", 
+          "564930098", 
           """
           Das angegebene Textfeld wird doppelgeklickt.
           
-          | ``Textfeld doppelklicken     Inhalt``
+          | ``Textfeld doppelklicken     Lokator``
+
+          Die Lokatoren für Textfelder sind im Schlüsselwort "Textfeld ausfüllen" dokumentiert.
           """
       )
     },
