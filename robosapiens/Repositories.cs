@@ -94,11 +94,17 @@ namespace RoboSAPiens {
         }
 
         SAPTextField? getFromVerticalGrid(int index, string label) {
-            var textField = items.Find(field => field.isLabeled(label));
+            var textField = items.Find(
+                field => field.isLabeled(label) || 
+                field.contains(label)
+            );
 
             if (textField == null) return null;
 
-            var verticalGrid = textField.getVerticalGrid(items);
+            var verticalGrid = textField.contains(label) switch {
+                true => textField.getVerticalGrid(items.Where(item => !item.Equals(textField)).ToList()),
+                false => textField.getVerticalGrid(items)
+            };
 
             if (index <= verticalGrid.Count) {
                 return verticalGrid.ElementAt(index - 1);
