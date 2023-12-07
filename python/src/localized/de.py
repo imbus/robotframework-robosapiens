@@ -254,7 +254,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("3737103423", "Textfeld doppelklicken"),
       "args": {
         "locator": {
-          "name": ("2051440239", "Lokator"),
+          "name": ("2051440239", "Beschriftung_oder_Lokator"),
           "spec": {
             "Content": ("880934240", Content),
             "HLabel": ("4229670492", HLabel),
@@ -809,7 +809,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("335907869", "Textfeld markieren"),
       "args": {
         "locator": {
-          "name": ("2051440239", "Beschriftungen_oder_Lokator"),
+          "name": ("2051440239", "Beschriftung_oder_Lokator"),
           "spec": {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
