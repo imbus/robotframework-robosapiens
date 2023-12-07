@@ -100,8 +100,8 @@ namespace RoboSAPiens {
 
             var verticalGrid = textField.getVerticalGrid(items);
 
-            if (index <= verticalGrid.Count - 1) {
-                return verticalGrid.ElementAt(index);
+            if (index <= verticalGrid.Count) {
+                return verticalGrid.ElementAt(index - 1);
             }
 
             return null;
@@ -114,8 +114,8 @@ namespace RoboSAPiens {
 
             var horizontalGrid = textField.getHorizontalGrid(items);
 
-            if (index <= horizontalGrid.Count - 1) {
-                return horizontalGrid.ElementAt(index);
+            if (index <= horizontalGrid.Count) {
+                return horizontalGrid.ElementAt(index - 1);
             }
 
             return null;
@@ -124,9 +124,9 @@ namespace RoboSAPiens {
         SAPTextField? getByIndex(IIndexLocator locator) {
             return locator switch {
                 HIndexVLabel(int rowIndex, string label) => 
-                    getFromVerticalGrid(rowIndex - 1, label),
+                    getFromVerticalGrid(rowIndex, label),
                 HLabelVIndex(string label, int columnIndex) =>
-                    getFromHorizontalGrid(columnIndex - 1, label),
+                    getFromHorizontalGrid(columnIndex, label),
                 _ => null
             };
         }
