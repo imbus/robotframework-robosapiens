@@ -757,6 +757,10 @@ namespace RoboSAPiens {
                 return new Result.SelectTextLine.NotFound(text);
             }
 
+            if (options.presenterMode) switch(highlightElement(session, textLine)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+
             try {
                 textLine.select(session);
                 return new Result.SelectTextLine.Pass(text);
