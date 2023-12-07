@@ -24,6 +24,9 @@ class LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec(TypedDict):
     HLabel: Tuple[Literal['4229670492'], str]
     VLabel: Tuple[Literal['474824962'], str]
     HLabelVLabel: Tuple[Literal['1999142431'], str]
+    HLabelHLabel: Tuple[Literal['3678957963'], str]
+    HIndexVLabel: Tuple[Literal['3606518505'], str]
+    HLabelVIndex: Tuple[Literal['509417766'], str]
     Content: Tuple[Literal['880934240'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttablerowArgsRow_NumberSpec(TypedDict):
@@ -118,8 +121,14 @@ class LocalizedRoboSAPiensKeywordsExportformArgsNameSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsContentSpec(TypedDict):
-    ...
+class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsLocatorSpec(TypedDict):
+    Content: Tuple[Literal['880934240'], str]
+    HLabel: Tuple[Literal['4229670492'], str]
+    VLabel: Tuple[Literal['474824962'], str]
+    HLabelVLabel: Tuple[Literal['1999142431'], str]
+    HLabelHLabel: Tuple[Literal['3678957963'], str]
+    HIndexVLabel: Tuple[Literal['3606518505'], str]
+    HLabelVIndex: Tuple[Literal['509417766'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsColumnSpec(TypedDict):
     ...
@@ -307,9 +316,9 @@ class LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_Code(TypedDict):
     spec: LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec
     optional: Literal[False]
 
-class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsContent(TypedDict):
-    name: Tuple[Literal['4274335913'], str]
-    spec: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsContentSpec
+class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    spec: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsLocatorSpec
     optional: Literal[False]
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsColumn(TypedDict):
@@ -588,12 +597,12 @@ class LocalizedRoboSAPiensKeywordsExecutetransactionArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
-    NotFound: Tuple[Literal['3855369076'], str]
-    Pass: Tuple[Literal['1611309101'], str]
+    NotFound: Tuple[Literal['1367926790'], str]
+    Pass: Tuple[Literal['727284193'], str]
     Exception: Tuple[Literal['504842288'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgs(TypedDict):
-    content: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsContent
+    locator: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgsLocator
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcellResult(TypedDict):
     NoSession: Tuple[Literal['2754484086'], str]
@@ -724,7 +733,7 @@ class LocalizedRoboSAPiensKeywordsSelecttextfield(TypedDict):
     name: Tuple[Literal['335907869'], str]
     args: LocalizedRoboSAPiensKeywordsSelecttextfieldArgs
     result: LocalizedRoboSAPiensKeywordsSelecttextfieldResult
-    doc: Tuple[Literal['1350596231'], str]
+    doc: Tuple[Literal['3363172211'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttablerow(TypedDict):
     name: Tuple[Literal['1966160675'], str]
@@ -778,7 +787,7 @@ class LocalizedRoboSAPiensKeywordsReadtextfield(TypedDict):
     name: Tuple[Literal['490498248'], str]
     args: LocalizedRoboSAPiensKeywordsReadtextfieldArgs
     result: LocalizedRoboSAPiensKeywordsReadtextfieldResult
-    doc: Tuple[Literal['3457248680'], str]
+    doc: Tuple[Literal['2702604498'], str]
 
 class LocalizedRoboSAPiensKeywordsReadstatusbar(TypedDict):
     name: Tuple[Literal['118752925'], str]
@@ -838,7 +847,7 @@ class LocalizedRoboSAPiensKeywordsDoubleclicktextfield(TypedDict):
     name: Tuple[Literal['3737103423'], str]
     args: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldArgs
     result: LocalizedRoboSAPiensKeywordsDoubleclicktextfieldResult
-    doc: Tuple[Literal['878856351'], str]
+    doc: Tuple[Literal['564930098'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcell(TypedDict):
     name: Tuple[Literal['2108476291'], str]

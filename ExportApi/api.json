@@ -144,10 +144,18 @@
     "DoubleClickTextField": {
       "name": "Textfeld doppelklicken",
       "args": {
-        "content": {
-          "name": "content",
+        "locator": {
+          "name": "locator",
           "optional": false,
-          "spec": {}
+          "spec": {
+            "HLabel": "HLabel",
+            "VLabel": "VLabel",
+            "HLabelVLabel": "HLabelVLabel",
+            "HIndexVLabel": "HIndexVLabel",
+            "HLabelVIndex": "HLabelVIndex",
+            "HLabelHLabel": "HLabelHLabel",
+            "Content": "Content"
+          }
         }
       },
       "result": {
@@ -156,7 +164,7 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das angegebene Textfeld wird doppelgeklickt.\n\n| ``Textfeld doppelklicken     Inhalt``\n"
+      "doc": "Das angegebene Textfeld wird doppelgeklickt.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld doppelklicken    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld doppelklicken    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n| ``Textfeld doppelklicken    Beschriftung links @ Beschriftung oben``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld doppelklicken    Position (1,2,..) @ Beschriftung``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld doppelklicken    Beschriftung @ Position (1,2,..)``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld doppelklicken    Beschriftung des linken Textfelds >> Beschriftung``\n\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld doppelklicken    = Inhalt``"
     },
     "ExecuteTransaction": {
       "name": "Transaktion ausführen",
@@ -561,6 +569,9 @@
             "HLabel": "HLabel",
             "VLabel": "VLabel",
             "HLabelVLabel": "HLabelVLabel",
+            "HIndexVLabel": "HIndexVLabel",
+            "HLabelVIndex": "HLabelVIndex",
+            "HLabelHLabel": "HLabelHLabel",
             "Content": "Content"
           }
         }
@@ -571,7 +582,7 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das angegebene Textfeld wird markiert.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld markieren    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld markieren    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld markieren    = Inhalt``"
+      "doc": "Das angegebene Textfeld wird markiert.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld markieren    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld markieren    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld markieren    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld markieren    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld markieren    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld markieren    = Inhalt``"
     },
     "SelectTextLine": {
       "name": "Textzeile markieren",

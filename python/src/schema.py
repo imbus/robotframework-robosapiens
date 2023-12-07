@@ -23,6 +23,9 @@ class RoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec(TypedDict):
     HLabel: str
     VLabel: str
     HLabelVLabel: str
+    HIndexVLabel: str
+    HLabelVIndex: str
+    HLabelHLabel: str
     Content: str
 
 class RoboSAPiensKeywordsSelectradiobuttonArgsLocatorSpec(TypedDict):
@@ -120,8 +123,14 @@ class RoboSAPiensKeywordsExportspreadsheetArgsIndexSpec(TypedDict):
 class RoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec(TypedDict):
     ...
 
-class RoboSAPiensKeywordsDoubleclicktextfieldArgsContentSpec(TypedDict):
-    ...
+class RoboSAPiensKeywordsDoubleclicktextfieldArgsLocatorSpec(TypedDict):
+    HLabel: str
+    VLabel: str
+    HLabelVLabel: str
+    HIndexVLabel: str
+    HLabelVIndex: str
+    HLabelHLabel: str
+    Content: str
 
 class RoboSAPiensKeywordsDoubleclickcellArgsColumnSpec(TypedDict):
     ...
@@ -311,10 +320,10 @@ class RoboSAPiensKeywordsExecutetransactionArgsT_Code(TypedDict):
     optional: Literal[False]
     spec: RoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec
 
-class RoboSAPiensKeywordsDoubleclicktextfieldArgsContent(TypedDict):
+class RoboSAPiensKeywordsDoubleclicktextfieldArgsLocator(TypedDict):
     name: str
     optional: Literal[False]
-    spec: RoboSAPiensKeywordsDoubleclicktextfieldArgsContentSpec
+    spec: RoboSAPiensKeywordsDoubleclicktextfieldArgsLocatorSpec
 
 class RoboSAPiensKeywordsDoubleclickcellArgsColumn(TypedDict):
     name: str
@@ -601,7 +610,7 @@ class RoboSAPiensKeywordsDoubleclicktextfieldResult(TypedDict):
     Exception: str
 
 class RoboSAPiensKeywordsDoubleclicktextfieldArgs(TypedDict):
-    content: RoboSAPiensKeywordsDoubleclicktextfieldArgsContent
+    locator: RoboSAPiensKeywordsDoubleclicktextfieldArgsLocator
 
 class RoboSAPiensKeywordsDoubleclickcellResult(TypedDict):
     NoSession: str

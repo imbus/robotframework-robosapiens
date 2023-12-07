@@ -204,19 +204,21 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Double-click Text Field') # type: ignore
-    def double_click_text_field(self, content: str): # type: ignore
+    def double_click_text_field(self, locator: str): # type: ignore
         """
-        Double click the text field with the content provided.
+        Double click the text field specified by the locator.
         
-        | ``Double-click Text Field     Content``
+        | ``Double-click Text Field     Locator``
+        
+        Text field locators are documented in the keyword Fill Text Field.
         """
         
-        args = [content]
+        args = [locator]
         
         result = {
             "NoSession": "No existing SAP-Session. Call the keyword \"Connect To Server\" first.",
-            "NotFound": "The text field with the content '{0}' could not be found Hint: Check the spelling",
-            "Pass": "The text field with the content '{0}' was double-clicked.",
+            "NotFound": "The text field with the locator '{0}' could not be found Hint: Check the spelling",
+            "Pass": "The text field with the locator '{0}' was double-clicked.",
             "Exception": "The text field could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('DoubleClickTextField', args, result) # type: ignore
@@ -426,17 +428,9 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Read the contents of the text field specified by the locator.
         
-        *Text field with a label to its left*
-        | ``Read Text Field    label``
+        | ``Read Text Field    Locator``
         
-        *Text field with a label above it*
-        | ``Read Text Field    @ label``
-        
-        *Text field at the intersection of a label to its left and a label above it*
-        | ``Read Text Field    left label @ label above``
-        
-        *Text field whose content starts with a given text*
-        | ``Read Text Field    = text``
+        Text field locators are documented in the keyword Fill Text Field.
         """
         
         args = [locator]
@@ -629,17 +623,9 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Select the text field specified by the locator.
         
-        *Text field with a label to its left*
-        | ``Select Text Field    label``
+        | ``Select Text Field    Locator``
         
-        *Text field with a label above it*
-        | ``Select Text Field    @ label``
-        
-        *Text field at the intersection of a label to its left and a label above it*
-        | ``Select Text Field    left label @ label above``
-        
-        *Text field whose content starts with the given text*
-        | ``Select Text Field    = text``
+        Text field locators are documented in the keyword Fill Text Field.
         """
         
         args = [locator]
@@ -779,4 +765,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '1.2.24'
+    ROBOT_LIBRARY_VERSION = '1.2.25'

@@ -201,14 +201,16 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Textfeld doppelklicken') # type: ignore
-    def double_click_text_field(self, Inhalt: str): # type: ignore
+    def double_click_text_field(self, Beschriftung_oder_Lokator: str): # type: ignore
         """
         Das angegebene Textfeld wird doppelgeklickt.
         
-        | ``Textfeld doppelklicken     Inhalt``
+        | ``Textfeld doppelklicken     Lokator``
+        
+        Die Lokatoren für Textfelder sind im Schlüsselwort "Textfeld ausfüllen" dokumentiert.
         """
         
-        args = [Inhalt]
+        args = [Beschriftung_oder_Lokator]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -402,17 +404,9 @@ class DE(RoboSAPiensClient):
         """
         Der Inhalt des angegebenen Textfeldes wird zurückgegeben.
         
-        *Textfeld mit einer Beschriftung links*
-        | ``Textfeld auslesen    Beschriftung``
+        | ``Textfeld auslesen    Lokator``
         
-        *Textfeld mit einer Beschriftung oben*
-        | ``Textfeld auslesen    @ Beschriftung``
-        
-        *Textfeld am Schnittpunkt einer Beschriftung links und einer oben*
-        | ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``
-        
-        *Textfeld mit dem angegebenen Inhalt*
-        | ``Textfeld auslesen    = Inhalt``
+        Die Lokatoren für Textfelder sind im Schlüsselwort "Textfeld ausfüllen" dokumentiert.
         """
         
         args = [Beschriftung_oder_Lokator]
@@ -600,24 +594,16 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Textfeld markieren') # type: ignore
-    def select_text_field(self, Beschriftungen_oder_Lokator: str): # type: ignore
+    def select_text_field(self, Beschriftung_oder_Lokator: str): # type: ignore
         """
         Das angegebene Textfeld wird markiert.
         
-        *Textfeld mit einer Beschriftung links*
-        | ``Textfeld markieren    Beschriftung``
+        | ``Textfeld markieren    Lokator``
         
-        *Textfeld mit einer Beschriftung oben*
-        | ``Textfeld markieren    @ Beschriftung``
-        
-        *Textfeld am Schnittpunkt einer Beschriftung links und einer oben*
-        | ``Textfeld markieren    Beschriftung links @ Beschriftung oben``
-        
-        *Textfeld mit dem angegebenen Inhalt*
-        | ``Textfeld markieren    = Inhalt``
+        Die Lokatoren für Textfelder sind im Schlüsselwort "Textfeld ausfüllen" dokumentiert.
         """
         
-        args = [Beschriftungen_oder_Lokator]
+        args = [Beschriftung_oder_Lokator]
         
         result = {
             "NoSession": "Keine SAP-Session vorhanden. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
@@ -773,4 +759,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '1.2.24'
+    ROBOT_LIBRARY_VERSION = '1.2.25'
