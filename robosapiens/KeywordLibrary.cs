@@ -631,9 +631,16 @@ namespace RoboSAPiens
              "| ``Textfeld markieren    @ Beschriftung``\n" +
              "*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n" +
              "| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n" +
+            "*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n" +
+             "| ``Textfeld markieren    Position (1,2,..) @ Beschriftung    Inhalt``\n\n" +
+             "*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n" +
+             "| ``Textfeld markieren    Beschriftung @ Position (1,2,..)    Inhalt``\n\n" +
+             "*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n" +
+             "| ``Textfeld markieren    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n" +
             "*Textfeld mit dem angegebenen Inhalt*\n" +
-             "| ``Textfeld markieren    = Inhalt``")]
-        public RobotResult SelectTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.Content)] string locator) {
+             "| ``Textfeld markieren    = Inhalt``"
+             )]
+        public RobotResult SelectTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.HIndexVLabel, Loc.HLabelVIndex, Loc.HLabelHLabel, Loc.Content)] string locator) {
             return session switch {
                 SAPSession session => session.selectTextField(locator),
                 _ => new Result.SelectTextField.NoSession()

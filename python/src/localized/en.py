@@ -531,17 +531,9 @@ lib: RoboSAPiens = {
             "doc": """
             Read the contents of the text field specified by the locator.
             
-            *Text field with a label to its left*
-            | ``Read Text Field    label``
+            | ``Read Text Field    Locator``
             
-            *Text field with a label above it*
-            | ``Read Text Field    @ label``
-            
-            *Text field at the intersection of a label to its left and a label above it*
-            | ``Read Text Field    left label @ label above``
-            
-            *Text field whose content starts with a given text*
-            | ``Read Text Field    = text``
+            Text field locators are documented in the keyword Fill Text Field.
             """
         },
         "ReadText": {
@@ -775,6 +767,9 @@ lib: RoboSAPiens = {
                         "HLabel": HLabel,
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel,
+                        "HLabelHLabel": HLabelHLabel,
+                        "HIndexVLabel": HIndexVLabel,
+                        "HLabelVIndex": HLabelVIndex,
                         "Content": Content
                     },
                     "optional": False
@@ -789,17 +784,9 @@ lib: RoboSAPiens = {
             "doc": """
             Select the text field specified by the locator.
             
-            *Text field with a label to its left*
-            | ``Select Text Field    label``
+            | ``Select Text Field    Locator``
             
-            *Text field with a label above it*
-            | ``Select Text Field    @ label``
-            
-            *Text field at the intersection of a label to its left and a label above it*
-            | ``Select Text Field    left label @ label above``
-            
-            *Text field whose content starts with the given text*
-            | ``Select Text Field    = text``
+            Text field locators are documented in the keyword Fill Text Field.
             """
         },
         "SelectTextLine": {

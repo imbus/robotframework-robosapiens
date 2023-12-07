@@ -556,21 +556,13 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2613451948", exception("Das Textfeld konnte nicht ausgelesen werden."))
       },
       "doc": (
-          "3457248680", 
+          "2702604498", 
           """
           Der Inhalt des angegebenen Textfeldes wird zurückgegeben.
           
-          *Textfeld mit einer Beschriftung links*
-          | ``Textfeld auslesen    Beschriftung``
+          | ``Textfeld auslesen    Lokator``
           
-          *Textfeld mit einer Beschriftung oben*
-          | ``Textfeld auslesen    @ Beschriftung``
-          
-          *Textfeld am Schnittpunkt einer Beschriftung links und einer oben*
-          | ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``
-          
-          *Textfeld mit dem angegebenen Inhalt*
-          | ``Textfeld auslesen    = Inhalt``
+          Die Lokatoren für Textfelder sind im Schlüsselwort "Textfeld ausfüllen" dokumentiert.
           """
       )
     },
@@ -822,6 +814,9 @@ lib: LocalizedRoboSAPiens = {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel),
+              "HLabelHLabel": ("3678957963", HLabelHLabel),
+              "HLabelVIndex": ("509417766", HLabelVIndex),
+              "HIndexVLabel": ("3606518505", HIndexVLabel),
               "Content": ("880934240", Content)
           },
           "optional": False
@@ -834,21 +829,13 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1228826942", exception("Das Textfeld konnte nicht markiert werden."))
       },
       "doc": (
-          "1350596231", 
+          "3363172211", 
           """
           Das angegebene Textfeld wird markiert.
           
-          *Textfeld mit einer Beschriftung links*
-          | ``Textfeld markieren    Beschriftung``
+          | ``Textfeld markieren    Lokator``
           
-          *Textfeld mit einer Beschriftung oben*
-          | ``Textfeld markieren    @ Beschriftung``
-          
-          *Textfeld am Schnittpunkt einer Beschriftung links und einer oben*
-          | ``Textfeld markieren    Beschriftung links @ Beschriftung oben``
-          
-          *Textfeld mit dem angegebenen Inhalt*
-          | ``Textfeld markieren    = Inhalt``
+          Die Lokatoren für Textfelder sind im Schlüsselwort "Textfeld ausfüllen" dokumentiert.
           """
       )
     },
