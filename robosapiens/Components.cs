@@ -254,7 +254,7 @@ namespace RoboSAPiens {
                             break;
                         case "GuiComboBox":
                             var comboBox = (GuiComboBox)cell;
-                            comboBoxes.add(new SAPTableComboBox(columnTitle, rowIdx, comboBox));
+                            comboBoxes.add(new SAPTableComboBox(columnTitle, absRowIdx, comboBox));
                             break;
                     }
                 }
