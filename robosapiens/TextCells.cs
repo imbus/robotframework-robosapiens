@@ -3,14 +3,14 @@ using sapfewse;
 
 namespace RoboSAPiens 
 {
-    public abstract class Cell: ITextElement 
+    public abstract class TextCell: ITextElement, ILocatableCell
     {
         public HashSet<string> columnTitles;
         public Position position;
         public int rowIndex;
         public string text;
 
-        public Cell(int rowIndex, string column, string text) 
+        public TextCell(int rowIndex, string column, string text) 
         {
             this.columnTitles = new HashSet<string>(){ column };
             this.rowIndex = rowIndex;
@@ -27,38 +27,32 @@ namespace RoboSAPiens
             return text;
         }
 
-        public bool isLocated(FilledCellLocator locator) 
-        {
-            return columnTitles.Contains(locator.column) && 
-                locator.content switch {
-                    string content => text == content,
-                    _ => rowIndex == locator.rowIndex - 1
-                };
-        }
+        public abstract RobotResult.NotChangeable? insert(string content, GuiSession session);
 
-        public bool isLocated(EmptyCellLocator locator, LabelCellStore rowLabels) 
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
         {
-            return columnTitles.Contains(locator.column) && 
-                locator.rowLabel switch {
-                    string rowLabel => inRowOfCell(rowLabels.getByContent(rowLabel)),
-                    _ => rowIndex == locator.rowIndex - 1
-                };
+            return columnTitles.Contains(locator.column) && locator switch {
+                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => text == labelLocator.label ||
+                                                 inRowOfCell(rowLabels.getByContent(labelLocator.label)),
+                _ => false
+            };
         }
 
         public abstract void select(GuiSession session);
 
         public abstract void toggleHighlight(GuiSession session);
 
-        protected bool inRowOfCell(Cell? cell) 
+        protected bool inRowOfCell(TextCell? cell) 
         {
             return cell switch {
-                Cell => rowIndex == cell.rowIndex,
+                TextCell => rowIndex == cell.rowIndex,
                 _ => false
             };
         }
     }
 
-    public class SAPGridViewCell: Cell, IDoubleClickable, IFilledCell
+    public class SAPGridViewCell: TextCell, IDoubleClickable
     {
         public string columnId;
         protected string gridViewId;
@@ -90,6 +84,19 @@ namespace RoboSAPiens
             gridView.DoubleClickCurrentCell();
         }
 
+        public override RobotResult.NotChangeable? insert(string content, GuiSession session) 
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+
+            if (gridView.GetCellChangeable(rowIndex, columnId)) 
+            {
+                gridView.ModifyCell(rowIndex, columnId, content);
+                text = content;
+                return null;
+            }
+            else return new RobotResult.NotChangeable();
+        }
+
         public override void select(GuiSession session) 
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
@@ -103,26 +110,8 @@ namespace RoboSAPiens
         public override void toggleHighlight(GuiSession session) {}
     }
 
-    public sealed class EmptyGridViewCell: SAPGridViewCell, IEditableCell 
-    {
-        public EmptyGridViewCell(string columnId, GuiGridView gridView, int rowIndex): 
-            base(columnId, gridView, rowIndex) {}
 
-        public RobotResult.NotChangeable? insert(string content, GuiSession session) 
-        {
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-
-            if (gridView.GetCellChangeable(rowIndex, columnId)) 
-            {
-                gridView.ModifyCell(rowIndex, columnId, content);
-                text = content;
-                return null;
-            }
-            else return new RobotResult.NotChangeable();
-        }
-    }
-
-    public class SAPTableCell: Cell, IDoubleClickable, IFilledCell 
+    public class SAPTableCell: TextCell, IDoubleClickable
     {
         bool focused;
         public string id;
@@ -147,6 +136,20 @@ namespace RoboSAPiens
             session.ActiveWindow.SendVKey((int)VKeys.getKeyCombination("F2")!);
         }
 
+        public override RobotResult.NotChangeable? insert(string content, GuiSession session) 
+        {
+            table.makeSureCellIsVisible(rowIndex, session);
+
+            var textField = (GuiTextField)session.FindById(id);
+
+            if (textField.Changeable) {
+                textField.Text = content;
+                text = content;
+                return null;
+            }
+            else return new RobotResult.NotChangeable();
+        }
+
         public override void select(GuiSession session) 
         {
             var guiTextField = (GuiTextField)session.FindById(id);
@@ -161,27 +164,7 @@ namespace RoboSAPiens
         }
     }
 
-    public sealed class EditableTableCell: SAPTableCell, IEditableCell 
-    {
-        public EditableTableCell(string column, int rowIndex, GuiTextField textField, SAPTable table):
-            base(column, rowIndex, textField, table) {}
-
-        public RobotResult.NotChangeable? insert(string content, GuiSession session) 
-        {
-            table.makeSureCellIsVisible(rowIndex, session);
-
-            var textField = (GuiTextField)session.FindById(id);
-
-            if (textField.Changeable) {
-                textField.Text = content;
-                text = content;
-                return null;
-            }
-            else return new RobotResult.NotChangeable();
-        }
-    }
-
-    public class SAPTreeCell: Cell, IDoubleClickable, IFilledCell 
+    public class SAPTreeCell: TextCell, IDoubleClickable
     {
         string nodeKey;
         string treeId;
@@ -203,6 +186,11 @@ namespace RoboSAPiens
         {
             var tree = (GuiTree)session.FindById(treeId);
             tree.DoubleClickNode(nodeKey);
+        }
+
+        public override RobotResult.NotChangeable? insert(string content, GuiSession session) 
+        {
+            return new RobotResult.NotChangeable();
         }
 
         public override void select(GuiSession session) 

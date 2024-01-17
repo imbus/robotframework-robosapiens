@@ -114,16 +114,16 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var locator = FilledCellLocator.of(rowIndexOrContent, column);
+            var locator = CellLocator.of(rowIndexOrContent, column);
             var cell = window.components.findDoubleClickableCell(locator);
 
             if (cell == null) {
-                return new Result.DoubleClickCell.NotFound(locator.cell);
+                return new Result.DoubleClickCell.NotFound(locator.location);
             }
 
             try {
                 cell.doubleClick(session);
-                return new Result.DoubleClickCell.Pass(locator.cell);
+                return new Result.DoubleClickCell.Pass(locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -298,28 +298,22 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult fillTableCell(string rowIndexOrRowLabel, string columnEqualsContent, string? text) {
+        public RobotResult fillTableCell(string rowIndexOrLabel, string column, string content) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            (var column, var content) = text switch
-            {
-                string => EmptyCellLocator.parseColumnContent(columnEqualsContent + " = " + text),
-                null => EmptyCellLocator.parseColumnContent(columnEqualsContent)
-            };
-
-            var locator = EmptyCellLocator.of(rowIndexOrRowLabel, column);
-            var cell = window.components.findEditableCell(locator);
+            var locator = CellLocator.of(rowIndexOrLabel, column);
+            var cell = window.components.findTextCell(locator);
 
             // The Changeable property could have been set to true after the window components were first read
             if (cell == null) {
                 updateWindow(updateComponents: true);
-                cell = window.components.findEditableCell(locator);
+                cell = window.components.findTextCell(locator);
             }
 
             if (cell == null) {
-                return new Result.FillTableCell.NotFound(locator.cell);
+                return new Result.FillTableCell.NotFound(locator.location);
             }
 
             // Disabled because it could happen that the result of getMaxLength()
@@ -336,8 +330,8 @@ namespace RoboSAPiens {
             try {
                 // The Changeable property could have been set to false after the window components were first read
                 switch(cell.insert(content, session)) {
-                    case RobotResult.NotChangeable: return new Result.FillTableCell.NotChangeable(locator.cell);
-                    default: return new Result.FillTableCell.Pass(locator.cell);
+                    case RobotResult.NotChangeable: return new Result.FillTableCell.NotChangeable(locator.location);
+                    default: return new Result.FillTableCell.Pass(locator.location);
                 };
             }
             catch (Exception e) {
@@ -462,11 +456,11 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var locator = FilledCellLocator.of(rowNumberOrButtonLabel, column);
+            var locator = CellLocator.of(rowNumberOrButtonLabel, column);
             var button = window.components.findButtonCell(locator);
 
             if (button == null) {
-                return new Result.PushButtonCell.NotFound(locator.cell);
+                return new Result.PushButtonCell.NotFound(locator.location);
             }
 
             if (options.presenterMode) switch(highlightElement(session, button)) {
@@ -475,7 +469,7 @@ namespace RoboSAPiens {
 
             try {
                 button.push(session);
-                return new Result.PushButtonCell.Pass(locator.cell);
+                return new Result.PushButtonCell.Pass(locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -504,16 +498,16 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var locator = FilledCellLocator.of(rowNumberOrButtonLabel, column);
-            var cell = window.components.findCell(locator);
+            var locator = CellLocator.of(rowNumberOrButtonLabel, column);
+            var cell = window.components.findTextCell(locator);
 
             if (cell == null) {
-                return new Result.ReadTableCell.NotFound(locator.cell);
+                return new Result.ReadTableCell.NotFound(locator.location);
             }
 
             try {
                 var text = cell.getText();
-                return new Result.ReadTableCell.Pass(text, locator.cell);
+                return new Result.ReadTableCell.Pass(text, locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -620,16 +614,16 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var locator = FilledCellLocator.of(rowIndexOrCellContent, column);
-            var cell = window.components.findCell(locator);
+            var locator = CellLocator.of(rowIndexOrCellContent, column);
+            var cell = window.components.findTextCell(locator);
 
             if (cell == null) {
-                return new Result.SelectCell.NotFound(locator.cell);
+                return new Result.SelectCell.NotFound(locator.location);
             }
 
             try {
                 cell.select(session);
-                return new Result.SelectCell.Pass(locator.cell);
+                return new Result.SelectCell.Pass(locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -642,11 +636,11 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var locator = FilledCellLocator.of(rowIndexOrCellContent, column);
+            var locator = CellLocator.of(rowIndexOrCellContent, column);
             var cell = window.components.findComboBoxCell(locator);
 
             if (cell == null) {
-                return new Result.SelectCellValue.NotFound(locator.cell);
+                return new Result.SelectCellValue.NotFound(locator.location);
             }
 
             if (!cell.contains(entry)) {
@@ -655,7 +649,7 @@ namespace RoboSAPiens {
 
             try {
                 cell.select(entry, session);
-                return new Result.SelectCellValue.Pass(entry, locator.cell);
+                return new Result.SelectCellValue.Pass(entry, locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -849,16 +843,16 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult tickCheckBoxCell(string rowIndex, string column) {
+        public RobotResult tickCheckBoxCell(string rowIndexOrLabel, string column) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var locator = FilledCellLocator.of(rowIndex, column);
+            var locator = CellLocator.of(rowIndexOrLabel, column);
             var checkBox = window.components.findCheckBoxCell(locator);
             
             if (checkBox == null) {
-                return new Result.TickCheckBoxCell.NotFound(locator.cell);
+                return new Result.TickCheckBoxCell.NotFound(locator.location);
             }
 
             if (options.presenterMode) switch(highlightElement(session, checkBox)) {
@@ -867,7 +861,7 @@ namespace RoboSAPiens {
 
             try {
                 checkBox.select(session);
-                return new Result.TickCheckBoxCell.Pass(locator.cell);
+                return new Result.TickCheckBoxCell.Pass(locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");

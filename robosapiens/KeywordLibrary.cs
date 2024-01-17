@@ -434,9 +434,9 @@ namespace RoboSAPiens
              "Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n" +
              "*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. " +
              "In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")]
-        public RobotResult FillTableCell(string row_locator, [Locator(Loc.ColumnContent)] string column_content, string? content) {
+        public RobotResult FillTableCell(string row_locator, [Locator(Loc.Column)] string column, string content) {
             return session switch {
-                SAPSession session => session.fillTableCell(row_locator, column_content, content),
+                SAPSession session => session.fillTableCell(row_locator, column, content),
                 _ => new Result.FillTableCell.NoSession()
             };
         }

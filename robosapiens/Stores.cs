@@ -3,9 +3,12 @@ namespace RoboSAPiens {
         public Button? get(ILocator locator) {
             return locator switch {
                 HLabel(var label) => getByLabelOrTooltip(label),
-                FilledCellLocator cellLocator => getCell(cellLocator),
                 _ => null
             };
+        }
+
+        public Button? get(CellLocator locator, TextCellStore rowLabels) {
+            return getCell(locator, rowLabels);
         }
     }
 
@@ -17,9 +20,12 @@ namespace RoboSAPiens {
                 VLabel(var label) => getVerticalClosestToLabel(label, labels, textFieldLabels) ??
                                      getNearLabel(label, labels, textFieldLabels),
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
-                FilledCellLocator cellLocator => getCell(cellLocator),
                 _ => null
             };
+        }
+
+        public CheckBox? get(CellLocator locator, TextCellStore rowLabels) {
+            return getCell(locator, rowLabels);
         }
     }
 
@@ -27,9 +33,12 @@ namespace RoboSAPiens {
         public ComboBox? get(ILocator locator) {
             return locator switch {
                 HLabel(var label) => getByLabelOrTooltip(label),
-                FilledCellLocator cellLocator => getCell(cellLocator),
                 _ => null
             };
+        }
+
+        public ComboBox? get(CellLocator locator, TextCellStore rowLabels) {
+            return getCell(locator, rowLabels);
         }
     }
 
@@ -55,9 +64,12 @@ namespace RoboSAPiens {
                                      getHorizontalClosestToLabel(label, labels, textFieldLabels),
                 VLabel(var label) => getVerticalClosestToLabel(label, labels, textFieldLabels),
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
-                FilledCellLocator cellLocator => getCell(cellLocator),
                 _ => null
             };
+        }
+
+        public RadioButton? get(CellLocator locator, TextCellStore rowLabels){
+            return getCell(locator, rowLabels);
         }
     }
 
@@ -69,21 +81,15 @@ namespace RoboSAPiens {
 
     public sealed class TableStore: Repository<SAPTable> {}
 
-    public sealed class EditableCellStore: EditableTextCellRepository {
-        public Cell? get(ILocator locator, LabelCellStore rowLabels) {
-            return locator switch {
-                EmptyCellLocator cellLocator => getEmptyCell(cellLocator, rowLabels),
-                FilledCellLocator cellLocator => getFilledCell(cellLocator),
-                _ => null
-            };
+    public sealed class TextCellStore: Repository<TextCell> {
+        public TextCell? getByContent(string text) {
+            return items.Find(cell => cell.contains(text));
         }
-    }
 
-    public sealed class LabelCellStore: TextCellRepository {
-        public Cell? get(ILocator locator) {
+        public TextCell? get(ILocator locator) {
             return locator switch {
                 Content(var content) => getByContent(content),
-                FilledCellLocator cellLocator => getFilledCell(cellLocator),
+                CellLocator cellLocator => filterBy<ILocatableCell>().Find(cell => cell.isLocated(cellLocator, this)) as TextCell,
                 _ => null
             };
         }

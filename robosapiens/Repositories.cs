@@ -33,8 +33,8 @@ namespace RoboSAPiens {
             return filterBy<ILabeled>().Find(item => item.isLabeled(label)) as T;
         }
 
-        public T? getCell(FilledCellLocator locator) {
-            return filterBy<IFilledCell>().Find(cell => cell.isLocated(locator)) as T;
+        public T? getCell(CellLocator locator, TextCellStore rowLabels) {
+            return filterBy<ILocatableCell>().Find(cell => cell.isLocated(locator, rowLabels)) as T;
         }
 
         public T? getHorizontalClosestToLabel(string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
@@ -64,22 +64,6 @@ namespace RoboSAPiens {
     public abstract class ContainerRepository<T>: Repository<T> where T: ILabeled {
         public T? get(string label) {
             return items.Find(item => item.isLabeled(label));
-        }
-    }
-
-    public abstract class EditableTextCellRepository: TextCellRepository {
-        public Cell? getEmptyCell(EmptyCellLocator locator, LabelCellStore rowLabels) {
-            return filterBy<IEditableCell>().Find(cell => cell.isLocated(locator, rowLabels)) as Cell;
-        }
-    }
-
-    public abstract class TextCellRepository: Repository<Cell> {
-        public Cell? getByContent(string text) {
-            return items.Find(cell => cell.contains(text));
-        }
-
-        public Cell? getFilledCell(FilledCellLocator locator) {
-            return filterBy<IFilledCell>().Find(cell => cell.isLocated(locator)) as Cell;
         }
     }
 

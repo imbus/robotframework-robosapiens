@@ -44,7 +44,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPTableButton: SAPButton, IFilledCell {
+    public sealed class SAPTableButton: SAPButton, ILocatableCell {
         string column;
         int rowIndex;
         SAPTable table;
@@ -55,10 +55,21 @@ namespace RoboSAPiens {
             this.table = table;
         }
 
-        public bool isLocated(FilledCellLocator locator) {
-            return locator.content switch {
-                string content => isLabeled(content) && column == locator.column,
-                _ => rowIndex == locator.rowIndex - 1 && column == locator.column
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
+        {
+            return column == locator.column && locator switch {
+                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => isLabeled(labelLocator.label) ||
+                                                 inRowOfCell(rowLabels.getByContent(labelLocator.label)),
+                _ => false
+            };
+        }
+
+        private bool inRowOfCell(TextCell? cell) 
+        {
+            return cell switch {
+                TextCell => rowIndex == cell.rowIndex,
+                _ => false
             };
         }
 
@@ -69,7 +80,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPGridViewButton: Button, IFilledCell {
+    public sealed class SAPGridViewButton: Button, ILocatableCell {
         string columnId;
         public HashSet<string> columnTitles;
         string gridViewId;
@@ -97,9 +108,22 @@ namespace RoboSAPiens {
             return label == tooltip;
         }
 
-        public bool isLocated(FilledCellLocator locator) {
-            return columnTitles.Contains(locator.column) && 
-                   rowIndex == locator.rowIndex - 1;
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
+        {
+            return columnTitles.Contains(locator.column) && locator switch {
+                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => isLabeled(labelLocator.label) || 
+                                                 inRowOfCell(rowLabels.getByContent(labelLocator.label)),
+                _ => false
+            };
+        }
+
+        private bool inRowOfCell(TextCell? cell) 
+        {
+            return cell switch {
+                TextCell => rowIndex == cell.rowIndex,
+                _ => false
+            };
         }
 
         public override void push(GuiSession session) {
@@ -190,7 +214,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPTreeButton: Button, IFilledCell {
+    public sealed class SAPTreeButton: Button, ILocatableCell {
         string columnName;
         string columnTitle;
         string nodeKey;
@@ -211,15 +235,13 @@ namespace RoboSAPiens {
             return this.label == label;
         }
 
-        public bool isLocated(FilledCellLocator locator) {
-            if (locator.rowIndex > 0) {
-                return rowNumber == locator.rowIndex - 1 && columnTitle == locator.column;
-            }
-
-            if (locator.content != null) {
-                return columnTitle == locator.column && isLabeled(locator.content);
-            }
-            return false;
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
+        {
+            return columnTitle == locator.column && locator switch {
+                RowCellLocator rowLocator => rowLocator.rowIndex > 0 && rowNumber == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => isLabeled(labelLocator.label),
+                _ => false
+            };
         }
 
         public override void push(GuiSession session) {
@@ -232,7 +254,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPTreeLink: Button, IFilledCell {
+    public sealed class SAPTreeLink: Button, ILocatableCell {
         string columnName;
         string columnTitle;
         string nodeKey;
@@ -253,11 +275,12 @@ namespace RoboSAPiens {
             return this.tooltip == label || this.text == label;
         }
 
-        public bool isLocated(FilledCellLocator locator) {
-            if (locator.content != null) {
-                return columnTitle == locator.column && isLabeled(locator.content);
-            }
-            return false;
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
+        {
+            return columnTitle == locator.column && locator switch {
+                LabelCellLocator labelLocator => isLabeled(labelLocator.label),
+                _ => false
+            };
         }
 
         public override void push(GuiSession session) {

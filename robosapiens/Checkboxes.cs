@@ -81,7 +81,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPTableCheckBox: SAPCheckBox, IFilledCell {
+    public sealed class SAPTableCheckBox: SAPCheckBox, ILocatableCell {
         string column;
         int rowIndex;
         SAPTable table;
@@ -92,13 +92,26 @@ namespace RoboSAPiens {
             this.rowIndex = rowIndex;
         }
 
-        public bool isLocated(FilledCellLocator locator) {
-            return column == locator.column && 
-                   rowIndex == locator.rowIndex - 1;
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
+        {
+            return column == locator.column && locator switch {
+                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => isLabeled(labelLocator.label) ||
+                                                 inRowOfCell(rowLabels.getByContent(labelLocator.label)),
+                _ => false
+            };
+        }
+
+        private bool inRowOfCell(TextCell? cell) 
+        {
+            return cell switch {
+                TextCell => rowIndex == cell.rowIndex,
+                _ => false
+            };
         }
     }
 
-    public sealed class SAPTreeCheckBox: CheckBox, IFilledCell {
+    public sealed class SAPTreeCheckBox: CheckBox, ILocatableCell {
         string columnName;
         string columnTitle;
         string nodeKey;
@@ -113,11 +126,21 @@ namespace RoboSAPiens {
             this.treeId = treeId;
         }
 
-        public bool isLocated(FilledCellLocator locator) {
-            if (locator.rowIndex > 0) {
-                return rowNumber == locator.rowIndex - 1 && columnTitle == locator.column;
-            }
-            return false;
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
+        {
+            return columnTitle == locator.column && locator switch {
+                RowCellLocator rowLocator => rowLocator.rowIndex > 0 && rowNumber == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => inRowOfCell(rowLabels.getByContent(labelLocator.label)),
+                _ => false
+            };
+        }
+
+        private bool inRowOfCell(TextCell? cell) 
+        {
+            return cell switch {
+                TextCell => rowNumber == cell.rowIndex,
+                _ => false
+            };
         }
 
         public override void select(GuiSession session) {
@@ -137,7 +160,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPGridViewCheckBox: CheckBox, IFilledCell, ISelectable {
+    public sealed class SAPGridViewCheckBox: CheckBox, ILocatableCell, ISelectable {
         string columnId;
         public HashSet<string> columnTitles;
         string gridViewId;
@@ -157,9 +180,21 @@ namespace RoboSAPiens {
             }
         }
 
-        public bool isLocated(FilledCellLocator locator) {
-            return columnTitles.Contains(locator.column) && 
-                   rowIndex == locator.rowIndex - 1;
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
+        {
+            return columnTitles.Contains(locator.column) && locator switch {
+                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => inRowOfCell(rowLabels.getByContent(labelLocator.label)),
+                _ => false
+            };
+        }
+
+        private bool inRowOfCell(TextCell? cell) 
+        {
+            return cell switch {
+                TextCell => rowIndex == cell.rowIndex,
+                _ => false
+            };
         }
 
         public override void select(GuiSession session) {

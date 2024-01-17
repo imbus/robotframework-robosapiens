@@ -69,7 +69,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPTableComboBox: SAPComboBox, IFilledCell {
+    public sealed class SAPTableComboBox: SAPComboBox, ILocatableCell {
         string column;
         int rowIndex;
 
@@ -79,10 +79,21 @@ namespace RoboSAPiens {
             this.rowIndex = rowIndex;
         }
 
-        public bool isLocated(FilledCellLocator locator)
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
         {
-            return column == locator.column && 
-                   rowIndex == locator.rowIndex - 1;
+            return column == locator.column && locator switch {
+                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => inRowOfCell(rowLabels.getByContent(labelLocator.label)),
+                _ => false
+            };
+        }
+
+        private bool inRowOfCell(TextCell? cell) 
+        {
+            return cell switch {
+                TextCell => rowIndex == cell.rowIndex,
+                _ => false
+            };
         }
     }
 

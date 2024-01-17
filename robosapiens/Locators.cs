@@ -2,83 +2,25 @@ using System;
 using System.Linq;
 
 namespace RoboSAPiens {
-    public abstract class CellLocator: ILocator {
-        public string cell;
-        public string column {get;}
-        public int rowIndex {get;}
-
-        public CellLocator(int rowIndex, string column) {
-            this.cell = $"{rowIndex}, {column}";
-            this.column = column;
-            this.rowIndex = rowIndex;
-        }
-    }
-
-    public class EmptyCellLocator: CellLocator {
-        public string? rowLabel {get;}
-
-        EmptyCellLocator(int rowIndex, string column): base(rowIndex, column) {}
-
-        EmptyCellLocator(string rowLabel, string column): base(rowIndex: 0, column: column) {
-            this.cell = $"{rowLabel}, {column}";
-            this.rowLabel = rowLabel;
-        }
-
-        public static EmptyCellLocator of(string rowIndexOrRowLabel, string column) {            
+    public abstract record CellLocator(string column, string location): ILocator
+    {
+        public static CellLocator of(string rowIndexOrLabel, string column) 
+        {
             int index;
-
-            if (Int32.TryParse(rowIndexOrRowLabel, out index)) {
-                return new EmptyCellLocator(rowIndex: index, column: column);
+            if (Int32.TryParse(rowIndexOrLabel, out index)) {
+                return new RowCellLocator(rowIndex: index, column: column);
             } 
             else {
-                string rowLabel = rowIndexOrRowLabel;
-                return new EmptyCellLocator(rowLabel: rowLabel, column: column);
-            }
-        }
-
-        public record ColumnContent(string column, string content);
-
-        public static ColumnContent parseColumnContent(string columnEqualsContent) {
-            if (!columnEqualsContent.Contains('=')) {
-                return new ColumnContent(column: columnEqualsContent, 
-                                         content: string.Empty);
-            }
-
-            var tokens = columnEqualsContent.Split("=")
-                                            .Select(token => token.Trim())
-                                            .ToList();
-
-            return (tokens[0], tokens[1]) switch {
-                ("", string content) => 
-                    new ColumnContent(column: string.Empty, content: content),
-
-                (string column, string content) => 
-                    new ColumnContent(column, content),
-            };
-        }
-    }
-
-    public class FilledCellLocator: CellLocator {
-        public string? content {get;}
-
-        FilledCellLocator(int rowIndex, string column): base(rowIndex, column) {}
-
-        FilledCellLocator(string content, string column): base(rowIndex: 0, column: column) {
-            this.cell = $"{column} = {content}";
-            this.content = content;
-        }
-
-        public static FilledCellLocator of(string rowIndexOrContent, string column) {
-            int index;
-
-            if (Int32.TryParse(rowIndexOrContent, out index)) {
-                return new FilledCellLocator(rowIndex: index, column: column);
-            } else {
-                string content = rowIndexOrContent.Trim('"');
-                return new FilledCellLocator(content: content, column: column);
+                // If the label is a number it must be quoted, so that it is not interpreted as a row number
+                string label = rowIndexOrLabel.Trim('"');
+                return new LabelCellLocator(label: label, column: column);
             }
         }
     }
+
+    public record RowCellLocator(int rowIndex, string column): CellLocator(column, $"{rowIndex}, {column}");
+
+    public record LabelCellLocator(string label, string column): CellLocator(column, $"{label}, {column}");
 
     public abstract class ComponentLocator {
         public string atLocation;
@@ -188,7 +130,7 @@ namespace RoboSAPiens {
         public const string HLabel = "HLabel";
         public const string VLabel = "VLabel";
         public const string HLabelVLabel = "HLabelVLabel";
-        public const string ColumnContent = "ColumnContent";
+        public const string Column = "Column";
         public const string Content = "Content";
         public const string HLabelHLabel = "HLabelHLabel";
         public const string HLabelVIndex = "HLabelVIndex";

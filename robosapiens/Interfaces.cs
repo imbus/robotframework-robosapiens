@@ -5,15 +5,6 @@ namespace RoboSAPiens {
         public void doubleClick(GuiSession session);
     }
 
-    public interface IEditableCell: IHighlightable {
-        public RobotResult.NotChangeable? insert(string text, GuiSession session);
-        public bool isLocated(EmptyCellLocator locator, LabelCellStore rowLabels);
-    }
-
-    public interface IFilledCell {
-        public bool isLocated(FilledCellLocator locator);
-    }
-
     public interface IHighlightable {
         public void toggleHighlight(GuiSession session);
     }
@@ -29,6 +20,10 @@ namespace RoboSAPiens {
     public interface ILocatable {
         public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels);
         public Position getPosition();
+    }
+
+    public interface ILocatableCell {
+        public bool isLocated(CellLocator locator, TextCellStore labelCells);
     }
 
     public interface ILocator {}

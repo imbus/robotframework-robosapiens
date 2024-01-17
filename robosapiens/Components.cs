@@ -11,9 +11,8 @@ namespace RoboSAPiens {
         ButtonStore toolbarButtons = new ButtonStore();
         CheckBoxStore checkBoxes = new CheckBoxStore();
         ComboBoxStore comboBoxes = new ComboBoxStore();
-        EditableCellStore editableCells = new EditableCellStore();
         EditableTextFieldStore editableTextFields = new EditableTextFieldStore();
-        LabelCellStore labelCells = new LabelCellStore();
+        TextCellStore textCells = new TextCellStore();
         LabelStore labels = new LabelStore();
         RadioButtonStore radioButtons = new RadioButtonStore();
         ReadOnlyTextFieldStore readOnlyTextFields = new ReadOnlyTextFieldStore();
@@ -169,14 +168,10 @@ namespace RoboSAPiens {
                             checkBoxes.add(new SAPGridViewCheckBox(columnId, gridView, row));
                             break;
                         case "Normal":
-                            if (gridView.GetCellChangeable(row, columnId)) {
-                                editableCells.add(new EmptyGridViewCell(columnId, gridView, row));
-                            } else {
-                                labelCells.add(new SAPGridViewCell(columnId, gridView, row));
-                            }
+                            textCells.add(new SAPGridViewCell(columnId, gridView, row));
                             break;
                         case "ValueList":
-                            labelCells.add(new SAPGridViewCell(columnId, gridView, row));
+                            textCells.add(new SAPGridViewCell(columnId, gridView, row));
                             break;
                     }
                 }
@@ -245,12 +240,7 @@ namespace RoboSAPiens {
                         case "GuiTextField":
                         case "GuiCTextField":
                             var textField = (GuiTextField)cell;
-                            if (textField.Changeable) {
-                                editableCells.add(new EditableTableCell(columnTitle, absRowIdx, textField, sapTable));
-                            } 
-                            else {
-                                labelCells.add(new SAPTableCell(columnTitle, absRowIdx, textField, sapTable));
-                            }
+                            textCells.add(new SAPTableCell(columnTitle, absRowIdx, textField, sapTable));
                             break;
                         case "GuiComboBox":
                             var comboBox = (GuiComboBox)cell;
@@ -361,7 +351,7 @@ namespace RoboSAPiens {
                                 buttons.add(new SAPTreeLink(columnName, columnTitle, itemText, itemTooltip, nodeKey, tree.Id));
                                 break;
                             case TreeItem.Text:
-                                labelCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
+                                textCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
                                 break;
                         }
                     }
@@ -450,8 +440,8 @@ namespace RoboSAPiens {
             return buttons.get(button.locator) ?? toolbarButtons.get(button.locator);
         }
 
-        public Button? findButtonCell(FilledCellLocator cell) {
-            return buttons.get(cell);
+        public Button? findButtonCell(CellLocator locator) {
+            return buttons.get(locator, textCells);
         }
 
         public CheckBox? findCheckBox(CheckBoxLocator checkBox) {
@@ -459,35 +449,25 @@ namespace RoboSAPiens {
         }
 
         public CheckBox? findCheckBoxCell(CellLocator locator) {
-            return checkBoxes.get(locator, labels, readOnlyTextFields);
+            return checkBoxes.get(locator, textCells);
         }
 
         public ComboBox? findComboBox(ComboBoxLocator comboBox) {
             return comboBoxes.get(comboBox.locator);
         }
 
-        public Cell? findCell(CellLocator locator) {
-            return editableCells.get(locator, labelCells) ?? 
-                   labelCells.get(locator);
-        }
-
-        public ComboBox? findComboBoxCell(FilledCellLocator locator) {
-            return comboBoxes.get(locator);
+        public ComboBox? findComboBoxCell(CellLocator locator) {
+            return comboBoxes.get(locator, textCells);
         }
 
         public IDoubleClickable? findDoubleClickableCell(CellLocator locator) {
-            var cell = editableCells.get(locator, labelCells) ??
-                       labelCells.get(locator);
+            var cell = textCells.get(locator);
 
-            if  (cell is IDoubleClickable) {
+            if (cell is IDoubleClickable) {
                 return cell as IDoubleClickable;
             }
 
             return null;
-        }
-
-        public IEditableCell? findEditableCell(CellLocator locator) {
-            return editableCells.get(locator, labelCells) as IEditableCell;
         }
 
         public EditableTextField? findEditableTextField(TextFieldLocator textField) {
@@ -499,6 +479,11 @@ namespace RoboSAPiens {
                 Button b when b is IHighlightable => b as IHighlightable,
                 _ => null
             };
+        }
+
+        public ITextElement? findLabel(LabelLocator labelLocator) {
+            return labels.get(labelLocator.locator, labels, readOnlyTextFields) as ITextElement ??
+                   textCells.get(labelLocator.locator);
         }
 
         public RadioButton? findRadioButton(RadioButtonLocator radioButton) {
@@ -513,15 +498,15 @@ namespace RoboSAPiens {
             return tabs.get(tabName);
         }
 
+        public TextCell? findTextCell(CellLocator locator) {
+            return textCells.get(locator);
+        }
+
         public SAPTextField? findTextField(TextFieldLocator textField) {
             return findEditableTextField(textField) ?? 
                    findReadOnlyTextField(textField);
         }
 
-        public ITextElement? findLabel(LabelLocator content) {
-            return labels.get(content.locator, labels, readOnlyTextFields) as ITextElement ??
-                   labelCells.get(content.locator);
-        }
 
         public List<SAPButton> getAllButtons() {
             return new List<SAPButton>(buttons.filterBy<SAPButton>());
@@ -532,11 +517,11 @@ namespace RoboSAPiens {
         }
 
         public List<SAPTableCell> getAllTableCells() {
-            return new List<SAPTableCell>(labelCells.filterBy<SAPTableCell>().Concat(editableCells.filterBy<SAPTableCell>()));
+            return new List<SAPTableCell>(textCells.filterBy<SAPTableCell>());
         }
 
         public List<SAPGridViewCell> getAllGridViewCells() {
-            return new List<SAPGridViewCell>(labelCells.filterBy<SAPGridViewCell>().Concat(editableCells.filterBy<SAPGridViewCell>()));
+            return new List<SAPGridViewCell>(textCells.filterBy<SAPGridViewCell>());
         }
 
         public List<SAPTextField> getAllTextFields() {
