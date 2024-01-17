@@ -33,8 +33,8 @@ namespace RoboSAPiens {
         public void selectRow(int rowIdx, GuiSession session)
         {
             GuiGridView guiGridView = (GuiGridView)session.FindById(id);
-            guiGridView.CurrentCellRow = rowIdx - 1;
-            guiGridView.SelectedRows = $"{rowIdx - 1}";
+            guiGridView.CurrentCellRow = rowIdx;
+            guiGridView.SelectedRows = $"{rowIdx}";
         }
     }
 }

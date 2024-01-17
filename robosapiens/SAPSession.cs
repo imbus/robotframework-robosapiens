@@ -707,10 +707,10 @@ namespace RoboSAPiens {
             try {
                 int intRowIndex = Int32.Parse(rowIndex);
                 if (tables.Count() > 0) {
-                    tables.First().selectRow(intRowIndex, session);
+                    tables.First().selectRow(intRowIndex - 1, session);
                 }
                 if (gridViews.Count() > 0) {
-                    gridViews.First().selectRow(intRowIndex, session);
+                    gridViews.First().selectRow(intRowIndex - 1, session);
                 }
                 return new Result.SelectTableRow.Pass(intRowIndex);
             }
