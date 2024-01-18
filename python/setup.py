@@ -11,11 +11,11 @@ License :: OSI Approved :: Apache Software License
 Operating System :: Microsoft :: Windows :: Windows 10
 Programming Language :: Python
 Programming Language :: Python :: 3
-Programming Language :: Python :: 3.7
 Programming Language :: Python :: 3.8
 Programming Language :: Python :: 3.9
 Programming Language :: Python :: 3.10
 Programming Language :: Python :: 3.11
+Programming Language :: Python :: 3.12
 Topic :: Software Development :: Testing
 """
 
@@ -39,5 +39,5 @@ setup(
     install_requires=[
         'robotframework>=5.0.1',
     ],
-    python_requires='>=3.7.9'
+    python_requires='>=3.8.2'
 )
