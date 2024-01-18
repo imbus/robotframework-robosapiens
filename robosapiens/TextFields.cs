@@ -39,9 +39,9 @@ namespace RoboSAPiens {
 
         // To Do: Factor out this common function
         string getLeftLabel(GuiTextField textField) {
-            var leftLabel = (GuiComponent)textField.LeftLabel;
+            var leftLabel = textField.LeftLabel;
 
-            if (leftLabel != null) {
+            if (leftLabel != null && leftLabel.ScreenLeft < textField.ScreenLeft) {
                 if (leftLabel.Type == "GuiLabel") {
                     var label = (GuiLabel)leftLabel;
                     return label.Text;
