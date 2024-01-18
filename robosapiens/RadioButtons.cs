@@ -11,6 +11,7 @@ namespace RoboSAPiens {
         string id;
         Position position;
         string text;
+        string tooltip;
 
         public SAPRadioButton(GuiRadioButton radioButton) {
             this.id = radioButton.Id;
@@ -19,6 +20,7 @@ namespace RoboSAPiens {
                                          top: radioButton.ScreenTop, 
                                          width: radioButton.Width);
             this.text = radioButton.Text;
+            this.tooltip = radioButton.DefaultTooltip;
         }
 
         public Position getPosition() {
@@ -41,6 +43,10 @@ namespace RoboSAPiens {
 
         public bool isLabeled(string label) {
             return text == label;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return this.tooltip == tooltip;
         }
 
         public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {

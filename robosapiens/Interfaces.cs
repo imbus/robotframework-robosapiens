@@ -15,6 +15,7 @@ namespace RoboSAPiens {
 
     public interface ILabeled {
         public bool isLabeled(string label);
+        public bool hasTooltip(string tooltip);
     }
 
     public interface ILocatable {

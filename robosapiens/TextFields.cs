@@ -170,11 +170,14 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return this.label == label || 
-                   accTooltip == label ||
-                   defaultTooltip == label ||
-                   tooltip == label ||
-                   defaultTooltip.StartsWith(label);
+            return this.label == label;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return accTooltip == tooltip ||
+                   defaultTooltip == tooltip ||
+                   this.tooltip == tooltip ||
+                   defaultTooltip.StartsWith(tooltip);
         }
 
         public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {

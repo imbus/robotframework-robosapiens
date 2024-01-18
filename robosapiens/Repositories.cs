@@ -30,7 +30,8 @@ namespace RoboSAPiens {
         }
 
         public T? getByLabelOrTooltip(string label) {
-            return filterBy<ILabeled>().Find(item => item.isLabeled(label)) as T;
+            return filterBy<ILabeled>().Find(item => item.isLabeled(label)) as T ?? 
+                   filterBy<ILabeled>().Find(item => item.hasTooltip(label)) as T;
         }
 
         public T? getCell(CellLocator locator, TextCellStore rowLabels) {

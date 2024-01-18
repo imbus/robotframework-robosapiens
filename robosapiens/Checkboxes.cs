@@ -51,8 +51,11 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return text == label || 
-                   defaultTooltip == label;
+            return text == label;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return defaultTooltip == tooltip;
         }
 
         public virtual bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {

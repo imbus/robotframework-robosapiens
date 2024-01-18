@@ -53,9 +53,12 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return this.label == label || 
-                   accTooltip == label;
-            }
+            return this.label == label;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return accTooltip == tooltip;
+        }
 
         public override void select(string entry, GuiSession session) {
             var guiComboBox = (GuiComboBox)session.FindById(id);
@@ -113,9 +116,13 @@ namespace RoboSAPiens {
             return true;
         }
 
-        public bool isLabeled(string label) 
+        public bool isLabeled(string label) {
+            return false;
+        }
+
+        public bool hasTooltip(string tooltip) 
         {
-            return tooltip == label;
+            return this.tooltip == tooltip;
         }
 
         public override void select(string entry, GuiSession session)
@@ -143,9 +150,13 @@ namespace RoboSAPiens {
             return true;
         }
 
-        public bool isLabeled(string label) 
+        public bool isLabeled(string label) {
+            return false;
+        }
+
+        public bool hasTooltip(string tooltip) 
         {
-            return tooltip == label;
+            return this.tooltip == tooltip;
         }
 
         public override void select(string entry, GuiSession session)

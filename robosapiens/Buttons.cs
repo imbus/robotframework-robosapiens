@@ -29,7 +29,11 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return this.text == label || this.tooltip.StartsWith(label);
+            return this.text == label;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return this.tooltip.StartsWith(tooltip);
         }
 
         public override void push(GuiSession session) {
@@ -149,7 +153,11 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return tooltip == label;
+            return false;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return this.tooltip == tooltip;
         }
     
         public override void push(GuiSession session) {
@@ -175,9 +183,12 @@ namespace RoboSAPiens {
             this.tooltip = tooltip;
         }
 
-        public bool isLabeled(string label) 
-        {
-            return tooltip == label;
+        public bool isLabeled(string label) {
+            return false;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return this.tooltip == tooltip;
         }
     
         public override void push(GuiSession session) 
@@ -201,7 +212,11 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return tooltip == label;
+            return false;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return this.tooltip == tooltip;
         }
     
         public override void push(GuiSession session) {

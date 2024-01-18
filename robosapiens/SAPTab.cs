@@ -14,8 +14,11 @@ namespace RoboSAPiens {
         }
 
         public bool isLabeled(string label) {
-            return this.label == label ||
-                   this.tooltip == label;
+            return this.label == label;
+        }
+
+        public bool hasTooltip(string tooltip) {
+            return this.tooltip == tooltip;
         }
 
         public void select(GuiSession session) {

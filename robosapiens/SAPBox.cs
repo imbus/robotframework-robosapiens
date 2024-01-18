@@ -23,5 +23,9 @@ namespace RoboSAPiens {
         public bool isLabeled(string label) {
             return label.Equals(title);
         }
+
+        public bool hasTooltip(string tooltip) {
+            return false;
+        }
     }
 }
