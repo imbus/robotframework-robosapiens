@@ -6,7 +6,7 @@ using System.Linq;
 namespace RoboSAPiens {
     public sealed class SAPLabel: ITextElement, ILocatable, IHighlightable {
         const int maxHorizontalDistance = 20;
-        const int maxVerticalDistance = 20;
+        const int maxVerticalDistance = 25;
 
         public string id;
         public Position position {get;}
