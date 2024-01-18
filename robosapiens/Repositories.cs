@@ -78,11 +78,11 @@ namespace RoboSAPiens {
             };
         }
 
-        SAPTextField? getFromVerticalGrid(int index, string label) {
+        SAPTextField? getFromVerticalGrid(int index, string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
             var textField = items.Find(
                 field => field.isLabeled(label) || 
-                field.contains(label)
-            );
+                field.contains(label) 
+            ) ?? getVerticalClosestToLabel(label, labels, textFieldLabels);
 
             if (textField == null) return null;
 
@@ -112,10 +112,10 @@ namespace RoboSAPiens {
             return null;
         }
 
-        SAPTextField? getByIndex(IIndexLocator locator) {
+        SAPTextField? getByIndex(IIndexLocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
             return locator switch {
                 HIndexVLabel(int rowIndex, string label) => 
-                    getFromVerticalGrid(rowIndex, label),
+                    getFromVerticalGrid(rowIndex, label, labels, textFieldLabels),
                 HLabelVIndex(string label, int columnIndex) =>
                     getFromHorizontalGrid(columnIndex, label),
                 _ => null
@@ -140,7 +140,7 @@ namespace RoboSAPiens {
                     getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels) ??
                     findInBox(locator, boxes),
                 IIndexLocator indexLocator => 
-                    getByIndex(indexLocator),
+                    getByIndex(indexLocator, labels, textFieldLabels),
                 Content (var content) => 
                     getByContent(content),
                 _ => null
