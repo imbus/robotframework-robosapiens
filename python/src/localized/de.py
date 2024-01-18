@@ -11,6 +11,7 @@ no_connection = 'Es besteht keine Verbindung zu einem SAP Server. Versuche zuers
 no_server_scripting = 'Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.'
 not_found: Fstr = lambda msg: f"{msg}\nHinweis: Prüfe die Rechtschreibung"
 exception: Fstr = lambda msg: f"{msg}" + "\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+row_locator = 'Zeile: Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.'
 
 HLabel = "::Beschriftung"
 VLabel = ":@:Beschriftung oben"
@@ -240,13 +241,13 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
       },
       "doc": (
-          "185276928", 
-          """
+          "1813862079", 
+          f"""
           Die angegebene Tabellenzelle wird doppelgeklickt.
           
           | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
           
-          Zeile: entweder die Zeilennummer oder der Inhalt der Zelle.
+          {row_locator}
           """
       )
     },
@@ -341,21 +342,20 @@ lib: LocalizedRoboSAPiens = {
       "name": ("1010164935", "Tabellenzelle ausfüllen"),
       "args": {
         "a1row_locator": {
-          "name": ("2217801435", "Zeile"),
+          "name": ("315353924", "Zeile"),
           "spec": {},
           "optional": False
         },
-        "a2column_content": {
+        "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {
-              "ColumnContent": ("2284019715", ColumnContent)
           },
           "optional": False
         },
         "a3content": {
             "name": ("4274335913", "Inhalt"),
             "spec": {},
-            "optional": True
+            "optional": False
         }
       },
       "result": {
@@ -366,15 +366,15 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
       },
       "doc": (
-          "1965400230", 
-          """
+          "2874746797", 
+          f"""
           Die Zelle am Schnittpunkt der Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
           
           | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel     Inhalt``
           
-          Zeile: entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile.
+          {row_locator}
           
-          *Warnung*: Das Schlüsselwort mit zwei Parametern ist veraltet und wird in einer zukünftigen Version entfernt. Der Parameter `Inhalt` ist derzeit optional, um bestehende Skripte nicht zu zerstören.
+          *Hinweis*: Für die Migration aus dem alten Schlüsselwort mit zwei Argumenten soll eine Suche und Ersetzung mit einem regulären Ausdruck durchgeführt werden.
           """
       )
     },
@@ -508,7 +508,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("349686496", "Tabellenzelle drücken"),
       "args": {
         "a1row_or_label": {
-          "name": ("2392311166", "Zeile"),
+          "name": ("315353924", "Zeile"),
           "spec": {},
           "optional": False
         },
@@ -521,17 +521,17 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("2754484086", no_session),
         "NotFound": ("2199892932", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "Pass": ("1649470590", "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt."),
+        "Pass": ("1801284202", "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt."),
         "Exception": ("1751102722", exception("Die Zelle konnte nicht gedrückt werden."))
       },
       "doc": (
-          "2366408483", 
+          "522660318", 
           """
           Die angegebene Tabellenzelle wird gedrückt.
           
           | ``Tabellenzelle drücken     Zeile     Spaltentitel``
           
-          Zeile: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).
+          Zeile: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip) der Zelle, oder Inhalt einer Zelle in der Zeile. Wenn die Beschriftung, die Kurzinfo oder die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.
           """
       )
     },
@@ -618,13 +618,13 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
       },
       "doc": (
-          "3644317529", 
-          """
+          "3300569560", 
+          f"""
           Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.
           
           | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
           
-          Zeile: Zeilennummer oder Zellinhalt.
+          {row_locator}
           """
       )
     },
@@ -678,12 +678,12 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": (
           "1368817353", 
-          """
+          f"""
           Die angegebene Tabellenzelle wird markiert.
           
           | ``Tabellenzelle markieren     Zeile     Spaltentitel``
           
-          Zeile: Zeilennummer oder Zellinhalt. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.
+          {row_locator}
           """
       )
     },
@@ -691,7 +691,7 @@ lib: LocalizedRoboSAPiens = {
     "name": ("993388184", "Tabellenzellenwert auswählen"),
     "args": {
         "a1row_locator": {
-            "name": ("3333868678", "Zeilennummer"),
+            "name": ("315353924", "Zeile"),
             "spec": {},
             "optional": False
         },
@@ -709,21 +709,24 @@ lib: LocalizedRoboSAPiens = {
     "result": {
         "NoSession": ("2754484086", no_session),
         "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "EntryNotFound": ("1635727028", not_found("Der Wert '{2}' ist in der Zelle mit dem Lokator '{1}' nicht vorhanden.")),
+        "EntryNotFound": ("1900787420", not_found("Der Wert '{2}' ist in der Zelle mit dem Lokator '{0}, {1}' nicht vorhanden.")),
         "Exception": ("813375986", exception("Der Wert konnte nicht ausgewählt werden. {0}")),
         "Pass": ("1530467143", "Der Wert '{2}' wurde ausgewählt.")
     },
-    "doc": ("3815658751", """
+    "doc": ("99125093", 
+      f"""
       In der spezifizierten Zelle wird der angegebene Wert ausgewählt.
       
-      | ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Wert``
+      | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
+
+      {row_locator}
       """)
     },
     "SelectComboBoxEntry": {
       "name": ("2133292945", "Auswahlmenüeintrag auswählen"),
       "args": {
         "a1comboBox": {
-          "name": ("3378336226", "Name"),
+          "name": ("3378336226", "Auswahlmenü"),
           "spec": {},
           "optional": False
         },
@@ -741,7 +744,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2433413970", exception("Der Eintrag konnte nicht ausgewählt werden."))
       },
       "doc": (
-          "1593493126", 
+          "618243328", 
           """
           Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.
           
@@ -952,7 +955,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("3286561809", "Tabellenzelle ankreuzen"),
       "args": {
         "a1row": {
-          "name": ("3333868678", "Zeilennummer"),
+          "name": ("315353924", "Zeile"),
           "spec": {},
           "optional": False
         },
@@ -965,15 +968,17 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("2754484086", no_session),
         "NotFound": ("2481184945", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "Pass": ("1580249093", "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt."),
+        "Pass": ("342341552", "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt."),
         "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
       },
       "doc": (
-          "3815558161", 
-          """
+          "1104411410", 
+          f"""
           Die angegebene Tabellenzelle wird angekreuzt.
           
-          | ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``
+          | ``Tabellenzelle ankreuzen     Zeile     Spaltentitel``
+
+          {row_locator}
           """
       )
     },

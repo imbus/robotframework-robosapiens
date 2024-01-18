@@ -11,6 +11,7 @@ no_connection = 'No existing connection to an SAP server. Call the keyword "Conn
 no_server_scripting = 'Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.'
 not_found: Fstr = lambda msg: f"{msg} Hint: Check the spelling"
 exception: Fstr = lambda msg: f"{msg}" + "\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+row_locator = 'row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.'
 
 HLabel = "::label"
 VLabel = ":@:label above"
@@ -19,7 +20,7 @@ HLabelHLabel = "left label:>>:right label"
 HIndexVLabel = "index:@:label above"
 HLabelVIndex = "label:@:index"
 Content = ":=:content"
-ColumnContent = "column:=:content"
+Column = "column"
 
 locales = {
     "DE": "German"
@@ -224,12 +225,12 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
                 "Exception": exception("The cell could not be double-clicked. {0}")
             },
-            "doc": """
+            "doc": f"""
             Double-click the cell at the intersection of the row and the column provided.
             
             | ``Double-click Cell     row_locator     column``
             
-            row_locator: either the row number or the content of a cell in the row.
+            {row_locator}
             """
         },
         "DoubleClickTextField": {
@@ -314,21 +315,19 @@ lib: RoboSAPiens = {
             "name": "Fill Cell",
             "args": {
                 "a1row_locator": {
-                    "name": "row",
+                    "name": "row_locator",
                     "spec": {},
                     "optional": False
                 },
-                "a2column_content": {
+                "a2column": {
                     "name": "column",
-                    "spec": {
-                        "ColumnContent": ColumnContent
-                    },
+                    "spec": {},
                     "optional": False
                 },
                 "a3content": {
                     "name": "content",
                     "spec": {},
-                    "optional": True
+                    "optional": False
                 }
             },
             "result": {
@@ -338,14 +337,14 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was filled.",
                 "Exception": exception("The cell could not be filled. {0}")
             },
-            "doc": """
+            "doc": f"""
             Fill the cell at the intersection of the row and column with the content provided.
 
-            | ``Fill Cell    row    column   content``
+            | ``Fill Cell    row_locator    column   content``
 
-            row: either the row number or the contents of a cell in the row.
+            {row_locator}
 
-            *Warning*: The keyword with two arguments is deprecated and will be removed in a future version. The argument `content` is currently optional in order to not break existing scripts.
+            *Hint*: To migrate from the old keyword with two arguments perform a search and replace with a regular expression.
             """
         },
         "FillTextField": {
@@ -469,7 +468,7 @@ lib: RoboSAPiens = {
             "name": "Push Button Cell",
             "args": {
                 "a1row_or_label": {
-                    "name": "row_or_label",
+                    "name": "row_locator",
                     "spec": {},
                     "optional": False
                 },
@@ -482,7 +481,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The button cell with the locator '{0}, {1}' could not be found."),
-                "Pass": "The button cell with the locator '{0}' was pushed.",
+                "Pass": "The button cell with the locator '{0}, {1}' was pushed.",
                 "Exception": exception("The button cell could not be pushed. {0}")
             },
             "doc": """
@@ -490,7 +489,7 @@ lib: RoboSAPiens = {
             
             | ``Push Button Cell     row_locator     column``
             
-            row_locator: Row number, label or tooltip.
+            row_locator: Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks.
             """
         },
         "ReadStatusbar": {
@@ -584,12 +583,12 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was read.",
                 "Exception": exception("The cell could not be read. {0}")
             },
-            "doc": """
+            "doc": f"""
             Read the contents of the cell at the intersection of the row and column provided.
 
             | ``Read Cell     row_locator     column``
             
-            row_locator: either the row number or the contents of a cell in the row.
+            {row_locator}
             """
         },
         "SaveScreenshot": {
@@ -638,19 +637,19 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was selected.",
                 "Exception": exception("The cell could not be selected. {0}")
             },
-            "doc": """
+            "doc": f"""
             Select the cell at the intersection of the row and column provided.
             
             | ``Select Cell     row_locator     column``
             
-            row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
+            {row_locator}
             """
         },
         "SelectCellValue": {
             "name": "Select Cell Value",
             "args": {
                 "a1row_locator": {
-                    "name": "row_number",
+                    "name": "row_locator",
                     "spec": {},
                     "optional": False
                 },
@@ -668,14 +667,16 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
-                "EntryNotFound": not_found("The value '{2}' is not available in the cell with locator '{1}'."),
+                "EntryNotFound": not_found("The value '{2}' is not available in the cell with the locator '{0}, {1}'."),
                 "Exception": exception("The value could not be selected. {0}"),
                 "Pass": "The value '{2}' was selected."
             },
-            "doc": """
+            "doc": f"""
             Select the specified value in the cell at the intersection of the row and column provided.
             
-            | ``Select Cell Value    row_number    column    value``
+            | ``Select Cell Value    row_locator    column    value``
+
+            {row_locator}
             """
         },
         "SelectComboBoxEntry": {
@@ -702,7 +703,7 @@ lib: RoboSAPiens = {
             "doc": """
             Select the specified entry from the dropdown menu provided.
             
-            | ``Select Dropdown Menu Entry   dropdown menu    entry``
+            | ``Select Dropdown Menu Entry   dropdown_menu    entry``
             """
         },
         "SelectRadioButton": {
@@ -878,7 +879,7 @@ lib: RoboSAPiens = {
             "name": "Tick Checkbox Cell",
             "args": {
                 "a1row": {
-                    "name": "row_number",
+                    "name": "row_locator",
                     "spec": {},
                     "optional": False
                 },
@@ -891,13 +892,15 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The checkbox cell with the locator '{0}, {1}' coud not be found."),
-                "Pass": "The checkbox cell with the locator '{0}' was ticked.",
+                "Pass": "The checkbox cell with the locator '{0}, {1}' was ticked.",
                 "Exception": exception("The checkbox cell could not be ticked. {0}")
             },
-            "doc": """
+            "doc": f"""
             Tick the checkbox cell at the intersection of the row and the column provided.
             
-            | ``Tick Checkbox Cell     row number     column``
+            | ``Tick Checkbox Cell     row_locator    column``
+
+            {row_locator}
             """
         },
         "GetWindowTitle": {
