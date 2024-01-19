@@ -346,13 +346,7 @@ namespace RoboSAPiens {
             }
 
             var theTextField = new TextFieldLocator(labels);
-            var textField = window.components.findEditableTextField(theTextField);
-
-            // The Changeable property could have been set to true after the window components were first read
-            if (textField == null) {
-                updateWindow(updateComponents: true);
-                textField = window.components.findEditableTextField(theTextField);
-            }
+            var textField = window.components.findTextField(theTextField);
 
             if (textField == null) {
                 return new Result.FillTextField.NotFound(theTextField.atLocation);
@@ -363,8 +357,11 @@ namespace RoboSAPiens {
             }
 
             try {
-                textField.insert(content, session);
-                return new Result.FillTextField.Pass(theTextField.atLocation);
+                if (textField.isChangeable(session)) {
+                    textField.insert(content, session);
+                    return new Result.FillTextField.Pass(theTextField.atLocation);
+                }
+                return new Result.FillTextField.NotChangeable(theTextField.atLocation);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -546,7 +543,7 @@ namespace RoboSAPiens {
             }
 
             var text = window.components.findLabel(new LabelLocator(content)) ?? 
-                       window.components.findReadOnlyTextField(new TextFieldLocator(content));
+                       window.components.findTextField(new TextFieldLocator(content));
 
             if (text == null) {
                 return new Result.ReadText.NotFound(content);

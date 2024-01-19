@@ -27,7 +27,7 @@ namespace RoboSAPiens {
             return text.Equals(content) || text.StartsWith(content);
         }
 
-        public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public bool isLocated(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             // TODO: Implement getHorizontalGrid in order to support the HLabelVIndex locator
 
             return locator switch {

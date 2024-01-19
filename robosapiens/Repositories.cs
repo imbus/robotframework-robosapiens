@@ -25,20 +25,27 @@ namespace RoboSAPiens {
     }
 
     public abstract class ComponentRepository<T>: Repository<T> where T: class {
-        public T? getAlignedWithLabels(ILabelsLocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public T? getAlignedWithLabels(ILabelsLocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return filterBy<ILocatable>().Find(item => item.isLocated(locator, labels, textFieldLabels)) as T;
         }
 
-        public T? getByLabelOrTooltip(string label) {
-            return filterBy<ILabeled>().Find(item => item.isLabeled(label)) as T ?? 
-                   filterBy<ILabeled>().Find(item => item.hasTooltip(label)) as T;
+        public T? getByTooltip(string label) {
+            return filterBy<ILabeled>().Find(item => item.hasTooltip(label)) as T;
+        }
+
+        public T? getByHLabel(string label) {
+            return filterBy<ILabeled>().Find(item => item.isHLabeled(label)) as T;
+        }
+
+        public T? getByVLabel(string label) {
+            return filterBy<ILabeled>().Find(item => item.isVLabeled(label)) as T;
         }
 
         public T? getCell(CellLocator locator, TextCellStore rowLabels) {
             return filterBy<ILocatableCell>().Find(cell => cell.isLocated(locator, rowLabels)) as T;
         }
 
-        public T? getHorizontalClosestToLabel(string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public T? getHorizontalClosestToLabel(string label, LabelStore labels, TextFieldRepository textFieldLabels) {
             return labels.getAll()
                          .Where(l => l.contains(label))
                          .Select(l => l.findClosestHorizontalComponent(filterBy<ILocatable>()))
@@ -51,12 +58,12 @@ namespace RoboSAPiens {
                          .FirstOrDefault() as T;
         }
 
-        public T? getVerticalClosestToLabel(string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public T? getVerticalClosestToLabel(string label, LabelStore labels, TextFieldRepository textFieldLabels) {
             return labels.getByName(label)?.findClosestVerticalComponent(filterBy<ILocatable>()) as T ??
                    textFieldLabels.getByContent(label)?.findClosestVerticalComponent(filterBy<ILocatable>()) as T;
         }
 
-        public T? getNearLabel(string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public T? getNearLabel(string label, LabelStore labels, TextFieldRepository textFieldLabels) {
             return labels.getByName(label)?.findNearbyComponent(filterBy<ILocatable>()) as T ??
                    textFieldLabels.getByContent(label)?.findNearbyComponent(filterBy<ILocatable>()) as T;
         }
@@ -64,25 +71,39 @@ namespace RoboSAPiens {
 
     public abstract class ContainerRepository<T>: Repository<T> where T: ILabeled {
         public T? get(string label) {
-            return items.Find(item => item.isLabeled(label));
+            return items.Find(item => item.isHLabeled(label));
         }
     }
 
-    public abstract class TextFieldRepository<T>: ComponentRepository<SAPTextField> {
+    public abstract class TextFieldRepository: ComponentRepository<SAPTextField> {
         SAPTextField? findInBox(ILocator locator, BoxStore boxes) {
             return locator switch {
                 HLabelVLabel(var label, var boxTitle) => 
                     items.Find(textField => textField.isContainedInBox(boxes.get(boxTitle)) &&
-                                            textField.isLabeled(label)),
+                                            textField.isHLabeled(label)),
                 _ => null
             };
         }
 
-        SAPTextField? getFromVerticalGrid(int index, string label, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public SAPTextField? getByContent(string text) {
+            return items.Find(textElement => textElement.contains(text));
+        }
+
+        SAPTextField? getByIndex(IIndexLocator locator, LabelStore labels) {
+            return locator switch {
+                HIndexVLabel(int rowIndex, string label) => 
+                    getFromVerticalGrid(rowIndex, label, labels),
+                HLabelVIndex(string label, int columnIndex) =>
+                    getFromHorizontalGrid(columnIndex, label),
+                _ => null
+            };
+        }
+
+        SAPTextField? getFromVerticalGrid(int index, string label, LabelStore labels) {
             var textField = items.Find(
-                field => field.isLabeled(label) || 
+                field => field.isHLabeled(label) || 
                 field.contains(label) 
-            ) ?? getVerticalClosestToLabel(label, labels, textFieldLabels);
+            ) ?? getVerticalClosestToLabel(label, labels, this);
 
             if (textField == null) return null;
 
@@ -99,7 +120,7 @@ namespace RoboSAPiens {
         }
 
         SAPTextField? getFromHorizontalGrid(int index, string label) {
-            var textField = items.Find(field => field.isLabeled(label));
+            var textField = items.Find(field => field.isHLabeled(label));
 
             if (textField == null) return null;
 
@@ -112,35 +133,22 @@ namespace RoboSAPiens {
             return null;
         }
 
-        SAPTextField? getByIndex(IIndexLocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
-            return locator switch {
-                HIndexVLabel(int rowIndex, string label) => 
-                    getFromVerticalGrid(rowIndex, label, labels, textFieldLabels),
-                HLabelVIndex(string label, int columnIndex) =>
-                    getFromHorizontalGrid(columnIndex, label),
-                _ => null
-            };
-        }
-        
-        public SAPTextField? getByContent(string text) {
-            return items.Find(textElement => textElement.contains(text));
-        }
-
-        public SAPTextField? getTextField(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, BoxStore boxes) {
+        public SAPTextField? getTextField(ILocator locator, LabelStore labels, BoxStore boxes) {
             return locator switch {
                 HLabel (var label) => 
-                    getByLabelOrTooltip(label) ??
-                    getHorizontalClosestToLabel(label, labels, textFieldLabels),
+                    getByHLabel(label) ??
+                    getByTooltip(label) ??
+                    getHorizontalClosestToLabel(label, labels, this),
                 HLabelHLabel =>
-                    getAlignedWithLabels((HLabelHLabel)locator, labels, textFieldLabels),
+                    getAlignedWithLabels((HLabelHLabel)locator, labels, this),
                 VLabel (var label) => 
-                    getByLabelOrTooltip(label) ??
-                    getVerticalClosestToLabel(label, labels, textFieldLabels),
+                    getByVLabel(label) ??
+                    getVerticalClosestToLabel(label, labels, this),
                 HLabelVLabel => 
-                    getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels) ??
+                    getAlignedWithLabels((HLabelVLabel)locator, labels, this) ??
                     findInBox(locator, boxes),
                 IIndexLocator indexLocator => 
-                    getByIndex(indexLocator, labels, textFieldLabels),
+                    getByIndex(indexLocator, labels),
                 Content (var content) => 
                     getByContent(content),
                 _ => null

@@ -20,8 +20,12 @@ namespace RoboSAPiens {
                    other.bottom < position.bottom;
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
             return label.Equals(title);
+        }
+
+        public bool isVLabeled(string label) {
+            return false;
         }
 
         public bool hasTooltip(string tooltip) {

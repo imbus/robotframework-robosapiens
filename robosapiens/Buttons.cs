@@ -28,8 +28,12 @@ namespace RoboSAPiens {
             this.tooltip = button.Tooltip;
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
             return this.text == label;
+        }
+
+        public bool isVLabeled(string label) {
+            return false;
         }
 
         public bool hasTooltip(string tooltip) {
@@ -63,7 +67,7 @@ namespace RoboSAPiens {
         {
             return column == locator.column && locator switch {
                 RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => isLabeled(labelLocator.label) ||
+                LabelCellLocator labelLocator => isHLabeled(labelLocator.label) ||
                                                  inRowOfCell(rowLabels.getByContent(labelLocator.label)),
                 _ => false
             };
@@ -152,7 +156,11 @@ namespace RoboSAPiens {
             this.tooltip = tooltip;
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
+            return false;
+        }
+
+        public bool isVLabeled(string label) {
             return false;
         }
 
@@ -183,7 +191,11 @@ namespace RoboSAPiens {
             this.tooltip = tooltip;
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
+            return false;
+        }
+
+        public bool isVLabeled(string label) {
             return false;
         }
 
@@ -211,7 +223,11 @@ namespace RoboSAPiens {
             this.tooltip = tooltip;
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
+            return false;
+        }
+
+        public bool isVLabeled(string label) {
             return false;
         }
 

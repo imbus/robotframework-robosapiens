@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using sapfewse;
 
 
@@ -11,11 +10,10 @@ namespace RoboSAPiens {
         ButtonStore toolbarButtons = new ButtonStore();
         CheckBoxStore checkBoxes = new CheckBoxStore();
         ComboBoxStore comboBoxes = new ComboBoxStore();
-        EditableTextFieldStore editableTextFields = new EditableTextFieldStore();
+        TextFieldStore textFields = new TextFieldStore();
         TextCellStore textCells = new TextCellStore();
         LabelStore labels = new LabelStore();
         RadioButtonStore radioButtons = new RadioButtonStore();
-        ReadOnlyTextFieldStore readOnlyTextFields = new ReadOnlyTextFieldStore();
         SAPStatusbar? statusBar = null;
         TabStore tabs = new TabStore();
         TableStore tables = new TableStore();
@@ -77,14 +75,7 @@ namespace RoboSAPiens {
                 case "GuiTextField":
                 case "GuiCTextField":
                     var textField = (GuiTextField)component;
-
-                    if (textField.Changeable) {
-                        editableTextFields.add(new EditableTextField(textField));
-                    } 
-                    else {
-                        readOnlyTextFields.add(new SAPTextField(textField));
-                    }
-
+                    textFields.add(new SAPTextField(textField));
                     break;
             }
         }
@@ -445,7 +436,7 @@ namespace RoboSAPiens {
         }
 
         public CheckBox? findCheckBox(CheckBoxLocator checkBox) {
-            return checkBoxes.get(checkBox.locator, labels, readOnlyTextFields);
+            return checkBoxes.get(checkBox.locator, labels, textFields);
         }
 
         public CheckBox? findCheckBoxCell(CellLocator locator) {
@@ -470,10 +461,6 @@ namespace RoboSAPiens {
             return null;
         }
 
-        public EditableTextField? findEditableTextField(TextFieldLocator textField) {
-            return editableTextFields.get(textField.locator, labels, readOnlyTextFields, boxes);
-        }
-
         public IHighlightable? findHighlightableButton(ButtonLocator button) {
             return buttons.get(button.locator) switch {
                 Button b when b is IHighlightable => b as IHighlightable,
@@ -482,16 +469,12 @@ namespace RoboSAPiens {
         }
 
         public ITextElement? findLabel(LabelLocator labelLocator) {
-            return labels.get(labelLocator.locator, labels, readOnlyTextFields) as ITextElement ??
+            return labels.get(labelLocator.locator, labels, textFields) as ITextElement ??
                    textCells.get(labelLocator.locator);
         }
 
         public RadioButton? findRadioButton(RadioButtonLocator radioButton) {
-            return radioButtons.get(radioButton.locator, labels, readOnlyTextFields);
-        }
-        
-        public SAPTextField? findReadOnlyTextField(TextFieldLocator textField) {
-            return readOnlyTextFields.get(textField.locator, labels, readOnlyTextFields, boxes);
+            return radioButtons.get(radioButton.locator, labels, textFields);
         }
 
         public SAPTab? findTab(string tabName) {
@@ -503,10 +486,8 @@ namespace RoboSAPiens {
         }
 
         public SAPTextField? findTextField(TextFieldLocator textField) {
-            return findEditableTextField(textField) ?? 
-                   findReadOnlyTextField(textField);
+            return textFields.get(textField.locator, labels, boxes);
         }
-
 
         public List<SAPButton> getAllButtons() {
             return new List<SAPButton>(buttons.filterBy<SAPButton>());
@@ -525,7 +506,7 @@ namespace RoboSAPiens {
         }
 
         public List<SAPTextField> getAllTextFields() {
-            return new List<SAPTextField>(readOnlyTextFields.getAll().Concat(editableTextFields.getAll()));
+            return new List<SAPTextField>(textFields.getAll());
         }
 
         public SAPStatusbar? getStatusBar() {

@@ -371,6 +371,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The text field with the locator '{0}' could not be found."),
+                "NotChangeable": "The text field with the locator '{0}' is not editable.",
                 "Pass": "The text field with the locator '{0}' was filled.",
                 "Exception": exception("The text field could not be filled. {0}")
             },

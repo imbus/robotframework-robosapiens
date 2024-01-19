@@ -50,15 +50,19 @@ namespace RoboSAPiens {
             };
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
             return text == label;
+        }
+
+        public bool isVLabeled(string label) {
+            return false;
         }
 
         public bool hasTooltip(string tooltip) {
             return defaultTooltip == tooltip;
         }
 
-        public virtual bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public virtual bool isLocated(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return locator switch {
                 HLabelVLabel(var hLabel, var vLabel) =>
                 isHorizontalAlignedWithLabel(labels.getByName(hLabel)) &&
@@ -99,7 +103,7 @@ namespace RoboSAPiens {
         {
             return column == locator.column && locator switch {
                 RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => isLabeled(labelLocator.label) ||
+                LabelCellLocator labelLocator => isHLabeled(labelLocator.label) ||
                                                  inRowOfCell(rowLabels.getByContent(labelLocator.label)),
                 _ => false
             };

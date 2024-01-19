@@ -2,7 +2,9 @@ namespace RoboSAPiens {
     public sealed class ButtonStore: ComponentRepository<Button> {
         public Button? get(ILocator locator) {
             return locator switch {
-                HLabel(var label) => getByLabelOrTooltip(label),
+                HLabel(var label) => 
+                    getByHLabel(label) ??
+                    getByTooltip(label),
                 _ => null
             };
         }
@@ -13,12 +15,16 @@ namespace RoboSAPiens {
     }
 
     public sealed class CheckBoxStore: ComponentRepository<CheckBox> {
-        public CheckBox? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public CheckBox? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
             return locator switch {
-                HLabel(var label) => getByLabelOrTooltip(label) ?? 
-                                     getHorizontalClosestToLabel(label, labels, textFieldLabels),
-                VLabel(var label) => getVerticalClosestToLabel(label, labels, textFieldLabels) ??
-                                     getNearLabel(label, labels, textFieldLabels),
+                HLabel(var label) => 
+                    getByHLabel(label) ?? 
+                    getByTooltip(label) ??
+                    getHorizontalClosestToLabel(label, labels, textFieldLabels),
+                VLabel(var label) => 
+                    getByVLabel(label) ??
+                    getVerticalClosestToLabel(label, labels, textFieldLabels) ??
+                    getNearLabel(label, labels, textFieldLabels),
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
                 _ => null
             };
@@ -32,7 +38,9 @@ namespace RoboSAPiens {
     public sealed class ComboBoxStore: ComponentRepository<ComboBox> {
         public ComboBox? get(ILocator locator) {
             return locator switch {
-                HLabel(var label) => getByLabelOrTooltip(label),
+                HLabel(var label) => 
+                    getByHLabel(label) ?? 
+                    getByTooltip(label),
                 _ => null
             };
         }
@@ -43,7 +51,7 @@ namespace RoboSAPiens {
     }
 
     public sealed class LabelStore: ComponentRepository<SAPLabel> {
-        public SAPLabel? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public SAPLabel? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
             return locator switch {
                 HLabel(var label) => getHorizontalClosestToLabel(label, labels, textFieldLabels),
                 VLabel(var label) => getVerticalClosestToLabel(label, labels, textFieldLabels),
@@ -58,11 +66,15 @@ namespace RoboSAPiens {
     }
 
     public sealed class RadioButtonStore: ComponentRepository<RadioButton> {
-        public RadioButton? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public RadioButton? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
             return locator switch {
-                HLabel(var label) => getByLabelOrTooltip(label) ?? 
-                                     getHorizontalClosestToLabel(label, labels, textFieldLabels),
-                VLabel(var label) => getVerticalClosestToLabel(label, labels, textFieldLabels),
+                HLabel(var label) => 
+                    getByHLabel(label) ??
+                    getByTooltip(label) ?? 
+                    getHorizontalClosestToLabel(label, labels, textFieldLabels),
+                VLabel(var label) => 
+                    getByVLabel(label) ??
+                    getVerticalClosestToLabel(label, labels, textFieldLabels),
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
                 _ => null
             };
@@ -95,15 +107,9 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class EditableTextFieldStore: TextFieldRepository<EditableTextField> {
-        public EditableTextField? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, BoxStore boxes) {
-            return getTextField(locator, labels, textFieldLabels, boxes) as EditableTextField;
-        }
-    }
-
-    public sealed class ReadOnlyTextFieldStore: TextFieldRepository<SAPTextField> {
-        public SAPTextField? get(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels, BoxStore boxes) {
-            return getTextField(locator, labels, textFieldLabels, boxes) as SAPTextField;
+    public sealed class TextFieldStore: TextFieldRepository {
+        public SAPTextField? get(ILocator locator, LabelStore labels, BoxStore boxes) {
+            return getTextField(locator, labels, boxes);
         }
     }
 }

@@ -14,12 +14,13 @@ namespace RoboSAPiens {
     public interface ILabelsLocator: ILocator{}
 
     public interface ILabeled {
-        public bool isLabeled(string label);
+        public bool isHLabeled(string label);
+        public bool isVLabeled(string label);
         public bool hasTooltip(string tooltip);
     }
 
     public interface ILocatable {
-        public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels);
+        public bool isLocated(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels);
         public Position getPosition();
     }
 

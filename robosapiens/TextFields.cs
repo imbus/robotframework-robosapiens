@@ -13,7 +13,9 @@ namespace RoboSAPiens {
         string defaultTooltip;
         int height;
         public string id;
-        public string label;
+        public string hLabel;
+        public string vLabel;
+        public bool changeable;
         protected bool focused;
         List<SAPTextField> grid;
         public Position position {get;}
@@ -23,11 +25,12 @@ namespace RoboSAPiens {
 
         public SAPTextField(GuiTextField textField) {
             this.accTooltip = textField.AccTooltip.Trim();
+            this.changeable = textField.Changeable;
             this.defaultTooltip = textField.DefaultTooltip;
             this.grid = new List<SAPTextField>();
             this.height = textField.Height;
             this.id = textField.Id;
-            this.label = getLeftLabel(textField);
+            (this.hLabel, this.vLabel) = getLabel(textField);
             this.position = new Position(height: textField.Height, 
                                          left: textField.ScreenLeft,
                                          top: textField.ScreenTop, 
@@ -38,25 +41,25 @@ namespace RoboSAPiens {
         }
 
         // To Do: Factor out this common function
-        string getLeftLabel(GuiTextField textField) {
+        Tuple<string, string> getLabel(GuiTextField textField) {
             var leftLabel = textField.LeftLabel;
 
-            if (leftLabel != null && leftLabel.ScreenLeft < textField.ScreenLeft) {
-                if (leftLabel.Type == "GuiLabel") {
-                    var label = (GuiLabel)leftLabel;
-                    return label.Text;
+            if (leftLabel != null) 
+            {
+                if (leftLabel.ScreenLeft < textField.ScreenLeft) {
+                    return new Tuple<string, string>(leftLabel.Text, "");
                 }
-
-                if (leftLabel.Type == "GuiTextField") {
-                    var label = (GuiTextField)leftLabel;
-                    return label.Text;
-                }
+            
+                if (leftLabel.ScreenTop < textField.ScreenTop) {
+                    return new Tuple<string, string>("", leftLabel.Text);
+                }    
             }
-            return "";
+            
+            return new Tuple<string, string>("", "");
         }
 
     	public bool contains(string content) {
-            return text.Equals(content) || text.StartsWith(content);
+            return text.Equals(content);
         }
 
 
@@ -147,6 +150,24 @@ namespace RoboSAPiens {
             return grid;
         }
 
+        public bool hasTooltip(string tooltip) {
+            return accTooltip == tooltip ||
+                   defaultTooltip == tooltip ||
+                   this.tooltip == tooltip ||
+                   defaultTooltip.StartsWith(tooltip);
+        }
+
+        public void insert(string content, GuiSession session) {
+            var guiTextField = (GuiTextField)session.FindById(id);
+            guiTextField.Text = content;
+            text = content;
+        }
+
+        public bool isChangeable(GuiSession session) {
+            var guiTextField = (GuiTextField)session.FindById(id);
+            return guiTextField.Changeable;
+        }
+
         public bool isContainedInBox(SAPBox? box) {
             return box switch {
                 SAPBox => box.contains(position),
@@ -169,18 +190,15 @@ namespace RoboSAPiens {
             };
         }
 
-        public bool isLabeled(string label) {
-            return this.label == label;
+        public bool isHLabeled(string label) {
+            return this.hLabel == label;
         }
 
-        public bool hasTooltip(string tooltip) {
-            return accTooltip == tooltip ||
-                   defaultTooltip == tooltip ||
-                   this.tooltip == tooltip ||
-                   defaultTooltip.StartsWith(tooltip);
+        public bool isVLabeled(string label) {
+            return this.vLabel == label;
         }
 
-        public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public bool isLocated(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return locator switch {
                 HLabelVLabel(var hLabel, var vLabel) =>
                     (isHorizontalAlignedWithLabel(labels.getByName(hLabel)) || 
@@ -189,7 +207,7 @@ namespace RoboSAPiens {
                 HLabelHLabel(var leftLabel, var rightLabel) =>
                     (isHorizontalAlignedWithLabel(labels.getByName(leftLabel)) || 
                     isHorizontalAlignedWithTextField(textFieldLabels.getByContent(leftLabel))) &&
-                    isLabeled(rightLabel),
+                    isHLabeled(rightLabel),
                 _ => false
             };
         }
@@ -211,24 +229,6 @@ namespace RoboSAPiens {
             focused = !focused;
             var guiTextField = (GuiTextField)session.FindById(id);
             guiTextField.Visualize(focused);
-        }
-    }
-
-    public sealed class EditableTextField: SAPTextField {
-        int maxLength;
-
-        public EditableTextField(GuiTextField textField): base(textField) {
-            this.maxLength = textField.MaxLength;
-        }
-
-        public int getMaxLength() {
-            return maxLength;
-        }
-
-        public void insert(string content, GuiSession session) {
-            var guiTextField = (GuiTextField)session.FindById(id);
-            guiTextField.Text = content;
-            text = content;
         }
     }
 }

@@ -41,15 +41,19 @@ namespace RoboSAPiens {
             };
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
             return text == label;
+        }
+
+        public bool isVLabeled(string label) {
+            return false;
         }
 
         public bool hasTooltip(string tooltip) {
             return this.tooltip == tooltip;
         }
 
-        public bool isLocated(ILocator locator, LabelStore labels, ReadOnlyTextFieldStore textFieldLabels) {
+        public bool isLocated(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return locator switch {
                 HLabelVLabel(var hLabel, var vLabel) =>
                     (isHorizontalAlignedWithLabel(labels.getByName(hLabel)) ||

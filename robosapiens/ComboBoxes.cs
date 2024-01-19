@@ -52,8 +52,12 @@ namespace RoboSAPiens {
             return result != null;
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
             return this.label == label;
+        }
+
+        public bool isVLabeled(string label) {
+            return false;
         }
 
         public bool hasTooltip(string tooltip) {
@@ -116,7 +120,11 @@ namespace RoboSAPiens {
             return true;
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
+            return false;
+        }
+
+        public bool isVLabeled(string label) {
             return false;
         }
 
@@ -150,7 +158,11 @@ namespace RoboSAPiens {
             return true;
         }
 
-        public bool isLabeled(string label) {
+        public bool isHLabeled(string label) {
+            return false;
+        }
+
+        public bool isVLabeled(string label) {
             return false;
         }
 
