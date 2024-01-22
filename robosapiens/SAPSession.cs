@@ -256,8 +256,11 @@ namespace RoboSAPiens {
                 var height = bottom - top;
                 var width = right - left;
 
-                var sapLabel = textField.findClosestHorizontalComponent(labels.Cast<ILocatable>().ToList()) as SAPLabel;
-                var label = sapLabel?.getText() ?? "";
+                var label = textField.hLabel;
+                if (label == "") {
+                    var closestLabel = textField.findClosestHorizontalComponent(labels.Cast<ILocatable>().ToList()) as SAPLabel;
+                    label = closestLabel?.getText() ?? "";
+                }
 
                 formFields.Add(new FormField(textField.text, label, textField.id, left, top, width, height));
             });
