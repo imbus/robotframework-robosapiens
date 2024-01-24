@@ -25,7 +25,7 @@ namespace RoboSAPiens
             keywords = new Dictionary<string, Func<string[], RobotResult>>()
             {
                 {"ActivateTab", args => ActivateTab(args[0])},
-                {"AttachToRunningSap", args => AttachToRunningSap()},
+                {"AttachToRunningSap", args => args switch { [] => AttachToRunningSap(), _ =>  AttachToRunningSap(args[0]) }},
                 {"CloseConnection", args => CloseConnection()},
                 {"CloseSap", args => CloseSap()},
                 {"ConnectToServer", args => ConnectToServer(args[0])},
@@ -228,8 +228,14 @@ namespace RoboSAPiens
 
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult AttachToRunningSap() {
+        public RobotResult AttachToRunningSap(string sessionNumber="1") {
             GuiApplication? guiApplication = null;
+
+            int intSessionNumber;
+            if (!Int32.TryParse(sessionNumber, out intSessionNumber))
+            {
+                return new Result.AttachToRunningSap.InvalidSessionId(sessionNumber);
+            }
 
             switch(getSapGui()) 
             {
@@ -271,9 +277,18 @@ namespace RoboSAPiens
                     }
                     else 
                     {
-                        var guiSession = (GuiSession)connection.Sessions.ElementAt(0);
-                        this.session = new SAPSession(guiSession, connection, options, logger);
-                        result = new Result.AttachToRunningSap.Pass();
+                        for (int s = 0; s < connection.Sessions.Count; s++)
+                        {
+                            var guiSession = (GuiSession)connection.Sessions.ElementAt(s);
+                            var sessionInfo = guiSession.Info;
+                            if (sessionInfo.SessionNumber == intSessionNumber)
+                            {
+                                guiSession.TestToolMode = 1;
+                                this.session = new SAPSession(guiSession, connection, options, logger);
+                                return new Result.AttachToRunningSap.Pass();
+                            }
+                        }
+                        result = new Result.AttachToRunningSap.InvalidSessionId(sessionNumber);
                         break;
                     }
                 }
