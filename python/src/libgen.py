@@ -18,36 +18,39 @@ class LocalizedLib:
     spec: Dict
 
 
-def get_str(arg: Union[str, Tuple[str, str]]):
-    if not isinstance(arg, str):
-        _, name = cast(Tuple[str, str], arg)
-        return name
+def get_value(arg: Union[Any, Tuple[str, str]]):
+    if not isinstance(arg, tuple):
+        return arg
 
-    return arg
+    _, value = cast(Tuple[str, str], arg)
+    return value
 
 
 def gen_call_args(args: ArgsDict):
     args_list: List[str] = []
 
     for arg in args:
-        name = get_str(args[arg]['name'])
+        name = get_value(args[arg]['name'])
 
         if "default" in args[arg]:
-            default = args[arg]["default"]
-            arg_type = type(default).__name__
-            args_list.append(f"{name}: {arg_type}={default}")
-        else:
-            if args[arg]["optional"]:
-                args_list.append(f"{name}: str=None")
+            default = get_value(args[arg]["default"])
+            if not default == None:
+                arg_type = type(default).__name__
+                if arg_type == "str":
+                    args_list.append(f"{name}: {arg_type}='{default}'")
+                else:
+                    args_list.append(f"{name}: {arg_type}={default}")
             else:
-                args_list.append(f"{name}: str")
+                args_list.append(f"{name}: str")    
+        else:
+            args_list.append(f"{name}: str")
 
     return args_list
 
 
 def gen_args_doc(args: Dict[str, Dict[str, Union[str, Tuple[str,str]]]]):
     return "\n\n".join([
-        f"*{get_str(args[arg]['name'])}*" + ": " + get_str(args[arg]["doc"])
+        f"*{get_value(args[arg]['name'])}*" + ": " + get_value(args[arg]["doc"])
         for arg in args
     ])
 
@@ -60,12 +63,12 @@ def rec_map_values(d: StrDict, f: Callable[[str, str], str]):
 
 
 def gen_result(result: StrDict):
-    return codegen.gen_str_dict("result", rec_map_values(result, lambda k, v: get_str(v)))
+    return codegen.gen_str_dict("result", rec_map_values(result, lambda k, v: get_value(v)))
 
 
 def gen_args(args: ArgsDict):
     args_dict = {
-        codegen.remove_arg_prefix(arg): get_str(args[arg]['name'])
+        codegen.remove_arg_prefix(arg): get_value(args[arg]['name'])
         for arg in args
     }
 
@@ -79,12 +82,12 @@ def gen_methods(keywords: Dict[str, Dict[str, Any]]):
         args = keywords[keyword]['args']
         result = keywords[keyword]['result']
         methods += ["\n"] + codegen.pprint_code_block(
-            [f"@keyword('{get_str(keywords[keyword]['name'])}') # type: ignore",
+            [f"@keyword('{get_value(keywords[keyword]['name'])}') # type: ignore",
             f"def {codegen.camel_to_snake(keyword)}({', '.join(['self'] + gen_call_args(args))}): # type: ignore"],
-            codegen.gen_doc(get_str(keywords[keyword]['doc'])) +
+            codegen.gen_doc(get_value(keywords[keyword]['doc'])) +
             [""] +
             # TODO: validate that the arguments satisfy their spec
-            ["args = [" + ", ".join([get_str(arg['name']) for _, arg in args.items()]) + "]"] +
+            ["args = [" + ", ".join([get_value(arg['name']) for _, arg in args.items()]) + "]"] +
             [""] +
             gen_result(result) +
             [
@@ -106,9 +109,9 @@ def generate_rf_lib(lib: LocalizedLib, version: str):
         "ROBOT_LIBRARY_SCOPE = 'SUITE'",
         f"ROBOT_LIBRARY_VERSION = '{version}'"
     ]
-    doc = codegen.gen_doc(get_str(spec["doc"]["intro"]))
+    doc = codegen.gen_doc(get_value(spec["doc"]["intro"]))
     init = codegen.gen_init(gen_call_args(spec["args"]),
-        codegen.gen_doc(get_str(spec["doc"]["init"]) + "\n\n" + gen_args_doc(spec["args"])),
+        codegen.gen_doc(get_value(spec["doc"]["init"]) + "\n\n" + gen_args_doc(spec["args"])),
         [""] +
         gen_args(spec["args"]) +
         [""] +

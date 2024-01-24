@@ -2,7 +2,7 @@ import importlib
 import json
 import sys
 from pathlib import Path
-from libgen import get_str, rec_map_values
+from libgen import get_value, rec_map_values
 from version import __version__
 
 localized = Path("localized")
@@ -20,21 +20,21 @@ if __name__ == "__main__":
         [
             {
                 "id": kw_name,
-                "name": get_str(kw["name"]),
+                "name": get_value(kw["name"]),
                 "args": [
                     {
                         "name": arg_name,
-                        "desc": get_str(arg["name"]).replace("_", " "),
+                        "desc": get_value(arg["name"]).replace("_", " "),
                         "spec": {
-                            spec_name: get_str(spec)
+                            spec_name: get_value(spec)
                             for spec_name, spec in arg["spec"].items()
                         },
-                        "optional": arg["optional"]
+                        "default": arg["default"]
                     }
                     for arg_name, arg in kw["args"].items()
                 ],
                 "result": {
-                    result_name: get_str(result)
+                    result_name: get_value(result)
                     for result_name, result in kw["result"].items()
                 },
                 "returnValue": kw_name.startswith("Get") or kw_name.startswith("Read")
