@@ -51,7 +51,7 @@ lib: LocalizedRoboSAPiens = {
         "tab": {
           "name": ("3772862467", "Reitername"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -75,7 +75,7 @@ lib: LocalizedRoboSAPiens = {
         "path": {
           "name": ("190089999", "Pfad"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -131,7 +131,7 @@ lib: LocalizedRoboSAPiens = {
             "index": {
                 "name": ("2358225529", "Tabellenindex"),
                 "spec": {},
-                "optional": False
+                "default": None
             }
         },
         "result": {
@@ -157,7 +157,7 @@ lib: LocalizedRoboSAPiens = {
         "filepath": {
           "name": ("1769741420", "Dateipfad"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -177,20 +177,30 @@ lib: LocalizedRoboSAPiens = {
     },
     "AttachToRunningSap": {
       "name": ("4126309856", "Laufende SAP GUI übernehmen"),
-      "args": {},
+      "args": {
+          "sessionNumber": {
+              "name": ("4193981709", "session_nummer"),
+              "default": ("2212294583", "1"),
+              "spec": {}
+          }
+      },
       "result": {
         "NoSapGui": ("2987622841", no_sap_gui),
         "NoGuiScripting": ("2929771598", no_gui_scripting),
         "NoConnection": ("509780556", no_connection),
         "NoSession": ("2754484086", no_session),
         "NoServerScripting": ("3495213352", no_server_scripting),
+        "InvalidSessionId": ("800596714", "Keine Session mit Nummer {0} vorhanden"),
         "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
         "Exception": ("3120673076", exception("Die laufende SAP GUI konnte nicht übernommen werden."))
       },
       "doc": (
-          "3968519172", 
+          "3996613379", 
           """
-          Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
+          Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden. 
+          Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
+
+          | ``Laufende SAP GUI übernehmen    session_nummer``
           """
       )
     },
@@ -200,7 +210,7 @@ lib: LocalizedRoboSAPiens = {
         "server": {
           "name": ("3584233446", "Servername"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -226,12 +236,12 @@ lib: LocalizedRoboSAPiens = {
         "a1row_locator": {
           "name": ("315353924", "Zeile"),
           "spec": {},
-          "optional": False
+          "default": None
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -265,7 +275,7 @@ lib: LocalizedRoboSAPiens = {
             "HLabelVIndex": ("509417766", HLabelVIndex),
             "HIndexVLabel": ("3606518505", HIndexVLabel)
           },
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -291,7 +301,7 @@ lib: LocalizedRoboSAPiens = {
         "T_Code": {
           "name": ("1795027938", "T_Code"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -314,12 +324,12 @@ lib: LocalizedRoboSAPiens = {
         "a1name": {
           "name": ("1579384326", "Name"),
           "spec": {},
-          "optional": False
+          "default": None
         },
         "a2directory": {
           "name": ("1182287066", "Verzeichnis"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -344,18 +354,18 @@ lib: LocalizedRoboSAPiens = {
         "a1row_locator": {
           "name": ("315353924", "Zeile"),
           "spec": {},
-          "optional": False
+          "default": None
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {
           },
-          "optional": False
+          "default": None
         },
         "a3content": {
             "name": ("4274335913", "Inhalt"),
             "spec": {},
-            "optional": False
+            "default": None
         }
       },
       "result": {
@@ -391,12 +401,12 @@ lib: LocalizedRoboSAPiens = {
               "HLabelVIndex": ("509417766", HLabelVIndex),
               "HIndexVLabel": ("3606518505", HIndexVLabel)
           },
-          "optional": False
+          "default": None
         },
         "a2content": {
           "name": ("4274335913", "Inhalt"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -439,7 +449,7 @@ lib: LocalizedRoboSAPiens = {
         "button": {
           "name": ("894332414", "Name_oder_Kurzinfo"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -463,7 +473,7 @@ lib: LocalizedRoboSAPiens = {
             "keyCombination": {
                 "name": ("2238126572", "Tastenkombination"),
                 "spec": {},
-                "optional": False
+                "default": None
             }
         },
         "result": {
@@ -486,7 +496,7 @@ lib: LocalizedRoboSAPiens = {
         "button": {
           "name": ("894332414", "Name_oder_Kurzinfo"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -511,12 +521,12 @@ lib: LocalizedRoboSAPiens = {
         "a1row_or_label": {
           "name": ("315353924", "Zeile"),
           "spec": {},
-          "optional": False
+          "default": None
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -547,7 +557,7 @@ lib: LocalizedRoboSAPiens = {
               "HLabelVLabel": ("1999142431", HLabelVLabel),
               "Content": ("880934240", Content)
           },
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -576,7 +586,7 @@ lib: LocalizedRoboSAPiens = {
               "HLabel": ("4229670492", HLabel),
               "Content": ("880934240", Content)
           },
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -604,12 +614,12 @@ lib: LocalizedRoboSAPiens = {
         "a1row_locator": {
           "name": ("315353924", "Zeile"),
           "spec": {},
-          "optional": False
+          "default": None
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -635,7 +645,7 @@ lib: LocalizedRoboSAPiens = {
         "filepath": {
           "name": ("1053179562", "Speicherort"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -663,12 +673,12 @@ lib: LocalizedRoboSAPiens = {
         "a1row_locator": {
           "name": ("315353924", "Zeile"),
           "spec": {},
-          "optional": False
+          "default": None
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -694,17 +704,17 @@ lib: LocalizedRoboSAPiens = {
         "a1row_locator": {
             "name": ("315353924", "Zeile"),
             "spec": {},
-            "optional": False
+            "default": None
         },
         "a2column": {
             "name": ("2102626174", "Spaltentitel"),
             "spec": {},
-            "optional": False
+            "default": None
         },
         "a3entry": {
             "name": ("494360628", "Wert"),
             "spec": {},
-            "optional": False
+            "default": None
         }
     },
     "result": {
@@ -729,12 +739,12 @@ lib: LocalizedRoboSAPiens = {
         "a1comboBox": {
           "name": ("3378336226", "Auswahlmenü"),
           "spec": {},
-          "optional": False
+          "default": None
         },
         "a2entry": {
           "name": ("723623280", "Eintrag"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -763,7 +773,7 @@ lib: LocalizedRoboSAPiens = {
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel)
           },
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -794,7 +804,7 @@ lib: LocalizedRoboSAPiens = {
           "row_number": {
               "name": ("3333868678", "Zeilennummer"),
               "spec": {},
-              "optional": False
+              "default": None
           }
       },
       "result": {
@@ -823,7 +833,7 @@ lib: LocalizedRoboSAPiens = {
               "HIndexVLabel": ("3606518505", HIndexVLabel),
               "Content": ("880934240", Content)
           },
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -849,7 +859,7 @@ lib: LocalizedRoboSAPiens = {
         "content": {
           "name": ("4274335913", "Inhalt"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -877,7 +887,7 @@ lib: LocalizedRoboSAPiens = {
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel)
           },
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -927,7 +937,7 @@ lib: LocalizedRoboSAPiens = {
               "VLabel": ("474824962", VLabel),
               "HLabelVLabel": ("1999142431", HLabelVLabel)
           },
-          "optional": False
+          "default": None
         }
       },
       "result": {
@@ -958,12 +968,12 @@ lib: LocalizedRoboSAPiens = {
         "a1row": {
           "name": ("315353924", "Zeile"),
           "spec": {},
-          "optional": False
+          "default": None
         },
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {},
-          "optional": False
+          "default": None
         }
       },
       "result": {

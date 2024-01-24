@@ -58,7 +58,7 @@ lib: RoboSAPiens = {
                 "tab": {
                     "name": "tab_name",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -80,7 +80,7 @@ lib: RoboSAPiens = {
                 "path": {
                     "name": "path",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -128,7 +128,7 @@ lib: RoboSAPiens = {
                 "index": {
                     "name": "table_index",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -151,7 +151,7 @@ lib: RoboSAPiens = {
                 "filepath": {
                     "name": "filepath",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -168,18 +168,28 @@ lib: RoboSAPiens = {
         },
         "AttachToRunningSap": {
             "name": "Connect to Running SAP",
-            "args": {},
+            "args": {
+                "sessionNumber": {
+                    "name": "session_number",
+                    "default": "1",
+                    "spec": {}
+                }
+            },
             "result": {
                 "NoSapGui": no_sap_gui,
                 "NoGuiScripting": no_gui_scripting,
                 "NoConnection": no_connection,
                 "NoSession": no_session,
                 "NoServerScripting": no_server_scripting,
+                "InvalidSessionId": "There is no session number {0}",
                 "Pass": "Connected to a running SAP instance.",
                 "Exception": exception("Could not connect to a running SAP instance. {0}")
             },
             "doc": """
-            Connect to a running SAP instance and take control of it.
+            Connect to a running SAP instance and take control of it. By default the session number 1 will be used. 
+            To use a different session specify the session number.
+
+            | ``Connect to Running SAP    session_number``
             """
         },
         "ConnectToServer": {
@@ -188,7 +198,7 @@ lib: RoboSAPiens = {
                 "server": {
                     "name": "server_name",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -211,12 +221,12 @@ lib: RoboSAPiens = {
                 "a1row_locator": {
                     "name": "row_locator",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2column": {
                     "name": "column",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -247,7 +257,7 @@ lib: RoboSAPiens = {
                         "HIndexVLabel": HIndexVLabel,
                         "HLabelVIndex": HLabelVIndex
                     },
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -270,7 +280,7 @@ lib: RoboSAPiens = {
                 "T_Code": {
                     "name": "T_Code",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -290,12 +300,12 @@ lib: RoboSAPiens = {
                 "a1name": {
                     "name": "name",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2directory": {
                     "name": "directory",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -317,17 +327,17 @@ lib: RoboSAPiens = {
                 "a1row_locator": {
                     "name": "row_locator",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2column": {
                     "name": "column",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a3content": {
                     "name": "content",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -360,12 +370,12 @@ lib: RoboSAPiens = {
                         "HIndexVLabel": HIndexVLabel,
                         "HLabelVIndex": HLabelVIndex
                     },
-                    "optional": False
+                    "default": None
                 },
                 "a2content": {
                     "name": "content",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -405,7 +415,7 @@ lib: RoboSAPiens = {
                 "button": {
                     "name": "name_or_tooltip",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -426,7 +436,7 @@ lib: RoboSAPiens = {
                 "keyCombination": {
                     "name": "key_combination",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -449,7 +459,7 @@ lib: RoboSAPiens = {
                 "button": {
                     "name": "name_or_tooltip",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -471,12 +481,12 @@ lib: RoboSAPiens = {
                 "a1row_or_label": {
                     "name": "row_locator",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2column": {
                     "name": "column",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -519,7 +529,7 @@ lib: RoboSAPiens = {
                         "HLabelVLabel": HLabelVLabel,
                         "Content": Content
                     },
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -545,7 +555,7 @@ lib: RoboSAPiens = {
                         "HLabel": HLabel,
                         "Content": Content
                     },
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -570,12 +580,12 @@ lib: RoboSAPiens = {
                 "a1row_locator": {
                     "name": "row_locator",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2column": {
                     "name": "column",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -598,7 +608,7 @@ lib: RoboSAPiens = {
                 "filepath": {
                     "name": "destination",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -624,12 +634,12 @@ lib: RoboSAPiens = {
                 "a1row_locator": {
                     "name": "row_locator",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2column": {
                     "name": "column",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -652,17 +662,17 @@ lib: RoboSAPiens = {
                 "a1row_locator": {
                     "name": "row_locator",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2column": {
                     "name": "column",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a3entry": {
                     "name": "value",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -686,12 +696,12 @@ lib: RoboSAPiens = {
                 "a1comboBox": {
                     "name": "dropdown_menu",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2entry": {
                     "name": "entry",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -717,7 +727,7 @@ lib: RoboSAPiens = {
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
                     },
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -745,7 +755,7 @@ lib: RoboSAPiens = {
                 "row_number": {
                     "name": "row_number",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -774,7 +784,7 @@ lib: RoboSAPiens = {
                         "HLabelVIndex": HLabelVIndex,
                         "Content": Content
                     },
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -797,7 +807,7 @@ lib: RoboSAPiens = {
                 "content": {
                     "name": "content",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -822,7 +832,7 @@ lib: RoboSAPiens = {
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
                     },
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -854,7 +864,7 @@ lib: RoboSAPiens = {
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
                     },
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
@@ -882,12 +892,12 @@ lib: RoboSAPiens = {
                 "a1row": {
                     "name": "row_locator",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 },
                 "a2column": {
                     "name": "column",
                     "spec": {},
-                    "optional": False
+                    "default": None
                 }
             },
             "result": {
