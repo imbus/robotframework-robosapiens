@@ -77,7 +77,7 @@ public class _
                             param => new 
                             {
                                 name = param.Name,
-                                optional = isNullable(param),
+                                @default = param.DefaultValue switch {DBNull => null, var value => value},
                                 spec = getSpec(param)
                             }
                         ),
