@@ -667,6 +667,31 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "ScrollWindowContents": {
+        "name": ("1485079550", "Fensterinhalt scrollen"),
+        "args": {
+            "step": {
+                "name": ("1136262716", "Schritt"),
+                "default": ("711622031", "DOWN"),
+                "spec": {}
+            }
+        },
+        "result": {
+            "NoSession": ("2754484086", no_session),
+            "NoScrollbar": ("860541775", "Das Fenster hat keinen vertikalen Rollenbalken."),
+            "Exception": ("2215403865", exception("Der vertikale Rollenbalken des Fensters konnte nicht verschoben werden.")),
+            "MaximumReached": ("4222647927", "Der vertikale Rollenbalken des Fensters kann nicht weiter verschoben werden."),
+            "Pass": ("2994096715", "Der vertikale Rollenbalen des Fensters wurde nach unten verschoben.")
+        },
+        "doc": ("3683851971", 
+          """
+          Der vertikale Rollenbalken des Fensters wird verschoben. Standardmäßig um einen Schritt nach unten.
+
+          | ``Fensterinhalt scrollen    Schritt``
+
+          Schritt: START, END, DOWN, UP
+          """)
+    },
     "SelectCell": {
       "name": ("1049942265", "Tabellenzelle markieren"),
       "args": {

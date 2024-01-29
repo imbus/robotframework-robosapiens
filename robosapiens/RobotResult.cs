@@ -239,6 +239,14 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Eine Aufnahme des Fensters konnte nicht gespeichert werden");
         }
 
+        public record ScrollWindowContents {
+            public record NoSession(): RobotResult.NoSession();
+            public record Pass(): RobotResult.RobotPass($"Der Rollenbalken des Fensters wurde nach unten verschoben");
+            public record NoScrollbar(): RobotResult.RobotFail("NoScrollbar", "Das Fenster hat keinen Rollenbalken");
+            public record MaximumReached(): RobotResult.RobotFail("MaximumReached", "Der Rollenbalken kann nicht weiter verschoben werden.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Rollenbalken des Fensters konnte nicht verschoben werden.");
+        }
+
         public record SelectCell {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");

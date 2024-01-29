@@ -49,6 +49,7 @@ namespace RoboSAPiens
                 {"ReadText", args => ReadText(args[0])},
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
+                {"ScrollWindowContents", args => args switch { [] => ScrollWindowContents(), _ =>  ScrollWindowContents(args[0]) }},
                 {"SelectCell", args => SelectCell(args[0], args[1])},
                 {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
                 {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
@@ -589,6 +590,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.saveScreenshot(filepath),
                 _ => new Result.SaveScreenshot.NoSession()
+            };
+        }
+
+        [Keyword("Fensterinhalt scrollen"),
+         Doc("Der Rollbalken des Fensters wird nach unten verschoben.\n\n" +
+             "| ``Fensterinhalt scrollen``")]
+        public RobotResult ScrollWindowContents(string step="DOWN") {
+            return session switch {
+                SAPSession session => session.scrollWindowContents(step),
+                _ => new Result.ScrollWindowContents.NoSession()
             };
         }
 

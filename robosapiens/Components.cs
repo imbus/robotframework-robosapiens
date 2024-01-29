@@ -19,6 +19,7 @@ namespace RoboSAPiens {
         TableStore tables = new TableStore();
         GridViewStore gridViews = new GridViewStore();
         SAPTree? tree = null;
+        VerticalScrollbar? verticalScrollbar = null;
         private GuiSession session;
         private bool debug;
         private string indentation = "";
@@ -100,6 +101,15 @@ namespace RoboSAPiens {
                     break;
                 case "GuiToolbar":
                     classifyToolbar((GuiToolbar)container);
+                    break;
+                case "GuiUserArea": 
+                    var userArea = (GuiUserArea)container;
+                    var verticalScrollbar = userArea.VerticalScrollbar;
+                    if (verticalScrollbar != null && verticalScrollbar.Maximum > 0)
+                    {
+                        this.verticalScrollbar = new VerticalScrollbar(userArea);
+                    }
+                    getWindowComponents(userArea.Children);
                     break;
                 default:
                     getWindowComponents(getContainerChildren(container));
@@ -365,7 +375,6 @@ namespace RoboSAPiens {
                 "GuiTab" => ((GuiTab)container).Children,
                 "GuiTitlebar" => ((GuiTitlebar)container).Children,
                 "GuiToolbar" => ((GuiToolbar)container).Children,
-                "GuiUserArea" => ((GuiUserArea)container).Children,
                 _ => ((GuiContainer)container).Children
             };
         }
@@ -515,6 +524,11 @@ namespace RoboSAPiens {
 
         public List<SAPGridView> getGridViews() {
             return gridViews.getAll();
+        }
+
+        public VerticalScrollbar? getVerticalScrollbar()
+        {
+            return verticalScrollbar;
         }
 
         public List<SAPTable> getTables(){

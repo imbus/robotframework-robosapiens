@@ -609,6 +609,43 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult scrollWindowContents(string step)
+        {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var verticalScrollbar = window.components.getVerticalScrollbar();
+
+            if (verticalScrollbar == null) 
+            {
+                return new Result.ScrollWindowContents.NoScrollbar();
+            }
+
+            try
+            {
+                var scrolled = verticalScrollbar.scroll(session, step);
+                if (scrolled)
+                {
+                    // Scrolling the window changes the values of some components,
+                    // therefore the components have to be scanned to read their current value
+                    switch (updateWindow(updateComponents: true)) {
+                        case RobotResult.UIScanFail exceptionError:
+                            return exceptionError;
+                    }
+                    return new Result.ScrollWindowContents.Pass();
+                }
+                else 
+                {
+                    return new Result.ScrollWindowContents.MaximumReached();
+                }
+            }
+            catch (Exception e)
+            {
+                return new Result.ScrollWindowContents.Exception(e);
+            }
+        }
+
         public RobotResult selectCell(string rowIndexOrCellContent, string column) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

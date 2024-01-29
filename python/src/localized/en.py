@@ -628,6 +628,30 @@ lib: RoboSAPiens = {
             destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
             """
         },
+        "ScrollWindowContents": {
+            "name": "Scroll Window Contents",
+            "args": {
+                "step": {
+                    "name": "step",
+                    "default": "DOWN",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "Exception": exception("The vertical scrollbar could not be displaced."),
+                "NoScrollbar": "The window does not have a vertical scrollbar.",
+                "MaximumReached": "The vertical scrollbar cannot be displaced any further.",
+                "Pass": "The vertical scrollbar was displaced downwards."
+            },
+            "doc": """
+            Displace the vertical scrollbar of the window. By default it will be moved one step downwards.
+
+            | ``Scroll Window Contents    step``
+
+            step: START, END, DOWN, UP
+            """
+        },
         "SelectCell": {
             "name": "Select Cell",
             "args": {
