@@ -61,6 +61,7 @@ namespace RoboSAPiens
             base(rowIndex, column: gridView.GetDisplayedColumnTitle(columnId), text: gridView.GetCellValue(rowIndex, columnId)) 
         {
             // GetDisplayedColumnTitle might not be reliable
+            this.columnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
             GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
             for (int i = 0; i < columnTitles.Length; i++) 
             {
