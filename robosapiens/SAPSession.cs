@@ -415,16 +415,21 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult pushButton(string label) {
-            switch (updateWindow(updateComponents: true)) {
-                case RobotResult.UIScanFail exceptionError: return exceptionError;
-            }
-            
+        public RobotResult pushButton(string label) {            
             var theButton = new ButtonLocator(label);
             var button = window.components.findButton(theButton);
 
-            if (button == null) {
-                return new Result.PushButton.NotFound(theButton.atLocation);
+            if (button == null) 
+            {
+                switch (updateWindow(updateComponents: true)) {
+                    case RobotResult.UIScanFail exceptionError: return exceptionError;
+                }
+            
+                button = window.components.findButton(theButton);
+            
+                if (button == null) {
+                    return new Result.PushButton.NotFound(theButton.atLocation);
+                }
             }
 
             if (options.presenterMode) switch(highlightElement(session, button)) {
