@@ -628,28 +628,28 @@ lib: RoboSAPiens = {
             destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
             """
         },
-        "ScrollWindowContents": {
-            "name": "Scroll Window Contents",
+        "ScrollForms": {
+            "name": "Scroll Forms",
             "args": {
-                "step": {
-                    "name": "step",
-                    "default": "DOWN",
+                "targetForm": {
+                    "name": "to_form",
+                    "default": None,
                     "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
-                "Exception": exception("The vertical scrollbar could not be displaced."),
-                "NoScrollbar": "The window does not have a vertical scrollbar.",
-                "MaximumReached": "The vertical scrollbar cannot be displaced any further.",
-                "Pass": "The vertical scrollbar was displaced downwards."
+                "Exception": exception("The forms could not be scrolled."),
+                "NoScrollbar": "There are no scrollable forms in the window.",
+                "MaximumReached": "The forms cannot be scrolled any further.",
+                "Pass": "Scrolled forms to form {0}."
             },
             "doc": """
-            Displace the vertical scrollbar of the window. By default it will be moved one step downwards.
+            Scroll the forms to the given form.
 
-            | ``Scroll Window Contents    step``
+            | ``Scroll Forms    to_form``
 
-            step: START, END, DOWN, UP
+            to_form: NEXT, PREV, FIRST, LAST
             """
         },
         "SelectCell": {

@@ -239,7 +239,7 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Eine Aufnahme des Fensters konnte nicht gespeichert werden");
         }
 
-        public record ScrollWindowContents {
+        public record ScrollForms {
             public record NoSession(): RobotResult.NoSession();
             public record Pass(): RobotResult.RobotPass($"Der Rollenbalken des Fensters wurde nach unten verschoben");
             public record NoScrollbar(): RobotResult.RobotFail("NoScrollbar", "Das Fenster hat keinen Rollenbalken");

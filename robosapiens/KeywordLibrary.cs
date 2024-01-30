@@ -49,7 +49,7 @@ namespace RoboSAPiens
                 {"ReadText", args => ReadText(args[0])},
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
-                {"ScrollWindowContents", args => args switch { [] => ScrollWindowContents(), _ =>  ScrollWindowContents(args[0]) }},
+                {"ScrollForms", args => ScrollForms(args[0])},
                 {"SelectCell", args => SelectCell(args[0], args[1])},
                 {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
                 {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
@@ -593,13 +593,14 @@ namespace RoboSAPiens
             };
         }
 
-        [Keyword("Fensterinhalt scrollen"),
-         Doc("Der Rollbalken des Fensters wird nach unten verschoben.\n\n" +
-             "| ``Fensterinhalt scrollen``")]
-        public RobotResult ScrollWindowContents(string step="DOWN") {
+        [Keyword("Formulare scrollen"),
+         Doc("Die Formulare werden zum Zielformular gescrollt.\n\n" +
+             "| ``Formulare scrollen   Zielformular``\n" +
+             "Zielformular: NEXT (nächstes Formular), PREV (vorheriges Formular), FIRST (erstes Formular), LAST (letztes Formular)")]
+        public RobotResult ScrollForms(string targetForm) {
             return session switch {
-                SAPSession session => session.scrollWindowContents(step),
-                _ => new Result.ScrollWindowContents.NoSession()
+                SAPSession session => session.scrollForms(targetForm),
+                _ => new Result.ScrollForms.NoSession()
             };
         }
 

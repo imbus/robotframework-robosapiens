@@ -614,22 +614,25 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult scrollWindowContents(string step)
+        public RobotResult scrollForms(string targetForm)
         {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            // TODO: Add a parser for targetForm
+            // If an invalid target form is provided return Result.ScrollForms.InvalidTargetForm
+
             var verticalScrollbar = window.components.getVerticalScrollbar();
 
             if (verticalScrollbar == null) 
             {
-                return new Result.ScrollWindowContents.NoScrollbar();
+                return new Result.ScrollForms.NoScrollbar();
             }
 
             try
             {
-                var scrolled = verticalScrollbar.scroll(session, step);
+                var scrolled = verticalScrollbar.scroll(session, targetForm);
                 if (scrolled)
                 {
                     // Scrolling the window changes the values of some components,
@@ -638,16 +641,16 @@ namespace RoboSAPiens {
                         case RobotResult.UIScanFail exceptionError:
                             return exceptionError;
                     }
-                    return new Result.ScrollWindowContents.Pass();
+                    return new Result.ScrollForms.Pass();
                 }
                 else 
                 {
-                    return new Result.ScrollWindowContents.MaximumReached();
+                    return new Result.ScrollForms.MaximumReached();
                 }
             }
             catch (Exception e)
             {
-                return new Result.ScrollWindowContents.Exception(e);
+                return new Result.ScrollForms.Exception(e);
             }
         }
 

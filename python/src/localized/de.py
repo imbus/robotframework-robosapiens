@@ -667,29 +667,29 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
-    "ScrollWindowContents": {
-        "name": ("1485079550", "Fensterinhalt scrollen"),
+    "ScrollForms": {
+        "name": ("3192058055", "Formulare scrollen"),
         "args": {
-            "step": {
-                "name": ("1136262716", "Schritt"),
-                "default": ("711622031", "DOWN"),
+            "targetForm": {
+                "name": ("3043421312", "Zielformular"),
+                "default": None,
                 "spec": {}
             }
         },
         "result": {
             "NoSession": ("2754484086", no_session),
-            "NoScrollbar": ("860541775", "Das Fenster hat keinen vertikalen Rollenbalken."),
-            "Exception": ("2215403865", exception("Der vertikale Rollenbalken des Fensters konnte nicht verschoben werden.")),
-            "MaximumReached": ("4222647927", "Der vertikale Rollenbalken des Fensters kann nicht weiter verschoben werden."),
-            "Pass": ("2994096715", "Der vertikale Rollenbalen des Fensters wurde nach unten verschoben.")
+            "NoScrollbar": ("3163598852", "Das Fenster enthält keine scrollbare Formulare."),
+            "Exception": ("2149286883", exception("Die Formulare konnten nicht gescrollt werden.")),
+            "MaximumReached": ("4038422480", "Die Formulare können nicht weiter gescrollt werden."),
+            "Pass": ("3741657240", "Die Formulare wurden zum Formular {0} gescrollt.")
         },
-        "doc": ("3683851971", 
+        "doc": ("3921308245", 
           """
-          Der vertikale Rollenbalken des Fensters wird verschoben. Standardmäßig um einen Schritt nach unten.
+          Die Formulare werden zum Zielformular gescrollt.
 
-          | ``Fensterinhalt scrollen    Schritt``
+          | ``Formulare scrollen    Zielformular``
 
-          Schritt: START, END, DOWN, UP
+          Zielformular: NEXT, PREV, FIRST, LAST
           """)
     },
     "SelectCell": {

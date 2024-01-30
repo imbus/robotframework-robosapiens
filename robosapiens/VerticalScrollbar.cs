@@ -11,30 +11,30 @@ namespace RoboSAPiens
             userAreaId = guiUserArea.Id;
         }
 
-        public bool scroll(GuiSession session, string step)
+        public bool scroll(GuiSession session, string targetForm)
         {
             var userArea = (GuiUserArea)session.FindById(userAreaId);
             var verticalScrollbar = userArea.VerticalScrollbar;
 
-            if (step == "START")
+            if (targetForm == "FIRST")
             {
                 verticalScrollbar.Position = verticalScrollbar.Minimum;
                 return true;
             }
 
-            if (step == "END")
+            if (targetForm == "LAST")
             {
                 verticalScrollbar.Position = verticalScrollbar.Maximum;
                 return true;
             }
 
-            if (step == "DOWN" && verticalScrollbar.Position < verticalScrollbar.Maximum)
+            if (targetForm == "NEXT" && verticalScrollbar.Position < verticalScrollbar.Maximum)
             {
                 verticalScrollbar.Position++;
                 return true;
             }
 
-            if (step == "UP" && verticalScrollbar.Position > verticalScrollbar.Minimum)
+            if (targetForm == "PREV" && verticalScrollbar.Position > verticalScrollbar.Minimum)
             {
                 verticalScrollbar.Position--;
                 return true;
