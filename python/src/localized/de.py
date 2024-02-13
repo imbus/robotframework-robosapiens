@@ -681,6 +681,7 @@ lib: LocalizedRoboSAPiens = {
             "NoScrollbar": ("3163598852", "Das Fenster enthält keine scrollbare Formulare."),
             "Exception": ("2149286883", exception("Die Formulare konnten nicht gescrollt werden.")),
             "MaximumReached": ("4038422480", "Die Formulare können nicht weiter gescrollt werden."),
+            "InvalidTargetForm": ("2225455196", "Das Zielformular {0} gehört nicht zu den gültigen Werten: FIRST, LAST, NEXT, PREV"),
             "Pass": ("3741657240", "Die Formulare wurden zum Formular {0} gescrollt.")
         },
         "doc": ("3921308245", 

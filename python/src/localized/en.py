@@ -642,6 +642,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The forms could not be scrolled."),
                 "NoScrollbar": "There are no scrollable forms in the window.",
                 "MaximumReached": "The forms cannot be scrolled any further.",
+                "InvalidTargetForm": "The target form {0} is not one of the valid values: FIRST, LAST, NEXT, PREV",
                 "Pass": "Scrolled forms to form {0}."
             },
             "doc": """

@@ -620,8 +620,12 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            // TODO: Add a parser for targetForm
-            // If an invalid target form is provided return Result.ScrollForms.InvalidTargetForm
+            var targetForms = new HashSet<string> {"FIRST", "LAST", "NEXT", "PREV"};
+
+            if (!targetForms.Contains(targetForm))
+            {
+                return new Result.ScrollForms.InvalidTargetForm();
+            }
 
             var verticalScrollbar = window.components.getVerticalScrollbar();
 

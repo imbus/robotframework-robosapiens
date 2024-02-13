@@ -243,6 +243,7 @@ namespace RoboSAPiens {
             public record NoSession(): RobotResult.NoSession();
             public record Pass(): RobotResult.RobotPass($"Der Rollenbalken des Fensters wurde nach unten verschoben");
             public record NoScrollbar(): RobotResult.RobotFail("NoScrollbar", "Das Fenster hat keinen Rollenbalken");
+            public record InvalidTargetForm(): RobotResult.RobotFail("InvalidTargetForm", "Das Zielformular ist ungültig");
             public record MaximumReached(): RobotResult.RobotFail("MaximumReached", "Der Rollenbalken kann nicht weiter verschoben werden.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Rollenbalken des Fensters konnte nicht verschoben werden.");
         }
