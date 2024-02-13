@@ -18,6 +18,7 @@ namespace RoboSAPiens {
         public bool changeable;
         protected bool focused;
         List<SAPTextField> grid;
+        public string name;
         public Position position {get;}
         public string text;
         string tooltip;
@@ -31,6 +32,7 @@ namespace RoboSAPiens {
             this.height = textField.Height;
             this.id = textField.Id;
             (this.hLabel, this.vLabel) = getLabel(textField);
+            this.name = textField.Name;
             this.position = new Position(height: textField.Height, 
                                          left: textField.ScreenLeft,
                                          top: textField.ScreenTop, 
@@ -210,6 +212,10 @@ namespace RoboSAPiens {
                     isHLabeled(rightLabel),
                 _ => false
             };
+        }
+
+        public bool isNamed(string name) {
+            return this.name.Equals(name);
         }
 
         // To Do: Factor out this common function

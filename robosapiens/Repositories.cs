@@ -100,9 +100,10 @@ namespace RoboSAPiens {
         }
 
         SAPTextField? getFromVerticalGrid(int index, string label, LabelStore labels) {
-            var textField = items.Find(
-                field => field.isHLabeled(label) || 
-                field.contains(label) 
+            var textField = items.Find(field => 
+                field.isHLabeled(label) || 
+                field.contains(label) ||
+                field.isNamed(label)
             ) ?? getVerticalClosestToLabel(label, labels, this);
 
             if (textField == null) return null;
