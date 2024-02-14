@@ -6,7 +6,6 @@
     <SelfContained>true</SelfContained>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>partial</TrimMode>
-    <!-- <PublishSingleFile>true</PublishSingleFile> -->
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
@@ -32,5 +31,6 @@
 
   <ItemGroup>
     <PackageReference Include="SAP.GUI.Scripting.net" Version="1.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
 </Project>
