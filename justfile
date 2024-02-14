@@ -10,7 +10,7 @@ build-exe:
 
 export-api:
     #!pwsh
-    cd ExportApi; dotnet run -- (pwd).path
+    cd ExportApi; dotnet run
     cp api.json ../python/src
 
 clean:
