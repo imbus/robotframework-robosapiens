@@ -26,6 +26,7 @@
     <ItemGroup>
       <BuildFiles Include="$(PublishDir)\*.*" />
     </ItemGroup>
+    <Exec Command="rmdir /S /Q ..\python\src\RoboSAPiens\lib" />
     <Copy SourceFiles="@(BuildFiles)" DestinationFolder="../python/src/RoboSAPiens/lib" />
   </Target>
 

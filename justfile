@@ -14,9 +14,9 @@ export-api:
     cp api.json ../python/src
 
 clean:
-    if (Test-Path bin) { rm -r bin }
-    if (Test-Path build) { rm -r build }
-    if (Test-Path obj) { rm -r obj }
+    if (Test-Path robosapiens/bin) { rm -r robosapiens/bin }
+    if (Test-Path robosapiens/build) { rm -r robosapiens/build }
+    if (Test-Path robosapiens/obj) { rm -r robosapiens/obj }
 
 build: clean build-exe export-api
     cd python; just build
