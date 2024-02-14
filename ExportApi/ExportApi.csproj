@@ -9,8 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-     <Reference Include="RoboSAPiens">
-      <HintPath>..\robosapiens\build\RoboSAPiens.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\robosapiens\RoboSAPiens.csproj" />
   </ItemGroup>
 </Project>
