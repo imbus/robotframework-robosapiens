@@ -68,8 +68,10 @@ namespace RoboSAPiens {
         //
 
         public bool verticalAlignedWith(Position other) {
-            return (left >= other.left && right <= other.right) || 
-                   (other.left >= left && other.right <= right);
+            var symmetryAxis = left + (right - left)/2;
+            var othersymmetryAxis = other.left + (other.right - other.left)/2;
+            
+            return Math.Abs(symmetryAxis - othersymmetryAxis) < horizontalDeviation;
         }
 
         //   ________
