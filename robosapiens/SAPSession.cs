@@ -437,7 +437,12 @@ namespace RoboSAPiens {
             }
 
             try {
-                button.push(session);
+                if (button.isEnabled(session)) {
+                    button.push(session);
+                }
+                else {
+                    return new Result.PushButton.NotEnabled(theButton.atLocation);
+                }
             } 
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");

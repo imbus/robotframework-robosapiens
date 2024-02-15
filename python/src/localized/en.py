@@ -466,6 +466,7 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "SapError": sap_error,
                 "NotFound": not_found("The button '{0}' could not be found."),
+                "NotEnabled": "The button '{0}' is disabled.",
                 "Pass": "The button '{0}' was pushed.",
                 "Exception": exception("The button could not be pushed. {0}")
             },

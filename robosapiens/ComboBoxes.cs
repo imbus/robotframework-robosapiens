@@ -109,10 +109,10 @@ namespace RoboSAPiens {
         string gridViewId;
         string tooltip;
 
-        public SAPGridViewToolbarButtonMenuComboBox(GuiGridView gridView, string tooltip) 
+        public SAPGridViewToolbarButtonMenuComboBox(GuiGridView gridView, int position) 
         {
             this.gridViewId = gridView.Id;
-            this.tooltip = tooltip;
+            this.tooltip = gridView.GetToolbarButtonTooltip(position);
         }
 
         public override bool contains(string entry)

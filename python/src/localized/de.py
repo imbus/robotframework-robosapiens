@@ -503,6 +503,7 @@ lib: LocalizedRoboSAPiens = {
         "NoSession": ("2754484086", no_session),
         "SapError": ("3246364722", sap_error),
         "NotFound": ("3063247197", not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
+        "NotEnabled": ("258793702", "Der Knopf '{0}' ist deaktiviert."),
         "Pass": ("2346783035", "Der Knopf '{0}' wurde gedrückt."),
         "Exception": ("1002997848", exception("Der Knopf konnte nicht gedrückt werden."))
       },

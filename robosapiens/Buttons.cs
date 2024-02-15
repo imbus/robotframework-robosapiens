@@ -4,6 +4,7 @@ using sapfewse;
 namespace RoboSAPiens {
     public abstract class Button: IHighlightable {
         protected bool focused;
+        public abstract bool isEnabled(GuiSession session);
         public abstract void push(GuiSession session);
         public abstract void toggleHighlight(GuiSession session);
     }
@@ -26,6 +27,12 @@ namespace RoboSAPiens {
                             );
             this.text = button.Text.Trim();
             this.tooltip = button.Tooltip;
+        }
+
+        public override bool isEnabled(GuiSession session)
+        {
+            var button = (GuiButton)session.FindById(id);
+            return button.Changeable;
         }
 
         public bool isHLabeled(string label) {
@@ -112,6 +119,12 @@ namespace RoboSAPiens {
             }
         }
 
+        public override bool isEnabled(GuiSession session) 
+        {
+            GuiGridView gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetCellChangeable(rowIndex, columnId);
+        }
+
         public bool isLabeled(string label) {
             return label == tooltip;
         }
@@ -148,12 +161,20 @@ namespace RoboSAPiens {
     public sealed class SAPGridViewToolbarButton: Button, ILabeled {
         string gridViewId;
         string id;
+        int position;
         string tooltip;
 
-        public SAPGridViewToolbarButton(GuiGridView gridView, string id, string tooltip) {
+        public SAPGridViewToolbarButton(GuiGridView gridView, int position) {
             this.gridViewId = gridView.Id;
-            this.id = id;
-            this.tooltip = tooltip;
+            this.id = gridView.GetToolbarButtonId(position);
+            this.position = position;
+            this.tooltip = gridView.GetToolbarButtonTooltip(position);
+        }
+
+        public override bool isEnabled(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetToolbarButtonEnabled(position);
         }
 
         public bool isHLabeled(string label) {
@@ -182,13 +203,21 @@ namespace RoboSAPiens {
     {
         string gridViewId;
         string id;
+        int position;
         string tooltip;
 
-        public SAPGridViewToolbarButtonMenu(GuiGridView gridView, string id, string tooltip) 
+        public SAPGridViewToolbarButtonMenu(GuiGridView gridView, int position) 
         {
+            this.position = position;
             this.gridViewId = gridView.Id;
-            this.id = id;
-            this.tooltip = tooltip;
+            this.id = gridView.GetToolbarButtonId(position);
+            this.tooltip = gridView.GetToolbarButtonTooltip(position);
+        }
+
+        public override bool isEnabled(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetToolbarButtonEnabled(position);
         }
 
         public bool isHLabeled(string label) {
@@ -215,12 +244,14 @@ namespace RoboSAPiens {
     public sealed class SAPToolbarButton: Button, ILabeled {
         string toolbarId;
         string id;
+        int position;
         string tooltip;
 
-        public SAPToolbarButton(GuiToolbarControl toolbar, string id, string tooltip) {
+        public SAPToolbarButton(GuiToolbarControl toolbar, int position) {
+            this.position = position;
             this.toolbarId = toolbar.Id;
-            this.id = id;
-            this.tooltip = tooltip;
+            this.id = toolbar.GetButtonId(position);
+            this.tooltip = toolbar.GetButtonTooltip(position);
         }
 
         public bool isHLabeled(string label) {
@@ -234,7 +265,13 @@ namespace RoboSAPiens {
         public bool hasTooltip(string tooltip) {
             return this.tooltip == tooltip;
         }
-    
+
+        public override bool isEnabled(GuiSession session) 
+        {
+            var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
+            return toolbar.GetButtonEnabled(position);
+        }
+
         public override void push(GuiSession session) {
             var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
             toolbar.PressButton(id);
@@ -260,6 +297,12 @@ namespace RoboSAPiens {
             this.label = label;
             this.rowNumber = rowNumber;
             this.treeId = treeId;
+        }
+
+        public override bool isEnabled(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            return tree.GetIsEditable(nodeKey, columnName);
         }
 
         public bool isLabeled(string label) {
@@ -300,6 +343,11 @@ namespace RoboSAPiens {
             this.text = text;
             this.tooltip = tooltip;
             this.treeId = treeId;
+        }
+
+        public override bool isEnabled(GuiSession session)
+        {
+            return true;
         }
 
         public bool isLabeled(string label) {

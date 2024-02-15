@@ -190,6 +190,7 @@ namespace RoboSAPiens {
             public record NoSession(): RobotResult.NoSession();
             public record SapError(string message): RobotResult.SapError(message);
             public record NotFound(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotEnabled(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' ist nicht aktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Der Knopf mit dem Lokator '{locator}' wurde gedrückt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Knopf konnte nicht gedrückt werden.");
         }

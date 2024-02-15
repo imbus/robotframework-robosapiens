@@ -260,16 +260,12 @@ namespace RoboSAPiens {
                 var type = gridView.GetToolbarButtonType(i);
                 switch (type) {
                     case "Button":
-                        var id = gridView.GetToolbarButtonId(i);
-                        var tooltip = gridView.GetToolbarButtonTooltip(i);
-                        buttons.add(new SAPGridViewToolbarButton(gridView, id, tooltip));
+                        buttons.add(new SAPGridViewToolbarButton(gridView, i));
                         break;
                     case "ButtonAndMenu":
                     case "Menu":
-                        var buttonId = gridView.GetToolbarButtonId(i);
-                        var buttonTooltip = gridView.GetToolbarButtonTooltip(i);
-                        buttons.add(new SAPGridViewToolbarButtonMenu(gridView, buttonId, buttonTooltip));
-                        comboBoxes.add(new SAPGridViewToolbarButtonMenuComboBox(gridView, buttonTooltip));
+                        buttons.add(new SAPGridViewToolbarButtonMenu(gridView, i));
+                        comboBoxes.add(new SAPGridViewToolbarButtonMenuComboBox(gridView, i));
                         break;
                     // case "CheckBox"
                 }
@@ -280,9 +276,7 @@ namespace RoboSAPiens {
             for (int i = 0; i < toolbar.ButtonCount; i++) {
                 switch (toolbar.GetButtonType(i)) {
                     case "Button":
-                        var id = toolbar.GetButtonId(i);
-                        var tooltip = toolbar.GetButtonTooltip(i);
-                        toolbarButtons.add(new SAPToolbarButton(toolbar, id, tooltip));
+                        toolbarButtons.add(new SAPToolbarButton(toolbar, i));
                         break;
                 }
             }
