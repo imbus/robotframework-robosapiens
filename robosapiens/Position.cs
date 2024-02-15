@@ -6,8 +6,6 @@ namespace RoboSAPiens {
         const int verticalDeviation = 5;
         const int verticalSeparation = 30;
         const int horizontalSeparation = 25;
-        const int leftMargin = 3;
-        const int rightMargin = 3;
 
         public int bottom {get;}
         public int left {get;}
@@ -21,13 +19,6 @@ namespace RoboSAPiens {
             this.top = top;
         }
 
-        bool centerAlignedWith(Position other) {
-            var symmetryAxis = left + (right - left)/2;
-            var otherSymmetryAxis = other.left + (other.right - other.left)/2;
-
-            return Math.Abs(symmetryAxis - otherSymmetryAxis) < horizontalDeviation;
-        }
-
         bool horizontalNeighborOf(Position other) {
             if (right <= other.left) {
                 return (other.left - right) <= horizontalSeparation;
@@ -38,14 +29,6 @@ namespace RoboSAPiens {
             }
 
             return false;
-        }
-
-        bool leftAlignedWith(Position other) {
-            return Math.Abs(left - other.left) < leftMargin;
-        }
-
-        bool rightAlignedWith(Position other) {
-            return Math.Abs(right - other.right) < rightMargin;
         }
 
         bool verticalNeighborOf(Position other) {
