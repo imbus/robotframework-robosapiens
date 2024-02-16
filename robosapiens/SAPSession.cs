@@ -121,6 +121,10 @@ namespace RoboSAPiens {
                 return new Result.DoubleClickCell.NotFound(locator.location);
             }
 
+            if (options.presenterMode) switch(highlightElement(session, cell)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+
             try {
                 cell.doubleClick(session);
                 return new Result.DoubleClickCell.Pass(locator.location);
@@ -524,6 +528,10 @@ namespace RoboSAPiens {
                 return new Result.ReadTableCell.NotFound(locator.location);
             }
 
+            if (options.presenterMode) switch(highlightElement(session, cell)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+
             try {
                 var text = cell.getText(session);
                 return new Result.ReadTableCell.Pass(text, locator.location);
@@ -682,6 +690,10 @@ namespace RoboSAPiens {
 
             if (cell == null) {
                 return new Result.SelectCell.NotFound(locator.location);
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, cell)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
