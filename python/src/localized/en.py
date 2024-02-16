@@ -946,6 +946,35 @@ lib: RoboSAPiens = {
             {row_locator}
             """
         },
+        "UntickCheckBoxCell": {
+            "name": "Untick Checkbox Cell",
+            "args": {
+                "a1row": {
+                    "name": "row_locator",
+                    "spec": {},
+                    "default": None
+                },
+                "a2column": {
+                    "name": "column",
+                    "spec": {},
+                    "default": None
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": cell_not_found("The checkbox cell with the locator '{0}, {1}' could not be found."),
+                "NotChangeable": "The checkbox cell with the locator '{0}, {1}' is disabled.",
+                "Pass": "The checkbox cell with the locator '{0}, {1}' was unticked.",
+                "Exception": exception("The checkbox cell could not be unticked. {0}")
+            },
+            "doc": f"""
+            Untick the checkbox cell at the intersection of the row and the column provided.
+            
+            | ``Untick Checkbox Cell     row_locator    column``
+
+            {row_locator}
+            """
+        },
         "GetWindowTitle": {
             "name": "Get Window Title",
             "args": {},

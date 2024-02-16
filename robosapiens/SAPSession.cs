@@ -958,6 +958,36 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult untickCheckBoxCell(string rowIndexOrLabel, string column) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var locator = CellLocator.of(rowIndexOrLabel, column);
+            var checkBox = window.components.findCheckBoxCell(locator);
+            
+            if (checkBox == null) {
+                return new Result.UntickCheckBoxCell.NotFound(locator.location);
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, checkBox)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+
+            try {
+                if (checkBox.isEnabled(session))
+                {
+                    checkBox.deselect(session);
+                    return new Result.UntickCheckBoxCell.Pass(locator.location);
+                }
+                return new Result.UntickCheckBoxCell.NotChangeable(locator.location);
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.UntickCheckBoxCell.Exception(e);
+            }
+        }
+
         public RobotResult getWindowText() {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

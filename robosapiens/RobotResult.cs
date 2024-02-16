@@ -328,6 +328,14 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
         }
 
+        public record UntickCheckBoxCell {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");
+            public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde angekreuzt.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
+        }
+
         public record GetWindowTitle {
             public record NoSession(): RobotResult.NoSession();
             public record Pass(string title): RobotResult.RobotPass("Der Fenstertitel wurde ausgelesen", returnValue: title);

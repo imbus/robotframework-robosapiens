@@ -1026,6 +1026,38 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "UntickCheckBoxCell": {
+      "name": ("4146679655", "Tabellenzelle abwählen"),
+      "args": {
+        "a1row": {
+          "name": ("315353924", "Zeile"),
+          "spec": {},
+          "default": None
+        },
+        "a2column": {
+          "name": ("2102626174", "Spaltentitel"),
+          "spec": {},
+          "default": None
+        }
+      },
+      "result": {
+        "NoSession": ("4138997384", no_session),
+        "NotFound": ("2297657056", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotChangeable": ("366722275", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
+        "Pass": ("1958589605", "Die Zelle mit dem Lokator '{0}, {1}' wurde abgewählt."),
+        "Exception": ("3759601296", exception("Die Zelle konnte nicht abgewählt werden."))
+      },
+      "doc": (
+          "278206082", 
+          f"""
+          Die angegebene Tabellenzelle wird abgewählt.
+          
+          | ``Tabellenzelle abwählen     Zeile     Spaltentitel``
+
+          {row_locator}
+          """
+      )
+    },
     "GetWindowTitle": {
       "name": ("2828980154", "Fenstertitel auslesen"),
       "args": {},

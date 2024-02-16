@@ -60,6 +60,7 @@ namespace RoboSAPiens
                 {"TickCheckBox", args => TickCheckBox(args[0])},
                 {"TickCheckBoxCell", args => TickCheckBoxCell(args[0], args[1])},
                 {"UntickCheckBox", args => UntickCheckBox(args[0])},
+                {"UntickCheckBoxCell", args => UntickCheckBoxCell(args[0], args[1])},
             };
         }
 
@@ -721,6 +722,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.tickCheckBoxCell(row, column),
                 _ => new Result.TickCheckBoxCell.NoSession()
+            };
+        }
+
+        [Keyword("Tabellenzelle abwählen"),
+         Doc("Die angegebene Tabellenzelle wird abgewählt.\n\n" +
+             "| ``Tabellenzelle abwählen     Zeilennummer     Spaltentitel``")]
+        public RobotResult UntickCheckBoxCell(string row, string column) {
+            return session switch {
+                SAPSession session => session.untickCheckBoxCell(row, column),
+                _ => new Result.UntickCheckBoxCell.NoSession()
             };
         }
 
