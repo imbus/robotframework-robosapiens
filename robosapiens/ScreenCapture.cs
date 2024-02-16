@@ -24,6 +24,8 @@ namespace RoboSAPiens
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
+        // This is necessary when the SAP window contains an embedded Edge browser
+        // Without this flag the embedded browser is absent in the screenshot
         const UInt32 PW_RENDERFULLCONTENT = 0x00000002;
 
         public static byte[] saveWindowImage(IntPtr windowHandle)
