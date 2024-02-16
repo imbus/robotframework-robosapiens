@@ -36,11 +36,12 @@ namespace RoboSAPiens {
     }
 
     public sealed class ComboBoxStore: ComponentRepository<ComboBox> {
-        public ComboBox? get(ILocator locator) {
+        public ComboBox? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ?? 
-                    getByTooltip(label),
+                    getByTooltip(label) ??
+                    getHorizontalClosestToLabel(label, labels, textFieldLabels),
                 _ => null
             };
         }

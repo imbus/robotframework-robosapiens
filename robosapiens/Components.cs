@@ -447,7 +447,7 @@ namespace RoboSAPiens {
         }
 
         public ComboBox? findComboBox(ComboBoxLocator comboBox) {
-            return comboBoxes.get(comboBox.locator);
+            return comboBoxes.get(comboBox.locator, labels, textFields);
         }
 
         public ComboBox? findComboBoxCell(CellLocator locator) {

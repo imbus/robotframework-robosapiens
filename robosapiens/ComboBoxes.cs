@@ -9,11 +9,12 @@ namespace RoboSAPiens {
         public abstract void toggleHighlight(GuiSession session);
     }
 
-    public class SAPComboBox: ComboBox, ILabeled {
+    public class SAPComboBox: ComboBox, ILabeled, ILocatable {
         string accTooltip;
         List<string> entries;
         string id;
         string label;
+        Position position;
 
         public SAPComboBox(GuiComboBox comboBox) {
             accTooltip = comboBox.AccTooltip.Trim();
@@ -21,6 +22,10 @@ namespace RoboSAPiens {
             id = comboBox.Id;
             label = getLeftLabel(comboBox);
             getEntries(comboBox);
+            this.position = new Position(height: comboBox.Height, 
+                                         left: comboBox.ScreenLeft,
+                                         top: comboBox.ScreenTop, 
+                                         width: comboBox.Width);
         }
 
         void getEntries(GuiComboBox comboBox) {
@@ -52,12 +57,39 @@ namespace RoboSAPiens {
             return result != null;
         }
 
+        public Position getPosition() {
+            return position;
+        }
+
         public bool isHLabeled(string label) {
             return this.label == label;
         }
 
         public bool isVLabeled(string label) {
             return false;
+        }
+
+        public bool isLocated(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
+            return locator switch {
+                HLabel(var label) =>
+                    isHorizontalAlignedWithLabel(labels.getByName(label)) ||
+                    isHorizontalAlignedWithTextField(textFieldLabels.getByContent(label)),
+                _ => false
+            };
+        }
+
+        public bool isHorizontalAlignedWithLabel(SAPLabel? label) {
+            return label switch {
+                SAPLabel => label.position.horizontalAlignedWith(position),
+                _ => false
+            };
+        }
+
+        public bool isHorizontalAlignedWithTextField(SAPTextField? textField) {
+            return textField switch {
+                SAPTextField => textField.position.horizontalAlignedWith(position),
+                _ => false
+            };
         }
 
         public bool hasTooltip(string tooltip) {
