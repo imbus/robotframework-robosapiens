@@ -309,7 +309,7 @@ namespace RoboSAPiens {
         public override bool isEnabled(GuiSession session)
         {
             var tree = (GuiTree)session.FindById(treeId);
-            return tree.GetIsEditable(nodeKey, columnName);
+            return !tree.GetIsDisabled(nodeKey, columnName);
         }
 
         public bool isLabeled(string label) {
