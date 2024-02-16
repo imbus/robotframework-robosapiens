@@ -71,6 +71,19 @@ namespace RoboSAPiens {
             return Math.Abs(symmetryAxis - othersymmetryAxis) < horizontalDeviation;
         }
 
+
+        //  _________
+        //  | Label |
+        //  |_______|
+        //  _____________
+        //  | Component |
+        //  |___________|
+        //
+
+        public bool leftAlignedWith(Position other) {
+            return Math.Abs(left - other.left) < 5;
+        }
+
         //  _________
         //  | Label |
         //  |_______|
