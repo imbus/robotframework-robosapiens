@@ -843,10 +843,12 @@ lib: LocalizedRoboSAPiens = {
           "NotFound": ("2402373821", "Die Tabelle enthält keine Zeile '{0}'"),
           "Pass": ("1473660338", "Die Zeile '{0}' wurde markiert")
       },
-      "doc": ("398985647", """
+      "doc": ("3236027197", """
         Die angegebene Tabellenzeile wird markiert.
               
         | ``Tabellenzeile markieren    Zeilennummer``
+        
+        *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
         """)
     },
     "SelectTextField": {

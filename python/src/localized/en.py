@@ -797,6 +797,8 @@ lib: RoboSAPiens = {
             Select the specified table row.
 
             | ``Select Table Row    row_number``
+
+            *Hint*: Use the row number 0 to select the whole table.
             """
         },
         "SelectTextField": {
