@@ -784,11 +784,15 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2433413970", exception("Der Eintrag konnte nicht ausgewählt werden."))
       },
       "doc": (
-          "618243328", 
+          "1066596532", 
           """
           Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.
           
           | ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``
+
+          *Hinweise*: Der numerische Schlüssel, dass eine vereinfachte Tastaureingabe ermöglicht, ist nicht Teil des Eintragsnamens.
+
+          Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, drücke zuerst den Knopf und verwende danach dieses Schlüsselwort.
           """
       )
     },
@@ -1018,13 +1022,15 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
       },
       "doc": (
-          "1104411410", 
+          "500931900", 
           f"""
           Die angegebene Tabellenzelle wird angekreuzt.
           
           | ``Tabellenzelle ankreuzen     Zeile     Spaltentitel``
 
           {row_locator}
+
+          *Hinweis*: Um das Formularfeld in der Spalte ganz links ohne Titel anzukreuzen, markiere die Zeile und drücke die "Enter"-Taste.
           """
       )
     },

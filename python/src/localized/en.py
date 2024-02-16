@@ -743,6 +743,10 @@ lib: RoboSAPiens = {
             Select the specified entry from the dropdown menu provided.
             
             | ``Select Dropdown Menu Entry   dropdown_menu    entry``
+
+            *Hints*: The numeric key that enables simplified keyboard input is not part of the entry name.
+
+            To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
             """
         },
         "SelectRadioButton": {
@@ -946,6 +950,8 @@ lib: RoboSAPiens = {
             | ``Tick Checkbox Cell     row_locator    column``
 
             {row_locator}
+
+            *Hint*: To tick the checkbox in the leftmost column with no title, select the row and press the "Enter" key.
             """
         },
         "UntickCheckBoxCell": {
