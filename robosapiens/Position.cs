@@ -64,13 +64,12 @@ namespace RoboSAPiens {
         //  |___________|
         //
 
-        public bool verticalAlignedWith(Position other) {
+        public bool centerAlignedWith(Position other) {
             var symmetryAxis = left + (right - left)/2;
             var othersymmetryAxis = other.left + (other.right - other.left)/2;
             
             return Math.Abs(symmetryAxis - othersymmetryAxis) < horizontalDeviation;
         }
-
 
         //  _________
         //  | Label |
@@ -84,6 +83,18 @@ namespace RoboSAPiens {
             return Math.Abs(left - other.left) < 5;
         }
 
+        //      _________
+        //      | Label |
+        //      |_______|
+        //  _____________
+        //  | Component |
+        //  |___________|
+        //
+
+        public bool rightAlignedWith(Position other) {
+            return Math.Abs(right - other.right) < 5;
+        }
+
         //  _________
         //  | Label |
         //  |_______|
@@ -91,6 +102,12 @@ namespace RoboSAPiens {
         //             | Component |
         //             |___________|
         //
+
+        public bool verticalAlignedWith(Position other) {
+            return centerAlignedWith(other) || 
+                   leftAlignedWith(other) || 
+                   rightAlignedWith(other);
+        }
 
         public bool verticalAndHorizontalNeighborOf(Position other) {
             return verticalNeighborOf(other) && horizontalNeighborOf(other);
