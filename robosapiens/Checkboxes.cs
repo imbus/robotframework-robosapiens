@@ -4,6 +4,7 @@ using sapfewse;
 namespace RoboSAPiens {
     public abstract class CheckBox: IHighlightable {
         protected bool focused;
+        public abstract bool isEnabled(GuiSession session);
         public abstract void select(GuiSession session);
         public abstract void deselect(GuiSession session);
         public abstract void toggleHighlight(GuiSession session);
@@ -27,6 +28,12 @@ namespace RoboSAPiens {
 
         public Position getPosition() {
             return position;
+        }
+
+        public override bool isEnabled(GuiSession session)
+        {
+            var checkbox = (GuiCheckBox)session.FindById(id);
+            return checkbox.Changeable;
         }
 
         public bool isHorizontalAlignedWithLabel(SAPLabel? label) {
@@ -133,6 +140,12 @@ namespace RoboSAPiens {
             this.treeId = treeId;
         }
 
+        public override bool isEnabled(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            return tree.GetIsEditable(nodeKey, columnName);
+        }
+
         public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
         {
             return columnTitle == locator.column && locator switch {
@@ -185,6 +198,12 @@ namespace RoboSAPiens {
             {
                 this.columnTitles.Add((string)columnTitles.ElementAt(i));
             }
+        }
+
+        public override bool isEnabled(GuiSession session) 
+        {
+            GuiGridView gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetCellChangeable(rowIndex, columnId);
         }
 
         public bool isLocated(CellLocator locator, TextCellStore rowLabels) 

@@ -306,6 +306,7 @@ namespace RoboSAPiens {
         public record TickCheckBox {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Das Formularfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotChangeable(string locator): RobotResult.NotChangeable($"Das Formularfeld mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Formularfeld mit dem Lokator '{locator}' wurde angekreuzt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Formularfeld konnte nicht angekreuzt werden.");
         }
@@ -313,6 +314,7 @@ namespace RoboSAPiens {
         public record UntickCheckBox {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Das Formularfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotChangeable(string locator): RobotResult.NotChangeable($"Das Formularfeld mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Formularfeld mit dem Lokator '{locator}' wurde abgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Formularfeld konnte nicht abgewählt werden.");
         }
@@ -320,6 +322,7 @@ namespace RoboSAPiens {
         public record TickCheckBoxCell {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde angekreuzt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
         }

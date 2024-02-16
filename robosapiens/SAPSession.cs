@@ -866,8 +866,12 @@ namespace RoboSAPiens {
             }
             
             try {
-                checkBox.select(session);
-                return new Result.TickCheckBox.Pass(theCheckBox.atLocation);
+                if (checkBox.isEnabled(session))
+                {
+                    checkBox.select(session);
+                    return new Result.TickCheckBox.Pass(theCheckBox.atLocation);
+                }
+                return new Result.TickCheckBox.NotChangeable(theCheckBox.atLocation);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -892,8 +896,12 @@ namespace RoboSAPiens {
             }
             
             try {
-                checkBox.deselect(session);
-                return new Result.UntickCheckBox.Pass(theCheckBox.atLocation);
+                if (checkBox.isEnabled(session))
+                {
+                    checkBox.deselect(session);
+                    return new Result.UntickCheckBox.Pass(theCheckBox.atLocation);
+                }
+                return new Result.UntickCheckBox.NotChangeable(theCheckBox.atLocation);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -918,8 +926,12 @@ namespace RoboSAPiens {
             }
 
             try {
-                checkBox.select(session);
-                return new Result.TickCheckBoxCell.Pass(locator.location);
+                if (checkBox.isEnabled(session))
+                {
+                    checkBox.select(session);
+                    return new Result.TickCheckBoxCell.Pass(locator.location);
+                }
+                return new Result.TickCheckBoxCell.NotChangeable(locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");

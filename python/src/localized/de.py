@@ -921,6 +921,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("3274358834", not_found("Das Formularfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
+        "NotChangeable": ("4165781642", "Das Formularfeld mit dem Lokator '{0}' ist deaktiviert."),
         "Pass": ("999358000", "Das Formularfeld mit dem Lokator '{0}' wurde angekreuzt."),
         "Exception": ("1153105219", exception("Das Formularfeld konnte nicht angekreuzt werden."))
       },
@@ -971,6 +972,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("3274358834", not_found("Das Formularfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
+        "NotChangeable": ("4165781642", "Das Formularfeld mit dem Lokator '{0}' ist deaktiviert."),
         "Pass": ("1077869101", "Das Formularfeld mit dem Lokator '{0}' wurde abgewählt."),
         "Exception": ("1479426504", exception("Das Formularfeld konnte nicht abgewählt werden."))
       },
@@ -1007,6 +1009,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("2481184945", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotChangeable": ("366722275", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
         "Pass": ("342341552", "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt."),
         "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
       },

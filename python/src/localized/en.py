@@ -865,6 +865,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The checkbox with the locator '{0}' could not be found."),
+                "NotChangeable": "The checkbox with the locator '{0}' is disabled.",
                 "Pass": "The checkbox with the locator '{0}' was ticked.",
                 "Exception": exception("The checkbox could not be ticked. {0}")
             },
@@ -897,6 +898,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The checkbox with the locator '{0}' could not be found."),
+                "NotChangeable": "The checkbox with the locator '{0}' is disabled.",
                 "Pass": "The checkbox with the locator '{0}' was unticked.",
                 "Exception": exception("The checkbox could not be unticked. {0}")
             },
@@ -930,6 +932,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The checkbox cell with the locator '{0}, {1}' coud not be found."),
+                "NotChangeable": "The checkbox cell with the locator '{0}, {1}' is disabled.",
                 "Pass": "The checkbox cell with the locator '{0}, {1}' was ticked.",
                 "Exception": exception("The checkbox cell could not be ticked. {0}")
             },
