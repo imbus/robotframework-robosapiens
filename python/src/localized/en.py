@@ -4,7 +4,7 @@ from schema import RoboSAPiens
 Fstr = Callable[[str], str]
 
 sap_error = 'SAP Error: {0}'
-no_session = 'No existing SAP-Session. Call the keyword "Connect To Server" first.'
+no_session = 'No active SAP-Session. Call the keyword "Connect To Server" or "Connect To Running SAP" first.'
 no_sap_gui = 'No open SAP GUI found. Call the keyword "Open SAP" first.'
 no_gui_scripting = 'The scripting support is not activated. It must be activated in the Settings of SAP Logon.'
 no_connection = 'No existing connection to an SAP server. Call the keyword "Connect to Server" first.'
@@ -466,7 +466,7 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "SapError": sap_error,
                 "NotFound": not_found("The button '{0}' could not be found."),
-                "NotEnabled": "The button '{0}' is disabled.",
+                "NotChangeable": "The button '{0}' is disabled.",
                 "Pass": "The button '{0}' was pushed.",
                 "Exception": exception("The button could not be pushed. {0}")
             },
@@ -493,6 +493,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The button cell with the locator '{0}, {1}' could not be found."),
+                "NotChangeable": "The button cell with the locator '{0}, {1}' is disabled.",
                 "Pass": "The button cell with the locator '{0}, {1}' was pushed.",
                 "Exception": exception("The button cell could not be pushed. {0}")
             },

@@ -4,7 +4,7 @@ from schema_i18n import LocalizedRoboSAPiens
 Fstr = Callable[[str], str]
 
 sap_error = 'SAP Fehlermeldung: {0}'
-no_session = 'Keine SAP-Session vorhanden. Versuche zuerst das Keyword "Verbindung zum Server Herstellen" aufzurufen.'
+no_session = 'Keine aktive SAP-Session gefunden. Das Keyword "Verbindung zum Server Herstellen" oder "Laufende SAP GUI Übernehmen" muss zuerst aufgerufen werden.'
 no_sap_gui = 'Keine laufende SAP GUI gefunden. Das Keyword "SAP starten" muss zuerst aufgerufen werden.'
 no_gui_scripting = 'Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.'
 no_connection = 'Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword "Verbindung zum Server Herstellen" aufzurufen.'
@@ -55,7 +55,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2994771228", not_found("Der Reiter '{0}' konnte nicht gefunden werden.")),
         "SapError": ("3246364722", sap_error),
         "Pass": ("4294349699", "Der Reiter '{0}' wurde ausgewählt."),
@@ -100,7 +100,7 @@ lib: LocalizedRoboSAPiens = {
         "NoSapGui": ("2987622841", no_sap_gui),
         "NoGuiScripting": ("2929771598", no_gui_scripting),
         "NoConnection": ("509780556", no_connection),
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "Pass": ("1657006605", "Die Verbindung zum Server wurde getrennt."),
         "Exception": ("2209141929", exception("Die Verbindung zum Server konnte nicht getrennt werden."))
       },
@@ -135,7 +135,7 @@ lib: LocalizedRoboSAPiens = {
             }
         },
         "result": {
-            "NoSession": ("2754484086", no_session),
+            "NoSession": ("4138997384", no_session),
             "NotFound": ("275602004", not_found("Keine Tabelle wurde gefunden, welche die Export-Funktion 'Tabellenkalkulation' unterstützt")),
             "Exception": ("1364348396", exception("Die Export-Funktion 'Tabellenkalkulation' konnte nicht aufgerufen werden")),
             "Pass": ("2225629927", "Die Export-Funktion 'Tabellenkalkulation' wurde für die Tabelle mit Index {0} aufgerufen")
@@ -161,7 +161,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("811568965", "Die Maske enthält keine Baumstruktur"),
         "Pass": ("176551133", "Die Baumstruktur wurde in JSON Format in der Datei '{0}' gespeichert"),
         "Exception": ("1542087750", exception("Die Baumstruktur konnte nicht exportiert werden."))
@@ -188,7 +188,7 @@ lib: LocalizedRoboSAPiens = {
         "NoSapGui": ("2987622841", no_sap_gui),
         "NoGuiScripting": ("2929771598", no_gui_scripting),
         "NoConnection": ("509780556", no_connection),
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NoServerScripting": ("3495213352", no_server_scripting),
         "InvalidSessionId": ("800596714", "Keine Session mit Nummer {0} vorhanden"),
         "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
@@ -245,7 +245,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "Pass": ("4023459711", "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt."),
         "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
@@ -279,7 +279,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("1367926790", not_found("Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "Pass": ("727284193", "Das Textfeld mit dem Lokator '{0}' wurde doppelgeklickt."),
         "Exception": ("504842288", exception("Das Textfeld konnte nicht doppelgeklickt werden."))
@@ -305,7 +305,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "Pass": ("468573121", "Die Transaktion mit T-Code '{0}' wurde erfolgreich ausgeführt."),
         "Exception": ("3958687903", exception("Die Transaktion konnte nicht ausgeführt werden."))
       },
@@ -333,7 +333,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "Pass": ("319055629", "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert"),
         "Exception": ("487625120", exception("Die Maske konnte nicht exportiert werden."))
       },
@@ -369,7 +369,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("3381319755", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "NotChangeable": ("2078310074", "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar."),
         "Pass": ("2876607603", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt."),
@@ -410,7 +410,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2917845132", not_found("Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "NotChangeable": ("3389129718", "Das Textfeld mit dem Lokator '{0}' ist nicht bearbeitbar."),
         "Pass": ("1361669956", "Das Textfeld mit dem Lokator '{0}' wurde ausgefüllt."),
@@ -453,7 +453,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("3063247197", not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
         "Pass": ("2149046612", "Der Knopf '{0}' wurde hervorgehoben."),
         "Exception": ("1973912995", exception("Der Knopf konnte nicht hervorgehoben werden."))
@@ -477,7 +477,7 @@ lib: LocalizedRoboSAPiens = {
             }
         },
         "result": {
-            "NoSession": ("2754484086", no_session),
+            "NoSession": ("4138997384", no_session),
             "Exception": ("3348926009", exception("Die Tastenkombination konnte nicht gedrückt werden.")),
             "NotFound": ("2294374604", "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen."),
             "Pass": ("3497306705", "Die Tastenkombination '{0}' wurde gedrückt.")
@@ -500,10 +500,10 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "SapError": ("3246364722", sap_error),
         "NotFound": ("3063247197", not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
-        "NotEnabled": ("258793702", "Der Knopf '{0}' ist deaktiviert."),
+        "NotChangeable": ("258793702", "Der Knopf '{0}' ist deaktiviert."),
         "Pass": ("2346783035", "Der Knopf '{0}' wurde gedrückt."),
         "Exception": ("1002997848", exception("Der Knopf konnte nicht gedrückt werden."))
       },
@@ -531,8 +531,9 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2199892932", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotChangeable": ("333463039", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
         "Pass": ("1801284202", "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt."),
         "Exception": ("1751102722", exception("Die Zelle konnte nicht gedrückt werden."))
       },
@@ -562,7 +563,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2917845132", not_found("Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "Pass": ("2524131110", "Das Textfeld mit dem Lokator '{0}' wurde ausgelesen."),
         "Exception": ("2613451948", exception("Das Textfeld konnte nicht ausgelesen werden."))
@@ -591,7 +592,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("837183792", not_found("Der Text mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "Pass": ("1360175273", "Der Text mit dem Lokator '{0}' wurde ausgelesen."),
         "Exception": ("3136337781", exception("Der Text konnte nicht ausgelesen werden."))
@@ -624,7 +625,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "Pass": ("4222878164", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen."),
         "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
@@ -650,7 +651,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "InvalidPath": ("2844012395", "Der Pfad '{0}' ist ungültig"),
         "UNCPath": ("2462162559", r"Ein UNC Pfad (d.h. beginnend mit \\) ist nicht erlaubt"),
         "NoAbsPath": ("2858082864", "'{0}' ist kein absoluter Pfad"),
@@ -678,7 +679,7 @@ lib: LocalizedRoboSAPiens = {
             }
         },
         "result": {
-            "NoSession": ("2754484086", no_session),
+            "NoSession": ("4138997384", no_session),
             "NoScrollbar": ("3163598852", "Das Fenster enthält keine scrollbare Formulare."),
             "Exception": ("2149286883", exception("Die Formulare konnten nicht gescrollt werden.")),
             "MaximumReached": ("4038422480", "Die Formulare können nicht weiter gescrollt werden."),
@@ -709,7 +710,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "Pass": ("1239645311", "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert."),
         "Exception": ("2355177759", exception("Die Zelle konnte nicht markiert werden."))
@@ -745,7 +746,7 @@ lib: LocalizedRoboSAPiens = {
         }
     },
     "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2770335633", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "EntryNotFound": ("1900787420", not_found("Der Wert '{2}' ist in der Zelle mit dem Lokator '{0}, {1}' nicht vorhanden.")),
         "Exception": ("813375986", exception("Der Wert konnte nicht ausgewählt werden. {0}")),
@@ -775,7 +776,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("3185471891", not_found("Das Auswahlmenü mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "EntryNotFound": ("1357582115", not_found("Der Eintrag '{1}' wurde im Auswahlmenü '{0}' nicht gefunden.")),
         "Pass": ("2235674925", "Der Eintrag '{1}' wurde ausgewählt."),
@@ -804,7 +805,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2755548585", not_found("Das Optionsfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "Pass": ("259379063", "Das Optionsfeld mit dem Lokator '{0}' wurde ausgewählt."),
         "Exception": ("218028187", exception("Das Optionsfeld konnte nicht ausgewählt werden."))
@@ -835,7 +836,7 @@ lib: LocalizedRoboSAPiens = {
           }
       },
       "result": {
-          "NoSession": ("2754484086", no_session),
+          "NoSession": ("4138997384", no_session),
           "Exception": ("2370701678", exception("Die Zeile '{0}' konnte nicht markiert werden")),
           "NotFound": ("2402373821", "Die Tabelle enthält keine Zeile '{0}'"),
           "Pass": ("1473660338", "Die Zeile '{0}' wurde markiert")
@@ -864,7 +865,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2917845132", not_found("Das Textfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "Pass": ("3773273557", "Das Textfeld mit dem Lokator '{0}' wurde markiert."),
         "Exception": ("1228826942", exception("Das Textfeld konnte nicht markiert werden."))
@@ -890,7 +891,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("1356747844", not_found("Die Textzeile mit dem Inhalt '{0}' konnte nicht gefunden werden.")),
         "Pass": ("792202299", "Die Textzeile mit dem Inhalt '{0}' wurde markiert."),
         "Exception": ("528079567", exception("Die Textzeile konnte nicht markiert werden."))
@@ -918,7 +919,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("3274358834", not_found("Das Formularfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "Pass": ("999358000", "Das Formularfeld mit dem Lokator '{0}' wurde angekreuzt."),
         "Exception": ("1153105219", exception("Das Formularfeld konnte nicht angekreuzt werden."))
@@ -943,7 +944,7 @@ lib: LocalizedRoboSAPiens = {
         "name": ("118752925", "Statusleiste auslesen"),
         "args": {},
         "result": {
-            "NoSession": ("2754484086", no_session),
+            "NoSession": ("4138997384", no_session),
             "NotFound": ("2342000252", "Keine Statusleiste gefunden."),
             "Exception": ("803476123", exception("Die Statusleiste konnte nicht ausgelesen werden.")),
             "Pass": ("1105532895", "Die Statusleiste wurde ausgelesen.")
@@ -968,7 +969,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("3274358834", not_found("Das Formularfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
         "Pass": ("1077869101", "Das Formularfeld mit dem Lokator '{0}' wurde abgewählt."),
         "Exception": ("1479426504", exception("Das Formularfeld konnte nicht abgewählt werden."))
@@ -1004,7 +1005,7 @@ lib: LocalizedRoboSAPiens = {
         }
       },
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "NotFound": ("2481184945", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "Pass": ("342341552", "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt."),
         "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
@@ -1024,7 +1025,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("2828980154", "Fenstertitel auslesen"),
       "args": {},
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "Pass": ("2852411998", "Der Fenstertitel wurde ausgelesen"),
         "Exception": ("2687794215", exception("Der Titel des Fensters konnte nicht ausgelesen werden."))
       },
@@ -1041,7 +1042,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("1085911504", "Fenstertext auslesen"),
       "args": {},
       "result": {
-        "NoSession": ("2754484086", no_session),
+        "NoSession": ("4138997384", no_session),
         "Pass": ("2562559050", "Der Text des Fensters wurde ausgelesen"),
         "Exception": ("922315409", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
       },

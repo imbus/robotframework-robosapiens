@@ -441,7 +441,7 @@ namespace RoboSAPiens {
                     button.push(session);
                 }
                 else {
-                    return new Result.PushButton.NotEnabled(theButton.atLocation);
+                    return new Result.PushButton.NotChangeable(theButton.atLocation);
                 }
             } 
             catch (Exception e) {
@@ -478,8 +478,12 @@ namespace RoboSAPiens {
             }
 
             try {
-                button.push(session);
-                return new Result.PushButtonCell.Pass(locator.location);
+                if (button.isEnabled(session))
+                {
+                    button.push(session);
+                    return new Result.PushButtonCell.Pass(locator.location);
+                }
+                return new Result.PushButtonCell.NotChangeable(locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
