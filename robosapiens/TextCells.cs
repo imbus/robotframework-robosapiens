@@ -27,7 +27,9 @@ namespace RoboSAPiens
 
         public abstract string getText(GuiSession session); 
 
-        public abstract RobotResult.NotChangeable? insert(string content, GuiSession session);
+        public abstract void insert(string content, GuiSession session);
+
+        public abstract bool isChangeable(GuiSession session);
 
         public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
         {
@@ -91,13 +93,17 @@ namespace RoboSAPiens
             return gridView.GetCellValue(rowIndex, columnId);
         }
 
-            if (gridView.GetCellChangeable(rowIndex, columnId)) 
-            {
-                gridView.ModifyCell(rowIndex, columnId, content);
-                text = content;
-                return null;
-            }
-            else return new RobotResult.NotChangeable();
+        public override void insert(string content, GuiSession session) 
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.ModifyCell(rowIndex, columnId, content);
+            text = content;
+        }
+
+        public override bool isChangeable(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetCellChangeable(rowIndex, columnId);
         }
 
         public override void select(GuiSession session) 
@@ -149,17 +155,20 @@ namespace RoboSAPiens
             var textField = (GuiTextField)session.FindById(id);
             return textField.Text;
         }
+
+        public override void insert(string content, GuiSession session) 
         {
             table.makeSureCellIsVisible(rowIndex, session);
 
             var textField = (GuiTextField)session.FindById(id);
+            textField.Text = content;
+            text = content;
+        }
 
-            if (textField.Changeable) {
-                textField.Text = content;
-                text = content;
-                return null;
-            }
-            else return new RobotResult.NotChangeable();
+        public override bool isChangeable(GuiSession session)
+        {
+            var textField = (GuiTextField)session.FindById(id);
+            return textField.Changeable;
         }
 
         public override void select(GuiSession session) 
@@ -205,8 +214,14 @@ namespace RoboSAPiens
             var tree = (GuiTree)session.FindById(treeId);
             return tree.GetNodeTextByKey(nodeKey);
         }
+
+        public override void insert(string content, GuiSession session) 
         {
-            return new RobotResult.NotChangeable();
+        }
+
+        public override bool isChangeable(GuiSession session)
+        {
+            return false;
         }
 
         public override void select(GuiSession session) 

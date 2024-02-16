@@ -313,33 +313,20 @@ namespace RoboSAPiens {
             var locator = CellLocator.of(rowIndexOrLabel, column);
             var cell = window.components.findTextCell(locator);
 
-            // The Changeable property could have been set to true after the window components were first read
-            if (cell == null) {
-                updateWindow(updateComponents: true);
-                cell = window.components.findTextCell(locator);
-            }
-
             if (cell == null) {
                 return new Result.FillTableCell.NotFound(locator.location);
             }
-
-            // Disabled because it could happen that the result of getMaxLength()
-            // does not correspond with the actual maximum length.
-            // var maxLength = cell.getMaxLength();
-            // if (maxLength != null && content.Length > maxLength) {
-            //     return new Result.FillTableCell.TooManyChars(locator.cell, maxLength);
-            // }
 
             if (options.presenterMode) switch(highlightElement(session, cell)) {
                 case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
-                // The Changeable property could have been set to false after the window components were first read
-                switch(cell.insert(content, session)) {
-                    case RobotResult.NotChangeable: return new Result.FillTableCell.NotChangeable(locator.location);
-                    default: return new Result.FillTableCell.Pass(locator.location);
-                };
+                if (cell.isChangeable(session)) {
+                    cell.insert(content, session);
+                    return new Result.FillTableCell.Pass(locator.location);
+                }
+                return new Result.FillTableCell.NotChangeable(locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
