@@ -172,7 +172,7 @@ namespace RoboSAPiens {
                             textCells.add(new SAPGridViewCell(columnId, gridView, row));
                             break;
                         case "ValueList":
-                            textCells.add(new SAPGridViewCell(columnId, gridView, row));
+                            comboBoxes.add(new GridViewValueList(columnId, gridView, row));
                             break;
                     }
                 }

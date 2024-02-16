@@ -210,10 +210,72 @@ namespace RoboSAPiens {
         }
 
         public override void toggleHighlight(GuiSession session) {}
+    public class GridViewValueList: ComboBox, ILocatableCell
+    {
+        string columnId;
+        public HashSet<string> columnTitles;
+        string gridViewId;
+        int rowIndex;
+
+        public GridViewValueList(string columnId, GuiGridView gridView, int rowIndex) 
+        {
+            this.columnId = columnId;
+            this.columnTitles = new HashSet<string>(){};
+            this.gridViewId = gridView.Id;
+            this.rowIndex = rowIndex;
+
+            // GetDisplayedColumnTitle might not be reliable
+            GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
+            for (int i = 0; i < columnTitles.Length; i++) 
+            {
+                this.columnTitles.Add((string)columnTitles.ElementAt(i));
+            }
+        }
+
+        // The innerObject parameter of the Visualize method of GuiGridView
+        // can only take the values "Toolbar" and "Cell(row,column)".
+        // References:
+        // https://community.sap.com/t5/technology-q-a/get-innerobject-for-visualizing/qaq-p/12150835
+        // https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf
+        public override void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.Visualize(focused, $"Cell({rowIndex},{columnId})");
+        }
+
+        // This method cannot be implemented for a ValueList
+        public override bool contains(string entry)
+        {
+            return true;
+        }
+
+        public override void setValue(string entry, GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.ModifyCell(rowIndex, columnId, entry);
+        }
+
+        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
+        {
+            return columnTitles.Contains(locator.column) && locator switch {
+                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
+                LabelCellLocator labelLocator => inRowOfCell(rowLabels.getByContent(labelLocator.label)),
+                _ => false
+            };
+        }
+
+        private bool inRowOfCell(TextCell? cell) 
+        {
+            return cell switch {
+                TextCell => rowIndex == cell.rowIndex,
+                _ => false
+            };
+        }
+
+        public override string getText(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetCellValue(rowIndex, columnId);
+        }
     }
-
-
-    // public class GridViewValueList: ComboBox, ILocated {}
-    // According to SAP it is not possible to automate a GuiGridView cell of type ValueList
-    // https://answers.sap.com/questions/13469233/sap-gui-scripting-selecting-valuelist-in-a-guigrid.html
 }

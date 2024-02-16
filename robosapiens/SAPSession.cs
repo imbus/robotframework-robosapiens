@@ -706,12 +706,22 @@ namespace RoboSAPiens {
             }
 
             if (!cell.contains(entry)) {
-                return new Result.SelectCellValue.EntryNotFound(entry);
+                return new Result.SelectCellValue.EntryNotFound(entry, locator.location);
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, cell)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
-                cell.select(entry, session);
-                return new Result.SelectCellValue.Pass(entry, locator.location);
+                cell.setValue(entry, session);
+                var value = cell.getText(session);
+
+                if (value.Equals(entry)) {
+                    return new Result.SelectCellValue.Pass(entry, locator.location);
+                }
+
+                return new Result.SelectCellValue.EntryNotFound(entry, locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");

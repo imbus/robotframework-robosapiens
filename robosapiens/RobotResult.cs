@@ -261,7 +261,7 @@ namespace RoboSAPiens {
         public record SelectCellValue {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
-            public record EntryNotFound(string value): RobotResult.EntryNotFound($"Der Wert '{value}' ist in der Zelle nicht vorhanden.");
+            public record EntryNotFound(string value, string locator): RobotResult.EntryNotFound($"Der Wert '{value}' ist in der Zelle mit dem Lokator '{locator}' nicht vorhanden.");
             public record Pass(string value, string locator): RobotResult.RobotPass($"Der Wert '{value}' wurde in der Zelle mit dem Lokator '{locator}' ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Wert konnte nicht ausgewählt werden.");
 
