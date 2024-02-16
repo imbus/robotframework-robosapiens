@@ -371,7 +371,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("3381319755", not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
-        "NotChangeable": ("2078310074", "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar."),
+        "NotChangeable": ("2520536917", "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar."),
         "Pass": ("2876607603", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt."),
         "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
       },
