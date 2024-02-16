@@ -37,18 +37,6 @@ namespace RoboSAPiens {
 
             foreach (var table in tables.getAll()) {
                 classifyTableCells(table);
-
-
-                if (table.rowsAreMissing()) {
-                    throw new Exception("The table does not fit in the window. " +
-                    "Maximize the window and make sure that the screen resolution is at least 1920x1080 and the scaling is 100%");
-
-                    // Commented out because after scrolling the table cells can become unchangeable
-                    // while (table.rowsAreMissing()) {
-                    //     table.scrollOnePage(session);
-                    // }
-                    // table.scrollToTop(session);
-                }
             }
         }
 

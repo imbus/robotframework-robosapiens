@@ -10,6 +10,7 @@ no_gui_scripting = 'The scripting support is not activated. It must be activated
 no_connection = 'No existing connection to an SAP server. Call the keyword "Connect to Server" first.'
 no_server_scripting = 'Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.'
 not_found: Fstr = lambda msg: f"{msg} Hint: Check the spelling"
+cell_not_found: Fstr = lambda msg: f"{msg} Hints: Check the spelling, maximize the SAP window"
 exception: Fstr = lambda msg: f"{msg}" + "\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
 row_locator = 'row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.'
 
@@ -231,7 +232,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "NotFound": cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
                 "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
                 "Exception": exception("The cell could not be double-clicked. {0}")
             },
@@ -342,7 +343,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found"),
+                "NotFound": cell_not_found("The cell with the locator '{0}, {1}' could not be found"),
                 "NotChangeable": "The cell with the locator '{0}, {1}' is not editable.",
                 "Pass": "The cell with the locator '{0}, {1}' was filled.",
                 "Exception": exception("The cell could not be filled. {0}")
@@ -492,7 +493,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The button cell with the locator '{0}, {1}' could not be found."),
+                "NotFound": cell_not_found("The button cell with the locator '{0}, {1}' could not be found."),
                 "NotChangeable": "The button cell with the locator '{0}, {1}' is disabled.",
                 "Pass": "The button cell with the locator '{0}, {1}' was pushed.",
                 "Exception": exception("The button cell could not be pushed. {0}")
@@ -592,7 +593,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "NotFound": cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
                 "Pass": "The cell with the locator '{0}, {1}' was read.",
                 "Exception": exception("The cell could not be read. {0}")
             },
@@ -671,7 +672,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "NotFound": cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
                 "Pass": "The cell with the locator '{0}, {1}' was selected.",
                 "Exception": exception("The cell could not be selected. {0}")
             },
@@ -704,7 +705,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "NotFound": cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
                 "EntryNotFound": not_found("The value '{2}' is not available in the cell with the locator '{0}, {1}'."),
                 "Exception": exception("The value could not be selected. {0}"),
                 "Pass": "The value '{2}' was selected."
@@ -932,7 +933,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The checkbox cell with the locator '{0}, {1}' coud not be found."),
+                "NotFound": cell_not_found("The checkbox cell with the locator '{0}, {1}' could not be found."),
                 "NotChangeable": "The checkbox cell with the locator '{0}, {1}' is disabled.",
                 "Pass": "The checkbox cell with the locator '{0}, {1}' was ticked.",
                 "Exception": exception("The checkbox cell could not be ticked. {0}")
