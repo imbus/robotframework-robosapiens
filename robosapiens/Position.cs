@@ -43,13 +43,9 @@ namespace RoboSAPiens {
             return false;
         }
 
-        //   ________   ____________
-        //  \ Label \  \ Component \
-        //  \_______\  \___________\
-        //
-        //   ____________   ________
-        //  \ Component \  \ Label \
-        //  \___________\  \_______\
+        //  _________   _____________
+        //  | Label |___| Component |
+        //  |_______|   |___________|
         //
 
         public bool horizontalAlignedWith(Position other) {
@@ -59,12 +55,13 @@ namespace RoboSAPiens {
             return Math.Abs(symmetryAxis - otherSymmetryAxis) < verticalDeviation;
         }
 
-        //   ________
-        //  \ Label \
-        //  \_______\
-        //   ____________
-        //  \ Component \
-        //  \___________\
+        //    _________
+        //    | Label |
+        //    |_______|
+        //        |
+        //  ______|______
+        //  | Component |
+        //  |___________|
         //
 
         public bool verticalAlignedWith(Position other) {
@@ -74,12 +71,12 @@ namespace RoboSAPiens {
             return Math.Abs(symmetryAxis - othersymmetryAxis) < horizontalDeviation;
         }
 
-        //   ________
-        //  \ Label \
-        //  \_______\
-        //              ____________
-        //             \ Component \
-        //             \___________\
+        //  _________
+        //  | Label |
+        //  |_______|
+        //             _____________
+        //             | Component |
+        //             |___________|
         //
 
         public bool verticalAndHorizontalNeighborOf(Position other) {
