@@ -807,6 +807,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("2755548585", not_found("Das Optionsfeld mit dem Lokator '{0}' konnte nicht gefunden werden.")),
+        "NotChangeable": ("2043765722", "Das Optionsfeld mit dem Lokator '{0}' ist deaktiviert."),
         "Pass": ("259379063", "Das Optionsfeld mit dem Lokator '{0}' wurde ausgewählt."),
         "Exception": ("218028187", exception("Das Optionsfeld konnte nicht ausgewählt werden."))
       },

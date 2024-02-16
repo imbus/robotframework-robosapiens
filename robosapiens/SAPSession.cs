@@ -840,8 +840,12 @@ namespace RoboSAPiens {
             }
 
             try {
-                radioButton.select(session);
-                return new Result.SelectRadioButton.Pass(theRadioButton.atLocation);
+                if (radioButton.isEnabled(session))
+                {
+                    radioButton.select(session);
+                    return new Result.SelectRadioButton.Pass(theRadioButton.atLocation);
+                }
+                return new Result.SelectRadioButton.NotChangeable(theRadioButton.atLocation);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");

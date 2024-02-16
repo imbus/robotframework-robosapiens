@@ -760,6 +760,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The radio button with locator '{0}' could not be found."),
+                "NotChangeable": "The radio button with the locator '{0}' is disabled.",
                 "Pass": "The radio button with locator '{0}' was selected.",
                 "Exception": exception("The radio button could not be selected. {0}")
             },

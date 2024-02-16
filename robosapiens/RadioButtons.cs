@@ -3,6 +3,7 @@ using sapfewse;
 namespace RoboSAPiens {
     public abstract class RadioButton: IHighlightable {
         protected bool focused;
+        public abstract bool isEnabled(GuiSession session);
         public abstract void select(GuiSession session);
         public abstract void toggleHighlight(GuiSession session);
     }
@@ -39,6 +40,12 @@ namespace RoboSAPiens {
 
         public Position getPosition() {
             return position;
+        }
+
+        public override bool isEnabled(GuiSession session)
+        {
+            var radioButton = (GuiRadioButton)session.FindById(id);
+            return radioButton.Changeable;
         }
 
         public bool isHorizontalAlignedWithLabel(SAPLabel? label) {

@@ -278,6 +278,7 @@ namespace RoboSAPiens {
         public record SelectRadioButton {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Das Optionsfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotChangeable(string locator): RobotResult.NotChangeable($"Das Optionsfeld mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Optionsfeld mit dem Lokator '{locator}' wurde ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Optionsfeld konnte nicht ausgewählt werden.");
         }
