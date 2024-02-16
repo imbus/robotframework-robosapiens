@@ -138,8 +138,9 @@ namespace RoboSAPiens {
             return position;
         }
 
-        public string getText() {
-            return text;
+        public string getText(GuiSession session) {
+            var guiTextField = (GuiTextField)session.FindById(id);
+            return guiTextField.Text;
         }
 
         public List<SAPTextField> getVerticalGrid(List<SAPTextField> textFields) {

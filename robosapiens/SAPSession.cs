@@ -235,7 +235,7 @@ namespace RoboSAPiens {
                 var top = label.position.top;
                 var height = bottom - top;
                 var width = right - left;
-                formFields.Add(new FormField(label.getText(), "", label.id, left, top, width, height));
+                formFields.Add(new FormField(label.text, "", label.id, left, top, width, height));
             });
 
             tableCells.ForEach(cell => {
@@ -259,7 +259,7 @@ namespace RoboSAPiens {
                 var label = textField.hLabel;
                 if (label == "") {
                     var closestLabel = textField.findClosestHorizontalComponent(labels.Cast<ILocatable>().ToList()) as SAPLabel;
-                    label = closestLabel?.getText() ?? "";
+                    label = closestLabel?.text ?? "";
                 }
 
                 formFields.Add(new FormField(textField.text, label, textField.id, left, top, width, height));
@@ -517,14 +517,15 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowNumberOrButtonLabel, column);
-            var cell = window.components.findTextCell(locator);
+            var cell = window.components.findTextCell(locator) as ITextElement ??
+                       window.components.findComboBoxCell(locator);
 
             if (cell == null) {
                 return new Result.ReadTableCell.NotFound(locator.location);
             }
 
             try {
-                var text = cell.getText();
+                var text = cell.getText(session);
                 return new Result.ReadTableCell.Pass(text, locator.location);
             }
             catch (Exception e) {
@@ -549,7 +550,7 @@ namespace RoboSAPiens {
             }
 
             try {
-                var text = textField.getText();
+                var text = textField.getText(session);
                 return new Result.ReadTextField.Pass(text, theTextField.atLocation);
             }
             catch (Exception e) {
@@ -571,7 +572,7 @@ namespace RoboSAPiens {
             }
 
             try {
-                return new Result.ReadText.Pass(text.getText());
+                return new Result.ReadText.Pass(text.getText(session));
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
@@ -750,7 +751,7 @@ namespace RoboSAPiens {
             }
 
             try {
-                comboBox.select(entry, session);
+                comboBox.setValue(entry, session);
                 return new Result.SelectComboBoxEntry.Pass(entry);
             }
             catch (Exception e) {

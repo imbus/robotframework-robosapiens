@@ -35,7 +35,7 @@ namespace RoboSAPiens {
             
             if (components.getAllLabels().Count > 0) {
                 return String.Join("\n", 
-                    components.getAllLabels().Select(label => label.getText()));                 
+                    components.getAllLabels().Select(label => label.text));                 
             }
 
             return "";

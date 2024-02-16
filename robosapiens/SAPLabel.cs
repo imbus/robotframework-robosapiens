@@ -10,7 +10,7 @@ namespace RoboSAPiens {
 
         public string id;
         public Position position {get;}
-        string text;
+        public string text;
         private bool focused;
 
         public SAPLabel(GuiLabel label) {
@@ -63,7 +63,7 @@ namespace RoboSAPiens {
             return components.Find(component => component.getPosition().verticalAndHorizontalNeighborOf(position));
         }
 
-        public string getText() {
+        public string getText(GuiSession session) {
             return text;
         }
 

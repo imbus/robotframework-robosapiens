@@ -2,10 +2,16 @@ using System.Collections.Generic;
 using sapfewse;
 
 namespace RoboSAPiens {
-    public abstract class ComboBox: IHighlightable {
+    public abstract class ComboBox: ITextElement {
         protected bool focused;
         public abstract bool contains(string entry);
-        public abstract void select(string entry, GuiSession session);
+
+        public abstract string getText(GuiSession session);
+
+        public abstract void setValue(string entry, GuiSession session);
+
+        public void select(GuiSession session) {}
+
         public abstract void toggleHighlight(GuiSession session);
     }
 
@@ -96,7 +102,7 @@ namespace RoboSAPiens {
             return accTooltip == tooltip;
         }
 
-        public override void select(string entry, GuiSession session) {
+        public override void setValue(string entry, GuiSession session) {
             var guiComboBox = (GuiComboBox)session.FindById(id);
             guiComboBox.Value = entry;
         }
@@ -105,6 +111,12 @@ namespace RoboSAPiens {
             focused = !focused;
             var guiComboBox = (GuiComboBox)session.FindById(id);
             guiComboBox.Visualize(focused);
+        }
+
+        public override string getText(GuiSession session)
+        {
+            var guiComboBox = (GuiComboBox)session.FindById(id);
+            return guiComboBox.Value;
         }
     }
 
@@ -165,13 +177,19 @@ namespace RoboSAPiens {
             return this.tooltip == tooltip;
         }
 
-        public override void select(string entry, GuiSession session)
+        public override void setValue(string entry, GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
             gridView.SelectContextMenuItemByText(entry);
         }
 
         public override void toggleHighlight(GuiSession session) {}
+
+        // This method cannot be implemented for a GridView Toolbar Button Menu ComboBox
+        public override string getText(GuiSession session)
+        {
+            return "";
+        }
     }
 
     public sealed class SAPGridViewToolbarMenu: ComboBox, ILabeled 
@@ -203,13 +221,22 @@ namespace RoboSAPiens {
             return this.tooltip == tooltip;
         }
 
-        public override void select(string entry, GuiSession session)
+        public override void setValue(string entry, GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
             gridView.SelectContextMenuItemByText(entry);
         }
 
         public override void toggleHighlight(GuiSession session) {}
+
+        // This method cannot be implemented for a GridView Toolbar Menu
+        public override string getText(GuiSession session)
+        {
+            return "";
+        }
+    }
+
+
     public class GridViewValueList: ComboBox, ILocatableCell
     {
         string columnId;

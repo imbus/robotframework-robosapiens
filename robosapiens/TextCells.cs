@@ -22,10 +22,7 @@ namespace RoboSAPiens
             return text == content || text.StartsWith(content);
         }
 
-        public string getText() 
-        {
-            return text;
-        }
+        public abstract string getText(GuiSession session); 
 
         public abstract RobotResult.NotChangeable? insert(string content, GuiSession session);
 
@@ -85,9 +82,11 @@ namespace RoboSAPiens
             gridView.DoubleClickCurrentCell();
         }
 
-        public override RobotResult.NotChangeable? insert(string content, GuiSession session) 
+        public override string getText(GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetCellValue(rowIndex, columnId);
+        }
 
             if (gridView.GetCellChangeable(rowIndex, columnId)) 
             {
@@ -137,7 +136,11 @@ namespace RoboSAPiens
             session.ActiveWindow.SendVKey((int)VKeys.getKeyCombination("F2")!);
         }
 
-        public override RobotResult.NotChangeable? insert(string content, GuiSession session) 
+        public override string getText(GuiSession session)
+        {
+            var textField = (GuiTextField)session.FindById(id);
+            return textField.Text;
+        }
         {
             table.makeSureCellIsVisible(rowIndex, session);
 
@@ -189,7 +192,11 @@ namespace RoboSAPiens
             tree.DoubleClickNode(nodeKey);
         }
 
-        public override RobotResult.NotChangeable? insert(string content, GuiSession session) 
+        public override string getText(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            return tree.GetNodeTextByKey(nodeKey);
+        }
         {
             return new RobotResult.NotChangeable();
         }

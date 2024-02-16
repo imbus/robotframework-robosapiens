@@ -30,15 +30,15 @@ namespace RoboSAPiens {
 
     public interface ILocator {}
 
-    public interface ISelectable {
+    public interface ISelectable: IHighlightable {
         public void select(GuiSession session);
     }
 
     public interface ISession {}
 
-    public interface ITextElement: ISelectable, IHighlightable {
+    public interface ITextElement: ISelectable {
         public bool contains(string text);
-        public string getText();
+        public string getText(GuiSession session);
     }
 
     public interface ILogger {
