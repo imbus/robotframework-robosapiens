@@ -743,7 +743,7 @@ namespace RoboSAPiens {
             }
 
             if (!comboBox.contains(entry)) {
-                return new Result.SelectComboBoxEntry.EntryNotFound(entry);
+                return new Result.SelectComboBoxEntry.EntryNotFound(entry, theComboBox.atLocation);
             }
 
             if (options.presenterMode) switch(highlightElement(session, comboBox)) {
