@@ -373,7 +373,7 @@ namespace RoboSAPiens {
         }
 
         public RobotResult highlightButton(string label) {
-            switch (updateWindow(updateComponents: true)) {
+            switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
             
@@ -415,7 +415,11 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult pushButton(string label) {            
+        public RobotResult pushButton(string label) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
             var theButton = new ButtonLocator(label);
             var button = window.components.findButton(theButton);
 
