@@ -451,17 +451,7 @@ namespace RoboSAPiens {
         }
 
         public ComboBox? findComboBoxCell(CellLocator locator) {
-            return comboBoxes.get(locator, textCells);
-        }
-
-        public IDoubleClickable? findDoubleClickableCell(CellLocator locator) {
-            var cell = textCells.get(locator);
-
-            if (cell is IDoubleClickable) {
-                return cell as IDoubleClickable;
-            }
-
-            return null;
+            return comboBoxes.getCell(locator, textCells);
         }
 
         public IHighlightable? findHighlightableButton(ButtonLocator button) {

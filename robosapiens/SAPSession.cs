@@ -115,7 +115,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrContent, column);
-            var cell = window.components.findDoubleClickableCell(locator);
+            var cell = window.components.findTextCell(locator);
 
             if (cell == null) {
                 return new Result.DoubleClickCell.NotFound(locator.location);

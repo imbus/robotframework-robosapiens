@@ -3,7 +3,7 @@ using sapfewse;
 
 namespace RoboSAPiens 
 {
-    public abstract class TextCell: ITextElement, ILocatableCell
+    public abstract class TextCell: ITextElement, ILocatableCell, IDoubleClickable
     {
         public HashSet<string> columnTitles;
         public Position position;
@@ -16,6 +16,8 @@ namespace RoboSAPiens
             this.rowIndex = rowIndex;
             this.text = text;
         }
+
+        public abstract void doubleClick(GuiSession session);
 
         public bool contains(string content) 
         {
@@ -49,7 +51,7 @@ namespace RoboSAPiens
         }
     }
 
-    public class SAPGridViewCell: TextCell, IDoubleClickable
+    public class SAPGridViewCell: TextCell
     {
         public string columnId;
         protected string gridViewId;
@@ -75,7 +77,7 @@ namespace RoboSAPiens
             );
         }
 
-        public void doubleClick(GuiSession session) 
+        public override void doubleClick(GuiSession session) 
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
             gridView.SetCurrentCell(rowIndex, columnId);
@@ -111,9 +113,8 @@ namespace RoboSAPiens
     }
 
 
-    public class SAPTableCell: TextCell, IDoubleClickable
+    public class SAPTableCell: TextCell
     {
-        bool focused;
         public string id;
         public SAPTable table;
 
@@ -130,7 +131,7 @@ namespace RoboSAPiens
             this.table = table;
         }
 
-        public void doubleClick(GuiSession session)
+        public override void doubleClick(GuiSession session)
         {
             select(session);
             session.ActiveWindow.SendVKey((int)VKeys.getKeyCombination("F2")!);
@@ -168,7 +169,7 @@ namespace RoboSAPiens
         }
     }
 
-    public class SAPTreeCell: TextCell, IDoubleClickable
+    public class SAPTreeCell: TextCell
     {
         string nodeKey;
         string treeId;
@@ -186,7 +187,7 @@ namespace RoboSAPiens
             treeId = tree.Id;
         }
 
-        public void doubleClick(GuiSession session) 
+        public override void doubleClick(GuiSession session) 
         {
             var tree = (GuiTree)session.FindById(treeId);
             tree.DoubleClickNode(nodeKey);

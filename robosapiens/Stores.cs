@@ -45,10 +45,6 @@ namespace RoboSAPiens {
                 _ => null
             };
         }
-
-        public ComboBox? get(CellLocator locator, TextCellStore rowLabels) {
-            return getCell(locator, rowLabels);
-        }
     }
 
     public sealed class LabelStore: ComponentRepository<SAPLabel> {
@@ -79,10 +75,6 @@ namespace RoboSAPiens {
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
                 _ => null
             };
-        }
-
-        public RadioButton? get(CellLocator locator, TextCellStore rowLabels){
-            return getCell(locator, rowLabels);
         }
     }
 
