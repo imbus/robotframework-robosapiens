@@ -623,29 +623,29 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult scrollForms(string targetForm)
+        public RobotResult scrollTextFieldContents(string direction)
         {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var targetForms = new HashSet<string> {"FIRST", "LAST", "NEXT", "PREV"};
+            var directions = new HashSet<string> {"UP", "DOWN", "BEGIN", "END"};
 
-            if (!targetForms.Contains(targetForm))
+            if (!directions.Contains(direction))
             {
-                return new Result.ScrollForms.InvalidTargetForm();
+                return new Result.ScrollTextFieldContents.InvalidDirection();
             }
 
             var verticalScrollbar = window.components.getVerticalScrollbar();
 
             if (verticalScrollbar == null) 
             {
-                return new Result.ScrollForms.NoScrollbar();
+                return new Result.ScrollTextFieldContents.NoScrollbar();
             }
 
             try
             {
-                var scrolled = verticalScrollbar.scroll(session, targetForm);
+                var scrolled = verticalScrollbar.scroll(session, direction);
                 if (scrolled)
                 {
                     // Scrolling the window changes the values of some components,
@@ -654,16 +654,16 @@ namespace RoboSAPiens {
                         case RobotResult.UIScanFail exceptionError:
                             return exceptionError;
                     }
-                    return new Result.ScrollForms.Pass();
+                    return new Result.ScrollTextFieldContents.Pass();
                 }
                 else 
                 {
-                    return new Result.ScrollForms.MaximumReached();
+                    return new Result.ScrollTextFieldContents.MaximumReached();
                 }
             }
             catch (Exception e)
             {
-                return new Result.ScrollForms.Exception(e);
+                return new Result.ScrollTextFieldContents.Exception(e);
             }
         }
 

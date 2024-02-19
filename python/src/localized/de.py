@@ -670,30 +670,30 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
-    "ScrollForms": {
-        "name": ("3192058055", "Formulare scrollen"),
+    "ScrollTextFieldContents": {
+        "name": ("61854466", "Inhalte scrollen"),
         "args": {
-            "targetForm": {
-                "name": ("3043421312", "Zielformular"),
+            "direction": {
+                "name": ("1045090739", "Richtung"),
                 "default": None,
                 "spec": {}
             }
         },
         "result": {
             "NoSession": ("4138997384", no_session),
-            "NoScrollbar": ("3163598852", "Das Fenster enthält keine scrollbare Formulare."),
-            "Exception": ("2149286883", exception("Die Formulare konnten nicht gescrollt werden.")),
-            "MaximumReached": ("4038422480", "Die Formulare können nicht weiter gescrollt werden."),
-            "InvalidTargetForm": ("2225455196", "Das Zielformular {0} gehört nicht zu den gültigen Werten: FIRST, LAST, NEXT, PREV"),
-            "Pass": ("3741657240", "Die Formulare wurden zum Formular {0} gescrollt.")
+            "Exception": ("2581980086", exception("Die Inhalte der Textfelder konnten nicht gescrollt werden.")),
+            "NoScrollbar": ("3931385040", "Das Fenster enthält keine scrollbaren Textfelder."),
+            "MaximumReached": ("3349368208", "Die Inhalte der Textfelder können nicht weiter gescrollt werden."),
+            "InvalidDirection": ("2667316811", "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: UP, DOWN, BEGIN, END"),
+            "Pass": ("1135653175", "Die Inahlte der Textfelder wurden in die Richtung '{0}' gescrollt.")
         },
-        "doc": ("3921308245", 
+        "doc": ("2486554714", 
           """
-          Die Formulare werden zum Zielformular gescrollt.
+          Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.
 
-          | ``Formulare scrollen    Zielformular``
+          | ``Inhalte scrollen    Richtung``
 
-          Zielformular: NEXT, PREV, FIRST, LAST
+          Richtung: UP, DOWN, BEGIN, END
           """)
     },
     "SelectCell": {

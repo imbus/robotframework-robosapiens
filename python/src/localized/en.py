@@ -631,29 +631,29 @@ lib: RoboSAPiens = {
             destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
             """
         },
-        "ScrollForms": {
-            "name": "Scroll Forms",
+        "ScrollTextFieldContents": {
+            "name": "Scroll Contents",
             "args": {
-                "targetForm": {
-                    "name": "to_form",
+                "direction": {
+                    "name": "direction",
                     "default": None,
                     "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
-                "Exception": exception("The forms could not be scrolled."),
-                "NoScrollbar": "There are no scrollable forms in the window.",
-                "MaximumReached": "The forms cannot be scrolled any further.",
-                "InvalidTargetForm": "The target form {0} is not one of the valid values: FIRST, LAST, NEXT, PREV",
-                "Pass": "Scrolled forms to form {0}."
+                "Exception": exception("The contents of the text fields could not be scrolled."),
+                "NoScrollbar": "The window contains no scrollable text fields.",
+                "MaximumReached": "The contents of the text fields cannot be scrolled any further.",
+                "InvalidDirection": "Invalid direction. The direction must be one of: UP, DOWN, BEGIN, END",
+                "Pass": "The contents of the text fields were scrolled in the direction '{0}'."
             },
             "doc": """
-            Scroll the forms to the given form.
+            Scroll the contents of the text fields within an area with a scrollbar.
 
-            | ``Scroll Forms    to_form``
+            | ``Scroll Contents    direction``
 
-            to_form: NEXT, PREV, FIRST, LAST
+            direction: UP, DOWN, BEGIN, END
             """
         },
         "SelectCell": {

@@ -49,7 +49,7 @@ namespace RoboSAPiens
                 {"ReadText", args => ReadText(args[0])},
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
-                {"ScrollForms", args => ScrollForms(args[0])},
+                {"ScrollTextFieldContents", args => ScrollTextFieldContents(args[0])},
                 {"SelectCell", args => SelectCell(args[0], args[1])},
                 {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
                 {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
@@ -594,14 +594,14 @@ namespace RoboSAPiens
             };
         }
 
-        [Keyword("Formulare scrollen"),
-         Doc("Die Formulare werden zum Zielformular gescrollt.\n\n" +
-             "| ``Formulare scrollen   Zielformular``\n" +
-             "Zielformular: NEXT (nächstes Formular), PREV (vorheriges Formular), FIRST (erstes Formular), LAST (letztes Formular)")]
-        public RobotResult ScrollForms(string targetForm) {
+        [Keyword("Inhalte scrollen"),
+         Doc("Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.\n\n" +
+             "| ``Inhalte scrollen   Richtung``\n" +
+             "Richtung: DOWN (ein Schritt nach unten), UP (ein Schritt nach oben), BEGIN (ganz am Anfang), END (ganz am Ende)")]
+        public RobotResult ScrollTextFieldContents(string direction) {
             return session switch {
-                SAPSession session => session.scrollForms(targetForm),
-                _ => new Result.ScrollForms.NoSession()
+                SAPSession session => session.scrollTextFieldContents(direction),
+                _ => new Result.ScrollTextFieldContents.NoSession()
             };
         }
 

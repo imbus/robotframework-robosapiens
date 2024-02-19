@@ -241,13 +241,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Eine Aufnahme des Fensters konnte nicht gespeichert werden");
         }
 
-        public record ScrollForms {
+        public record ScrollTextFieldContents {
             public record NoSession(): RobotResult.NoSession();
-            public record Pass(): RobotResult.RobotPass($"Der Rollenbalken des Fensters wurde nach unten verschoben");
-            public record NoScrollbar(): RobotResult.RobotFail("NoScrollbar", "Das Fenster hat keinen Rollenbalken");
-            public record InvalidTargetForm(): RobotResult.RobotFail("InvalidTargetForm", "Das Zielformular ist ungültig");
-            public record MaximumReached(): RobotResult.RobotFail("MaximumReached", "Der Rollenbalken kann nicht weiter verschoben werden.");
-            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Rollenbalken des Fensters konnte nicht verschoben werden.");
+            public record Pass(): RobotResult.RobotPass($"Die Inhalte der Textfelder wurden gescrollt.");
+            public record NoScrollbar(): RobotResult.RobotFail("NoScrollbar", "Das Fenster enthält keine scrollbaren Textfelder.");
+            public record InvalidDirection(): RobotResult.RobotFail("InvalidDirection", "Die angegebene Richtung ist ungültig.");
+            public record MaximumReached(): RobotResult.RobotFail("MaximumReached", "Die Inhalte der Textfelder können nicht weiter gescrollt werden.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Inhalte der Textfelder konnten nicht gescrollt werden.");
         }
 
         public record SelectCell {
