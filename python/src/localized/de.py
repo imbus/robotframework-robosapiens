@@ -10,7 +10,7 @@ no_gui_scripting = 'Die Skriptunterstützung ist nicht verfügbar. Sie muss in d
 no_connection = 'Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword "Verbindung zum Server Herstellen" aufzurufen.'
 no_server_scripting = 'Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.'
 not_found: Fstr = lambda msg: f"{msg}\nHinweis: Prüfe die Rechtschreibung"
-cell_not_found: Fstr = lambda msg: f"{msg} Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster"
+button_or_cell_not_found: Fstr = lambda msg: f"{msg} Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster"
 exception: Fstr = lambda msg: f"{msg}" + "\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
 row_locator = 'Zeile: Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.'
 
@@ -247,7 +247,7 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("3279676079", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "Pass": ("4023459711", "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt."),
         "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
       },
@@ -371,7 +371,7 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("807131089", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotFound": ("807131089", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "NotChangeable": ("2520536917", "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar."),
         "Pass": ("2876607603", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt."),
         "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
@@ -455,7 +455,7 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("3063247197", not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
+        "NotFound": ("3710914902", button_or_cell_not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
         "Pass": ("2149046612", "Der Knopf '{0}' wurde hervorgehoben."),
         "Exception": ("1973912995", exception("Der Knopf konnte nicht hervorgehoben werden."))
       },
@@ -503,7 +503,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "SapError": ("3246364722", sap_error),
-        "NotFound": ("3063247197", not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
+        "NotFound": ("3710914902", button_or_cell_not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
         "NotChangeable": ("258793702", "Der Knopf '{0}' ist deaktiviert."),
         "Pass": ("2346783035", "Der Knopf '{0}' wurde gedrückt."),
         "Exception": ("1002997848", exception("Der Knopf konnte nicht gedrückt werden."))
@@ -533,7 +533,7 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("3485811037", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotFound": ("3485811037", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "NotChangeable": ("333463039", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
         "Pass": ("1801284202", "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt."),
         "Exception": ("1751102722", exception("Die Zelle konnte nicht gedrückt werden."))
@@ -627,7 +627,7 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("3279676079", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "Pass": ("4222878164", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen."),
         "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
       },
@@ -712,7 +712,7 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("3279676079", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "Pass": ("1239645311", "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert."),
         "Exception": ("2355177759", exception("Die Zelle konnte nicht markiert werden."))
       },
@@ -748,7 +748,7 @@ lib: LocalizedRoboSAPiens = {
     },
     "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("3279676079", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "EntryNotFound": ("1900787420", not_found("Der Wert '{2}' ist in der Zelle mit dem Lokator '{0}, {1}' nicht vorhanden.")),
         "Exception": ("813375986", exception("Der Wert konnte nicht ausgewählt werden. {0}")),
         "Pass": ("1530467143", "Der Wert '{2}' wurde ausgewählt.")
@@ -1016,7 +1016,7 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("2297657056", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotFound": ("2297657056", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "NotChangeable": ("366722275", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
         "Pass": ("342341552", "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt."),
         "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
@@ -1050,7 +1050,7 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("2297657056", cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NotFound": ("2297657056", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "NotChangeable": ("366722275", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
         "Pass": ("1958589605", "Die Zelle mit dem Lokator '{0}, {1}' wurde abgewählt."),
         "Exception": ("3759601296", exception("Die Zelle konnte nicht abgewählt werden."))
