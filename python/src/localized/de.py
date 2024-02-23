@@ -58,7 +58,6 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("2994771228", not_found("Der Reiter '{0}' konnte nicht gefunden werden.")),
-        "SapError": ("3246364722", sap_error),
         "Pass": ("4294349699", "Der Reiter '{0}' wurde ausgewählt."),
         "Exception": ("2577256712", exception("Der Reiter konnte nicht ausgewählt werden."))
       },
@@ -502,7 +501,6 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "SapError": ("3246364722", sap_error),
         "NotFound": ("3710914902", button_or_cell_not_found("Der Knopf '{0}' konnte nicht gefunden werden.")),
         "NotChangeable": ("258793702", "Der Knopf '{0}' ist deaktiviert."),
         "Pass": ("2346783035", "Der Knopf '{0}' wurde gedrückt."),

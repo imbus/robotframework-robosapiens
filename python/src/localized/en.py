@@ -65,7 +65,6 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The tab '{0}' could not be found"),
-                "SapError": sap_error,
                 "Pass": "The tab {0} was selected",
                 "Exception": exception("The tab could not be selected. {0}")
             },
@@ -465,7 +464,6 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "SapError": sap_error,
                 "NotFound": button_or_cell_not_found("The button '{0}' could not be found."),
                 "NotChangeable": "The button '{0}' is disabled.",
                 "Pass": "The button '{0}' was pushed.",

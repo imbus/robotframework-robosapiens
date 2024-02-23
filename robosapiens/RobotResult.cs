@@ -69,7 +69,6 @@ namespace RoboSAPiens {
         public record ActivateTab {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string theTab): RobotResult.NotFound($"Der Reiter {theTab} konnte nicht gefunden werden.");
-            public record SapError(string message): RobotResult.SapError(message);
             public record Pass(string theTab): RobotResult.RobotPass($"Der Reiter {theTab} wurde ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Reiter konnte nicht ausgewählt werden.");
         }
@@ -188,7 +187,6 @@ namespace RoboSAPiens {
 
         public record PushButton {
             public record NoSession(): RobotResult.NoSession();
-            public record SapError(string message): RobotResult.SapError(message);
             public record NotFound(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' konnte nicht gefunden werden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Der Knopf mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Der Knopf mit dem Lokator '{locator}' wurde gedrückt.");
