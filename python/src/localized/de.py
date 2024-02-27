@@ -887,27 +887,31 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
-    "SelectTextLine": {
-      "name": ("4264534869", "Textzeile markieren"),
+    "SelectText": {
+      "name": ("3466131676", "Text markieren"),
       "args": {
-        "content": {
-          "name": ("4274335913", "Inhalt"),
+        "locator": {
+          "name": ("2051440239", "Lokator"),
           "spec": {},
           "default": None
         }
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("1356747844", not_found("Die Textzeile mit dem Inhalt '{0}' konnte nicht gefunden werden.")),
-        "Pass": ("792202299", "Die Textzeile mit dem Inhalt '{0}' wurde markiert."),
-        "Exception": ("528079567", exception("Die Textzeile konnte nicht markiert werden."))
+        "NotFound": ("460274007", not_found("Der Text mit dem Lokator '{0}' konnte nicht gefunden werden.")),
+        "Pass": ("3369275832", "Der Text mit dem Lokator '{0}' wurde markiert."),
+        "Exception": ("37399687", exception("Der Text konnte nicht markiert werden."))
       },
       "doc": (
-          "1037973034", 
+          "825046681", 
           """
-          Die Textzeile mit dem angegebenen Inhalt wird markiert.
+          Der angegebene Text wird markiert.
           
-          | ``Textzeile markieren    Inhalt``
+          *Text beginnt mit der angegebenen Teilzeichenfolge*
+          | ``Text markieren    = Teilzeichenfolge``
+          
+          *Text folgt einer Beschriftung*
+          | ``Text markieren    Beschriftung``
           """
       )
     },

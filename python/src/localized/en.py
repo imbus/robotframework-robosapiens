@@ -834,25 +834,29 @@ lib: RoboSAPiens = {
             Text field locators are documented in the keyword Fill Text Field.
             """
         },
-        "SelectTextLine": {
-            "name": "Select Text Line",
+        "SelectText": {
+            "name": "Select Text",
             "args": {
-                "content": {
-                    "name": "content",
+                "locator": {
+                    "name": "locator",
                     "spec": {},
                     "default": None
                 }
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The text line starting with '{0}' could not be found."),
-                "Pass": "The text line starting with '{0}' was selected.",
-                "Exception": exception("The text line could not be selected. {0}")
+                "NotFound": not_found("The text with the locator '{0}' could not be found."),
+                "Pass": "The text with the locator '{0}' was selected.",
+                "Exception": exception("The text could not be selected. {0}")
             },
             "doc": """
-            Select the text line starting with the given content.
+            Select the text specified by the locator.
             
-            | ``Select Text Line    content``
+            *Text starting with a given substring*
+            | ``Select Text    = substring``
+            
+            *Text following a label*
+            | ``Select Text    Label``
             """
         },
         "TickCheckBox": {

@@ -295,7 +295,7 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Textfeld konnte nicht markiert werden.");
         }
 
-        public record SelectTextLine {
+        public record SelectText {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string text): RobotResult.NotFound($"Die Textzeile mit dem Inhalt '{text}' konnte nicht gefunden werden.");
             public record Pass(string text): RobotResult.RobotPass($"Die Textzeile mit dem Inhalt '{text}' wurde markiert.");

@@ -56,7 +56,7 @@ namespace RoboSAPiens
                 {"SelectRadioButton", args => SelectRadioButton(args[0])},
                 {"SelectTableRow", args => SelectTableRow(args[0])},
                 {"SelectTextField", args => SelectTextField(args[0])},
-                {"SelectTextLine", args => SelectTextLine(args[0])},
+                {"SelectText", args => SelectText(args[0])},
                 {"TickCheckBox", args => TickCheckBox(args[0])},
                 {"TickCheckBoxCell", args => TickCheckBoxCell(args[0], args[1])},
                 {"UntickCheckBox", args => UntickCheckBox(args[0])},
@@ -675,13 +675,16 @@ namespace RoboSAPiens
             };
         }
 
-        [Keyword("Textzeile markieren"),
-         Doc("Die Textzeile mit dem angegebenen Inhalt wird markiert.\n" +
-             "| ``Textzeile markieren    Inhalt``")]
-        public RobotResult SelectTextLine(string content) {
+        [Keyword("Text markieren"),
+         Doc("Der Text mit dem angegebenen Selektor wird markiert.\n" +
+            "*Text fängt mit der angegebenen Teilzeichenfolge an*\n" +
+             "| ``Text markieren    = Teilzeichenfolge``\n" +
+             "*Text folgt einer Beschriftung*\n" +
+             "| ``Text markieren    Beschriftung``")]
+        public RobotResult SelectText(string locator) {
             return session switch {
-                SAPSession session => session.selectTextLine(content),
-                _ => new Result.SelectTextLine.NoSession()
+                SAPSession session => session.selectText(locator),
+                _ => new Result.SelectText.NoSession()
             };
         }
 

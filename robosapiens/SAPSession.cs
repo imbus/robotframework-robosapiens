@@ -812,28 +812,29 @@ namespace RoboSAPiens {
             }
         }
         
-        public RobotResult selectTextLine(string text) {
+        public RobotResult selectText(string content) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var textLine = window.components.findLabel(new LabelLocator($"= {text}"));
+            var text = window.components.findLabel(new LabelLocator(content)) ?? 
+                       window.components.findTextField(new TextFieldLocator(content));
 
-            if (textLine == null) {
-                return new Result.SelectTextLine.NotFound(text);
+            if (text == null) {
+                return new Result.SelectText.NotFound(content);
             }
 
-            if (options.presenterMode) switch(highlightElement(session, textLine)) {
+            if (options.presenterMode) switch(highlightElement(session, text)) {
                 case RobotResult.HighlightFail exceptionError: return exceptionError;
             }
 
             try {
-                textLine.select(session);
-                return new Result.SelectTextLine.Pass(text);
+                text.select(session);
+                return new Result.SelectText.Pass(content);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
-                return new Result.SelectTextLine.Exception(e);
+                return new Result.SelectText.Exception(e);
             }
         }
 
