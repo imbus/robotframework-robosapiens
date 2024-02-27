@@ -61,7 +61,7 @@ namespace RoboSAPiens {
         }
 
     	public bool contains(string content) {
-            return text.Equals(content);
+            return text.Equals(content) || text.StartsWith(content);
         }
 
 
