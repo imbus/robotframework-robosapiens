@@ -566,6 +566,10 @@ namespace RoboSAPiens {
                 return new Result.ReadText.NotFound(content);
             }
 
+            if (options.presenterMode) switch(highlightElement(session, text)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+
             try {
                 return new Result.ReadText.Pass(text.getText(session));
             }
