@@ -152,7 +152,7 @@ lib: LocalizedRoboSAPiens = {
         )
     },
     "ExportTree": {
-      "name": ("1188312707", "Funktionsbaum exportieren"),
+      "name": ("23518835", "Baumstruktur exportieren"),
       "args": {
         "filepath": {
           "name": ("1769741420", "Dateipfad"),
@@ -162,16 +162,18 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "NotFound": ("811568965", "Die Maske enthält keine Baumstruktur"),
-        "Pass": ("176551133", "Die Baumstruktur wurde in JSON Format in der Datei '{0}' gespeichert"),
-        "Exception": ("1542087750", exception("Die Baumstruktur konnte nicht exportiert werden."))
+        "NotFound": ("492802637", "Die Maske enthält keine Baumstruktur"),
+        "Pass": ("2272403949", "Die Baumstruktur wurde in JSON Format in der Datei '{0}' gespeichert"),
+        "Exception": ("3215052656", exception("Die Baumstruktur konnte nicht exportiert werden."))
       },
       "doc": (
-          "4252712479", 
+          "481495803", 
           """
-          Der Funktionsbaum wird in der angegebenen Datei gespeichert.
+          Die Baumstruktur in der Maske wird in JSON Format in der angegebenen Datei gespeichert.
           
-          | ``Funktionsbaum exportieren     Dateipfad``
+          | ``Baumstruktur exportieren     Dateipfad``
+
+          Dateipfad: Absoluter Pfad zu einer Datei mit Endung .json
           """
       )
     },

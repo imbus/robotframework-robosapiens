@@ -146,7 +146,7 @@ lib: RoboSAPiens = {
             """
         },
         "ExportTree": {
-            "name": "Export Function Tree",
+            "name": "Export Tree Structure",
             "args": {
                 "filepath": {
                     "name": "filepath",
@@ -156,14 +156,16 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": "The window contains no tree element",
-                "Pass": "The function tree was exported to {0}",
-                "Exception": exception("The function tree could not be exported. {0}")
+                "NotFound": "The window contains no tree structure",
+                "Pass": "The tree structure was exported to the file '{0}'",
+                "Exception": exception("The tree structure could not be exported. {0}")
             },
             "doc": """
-            Export the function tree in JSON format to the file provided.
+            Export the tree structure in the current window to the file provided in JSON format.
             
-            | ``Export Function Tree     filepath``
+            | ``Export Tree Structure     filepath``
+
+            filepath: Absolute path to a file with extension .json
             """
         },
         "AttachToRunningSap": {

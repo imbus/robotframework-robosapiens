@@ -218,9 +218,9 @@ namespace RoboSAPiens
         }
 
 
-        [Keyword("Funktionsbaum exportieren"),
-         Doc("Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n" +
-             "| ``Funktionsbaum exportieren     Dateipfad``")]
+        [Keyword("Baumstruktur exportieren"),
+         Doc("Die Baumstruktur wird in der angegebenen Datei gespeichert.\n\n" +
+             "| ``Baumstruktur exportieren     Dateipfad``")]
         public RobotResult ExportTree(string filepath) {
             return session switch {
                 SAPSession session => session.exportTree(filepath),
