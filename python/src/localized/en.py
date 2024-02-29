@@ -459,7 +459,7 @@ lib: RoboSAPiens = {
             "name": "Push Button",
             "args": {
                 "button": {
-                    "name": "name_or_tooltip",
+                    "name": "locator",
                     "spec": {},
                     "default": None
                 }
@@ -474,7 +474,13 @@ lib: RoboSAPiens = {
             "doc": """
             Push the button with the given name or tooltip.
             
-            | ``Push Button    name or tooltip``
+            | ``Push Button    locator``
+
+            locator: name or tooltip. 
+            
+            *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
+            The name may be used as locator as long as it is unique.
+            When using the full tooltip text remember to escape the spaces (e.g. Back \\ \\ \\ (F3))
             """
         },
         "PushButtonCell": {
