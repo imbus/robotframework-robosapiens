@@ -125,7 +125,7 @@ namespace RoboSAPiens {
 
                         if (columnTitle.Equals(gridView.GetDisplayedColumnTitle(columnId)))
                         {
-                            Console.Write($"*{columnTitle}*, ");
+                            Console.Write($"!{columnTitle}!, ");
                         }
                         else {
                             Console.Write($"'{columnTitle}', ");
