@@ -162,6 +162,7 @@ namespace RoboSAPiens {
         string gridViewId;
         string id;
         int position;
+        string label;
         string tooltip;
 
         public SAPGridViewToolbarButton(GuiGridView gridView, int position) {
@@ -169,6 +170,7 @@ namespace RoboSAPiens {
             this.id = gridView.GetToolbarButtonId(position);
             this.position = position;
             this.tooltip = gridView.GetToolbarButtonTooltip(position);
+            this.label = gridView.GetToolbarButtonText(position);
         }
 
         public override bool isEnabled(GuiSession session)
@@ -178,7 +180,7 @@ namespace RoboSAPiens {
         }
 
         public bool isHLabeled(string label) {
-            return false;
+            return this.label.Equals(label);
         }
 
         public bool isVLabeled(string label) {
