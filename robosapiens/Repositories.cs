@@ -71,7 +71,7 @@ namespace RoboSAPiens {
 
     public abstract class ContainerRepository<T>: Repository<T> where T: ILabeled {
         public T? get(string label) {
-            return items.Find(item => item.isHLabeled(label));
+            return items.Find(item => item.isHLabeled(label) || item.hasTooltip(label));
         }
     }
 
