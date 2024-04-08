@@ -135,6 +135,9 @@ namespace RoboSAPiens {
 
         public override void toggleHighlight(GuiSession session)
         {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            // If the toolbar is hidden highlighting the GridView helps to know where the button is
+            gridView.Visualize(true);
         }
     }
 
