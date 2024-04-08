@@ -166,6 +166,7 @@ namespace RoboSAPiens {
         string tooltip;
 
         public SAPGridViewToolbarButton(GuiGridView gridView, int position) {
+            this.focused = false;
             this.gridViewId = gridView.Id;
             this.id = gridView.GetToolbarButtonId(position);
             this.position = position;
@@ -196,7 +197,6 @@ namespace RoboSAPiens {
             gridView.PressToolbarButton(id);
         }
 
-        // This method cannot be implemented.
         // The innerObject parameter of the Visualize method of GuiGridView
         // can only take the values "Toolbar" and "Cell(row,column)".
         // Therefore only the whole toolbar can be highlighted.
@@ -205,6 +205,10 @@ namespace RoboSAPiens {
         // https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf
         public override void toggleHighlight(GuiSession session)
         {
+            focused = !focused;
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            // Highlight the toolbar in order to know where the button is, even when the toolbar is hidden
+            gridView.Visualize(focused, "Toolbar");
         }
     }
 
