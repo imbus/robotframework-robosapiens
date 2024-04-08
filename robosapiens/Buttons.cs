@@ -254,17 +254,19 @@ namespace RoboSAPiens {
         string toolbarId;
         string id;
         int position;
+        string text;
         string tooltip;
 
         public SAPToolbarButton(GuiToolbarControl toolbar, int position) {
             this.position = position;
             this.toolbarId = toolbar.Id;
             this.id = toolbar.GetButtonId(position);
+            this.text = toolbar.GetButtonText(position);
             this.tooltip = toolbar.GetButtonTooltip(position);
         }
 
         public bool isHLabeled(string label) {
-            return false;
+            return text == label;
         }
 
         public bool isVLabeled(string label) {

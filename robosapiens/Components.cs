@@ -264,6 +264,7 @@ namespace RoboSAPiens {
             for (int i = 0; i < toolbar.ButtonCount; i++) {
                 switch (toolbar.GetButtonType(i)) {
                     case "Button":
+                    case "ButtonAndMenu":
                         toolbarButtons.add(new SAPToolbarButton(toolbar, i));
                         break;
                 }
