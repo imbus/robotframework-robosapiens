@@ -290,8 +290,16 @@ namespace RoboSAPiens {
                 switch (toolbar.GetButtonType(i)) {
                     case "Button":
                         var id = toolbar.GetButtonId(i);
+                        var text = toolbar.GetButtonText(i);
                         var tooltip = toolbar.GetButtonTooltip(i);
-                        toolbarButtons.add(new SAPToolbarButton(toolbar, id, tooltip));
+                        toolbarButtons.add(new SAPToolbarButton(toolbar, id, text, tooltip));
+                        break;
+
+                    case "ButtonAndMenu":
+                        id = toolbar.GetButtonId(i);
+                        text = toolbar.GetButtonText(i);
+                        tooltip = toolbar.GetButtonTooltip(i);
+                        toolbarButtons.add(new SAPToolbarButton(toolbar, id, text, tooltip));
                         break;
                 }
             }

@@ -168,16 +168,18 @@ namespace RoboSAPiens {
     public sealed class SAPToolbarButton: Button, ILabeled {
         string toolbarId;
         string id;
+        string text;
         string tooltip;
 
-        public SAPToolbarButton(GuiToolbarControl toolbar, string id, string tooltip) {
+        public SAPToolbarButton(GuiToolbarControl toolbar, string id, string text, string tooltip) {
             this.toolbarId = toolbar.Id;
             this.id = id;
+            this.text = text;
             this.tooltip = tooltip;
         }
 
         public bool isLabeled(string label) {
-            return tooltip == label;
+            return text == label || tooltip == label;
         }
     
         public override void push(GuiSession session) {
