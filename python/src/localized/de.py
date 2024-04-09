@@ -509,7 +509,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1002997848", exception("Der Knopf konnte nicht gedrückt werden."))
       },
       "doc": (
-          "1607916494", 
+          "2949945181", 
           """
           Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.
           
@@ -519,7 +519,7 @@ lib: LocalizedRoboSAPiens = {
           
           *Hinweis*: Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
           Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
-          Wenn der gesamte Text des Tooltips als Lokator verwendet wird, müssen die Leerzeichen gescaped werden (z.B. Zurück \\ \\ \\ (F3)).
+          Wenn der gesamte Text des Tooltips als Lokator verwendet wird, müssen die Leerzeichen gescaped werden (z.B. ``Zurück \\\\ \\\\ (F3)``).
           """
       )
     },
