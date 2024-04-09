@@ -73,7 +73,10 @@ class RoboSAPiensClient(object):
         else:
             sys.stdout.write(result["Pass"].format(*args))
 
-        return rf_result.return_ # type: ignore
+        if "Json" in result:
+            return json.loads(str(rf_result.return_))
+
+        return rf_result.return_
 
 
 def _cli_args(args: List[Tuple[str, Any]]) -> List[str]:

@@ -9,9 +9,10 @@ namespace RoboSAPiens
 {
     [JsonSerializable(typeof(List<FormField>))]
     [JsonSerializable(typeof(List<SAPTree.Node>))]
+    [JsonSerializable(typeof(StatusbarMessage))]
+    [JsonSerializable(typeof(RobotResult))]
     [JsonSerializable(typeof(JSONResponse))]
     [JsonSerializable(typeof(JSONError))]
-    [JsonSerializable(typeof(RobotResult))]
     [JsonSerializable(typeof(JSONRequest))]
     internal partial class SerializerContext : JsonSerializerContext {}
     

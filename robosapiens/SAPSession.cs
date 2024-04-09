@@ -499,7 +499,7 @@ namespace RoboSAPiens {
 
             statusbar = new SAPStatusbar((GuiStatusbar)session.FindById(statusbar.id));
 
-            return new Result.ReadStatusbar.Pass(statusbar.getMessage());
+            return new Result.ReadStatusbar.Json(statusbar.getMessage());
         }
 
         public RobotResult readTableCell(string rowNumberOrButtonLabel, string column) {

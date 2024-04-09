@@ -2,6 +2,8 @@ using sapfewse;
 using System.Collections.Generic;
 
 namespace RoboSAPiens {
+    public record StatusbarMessage(string status, string message);
+
     public class SAPStatusbar {
         enum MessageType {
             Abort,
@@ -45,7 +47,8 @@ namespace RoboSAPiens {
         public string getMessage() {
             if (messageType == MessageType.Empty) return "";
 
-            return $"{messageType}|{message}";
+            var statusbarMessage = new StatusbarMessage(messageType.ToString(), message);
+            return JSON.serialize(statusbarMessage, typeof(StatusbarMessage));
         }
     }
 }

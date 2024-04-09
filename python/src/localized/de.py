@@ -963,6 +963,7 @@ lib: LocalizedRoboSAPiens = {
         "name": ("118752925", "Statusleiste auslesen"),
         "args": {},
         "result": {
+            "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
             "NoSession": ("4138997384", no_session),
             "NotFound": ("2342000252", "Keine Statusleiste gefunden."),
             "Exception": ("803476123", exception("Die Statusleiste konnte nicht ausgelesen werden.")),

@@ -516,6 +516,7 @@ lib: RoboSAPiens = {
             "name": "Read Statusbar",
             "args": {},
             "result": {
+                "Json": "The return value is in JSON format", 
                 "NoSession": no_session,
                 "NotFound": "No statusbar was found.",
                 "Pass": "The statusbar was read.",
