@@ -39,10 +39,15 @@ lib: LocalizedRoboSAPiens = {
     "init": ("0", ""),
   },
   "args": {
-    "presenter_mode": {
-      "name": ("781265386", "vortragsmodus"),
-      "default": False,
-      "doc": ("3421082408", "Jedes GUI Element wird vor seiner Betätigung bzw. Änderung kurz hervorgehoben")
+    "a1presenter_mode": {
+        "name": ("781265386", "vortragsmodus"),
+        "default": False,
+        "doc": ("3421082408", "Jedes GUI Element wird vor seiner Betätigung bzw. Änderung kurz hervorgehoben")
+    },
+    "a2x64": {
+        "name": ("218858810", "x64"),
+        "default": False,
+        "doc": ("2992171893", "64-bit RoboSAPiens ausführen")
     }
   },
   "keywords": {

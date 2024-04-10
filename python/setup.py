@@ -33,7 +33,7 @@ setup(
     keywords='robotframework testing test automation sap gui',
     platforms='windows',
     classifiers=CLASSIFIERS.splitlines(),
-    package_data={'': ['lib/*', 'DE/*']},
+    package_data={'': ['lib32/*', 'lib64/*', 'DE/*']},
     package_dir={'': 'src'},
     packages=['RoboSAPiens'],
     install_requires=[

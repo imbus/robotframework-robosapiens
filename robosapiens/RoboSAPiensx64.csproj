@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp7.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <SelfContained>true</SelfContained>
     <PublishTrimmed>true</PublishTrimmed>
@@ -10,6 +11,7 @@
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <NoWarn>NU1701</NoWarn>
+    <AssemblyName>RoboSAPiens</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -26,8 +28,8 @@
     <ItemGroup>
       <BuildFiles Include="$(PublishDir)\*.*" />
     </ItemGroup>
-    <Exec Command="rmdir /S /Q ..\python\src\RoboSAPiens\lib" />
-    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="../python/src/RoboSAPiens/lib" />
+    <Exec Command="rmdir /S /Q ..\python\src\RoboSAPiens\lib64" />
+    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="..\python\src\RoboSAPiens\lib64" />
   </Target>
 
   <ItemGroup>
