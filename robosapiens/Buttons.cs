@@ -347,14 +347,16 @@ namespace RoboSAPiens {
         string columnName;
         string columnTitle;
         string nodeKey;
+        int rowIndex;
         string text;
         string tooltip;
         string treeId;
 
-        public SAPTreeLink(string columnName, string columnTitle, string text, string tooltip, string nodeKey, string treeId) {
+        public SAPTreeLink(string columnName, string columnTitle, string text, string tooltip, string nodeKey, int rowNumber, string treeId) {
             this.columnName = columnName;
             this.columnTitle = columnTitle;
             this.nodeKey = nodeKey;
+            this.rowIndex = rowNumber;
             this.text = text;
             this.tooltip = tooltip;
             this.treeId = treeId;
@@ -372,6 +374,7 @@ namespace RoboSAPiens {
         public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
         {
             return columnTitle == locator.column && locator switch {
+                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
                 LabelCellLocator labelLocator => isLabeled(labelLocator.label),
                 _ => false
             };
