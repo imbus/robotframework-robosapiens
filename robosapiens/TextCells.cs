@@ -187,12 +187,14 @@ namespace RoboSAPiens
 
     public class SAPTreeCell: TextCell
     {
+        string columnName;
         string nodeKey;
         string treeId;
 
         public SAPTreeCell(string columnName, string columnTitle, int rowIndex, string content, string nodeKey, GuiTree tree):
             base(rowIndex, columnTitle, content)
         {
+            this.columnName = columnName;
             this.nodeKey = nodeKey;
             position = new Position(
                 height: tree.GetItemHeight(nodeKey, columnName), 
@@ -212,7 +214,7 @@ namespace RoboSAPiens
         public override string getText(GuiSession session)
         {
             var tree = (GuiTree)session.FindById(treeId);
-            return tree.GetNodeTextByKey(nodeKey);
+            return tree.GetItemText(nodeKey, columnName);
         }
 
         public override void insert(string content, GuiSession session) 
