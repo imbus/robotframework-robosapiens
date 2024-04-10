@@ -305,4 +305,57 @@ namespace RoboSAPiens {
             return gridView.GetCellValue(rowIndex, columnId);
         }
     }
+
+    public sealed class SAPToolbarMenu: ComboBox, ILabeled 
+    {
+        string id;
+        string text;
+        string toolbarId;
+        string tooltip;
+
+        public SAPToolbarMenu(GuiToolbarControl toolbar, int position) 
+        {
+            this.toolbarId = toolbar.Id;
+            this.id = toolbar.GetButtonId(position);
+            this.text = toolbar.GetButtonText(position);
+            this.tooltip = toolbar.GetButtonTooltip(position);
+        }
+
+        public override bool contains(string entry)
+        {
+            return true;
+        }
+
+        public bool isHLabeled(string label) {
+            return text == label;
+        }
+
+        public bool isVLabeled(string label) {
+            return false;
+        }
+
+        public bool hasTooltip(string tooltip) 
+        {
+            return this.tooltip == tooltip;
+        }
+
+        public override void setValue(string entry, GuiSession session)
+        {
+            var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
+            toolbar.PressContextButton(id);
+            toolbar.SelectContextMenuItemByText(entry);
+        }
+
+        public override void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
+            toolbar.Visualize(focused);
+        }
+
+        // This method cannot be implemented for a GuiShell of subtype Toolbar
+        public override string getText(GuiSession session)
+        {
+            return "";
+        }
+    }
 }

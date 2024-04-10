@@ -267,6 +267,9 @@ namespace RoboSAPiens {
                     case "ButtonAndMenu":
                         toolbarButtons.add(new SAPToolbarButton(toolbar, i));
                         break;
+                    case "Menu":
+                        comboBoxes.add(new SAPToolbarMenu(toolbar, i));
+                        break;                    
                 }
             }
         }
