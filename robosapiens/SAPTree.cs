@@ -7,10 +7,18 @@ namespace RoboSAPiens
     public class SAPTree 
     {
         string id;
+        public int rowCount;
 
-        public SAPTree(GuiTree tree) 
+        public SAPTree(GuiTree tree)
         {
             id = tree.Id;
+            GuiCollection nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+            if (nodeKeys != null) {
+                rowCount = nodeKeys.Count;
+            }
+            else {
+                rowCount = 0;
+            }
         }
 
         public record Node(string parent, string path, string text);

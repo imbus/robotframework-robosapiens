@@ -9,14 +9,14 @@ namespace RoboSAPiens {
     public record RobotResult(
         string status = Status.PASS,
         string output = "",
-        string @return = "",
+        object? @return = null,
         string error = "",
         string traceback = "",
         bool fatal = false,
         bool continuable = false
     ) {
         public record RobotPass: RobotResult {
-            public RobotPass(string output, string returnValue=""): base(
+            public RobotPass(string output, object? returnValue=null): base(
                 status: Status.PASS, 
                 output: output, 
                 @return: returnValue, 
@@ -120,6 +120,13 @@ namespace RoboSAPiens {
             public record SapError(string message): RobotResult.SapError(message);
             public record NoServerScripting(): RobotResult.NoServerScripting();
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Verbindung konnte nicht hergestellt werden.");
+        }
+
+        public record CountTableRows {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
+            public record Pass(int rowCount): RobotResult.RobotPass("Die Tabellenzeilen wurden gezählt", returnValue: rowCount);
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zeilen konnten nicht gezählt werden.");
         }
 
         public record DoubleClickCell {

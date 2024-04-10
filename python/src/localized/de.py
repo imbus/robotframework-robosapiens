@@ -125,6 +125,21 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "CountTableRows": {
+        "name": ("2280342727", "Tabellenzeilen zählen"),
+        "args": {},
+        "result": {
+            "NoSession": ("4138997384", no_session),
+            "Exception": ("2467830426", exception("Die Zeilen der Tabelle konnten nicht gezählt werden.")),
+            "NotFound": ("2399256699", "Die Maske enthält keine Tabelle."),
+            "Pass": ("1614075368", "Die Tabellenzeillen wurden gezählt.")
+        },
+        "doc": ("2239104539", """
+        Die Zeilen einer Tabelle werden gezählt.
+        
+        | ``${anzahl_zeilen}    Tabellenzeilen zählen``
+        """)
+    },
     "ExportSpreadsheet": {
         "name": ("3046426513", "Tabellenkalkulation exportieren"),
         "args": {

@@ -5,7 +5,7 @@ namespace RoboSAPiens {
     public class SAPTable {
         public string id {get;}
         int visibleRowCount;
-        int totalRows;
+        public int totalRows;
         int rowsInStore;
 
         public SAPTable(GuiTableControl table) {

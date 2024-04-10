@@ -122,6 +122,21 @@ lib: RoboSAPiens = {
             Close the SAP GUI
             """
         },
+        "CountTableRows": {
+            "name": "Get Row Count",
+            "args": {},
+            "result": {
+                "NoSession": no_session,
+                "Exception": exception("Could not count the rows in the table."),
+                "NotFound": "The window contains no table.",
+                "Pass": "Counted the number of rows in the table."
+            },
+            "doc": """
+            Count the rows in a table.
+            
+            | ``${row_count}   Get Row Count``
+            """
+        },
         "ExportSpreadsheet": {
             "name": "Export Spreadsheet",
             "args": {

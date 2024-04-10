@@ -502,6 +502,38 @@ namespace RoboSAPiens {
             return new Result.ReadStatusbar.Json(statusbar.getMessage());
         }
 
+        public RobotResult countTableRows() {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var tables = window.components.getTables();
+            var gridViews = window.components.getGridViews();
+            var tree = window.components.getTree();
+
+            if (tables.Count() == 0 && gridViews.Count() == 0 && tree == null)
+                return new Result.CountTableRows.NotFound();
+
+            try {
+                int rowCount = 0;
+                if (tables.Count() > 0) {
+                    rowCount = tables.First().totalRows;
+                }
+                if (gridViews.Count() > 0) {
+                    rowCount = gridViews.First().getNumRows();
+                }
+                if (tree != null && tree.rowCount > 0) {
+                    rowCount = tree.rowCount;
+                }
+
+                return new Result.CountTableRows.Pass(rowCount);
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.CountTableRows.Exception(e);
+            }
+        }
+
         public RobotResult readTableCell(string rowNumberOrButtonLabel, string column) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

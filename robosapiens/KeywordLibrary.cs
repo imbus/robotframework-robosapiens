@@ -29,6 +29,7 @@ namespace RoboSAPiens
                 {"CloseConnection", args => CloseConnection()},
                 {"CloseSap", args => CloseSap()},
                 {"ConnectToServer", args => ConnectToServer(args[0])},
+                {"CountTableRows", args => CountTableRows()},
                 {"DoubleClickCell", args => DoubleClickCell(args[0], args[1])},
                 {"DoubleClickTextField", args => DoubleClickTextField(args[0])},
                 {"ExecuteTransaction", args => ExecuteTransaction(args[0])},
@@ -529,6 +530,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.selectTableRow(row_number),
                 _ => new Result.SelectTableRow.NoSession()
+            };
+        }
+
+        [Keyword("Tabellenzeilen zählen"),
+         Doc("Die Anzahl der Tabellenzeile wird gezählt.\n\n" +
+             "| ``Tabellenzeilen zählen``")]
+        public RobotResult CountTableRows() {
+            return session switch {
+                SAPSession session => session.countTableRows(),
+                _ => new Result.CountTableRows.NoSession()
             };
         }
 
