@@ -17,5 +17,6 @@ gendoc:
 
 clean:
     if (Test-Path dist) { rm -r dist }
+    cd src; just clean
 
-build: clean build-wheel gendoc
+build: build-wheel gendoc
