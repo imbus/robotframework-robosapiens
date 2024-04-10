@@ -5,8 +5,7 @@ from setuptools import setup
 
 VERSION = Path("../VERSION").read_text(encoding="utf-8")
 
-CLASSIFIERS = """
-Development Status :: 5 - Production/Stable
+CLASSIFIERS = """Development Status :: 5 - Production/Stable
 License :: OSI Approved :: Apache Software License
 Operating System :: Microsoft :: Windows :: Windows 10
 Programming Language :: Python
