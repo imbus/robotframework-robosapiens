@@ -3,11 +3,11 @@ __pycache__
 bin
 build
 dist
-**/lib/*
-!robosapiens/lib/*.dll
+lib
 obj
 proxy
 results
+*.dll
 *.egg-info
 *.exe
 *.pyc

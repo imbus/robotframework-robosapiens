@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp7.0</TargetFramework>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <SelfContained>true</SelfContained>
     <PublishTrimmed>true</PublishTrimmed>
@@ -31,17 +31,7 @@
   </Target>
 
   <ItemGroup>
-    <Reference Include="SAPFEWSELib">
-      <HintPath>lib/sapfewse.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion> 
-    </Reference>
-    <Reference Include="SAPROTWR.NET">
-      <HintPath>lib/saprotwr.net.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="SAP.GUI.Scripting.net" Version="1.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
 </Project>
