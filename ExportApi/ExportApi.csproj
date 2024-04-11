@@ -9,6 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\robosapiens\RoboSAPiens.csproj" />
+    <ProjectReference Include="..\robosapiens\RoboSAPiensx86.csproj" />
   </ItemGroup>
 </Project>

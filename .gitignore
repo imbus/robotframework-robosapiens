@@ -3,7 +3,9 @@ __pycache__
 bin
 build
 dist
-lib
+**/lib32/*
+**/lib64/*
+!robosapiens/lib/*.dll
 obj
 proxy
 results

@@ -1,17 +1,23 @@
 import json
-from itertools import count
-from subprocess import Popen, PIPE
 import sys
+
+from itertools import count
 from os.path import realpath
 from pathlib import Path
-from typing import Any, Dict, List, Mapping, Tuple
+from subprocess import Popen, PIPE
+from typing import Any, Dict, List, Tuple
+
 from robot.errors import RemoteError
 from robot.libraries.Remote import RemoteResult
 
+
 class RoboSAPiensClient(object):
-    def __init__(self, args: Mapping[str, Any]):
+    def __init__(self, args: dict[str, Any]):
+        if args.pop("x64"):
+            self.server_cmd = Path(realpath(__file__)).parent / "lib64" / "RoboSAPiens.exe"
+        else:
+            self.server_cmd = Path(realpath(__file__)).parent / "lib32" / "RoboSAPiens.exe"
         self.args = list(args.items())
-        self.server_cmd = Path(realpath(__file__)).parent / "lib" / "RoboSAPiens.exe"
         self._server = self.server
         self.counter = count(1)
 

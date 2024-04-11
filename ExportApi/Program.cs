@@ -8,14 +8,7 @@ public class _
     public static void Main(string[] args) 
     {
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "api.json");
-        var api = new 
-        {
-            doc = new 
-            {
-                intro = "This is the introduction at the beginning of the documentation",
-                init = "This is the section 'Importing' in the documentation"
-            },
-            args = new CLI().arguments.get()
+        var libArgs = new CLI().arguments.get()
                 .ToDictionary(
                     arg => arg.name, 
                     arg => new {
@@ -23,7 +16,20 @@ public class _
                         @default = arg.default_value, 
                         doc = arg.doc
                     }
-                ),
+                );
+        libArgs.Add("x64", new {
+            name = "64bit",
+            @default = false,
+            doc = "Execute RoboSAPiens 64-bit"
+        });
+        var api = new 
+        {
+            doc = new 
+            {
+                intro = "This is the introduction at the beginning of the documentation",
+                init = "This is the section 'Importing' in the documentation"
+            },
+            args = libArgs,
             keywords = getKeywordSpecs(),
             specs = new {}
         };

@@ -5,8 +5,7 @@ from setuptools import setup
 
 VERSION = Path("../VERSION").read_text(encoding="utf-8")
 
-CLASSIFIERS = """
-Development Status :: 5 - Production/Stable
+CLASSIFIERS = """Development Status :: 5 - Production/Stable
 License :: OSI Approved :: Apache Software License
 Operating System :: Microsoft :: Windows :: Windows 10
 Programming Language :: Python
@@ -33,7 +32,7 @@ setup(
     keywords='robotframework testing test automation sap gui',
     platforms='windows',
     classifiers=CLASSIFIERS.splitlines(),
-    package_data={'': ['lib/*', 'DE/*']},
+    package_data={'': ['lib32/*', 'lib64/*', 'DE/*']},
     package_dir={'': 'src'},
     packages=['RoboSAPiens'],
     install_requires=[

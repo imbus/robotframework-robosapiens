@@ -6,7 +6,8 @@ default:
     @just --list
 
 build-exe:
-    cd robosapiens; dotnet publish -c Release /property:Version={{version}}
+    cd robosapiens; dotnet publish RoboSAPiensx86.csproj -c Release /property:Version={{version}}
+    cd robosapiens; dotnet publish RoboSAPiensx64.csproj -c Release /property:Version={{version}}
 
 export-api:
     #!pwsh

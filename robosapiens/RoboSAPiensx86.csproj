@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp7.0</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+    <OutputType>Exe</OutputType>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+    <NoWarn>NU1701</NoWarn>
+    <AssemblyName>RoboSAPiens</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <PublishDir>build</PublishDir>
+  </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)'=='Release'">
+    <Exec Command="rmdir /S /Q $(PublishDir)" />
+  </Target>
+
+  <Target Name="CopyFiles" AfterTargets="Publish">
+    <ItemGroup>
+      <BuildFiles Include="$(PublishDir)\*.*" />
+    </ItemGroup>
+    <Exec Command="rmdir /S /Q ..\python\src\RoboSAPiens\lib32" />
+    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="..\python\src\RoboSAPiens\lib32" />
+  </Target>
+
+  <ItemGroup>
+    <Reference Include="SAPFEWSELib">
+      <HintPath>lib/sapfewse.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion> 
+    </Reference>
+    <Reference Include="SAPROTWR.NET">
+      <HintPath>lib/saprotwr.net.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+  </ItemGroup>
+</Project>

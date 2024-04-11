@@ -16,6 +16,7 @@ gendoc:
     python localizedoc.py ../docs/RoboSAPiens.DE.html
 
 clean:
+    if (Test-Path build) { rm -r build }
     if (Test-Path dist) { rm -r dist }
     cd src; just clean
 

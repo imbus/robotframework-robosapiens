@@ -46,10 +46,15 @@ lib: RoboSAPiens = {
         "init": ""
     },
     "args": {
-        "presenter_mode": {
+        "a1presenter_mode": {
             "name": "presenter_mode",
             "default": False,
             "doc": "Highlight each GUI element acted upon"
+        },
+        "a2x64": {
+            "name": "x64",
+            "default": False,
+            "doc": "Execute RoboSAPiens 64-bit"
         }
     },
     "keywords": {
