@@ -330,7 +330,6 @@ namespace RoboSAPiens {
             }
         }
 
-        // TODO: The Tree class should take care of classifying its elements
         void classifyTreeItems(GuiTree tree) {
             var columnNames = (GuiCollection)tree.GetColumnNames();
 
@@ -348,7 +347,7 @@ namespace RoboSAPiens {
                     string columnTitle;
                     try {
                         columnTitle = tree.GetColumnTitleFromName(columnName);
-                        if (debug) Console.WriteLine(columnTitle);
+                        if (debug) Console.WriteLine("Column: " + columnTitle);
                     }
                     catch (Exception) {
                         continue;
@@ -363,9 +362,8 @@ namespace RoboSAPiens {
                         if (itemType == TreeItem.Hierarchy) continue;
 
                         var itemText = tree.GetItemText(nodeKey, columnName);
-                        var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
 
-                        if (debug) Console.WriteLine($"{nodePath}: ({itemText}, {itemTooltip}) [{itemType}]");
+                        if (debug) Console.WriteLine($"{nodePath}: {itemText} [{itemType}]");
 
                         switch (itemType) 
                         {
@@ -376,6 +374,7 @@ namespace RoboSAPiens {
                                 buttons.add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: index, tree.Id));
                                 break;
                             case TreeItem.Link:
+                                var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
                                 buttons.add(new SAPTreeLink(columnName, columnTitle, itemText, itemTooltip, nodeKey, rowNumber: index, tree.Id));
                                 textCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
                                 break;
