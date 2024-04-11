@@ -5,11 +5,11 @@ build
 dist
 **/lib32/*
 **/lib64/*
+*.dll
 !robosapiens/lib/*.dll
 obj
 proxy
 results
-*.dll
 *.egg-info
 *.exe
 *.pyc
