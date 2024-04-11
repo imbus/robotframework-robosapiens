@@ -40,8 +40,22 @@ lib: RoboSAPiens = {
         
         - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
 
-        This library is also available in the following languages:
-        {locales_bullet_list()}
+        New features in Version 2.0:
+
+        - Support for SAP GUI 8.0 64-bit
+        - New keyword "Expand Tree Element"
+        - New keyword "Get Row Count"
+        - New keyword "Scroll Contents"
+        - New keyword "Select Menu Entry"
+        - New keyword "Untick Checkbox Cell"
+
+        Breaking changes with respect to Version 1.0:
+
+        - The keyword "Fill Cell" takes three positional arguments instead of two
+        - The keyword "Read Statusbar" returns a dictionary instead of a string
+        - Renamed the keyword "Export Dynpro" to "Export Window"
+        - Renamed the keyword "Export Function Tree" to "Export Tree Structure"
+        - Renamed the keyword "Select Text Line" to "Select Text"
         """,
         "init": ""
     },

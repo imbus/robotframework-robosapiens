@@ -26,7 +26,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 lib: LocalizedRoboSAPiens = {
   "doc": {
     "intro": (
-        "284571434", 
+        "167346405", 
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
@@ -34,7 +34,23 @@ lib: LocalizedRoboSAPiens = {
         - Das [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|Scripting] muss auf dem SAP Server aktiviert werden.
         
         - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
-        """
+
+        Neuigkeiten in der Version 2.0:
+
+        - Unterstützung für SAP GUI 8.0 64-bit
+        - Neues Schlüsselwort "Baumelement aufklappen"
+        - Neues Schlüsselwort "Inhalte scrollen"
+        - Neues Schlüsselwort "Menüeintrag auswählen"
+        - Neues Schlüsselwort "Tabellenzelle abwählen"
+        - Neues Schlüsselwort "Tabellenzeilen zählen"
+
+        Einschneidende Änderungen im Vergleich zu Version 1.0:
+
+        - Das Schlüsselwort "Statusleiste auslesen" gibt ein Dictionary statt ein String zurück.
+        - Das Schlüsselwort "Tabellenzelle ausfühlen" hat drei statt zwei Parameter.
+        - Das Schlüsselwort "Textzeile markieren" wurde in "Text markieren" umbenannt.
+        - Das Schlüsselwort "Funktionsbaum exportieren" wurde in "Baumstruktur exportieren" umbenannt.
+    """
     ),
     "init": ("0", ""),
   },
