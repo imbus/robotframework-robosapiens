@@ -311,8 +311,8 @@ lib: RoboSAPiens = {
             | ``Execute Transaction    T_Code``
             """
         },
-        "ExportForm": {
-            "name": "Export Dynpro",
+        "ExportWindow": {
+            "name": "Export Window",
             "args": {
                 "a1name": {
                     "name": "name",
@@ -327,15 +327,17 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "Pass": "The Dynpro was exported to the JSON file {0} and the PNG image {1}",
-                "Exception": exception("The Dynpro could not be exported. {0}")
+                "Pass": "The window contents were exported to {0} and a screenshot was saved to {1}.",
+                "Exception": exception("The window contents could not be exported. {0}")
             },
             "doc": """
-            Write all texts in the Dynpro to a JSON file. Also a screenshot will be saved in PNG format.
+            Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.
             
-            | ``Export Dynpro     name     directory``
+            | ``Export Window     name     directory``
             
             directory: Absolute path to the directory where the files will be saved.
+
+            *Note*: Currently not all GUI-elements are exported.
             """
         },
         "FillTableCell": {

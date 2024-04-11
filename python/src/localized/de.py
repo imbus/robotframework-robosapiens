@@ -335,8 +335,8 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
-    "ExportForm": {
-      "name": ("1168873090", "Maske exportieren"),
+    "ExportWindow": {
+      "name": ("1462144723", "Maske exportieren"),
       "args": {
         "a1name": {
           "name": ("1579384326", "Name"),
@@ -351,17 +351,19 @@ lib: LocalizedRoboSAPiens = {
       },
       "result": {
         "NoSession": ("4138997384", no_session),
-        "Pass": ("319055629", "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert"),
-        "Exception": ("487625120", exception("Die Maske konnte nicht exportiert werden."))
+        "Pass": ("620190076", "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert"),
+        "Exception": ("1068065483", exception("Die Maske konnte nicht exportiert werden."))
       },
       "doc": (
-          "4292940885", 
+          "1604319380", 
           """
-          Alle Texte in der aktuellen Maske werden in einer JSON-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
+          Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
           
           | ``Maske exportieren     Name     Verzeichnis``
           
           Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.
+
+          *Hinweis*: Aktuell werden nicht alle GUI-Elemente exportiert.
           """
       )
     },

@@ -149,7 +149,7 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Transaktion konnte nicht ausgeführt werden.");
         }
 
-        public record ExportForm {
+        public record ExportWindow {
             public record NoSession(): RobotResult.NoSession();
             public record Pass(string csvPath, string pngPath): RobotResult.RobotPass($"Die Maske wurde in den Dateien {csvPath} und {pngPath} gespeichert");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Maske konnte nicht exportiert werden.");

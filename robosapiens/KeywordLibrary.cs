@@ -33,7 +33,7 @@ namespace RoboSAPiens
                 {"DoubleClickCell", args => DoubleClickCell(args[0], args[1])},
                 {"DoubleClickTextField", args => DoubleClickTextField(args[0])},
                 {"ExecuteTransaction", args => ExecuteTransaction(args[0])},
-                {"ExportForm", args => ExportForm(args[0], args[1])},
+                {"ExportWindow", args => ExportWindow(args[0], args[1])},
                 {"ExportSpreadsheet", args => ExportSpreadsheet(args[0])},
                 {"ExportTree", args => ExportTree(args[0])},
                 {"FillTableCell", args => FillTableCell(args[0], args[1], args[2])},
@@ -450,10 +450,10 @@ namespace RoboSAPiens
          Doc("Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.\n\n" +
              "| ``Maske exportieren     Name     Verzeichnis``\n" +
              "Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.")]
-        public RobotResult ExportForm(string name, string directory) {
+        public RobotResult ExportWindow(string name, string directory) {
             return session switch {
-                SAPSession session => session.exportForm(name, directory),
-                _ => new Result.ExportForm.NoSession()
+                SAPSession session => session.exportWindow(name, directory),
+                _ => new Result.ExportWindow.NoSession()
             };
         }
 

@@ -236,7 +236,7 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult exportForm(string formName, string directory) {
+        public RobotResult exportWindow(string formName, string directory) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
@@ -302,11 +302,11 @@ namespace RoboSAPiens {
                 JSON.writeFile(jsonPath, JSON.serialize(formFields, typeof(List<FormField>)));
                 var pngPath = Path.Combine(directory, $"{fileName}.png");
                 saveScreenshot(pngPath);
-                return new Result.ExportForm.Pass(jsonPath, pngPath);
+                return new Result.ExportWindow.Pass(jsonPath, pngPath);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
-                return new Result.ExportForm.Exception(e);
+                return new Result.ExportWindow.Exception(e);
             }
         }
 
