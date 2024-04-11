@@ -288,11 +288,13 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("667377482", exception("Die Verbindung konnte nicht hergestellt werden."))
       },
       "doc": (
-          "2007383915", 
+          "3664831745", 
           """
           Die Verbindung mit dem angegebenen SAP Server wird hergestellt.
           
           | ``Verbindung zum Server herstellen    Servername``
+
+          Servername: Der Name des Servers in SAP Logon (nicht der SID).
           """
       )
     },

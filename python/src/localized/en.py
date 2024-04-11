@@ -276,7 +276,9 @@ lib: RoboSAPiens = {
             "doc": """
             Connect to the SAP Server provided.
             
-            | ``Connect to Server    servername``
+            | ``Connect to Server    server_name``
+
+            server_name: The name of the server in SAP Logon (not the SID).
             """
         },
         "DoubleClickCell": {
