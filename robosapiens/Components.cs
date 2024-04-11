@@ -16,6 +16,7 @@ namespace RoboSAPiens {
         RadioButtonStore radioButtons = new RadioButtonStore();
         SAPStatusbar? statusBar = null;
         MenuItemStore menuItems = new MenuItemStore();
+        TreeFolderStore treeFolders = new TreeFolderStore();
         TabStore tabs = new TabStore();
         TableStore tables = new TableStore();
         GridViewStore gridViews = new GridViewStore();
@@ -380,6 +381,7 @@ namespace RoboSAPiens {
                                 break;
                             case TreeItem.Text:
                                 textCells.add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
+                                treeFolders.add(new SAPTreeFolder(tree, nodeKey, nodePath, columnTitle));
                                 break;
                         }
                     }
@@ -517,6 +519,10 @@ namespace RoboSAPiens {
 
         public SAPTextField? findTextField(TextFieldLocator textField) {
             return textFields.get(textField.locator, labels, boxes);
+        }
+
+        public SAPTreeFolder? findTreeFolder(CellLocator locator) {
+            return treeFolders.get(locator, textCells);
         }
 
         public List<SAPButton> getAllButtons() {

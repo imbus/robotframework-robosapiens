@@ -41,6 +41,7 @@ namespace RoboSAPiens
                 {"GetWindowText", args => GetWindowText()},
                 {"GetWindowTitle", args => GetWindowTitle()},
                 {"HighlightButton", args => HighlightButton(args[0])},
+                {"ExpandTreeElement", args => ExpandTreeElement(args[0], args[1])},
                 {"OpenSap", args => OpenSap(args[0])},
                 {"PressKeyCombination", args => PressKeyCombination(args[0])},
                 {"PushButton", args => PushButton(args[0])},
@@ -131,6 +132,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.activateTab(tab),
                 _ => new Result.ActivateTab.NoSession()
+            };
+        }
+
+        [Keyword("Baumelement aufklappen"),
+         Doc("Der Baumelement mit den angegebenen Pfad und Spalte wird aufgeklappt.\n\n" +
+             "| ``Baumelement aufklappen    Elementpfad    Spalte``")]
+        public RobotResult ExpandTreeElement(string elementPath, string column) {
+            return session switch {
+                SAPSession session => session.expandTreeElement(elementPath, column),
+                _ => new Result.ExpandTreeElement.NoSession()
             };
         }
 

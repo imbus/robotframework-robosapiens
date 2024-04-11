@@ -74,6 +74,34 @@ lib: RoboSAPiens = {
             | ``Select Tab    tab_name``
             """
         },
+        "ExpandTreeElement": {
+            "name": "Expand Tree Element",
+            "args": {
+                "a1elementPath": {
+                    "name": "element_path",
+                    "spec": {},
+                    "default": None
+                },
+                "a2column": {
+                    "name": "column",
+                    "spec": {},
+                    "default": None
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The tree element '{0}, {1}' could not be found."),
+                "Pass": "The tree element '{0}, {1}' was expanded.",
+                "Exception": exception("The tree element could not be expanded. {0}")
+            },
+            "doc": """
+            Expand the tree element located at the path and column provided.
+            
+            | ``Expand Tree Element    element_path    column``
+
+            element_path: The path to the element using '/' as separator. e.g. Engineering/Civil Engineering
+            """
+        },
         "OpenSap": {
             "name": "Open SAP",
             "args": {

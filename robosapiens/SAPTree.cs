@@ -23,7 +23,7 @@ namespace RoboSAPiens
 
         public record Node(string parent, string path, string text);
 
-        private static string getParentPath(string path) 
+        public static string getParentPath(string path) 
         {
             var pathParts = path.Split("\\");
             var parent_path = String.Join("\\", pathParts[0..^1]);

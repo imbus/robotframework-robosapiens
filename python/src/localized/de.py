@@ -69,6 +69,34 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "ExpandTreeElement": {
+        "name": ("1602358686", "Baumelement aufklappen"),
+        "args": {
+            "a1elementPath": {
+                "name": ("1214950134", "Elementpfad"),
+                "spec": {},
+                "default": None
+            },
+            "a2column": {
+                "name": ("2102626174", "Spalte"),
+                "spec": {},
+                "default": None
+            }
+        },
+        "result": {
+            "NoSession": ("4138997384", no_session),
+            "NotFound": ("3335065344", not_found("Der Baumelement '{0}, {1}' wurde nicht gefunden.")),
+            "Pass": ("1036036987", "Der Baumelement '{0}, {1}' wurde aufgeklappt."),
+            "Exception": ("591408237", exception("Der Baumelement konnte nicht aufgeklappt werden. {0}"))
+        },
+        "doc": ("1771358746", """
+        Der Baumelement mit dem angegebenen Pfad und Spalte wird aufgeklappt.
+        
+        | ``Baumelement aufklappen    Elementpfad    Spalte``
+                
+        Elementpfad: Der Pfad zum Element, mit '/' als Trennzeichen. z.B. Engineering/Bauwesen
+        """)
+    },
     "OpenSap": {
       "name": ("1259182241", "SAP starten"),
       "args": {

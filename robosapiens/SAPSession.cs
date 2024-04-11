@@ -125,6 +125,34 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult expandTreeElement(string elementPath, string column) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var locator = CellLocator.of(elementPath, column);
+            var folder = window.components.findTreeFolder(locator);
+            
+            if (folder == null) {
+                return new Result.ExpandTreeElement.NotFound(elementPath);
+            }
+
+            try {
+                folder.open(session);
+
+                switch (updateWindow(updateComponents: true)) {
+                    case RobotResult.UIScanFail exceptionError:
+                        return exceptionError;
+                }
+
+                return new Result.ExpandTreeElement.Pass(elementPath);
+            } 
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.ExpandTreeElement.Exception(e);
+            }
+        }
+
         public RobotResult closeConnection() {
             try {
                 connection.CloseConnection();                
