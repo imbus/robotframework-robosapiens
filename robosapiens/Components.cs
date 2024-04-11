@@ -15,6 +15,7 @@ namespace RoboSAPiens {
         LabelStore labels = new LabelStore();
         RadioButtonStore radioButtons = new RadioButtonStore();
         SAPStatusbar? statusBar = null;
+        MenuItemStore menuItems = new MenuItemStore();
         TabStore tabs = new TabStore();
         TableStore tables = new TableStore();
         GridViewStore gridViews = new GridViewStore();
@@ -72,6 +73,7 @@ namespace RoboSAPiens {
         void classifyContainer(GuiComponent container) {
             switch (container.Type) {
                 case "GuiMenubar":
+                    classifyMenubar((GuiMenubar)container);
                     break;
                 case "GuiShell":
                     classifyGuiShell((GuiShell)container);
@@ -105,6 +107,44 @@ namespace RoboSAPiens {
             }
         }
         
+        void processSubmenu(GuiMenu guiMenu, string parent)
+        {
+            var guiMenus = guiMenu.Children;
+
+            for (int i = 0; i < guiMenus.Count; i++)
+            {
+                var menu = (GuiMenu)guiMenus.ElementAt(i);
+                var path = $"{parent}/{menu.Text}";
+
+                if (menu.Text != "") {
+                    menuItems.add(new SAPMenu(menu, path));
+                }
+
+                if (menu.Children.Count > 0) {
+                    processSubmenu(menu, path);
+                }
+
+            }
+        }
+
+        void classifyMenubar(GuiMenubar guiMenubar)
+        {
+            var guiMenus = guiMenubar.Children;
+
+            for (int i = 0; i < guiMenus.Count; i++)
+            {
+                var menu = (GuiMenu)guiMenus.ElementAt(i);
+                
+                if (menu.Text != "") {
+                    menuItems.add(new SAPMenu(menu, menu.Text));
+                }
+                
+                if (menu.Children.Count > 0) {
+                    processSubmenu(menu, menu.Text);
+                }
+            }
+        }
+
         void classifyGridViewCells(GuiGridView gridView) {
             var columnCount = gridView.ColumnCount;
             var rowCount = gridView.RowCount;
@@ -457,6 +497,10 @@ namespace RoboSAPiens {
         public ITextElement? findLabel(LabelLocator labelLocator) {
             return labels.get(labelLocator.locator, labels, textFields) as ITextElement ??
                    textCells.get(labelLocator.locator);
+        }
+
+        public SAPMenu? findMenuItem(String itemPath) {
+            return menuItems.get(itemPath);
         }
 
         public RadioButton? findRadioButton(RadioButtonLocator radioButton) {

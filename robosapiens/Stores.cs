@@ -84,6 +84,8 @@ namespace RoboSAPiens {
 
     public sealed class TabStore: ContainerRepository<SAPTab> {}
 
+    public sealed class MenuItemStore: ContainerRepository<SAPMenu> {}
+
     public sealed class TableStore: Repository<SAPTable> {}
 
     public sealed class TextCellStore: Repository<TextCell> {

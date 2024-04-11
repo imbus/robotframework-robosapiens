@@ -98,6 +98,33 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult selectMenuItem(string itemPath) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+            
+            var menu = window.components.findMenuItem(itemPath);
+            
+            if (menu == null) {
+                return new Result.SelectMenuItem.NotFound(itemPath);
+            }
+
+            try {
+                menu.select(session);
+
+                switch (updateWindow(updateComponents: true)) {
+                    case RobotResult.UIScanFail exceptionError:
+                        return exceptionError;
+                }
+
+                return new Result.SelectMenuItem.Pass(itemPath);
+            } 
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.SelectMenuItem.Exception(e);
+            }
+        }
+
         public RobotResult closeConnection() {
             try {
                 connection.CloseConnection();                

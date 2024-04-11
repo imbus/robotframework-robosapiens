@@ -817,6 +817,31 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
+    "SelectMenuItem": {
+        "name": ("2747911439", "Menüeintrag auswählen"),
+        "args": {
+            "itemPath": {
+                "name": ("2396735438", "Eintragspfad"),
+                "spec": {},
+                "default": None
+            }
+        },
+        "result": {
+            "NoSession": ("4138997384", no_session),
+            "NotFound": ("711462162", not_found("Der Menüeintrag '{0}' wurde nicht gefunden.")),
+            "Pass": ("200907440", "Der Menüeintrag '{0}' wurde ausgewählt."),
+            "Exception": ("3089619033", exception("Der Menüeintrag konnte nicht ausgewählt werden. {0}"))
+        },
+        "doc": ("3084978375", """
+        Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.
+        
+        | ``Menüeintrag auswählen    Eintragspfad``
+
+        Eintragspfad: Für einen Eintrag in einem Hauptmenü der Eintragsname. 
+        Für einen Eintrag in einem Untermenü der Pfad zum Eintrag mit '/' als Trennzeichen. 
+        z.B. System/Benutzervorgaben/Eigene Daten.
+        """)
+    },
     "SelectRadioButton": {
       "name": ("2985728785", "Optionsfeld auswählen"),
       "args": {

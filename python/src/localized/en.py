@@ -771,6 +771,31 @@ lib: RoboSAPiens = {
             To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
             """
         },
+        "SelectMenuItem": {
+            "name": "Select Menu Entry",
+            "args": {
+                "itemPath": {
+                    "name": "menu_entry_path",
+                    "spec": {},
+                    "default": None
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The menu entry '{0}' could not be found."),
+                "Pass": "The menu entry '{0}' was selected.",
+                "Exception": exception("The menu entry could not be selected. {0}")
+            },
+            "doc": """
+            Select the menu entry with the path provided.
+            
+            | ``Select Menu Entry    menu_entry_path``
+
+            menu_entry_path: For an entry in a top-level menu, the entry name. 
+            For an entry in a sub-menu, its path from the top-level with '/' as path separator.
+            e.g. System/User Profile/Own Data
+            """
+        },
         "SelectRadioButton": {
             "name": "Select Radio Button",
             "args": {

@@ -50,6 +50,7 @@ namespace RoboSAPiens
                 {"ReadText", args => ReadText(args[0])},
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
+                {"SelectMenuItem", args => SelectMenuItem(args[0])},
                 {"ScrollTextFieldContents", args => ScrollTextFieldContents(args[0])},
                 {"SelectCell", args => SelectCell(args[0], args[1])},
                 {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
@@ -130,6 +131,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.activateTab(tab),
                 _ => new Result.ActivateTab.NoSession()
+            };
+        }
+
+        [Keyword("Menüeintrag auswählen"),
+         Doc("Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.\n\n" +
+             "| ``Menüeintrag auswählen    Pfad``")]
+        public RobotResult SelectMenuItem(string itemPath) {
+            return session switch {
+                SAPSession session => session.selectMenuItem(itemPath),
+                _ => new Result.SelectMenuItem.NoSession()
             };
         }
 

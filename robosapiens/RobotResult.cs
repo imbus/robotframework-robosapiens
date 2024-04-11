@@ -289,6 +289,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Optionsfeld konnte nicht ausgewählt werden.");
         }
 
+        public record SelectMenuItem {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string menuEntryPath): RobotResult.NotFound($"Der Menüeintrag {menuEntryPath} konnte nicht gefunden werden.");
+            public record Pass(string menuEntryPath): RobotResult.RobotPass($"Der Menüeintrag {menuEntryPath} wurde ausgewählt.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Menüeintrag konnte nicht ausgewählt werden.");
+        }
+
         public record SelectTableRow {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(): RobotResult.NotFound("Die Maske enthält keine Tabelle");
