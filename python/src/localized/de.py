@@ -58,7 +58,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("1349204363", not_found("Der Reiter '{0}' konnte nicht gefunden werden.")),
-        "Pass": ("2056963659", "Der Reiter '{0}' wurde ausgewählt."),
+        "Pass": ("633926115", "Der Reiter '{0}' wurde ausgewählt."),
         "Exception": ("2577256712", exception("Der Reiter konnte nicht ausgewählt werden."))
       },
       "doc": (

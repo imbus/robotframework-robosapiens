@@ -65,7 +65,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The tab '{0}' could not be found."),
-                "Pass": "The tab {0} was selected.",
+                "Pass": "The tab '{0}' was selected.",
                 "Exception": exception("The tab could not be selected. {0}")
             },
             "doc": """
