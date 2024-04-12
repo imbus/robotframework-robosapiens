@@ -52,7 +52,7 @@ namespace RoboSAPiens
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
                 {"SelectMenuItem", args => SelectMenuItem(args[0])},
-                {"ScrollTextFieldContents", args => ScrollTextFieldContents(args[0])},
+                {"ScrollTextFieldContents", args => ScrollTextFieldContents(args[0], args[1])},
                 {"SelectCell", args => SelectCell(args[0], args[1])},
                 {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
                 {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
@@ -631,9 +631,9 @@ namespace RoboSAPiens
          Doc("Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.\n\n" +
              "| ``Inhalte scrollen   Richtung``\n" +
              "Richtung: DOWN (ein Schritt nach unten), UP (ein Schritt nach oben), BEGIN (ganz am Anfang), END (ganz am Ende)")]
-        public RobotResult ScrollTextFieldContents(string direction) {
+        public RobotResult ScrollTextFieldContents(string direction, string? untilTextField=null) {
             return session switch {
-                SAPSession session => session.scrollTextFieldContents(direction),
+                SAPSession session => session.scrollTextFieldContents(direction, untilTextField),
                 _ => new Result.ScrollTextFieldContents.NoSession()
             };
         }

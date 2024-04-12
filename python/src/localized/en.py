@@ -707,8 +707,12 @@ lib: RoboSAPiens = {
         "ScrollTextFieldContents": {
             "name": "Scroll Contents",
             "args": {
-                "direction": {
+                "a1direction": {
                     "name": "direction",
+                    "spec": {}
+                },
+                "a2untilTextField": {
+                    "name": "until_textfield",
                     "default": None,
                     "spec": {}
                 }
@@ -727,6 +731,12 @@ lib: RoboSAPiens = {
             | ``Scroll Contents    direction``
 
             direction: UP, DOWN, BEGIN, END
+
+            If the parameter "until_textfield" is provided, the contents are scrolled until that text field is found.
+
+            | ``Scroll Contents    direction    until_textfield``
+
+            until_textfield: locator to find a text field
             """
         },
         "SelectCell": {

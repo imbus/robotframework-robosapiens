@@ -746,8 +746,12 @@ lib: LocalizedRoboSAPiens = {
     "ScrollTextFieldContents": {
         "name": ("61854466", "Inhalte scrollen"),
         "args": {
-            "direction": {
+            "a1direction": {
                 "name": ("1045090739", "Richtung"),
+                "spec": {}
+            },
+            "a2untilTextField": {
+                "name": ("2676914944", "bis_Textfeld"),
                 "default": None,
                 "spec": {}
             }
@@ -760,13 +764,19 @@ lib: LocalizedRoboSAPiens = {
             "InvalidDirection": ("2667316811", "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: UP, DOWN, BEGIN, END"),
             "Pass": ("1135653175", "Die Inahlte der Textfelder wurden in die Richtung '{0}' gescrollt.")
         },
-        "doc": ("2486554714", 
+        "doc": ("3844921674", 
           """
           Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.
 
           | ``Inhalte scrollen    Richtung``
 
           Richtung: UP, DOWN, BEGIN, END
+
+          Wenn der Parameter "bis_Textfeld" übergeben wird, werden die Inhalte so lange gescrollt, bis das Textfeld gefunden wird.
+
+          | ``Inhalte scrollen    Richtung   bis_Textfeld``
+
+          bis_Textfeld: Lokator, um ein Textfeld zu finden
           """)
     },
     "SelectCell": {

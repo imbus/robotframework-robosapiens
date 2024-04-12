@@ -714,7 +714,7 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult scrollTextFieldContents(string direction)
+        public RobotResult scrollTextFieldContents(string direction, string? untilTextField)
         {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
@@ -729,9 +729,20 @@ namespace RoboSAPiens {
 
             var verticalScrollbar = window.components.getVerticalScrollbar();
 
-            if (verticalScrollbar == null) 
-            {
+            if (verticalScrollbar == null) {
                 return new Result.ScrollTextFieldContents.NoScrollbar();
+            }
+
+            if (untilTextField != null) {
+                var textField = window.components.findTextField(new TextFieldLocator(untilTextField));
+
+                if (textField != null) {
+                   if (options.presenterMode) switch(highlightElement(session, textField)) {
+                        case RobotResult.HighlightFail exceptionError: return exceptionError;
+                    }
+        
+                    return new Result.ScrollTextFieldContents.Pass();
+                }
             }
 
             try
@@ -745,6 +756,11 @@ namespace RoboSAPiens {
                         case RobotResult.UIScanFail exceptionError:
                             return exceptionError;
                     }
+
+                    if (untilTextField != null) {
+                        return scrollTextFieldContents(direction, untilTextField);
+                    }
+
                     return new Result.ScrollTextFieldContents.Pass();
                 }
                 else 
