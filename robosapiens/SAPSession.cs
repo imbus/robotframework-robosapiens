@@ -366,7 +366,12 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var cell = window.components.findTextCell(locator);
+            var table = window.components.getFirstTable();
+
+            if (table == null)
+                return new Result.FillTableCell.NoTable();
+
+            var cell = findTextCell(table, locator);
 
             if (cell == null) {
                 return new Result.FillTableCell.NotFound(locator.location);
@@ -562,25 +567,13 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var tables = window.components.getTables();
-            var gridViews = window.components.getGridViews();
-            var tree = window.components.getTree();
+            var table = window.components.getFirstTable();
 
-            if (tables.Count() == 0 && gridViews.Count() == 0 && tree == null)
+            if (table == null)
                 return new Result.CountTableRows.NotFound();
 
             try {
-                int rowCount = 0;
-                if (tables.Count() > 0) {
-                    rowCount = tables.First().totalRows;
-                }
-                if (gridViews.Count() > 0) {
-                    rowCount = gridViews.First().getNumRows();
-                }
-                if (tree != null && tree.rowCount > 0) {
-                    rowCount = tree.rowCount;
-                }
-
+                int rowCount = table.getNumRows();
                 return new Result.CountTableRows.Pass(rowCount);
             }
             catch (Exception e) {
@@ -595,7 +588,12 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowNumberOrButtonLabel, column);
-            var cell = window.components.findTextCell(locator) as ITextElement ??
+            var table = window.components.getFirstTable();
+
+            if (table == null)
+                return new Result.ReadTableCell.NoTable();
+
+            var cell = findTextCell(table, locator) as ITextElement ??
                        window.components.findComboBoxCell(locator);
 
             if (cell == null) {
@@ -774,23 +772,46 @@ namespace RoboSAPiens {
             }
         }
 
+        public TextCell? findTextCell(ITable table, CellLocator locator)
+        {
+            var cell = window.components.findTextCell(locator);
+            if (cell != null)
+                return cell;
+
+            bool scrolled = table.scrollOnePage(session);
+            if (scrolled)
+            {
+                // Scrolling the table redraws the screen,
+                // therefore the components have to be scanned
+                updateWindow(updateComponents: true);
+                return findTextCell(table, locator);
+            }
+
+            return null;
+        }
+
         public RobotResult selectCell(string rowIndexOrCellContent, string column) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var table = window.components.getFirstTable();
+
+            if (table == null)
+                return new Result.SelectCell.NoTable();
+
             var locator = CellLocator.of(rowIndexOrCellContent, column);
-            var cell = window.components.findTextCell(locator);
-
-            if (cell == null) {
-                return new Result.SelectCell.NotFound(locator.location);
-            }
-
-            if (options.presenterMode) switch(highlightElement(session, cell)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
-
+            
             try {
+                var cell = findTextCell(table, locator);
+                if (cell == null) {
+                    return new Result.SelectCell.NotFound(locator.location);
+                }
+
+                if (options.presenterMode) switch(highlightElement(session, cell)) {
+                    case RobotResult.HighlightFail exceptionError: return exceptionError;
+                }
+
                 cell.select(session);
                 return new Result.SelectCell.Pass(locator.location);
             }
@@ -871,20 +892,15 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var tables = window.components.getTables();
-            var gridViews = window.components.getGridViews();
+            var table = window.components.getFirstTable();
 
-            if (tables.Count() == 0 && gridViews.Count() == 0)
+            if (table == null)
                 return new Result.SelectTableRow.NotFound();
 
             try {
                 int intRowIndex = Int32.Parse(rowIndex);
-                if (tables.Count() > 0) {
-                    tables.First().selectRow(intRowIndex - 1, session);
-                }
-                if (gridViews.Count() > 0) {
-                    gridViews.First().selectRow(intRowIndex - 1, session);
-                }
+                table.selectRow(intRowIndex - 1, session);
+
                 return new Result.SelectTableRow.Pass(intRowIndex);
             }
             catch (Exception e) {

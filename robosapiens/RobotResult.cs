@@ -166,6 +166,7 @@ namespace RoboSAPiens {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist schreibgeschützt.");
+            public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde ausgefüllt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht ausgefüllt werden.");
         }
@@ -240,6 +241,7 @@ namespace RoboSAPiens {
         public record ReadTableCell {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
             public record Pass(string text, string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde ausgelesen.", returnValue: text);
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht ausgelesen werden.");
         }
@@ -266,6 +268,7 @@ namespace RoboSAPiens {
         public record SelectCell {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde markiert.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht markiert werden.");
 

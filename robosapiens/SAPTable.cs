@@ -1,8 +1,7 @@
 using sapfewse;
-using System;
 
 namespace RoboSAPiens {
-    public class SAPTable {
+    public class SAPTable: ITable {
         public string id {get;}
         int visibleRowCount;
         public int totalRows;
@@ -18,7 +17,7 @@ namespace RoboSAPiens {
         }
 
         public int getNumRows() {
-            return Math.Min(visibleRowCount, totalRows - rowsInStore);
+            return totalRows;
         }
 
         public void updateRowsInStore(int rowsAdded) {
@@ -41,21 +40,23 @@ namespace RoboSAPiens {
 
         public void selectRow(int rowIndex, GuiSession session) {
             var table = (GuiTableControl)session.FindById(id);
-            var rows = (GuiCollection)table.Rows;
+            var rows = table.Rows;
             var row = (GuiTableRow)rows.ElementAt(rowIndex);
             row.Selected = true;
         }
 
-        public void scrollOnePage(GuiSession session) {
+        public bool scrollOnePage(GuiSession session) {
             var table = (GuiTableControl)session.FindById(id);
-            // CAUTION: Changing the scrollbar position redraws the GUI components.
-            // Therefore, all object references are lost.
-            table.VerticalScrollbar.Position += table.VisibleRowCount;
-        }
 
-        public void scrollToTop(GuiSession session) {
-            var table = (GuiTableControl)session.FindById(id);
-            table.VerticalScrollbar.Position = table.VerticalScrollbar.Minimum;
+            // When a GuiTableControl is scrolled a number of times 
+            // that is not a multiple of 3 the whole table becomes write-protected
+            if (table.VerticalScrollbar.Position + 3 < table.VerticalScrollbar.Maximum) 
+            {
+                table.VerticalScrollbar.Position += 3;
+                return true;
+            }
+
+            return false;
         }
     }
 }

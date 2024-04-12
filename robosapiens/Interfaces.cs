@@ -45,4 +45,10 @@ namespace RoboSAPiens {
         public void error(params string[] messages);
         public void info(params string[] messages);
     }
+
+    public interface ITable {
+        public int getNumRows();
+        public bool scrollOnePage(GuiSession session);
+        public void selectRow(int rowNumber, GuiSession session);
+    }
 }

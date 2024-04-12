@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using sapfewse;
 
 
@@ -557,8 +558,10 @@ namespace RoboSAPiens {
             return verticalScrollbar;
         }
 
-        public List<SAPTable> getTables(){
-            return tables.getAll();
+        public ITable? getFirstTable(){
+            return tables.getAll().FirstOrDefault() as ITable ??
+                   gridViews.getAll().FirstOrDefault() as ITable ??
+                   tree;
         }
 
         public SAPTree? getTree() {

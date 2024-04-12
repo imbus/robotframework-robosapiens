@@ -1,7 +1,7 @@
 using sapfewse;
 
 namespace RoboSAPiens {
-    public class SAPGridView {
+    public class SAPGridView: ITable {
         string id;
         int rowCount;
 
@@ -35,6 +35,19 @@ namespace RoboSAPiens {
             GuiGridView guiGridView = (GuiGridView)session.FindById(id);
             guiGridView.CurrentCellRow = rowIdx;
             guiGridView.SelectedRows = $"{rowIdx}";
+        }
+
+        public bool scrollOnePage(GuiSession session)
+        {
+            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
+
+            if (guiGridView.FirstVisibleRow + guiGridView.VisibleRowCount < guiGridView.RowCount)
+            {
+                guiGridView.FirstVisibleRow += guiGridView.VisibleRowCount;
+                return true;
+            }
+
+            return false;
         }
     }
 }

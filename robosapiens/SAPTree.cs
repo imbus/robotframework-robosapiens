@@ -4,10 +4,10 @@ using sapfewse;
 
 namespace RoboSAPiens 
 {
-    public class SAPTree 
+    public class SAPTree: ITable
     {
         string id;
-        public int rowCount;
+        int rowCount;
 
         public SAPTree(GuiTree tree)
         {
@@ -70,6 +70,24 @@ namespace RoboSAPiens
             }
 
             return result;
+        }
+
+        public int getNumRows()
+        {
+            return rowCount;
+        }
+
+        public bool scrollOnePage(GuiSession session)
+        {
+            return false;
+        }
+
+        public void selectRow(int rowNumber, GuiSession session)
+        {
+            GuiTree tree = (GuiTree)session.FindById(id);
+            var path = getAllPaths(tree)[rowNumber];
+            var nodeKey = tree.FindNodeKeyByPath(path);
+            tree.SelectedNode = nodeKey;
         }
     }
 }
