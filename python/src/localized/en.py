@@ -412,6 +412,7 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found"),
                 "NotChangeable": "The cell with the locator '{0}, {1}' is not editable.",
+                "NoTable": "The window contains no table.",
                 "Pass": "The cell with the locator '{0}, {1}' was filled.",
                 "Exception": exception("The cell could not be filled. {0}")
             },
@@ -667,6 +668,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "NoTable": "The window contains no table.",
                 "Pass": "The cell with the locator '{0}, {1}' was read.",
                 "Exception": exception("The cell could not be read. {0}")
             },
@@ -756,6 +758,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "NoTable": "The window contains no table.",
                 "Pass": "The cell with the locator '{0}, {1}' was selected.",
                 "Exception": exception("The cell could not be selected. {0}")
             },

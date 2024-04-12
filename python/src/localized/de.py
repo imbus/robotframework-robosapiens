@@ -442,6 +442,7 @@ lib: LocalizedRoboSAPiens = {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("807131089", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
         "NotChangeable": ("2520536917", "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar."),
+        "NoTable": ("2399256699", "Die Maske enthält keine Tabelle."),
         "Pass": ("2876607603", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt."),
         "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
       },
@@ -702,6 +703,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NoTable": ("2399256699", "Die Maske enthält keine Tabelle."),
         "Pass": ("4222878164", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen."),
         "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
       },
@@ -796,6 +798,7 @@ lib: LocalizedRoboSAPiens = {
       "result": {
         "NoSession": ("4138997384", no_session),
         "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' konnte nicht gefunden werden.")),
+        "NoTable": ("2399256699", "Die Maske enthält keine Tabelle."),
         "Pass": ("1239645311", "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert."),
         "Exception": ("2355177759", exception("Die Zelle konnte nicht markiert werden."))
       },
