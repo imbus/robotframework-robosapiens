@@ -5,31 +5,20 @@ namespace RoboSAPiens {
         public string id {get;}
         int visibleRowCount;
         public int totalRows;
-        int rowsInStore;
 
         public SAPTable(GuiTableControl table) {
             this.id = table.Id;
-            
             // https://answers.sap.com/questions/11100660/how-to-get-a-correct-row-count-in-sap-table.html
             this.totalRows = table.VerticalScrollbar.Maximum + 1;
             this.visibleRowCount = table.VisibleRowCount;
-            this.rowsInStore = 0;
         }
 
         public int getNumRows() {
             return totalRows;
         }
 
-        public void updateRowsInStore(int rowsAdded) {
-            rowsInStore += rowsAdded;
-        }
-
-        public int getRowsInStore() {
-            return rowsInStore;
-        }
-
-        public bool rowsAreMissing() {
-            return rowsInStore < totalRows;
+        public int getVisibleRows() {
+            return visibleRowCount;
         }
 
         public void makeSureCellIsVisible(int rowIndex, GuiSession session) {

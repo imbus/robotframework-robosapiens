@@ -239,16 +239,19 @@ namespace RoboSAPiens {
             }
         }
 
-        void classifyTableCells(SAPTable sapTable) {
+        void classifyTableCells(SAPTable sapTable)
+        {
             var table = (GuiTableControl)session.FindById(sapTable.id);
             var columns = table.Columns;
-            var numRows = sapTable.getNumRows();
+            var numRows = sapTable.getVisibleRows();
 
-            for (int colIdx = 0; colIdx < columns.Length; colIdx++) {
+            for (int colIdx = 0; colIdx < columns.Length; colIdx++) 
+            {
                 var column = (GuiTableColumn)columns.ElementAt(colIdx);
                 var columnTitle = column.Title;
 
-                for (int rowIdx = 0; rowIdx < numRows; rowIdx++) {
+                for (int rowIdx = 0; rowIdx < numRows; rowIdx++) 
+                {
                     GuiVComponent cell;
 
                     // Tables are not necessarily rectangular grids
@@ -260,28 +263,23 @@ namespace RoboSAPiens {
                         continue;
                     }
 
-                    var absRowIdx = sapTable.getRowsInStore() + rowIdx;
                     switch (cell.Type) {
                         case "GuiButton":
-                            buttons.add(new SAPTableButton(columnTitle, absRowIdx, (GuiButton)cell, sapTable));
+                            buttons.add(new SAPTableButton(columnTitle, rowIdx, (GuiButton)cell, sapTable));
                             break;
                         case "GuiCheckBox":
-                            checkBoxes.add(new SAPTableCheckBox(columnTitle, absRowIdx, (GuiCheckBox)cell, sapTable));
+                            checkBoxes.add(new SAPTableCheckBox(columnTitle, rowIdx, (GuiCheckBox)cell, sapTable));
                             break;
                         case "GuiTextField":
                         case "GuiCTextField":
-                            var textField = (GuiTextField)cell;
-                            textCells.add(new SAPTableCell(columnTitle, absRowIdx, textField, sapTable));
+                            textCells.add(new SAPTableCell(columnTitle, rowIdx, (GuiTextField)cell, sapTable));
                             break;
                         case "GuiComboBox":
-                            var comboBox = (GuiComboBox)cell;
-                            comboBoxes.add(new SAPTableComboBox(columnTitle, absRowIdx, comboBox));
+                            comboBoxes.add(new SAPTableComboBox(columnTitle, rowIdx, (GuiComboBox)cell));
                             break;
                     }
                 }
             }
-
-            sapTable.updateRowsInStore(numRows);
         }
 
         void classifyGridViewToolbar(GuiGridView gridView) {
