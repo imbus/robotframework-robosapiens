@@ -38,10 +38,12 @@ namespace RoboSAPiens {
             var table = (GuiTableControl)session.FindById(id);
 
             // When a GuiTableControl is scrolled a number of times 
-            // that is not a multiple of 3 the whole table becomes write-protected
-            if (table.VerticalScrollbar.Position + 3 < table.VerticalScrollbar.Maximum) 
+            // the whole table becomes write-protected, but the next
+            // time it is scrolled it becomes writeable. Therefore,
+            // scroll it in steps of 1.
+            if (table.VerticalScrollbar.Position + 1 < table.VerticalScrollbar.Maximum) 
             {
-                table.VerticalScrollbar.Position += 3;
+                table.VerticalScrollbar.Position += 1;
                 return true;
             }
 
