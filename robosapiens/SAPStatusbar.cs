@@ -1,5 +1,4 @@
 using sapfewse;
-using System.Collections.Generic;
 
 namespace RoboSAPiens {
     public record StatusbarMessage(string status, string message);
@@ -34,19 +33,7 @@ namespace RoboSAPiens {
             };
         }
 
-        public bool hasErrorMessage() {
-            var errorMessageTypes = new HashSet<MessageType>() {
-                MessageType.Abort, 
-                MessageType.Error, 
-                MessageType.Warning
-            };
-
-            return errorMessageTypes.Contains(messageType);
-        }
-
         public string getMessage() {
-            if (messageType == MessageType.Empty) return "";
-
             var statusbarMessage = new StatusbarMessage(messageType.ToString(), message);
             return JSON.serialize(statusbarMessage, typeof(StatusbarMessage));
         }
