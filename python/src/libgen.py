@@ -34,14 +34,14 @@ def gen_call_args(args: ArgsDict):
 
         if "default" in args[arg]:
             default = get_value(args[arg]["default"])
-            if not default == None:
+            if default is not None:
                 arg_type = type(default).__name__
                 if arg_type == "str":
                     args_list.append(f"{name}: {arg_type}='{default}'")
                 else:
                     args_list.append(f"{name}: {arg_type}={default}")
             else:
-                args_list.append(f"{name}: str")    
+                args_list.append(f"{name}: str=None")
         else:
             args_list.append(f"{name}: str")
 

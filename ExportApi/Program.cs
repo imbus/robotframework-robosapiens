@@ -65,6 +65,21 @@ public class _
         };
     }
 
+    static object getParam(ParameterInfo param)
+    {
+        return param.DefaultValue switch {
+            DBNull => new {
+                name = param.Name,
+                spec = getSpec(param)
+            },
+            var value => new {
+                name = param.Name,
+                @default = value,
+                spec = getSpec(param)
+            }
+        };
+    }
+
     static object getKeywordSpecs() 
     {
         return typeof(KeywordLibrary)
@@ -80,12 +95,7 @@ public class _
                         name = ((Keyword)method.GetCustomAttribute(typeof(Keyword))!).Name,
                         args = method.GetParameters().ToDictionary(
                             param => param.Name!,
-                            param => new 
-                            {
-                                name = param.Name,
-                                @default = param.DefaultValue switch {DBNull => null, var value => value},
-                                spec = getSpec(param)
-                            }
+                            param => getParam(param)
                         ),
                         result = typeof(Result)
                             .GetNestedType(method.Name)!
