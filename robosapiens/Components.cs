@@ -149,10 +149,11 @@ namespace RoboSAPiens {
 
         void classifyGridViewCells(GuiGridView gridView) {
             var columnCount = gridView.ColumnCount;
-            var rowCount = gridView.RowCount;
+            var firstRow = gridView.FirstVisibleRow;
+            var rowCount = gridView.VisibleRowCount;
             var columnIds = (GuiCollection)gridView.ColumnOrder;
 
-            if (debug) 
+            if (debug)
             {
                 Console.WriteLine();
 
@@ -179,7 +180,7 @@ namespace RoboSAPiens {
                 Console.WriteLine();
             }
 
-            for (int row = 0; row < rowCount; row++) 
+            for (int row = firstRow; row < firstRow + rowCount; row++) 
             {
                 if (debug) Console.WriteLine();
                 if (debug) Console.Write(row + 1 + ": ");
@@ -187,7 +188,15 @@ namespace RoboSAPiens {
                 for (int column = 0; column < columnCount; column++) 
                 {
                     var columnId = (string)columnIds.ElementAt(column);
-                    var type = gridView.GetCellType(row, columnId);
+                    string type;
+                    
+                    try {
+                        type = gridView.GetCellType(row, columnId);
+                    }
+                    // When a row is empty an exception is thrown
+                    catch (Exception) {
+                        continue;
+                    }
 
                     if (debug) Console.Write(type + ", ");
 
