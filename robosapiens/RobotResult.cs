@@ -308,8 +308,10 @@ namespace RoboSAPiens {
 
         public record SelectTableRow {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(): RobotResult.NotFound("Die Maske enthält keine Tabelle");
-            public record Pass(int rowIndex): RobotResult.RobotPass($"Die Zeile mit dem Index '{rowIndex}' wurde markiert");
+            public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle");
+            public record InvalidIndex(int rowIndex): RobotResult.NotFound($"Die Tabelle enthält keine Zeile mit Index {rowIndex}'.");
+            public record NotFound(string cellContents): RobotResult.NotFound($"Die Zelle mit dem Inhalt '{cellContents}' konnte nicht gefunden werden.");
+            public record Pass(string rowLocator): RobotResult.RobotPass($"Die Zeile mit dem Lokator '{rowLocator}' wurde markiert");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zeile konnte nicht markiert werden.");
         }
 

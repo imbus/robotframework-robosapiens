@@ -946,23 +946,27 @@ lib: LocalizedRoboSAPiens = {
     "SelectTableRow": {
       "name": ("1966160675", "Tabellenzeile markieren"),
       "args": {
-          "row_number": {
-              "name": ("3333868678", "Zeilennummer"),
+          "row_locator": {
+              "name": ("315353924", "Zeilenlokator"),
               "spec": {},
     
           }
       },
       "result": {
           "NoSession": ("4138997384", no_session),
-          "Exception": ("2370701678", exception("Die Zeile '{0}' konnte nicht markiert werden")),
-          "NotFound": ("2402373821", "Die Tabelle enthält keine Zeile '{0}'"),
-          "Pass": ("1473660338", "Die Zeile '{0}' wurde markiert")
+          "Exception": ("3194892480", exception("Die Zeile konnte nicht markiert werden. {0}")),
+          "NoTable": ("1798632660", "Die Maske entählt keine Tabelle"),
+          "InvalidIndex": ("3624573287", "Die Tabelle hat keine Zeile '{0}'"),
+          "NotFound": ("3975114955", "Die Tabelle enthält keine Zelle mit dem Inhalt '{0}'"),
+          "Pass": ("2631747337", "Die Zeile mit dem Lokator '{0}' wurde markiert")
       },
-      "doc": ("3236027197", """
+      "doc": ("1084101355", f"""
         Die angegebene Tabellenzeile wird markiert.
               
-        | ``Tabellenzeile markieren    Zeilennummer``
+        | ``Tabellenzeile markieren    Zeilenlokator``
         
+        Zeilenlokator: {row_locator}
+
         *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
         """)
     },

@@ -520,7 +520,7 @@ namespace RoboSAPiens {
             return tabs.get(tabName);
         }
 
-        public TextCell? findTextCell(CellLocator locator) {
+        public TextCell? findTextCell(ILocator locator) {
             return textCells.get(locator);
         }
 

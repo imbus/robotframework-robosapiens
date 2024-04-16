@@ -94,6 +94,10 @@ namespace RoboSAPiens {
         }
     }
 
+    public class RowLocator: ComponentLocator {
+        public RowLocator(string rowLabel): base(rowLabel) {}
+    }
+
     public class ButtonLocator: ComponentLocator {
         public ButtonLocator(string locator): base(locator) {}
     }

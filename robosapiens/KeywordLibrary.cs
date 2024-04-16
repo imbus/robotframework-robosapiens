@@ -547,10 +547,10 @@ namespace RoboSAPiens
 
         [Keyword("Tabellenzeile markieren"),
          Doc("Die angegebene Tabellenzeile wird markiert.\n\n" +
-             "| ``Tabellenzeile markieren     Zeilennummer``")]
-        public RobotResult SelectTableRow(string row_number) {
+             "| ``Tabellenzeile markieren     Zeilenlokator``")]
+        public RobotResult SelectTableRow(string row_locator) {
             return session switch {
-                SAPSession session => session.selectTableRow(row_number),
+                SAPSession session => session.selectTableRow(row_locator),
                 _ => new Result.SelectTableRow.NoSession()
             };
         }

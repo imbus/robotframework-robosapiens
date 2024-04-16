@@ -887,21 +887,38 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult selectTableRow(string rowIndex) {
+        public RobotResult selectTableRow(string rowIndexOrLabel) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var table = window.components.getFirstTable();
 
-            if (table == null)
-                return new Result.SelectTableRow.NotFound();
+            if (table == null) {
+                return new Result.SelectTableRow.NoTable();
+            }
+
+            int rowIndex;
+            if (Int32.TryParse(rowIndexOrLabel, out rowIndex)) {
+                if (rowIndex > table.getNumRows()) {
+                    return new Result.SelectTableRow.InvalidIndex(rowIndex);
+                }
+                rowIndex--;
+            }
+            else {
+                var rowLocator = new RowLocator($"= {rowIndexOrLabel}");
+                var cell = window.components.findTextCell(rowLocator.locator);
+                if (cell != null) {
+                    rowIndex = cell.rowIndex;
+                }
+                else {
+                    return new Result.SelectTableRow.NotFound(rowIndexOrLabel);
+                }
+            }
 
             try {
-                int intRowIndex = Int32.Parse(rowIndex);
-                table.selectRow(intRowIndex - 1, session);
-
-                return new Result.SelectTableRow.Pass(intRowIndex);
+                table.selectRow(rowIndex, session);
+                return new Result.SelectTableRow.Pass(rowIndexOrLabel);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");

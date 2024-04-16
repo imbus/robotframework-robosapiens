@@ -896,22 +896,26 @@ lib: RoboSAPiens = {
         "SelectTableRow": {
             "name": "Select Table Row",
             "args": {
-                "row_number": {
-                    "name": "row_number",
+                "row_locator": {
+                    "name": "row_locator",
                     "spec": {},
 
                 }
             },
             "result": {
                 "NoSession": no_session,
-                "Exception": exception("The row with index '{0}' could not be selected"),
-                "NotFound": "The table contains no row with index '{0}'",
-                "Pass": "The row with index '{0}' was selected"
+                "Exception": exception("The row could not be selected. {0}"),
+                "NoTable": "The window contains no table",
+                "InvalidIndex": "The table does not have a row with index '{0}'",
+                "NotFound": "The table does not contain a cell with the contents '{0}'",
+                "Pass": "The row with the locator '{0}' was selected"
             },
-            "doc": """
+            "doc": f"""
             Select the specified table row.
 
-            | ``Select Table Row    row_number``
+            | ``Select Table Row    row_locator``
+
+            row_locator: {row_locator}
 
             *Hint*: Use the row number 0 to select the whole table.
             """
