@@ -10,9 +10,10 @@ namespace RoboSAPiens {
             rowCount = guiGridView.RowCount;
         }
 
-        public int getNumRows()
+        public int getNumRows(GuiSession session)
         {
-            return rowCount;
+            var gridView = (GuiGridView)session.FindById(id);
+            return gridView.RowCount;
         }
 
         // https://answers.sap.com/questions/290321/saving-extracted-sap-report-in-excel-format-into-s.html

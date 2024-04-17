@@ -573,7 +573,7 @@ namespace RoboSAPiens {
                 return new Result.CountTableRows.NotFound();
 
             try {
-                int rowCount = table.getNumRows();
+                int rowCount = table.getNumRows(session);
                 return new Result.CountTableRows.Pass(rowCount);
             }
             catch (Exception e) {
@@ -900,7 +900,7 @@ namespace RoboSAPiens {
 
             int rowIndex;
             if (Int32.TryParse(rowIndexOrLabel, out rowIndex)) {
-                if (rowIndex > table.getNumRows()) {
+                if (rowIndex > table.getNumRows(session)) {
                     return new Result.SelectTableRow.InvalidIndex(rowIndex);
                 }
                 rowIndex--;

@@ -72,9 +72,17 @@ namespace RoboSAPiens
             return result;
         }
 
-        public int getNumRows()
+        public int getNumRows(GuiSession session)
         {
-            return rowCount;
+            var tree = (GuiTree)session.FindById(id);
+            GuiCollection nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+            
+            if (nodeKeys != null) {
+                return nodeKeys.Count;
+            }
+            else {
+                return 0;
+            }
         }
 
         public bool scrollOnePage(GuiSession session)

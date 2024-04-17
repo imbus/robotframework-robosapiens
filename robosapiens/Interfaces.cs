@@ -46,8 +46,9 @@ namespace RoboSAPiens {
         public void info(params string[] messages);
     }
 
-    public interface ITable {
-        public int getNumRows();
+    public interface ITable
+    {
+        public int getNumRows(GuiSession session);
         public bool scrollOnePage(GuiSession session);
         public void selectRow(int rowNumber, GuiSession session);
     }

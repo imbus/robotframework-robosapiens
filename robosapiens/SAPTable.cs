@@ -13,8 +13,9 @@ namespace RoboSAPiens {
             this.visibleRowCount = table.VisibleRowCount;
         }
 
-        public int getNumRows() {
-            return totalRows;
+        public int getNumRows(GuiSession session) {
+            var table = (GuiTableControl)session.FindById(id);
+            return table.VerticalScrollbar.Maximum + 1;
         }
 
         public int getVisibleRows() {
