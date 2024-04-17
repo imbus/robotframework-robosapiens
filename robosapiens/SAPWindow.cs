@@ -1,5 +1,4 @@
 using sapfewse;
-using System;
 using System.Linq;
 
 namespace RoboSAPiens 
@@ -29,13 +28,19 @@ namespace RoboSAPiens
         public string getMessage() 
         {
             if (components.getAllTextFields().Count > 0) {
-                return String.Join("\n", 
-                    components.getAllTextFields().Select(field => field.text));                 
+                return string.Join("\n", 
+                    components.getAllTextFields()
+                    .Select(field => field.text)
+                    .Where(text => text != "")
+                );
             }
-            
+
             if (components.getAllLabels().Count > 0) {
-                return String.Join("\n", 
-                    components.getAllLabels().Select(label => label.text));                 
+                return string.Join("\n", 
+                    components.getAllLabels()
+                    .Select(label => label.text)
+                    .Where(text => text != "")
+                );
             }
 
             return "";
