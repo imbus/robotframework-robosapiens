@@ -131,7 +131,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(elementPath, column);
-            var folder = window.components.findTreeFolder(locator);
+            var folder = window.components.findTreeFolder(locator, session);
             
             if (folder == null) {
                 return new Result.ExpandTreeElement.NotFound(elementPath);
@@ -170,7 +170,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrContent, column);
-            var cell = window.components.findTextCell(locator);
+            var cell = window.components.findTextCell(locator, session);
 
             if (cell == null) {
                 return new Result.DoubleClickCell.NotFound(locator.location);
@@ -274,7 +274,6 @@ namespace RoboSAPiens {
 
             var buttons = window.components.getAllButtons();
             var labels = window.components.getAllLabels();
-            var tableCells = window.components.getAllTableCells();
             var textFields = window.components.getAllTextFields();
 
             buttons.ForEach(button => {
@@ -295,16 +294,6 @@ namespace RoboSAPiens {
                 var height = bottom - top;
                 var width = right - left;
                 formFields.Add(new FormField(label.text, "", label.id, left, top, width, height));
-            });
-
-            tableCells.ForEach(cell => {
-                var bottom = cell.position.bottom;
-                var left = cell.position.left;
-                var right = cell.position.right;
-                var top = cell.position.top;
-                var height = bottom - top;
-                var width = right - left;
-                formFields.Add(new FormField(cell.text, "", cell.id, left, top, width, height));
             });
 
             textFields.ForEach(textField => {
@@ -522,7 +511,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowNumberOrButtonLabel, column);
-            var button = window.components.findButtonCell(locator);
+            var button = window.components.findButtonCell(locator, session);
 
             if (button == null) {
                 return new Result.PushButtonCell.NotFound(locator.location);
@@ -594,7 +583,7 @@ namespace RoboSAPiens {
                 return new Result.ReadTableCell.NoTable();
 
             var cell = findTextCell(table, locator) as ITextElement ??
-                       window.components.findComboBoxCell(locator);
+                       window.components.findComboBoxCell(locator, session);
 
             if (cell == null) {
                 return new Result.ReadTableCell.NotFound(locator.location);
@@ -774,7 +763,7 @@ namespace RoboSAPiens {
 
         public TextCell? findTextCell(ITable table, CellLocator locator)
         {
-            var cell = window.components.findTextCell(locator);
+            var cell = window.components.findTextCell(locator, session);
             if (cell != null)
                 return cell;
 
@@ -827,7 +816,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrCellContent, column);
-            var cell = window.components.findComboBoxCell(locator);
+            var cell = window.components.findComboBoxCell(locator, session);
 
             if (cell == null) {
                 return new Result.SelectCellValue.NotFound(locator.location);
@@ -907,7 +896,7 @@ namespace RoboSAPiens {
             }
             else {
                 var rowLocator = new RowLocator($"= {rowIndexOrLabel}");
-                var cell = window.components.findTextCell(rowLocator.locator);
+                var cell = window.components.findTextCell(rowLocator.locator, session);
                 if (cell != null) {
                     rowIndex = cell.rowIndex;
                 }
@@ -1074,7 +1063,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var checkBox = window.components.findCheckBoxCell(locator);
+            var checkBox = window.components.findCheckBoxCell(locator, session);
             
             if (checkBox == null) {
                 return new Result.TickCheckBoxCell.NotFound(locator.location);
@@ -1104,7 +1093,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var checkBox = window.components.findCheckBoxCell(locator);
+            var checkBox = window.components.findCheckBoxCell(locator, session);
             
             if (checkBox == null) {
                 return new Result.UntickCheckBoxCell.NotFound(locator.location);

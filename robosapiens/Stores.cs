@@ -113,4 +113,6 @@ namespace RoboSAPiens {
             return filterBy<ILocatableCell>().Find(cell => cell.isLocated(cellLocator, labelCells)) as SAPTreeFolder;
         }
     }
+
+    public sealed class TreeStore: Repository<SAPTree> {}
 }

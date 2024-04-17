@@ -10,8 +10,34 @@ namespace RoboSAPiens {
         }
     }
 
-        public List<T> getAll() {
-            return items;
+    public class CellRepository
+    {
+        public ButtonStore buttons = new ButtonStore();
+        public CheckBoxStore checkBoxes = new CheckBoxStore();
+        public ComboBoxStore comboBoxes = new ComboBoxStore();
+        public TextCellStore textCells = new TextCellStore();
+
+        public TextCell? findTextCell(ILocator locator) {
+            return textCells.get(locator);
+        }
+
+        public ComboBox? findComboBoxCell(CellLocator locator) {
+            return comboBoxes.getCell(locator, textCells);
+        }
+
+        public CheckBox? findCheckBoxCell(CellLocator locator) {
+            return checkBoxes.get(locator, textCells);
+        }
+
+        public Button? findButtonCell(CellLocator locator) {
+            return buttons.get(locator, textCells);
+        }
+
+        public bool isEmpty() {
+            return buttons.Count == 0 && 
+                   checkBoxes.Count == 0 && 
+                   comboBoxes.Count == 0 && 
+                   textCells.Count == 0;
         }
     }
 

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using sapfewse;
 
 namespace RoboSAPiens {
@@ -11,6 +13,63 @@ namespace RoboSAPiens {
             // https://answers.sap.com/questions/11100660/how-to-get-a-correct-row-count-in-sap-table.html
             this.totalRows = table.VerticalScrollbar.Maximum + 1;
             this.visibleRowCount = table.VisibleRowCount;
+        }
+
+        List<string> getColumnTitles(GuiTableControl table)
+        {
+            var columnTitles = new List<string>();
+            var columns = table.Columns;
+            
+            for (int colIdx = 0; colIdx < columns.Length; colIdx++) 
+            {
+                var column = (GuiTableColumn)columns.ElementAt(colIdx);
+                columnTitles.Add(column.Title);
+            }
+
+            return columnTitles;
+        }
+
+        public void classifyCells(GuiSession session, CellRepository repo)
+        {
+            var table = (GuiTableControl)session.FindById(id);
+            var columns = table.Columns;
+            var numRows = getVisibleRows();
+
+            for (int colIdx = 0; colIdx < columns.Length; colIdx++) 
+            {
+                var column = (GuiTableColumn)columns.ElementAt(colIdx);
+                var columnTitle = column.Title;
+
+                for (int rowIdx = 0; rowIdx < numRows; rowIdx++) 
+                {
+                    GuiVComponent cell;
+
+                    // Tables are not necessarily rectangular grids
+                    // A column may have a hole. Holes are skipped
+                    try {
+                        cell = table.GetCell(rowIdx, colIdx);
+                    }
+                    catch (Exception) {
+                        continue;
+                    }
+
+                    switch (cell.Type) {
+                        case "GuiButton":
+                            repo.buttons.Add(new SAPTableButton(columnTitle, rowIdx, (GuiButton)cell, this));
+                            break;
+                        case "GuiCheckBox":
+                            repo.checkBoxes.Add(new SAPTableCheckBox(columnTitle, rowIdx, (GuiCheckBox)cell, this));
+                            break;
+                        case "GuiTextField":
+                        case "GuiCTextField":
+                            repo.textCells.Add(new SAPTableCell(columnTitle, rowIdx, (GuiTextField)cell, this));
+                            break;
+                        case "GuiComboBox":
+                            repo.comboBoxes.Add(new SAPTableComboBox(columnTitle, rowIdx, (GuiComboBox)cell));
+                            break;
+                    }
+                }
+            }
         }
 
         public int getNumRows(GuiSession session) {
@@ -49,6 +108,14 @@ namespace RoboSAPiens {
             }
 
             return false;
+        }
+
+        public void print(GuiTableControl guiTableControl)
+        {
+            var columnTitles = getColumnTitles(guiTableControl);
+            Console.WriteLine();
+            Console.WriteLine($"Rows: {totalRows}");
+            Console.Write("Columns: " + string.Join(", ", columnTitles));
         }
     }
 }
