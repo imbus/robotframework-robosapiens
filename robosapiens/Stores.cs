@@ -58,7 +58,7 @@ namespace RoboSAPiens {
         }
 
         public SAPLabel? getByName(string name){
-            return items.Find(label => label.contains(name));
+            return Find(label => label.contains(name));
         }
     }
 
@@ -90,7 +90,7 @@ namespace RoboSAPiens {
 
     public sealed class TextCellStore: Repository<TextCell> {
         public TextCell? getByContent(string text) {
-            return items.Find(cell => cell.contains(text));
+            return Find(cell => cell.contains(text));
         }
 
         public TextCell? get(ILocator locator) {
