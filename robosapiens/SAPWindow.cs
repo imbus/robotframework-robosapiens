@@ -44,5 +44,10 @@ namespace RoboSAPiens
         public void pressKey(int key) {
             self.SendVKey(key);
         }
+
+        public void setStatusbar(GuiSession session, string statusbarId) {
+            var statusbar = (GuiStatusbar)session.FindById(statusbarId);
+            components.setStatusBar(statusbar);
+        }
     }
 }

@@ -33,7 +33,14 @@ namespace RoboSAPiens {
 
         RobotResult.UIScanFail? updateWindow() {
             try {
-                window = new SAPWindow(session.ActiveWindow);
+                var currentStatusbarId = window.components.getStatusBar()?.id;
+                var activeWindow = session.ActiveWindow;
+                window = new SAPWindow(activeWindow);
+
+                if (currentStatusbarId != null && activeWindow.Type == "GuiModalWindow") {
+                    window.setStatusbar(session, currentStatusbarId);
+                }
+
                 return null;
             } 
             catch (Exception e){

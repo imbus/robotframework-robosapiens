@@ -383,6 +383,10 @@ namespace RoboSAPiens {
             return statusBar;
         }
 
+        public void setStatusBar(GuiStatusbar guiStatusbar) {
+            statusBar = new SAPStatusbar(guiStatusbar);
+        }
+
         public List<SAPGridView> getGridViews() {
             return gridViews;
         }
