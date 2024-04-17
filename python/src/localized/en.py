@@ -557,7 +557,7 @@ lib: RoboSAPiens = {
             
             *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
             The name may be used as locator as long as it is unique.
-            When using the full tooltip text remember to escape the spaces (e.g. ``Back \\ \\ (F3)``)
+            When using the full tooltip text remember to escape the spaces (e.g. ``Back \\\\ \\\\ (F3)``)
             """
         },
         "PushButtonCell": {
