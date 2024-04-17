@@ -21,7 +21,7 @@ namespace RoboSAPiens {
             this.session = session;
             this.systemName = session.Info.SystemName;
             this.options = options;
-            this.window = new SAPWindow(session.ActiveWindow, session, debug: options.debug);
+            this.window = new SAPWindow(session.ActiveWindow, debug: options.debug);
         }
 
         bool windowChanged() {
@@ -33,7 +33,7 @@ namespace RoboSAPiens {
 
         RobotResult.UIScanFail? updateWindow() {
             try {
-                window = new SAPWindow(session.ActiveWindow, session);
+                window = new SAPWindow(session.ActiveWindow);
                 return null;
             } 
             catch (Exception e){

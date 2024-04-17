@@ -12,7 +12,7 @@ namespace RoboSAPiens
         public string title {get;}
         GuiFrameWindow self;
 
-        public SAPWindow(GuiFrameWindow window, GuiSession session, bool debug=false) 
+        public SAPWindow(GuiFrameWindow window, bool debug=false) 
         {
             components = new Components(window.Children, debug);
             id = window.Id;
