@@ -32,7 +32,7 @@ def locales_bullet_list() -> str:
 
 lib: RoboSAPiens = {
     "doc": {
-        "intro": f"""RoboSAPiens: SAP GUI-Automation for Humans
+        "intro": """RoboSAPiens: SAP GUI-Automation for Humans
 
         In order to use this library the following requirements must be satisfied:
 
@@ -40,7 +40,7 @@ lib: RoboSAPiens = {
         
         - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
 
-        New features in Version 2.0:
+        == New features in Version 2.0 ==
 
         - Support for SAP GUI 8.0 64-bit
         - New keyword "Expand Tree Element"
@@ -49,13 +49,23 @@ lib: RoboSAPiens = {
         - New keyword "Select Menu Entry"
         - New keyword "Untick Checkbox Cell"
 
-        Breaking changes with respect to Version 1.0:
+        == Breaking changes with respect to Version 1.0 ==
 
         - The keyword "Fill Cell" takes three positional arguments instead of two
         - The keyword "Read Statusbar" returns a dictionary instead of a string
         - Renamed the keyword "Export Dynpro" to "Export Window"
         - Renamed the keyword "Export Function Tree" to "Export Tree Structure"
         - Renamed the keyword "Select Text Line" to "Select Text"
+
+        == Getting started ==
+
+        In order to login to a server execute the following:
+    
+        | Open SAP             C:${/}Program Files (x86)${/}SAP${/}FrontEnd${/}SAPgui${/}saplogon.exe
+        | Connect to Server    My Test Server
+        | Fill Text Field      User              TESTUSER
+        | Fill Text Field      Password          TESTPASSWORD
+        | Push Button          Enter
         """,
         "init": ""
     },
@@ -469,7 +479,7 @@ lib: RoboSAPiens = {
             *Text field without label below a text field with a label (e.g. an address line)*
             | ``Fill Text Field    position (1,2,..) @ label    content``
             
-            *Text field without a label to the right of a text field with a label*
+            *Text field without label to the right of a text field with a label*
             | ``Fill Text Field    label @ position (1,2,..)    content``
             
             *Text field with a non-unique label to the right of a text field with a label*
@@ -547,7 +557,7 @@ lib: RoboSAPiens = {
             
             *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
             The name may be used as locator as long as it is unique.
-            When using the full tooltip text remember to escape the spaces (e.g. ``Back \\\\ \\\\ (F3)``)
+            When using the full tooltip text remember to escape the spaces (e.g. ``Back \\ \\ (F3)``)
             """
         },
         "PushButtonCell": {

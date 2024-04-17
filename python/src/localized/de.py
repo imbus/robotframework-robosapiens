@@ -26,7 +26,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 lib: LocalizedRoboSAPiens = {
   "doc": {
     "intro": (
-        "167346405", 
+        "2262163517", 
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
@@ -35,7 +35,7 @@ lib: LocalizedRoboSAPiens = {
         
         - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
 
-        Neuigkeiten in der Version 2.0:
+        == Neuigkeiten in der Version 2.0 ==
 
         - Unterstützung für SAP GUI 8.0 64-bit
         - Neues Schlüsselwort "Baumelement aufklappen"
@@ -44,12 +44,22 @@ lib: LocalizedRoboSAPiens = {
         - Neues Schlüsselwort "Tabellenzelle abwählen"
         - Neues Schlüsselwort "Tabellenzeilen zählen"
 
-        Einschneidende Änderungen im Vergleich zu Version 1.0:
+        == Einschneidende Änderungen gegenüber der Version 1.0 ==
 
+        - Das Schlüsselwort "Funktionsbaum exportieren" wurde in "Baumstruktur exportieren" umbenannt.
         - Das Schlüsselwort "Statusleiste auslesen" gibt ein Dictionary statt ein String zurück.
         - Das Schlüsselwort "Tabellenzelle ausfühlen" hat drei statt zwei Parameter.
         - Das Schlüsselwort "Textzeile markieren" wurde in "Text markieren" umbenannt.
-        - Das Schlüsselwort "Funktionsbaum exportieren" wurde in "Baumstruktur exportieren" umbenannt.
+
+        == Erste Schritte ==
+
+        Mit der folgenden Sequenz erfolgt die Anmeldung bei einem SAP Server:
+    
+        | SAP starten                         C:${/}Program Files (x86)${/}SAP${/}FrontEnd${/}SAPgui${/}saplogon.exe
+        | Verbindung zum Server herstellen    Mein Testserver
+        | Textfeld ausfüllen                  Benutzer           TESTUSER
+        | Textfeld ausfüllen                  Kennwort           TESTPASSWORD
+        | Knopf drücken                       Weiter
     """
     ),
     "init": ("0", ""),
@@ -63,7 +73,7 @@ lib: LocalizedRoboSAPiens = {
     "a2x64": {
         "name": ("218858810", "x64"),
         "default": False,
-        "doc": ("2992171893", "64-bit RoboSAPiens ausführen")
+        "doc": ("2992171893", "RoboSAPiens 64-bit ausführen")
     }
   },
   "keywords": {
@@ -106,12 +116,12 @@ lib: LocalizedRoboSAPiens = {
         },
         "result": {
             "NoSession": ("4138997384", no_session),
-            "NotFound": ("3335065344", not_found("Der Baumelement '{0}, {1}' wurde nicht gefunden.")),
-            "Pass": ("1036036987", "Der Baumelement '{0}, {1}' wurde aufgeklappt."),
-            "Exception": ("591408237", exception("Der Baumelement konnte nicht aufgeklappt werden. {0}"))
+            "NotFound": ("3335065344", not_found("Das Baumelement '{0}, {1}' wurde nicht gefunden.")),
+            "Pass": ("1036036987", "Das Baumelement '{0}, {1}' wurde aufgeklappt."),
+            "Exception": ("591408237", exception("Das Baumelement konnte nicht aufgeklappt werden. {0}"))
         },
         "doc": ("1771358746", """
-        Der Baumelement mit dem angegebenen Pfad und Spalte wird aufgeklappt.
+        Das Baumelement mit dem angegebenen Pfad und Spalte wird aufgeklappt.
         
         | ``Baumelement aufklappen    Elementpfad    Spalte``
                 
@@ -488,7 +498,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3667643114", exception("Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt."))
       },
       "doc": (
-          "1588888798", 
+          "2260110205", 
           """
           Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
           
@@ -578,7 +588,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1002997848", exception("Der Knopf konnte nicht gedrückt werden."))
       },
       "doc": (
-          "2949945181", 
+          "729499090", 
           """
           Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.
           
@@ -588,7 +598,7 @@ lib: LocalizedRoboSAPiens = {
           
           *Hinweis*: Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
           Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
-          Wenn der gesamte Text des Tooltips als Lokator verwendet wird, müssen die Leerzeichen gescaped werden (z.B. ``Zurück \\\\ \\\\ (F3)``).
+          Wenn der gesamte Text des Tooltips als Lokator verwendet wird, müssen die Leerzeichen gescaped werden (z.B. ``Zurück \\ \\ (F3)``).
           """
       )
     },
