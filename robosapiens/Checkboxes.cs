@@ -225,12 +225,14 @@ namespace RoboSAPiens {
 
         public override void select(GuiSession session) {
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.ModifyCheckBox(rowIndex, columnId, true);        
+            gridView.ModifyCheckBox(rowIndex, columnId, true);
+            gridView.TriggerModified();
         }
 
         public override void deselect(GuiSession session) {
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.ModifyCheckBox(rowIndex, columnId, false);        
+            gridView.ModifyCheckBox(rowIndex, columnId, false);
+            gridView.TriggerModified();   
         }
 
         // The innerObject parameter of the Visualize method of GuiGridView
