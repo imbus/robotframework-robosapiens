@@ -99,7 +99,7 @@ namespace RoboSAPiens
         {
             GuiGridView guiGridView = (GuiGridView)session.FindById(id);
             guiGridView.CurrentCellRow = rowIdx;
-            guiGridView.SelectedRows = $"{rowIdx}";
+            guiGridView.SelectedRows = rowIdx.ToString();
         }
 
         public bool scrollOnePage(GuiSession session)
