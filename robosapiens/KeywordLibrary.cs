@@ -33,15 +33,14 @@ namespace RoboSAPiens
                 {"DoubleClickCell", args => DoubleClickCell(args[0], args[1])},
                 {"DoubleClickTextField", args => DoubleClickTextField(args[0])},
                 {"ExecuteTransaction", args => ExecuteTransaction(args[0])},
-                {"ExportWindow", args => ExportWindow(args[0], args[1])},
-                {"ExportSpreadsheet", args => ExportSpreadsheet(args[0])},
+                {"ExpandTreeElement", args => ExpandTreeElement(args[0], args[1])},
                 {"ExportTree", args => ExportTree(args[0])},
+                {"ExportWindow", args => ExportWindow(args[0], args[1])},
                 {"FillTableCell", args => FillTableCell(args[0], args[1], args[2])},
                 {"FillTextField", args => FillTextField(args[0], args[1])},
                 {"GetWindowText", args => GetWindowText()},
                 {"GetWindowTitle", args => GetWindowTitle()},
                 {"HighlightButton", args => HighlightButton(args[0])},
-                {"ExpandTreeElement", args => ExpandTreeElement(args[0], args[1])},
                 {"OpenSap", args => OpenSap(args[0])},
                 {"PressKeyCombination", args => PressKeyCombination(args[0])},
                 {"PushButton", args => PushButton(args[0])},
@@ -51,15 +50,15 @@ namespace RoboSAPiens
                 {"ReadText", args => ReadText(args[0])},
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
-                {"SelectMenuItem", args => SelectMenuItem(args[0])},
                 {"ScrollTextFieldContents", args => ScrollTextFieldContents(args[0], args[1])},
                 {"SelectCell", args => SelectCell(args[0], args[1])},
                 {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
                 {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
+                {"SelectMenuItem", args => SelectMenuItem(args[0])},
                 {"SelectRadioButton", args => SelectRadioButton(args[0])},
                 {"SelectTableRow", args => SelectTableRow(args[0])},
-                {"SelectTextField", args => SelectTextField(args[0])},
                 {"SelectText", args => SelectText(args[0])},
+                {"SelectTextField", args => SelectTextField(args[0])},
                 {"TickCheckBox", args => TickCheckBox(args[0])},
                 {"TickCheckBoxCell", args => TickCheckBoxCell(args[0], args[1])},
                 {"UntickCheckBox", args => UntickCheckBox(args[0])},
@@ -443,17 +442,6 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.executeTransaction(T_Code),
                 _ => new Result.ExecuteTransaction.NoSession()
-            };
-        }
-
-        [Keyword("Tabellenkalkulation exportieren"),
-         Doc("Die Export-Funktion 'Tabellenkalkulation' wird für die angegebene Tabelle aufgerufen, falls vorhanden.\n\n" +
-             "| ``Tabellenkalkulation exportieren   Index``\n" + 
-             "Index: 1, 2,...")]
-        public RobotResult ExportSpreadsheet(string index) {
-            return session switch {
-                SAPSession session => session.exportSpreadsheet(index),
-                _ => new Result.ExportSpreadsheet.NoSession()
             };
         }
 

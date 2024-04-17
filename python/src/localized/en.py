@@ -56,6 +56,7 @@ lib: RoboSAPiens = {
         - Renamed the keyword "Export Dynpro" to "Export Window"
         - Renamed the keyword "Export Function Tree" to "Export Tree Structure"
         - Renamed the keyword "Select Text Line" to "Select Text"
+        - Removed the keyword "Export Spreadsheet"
 
         == Getting started ==
 
@@ -192,29 +193,6 @@ lib: RoboSAPiens = {
             Count the rows in a table.
             
             | ``${row_count}   Get Row Count``
-            """
-        },
-        "ExportSpreadsheet": {
-            "name": "Export Spreadsheet",
-            "args": {
-                "index": {
-                    "name": "table_index",
-                    "spec": {},
-
-                }
-            },
-            "result": {
-                "NoSession": no_session,
-                "Exception": exception("The export function 'Spreadsheet' could not be called"),
-                "NotFound": "No table was found that supports the export function 'Spreadsheet'",
-                "Pass": "The export function 'Spreadsheet' was successfully called on the table with index {0}."
-            },
-            "doc": """
-            The export function 'Spreadsheet' will be executed for the specified table, if available.
-
-            | ``Export spreadsheet    table_index``
-
-            table_index: 1, 2,...
             """
         },
         "ExportTree": {

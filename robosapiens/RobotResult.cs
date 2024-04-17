@@ -155,13 +155,6 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Maske konnte nicht exportiert werden.");
         }
 
-        public record ExportSpreadsheet {
-            public record NoSession(): RobotResult.NoSession();
-            public record Pass(): RobotResult.RobotPass("Die Export-Funktion Tabellenkalkulation wurde aufgerufen.");
-            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Export-Funktion Tabellenkalkulation konnte nicht aufgerufen werden.");
-            public record NotFound(): RobotResult.NotFound("Keine Tabelle wurde gefunden, welche die Export-Funktion Tabellenkalkulation unterstützt.");
-        }
-
         public record FillTableCell {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
@@ -309,7 +302,7 @@ namespace RoboSAPiens {
         public record SelectTableRow {
             public record NoSession(): RobotResult.NoSession();
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle");
-            public record InvalidIndex(int rowIndex): RobotResult.NotFound($"Die Tabelle enthält keine Zeile mit Index {rowIndex}'.");
+            public record InvalidIndex(int rowIndex): RobotResult.RobotFail("InvalidIndex", $"Die Tabelle enthält keine Zeile mit Index {rowIndex}'.");
             public record NotFound(string cellContents): RobotResult.NotFound($"Die Zelle mit dem Inhalt '{cellContents}' konnte nicht gefunden werden.");
             public record Pass(string rowLocator): RobotResult.RobotPass($"Die Zeile mit dem Lokator '{rowLocator}' wurde markiert");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zeile konnte nicht markiert werden.");

@@ -45,14 +45,6 @@ namespace RoboSAPiens
             return gridView.RowCount;
         }
 
-        // https://answers.sap.com/questions/290321/saving-extracted-sap-report-in-excel-format-into-s.html
-        public void exportSpreadsheet(GuiSession session) 
-        {
-            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
-            guiGridView.PressToolbarContextButton("&MB_EXPORT");
-            guiGridView.SelectContextMenuItem("&XXL");
-        }
-
         public void classifyCells(GuiSession session, CellRepository repo) 
         {
             var gridView = (GuiGridView)session.FindById(id);

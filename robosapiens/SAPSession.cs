@@ -242,28 +242,6 @@ namespace RoboSAPiens {
             return String.Join("", filename.Where(c => !forbiddenChars.Contains(c)));
         }
 
-        public RobotResult exportSpreadsheet(string index) {
-            switch (updateComponentsIfWindowChanged()) {
-                case RobotResult.UIScanFail exceptionError: return exceptionError;
-            }
-
-            var gridViews = window.components.getGridViews();
-
-            try 
-            {
-                int idx = Int32.Parse(index) - 1;
-
-                if (idx > gridViews.Count - 1) return new Result.ExportSpreadsheet.NotFound();
-
-                gridViews[idx].exportSpreadsheet(session);
-                return new Result.ExportSpreadsheet.Pass();
-            }
-            catch (Exception e) 
-            {
-                return new Result.ExportSpreadsheet.Exception(e);
-            }
-        }
-
         public RobotResult exportWindow(string formName, string directory) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
