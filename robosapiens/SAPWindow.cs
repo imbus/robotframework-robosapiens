@@ -2,18 +2,19 @@ using sapfewse;
 using System;
 using System.Linq;
 
-namespace RoboSAPiens {
-    public class SAPWindow {
+namespace RoboSAPiens 
+{
+    public class SAPWindow 
+    {
         public Components components;
         public string id {get;}
         public Position position;
         public string title {get;}
         GuiFrameWindow self;
-        IntPtr windowHandle;
-        string windowType;
 
-        public SAPWindow(GuiFrameWindow window, GuiSession session, bool loadComponents=false, bool debug=false) {
-            components = loadComponents ? new Components(window.Children, session, debug) : new Components(session);
+        public SAPWindow(GuiFrameWindow window, GuiSession session, bool debug=false) 
+        {
+            components = new Components(window.Children, debug);
             id = window.Id;
             position = new Position(
                 height: window.Height,
@@ -23,11 +24,10 @@ namespace RoboSAPiens {
             );
             title = window.Text;
             self = window;
-            windowHandle = new IntPtr(window.Handle);
-            windowType = window.Type;
         }
 
-        public string getMessage() {
+        public string getMessage() 
+        {
             if (components.getAllTextFields().Count > 0) {
                 return String.Join("\n", 
                     components.getAllTextFields().Select(field => field.text));                 
@@ -41,10 +41,6 @@ namespace RoboSAPiens {
             return "";
         }
         
-        public bool isModalWindow() {
-            return windowType == "GuiModalWindow";
-        }
-
         public void pressKey(int key) {
             self.SendVKey(key);
         }

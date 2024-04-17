@@ -21,7 +21,7 @@ namespace RoboSAPiens {
             this.session = session;
             this.systemName = session.Info.SystemName;
             this.options = options;
-            this.window = new SAPWindow(session.ActiveWindow, session, loadComponents: true, debug: options.debug);
+            this.window = new SAPWindow(session.ActiveWindow, session, debug: options.debug);
         }
 
         bool windowChanged() {
@@ -31,9 +31,9 @@ namespace RoboSAPiens {
                    window.id != currentWindow.Id;
         }
 
-        RobotResult.UIScanFail? updateWindow(bool updateComponents) {
+        RobotResult.UIScanFail? updateWindow() {
             try {
-                window = new SAPWindow(session.ActiveWindow, session, updateComponents);
+                window = new SAPWindow(session.ActiveWindow, session);
                 return null;
             } 
             catch (Exception e){
@@ -44,7 +44,7 @@ namespace RoboSAPiens {
 
         RobotResult.UIScanFail? updateComponentsIfWindowChanged() {
             if (windowChanged()) {
-                return updateWindow(updateComponents: true);
+                return updateWindow();
             }
 
             return null;
@@ -85,7 +85,7 @@ namespace RoboSAPiens {
             try {
                 tab.select(session);
 
-                switch (updateWindow(updateComponents: true)) {
+                switch (updateWindow()) {
                     case RobotResult.UIScanFail exceptionError:
                         return exceptionError;
                 }
@@ -112,7 +112,7 @@ namespace RoboSAPiens {
             try {
                 menu.select(session);
 
-                switch (updateWindow(updateComponents: true)) {
+                switch (updateWindow()) {
                     case RobotResult.UIScanFail exceptionError:
                         return exceptionError;
                 }
@@ -140,7 +140,7 @@ namespace RoboSAPiens {
             try {
                 folder.open(session);
 
-                switch (updateWindow(updateComponents: true)) {
+                switch (updateWindow()) {
                     case RobotResult.UIScanFail exceptionError:
                         return exceptionError;
                 }
@@ -465,7 +465,7 @@ namespace RoboSAPiens {
 
             if (button == null) 
             {
-                switch (updateWindow(updateComponents: true)) {
+                switch (updateWindow()) {
                     case RobotResult.UIScanFail exceptionError: return exceptionError;
                 }
             
@@ -496,7 +496,7 @@ namespace RoboSAPiens {
             // Pushing a Button may result in the window being rerendered,
             // and the properties of some components may change.
             if (!windowChanged()) {
-                switch (updateWindow(updateComponents: true)) {
+                switch (updateWindow()) {
                     case RobotResult.UIScanFail exceptionError:
                         return exceptionError;
                 }
@@ -739,7 +739,7 @@ namespace RoboSAPiens {
                 {
                     // Scrolling the window changes the values of some components,
                     // therefore the components have to be scanned to read their current value
-                    switch (updateWindow(updateComponents: true)) {
+                    switch (updateWindow()) {
                         case RobotResult.UIScanFail exceptionError:
                             return exceptionError;
                     }
@@ -772,7 +772,7 @@ namespace RoboSAPiens {
             {
                 // Scrolling the table redraws the screen,
                 // therefore the components have to be scanned
-                updateWindow(updateComponents: true);
+                updateWindow();
                 return findTextCell(table, locator);
             }
 

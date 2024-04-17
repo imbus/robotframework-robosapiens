@@ -23,18 +23,11 @@ namespace RoboSAPiens {
         ButtonStore toolbarButtons = new ButtonStore();
         TreeStore trees = new TreeStore();
         VerticalScrollbar? verticalScrollbar = null;
-        private GuiSession session;
         private bool debug;
         private string indentation = "";
 
-        public Components(GuiSession session) {
-            this.session = session;
-            // Null-Object Design Pattern
-        }
-
-        public Components(GuiComponentCollection components, GuiSession session, bool debug=false) {
+        public Components(GuiComponentCollection components, bool debug=false) {
             this.debug = debug;
-            this.session = session;
 
             getWindowComponents(components);
         }
