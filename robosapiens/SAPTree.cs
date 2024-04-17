@@ -76,9 +76,9 @@ namespace RoboSAPiens
             {
                 var paths = getAllPaths(tree);
 
-                for (int i = 0; i < columnNames.Length; i++) 
+                for (int c = 0; c < columnNames.Length; c++) 
                 {
-                    var columnName = (string)columnNames.ElementAt(i);
+                    var columnName = (string)columnNames.ElementAt(c);
                     if (columnName == null) { continue; }
 
                     string columnTitle;
@@ -114,7 +114,9 @@ namespace RoboSAPiens
                                 break;
                             case TreeItem.Text:
                                 repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
-                                treeFolders.Add(new SAPTreeFolder(tree, nodeKey, nodePath, columnTitle));
+                                if (c == 0 && tree.IsFolderExpandable(nodeKey)) {
+                                    treeFolders.Add(new SAPTreeFolder(tree, nodeKey, nodePath, columnTitle));
+                                }
                                 break;
                         }
                     }
