@@ -67,6 +67,23 @@ lib: RoboSAPiens = {
         | Fill Text Field      User              TESTUSER
         | Fill Text Field      Password          TESTPASSWORD
         | Push Button          Enter
+
+        == Dealing with spontaneous pop-up windows ==
+
+        When clicking a button it can happen that a dialog window pops up.
+        The following keyword can be useful in this situation:
+
+        | Click button and close pop-up window
+        |   [Arguments]   ${button}   ${title}   ${close button}
+        |
+        |   Push Button       ${button}
+        |   ${window title}   Get Window Title
+        |
+        |   IF   $window title == $title
+        |       Log               Pop-up window: ${title}
+        |       Save screenshot   LOG
+        |       Push button       ${close button}
+        |   END
         """,
         "init": ""
     },

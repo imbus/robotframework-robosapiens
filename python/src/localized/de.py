@@ -26,7 +26,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 lib: LocalizedRoboSAPiens = {
   "doc": {
     "intro": (
-        "1809091151", 
+        "3225933924", 
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
@@ -61,7 +61,24 @@ lib: LocalizedRoboSAPiens = {
         | Textfeld ausfüllen                  Benutzer           TESTUSER
         | Textfeld ausfüllen                  Kennwort           TESTPASSWORD
         | Knopf drücken                       Weiter
-    """
+
+        == Umgang mit spontanen Pop-up-Fenstern ==
+
+        Beim Drücken eines Knopfes kann u.U. ein Dialogfenster aufpoppen.
+        Das folgende Schlüsselwort kann in diesem Fall hilfreich sein:
+
+        | Knopf drücken und Pop-up-Fenster schließen
+        |   [Argumente]   ${Knopf}   ${Titel}    ${Knopf Schließen}
+        |
+        |   Knopf drücken     ${Knopf}
+        |   ${Fenstertitel}   Fenstertitel auslesen
+        |
+        |   IF   $Fenstertitel == $Titel
+        |       Log                 Pop-up Fenster: ${Titel}
+        |       Fenster aufnehmen   LOG
+        |       Knopf drücken       ${Knopf Schließen}
+        |   END
+        """
     ),
     "init": ("0", ""),
   },
