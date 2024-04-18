@@ -68,7 +68,7 @@ namespace RoboSAPiens {
 
         public record ActivateTab {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string theTab): RobotResult.NotFound($"Der Reiter {theTab} konnte nicht gefunden werden.");
+            public record NotFound(string theTab): RobotResult.NotFound($"Der Reiter {theTab} wurde nicht gefunden.");
             public record Pass(string theTab): RobotResult.RobotPass($"Der Reiter {theTab} wurde ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Reiter konnte nicht ausgewählt werden.");
         }
@@ -131,14 +131,14 @@ namespace RoboSAPiens {
 
         public record DoubleClickCell {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde doppelgeklickt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht doppelgeklickt werden.");
         }
 
         public record DoubleClickTextField {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Textfeld mit dem Lokator '{locator}' wurde doppelgeklickt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Textfeld konnte nicht doppelgeklickt werden.");
         }
@@ -157,7 +157,7 @@ namespace RoboSAPiens {
 
         public record FillTableCell {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist schreibgeschützt.");
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde ausgefüllt.");
@@ -166,7 +166,7 @@ namespace RoboSAPiens {
 
         public record FillTextField {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Das Textfeld mit dem Lokator '{locator}' ist schreibgeschützt.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Textfeld mit dem Lokator '{locator}' wurde ausgefüllt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.");
@@ -174,14 +174,14 @@ namespace RoboSAPiens {
 
         public record HighlightButton {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record Pass(string locator): RobotResult.RobotPass($"Der Knopf mit dem Lokator '{locator}' wurde hervorgehoben.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Knopf konnte nicht hervorgehoben werden.");
         }
 
         public record SelectTreeElement {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string elementPath): RobotResult.NotFound($"Das Baumelement '{elementPath}' konnte nicht gefunden werden.");
+            public record NotFound(string elementPath): RobotResult.NotFound($"Das Baumelement '{elementPath}' wurde nicht gefunden.");
             public record Pass(string elementPath): RobotResult.RobotPass($"Das Baumelement '{elementPath}' wurde markiert.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Baumelement konnte nicht markiert werden.");
         }
@@ -195,7 +195,7 @@ namespace RoboSAPiens {
 
         public record PushButton {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Der Knopf mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Der Knopf mit dem Lokator '{locator}' wurde gedrückt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Knopf konnte nicht gedrückt werden.");
@@ -203,7 +203,7 @@ namespace RoboSAPiens {
 
         public record PushButtonCell {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde gedrückt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht gedrückt werden.");
@@ -219,21 +219,21 @@ namespace RoboSAPiens {
 
         public record ReadTextField {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record Pass(string text, string locator): RobotResult.RobotPass($"Das Textfeld mit dem Lokator '{locator}' wurde ausgelesen.", returnValue: text);
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Textfeld konnte nicht ausgelesen werden.");
         }
 
         public record ReadText {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string text): RobotResult.NotFound($"Der Text mit dem Lokator '{text}' konnte nicht gefunden werden.");
+            public record NotFound(string text): RobotResult.NotFound($"Der Text mit dem Lokator '{text}' wurde nicht gefunden.");
             public record Pass(string text): RobotResult.RobotPass($"Der Text wurde ausgelesen.", returnValue: text);
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Text konnte nicht ausgelesen werden.");
         }
 
         public record ReadTableCell {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
             public record Pass(string text, string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde ausgelesen.", returnValue: text);
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht ausgelesen werden.");
@@ -260,7 +260,7 @@ namespace RoboSAPiens {
 
         public record SelectCell {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde markiert.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht markiert werden.");
@@ -269,7 +269,7 @@ namespace RoboSAPiens {
 
         public record SelectCellValue {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record EntryNotFound(string value, string locator): RobotResult.EntryNotFound($"Der Wert '{value}' ist in der Zelle mit dem Lokator '{locator}' nicht vorhanden.");
             public record Pass(string value, string locator): RobotResult.RobotPass($"Der Wert '{value}' wurde in der Zelle mit dem Lokator '{locator}' ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Wert konnte nicht ausgewählt werden.");
@@ -278,7 +278,7 @@ namespace RoboSAPiens {
 
         public record SelectComboBoxEntry {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Das Auswahlmenü mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Das Auswahlmenü mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record EntryNotFound(string item, string locator): RobotResult.EntryNotFound($"Der Eintrag '{item}' wurde im Auswahlmenü mit dem Lokator '{locator}' nicht gefunden.");
             public record Pass(string item): RobotResult.RobotPass($"Der Eintrag '{item}' wurde ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Eintrag konnte nicht ausgewählt werden.");
@@ -286,7 +286,7 @@ namespace RoboSAPiens {
 
         public record SelectRadioButton {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Das Optionsfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Das Optionsfeld mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Das Optionsfeld mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Optionsfeld mit dem Lokator '{locator}' wurde ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Optionsfeld konnte nicht ausgewählt werden.");
@@ -294,7 +294,7 @@ namespace RoboSAPiens {
 
         public record SelectMenuItem {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string menuEntryPath): RobotResult.NotFound($"Der Menüeintrag {menuEntryPath} konnte nicht gefunden werden.");
+            public record NotFound(string menuEntryPath): RobotResult.NotFound($"Der Menüeintrag {menuEntryPath} wurde nicht gefunden.");
             public record Pass(string menuEntryPath): RobotResult.RobotPass($"Der Menüeintrag {menuEntryPath} wurde ausgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Menüeintrag konnte nicht ausgewählt werden.");
         }
@@ -303,28 +303,28 @@ namespace RoboSAPiens {
             public record NoSession(): RobotResult.NoSession();
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle");
             public record InvalidIndex(int rowIndex): RobotResult.RobotFail("InvalidIndex", $"Die Tabelle enthält keine Zeile mit Index {rowIndex}'.");
-            public record NotFound(string cellContents): RobotResult.NotFound($"Die Zelle mit dem Inhalt '{cellContents}' konnte nicht gefunden werden.");
+            public record NotFound(string cellContents): RobotResult.NotFound($"Die Zelle mit dem Inhalt '{cellContents}' wurde nicht gefunden.");
             public record Pass(string rowLocator): RobotResult.RobotPass($"Die Zeile mit dem Lokator '{rowLocator}' wurde markiert");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zeile konnte nicht markiert werden.");
         }
 
         public record SelectTextField {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Das Textfeld mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Textfeld mit dem Lokator '{locator}' wurde markiert.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Textfeld konnte nicht markiert werden.");
         }
 
         public record SelectText {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string text): RobotResult.NotFound($"Die Textzeile mit dem Inhalt '{text}' konnte nicht gefunden werden.");
+            public record NotFound(string text): RobotResult.NotFound($"Die Textzeile mit dem Inhalt '{text}' wurde nicht gefunden.");
             public record Pass(string text): RobotResult.RobotPass($"Die Textzeile mit dem Inhalt '{text}' wurde markiert.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Textzeile konnte nicht markiert werden.");
         }
 
         public record TickCheckBox {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Das Formularfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Das Formularfeld mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Das Formularfeld mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Formularfeld mit dem Lokator '{locator}' wurde angekreuzt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Formularfeld konnte nicht angekreuzt werden.");
@@ -332,7 +332,7 @@ namespace RoboSAPiens {
 
         public record UntickCheckBox {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Das Formularfeld mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Das Formularfeld mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Das Formularfeld mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Das Formularfeld mit dem Lokator '{locator}' wurde abgewählt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Formularfeld konnte nicht abgewählt werden.");
@@ -340,7 +340,7 @@ namespace RoboSAPiens {
 
         public record TickCheckBoxCell {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde angekreuzt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
@@ -348,7 +348,7 @@ namespace RoboSAPiens {
 
         public record UntickCheckBoxCell {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' konnte nicht gefunden werden.");
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde angekreuzt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
