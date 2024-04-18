@@ -560,7 +560,7 @@ lib: RoboSAPiens = {
                 
                 For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI].
 
-                *Hint*: Ignore the VKey column, it is not meant for humans.
+                *Hint*: Pressing F2 is equivalent to a double-click.
                 """
         },
         "PushButton": {
