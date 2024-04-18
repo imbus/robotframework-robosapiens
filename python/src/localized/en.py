@@ -43,7 +43,7 @@ lib: RoboSAPiens = {
         == New features in Version 2.0 ==
 
         - Support for SAP GUI 8.0 64-bit
-        - New keyword "Expand Tree Element"
+        - New keyword "Select Tree Element"
         - New keyword "Get Row Count"
         - New keyword "Scroll Contents"
         - New keyword "Select Menu Entry"
@@ -122,31 +122,26 @@ lib: RoboSAPiens = {
                 | ``Select Tab    tab_name``
                 """
         },
-        "ExpandTreeElement": {
-            "name": "Expand Tree Element",
+        "SelectTreeElement": {
+            "name": "Select Tree Element",
             "args": {
-                "a1elementPath": {
+                "elementPath": {
                     "name": "element_path",
-                    "spec": {},
-
-                },
-                "a2column": {
-                    "name": "column",
                     "spec": {},
 
                 }
             },
             "result": {
                 "NoSession": no_session,
-                "NotFound": not_found("The tree element '{0}, {1}' could not be found."),
-                "Pass": "The tree element '{0}, {1}' was expanded.",
-                "Exception": exception("The tree element could not be expanded. {0}")
+                "NotFound": not_found("The tree element '{0}' could not be found."),
+                "Pass": "The tree element '{0}' was selected.",
+                "Exception": exception("The tree element could not be selected. {0}")
             },
             "doc": 
                 """
-                Expand the tree element located at the path and column provided.
+                Select the tree element located at the path provided.
                 
-                | ``Expand Tree Element    element_path    column``
+                | ``Select Tree Element    element_path``
 
                 element_path: The path to the element using '/' as separator. e.g. Engineering/Civil Engineering
                 """

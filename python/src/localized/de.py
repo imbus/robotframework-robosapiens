@@ -26,7 +26,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 lib: LocalizedRoboSAPiens = {
   "doc": {
     "intro": (
-        "3225933924", 
+        "3882574370", 
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
@@ -38,7 +38,7 @@ lib: LocalizedRoboSAPiens = {
         == Neuigkeiten in der Version 2.0 ==
 
         - Unterstützung für SAP GUI 8.0 64-bit
-        - Neues Schlüsselwort "Baumelement aufklappen"
+        - Neues Schlüsselwort "Baumelement markieren"
         - Neues Schlüsselwort "Inhalte scrollen"
         - Neues Schlüsselwort "Menüeintrag auswählen"
         - Neues Schlüsselwort "Tabellenzelle abwählen"
@@ -118,32 +118,27 @@ lib: LocalizedRoboSAPiens = {
           """
       )
     },
-    "ExpandTreeElement": {
-        "name": ("1602358686", "Baumelement aufklappen"),
+    "SelectTreeElement": {
+        "name": ("3234880959", "Baumelement markieren"),
         "args": {
-            "a1elementPath": {
+            "elementPath": {
                 "name": ("1214950134", "Elementpfad"),
-                "spec": {},
-      
-            },
-            "a2column": {
-                "name": ("2102626174", "Spalte"),
                 "spec": {},
       
             }
         },
         "result": {
             "NoSession": ("4138997384", no_session),
-            "NotFound": ("3335065344", not_found("Das Baumelement '{0}, {1}' wurde nicht gefunden.")),
-            "Pass": ("1036036987", "Das Baumelement '{0}, {1}' wurde aufgeklappt."),
-            "Exception": ("591408237", exception("Das Baumelement konnte nicht aufgeklappt werden. {0}"))
+            "NotFound": ("3295884259", not_found("Das Baumelement '{0}' wurde nicht gefunden.")),
+            "Pass": ("40521386", "Das Baumelement '{0}' wurde markiert."),
+            "Exception": ("4212594444", exception("Das Baumelement konnte nicht markiert werden. {0}"))
         },
         "doc": (
-            "3017122590", 
+            "3712214065", 
             """
-            Das Baumelement mit dem angegebenen Pfad und Spalte wird aufgeklappt.
+            Das Baumelement mit dem angegebenen Pfad wird markiert.
             
-            | ``Baumelement aufklappen    Elementpfad    Spalte``
+            | ``Baumelement markieren    Elementpfad``
                     
             Elementpfad: Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen).
             """

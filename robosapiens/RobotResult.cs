@@ -179,11 +179,11 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Knopf konnte nicht hervorgehoben werden.");
         }
 
-        public record ExpandTreeElement {
+        public record SelectTreeElement {
             public record NoSession(): RobotResult.NoSession();
-            public record NotFound(string elementPath): RobotResult.NotFound($"Der Baumelement {elementPath} konnte nicht gefunden werden.");
-            public record Pass(string elementPath): RobotResult.RobotPass($"Der Baumelement {elementPath} wurde aufgeklappt.");
-            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Baumelement konnte nicht aufgeklappt werden.");
+            public record NotFound(string elementPath): RobotResult.NotFound($"Das Baumelement '{elementPath}' konnte nicht gefunden werden.");
+            public record Pass(string elementPath): RobotResult.RobotPass($"Das Baumelement '{elementPath}' wurde markiert.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Baumelement konnte nicht markiert werden.");
         }
 
         public record PressKeyCombination {

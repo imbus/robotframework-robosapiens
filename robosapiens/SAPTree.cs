@@ -26,13 +26,13 @@ namespace RoboSAPiens
         string id;
         int rowCount;
         TreeType treeType;
-        TreeFolderStore treeFolders = new TreeFolderStore();
+        TreeElementStore treeElements = new TreeElementStore();
 
         public SAPTree(GuiTree tree)
         {
             id = tree.Id;
             treeType = (TreeType)tree.GetTreeType();
-            GuiCollection nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+            var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
             if (nodeKeys != null) {
                 rowCount = nodeKeys.Count;
             }
@@ -43,24 +43,27 @@ namespace RoboSAPiens
 
         List<string> getColumnTitles(GuiTree tree)
         {
+            var columnNames = (GuiCollection)tree.GetColumnNames();
+
+            if (columnNames == null) {
+                return new List<string>();
+            }
+
             var columnTitles = new List<string>();
 
-            var columnNames = (GuiCollection)tree.GetColumnNames();
-            if (columnNames != null)
+            for (int i = 0; i < columnNames.Length; i++) 
             {
-                for (int i = 0; i < columnNames.Length; i++) 
-                {
-                    var columnName = (string)columnNames.ElementAt(i);
-                    if (columnName == null) { continue; }
+                var columnName = (string)columnNames.ElementAt(i);
+                if (columnName == null) { 
+                    continue; 
+                }
 
-                    string columnTitle;
-                    try {
-                        columnTitle = tree.GetColumnTitleFromName(columnName);
-                        columnTitles.Add(columnTitle);
-                    }
-                    catch (Exception) {
-                        continue;
-                    }
+                try {
+                    var columnTitle = tree.GetColumnTitleFromName(columnName);
+                    columnTitles.Add(columnTitle);
+                }
+                catch (Exception) {
+                    continue;
                 }
             }
 
@@ -70,54 +73,62 @@ namespace RoboSAPiens
         public void classifyCells(GuiSession session, CellRepository repo) 
         {
             var tree = (GuiTree)session.FindById(id);
-            var columnNames = (GuiCollection)tree.GetColumnNames();
+            var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
 
-            if (columnNames != null)
+            if (nodeKeys != null)
             {
-                var paths = getAllPaths(tree);
-
-                for (int c = 0; c < columnNames.Length; c++) 
+                for (int nodeIndex = 0; nodeIndex < nodeKeys.Count; nodeIndex++) 
                 {
-                    var columnName = (string)columnNames.ElementAt(c);
-                    if (columnName == null) { continue; }
-
-                    string columnTitle;
-                    try {
-                        columnTitle = tree.GetColumnTitleFromName(columnName);
+                    var nodeKey = (string)nodeKeys.ElementAt(nodeIndex);
+                    var nodePath = tree.GetNodePathByKey(nodeKey);
+                    var columnNames = (GuiCollection)tree.GetColumnNames();
+        
+                    if (columnNames == null) {
+                        treeElements.Add(new SAPTreeElement(tree, nodeKey, nodePath));
                     }
-                    catch (Exception) {
-                        continue;
-                    }
-
-                    for (int index = 0; index < paths.Count; index++) 
+                    else
                     {
-                        var nodePath = paths[index];
-                        var nodeKey = tree.GetNodeKeyByPath(nodePath);
-
-                        TreeItem itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
-                        if (itemType == TreeItem.Hierarchy) continue;
-
-                        var itemText = tree.GetItemText(nodeKey, columnName);
-
-                        switch (itemType) 
+                        for (int c = 0; c < columnNames.Length; c++) 
                         {
-                            case TreeItem.Bool:
-                                repo.checkBoxes.Add(new SAPTreeCheckBox(columnName, columnTitle, nodeKey, rowNumber: index, tree.Id));
-                                break;
-                            case TreeItem.Button:
-                                repo.buttons.Add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: index, tree.Id));
-                                break;
-                            case TreeItem.Link:
-                                var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
-                                repo.buttons.Add(new SAPTreeLink(columnName, columnTitle, itemText, itemTooltip, nodeKey, rowNumber: index, tree.Id));
-                                repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
-                                break;
-                            case TreeItem.Text:
-                                repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: index, content: itemText, nodeKey, tree));
-                                if (c == 0 && tree.IsFolderExpandable(nodeKey)) {
-                                    treeFolders.Add(new SAPTreeFolder(tree, nodeKey, nodePath, columnTitle));
-                                }
-                                break;
+                            if (c == 0) {
+                                treeElements.Add(new SAPTreeElement(tree, nodeKey, nodePath));
+                            }
+
+                            var columnName = (string)columnNames.ElementAt(c);
+                            if (columnName == null) continue;
+
+                            string columnTitle;
+                            try {
+                                columnTitle = tree.GetColumnTitleFromName(columnName);
+                            }
+                            catch (Exception) {
+                                continue;
+                            }
+
+                            TreeItem itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
+                            if (itemType == TreeItem.Hierarchy) {
+                                continue;
+                            }
+
+                            var itemText = tree.GetItemText(nodeKey, columnName);
+
+                            switch (itemType) 
+                            {
+                                case TreeItem.Bool:
+                                    repo.checkBoxes.Add(new SAPTreeCheckBox(columnName, columnTitle, nodeKey, rowNumber: nodeIndex, tree.Id));
+                                    break;
+                                case TreeItem.Button:
+                                    repo.buttons.Add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: nodeIndex, tree.Id));
+                                    break;
+                                case TreeItem.Link:
+                                    var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
+                                    repo.buttons.Add(new SAPTreeLink(columnName, columnTitle, itemText, itemTooltip, nodeKey, rowNumber: nodeIndex, tree.Id));
+                                    repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: nodeIndex, content: itemText, nodeKey, tree));
+                                    break;
+                                case TreeItem.Text:
+                                    repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: nodeIndex, content: itemText, nodeKey, tree));
+                                    break;
+                            }
                         }
                     }
                 }
@@ -129,16 +140,13 @@ namespace RoboSAPiens
         public static string getParentPath(string path) 
         {
             var pathParts = path.Split("\\");
-            var parent_path = String.Join("\\", pathParts[0..^1]);
+            var parent_path = string.Join("\\", pathParts[0..^1]);
 
-            if (parent_path == "") 
-            {
-                return "ROOT";
-            }
-            else 
-            {
+            if (parent_path != "") {
                 return parent_path;
             }
+
+            return "ROOT";
         }
 
         public List<Node> getAllNodes(GuiSession session) 
@@ -159,7 +167,7 @@ namespace RoboSAPiens
 
         private static List<T> getAll<T>(GuiTree tree, Func<GuiTree, string, T> getByKey) 
         {
-            GuiCollection nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+            var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
             if (nodeKeys == null) return new List<T>();
 
             int numNodeKeys = nodeKeys.Count;
@@ -178,14 +186,13 @@ namespace RoboSAPiens
         public int getNumRows(GuiSession session)
         {
             var tree = (GuiTree)session.FindById(id);
-            GuiCollection nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
-            
+            var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+
             if (nodeKeys != null) {
                 return nodeKeys.Count;
             }
-            else {
-                return 0;
-            }
+
+            return 0;
         }
 
         public bool scrollOnePage(GuiSession session)
@@ -201,8 +208,8 @@ namespace RoboSAPiens
             tree.SelectedNode = nodeKey;
         }
     
-        public SAPTreeFolder? findTreeFolder(CellLocator locator, TextCellStore textCells) {
-            return treeFolders.get(locator, textCells);
+        public SAPTreeElement? findTreeElement(string folderPath) {
+            return treeElements.get(folderPath);
         }
 
         public void print(GuiTree tree)

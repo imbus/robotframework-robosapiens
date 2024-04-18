@@ -33,7 +33,6 @@ namespace RoboSAPiens
                 {"DoubleClickCell", args => DoubleClickCell(args[0], args[1])},
                 {"DoubleClickTextField", args => DoubleClickTextField(args[0])},
                 {"ExecuteTransaction", args => ExecuteTransaction(args[0])},
-                {"ExpandTreeElement", args => ExpandTreeElement(args[0], args[1])},
                 {"ExportTree", args => ExportTree(args[0])},
                 {"ExportWindow", args => ExportWindow(args[0], args[1])},
                 {"FillTableCell", args => FillTableCell(args[0], args[1], args[2])},
@@ -59,6 +58,7 @@ namespace RoboSAPiens
                 {"SelectTableRow", args => SelectTableRow(args[0])},
                 {"SelectText", args => SelectText(args[0])},
                 {"SelectTextField", args => SelectTextField(args[0])},
+                {"SelectTreeElement", args => SelectTreeElement(args[0])},
                 {"TickCheckBox", args => TickCheckBox(args[0])},
                 {"TickCheckBoxCell", args => TickCheckBoxCell(args[0], args[1])},
                 {"UntickCheckBox", args => UntickCheckBox(args[0])},
@@ -134,13 +134,13 @@ namespace RoboSAPiens
             };
         }
 
-        [Keyword("Baumelement aufklappen"),
-         Doc("Der Baumelement mit den angegebenen Pfad und Spalte wird aufgeklappt.\n\n" +
-             "| ``Baumelement aufklappen    Elementpfad    Spalte``")]
-        public RobotResult ExpandTreeElement(string elementPath, string column) {
+        [Keyword("Baumelement markieren"),
+         Doc("Das Baumelement mit dem angegebenen Pfad wird markiert.\n\n" +
+             "| ``Baumelement markieren    Elementpfad``")]
+        public RobotResult SelectTreeElement(string elementPath) {
             return session switch {
-                SAPSession session => session.expandTreeElement(elementPath, column),
-                _ => new Result.ExpandTreeElement.NoSession()
+                SAPSession session => session.selectTreeElement(elementPath),
+                _ => new Result.SelectTreeElement.NoSession()
             };
         }
 

@@ -359,12 +359,12 @@ namespace RoboSAPiens {
             return cellRepository.findTextCell(locator);
         }
         
-        public SAPTreeFolder? findTreeFolder(CellLocator locator, GuiSession session) {
+        public SAPTreeElement? findTreeElement(string elementPath, GuiSession session) {
             if (cellRepository.isEmpty()) {
                 updateTables(session);
             }
             
-            return getTree()?.findTreeFolder(locator, cellRepository.textCells);
+            return getTree()?.findTreeElement(elementPath);
         }
 
         public List<SAPButton> getAllButtons() {

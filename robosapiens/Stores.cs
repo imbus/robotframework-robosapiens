@@ -108,11 +108,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class TreeFolderStore: Repository<SAPTreeFolder> {
-        public SAPTreeFolder? get(CellLocator cellLocator, TextCellStore labelCells) {
-            return filterBy<ILocatableCell>().Find(cell => cell.isLocated(cellLocator, labelCells)) as SAPTreeFolder;
-        }
-    }
+    public sealed class TreeElementStore: ContainerRepository<SAPTreeElement> {}
 
     public sealed class TreeStore: Repository<SAPTree> {}
 }
