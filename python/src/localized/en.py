@@ -471,16 +471,20 @@ lib: RoboSAPiens = {
             *Text field at the intersection of a label to its left and a label above it (including a heading)*
             | ``Fill Text Field    label to its left @ label above it    content``
             
-            *Text field without label below a text field with a label (e.g. an address line)*
+            *Text field in a vertical grid below a label*
             | ``Fill Text Field    position (1,2,..) @ label    content``
-            
-            *Text field without label to the right of a text field with a label*
+
+            *Text field in a horizontal grid following a label*
             | ``Fill Text Field    label @ position (1,2,..)    content``
             
             *Text field with a non-unique label to the right of a text field with a label*
             | ``Fill Text Field    left label >> right label    content``
             
-            *Hint*: The description obtained by selecting a text field and pressing F1 can also be used as label.
+            *Hints* 
+            
+            - The description obtained by selecting a text field and pressing F1 can usually be used as locator.
+
+            - As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used as locator.
             """
         },
         "HighlightButton": {

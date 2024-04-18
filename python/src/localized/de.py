@@ -465,7 +465,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("3103200585", "Textfeld ausfüllen"),
       "args": {
         "a1locator": {
-          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "name": ("2051440239", "Lokator"),
           "spec": {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
@@ -490,7 +490,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3667643114", exception("Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt."))
       },
       "doc": (
-          "2260110205", 
+          "3966692492", 
           """
           Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
           
@@ -500,19 +500,23 @@ lib: LocalizedRoboSAPiens = {
           *Textfeld mit einer Beschriftung oben*
           | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``
           
-          *Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*
+          *Textfeld am Schnittpunkt einer Beschriftung links und einer oben (inkl. eine Kastenüberschrift)*
           | ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``
           
-          *Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*
+          *Textfeld in einem vertikalen Raster unter einer Beschriftung*
           | ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``
           
-          *Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*
+          *Textfeld in einem horizontalen Raster nach einer Beschriftung*
           | ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``
           
           *Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*
           | ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``
           
-          *Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann.
+          *Hinweise*
+          
+          - Normalerweise kann der Hilfetext, der mit der Taste F1 angezeigt wird, als Lokator verwendet werden.
+
+          - Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name als Lokator verwendet werden.
           """
       )
     },
