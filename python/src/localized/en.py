@@ -77,9 +77,9 @@ lib: RoboSAPiens = {
         |   [Arguments]   ${button}   ${title}   ${close button}
         |
         |   Push Button       ${button}
-        |   ${window title}   Get Window Title
+        |   ${window_title}   Get Window Title
         |
-        |   IF   $window title == $title
+        |   IF   $window_title == $title
         |       Log               Pop-up window: ${title}
         |       Save screenshot   LOG
         |       Push button       ${close button}
@@ -247,6 +247,8 @@ lib: RoboSAPiens = {
                 | ``Export Tree Structure     filepath``
 
                 filepath: Absolute path to a file with extension .json
+
+                *Hint*: Use ${/} as path separator. Otherwise the backslashes must be escaped.
                 """
         },
         "AttachToRunningSap": {
@@ -411,7 +413,9 @@ lib: RoboSAPiens = {
                 
                 directory: Absolute path to the directory where the files will be saved.
 
-                *Note*: Currently not all GUI-elements are exported.
+                *Hint*: Use ${/} as path separator. Otherwise the backslashes must be escaped.
+
+                *Note*: Currently not all GUI elements are exported.
                 """
         },
         "FillTableCell": {
@@ -754,6 +758,8 @@ lib: RoboSAPiens = {
                 | ``Save Screenshot     destination``
                 
                 destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
+
+                *Hint*: Use ${/} as path separator. Otherwise the backslashes must be escaped.
                 """
         },
         "ScrollTextFieldContents": {

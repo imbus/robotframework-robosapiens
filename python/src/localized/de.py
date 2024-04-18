@@ -26,7 +26,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 lib: LocalizedRoboSAPiens = {
   "doc": {
     "intro": (
-        "3882574370", 
+        "622817387", 
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
@@ -246,13 +246,15 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3215052656", exception("Die Baumstruktur konnte nicht exportiert werden."))
       },
       "doc": (
-          "550315222", 
+          "1265781280", 
           """
           Die Baumstruktur in der Maske wird in JSON Format in der angegebenen Datei gespeichert.
           
           | ``Baumstruktur exportieren     Dateipfad``
 
           Dateipfad: Absoluter Pfad zu einer Datei mit Endung .json
+
+          *Hinweis*: Verwende ${/} als Trennzeichen. Ansonsten müssen die Rückwärtsschrägstriche geescaped werden.
           """
       )
     },
@@ -421,7 +423,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1068065483", exception("Die Maske konnte nicht exportiert werden."))
       },
       "doc": (
-          "237433731", 
+          "2552776293", 
           """
           Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
           
@@ -429,7 +431,9 @@ lib: LocalizedRoboSAPiens = {
           
           Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.
 
-          *Hinweis*: Aktuell werden nicht alle GUI-Elemente exportiert.
+          *Hinweis*: Verwende ${/} als Trennzeichen. Ansonsten müssen die Rückwärtsschrägstriche geescaped werden.
+
+          *Anmerkung*: Aktuell werden nicht alle GUI-Elemente exportiert.
           """
       )
     },
@@ -765,13 +769,15 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3250735497", exception("Eine Aufnahme des Fensters konnte nicht gespeichert werden."))
       },
       "doc": (
-          "3183125821", 
+          "3060872444", 
           """
           Eine Bildschirmaufnahme des Fensters wird im angegebenen Speicherort gespeichert.
 
           | ``Fenster aufnehmen     Speicherort``
           
-          Speicherort: Entweder der absolute Pfad einer .png Datei oder LOG, um das Bild in das Protokoll einzubetten. 
+          Speicherort: Entweder der absolute Pfad einer .png Datei oder LOG, um das Bild in das Protokoll einzubetten.
+
+          *Hinweis*: Verwende ${/} als Trennzeichen. Ansonsten müssen die Rückwärtsschrägstriche geescaped werden.
           """
       )
     },
