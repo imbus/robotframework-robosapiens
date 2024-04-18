@@ -54,7 +54,7 @@ lib: LocalizedRoboSAPiens = {
         
         == Erste Schritte ==
 
-        Mit der folgenden Sequenz erfolgt die Anmeldung bei einem SAP Server:
+        Die Anmeldung bei einem SAP Server erfolgt mit der folgenden Sequenz:
     
         | SAP starten                         C:${/}Program Files (x86)${/}SAP${/}FrontEnd${/}SAPgui${/}saplogon.exe
         | Verbindung zum Server herstellen    Mein Testserver
@@ -111,7 +111,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2577256712", exception("Der Reiter konnte nicht ausgewählt werden."))
       },
       "doc": (
-          "3801089437", 
+          "228094361", 
           """Der Reiter mit dem angegebenen Namen wird ausgewählt.
 
           | ``Reiter auswählen    Reitername``
@@ -138,13 +138,16 @@ lib: LocalizedRoboSAPiens = {
             "Pass": ("1036036987", "Das Baumelement '{0}, {1}' wurde aufgeklappt."),
             "Exception": ("591408237", exception("Das Baumelement konnte nicht aufgeklappt werden. {0}"))
         },
-        "doc": ("1771358746", """
-        Das Baumelement mit dem angegebenen Pfad und Spalte wird aufgeklappt.
-        
-        | ``Baumelement aufklappen    Elementpfad    Spalte``
-                
-        Elementpfad: Der Pfad zum Element, mit '/' als Trennzeichen. z.B. Engineering/Bauwesen
-        """)
+        "doc": (
+            "3017122590", 
+            """
+            Das Baumelement mit dem angegebenen Pfad und Spalte wird aufgeklappt.
+            
+            | ``Baumelement aufklappen    Elementpfad    Spalte``
+                    
+            Elementpfad: Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen).
+            """
+        )
     },
     "OpenSap": {
       "name": ("1259182241", "SAP starten"),
@@ -163,10 +166,16 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2772047805", exception("Die SAP GUI konnte nicht gestartet werden."))
       },
       "doc": (
-          "2645300475", 
-          r"""Die SAP GUI wird gestartet. Der übliche Pfad ist
+          "1135135829", 
+          r"""Die SAP GUI wird gestartet. 
+          
+          | ``SAP starten   Pfad``
+
+          Der übliche Pfad ist
           
           | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+
+          *Hinweis*: Verwende ${/} als Trennzeichen. Ansonsten müssen die Rückwärtsschrägstriche geescaped werden.
           """
       )
     },
@@ -182,9 +191,11 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2209141929", exception("Die Verbindung zum Server konnte nicht getrennt werden."))
       },
       "doc": (
-          "3955335875", 
+          "2197863465", 
           """
           Die Verbindung mit dem SAP Server wird getrennt.
+
+          | ``Verbindung zum Server trennen``
           """
       )
     },
@@ -196,9 +207,13 @@ lib: LocalizedRoboSAPiens = {
         "Pass": ("2970606098", "Die SAP GUI wurde beendet")
       },
       "doc": (
-          "3092056753", 
+          "2804672376", 
           """
           Die SAP GUI wird beendet.
+
+          | ``SAP beenden``
+
+          *Hinweis*: Dieses Schlüsselwort funktioniert nur, wenn die SAP GUI mit dem Schlüsselwort "SAP starten" gestartet wurde.
           """
       )
     },
@@ -211,11 +226,14 @@ lib: LocalizedRoboSAPiens = {
             "NotFound": ("2399256699", "Die Maske enthält keine Tabelle."),
             "Pass": ("1614075368", "Die Tabellenzeillen wurden gezählt.")
         },
-        "doc": ("2239104539", """
-        Die Zeilen einer Tabelle werden gezählt.
-        
-        | ``${anzahl_zeilen}    Tabellenzeilen zählen``
-        """)
+        "doc": (
+            "3860837328", 
+            """
+            Die Zeilen einer Tabelle werden gezählt.
+            
+            | ``${anzahl_zeilen}    Tabellenzeilen zählen``
+            """
+        )
     },
     "ExportTree": {
       "name": ("23518835", "Baumstruktur exportieren"),
@@ -233,7 +251,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3215052656", exception("Die Baumstruktur konnte nicht exportiert werden."))
       },
       "doc": (
-          "481495803", 
+          "550315222", 
           """
           Die Baumstruktur in der Maske wird in JSON Format in der angegebenen Datei gespeichert.
           
@@ -263,7 +281,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3120673076", exception("Die laufende SAP GUI konnte nicht übernommen werden."))
       },
       "doc": (
-          "3996613379", 
+          "4068372229", 
           """
           Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden. 
           Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
@@ -290,7 +308,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("667377482", exception("Die Verbindung konnte nicht hergestellt werden."))
       },
       "doc": (
-          "3664831745", 
+          "1422700415", 
           """
           Die Verbindung mit dem angegebenen SAP Server wird hergestellt.
           
@@ -321,7 +339,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
       },
       "doc": (
-          "1813862079", 
+          "431892055", 
           f"""
           Die angegebene Tabellenzelle wird doppelgeklickt.
           
@@ -335,7 +353,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("3737103423", "Textfeld doppelklicken"),
       "args": {
         "locator": {
-          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "name": ("2051440239", "Lokator"),
           "spec": {
             "Content": ("880934240", Content),
             "HLabel": ("4229670492", HLabel),
@@ -355,7 +373,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("504842288", exception("Das Textfeld konnte nicht doppelgeklickt werden."))
       },
       "doc": (
-          "564930098", 
+          "2606560084", 
           """
           Das angegebene Textfeld wird doppelgeklickt.
           
@@ -380,7 +398,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3958687903", exception("Die Transaktion konnte nicht ausgeführt werden."))
       },
       "doc": (
-          "1005778151", 
+          "1931532026", 
           """
           Die Transaktion mit dem angegebenen T-Code wird ausgeführt.
           
@@ -408,7 +426,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1068065483", exception("Die Maske konnte nicht exportiert werden."))
       },
       "doc": (
-          "1604319380", 
+          "237433731", 
           """
           Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
           
@@ -449,7 +467,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
       },
       "doc": (
-          "2874746797", 
+          "1160116347", 
           f"""
           Die Zelle am Schnittpunkt der Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.
           
@@ -490,7 +508,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3667643114", exception("Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt."))
       },
       "doc": (
-          "3966692492", 
+          "2223988639", 
           """
           Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
           
@@ -524,7 +542,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("2180269929", "Knopf hervorheben"),
       "args": {
         "button": {
-          "name": ("894332414", "Name_oder_Kurzinfo"),
+          "name": ("2051440239", "Lokator"),
           "spec": {},
 
         }
@@ -536,11 +554,17 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1973912995", exception("Der Knopf konnte nicht hervorgehoben werden."))
       },
       "doc": (
-          "782818376", 
+          "2200176708", 
           """
-          Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.
+          Der Knopf mit dem angegebenen Lokator wird hervorgehoben.
           
-          | ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``
+          | ``Knopf hervorheben    Lokator``
+
+          Lokator: Name oder Kurzinfo (Tooltip). 
+          
+          *Hinweis*: Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
+          Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
+          Wenn der gesamte Text des Tooltips als Lokator verwendet wird, müssen die Leerzeichen gescaped werden (z.B. ``Zurück \\\\ \\\\ (F3)``).
           """
       )
     },
@@ -559,12 +583,17 @@ lib: LocalizedRoboSAPiens = {
             "NotFound": ("2294374604", "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen."),
             "Pass": ("3497306705", "Die Tastenkombination '{0}' wurde gedrückt.")
         },
-        "doc": ("1367562599",
-        """
-        Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt. Zulässige Tastenkombinationen sind u.a. die Tastenkürzel
-        im Kontextmenü (angezeigt, wenn die rechte Maustaste gedrückt wird). Die vollständige Liste der zulässigen
-        Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation].
-        """
+        "doc": (
+            "859971498",
+            """
+            Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt.
+
+            | ``Tastenkombination drücken    Tastenkombination``
+
+            Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation von SAP GUI].
+
+            *Hinweis*: Die Spalte "VKey" ist nicht für Menschen bestimmt und kann ignoriert werden.
+            """
         )
     },
     "PushButton": {
@@ -584,9 +613,9 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1002997848", exception("Der Knopf konnte nicht gedrückt werden."))
       },
       "doc": (
-          "2949945181", 
+          "158479836", 
           """
-          Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.
+          Der Knopf mit dem angegebenen Lokator wird gedrückt.
           
           | ``Knopf drücken    Lokator``
 
@@ -620,7 +649,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1751102722", exception("Die Zelle konnte nicht gedrückt werden."))
       },
       "doc": (
-          "522660318", 
+          "1224875855", 
           """
           Die angegebene Tabellenzelle wird gedrückt.
           
@@ -634,7 +663,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("490498248", "Textfeld auslesen"),
       "args": {
         "locator": {
-          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "name": ("2051440239", "Lokator"),
           "spec": {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
@@ -651,11 +680,11 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2613451948", exception("Das Textfeld konnte nicht ausgelesen werden."))
       },
       "doc": (
-          "2702604498", 
+          "967670455", 
           """
           Der Inhalt des angegebenen Textfeldes wird zurückgegeben.
           
-          | ``Textfeld auslesen    Lokator``
+          | ${Inhalt}   ``Textfeld auslesen    Lokator``
           
           Die Lokatoren für Textfelder sind im Schlüsselwort "Textfeld ausfüllen" dokumentiert.
           """
@@ -680,15 +709,15 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3136337781", exception("Der Text konnte nicht ausgelesen werden."))
       },
       "doc": (
-          "1046178438", 
+          "94800582", 
           """
           Der Inhalt des angegebenen Texts wird zurückgegeben.
           
           *Text beginnt mit der angegebenen Teilzeichenfolge*
-          | ``Text auslesen    = Teilzeichenfolge``
+          | ``${Text}   Text auslesen    = Teilzeichenfolge``
           
           *Text folgt einer Beschriftung*
-          | ``Text auslesen    Beschriftung``
+          | ``${Text}   Text auslesen    Beschriftung``
           """
       )
     },
@@ -703,7 +732,6 @@ lib: LocalizedRoboSAPiens = {
         "a2column": {
           "name": ("2102626174", "Spaltentitel"),
           "spec": {},
-
         }
       },
       "result": {
@@ -714,7 +742,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
       },
       "doc": (
-          "3300569560", 
+          "3107801198", 
           f"""
           Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.
           
@@ -742,9 +770,10 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3250735497", exception("Eine Aufnahme des Fensters konnte nicht gespeichert werden."))
       },
       "doc": (
-          "1785221691", 
+          "3183125821", 
           """
-          Eine Bildschirmaufnahme des Fensters wird im eingegebenen Speicherort gespeichert.
+          Eine Bildschirmaufnahme des Fensters wird im angegebenen Speicherort gespeichert.
+
           | ``Fenster aufnehmen     Speicherort``
           
           Speicherort: Entweder der absolute Pfad einer .png Datei oder LOG, um das Bild in das Protokoll einzubetten. 
@@ -772,20 +801,22 @@ lib: LocalizedRoboSAPiens = {
             "InvalidDirection": ("2667316811", "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: UP, DOWN, BEGIN, END"),
             "Pass": ("1135653175", "Die Inahlte der Textfelder wurden in die Richtung '{0}' gescrollt.")
         },
-        "doc": ("3844921674", 
-          """
-          Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.
+        "doc": (
+            "2343066081", 
+            """
+            Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.
 
-          | ``Inhalte scrollen    Richtung``
+            | ``Inhalte scrollen    Richtung``
 
-          Richtung: UP, DOWN, BEGIN, END
+            Richtung: UP, DOWN, BEGIN, END
 
-          Wenn der Parameter "bis_Textfeld" übergeben wird, werden die Inhalte so lange gescrollt, bis das Textfeld gefunden wird.
+            Wenn der Parameter "bis_Textfeld" übergeben wird, werden die Inhalte so lange gescrollt, bis das Textfeld gefunden wird.
 
-          | ``Inhalte scrollen    Richtung   bis_Textfeld``
+            | ``Inhalte scrollen    Richtung   bis_Textfeld``
 
-          bis_Textfeld: Lokator, um ein Textfeld zu finden
-          """)
+            bis_Textfeld: Lokator, um ein Textfeld zu finden
+            """
+          )
     },
     "SelectCell": {
       "name": ("1049942265", "Tabellenzelle markieren"),
@@ -809,7 +840,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2355177759", exception("Die Zelle konnte nicht markiert werden."))
       },
       "doc": (
-          "1368817353", 
+          "1935086152", 
           f"""
           Die angegebene Tabellenzelle wird markiert.
           
@@ -845,14 +876,16 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("813375986", exception("Der Wert konnte nicht ausgewählt werden. {0}")),
         "Pass": ("1530467143", "Der Wert '{2}' wurde ausgewählt.")
     },
-    "doc": ("99125093", 
-      f"""
-      In der spezifizierten Zelle wird der angegebene Wert ausgewählt.
-      
-      | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
+    "doc": (
+        "2543546517", 
+        f"""
+        In der spezifizierten Zelle wird der angegebene Wert ausgewählt.
+        
+        | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
 
-      {row_locator}
-      """)
+        {row_locator}
+        """
+      )
     },
     "SelectComboBoxEntry": {
       "name": ("2133292945", "Auswahlmenüeintrag auswählen"),
@@ -876,7 +909,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2433413970", exception("Der Eintrag konnte nicht ausgewählt werden."))
       },
       "doc": (
-          "1066596532", 
+          "4191814068", 
           """
           Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.
           
@@ -903,21 +936,22 @@ lib: LocalizedRoboSAPiens = {
             "Pass": ("200907440", "Der Menüeintrag '{0}' wurde ausgewählt."),
             "Exception": ("3089619033", exception("Der Menüeintrag konnte nicht ausgewählt werden. {0}"))
         },
-        "doc": ("3084978375", """
-        Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.
-        
-        | ``Menüeintrag auswählen    Eintragspfad``
+        "doc": (
+            "3329097279", 
+            """
+            Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.
+            
+            | ``Menüeintrag auswählen    Eintragspfad``
 
-        Eintragspfad: Für einen Eintrag in einem Hauptmenü der Eintragsname. 
-        Für einen Eintrag in einem Untermenü der Pfad zum Eintrag mit '/' als Trennzeichen. 
-        z.B. System/Benutzervorgaben/Eigene Daten.
-        """)
+            Eintragspfad: Der Pfad zum Eintrag mit '/' als Trennzeichen (z.B. System/Benutzervorgaben/Eigene Daten).
+            """
+        )
     },
     "SelectRadioButton": {
       "name": ("2985728785", "Optionsfeld auswählen"),
       "args": {
         "locator": {
-          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "name": ("2051440239", "Lokator"),
           "spec": {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
@@ -934,7 +968,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("218028187", exception("Das Optionsfeld konnte nicht ausgewählt werden."))
       },
       "doc": (
-          "532570380", 
+          "1510853354", 
           """
           Das angegebene Optionsfeld wird ausgewählt.
           
@@ -966,21 +1000,24 @@ lib: LocalizedRoboSAPiens = {
           "NotFound": ("3975114955", "Die Tabelle enthält keine Zelle mit dem Inhalt '{0}'"),
           "Pass": ("2631747337", "Die Zeile mit dem Lokator '{0}' wurde markiert")
       },
-      "doc": ("1084101355", f"""
-        Die angegebene Tabellenzeile wird markiert.
-              
-        | ``Tabellenzeile markieren    Zeilenlokator``
-        
-        Zeilenlokator: {row_locator}
+      "doc": (
+          "394537616", 
+          f"""
+          Die angegebene Tabellenzeile wird markiert.
+                
+          | ``Tabellenzeile markieren    Zeilenlokator``
+          
+          Zeilenlokator: {row_locator}
 
-        *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
-        """)
+          *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
+          """
+        )
     },
     "SelectTextField": {
       "name": ("335907869", "Textfeld markieren"),
       "args": {
         "locator": {
-          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "name": ("2051440239", "Lokator"),
           "spec": {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
@@ -1000,7 +1037,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1228826942", exception("Das Textfeld konnte nicht markiert werden."))
       },
       "doc": (
-          "3363172211", 
+          "2733625353", 
           """
           Das angegebene Textfeld wird markiert.
           
@@ -1026,7 +1063,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("37399687", exception("Der Text konnte nicht markiert werden."))
       },
       "doc": (
-          "825046681", 
+          "2097509536", 
           """
           Der angegebene Text wird markiert.
           
@@ -1042,7 +1079,7 @@ lib: LocalizedRoboSAPiens = {
       "name": ("2471720243", "Formularfeld ankreuzen"),
       "args": {
         "locator": {
-          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "name": ("2051440239", "Lokator"),
           "spec": {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
@@ -1059,7 +1096,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1153105219", exception("Das Formularfeld konnte nicht angekreuzt werden."))
       },
       "doc": (
-          "3375625571", 
+          "4222465623", 
           """
           Das angegebene Formularfeld wird angekreuzt.
           
@@ -1084,17 +1121,22 @@ lib: LocalizedRoboSAPiens = {
             "Exception": ("803476123", exception("Die Statusleiste konnte nicht ausgelesen werden.")),
             "Pass": ("1105532895", "Die Statusleiste wurde ausgelesen.")
         },
-        "doc": ("3222829205", """
-          Die Nachricht der Statusleiste wird ausgelesen.
+        "doc": (
+            "727682189", 
+            """
+            Der Inhalt der Statusleiste wird ausgelesen.
           
-          ``Statusleiste auslesen``
-         """)
+            | ``${statusleiste}   Statusleiste auslesen``
+
+            Der Rückgabewert ist ein Dictionary mit den Einträgen "status" und "message".
+            """
+        )
     },
     "UntickCheckBox": {
       "name": ("47381427", "Formularfeld abwählen"),
       "args": {
         "locator": {
-          "name": ("2051440239", "Beschriftung_oder_Lokator"),
+          "name": ("2051440239", "Lokator"),
           "spec": {
               "HLabel": ("4229670492", HLabel),
               "VLabel": ("474824962", VLabel),
@@ -1111,7 +1153,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1479426504", exception("Das Formularfeld konnte nicht abgewählt werden."))
       },
       "doc": (
-          "2004880129", 
+          "3681817831", 
           """
           Das angegebene Formularfeld wird abgewählt.
           
@@ -1148,7 +1190,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
       },
       "doc": (
-          "500931900", 
+          "3683680518", 
           f"""
           Die angegebene Tabellenzelle wird angekreuzt.
           
@@ -1182,7 +1224,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3759601296", exception("Die Zelle konnte nicht abgewählt werden."))
       },
       "doc": (
-          "278206082", 
+          "3924382894", 
           f"""
           Die angegebene Tabellenzelle wird abgewählt.
           
@@ -1201,7 +1243,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("2687794215", exception("Der Titel des Fensters konnte nicht ausgelesen werden."))
       },
       "doc": (
-          "985497510", 
+          "2405371798", 
           """
           Der Titel des Fensters im Fordergrund wird zurückgegeben.
           
@@ -1218,7 +1260,7 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("922315409", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
       },
       "doc": (
-          "1240406406", 
+          "2473311673", 
           """
           Der Text des Fensters im Fordergrund wird zurückgegeben.
           

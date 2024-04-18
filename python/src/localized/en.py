@@ -115,11 +115,12 @@ lib: RoboSAPiens = {
                 "Pass": "The tab '{0}' was selected.",
                 "Exception": exception("The tab could not be selected. {0}")
             },
-            "doc": """
-            Select the tab with the name provided.
-            
-            | ``Select Tab    tab_name``
-            """
+            "doc": 
+                """
+                Select the tab with the name provided.
+                
+                | ``Select Tab    tab_name``
+                """
         },
         "ExpandTreeElement": {
             "name": "Expand Tree Element",
@@ -141,13 +142,14 @@ lib: RoboSAPiens = {
                 "Pass": "The tree element '{0}, {1}' was expanded.",
                 "Exception": exception("The tree element could not be expanded. {0}")
             },
-            "doc": """
-            Expand the tree element located at the path and column provided.
-            
-            | ``Expand Tree Element    element_path    column``
+            "doc": 
+                """
+                Expand the tree element located at the path and column provided.
+                
+                | ``Expand Tree Element    element_path    column``
 
-            element_path: The path to the element using '/' as separator. e.g. Engineering/Civil Engineering
-            """
+                element_path: The path to the element using '/' as separator. e.g. Engineering/Civil Engineering
+                """
         },
         "OpenSap": {
             "name": "Open SAP",
@@ -165,11 +167,18 @@ lib: RoboSAPiens = {
                 "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
                 "Exception": exception("The SAP GUI could not be opened. {0}")
             },
-            "doc": r"""
-            Open the SAP GUI. The standard path is
-            
-            | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
-            """
+            "doc": 
+                r"""
+                Open the SAP GUI. 
+                
+                | ``Open SAP   path``
+                
+                The standard path is
+                
+                | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+
+                *Hint*: Use ${/} as path separator. Otherwise the backslashes must be escaped.
+                """
         },
         "CloseConnection": {
             "name": "Disconnect from Server",
@@ -182,9 +191,12 @@ lib: RoboSAPiens = {
                 "Pass": "Disconnected from the server.",
                 "Exception": exception("Could not disconnect from the server. {0}")
             },
-            "doc": """
-            Terminate the connection to the SAP server.
-            """
+            "doc": 
+                """
+                Terminate the connection to the SAP server.
+
+                | ``Disconnect from server``
+                """
         },
         "CloseSap": {
             "name": "Close SAP",
@@ -193,9 +205,14 @@ lib: RoboSAPiens = {
                 "NoSapGui": no_sap_gui,
                 "Pass": "The SAP GUI was closed."
             },
-            "doc": """
-            Close the SAP GUI
-            """
+            "doc": 
+                """
+                Close the SAP GUI.
+
+                | ``Close SAP``
+
+                *Hint*: This keyword only works if SAP GUI was started with the keyword "Open SAP".
+                """
         },
         "CountTableRows": {
             "name": "Get Row Count",
@@ -206,11 +223,12 @@ lib: RoboSAPiens = {
                 "NotFound": "The window contains no table.",
                 "Pass": "Counted the number of rows in the table."
             },
-            "doc": """
-            Count the rows in a table.
-            
-            | ``${row_count}   Get Row Count``
-            """
+            "doc": 
+                """
+                Count the rows in a table.
+                
+                | ``${row_count}   Get Row Count``
+                """
         },
         "ExportTree": {
             "name": "Export Tree Structure",
@@ -227,13 +245,14 @@ lib: RoboSAPiens = {
                 "Pass": "The tree structure was exported to the file '{0}'",
                 "Exception": exception("The tree structure could not be exported. {0}")
             },
-            "doc": """
-            Export the tree structure in the current window to the file provided in JSON format.
-            
-            | ``Export Tree Structure     filepath``
+            "doc": 
+                """
+                Export the tree structure in the current window to the file provided.
+                
+                | ``Export Tree Structure     filepath``
 
-            filepath: Absolute path to a file with extension .json
-            """
+                filepath: Absolute path to a file with extension .json
+                """
         },
         "AttachToRunningSap": {
             "name": "Connect to Running SAP",
@@ -254,12 +273,13 @@ lib: RoboSAPiens = {
                 "Pass": "Connected to a running SAP instance.",
                 "Exception": exception("Could not connect to a running SAP instance. {0}")
             },
-            "doc": """
-            Connect to a running SAP instance and take control of it. By default the session number 1 will be used. 
-            To use a different session specify the session number.
+            "doc": 
+                """
+                Connect to a running SAP instance and take control of it. By default the session number 1 will be used. 
+                To use a different session specify the session number.
 
-            | ``Connect to Running SAP    session_number``
-            """
+                | ``Connect to Running SAP    session_number``
+                """
         },
         "ConnectToServer": {
             "name": "Connect to Server",
@@ -278,13 +298,14 @@ lib: RoboSAPiens = {
                 "NoServerScripting": no_server_scripting,
                 "Exception": exception("Could not establish the connection. {0}")
             },
-            "doc": """
-            Connect to the SAP Server provided.
-            
-            | ``Connect to Server    server_name``
+            "doc": 
+                """
+                Connect to the SAP Server provided.
+                
+                | ``Connect to Server    server_name``
 
-            server_name: The name of the server in SAP Logon (not the SID).
-            """
+                server_name: The name of the server in SAP Logon (not the SID).
+                """
         },
         "DoubleClickCell": {
             "name": "Double-click Cell",
@@ -306,13 +327,14 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
                 "Exception": exception("The cell could not be double-clicked. {0}")
             },
-            "doc": f"""
-            Double-click the cell at the intersection of the row and the column provided.
-            
-            | ``Double-click Cell     row_locator     column``
-            
-            {row_locator}
-            """
+            "doc": 
+                f"""
+                Double-click the cell at the intersection of the row and the column provided.
+                
+                | ``Double-click Cell     row_locator     column``
+                
+                {row_locator}
+                """
         },
         "DoubleClickTextField": {
             "name": "Double-click Text Field",
@@ -337,13 +359,14 @@ lib: RoboSAPiens = {
                 "Pass": "The text field with the locator '{0}' was double-clicked.",
                 "Exception": exception("The text field could not be double-clicked. {0}")
             },
-            "doc": """
-            Double click the text field specified by the locator.
-            
-            | ``Double-click Text Field     Locator``
+            "doc": 
+                """
+                Double click the text field specified by the locator.
+                
+                | ``Double-click Text Field     locator``
 
-            Text field locators are documented in the keyword Fill Text Field.
-            """
+                Text field locators are documented in the keyword Fill Text Field.
+                """
         },
         "ExecuteTransaction": {
             "name": "Execute Transaction",
@@ -359,11 +382,12 @@ lib: RoboSAPiens = {
                 "Pass": "The transaction with T-Code {0} was executed.",
                 "Exception": exception("The transaction could not be executed. {0}")
             },
-            "doc": """
-            Execute the transaction with the given T-Code.
-            
-            | ``Execute Transaction    T_Code``
-            """
+            "doc": 
+                """
+                Execute the transaction with the given T-Code.
+                
+                | ``Execute Transaction    T_Code``
+                """
         },
         "ExportWindow": {
             "name": "Export Window",
@@ -384,15 +408,16 @@ lib: RoboSAPiens = {
                 "Pass": "The window contents were exported to {0} and a screenshot was saved to {1}.",
                 "Exception": exception("The window contents could not be exported. {0}")
             },
-            "doc": """
-            Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.
-            
-            | ``Export Window     name     directory``
-            
-            directory: Absolute path to the directory where the files will be saved.
+            "doc": 
+                """
+                Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.
+                
+                | ``Export Window     name     directory``
+                
+                directory: Absolute path to the directory where the files will be saved.
 
-            *Note*: Currently not all GUI-elements are exported.
-            """
+                *Note*: Currently not all GUI-elements are exported.
+                """
         },
         "FillTableCell": {
             "name": "Fill Cell",
@@ -421,15 +446,16 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was filled.",
                 "Exception": exception("The cell could not be filled. {0}")
             },
-            "doc": f"""
-            Fill the cell at the intersection of the row and column with the content provided.
+            "doc": 
+                f"""
+                Fill the cell at the intersection of the row and column with the content provided.
 
-            | ``Fill Cell    row_locator    column   content``
+                | ``Fill Cell    row_locator    column   content``
 
-            {row_locator}
+                {row_locator}
 
-            *Hint*: To migrate from the old keyword with two arguments perform a search and replace with a regular expression.
-            """
+                *Hint*: To migrate from the old keyword with two arguments perform a search and replace with a regular expression.
+                """
         },
         "FillTextField": {
             "name": "Fill Text Field",
@@ -459,39 +485,40 @@ lib: RoboSAPiens = {
                 "Pass": "The text field with the locator '{0}' was filled.",
                 "Exception": exception("The text field could not be filled. {0}")
             },
-            "doc": """
-            Fill the text Field specified by the locator with the content provided.
-            
-            *Text field with a label to its left*
-            | ``Fill Text Field    label    content``
-            
-            *Text field with a label above*
-            | ``Fill Text Field    @ label    content``
-            
-            *Text field at the intersection of a label to its left and a label above it (including a heading)*
-            | ``Fill Text Field    label to its left @ label above it    content``
-            
-            *Text field in a vertical grid below a label*
-            | ``Fill Text Field    position (1,2,..) @ label    content``
+            "doc": 
+                """
+                Fill the text Field specified by the locator with the content provided.
+                
+                *Text field with a label to its left*
+                | ``Fill Text Field    label    content``
+                
+                *Text field with a label above*
+                | ``Fill Text Field    @ label    content``
+                
+                *Text field at the intersection of a label to its left and a label above it (including a heading)*
+                | ``Fill Text Field    label to its left @ label above it    content``
+                
+                *Text field in a vertical grid below a label*
+                | ``Fill Text Field    position (1,2,..) @ label    content``
 
-            *Text field in a horizontal grid following a label*
-            | ``Fill Text Field    label @ position (1,2,..)    content``
-            
-            *Text field with a non-unique label to the right of a text field with a label*
-            | ``Fill Text Field    left label >> right label    content``
-            
-            *Hints* 
-            
-            - The description obtained by selecting a text field and pressing F1 can usually be used as locator.
+                *Text field in a horizontal grid following a label*
+                | ``Fill Text Field    label @ position (1,2,..)    content``
+                
+                *Text field with a non-unique label to the right of a text field with a label*
+                | ``Fill Text Field    left label >> right label    content``
+                
+                *Hints* 
+                
+                - The description obtained by selecting a text field and pressing F1 can usually be used as locator.
 
-            - As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used as locator.
-            """
+                - As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used as locator.
+                """
         },
         "HighlightButton": {
             "name": "Highlight Button",
             "args": {
                 "button": {
-                    "name": "name_or_tooltip",
+                    "name": "locator",
                     "spec": {},
 
                 }
@@ -502,11 +529,18 @@ lib: RoboSAPiens = {
                 "Pass": "The button '{0}' was highlighted.",
                 "Exception": exception("The button could not be highlighted. {0}")
             },
-            "doc": """
-            Highlight the button with the given name or tooltip.
-            
-            | ``Highlight Button    name or tooltip``
-            """
+            "doc": 
+                """
+                Highlight the button with the given locator.
+                
+                | ``Highlight Button    locator``
+
+                locator: name or tooltip.
+                
+                *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
+                The name may be used as locator as long as it is unique.
+                When using the full tooltip text, remember to escape the spaces (e.g. ``Back \\\\ \\\\ (F3)``).
+                """
         },
         "PressKeyCombination": {
             "name": "Press Key Combination",
@@ -523,13 +557,16 @@ lib: RoboSAPiens = {
                 "Pass": "The key combination '{0}' was pressed.",
                 "Exception": exception("The key combination '{0}' could not be pressed.")
             },
-            "doc": """
-            Press the given key combination. Valid key combinations are the keyboard shortcuts
-            in the context menu (shown when the right mouse button is pressed). For a full list 
-            of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation].
-            
-            | ``Press Key Combination    key combination``
-            """
+            "doc": 
+                """
+                Press the given key combination.
+
+                | ``Press Key Combination    key_combination``
+                
+                For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI].
+
+                *Hint*: Ignore the VKey column, it is not meant for humans.
+                """
         },
         "PushButton": {
             "name": "Push Button",
@@ -547,17 +584,18 @@ lib: RoboSAPiens = {
                 "Pass": "The button '{0}' was pushed.",
                 "Exception": exception("The button could not be pushed. {0}")
             },
-            "doc": """
-            Push the button with the given name or tooltip.
-            
-            | ``Push Button    locator``
+            "doc": 
+                """
+                Push the button with the given locator.
+                
+                | ``Push Button    locator``
 
-            locator: name or tooltip. 
-            
-            *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
-            The name may be used as locator as long as it is unique.
-            When using the full tooltip text remember to escape the spaces (e.g. ``Back \\\\ \\\\ (F3)``)
-            """
+                locator: name or tooltip. 
+                
+                *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
+                The name may be used as locator as long as it is unique.
+                When using the full tooltip text remember to escape the spaces (e.g. ``Back \\\\ \\\\ (F3)``)
+                """
         },
         "PushButtonCell": {
             "name": "Push Button Cell",
@@ -580,13 +618,14 @@ lib: RoboSAPiens = {
                 "Pass": "The button cell with the locator '{0}, {1}' was pushed.",
                 "Exception": exception("The button cell could not be pushed. {0}")
             },
-            "doc": """
-            Push the button cell located at the intersection of the row and column provided.
-            
-            | ``Push Button Cell     row_locator     column``
-            
-            row_locator: Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks.
-            """
+            "doc": 
+                """
+                Push the button cell located at the intersection of the row and column provided.
+                
+                | ``Push Button Cell     row_locator     column``
+                
+                row_locator: Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks.
+                """
         },
         "ReadStatusbar": {
             "name": "Read Statusbar",
@@ -598,11 +637,14 @@ lib: RoboSAPiens = {
                 "Pass": "The statusbar was read.",
                 "Exception": exception("The statusbar could not be read")
             },
-            "doc": """
-            Read the message in the statusbar.
+            "doc": 
+                """
+                Read the contents of the statusbar.
 
-            | ``Read Statusbar``
-            """
+                | ``${statusbar}   Read Statusbar``
+
+                The return value is a dictionary with the entries "status" and "message".
+                """
         },
         "ReadTextField": {
             "name": "Read Text Field",
@@ -624,13 +666,14 @@ lib: RoboSAPiens = {
                 "Pass": "The text field with the locator '{0}' was read.",
                 "Exception": exception("The text field could not be read. {0}")
             },
-            "doc": """
-            Read the contents of the text field specified by the locator.
-            
-            | ``Read Text Field    Locator``
-            
-            Text field locators are documented in the keyword Fill Text Field.
-            """
+            "doc": 
+                """
+                Read the contents of the text field specified by the locator.
+                
+                | ${contents}   ``Read Text Field    locator``
+                
+                Text field locators are documented in the keyword Fill Text Field.
+                """
         },
         "ReadText": {
             "name": "Read Text",
@@ -650,15 +693,16 @@ lib: RoboSAPiens = {
                 "Pass": "A text with the locator '{0}' was read.",
                 "Exception": exception("The text could not be read. {0}")
             },
-            "doc": """
-            Read the text specified by the locator.
-            
-            *Text starting with a given substring*
-            | ``Read Text    = substring``
-            
-            *Text following a label*
-            | ``Read Text    Label``
-            """
+            "doc": 
+                """
+                Read the text specified by the locator.
+                
+                *Text starting with a given substring*
+                | ${text}   ``Read Text    = substring``
+                
+                *Text following a label*
+                | ${text}   ``Read Text    label``
+                """
         },
         "ReadTableCell": {
             "name": "Read Cell",
@@ -681,13 +725,14 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was read.",
                 "Exception": exception("The cell could not be read. {0}")
             },
-            "doc": f"""
-            Read the contents of the cell at the intersection of the row and column provided.
+            "doc": 
+                f"""
+                Read the contents of the cell at the intersection of the row and column provided.
 
-            | ``Read Cell     row_locator     column``
-            
-            {row_locator}
-            """
+                | ``Read Cell     row_locator     column``
+                
+                {row_locator}
+                """
         },
         "SaveScreenshot": {
             "name": "Save Screenshot",
@@ -707,13 +752,14 @@ lib: RoboSAPiens = {
                 "Pass": "The screenshot was saved in {0}.",
                 "Exception": exception("The screenshot could not be saved. {0}")
             },
-            "doc": """
-            Save a screenshot of the current window to the given destination.
-            
-            | ``Save Screenshot     destination``
-            
-            destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
-            """
+            "doc": 
+                """
+                Save a screenshot of the current window to the given destination.
+                
+                | ``Save Screenshot     destination``
+                
+                destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
+                """
         },
         "ScrollTextFieldContents": {
             "name": "Scroll Contents",
@@ -736,19 +782,20 @@ lib: RoboSAPiens = {
                 "InvalidDirection": "Invalid direction. The direction must be one of: UP, DOWN, BEGIN, END",
                 "Pass": "The contents of the text fields were scrolled in the direction '{0}'."
             },
-            "doc": """
-            Scroll the contents of the text fields within an area with a scrollbar.
+            "doc": 
+                """
+                Scroll the contents of the text fields within an area with a scrollbar.
 
-            | ``Scroll Contents    direction``
+                | ``Scroll Contents    direction``
 
-            direction: UP, DOWN, BEGIN, END
+                direction: UP, DOWN, BEGIN, END
 
-            If the parameter "until_textfield" is provided, the contents are scrolled until that text field is found.
+                If the parameter "until_textfield" is provided, the contents are scrolled until that text field is found.
 
-            | ``Scroll Contents    direction    until_textfield``
+                | ``Scroll Contents    direction    until_textfield``
 
-            until_textfield: locator to find a text field
-            """
+                until_textfield: locator to find a text field
+                """
         },
         "SelectCell": {
             "name": "Select Cell",
@@ -771,13 +818,14 @@ lib: RoboSAPiens = {
                 "Pass": "The cell with the locator '{0}, {1}' was selected.",
                 "Exception": exception("The cell could not be selected. {0}")
             },
-            "doc": f"""
-            Select the cell at the intersection of the row and column provided.
-            
-            | ``Select Cell     row_locator     column``
-            
-            {row_locator}
-            """
+            "doc": 
+                f"""
+                Select the cell at the intersection of the row and column provided.
+                
+                | ``Select Cell     row_locator     column``
+                
+                {row_locator}
+                """
         },
         "SelectCellValue": {
             "name": "Select Cell Value",
@@ -805,13 +853,14 @@ lib: RoboSAPiens = {
                 "Exception": exception("The value could not be selected. {0}"),
                 "Pass": "The value '{2}' was selected."
             },
-            "doc": f"""
-            Select the specified value in the cell at the intersection of the row and column provided.
-            
-            | ``Select Cell Value    row_locator    column    value``
+            "doc": 
+                f"""
+                Select the specified value in the cell at the intersection of the row and column provided.
+                
+                | ``Select Cell Value    row_locator    column    value``
 
-            {row_locator}
-            """
+                {row_locator}
+                """
         },
         "SelectComboBoxEntry": {
             "name": "Select Dropdown Menu Entry",
@@ -834,15 +883,16 @@ lib: RoboSAPiens = {
                 "Pass": "In the dropdown menu '{0}' the entry '{1}' was selected.",
                 "Exception": exception("The entry could not be selected. {0}")
             },
-            "doc": """
-            Select the specified entry from the dropdown menu provided.
-            
-            | ``Select Dropdown Menu Entry   dropdown_menu    entry``
+            "doc": 
+                """
+                Select the specified entry from the dropdown menu provided.
+                
+                | ``Select Dropdown Menu Entry   dropdown_menu    entry``
 
-            *Hints*: The numeric key that enables simplified keyboard input is not part of the entry name.
+                *Hints*: The numeric key that enables simplified keyboard input is not part of the entry name.
 
-            To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
-            """
+                To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
+                """
         },
         "SelectMenuItem": {
             "name": "Select Menu Entry",
@@ -859,15 +909,14 @@ lib: RoboSAPiens = {
                 "Pass": "The menu entry '{0}' was selected.",
                 "Exception": exception("The menu entry could not be selected. {0}")
             },
-            "doc": """
-            Select the menu entry with the path provided.
-            
-            | ``Select Menu Entry    menu_entry_path``
+            "doc": 
+                """
+                Select the menu entry with the path provided.
+                
+                | ``Select Menu Entry    menu_entry_path``
 
-            menu_entry_path: For an entry in a top-level menu, the entry name. 
-            For an entry in a sub-menu, its path from the top-level with '/' as path separator.
-            e.g. System/User Profile/Own Data
-            """
+                menu_entry_path: The path to the entry with '/' as separator (e.g. System/User Profile/Own Data).
+                """
         },
         "SelectRadioButton": {
             "name": "Select Radio Button",
@@ -889,18 +938,19 @@ lib: RoboSAPiens = {
                 "Pass": "The radio button with locator '{0}' was selected.",
                 "Exception": exception("The radio button could not be selected. {0}")
             },
-            "doc": """
-            Select the radio button specified by the locator.
-            
-            *Radio button with a label to its left or its right*
-            | ``Select Radio Button    label``
-            
-            *Radio button with a label above it*
-            | ``Select Radio Button    @ label``
-            
-            *Radio button at the intersection of a label to its left or its right and a label above it*
-            | ``Select Radio Button    left or right label @ label above``
-            """
+            "doc": 
+                """
+                Select the radio button specified by the locator.
+                
+                *Radio button with a label to its left or its right*
+                | ``Select Radio Button    label``
+                
+                *Radio button with a label above it*
+                | ``Select Radio Button    @ label``
+                
+                *Radio button at the intersection of a label to its left or its right and a label above it*
+                | ``Select Radio Button    left or right label @ label above``
+                """
         },
         "SelectTableRow": {
             "name": "Select Table Row",
@@ -919,15 +969,16 @@ lib: RoboSAPiens = {
                 "NotFound": "The table does not contain a cell with the contents '{0}'",
                 "Pass": "The row with the locator '{0}' was selected"
             },
-            "doc": f"""
-            Select the specified table row.
+            "doc": 
+                f"""
+                Select the specified table row.
 
-            | ``Select Table Row    row_locator``
+                | ``Select Table Row    row_locator``
 
-            row_locator: {row_locator}
+                row_locator: {row_locator}
 
-            *Hint*: Use the row number 0 to select the whole table.
-            """
+                *Hint*: Use the row number 0 to select the whole table.
+                """
         },
         "SelectTextField": {
             "name": "Select Text Field",
@@ -952,13 +1003,14 @@ lib: RoboSAPiens = {
                 "Pass": "The text field with the locator '{0}' was selected.",
                 "Exception": exception("The text field could not be selected. {0}")
             },
-            "doc": """
-            Select the text field specified by the locator.
-            
-            | ``Select Text Field    Locator``
-            
-            Text field locators are documented in the keyword Fill Text Field.
-            """
+            "doc": 
+                """
+                Select the text field specified by the locator.
+                
+                | ``Select Text Field    locator``
+                
+                Text field locators are documented in the keyword Fill Text Field.
+                """
         },
         "SelectText": {
             "name": "Select Text",
@@ -975,15 +1027,16 @@ lib: RoboSAPiens = {
                 "Pass": "The text with the locator '{0}' was selected.",
                 "Exception": exception("The text could not be selected. {0}")
             },
-            "doc": """
-            Select the text specified by the locator.
-            
-            *Text starting with a given substring*
-            | ``Select Text    = substring``
-            
-            *Text following a label*
-            | ``Select Text    Label``
-            """
+            "doc": 
+                """
+                Select the text specified by the locator.
+                
+                *Text starting with a given substring*
+                | ``Select Text    = substring``
+                
+                *Text following a label*
+                | ``Select Text    Label``
+                """
         },
         "TickCheckBox": {
             "name": "Tick Checkbox",
@@ -1005,18 +1058,19 @@ lib: RoboSAPiens = {
                 "Pass": "The checkbox with the locator '{0}' was ticked.",
                 "Exception": exception("The checkbox could not be ticked. {0}")
             },
-            "doc": """
-            Tick the checkbox specified by the locator.
-            
-            *Checkbox with a label to its left or its right*
-            | ``Tick Checkbox    label``
-            
-            *Checkbox with a label above it*
-            | ``Tick Checkbox    @ label``
-            
-            *Checkbox at the intersection of a label to its left and a label above it*
-            | ``Tick Checkbox    left label @ label above``
-            """
+            "doc": 
+                """
+                Tick the checkbox specified by the locator.
+                
+                *Checkbox with a label to its left or its right*
+                | ``Tick Checkbox    label``
+                
+                *Checkbox with a label above it*
+                | ``Tick Checkbox    @ label``
+                
+                *Checkbox at the intersection of a label to its left and a label above it*
+                | ``Tick Checkbox    left label @ label above``
+                """
         },
         "UntickCheckBox": {
             "name": "Untick Checkbox",
@@ -1038,18 +1092,19 @@ lib: RoboSAPiens = {
                 "Pass": "The checkbox with the locator '{0}' was unticked.",
                 "Exception": exception("The checkbox could not be unticked. {0}")
             },
-            "doc": """
-            Untick the checkbox specified by the locator.
-            
-            *Checkbox with a label to its left or its right*
-            | ``Untick Checkbox    label``
-            
-            *Checkbox with a label above it*
-            | ``Untick Checkbox    @ label``
-            
-            *Checkbox at the intersection of a label to its left and a label above it*
-            | ``Untick Checkbox    left label @ label above``
-            """
+            "doc": 
+                """
+                Untick the checkbox specified by the locator.
+                
+                *Checkbox with a label to its left or its right*
+                | ``Untick Checkbox    label``
+                
+                *Checkbox with a label above it*
+                | ``Untick Checkbox    @ label``
+                
+                *Checkbox at the intersection of a label to its left and a label above it*
+                | ``Untick Checkbox    left label @ label above``
+                """
         },
         "TickCheckBoxCell": {
             "name": "Tick Checkbox Cell",
@@ -1072,15 +1127,16 @@ lib: RoboSAPiens = {
                 "Pass": "The checkbox cell with the locator '{0}, {1}' was ticked.",
                 "Exception": exception("The checkbox cell could not be ticked. {0}")
             },
-            "doc": f"""
-            Tick the checkbox cell at the intersection of the row and the column provided.
-            
-            | ``Tick Checkbox Cell     row_locator    column``
+            "doc": 
+                f"""
+                Tick the checkbox cell at the intersection of the row and the column provided.
+                
+                | ``Tick Checkbox Cell     row_locator    column``
 
-            {row_locator}
+                {row_locator}
 
-            *Hint*: To tick the checkbox in the leftmost column with no title, select the row and press the "Enter" key.
-            """
+                *Hint*: To tick the checkbox in the leftmost column with no title, select the row and press the "Enter" key.
+                """
         },
         "UntickCheckBoxCell": {
             "name": "Untick Checkbox Cell",
@@ -1103,13 +1159,14 @@ lib: RoboSAPiens = {
                 "Pass": "The checkbox cell with the locator '{0}, {1}' was unticked.",
                 "Exception": exception("The checkbox cell could not be unticked. {0}")
             },
-            "doc": f"""
-            Untick the checkbox cell at the intersection of the row and the column provided.
-            
-            | ``Untick Checkbox Cell     row_locator    column``
+            "doc": 
+                f"""
+                Untick the checkbox cell at the intersection of the row and the column provided.
+                
+                | ``Untick Checkbox Cell     row_locator    column``
 
-            {row_locator}
-            """
+                {row_locator}
+                """
         },
         "GetWindowTitle": {
             "name": "Get Window Title",
@@ -1122,7 +1179,7 @@ lib: RoboSAPiens = {
             "doc": """
             Get the title of the window in the foreground.
             
-            | ``${Title}    Get Window Title``
+            | ``${title}    Get Window Title``
             """
         },
         "GetWindowText": {
@@ -1133,11 +1190,12 @@ lib: RoboSAPiens = {
                 "Pass": "The text message of the window was obtained.",
                 "Exception": exception("The text message of the window could not be read.")
             },
-            "doc": """
-            Get the text message of the window in the foreground.
-            
-            | ``${Text}    Get Window Text``
-            """
+            "doc": 
+                """
+                Get the text message of the window in the foreground.
+                
+                | ``${text}    Get Window Text``
+                """
         }
     },
     "specs": {}
