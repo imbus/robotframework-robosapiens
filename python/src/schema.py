@@ -1,5 +1,11 @@
 from typing_extensions import Literal, TypedDict
 
+class RoboSAPiensKeywordsUntickcheckboxcellArgsColumnSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsUntickcheckboxcellArgsRowSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsTickcheckboxcellArgsColumnSpec(TypedDict):
     ...
 
@@ -16,7 +22,7 @@ class RoboSAPiensKeywordsTickcheckboxArgsLocatorSpec(TypedDict):
     VLabel: str
     HLabelVLabel: str
 
-class RoboSAPiensKeywordsSelecttextlineArgsContentSpec(TypedDict):
+class RoboSAPiensKeywordsSelecttextArgsLocatorSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec(TypedDict):
@@ -54,6 +60,12 @@ class RoboSAPiensKeywordsSelectcellArgsColumnSpec(TypedDict):
 class RoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsScrolltextfieldcontentsArgsUntiltextfieldSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsScrolltextfieldcontentsArgsDirectionSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsSavescreenshotArgsFilepathSpec(TypedDict):
     ...
 
@@ -76,7 +88,7 @@ class RoboSAPiensKeywordsReadtextfieldArgsLocatorSpec(TypedDict):
 class RoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec(TypedDict):
     ...
 
-class RoboSAPiensKeywordsSelecttablerowArgsRow_NumberSpec(TypedDict):
+class RoboSAPiensKeywordsSelecttablerowArgsRow_LocatorSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsPushbuttoncellArgsColumnSpec(TypedDict):
@@ -105,19 +117,16 @@ class RoboSAPiensKeywordsFilltextfieldArgsLocatorSpec(TypedDict):
 class RoboSAPiensKeywordsFilltablecellArgsContentSpec(TypedDict):
     ...
 
-class RoboSAPiensKeywordsFilltablecellArgsColumn_ContentSpec(TypedDict):
-    ColumnContent: str
+class RoboSAPiensKeywordsFilltablecellArgsColumnSpec(TypedDict):
+    ...
 
 class RoboSAPiensKeywordsFilltablecellArgsRow_LocatorSpec(TypedDict):
     ...
 
-class RoboSAPiensKeywordsExportformArgsDirectorySpec(TypedDict):
+class RoboSAPiensKeywordsExportwindowArgsDirectorySpec(TypedDict):
     ...
 
-class RoboSAPiensKeywordsExportformArgsNameSpec(TypedDict):
-    ...
-
-class RoboSAPiensKeywordsExportspreadsheetArgsIndexSpec(TypedDict):
+class RoboSAPiensKeywordsExportwindowArgsNameSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec(TypedDict):
@@ -141,218 +150,212 @@ class RoboSAPiensKeywordsDoubleclickcellArgsRow_LocatorSpec(TypedDict):
 class RoboSAPiensKeywordsConnecttoserverArgsServerSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsExporttreeArgsFilepathSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsOpensapArgsPathSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsSelectmenuitemArgsItempathSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsActivatetabArgsTabSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsUntickcheckboxcellArgsColumn(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsUntickcheckboxcellArgsColumnSpec
+
+class RoboSAPiensKeywordsUntickcheckboxcellArgsRow(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsUntickcheckboxcellArgsRowSpec
+
 class RoboSAPiensKeywordsTickcheckboxcellArgsColumn(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsTickcheckboxcellArgsColumnSpec
 
 class RoboSAPiensKeywordsTickcheckboxcellArgsRow(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsTickcheckboxcellArgsRowSpec
 
 class RoboSAPiensKeywordsUntickcheckboxArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsUntickcheckboxArgsLocatorSpec
 
 class RoboSAPiensKeywordsTickcheckboxArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsTickcheckboxArgsLocatorSpec
 
-class RoboSAPiensKeywordsSelecttextlineArgsContent(TypedDict):
+class RoboSAPiensKeywordsSelecttextArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
-    spec: RoboSAPiensKeywordsSelecttextlineArgsContentSpec
+    spec: RoboSAPiensKeywordsSelecttextArgsLocatorSpec
 
 class RoboSAPiensKeywordsSelecttextfieldArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec
 
 class RoboSAPiensKeywordsSelectradiobuttonArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelectradiobuttonArgsLocatorSpec
 
 class RoboSAPiensKeywordsSelectcomboboxentryArgsEntry(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelectcomboboxentryArgsEntrySpec
 
 class RoboSAPiensKeywordsSelectcomboboxentryArgsCombobox(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec
 
 class RoboSAPiensKeywordsSelectcellvalueArgsEntry(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelectcellvalueArgsEntrySpec
 
 class RoboSAPiensKeywordsSelectcellvalueArgsColumn(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelectcellvalueArgsColumnSpec
 
 class RoboSAPiensKeywordsSelectcellvalueArgsRow_Locator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelectcellvalueArgsRow_LocatorSpec
 
 class RoboSAPiensKeywordsSelectcellArgsColumn(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelectcellArgsColumnSpec
 
 class RoboSAPiensKeywordsSelectcellArgsRow_Locator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec
+
+class RoboSAPiensKeywordsScrolltextfieldcontentsArgsUntiltextfield(TypedDict):
+    name: str
+    default: Literal[None]
+    spec: RoboSAPiensKeywordsScrolltextfieldcontentsArgsUntiltextfieldSpec
+
+class RoboSAPiensKeywordsScrolltextfieldcontentsArgsDirection(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsScrolltextfieldcontentsArgsDirectionSpec
 
 class RoboSAPiensKeywordsSavescreenshotArgsFilepath(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsSavescreenshotArgsFilepathSpec
 
 class RoboSAPiensKeywordsReadtablecellArgsColumn(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsReadtablecellArgsColumnSpec
 
 class RoboSAPiensKeywordsReadtablecellArgsRow_Locator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsReadtablecellArgsRow_LocatorSpec
 
 class RoboSAPiensKeywordsReadtextArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsReadtextArgsLocatorSpec
 
 class RoboSAPiensKeywordsReadtextfieldArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsReadtextfieldArgsLocatorSpec
 
 class RoboSAPiensKeywordsPresskeycombinationArgsKeycombination(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec
 
-class RoboSAPiensKeywordsSelecttablerowArgsRow_Number(TypedDict):
+class RoboSAPiensKeywordsSelecttablerowArgsRow_Locator(TypedDict):
     name: str
-    optional: Literal[False]
-    spec: RoboSAPiensKeywordsSelecttablerowArgsRow_NumberSpec
+    spec: RoboSAPiensKeywordsSelecttablerowArgsRow_LocatorSpec
 
 class RoboSAPiensKeywordsPushbuttoncellArgsColumn(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsPushbuttoncellArgsColumnSpec
 
 class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec
 
 class RoboSAPiensKeywordsHighlightbuttonArgsButton(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec
 
 class RoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsPushbuttonArgsButtonSpec
 
 class RoboSAPiensKeywordsFilltextfieldArgsContent(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsFilltextfieldArgsContentSpec
 
 class RoboSAPiensKeywordsFilltextfieldArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsFilltextfieldArgsLocatorSpec
 
 class RoboSAPiensKeywordsFilltablecellArgsContent(TypedDict):
     name: str
-    optional: Literal[True]
     spec: RoboSAPiensKeywordsFilltablecellArgsContentSpec
 
-class RoboSAPiensKeywordsFilltablecellArgsColumn_Content(TypedDict):
+class RoboSAPiensKeywordsFilltablecellArgsColumn(TypedDict):
     name: str
-    optional: Literal[False]
-    spec: RoboSAPiensKeywordsFilltablecellArgsColumn_ContentSpec
+    spec: RoboSAPiensKeywordsFilltablecellArgsColumnSpec
 
 class RoboSAPiensKeywordsFilltablecellArgsRow_Locator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsFilltablecellArgsRow_LocatorSpec
 
-class RoboSAPiensKeywordsExportformArgsDirectory(TypedDict):
+class RoboSAPiensKeywordsExportwindowArgsDirectory(TypedDict):
     name: str
-    optional: Literal[False]
-    spec: RoboSAPiensKeywordsExportformArgsDirectorySpec
+    spec: RoboSAPiensKeywordsExportwindowArgsDirectorySpec
 
-class RoboSAPiensKeywordsExportformArgsName(TypedDict):
+class RoboSAPiensKeywordsExportwindowArgsName(TypedDict):
     name: str
-    optional: Literal[False]
-    spec: RoboSAPiensKeywordsExportformArgsNameSpec
-
-class RoboSAPiensKeywordsExportspreadsheetArgsIndex(TypedDict):
-    name: str
-    optional: Literal[False]
-    spec: RoboSAPiensKeywordsExportspreadsheetArgsIndexSpec
+    spec: RoboSAPiensKeywordsExportwindowArgsNameSpec
 
 class RoboSAPiensKeywordsExecutetransactionArgsT_Code(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec
 
 class RoboSAPiensKeywordsDoubleclicktextfieldArgsLocator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsDoubleclicktextfieldArgsLocatorSpec
 
 class RoboSAPiensKeywordsDoubleclickcellArgsColumn(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsDoubleclickcellArgsColumnSpec
 
 class RoboSAPiensKeywordsDoubleclickcellArgsRow_Locator(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsDoubleclickcellArgsRow_LocatorSpec
 
 class RoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsConnecttoserverArgsServerSpec
+
+class RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber(TypedDict):
+    name: str
+    default: str
+    spec: RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec
 
 class RoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsExporttreeArgsFilepathSpec
 
 class RoboSAPiensKeywordsOpensapArgsPath(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsOpensapArgsPathSpec
+
+class RoboSAPiensKeywordsSelectmenuitemArgsItempath(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsSelectmenuitemArgsItempathSpec
+
+class RoboSAPiensKeywordsSelecttreeelementArgsElementpath(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec
 
 class RoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
     name: str
-    optional: Literal[False]
     spec: RoboSAPiensKeywordsActivatetabArgsTabSpec
 
 class RoboSAPiensKeywordsGetwindowtextResult(TypedDict):
@@ -371,9 +374,21 @@ class RoboSAPiensKeywordsGetwindowtitleResult(TypedDict):
 class RoboSAPiensKeywordsGetwindowtitleArgs(TypedDict):
     ...
 
+class RoboSAPiensKeywordsUntickcheckboxcellResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    NotChangeable: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsUntickcheckboxcellArgs(TypedDict):
+    a1row: RoboSAPiensKeywordsUntickcheckboxcellArgsRow
+    a2column: RoboSAPiensKeywordsUntickcheckboxcellArgsColumn
+
 class RoboSAPiensKeywordsTickcheckboxcellResult(TypedDict):
     NoSession: str
     NotFound: str
+    NotChangeable: str
     Pass: str
     Exception: str
 
@@ -384,6 +399,7 @@ class RoboSAPiensKeywordsTickcheckboxcellArgs(TypedDict):
 class RoboSAPiensKeywordsUntickcheckboxResult(TypedDict):
     NoSession: str
     NotFound: str
+    NotChangeable: str
     Pass: str
     Exception: str
 
@@ -393,20 +409,21 @@ class RoboSAPiensKeywordsUntickcheckboxArgs(TypedDict):
 class RoboSAPiensKeywordsTickcheckboxResult(TypedDict):
     NoSession: str
     NotFound: str
+    NotChangeable: str
     Pass: str
     Exception: str
 
 class RoboSAPiensKeywordsTickcheckboxArgs(TypedDict):
     locator: RoboSAPiensKeywordsTickcheckboxArgsLocator
 
-class RoboSAPiensKeywordsSelecttextlineResult(TypedDict):
+class RoboSAPiensKeywordsSelecttextResult(TypedDict):
     NoSession: str
     NotFound: str
     Pass: str
     Exception: str
 
-class RoboSAPiensKeywordsSelecttextlineArgs(TypedDict):
-    content: RoboSAPiensKeywordsSelecttextlineArgsContent
+class RoboSAPiensKeywordsSelecttextArgs(TypedDict):
+    locator: RoboSAPiensKeywordsSelecttextArgsLocator
 
 class RoboSAPiensKeywordsSelecttextfieldResult(TypedDict):
     NoSession: str
@@ -420,6 +437,7 @@ class RoboSAPiensKeywordsSelecttextfieldArgs(TypedDict):
 class RoboSAPiensKeywordsSelectradiobuttonResult(TypedDict):
     NoSession: str
     NotFound: str
+    NotChangeable: str
     Pass: str
     Exception: str
 
@@ -452,12 +470,25 @@ class RoboSAPiensKeywordsSelectcellvalueArgs(TypedDict):
 class RoboSAPiensKeywordsSelectcellResult(TypedDict):
     NoSession: str
     NotFound: str
+    NoTable: str
     Pass: str
     Exception: str
 
 class RoboSAPiensKeywordsSelectcellArgs(TypedDict):
     a1row_locator: RoboSAPiensKeywordsSelectcellArgsRow_Locator
     a2column: RoboSAPiensKeywordsSelectcellArgsColumn
+
+class RoboSAPiensKeywordsScrolltextfieldcontentsResult(TypedDict):
+    NoSession: str
+    Pass: str
+    NoScrollbar: str
+    InvalidDirection: str
+    MaximumReached: str
+    Exception: str
+
+class RoboSAPiensKeywordsScrolltextfieldcontentsArgs(TypedDict):
+    a1direction: RoboSAPiensKeywordsScrolltextfieldcontentsArgsDirection
+    a2untilTextField: RoboSAPiensKeywordsScrolltextfieldcontentsArgsUntiltextfield
 
 class RoboSAPiensKeywordsSavescreenshotResult(TypedDict):
     NoSession: str
@@ -474,6 +505,7 @@ class RoboSAPiensKeywordsSavescreenshotArgs(TypedDict):
 class RoboSAPiensKeywordsReadtablecellResult(TypedDict):
     NoSession: str
     NotFound: str
+    NoTable: str
     Pass: str
     Exception: str
 
@@ -508,18 +540,30 @@ class RoboSAPiensKeywordsPresskeycombinationResult(TypedDict):
 class RoboSAPiensKeywordsPresskeycombinationArgs(TypedDict):
     keyCombination: RoboSAPiensKeywordsPresskeycombinationArgsKeycombination
 
-class RoboSAPiensKeywordsSelecttablerowResult(TypedDict):
+class RoboSAPiensKeywordsCounttablerowsResult(TypedDict):
     NoSession: str
     NotFound: str
     Pass: str
     Exception: str
 
+class RoboSAPiensKeywordsCounttablerowsArgs(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsSelecttablerowResult(TypedDict):
+    NoSession: str
+    NoTable: str
+    InvalidIndex: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
 class RoboSAPiensKeywordsSelecttablerowArgs(TypedDict):
-    row_number: RoboSAPiensKeywordsSelecttablerowArgsRow_Number
+    row_locator: RoboSAPiensKeywordsSelecttablerowArgsRow_Locator
 
 class RoboSAPiensKeywordsPushbuttoncellResult(TypedDict):
     NoSession: str
     NotFound: str
+    NotChangeable: str
     Pass: str
     Exception: str
 
@@ -532,6 +576,7 @@ class RoboSAPiensKeywordsReadstatusbarResult(TypedDict):
     Pass: str
     Exception: str
     NotFound: str
+    Json: str
 
 class RoboSAPiensKeywordsReadstatusbarArgs(TypedDict):
     ...
@@ -547,8 +592,8 @@ class RoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
 
 class RoboSAPiensKeywordsPushbuttonResult(TypedDict):
     NoSession: str
-    SapError: str
     NotFound: str
+    NotChangeable: str
     Pass: str
     Exception: str
 
@@ -558,6 +603,7 @@ class RoboSAPiensKeywordsPushbuttonArgs(TypedDict):
 class RoboSAPiensKeywordsFilltextfieldResult(TypedDict):
     NoSession: str
     NotFound: str
+    NotChangeable: str
     Pass: str
     Exception: str
 
@@ -569,31 +615,23 @@ class RoboSAPiensKeywordsFilltablecellResult(TypedDict):
     NoSession: str
     NotFound: str
     NotChangeable: str
+    NoTable: str
     Pass: str
     Exception: str
 
 class RoboSAPiensKeywordsFilltablecellArgs(TypedDict):
     a1row_locator: RoboSAPiensKeywordsFilltablecellArgsRow_Locator
-    a2column_content: RoboSAPiensKeywordsFilltablecellArgsColumn_Content
+    a2column: RoboSAPiensKeywordsFilltablecellArgsColumn
     a3content: RoboSAPiensKeywordsFilltablecellArgsContent
 
-class RoboSAPiensKeywordsExportformResult(TypedDict):
+class RoboSAPiensKeywordsExportwindowResult(TypedDict):
     NoSession: str
     Pass: str
     Exception: str
 
-class RoboSAPiensKeywordsExportformArgs(TypedDict):
-    a1name: RoboSAPiensKeywordsExportformArgsName
-    a2directory: RoboSAPiensKeywordsExportformArgsDirectory
-
-class RoboSAPiensKeywordsExportspreadsheetResult(TypedDict):
-    NoSession: str
-    Pass: str
-    Exception: str
-    NotFound: str
-
-class RoboSAPiensKeywordsExportspreadsheetArgs(TypedDict):
-    index: RoboSAPiensKeywordsExportspreadsheetArgsIndex
+class RoboSAPiensKeywordsExportwindowArgs(TypedDict):
+    a1name: RoboSAPiensKeywordsExportwindowArgsName
+    a2directory: RoboSAPiensKeywordsExportwindowArgsDirectory
 
 class RoboSAPiensKeywordsExecutetransactionResult(TypedDict):
     NoSession: str
@@ -639,11 +677,12 @@ class RoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
     NoConnection: str
     NoServerScripting: str
     NoSession: str
+    InvalidSessionId: str
     Pass: str
     Exception: str
 
 class RoboSAPiensKeywordsAttachtorunningsapArgs(TypedDict):
-    ...
+    sessionNumber: RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber
 
 class RoboSAPiensKeywordsExporttreeResult(TypedDict):
     NoSession: str
@@ -682,10 +721,27 @@ class RoboSAPiensKeywordsOpensapResult(TypedDict):
 class RoboSAPiensKeywordsOpensapArgs(TypedDict):
     path: RoboSAPiensKeywordsOpensapArgsPath
 
+class RoboSAPiensKeywordsSelectmenuitemResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsSelectmenuitemArgs(TypedDict):
+    itemPath: RoboSAPiensKeywordsSelectmenuitemArgsItempath
+
+class RoboSAPiensKeywordsSelecttreeelementResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsSelecttreeelementArgs(TypedDict):
+    elementPath: RoboSAPiensKeywordsSelecttreeelementArgsElementpath
+
 class RoboSAPiensKeywordsActivatetabResult(TypedDict):
     NoSession: str
     NotFound: str
-    SapError: str
     Pass: str
     Exception: str
 
@@ -702,6 +758,12 @@ class RoboSAPiensKeywordsGetwindowtitle(TypedDict):
     name: str
     args: RoboSAPiensKeywordsGetwindowtitleArgs
     result: RoboSAPiensKeywordsGetwindowtitleResult
+    doc: str
+
+class RoboSAPiensKeywordsUntickcheckboxcell(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsUntickcheckboxcellArgs
+    result: RoboSAPiensKeywordsUntickcheckboxcellResult
     doc: str
 
 class RoboSAPiensKeywordsTickcheckboxcell(TypedDict):
@@ -722,10 +784,10 @@ class RoboSAPiensKeywordsTickcheckbox(TypedDict):
     result: RoboSAPiensKeywordsTickcheckboxResult
     doc: str
 
-class RoboSAPiensKeywordsSelecttextline(TypedDict):
+class RoboSAPiensKeywordsSelecttext(TypedDict):
     name: str
-    args: RoboSAPiensKeywordsSelecttextlineArgs
-    result: RoboSAPiensKeywordsSelecttextlineResult
+    args: RoboSAPiensKeywordsSelecttextArgs
+    result: RoboSAPiensKeywordsSelecttextResult
     doc: str
 
 class RoboSAPiensKeywordsSelecttextfield(TypedDict):
@@ -758,6 +820,12 @@ class RoboSAPiensKeywordsSelectcell(TypedDict):
     result: RoboSAPiensKeywordsSelectcellResult
     doc: str
 
+class RoboSAPiensKeywordsScrolltextfieldcontents(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsScrolltextfieldcontentsArgs
+    result: RoboSAPiensKeywordsScrolltextfieldcontentsResult
+    doc: str
+
 class RoboSAPiensKeywordsSavescreenshot(TypedDict):
     name: str
     args: RoboSAPiensKeywordsSavescreenshotArgs
@@ -786,6 +854,12 @@ class RoboSAPiensKeywordsPresskeycombination(TypedDict):
     name: str
     args: RoboSAPiensKeywordsPresskeycombinationArgs
     result: RoboSAPiensKeywordsPresskeycombinationResult
+    doc: str
+
+class RoboSAPiensKeywordsCounttablerows(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsCounttablerowsArgs
+    result: RoboSAPiensKeywordsCounttablerowsResult
     doc: str
 
 class RoboSAPiensKeywordsSelecttablerow(TypedDict):
@@ -830,16 +904,10 @@ class RoboSAPiensKeywordsFilltablecell(TypedDict):
     result: RoboSAPiensKeywordsFilltablecellResult
     doc: str
 
-class RoboSAPiensKeywordsExportform(TypedDict):
+class RoboSAPiensKeywordsExportwindow(TypedDict):
     name: str
-    args: RoboSAPiensKeywordsExportformArgs
-    result: RoboSAPiensKeywordsExportformResult
-    doc: str
-
-class RoboSAPiensKeywordsExportspreadsheet(TypedDict):
-    name: str
-    args: RoboSAPiensKeywordsExportspreadsheetArgs
-    result: RoboSAPiensKeywordsExportspreadsheetResult
+    args: RoboSAPiensKeywordsExportwindowArgs
+    result: RoboSAPiensKeywordsExportwindowResult
     doc: str
 
 class RoboSAPiensKeywordsExecutetransaction(TypedDict):
@@ -896,10 +964,27 @@ class RoboSAPiensKeywordsOpensap(TypedDict):
     result: RoboSAPiensKeywordsOpensapResult
     doc: str
 
+class RoboSAPiensKeywordsSelectmenuitem(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsSelectmenuitemArgs
+    result: RoboSAPiensKeywordsSelectmenuitemResult
+    doc: str
+
+class RoboSAPiensKeywordsSelecttreeelement(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsSelecttreeelementArgs
+    result: RoboSAPiensKeywordsSelecttreeelementResult
+    doc: str
+
 class RoboSAPiensKeywordsActivatetab(TypedDict):
     name: str
     args: RoboSAPiensKeywordsActivatetabArgs
     result: RoboSAPiensKeywordsActivatetabResult
+    doc: str
+
+class RoboSAPiensArgsX64(TypedDict):
+    name: str
+    default: Literal[False]
     doc: str
 
 class RoboSAPiensArgsPresenter_Mode(TypedDict):
@@ -912,6 +997,8 @@ class RoboSAPiensSpecs(TypedDict):
 
 class RoboSAPiensKeywords(TypedDict):
     ActivateTab: RoboSAPiensKeywordsActivatetab
+    SelectTreeElement: RoboSAPiensKeywordsSelecttreeelement
+    SelectMenuItem: RoboSAPiensKeywordsSelectmenuitem
     OpenSap: RoboSAPiensKeywordsOpensap
     CloseConnection: RoboSAPiensKeywordsCloseconnection
     CloseSap: RoboSAPiensKeywordsClosesap
@@ -921,8 +1008,7 @@ class RoboSAPiensKeywords(TypedDict):
     DoubleClickCell: RoboSAPiensKeywordsDoubleclickcell
     DoubleClickTextField: RoboSAPiensKeywordsDoubleclicktextfield
     ExecuteTransaction: RoboSAPiensKeywordsExecutetransaction
-    ExportSpreadsheet: RoboSAPiensKeywordsExportspreadsheet
-    ExportForm: RoboSAPiensKeywordsExportform
+    ExportWindow: RoboSAPiensKeywordsExportwindow
     FillTableCell: RoboSAPiensKeywordsFilltablecell
     FillTextField: RoboSAPiensKeywordsFilltextfield
     PushButton: RoboSAPiensKeywordsPushbutton
@@ -930,25 +1016,29 @@ class RoboSAPiensKeywords(TypedDict):
     ReadStatusbar: RoboSAPiensKeywordsReadstatusbar
     PushButtonCell: RoboSAPiensKeywordsPushbuttoncell
     SelectTableRow: RoboSAPiensKeywordsSelecttablerow
+    CountTableRows: RoboSAPiensKeywordsCounttablerows
     PressKeyCombination: RoboSAPiensKeywordsPresskeycombination
     ReadTextField: RoboSAPiensKeywordsReadtextfield
     ReadText: RoboSAPiensKeywordsReadtext
     ReadTableCell: RoboSAPiensKeywordsReadtablecell
     SaveScreenshot: RoboSAPiensKeywordsSavescreenshot
+    ScrollTextFieldContents: RoboSAPiensKeywordsScrolltextfieldcontents
     SelectCell: RoboSAPiensKeywordsSelectcell
     SelectCellValue: RoboSAPiensKeywordsSelectcellvalue
     SelectComboBoxEntry: RoboSAPiensKeywordsSelectcomboboxentry
     SelectRadioButton: RoboSAPiensKeywordsSelectradiobutton
     SelectTextField: RoboSAPiensKeywordsSelecttextfield
-    SelectTextLine: RoboSAPiensKeywordsSelecttextline
+    SelectText: RoboSAPiensKeywordsSelecttext
     TickCheckBox: RoboSAPiensKeywordsTickcheckbox
     UntickCheckBox: RoboSAPiensKeywordsUntickcheckbox
     TickCheckBoxCell: RoboSAPiensKeywordsTickcheckboxcell
+    UntickCheckBoxCell: RoboSAPiensKeywordsUntickcheckboxcell
     GetWindowTitle: RoboSAPiensKeywordsGetwindowtitle
     GetWindowText: RoboSAPiensKeywordsGetwindowtext
 
 class RoboSAPiensArgs(TypedDict):
-    presenter_mode: RoboSAPiensArgsPresenter_Mode
+    a1presenter_mode: RoboSAPiensArgsPresenter_Mode
+    a2x64: RoboSAPiensArgsX64
 
 class RoboSAPiensDoc(TypedDict):
     intro: str

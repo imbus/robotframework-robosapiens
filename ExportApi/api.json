@@ -8,6 +8,11 @@
       "name": "presenter-mode",
       "default": false,
       "doc": "Highlight each GUI element acted upon"
+    },
+    "x64": {
+      "name": "64bit",
+      "default": false,
+      "doc": "Execute RoboSAPiens 64-bit"
     }
   },
   "keywords": {
@@ -16,25 +21,54 @@
       "args": {
         "tab": {
           "name": "tab",
-          "optional": false,
           "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
-        "SapError": "SapError",
         "Pass": "Pass",
         "Exception": "Exception"
       },
       "doc": "Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n| ``Reiter auswählen    Name``"
+    },
+    "SelectTreeElement": {
+      "name": "Baumelement markieren",
+      "args": {
+        "elementPath": {
+          "name": "elementPath",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Das Baumelement mit dem angegebenen Pfad wird markiert.\n\n| ``Baumelement markieren    Elementpfad``"
+    },
+    "SelectMenuItem": {
+      "name": "Menüeintrag auswählen",
+      "args": {
+        "itemPath": {
+          "name": "itemPath",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.\n\n| ``Menüeintrag auswählen    Pfad``"
     },
     "OpenSap": {
       "name": "SAP starten",
       "args": {
         "path": {
           "name": "path",
-          "optional": false,
           "spec": {}
         }
       },
@@ -70,11 +104,10 @@
       "doc": "Die SAP GUI wird beendet."
     },
     "ExportTree": {
-      "name": "Funktionsbaum exportieren",
+      "name": "Baumstruktur exportieren",
       "args": {
         "filepath": {
           "name": "filepath",
-          "optional": false,
           "spec": {}
         }
       },
@@ -84,17 +117,24 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Funktionsbaum wird in der angegebenen Datei gespeichert.\n\n| ``Funktionsbaum exportieren     Dateipfad``"
+      "doc": "Die Baumstruktur wird in der angegebenen Datei gespeichert.\n\n| ``Baumstruktur exportieren     Dateipfad``"
     },
     "AttachToRunningSap": {
       "name": "Laufende SAP GUI übernehmen",
-      "args": {},
+      "args": {
+        "sessionNumber": {
+          "name": "sessionNumber",
+          "default": "1",
+          "spec": {}
+        }
+      },
       "result": {
         "NoSapGui": "NoSapGui",
         "NoGuiScripting": "NoGuiScripting",
         "NoConnection": "NoConnection",
         "NoServerScripting": "NoServerScripting",
         "NoSession": "NoSession",
+        "InvalidSessionId": "InvalidSessionId",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -105,7 +145,6 @@
       "args": {
         "server": {
           "name": "server",
-          "optional": false,
           "spec": {}
         }
       },
@@ -124,12 +163,10 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
-          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
-          "optional": false,
           "spec": {}
         }
       },
@@ -146,7 +183,6 @@
       "args": {
         "locator": {
           "name": "locator",
-          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -171,7 +207,6 @@
       "args": {
         "T_Code": {
           "name": "T_Code",
-          "optional": false,
           "spec": {}
         }
       },
@@ -182,34 +217,15 @@
       },
       "doc": "Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n| ``Transaktion ausführen    T-Code``"
     },
-    "ExportSpreadsheet": {
-      "name": "Tabellenkalkulation exportieren",
-      "args": {
-        "index": {
-          "name": "index",
-          "optional": false,
-          "spec": {}
-        }
-      },
-      "result": {
-        "NoSession": "NoSession",
-        "Pass": "Pass",
-        "Exception": "Exception",
-        "NotFound": "NotFound"
-      },
-      "doc": "Die Export-Funktion 'Tabellenkalkulation' wird für die angegebene Tabelle aufgerufen, falls vorhanden.\n\n| ``Tabellenkalkulation exportieren   Index``\nIndex: 1, 2,..."
-    },
-    "ExportForm": {
+    "ExportWindow": {
       "name": "Maske exportieren",
       "args": {
         "name": {
           "name": "name",
-          "optional": false,
           "spec": {}
         },
         "directory": {
           "name": "directory",
-          "optional": false,
           "spec": {}
         }
       },
@@ -225,19 +241,14 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
-          "optional": false,
           "spec": {}
         },
-        "column_content": {
-          "name": "column_content",
-          "optional": false,
-          "spec": {
-            "ColumnContent": "ColumnContent"
-          }
+        "column": {
+          "name": "column",
+          "spec": {}
         },
         "content": {
           "name": "content",
-          "optional": true,
           "spec": {}
         }
       },
@@ -245,6 +256,7 @@
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "NotChangeable": "NotChangeable",
+        "NoTable": "NoTable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -255,7 +267,6 @@
       "args": {
         "locator": {
           "name": "locator",
-          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -267,13 +278,13 @@
         },
         "content": {
           "name": "content",
-          "optional": false,
           "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -284,14 +295,13 @@
       "args": {
         "button": {
           "name": "button",
-          "optional": false,
           "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
-        "SapError": "SapError",
         "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -302,7 +312,6 @@
       "args": {
         "button": {
           "name": "button",
-          "optional": false,
           "spec": {}
         }
       },
@@ -321,7 +330,8 @@
         "NoSession": "NoSession",
         "Pass": "Pass",
         "Exception": "Exception",
-        "NotFound": "NotFound"
+        "NotFound": "NotFound",
+        "Json": "Json"
       },
       "doc": "Die Statusleiste wird ausgelesen.\n\n| ``Statusleiste auslesen``"
     },
@@ -330,18 +340,17 @@
       "args": {
         "row_or_label": {
           "name": "row_or_label",
-          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
-          "optional": false,
           "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -350,26 +359,37 @@
     "SelectTableRow": {
       "name": "Tabellenzeile markieren",
       "args": {
-        "row_number": {
-          "name": "row_number",
-          "optional": false,
+        "row_locator": {
+          "name": "row_locator",
           "spec": {}
         }
       },
+      "result": {
+        "NoSession": "NoSession",
+        "NoTable": "NoTable",
+        "InvalidIndex": "InvalidIndex",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die angegebene Tabellenzeile wird markiert.\n\n| ``Tabellenzeile markieren     Zeilenlokator``"
+    },
+    "CountTableRows": {
+      "name": "Tabellenzeilen zählen",
+      "args": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die angegebene Tabellenzeile wird markiert.\n\n| ``Tabellenzeile markieren     Zeilennummer``"
+      "doc": "Die Anzahl der Tabellenzeile wird gezählt.\n\n| ``Tabellenzeilen zählen``"
     },
     "PressKeyCombination": {
       "name": "Tastenkombination drücken",
       "args": {
         "keyCombination": {
           "name": "keyCombination",
-          "optional": false,
           "spec": {}
         }
       },
@@ -386,7 +406,6 @@
       "args": {
         "locator": {
           "name": "locator",
-          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -408,7 +427,6 @@
       "args": {
         "locator": {
           "name": "locator",
-          "optional": false,
           "spec": {
             "Content": "Content",
             "HLabel": "HLabel"
@@ -428,18 +446,17 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
-          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
-          "optional": false,
           "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NoTable": "NoTable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -450,7 +467,6 @@
       "args": {
         "filepath": {
           "name": "filepath",
-          "optional": false,
           "spec": {}
         }
       },
@@ -465,23 +481,45 @@
       },
       "doc": "Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n| ``Fenster aufnehmen     Dateipfad``\nDateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses."
     },
+    "ScrollTextFieldContents": {
+      "name": "Inhalte scrollen",
+      "args": {
+        "direction": {
+          "name": "direction",
+          "spec": {}
+        },
+        "untilTextField": {
+          "name": "untilTextField",
+          "default": null,
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "NoScrollbar": "NoScrollbar",
+        "InvalidDirection": "InvalidDirection",
+        "MaximumReached": "MaximumReached",
+        "Exception": "Exception"
+      },
+      "doc": "Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.\n\n| ``Inhalte scrollen   Richtung``\nRichtung: DOWN (ein Schritt nach unten), UP (ein Schritt nach oben), BEGIN (ganz am Anfang), END (ganz am Ende)"
+    },
     "SelectCell": {
       "name": "Tabellenzelle markieren",
       "args": {
         "row_locator": {
           "name": "row_locator",
-          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
-          "optional": false,
           "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NoTable": "NoTable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -492,17 +530,14 @@
       "args": {
         "row_locator": {
           "name": "row_locator",
-          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
-          "optional": false,
           "spec": {}
         },
         "entry": {
           "name": "entry",
-          "optional": false,
           "spec": {}
         }
       },
@@ -520,12 +555,10 @@
       "args": {
         "comboBox": {
           "name": "comboBox",
-          "optional": false,
           "spec": {}
         },
         "entry": {
           "name": "entry",
-          "optional": false,
           "spec": {}
         }
       },
@@ -543,7 +576,6 @@
       "args": {
         "locator": {
           "name": "locator",
-          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -554,6 +586,7 @@
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -564,7 +597,6 @@
       "args": {
         "locator": {
           "name": "locator",
-          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -584,12 +616,11 @@
       },
       "doc": "Das angegebene Textfeld wird markiert.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld markieren    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld markieren    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld markieren    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld markieren    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld markieren    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld markieren    = Inhalt``"
     },
-    "SelectTextLine": {
-      "name": "Textzeile markieren",
+    "SelectText": {
+      "name": "Text markieren",
       "args": {
-        "content": {
-          "name": "content",
-          "optional": false,
+        "locator": {
+          "name": "locator",
           "spec": {}
         }
       },
@@ -599,14 +630,13 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die Textzeile mit dem angegebenen Inhalt wird markiert.\n| ``Textzeile markieren    Inhalt``"
+      "doc": "Der Text mit dem angegebenen Selektor wird markiert.\n*Text fängt mit der angegebenen Teilzeichenfolge an*\n| ``Text markieren    = Teilzeichenfolge``\n*Text folgt einer Beschriftung*\n| ``Text markieren    Beschriftung``"
     },
     "TickCheckBox": {
       "name": "Formularfeld ankreuzen",
       "args": {
         "locator": {
           "name": "locator",
-          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -617,6 +647,7 @@
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -627,7 +658,6 @@
       "args": {
         "locator": {
           "name": "locator",
-          "optional": false,
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -638,6 +668,7 @@
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
@@ -648,22 +679,42 @@
       "args": {
         "row": {
           "name": "row",
-          "optional": false,
           "spec": {}
         },
         "column": {
           "name": "column",
-          "optional": false,
           "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
       "doc": "Die angegebene Tabellenzelle wird angekreuzt.\n\n| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``"
+    },
+    "UntickCheckBoxCell": {
+      "name": "Tabellenzelle abwählen",
+      "args": {
+        "row": {
+          "name": "row",
+          "spec": {}
+        },
+        "column": {
+          "name": "column",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Die angegebene Tabellenzelle wird abgewählt.\n\n| ``Tabellenzelle abwählen     Zeilennummer     Spaltentitel``"
     },
     "GetWindowTitle": {
       "name": "Fenstertitel auslesen",
