@@ -59,6 +59,7 @@ namespace RoboSAPiens
                 {"SelectText", args => SelectText(args[0])},
                 {"SelectTextField", args => SelectTextField(args[0])},
                 {"SelectTreeElement", args => SelectTreeElement(args[0])},
+                {"SelectTreeElementMenuEntry", args => SelectTreeElementMenuEntry(args[0], args[1])},
                 {"TickCheckBox", args => TickCheckBox(args[0])},
                 {"TickCheckBoxCell", args => TickCheckBoxCell(args[0], args[1])},
                 {"UntickCheckBox", args => UntickCheckBox(args[0])},
@@ -644,6 +645,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.selectCellValue(row_locator, column, entry),
                 _ => new Result.SelectCellValue.NoSession()
+            };
+        }
+
+        [Keyword("Menüeintrag in Baumelement auswählen"),
+         Doc("Aus dem angegebenen Baumelement wird der angegebene Menüeintrag ausgewählt.\n\n" +
+             "| ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``")]
+        public RobotResult SelectTreeElementMenuEntry(string elementPath, string menuEntry) {
+            return session switch {
+                SAPSession session => session.selectTreeElementMenuEntry(elementPath, menuEntry),
+                _ => new Result.SelectTreeElementMenuEntry.NoSession()
             };
         }
 

@@ -111,6 +111,29 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('SelectTreeElement', args, result) # type: ignore
     
 
+    @keyword('Menüeintrag in Baumelement auswählen') # type: ignore
+    def select_tree_element_menu_entry(self, Elementpfad: str, Menüeintrag: str): # type: ignore
+        """
+        Aus dem Kontextmenü des Baumelements mit dem angegebenen Pfad wird der angebene Eintrag ausgewählt.
+        
+        | ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``
+        
+        Elementpfad: Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen).
+        
+        Menüeintrag: Der Menüeintrag. Bei verschachtelten Menüs der Pfad zum Eintrag mit '|' als Trennzeichen (z.B. Anlegen|Wirtschaftseinheit).
+        """
+        
+        args = [Elementpfad, Menüeintrag]
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "NotFound": "Das Baumelement '{0}' wurde nicht gefunden.\nHinweis: Prüfe die Rechtschreibung",
+            "Pass": "Der Menüeintrag '{0}' wurde ausgewählt.",
+            "Exception": "Der Menüeintrag konnte nicht ausgewählt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('SelectTreeElementMenuEntry', args, result) # type: ignore
+    
+
     @keyword('SAP starten') # type: ignore
     def open_sap(self, Pfad: str): # type: ignore
         """
@@ -977,4 +1000,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.0.0'
+    ROBOT_LIBRARY_VERSION = '2.1.0'

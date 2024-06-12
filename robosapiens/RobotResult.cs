@@ -186,6 +186,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Baumelement konnte nicht markiert werden.");
         }
 
+        public record SelectTreeElementMenuEntry {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string elementPath): RobotResult.NotFound($"Das Baumelement '{elementPath}' wurde nicht gefunden.");
+            public record Pass(string entryPath): RobotResult.RobotPass($"Der Eintrag '{entryPath}' wurde ausgewählt.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Eintrag konnte nicht ausgewählt werden.");
+        }
+
         public record PressKeyCombination {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string keyCombination): RobotResult.NotFound($"Die Tastenkombination '{keyCombination}' ist nicht vorhanden.");

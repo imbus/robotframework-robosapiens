@@ -146,6 +146,37 @@ lib: RoboSAPiens = {
                 element_path: The path to the element using '/' as separator. e.g. Engineering/Civil Engineering
                 """
         },
+        "SelectTreeElementMenuEntry": {
+            "name": "Select Menu Entry in Tree Element",
+            "args": {
+                "a1elementPath": {
+                    "name": "element_path",
+                    "spec": {},
+
+                },
+                "a2menuEntry": {
+                    "name": "menu_entry",
+                    "spec": {},
+
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The tree element '{0}' could not be found."),
+                "Pass": "The menu entry '{0}' was selected.",
+                "Exception": exception("The menu entry could not be selected. {0}")
+            },
+            "doc": 
+                """
+                Select the given entry in the context menu of the tree element located at the path provided.
+                
+                | ``Select Menu Entry in Tree Element    element_path    menu_entry``
+
+                element_path: The path to the element using '/' as separator, e.g. Engineering/Civil Engineering.
+
+                menu_entry: The menu entry. For nested menus the path to the entry using '|' as separator, e.g. Create|Business Unit.
+                """
+        },
         "OpenSap": {
             "name": "Open SAP",
             "args": {

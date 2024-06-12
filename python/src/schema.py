@@ -45,6 +45,12 @@ class RoboSAPiensKeywordsSelectcomboboxentryArgsEntrySpec(TypedDict):
 class RoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsSelecttreeelementmenuentryArgsMenuentrySpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsSelecttreeelementmenuentryArgsElementpathSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsSelectcellvalueArgsEntrySpec(TypedDict):
     ...
 
@@ -211,6 +217,14 @@ class RoboSAPiensKeywordsSelectcomboboxentryArgsEntry(TypedDict):
 class RoboSAPiensKeywordsSelectcomboboxentryArgsCombobox(TypedDict):
     name: str
     spec: RoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec
+
+class RoboSAPiensKeywordsSelecttreeelementmenuentryArgsMenuentry(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsSelecttreeelementmenuentryArgsMenuentrySpec
+
+class RoboSAPiensKeywordsSelecttreeelementmenuentryArgsElementpath(TypedDict):
+    name: str
+    spec: RoboSAPiensKeywordsSelecttreeelementmenuentryArgsElementpathSpec
 
 class RoboSAPiensKeywordsSelectcellvalueArgsEntry(TypedDict):
     name: str
@@ -454,6 +468,16 @@ class RoboSAPiensKeywordsSelectcomboboxentryResult(TypedDict):
 class RoboSAPiensKeywordsSelectcomboboxentryArgs(TypedDict):
     a1comboBox: RoboSAPiensKeywordsSelectcomboboxentryArgsCombobox
     a2entry: RoboSAPiensKeywordsSelectcomboboxentryArgsEntry
+
+class RoboSAPiensKeywordsSelecttreeelementmenuentryResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsSelecttreeelementmenuentryArgs(TypedDict):
+    a1elementPath: RoboSAPiensKeywordsSelecttreeelementmenuentryArgsElementpath
+    a2menuEntry: RoboSAPiensKeywordsSelecttreeelementmenuentryArgsMenuentry
 
 class RoboSAPiensKeywordsSelectcellvalueResult(TypedDict):
     NoSession: str
@@ -808,6 +832,12 @@ class RoboSAPiensKeywordsSelectcomboboxentry(TypedDict):
     result: RoboSAPiensKeywordsSelectcomboboxentryResult
     doc: str
 
+class RoboSAPiensKeywordsSelecttreeelementmenuentry(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsSelecttreeelementmenuentryArgs
+    result: RoboSAPiensKeywordsSelecttreeelementmenuentryResult
+    doc: str
+
 class RoboSAPiensKeywordsSelectcellvalue(TypedDict):
     name: str
     args: RoboSAPiensKeywordsSelectcellvalueArgs
@@ -1025,6 +1055,7 @@ class RoboSAPiensKeywords(TypedDict):
     ScrollTextFieldContents: RoboSAPiensKeywordsScrolltextfieldcontents
     SelectCell: RoboSAPiensKeywordsSelectcell
     SelectCellValue: RoboSAPiensKeywordsSelectcellvalue
+    SelectTreeElementMenuEntry: RoboSAPiensKeywordsSelecttreeelementmenuentry
     SelectComboBoxEntry: RoboSAPiensKeywordsSelectcomboboxentry
     SelectRadioButton: RoboSAPiensKeywordsSelectradiobutton
     SelectTextField: RoboSAPiensKeywordsSelecttextfield

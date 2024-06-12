@@ -45,6 +45,15 @@ namespace RoboSAPiens
             guiTree.SelectedNode = nodeKey;
         }
 
+        // menuEntry: The pipe character '|' is the separator for sub-menus
+        public void selectMenuEntry(GuiSession session, string menuEntry)
+        {
+            var guiTree = (GuiTree)session.FindById(treeId);
+            select(session);
+            guiTree.NodeContextMenu(nodeKey);
+            guiTree.SelectContextMenuItemByText(menuEntry);
+        }
+
         public bool isHLabeled(string label)
         {
             return textPath == label;

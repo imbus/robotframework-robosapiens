@@ -112,6 +112,29 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('SelectTreeElement', args, result) # type: ignore
     
 
+    @keyword('Select Menu Entry in Tree Element') # type: ignore
+    def select_tree_element_menu_entry(self, element_path: str, menu_entry: str): # type: ignore
+        """
+        Select the given entry in the context menu of the tree element located at the path provided.
+        
+        | ``Select Menu Entry in Tree Element    element_path    menu_entry``
+        
+        element_path: The path to the element using '/' as separator, e.g. Engineering/Civil Engineering.
+        
+        menu_entry: The menu entry. For nested menus the path to the entry using '|' as separator, e.g. Create|Business Unit.
+        """
+        
+        args = [element_path, menu_entry]
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The tree element '{0}' could not be found. Hint: Check the spelling",
+            "Pass": "The menu entry '{0}' was selected.",
+            "Exception": "The menu entry could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('SelectTreeElementMenuEntry', args, result) # type: ignore
+    
+
     @keyword('Open SAP') # type: ignore
     def open_sap(self, path: str): # type: ignore
         """
@@ -978,4 +1001,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.0.0'
+    ROBOT_LIBRARY_VERSION = '2.1.0'

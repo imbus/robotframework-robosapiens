@@ -550,6 +550,26 @@
       },
       "doc": "In der spezifizierten Zelle wird der angegebene Wert ausgewählt.\n\n| ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Eintrag``"
     },
+    "SelectTreeElementMenuEntry": {
+      "name": "Menüeintrag in Baumelement auswählen",
+      "args": {
+        "elementPath": {
+          "name": "elementPath",
+          "spec": {}
+        },
+        "menuEntry": {
+          "name": "menuEntry",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": "Aus dem angegebenen Baumelement wird der angegebene Menüeintrag ausgewählt.\n\n| ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``"
+    },
     "SelectComboBoxEntry": {
       "name": "Auswahlmenüeintrag auswählen",
       "args": {

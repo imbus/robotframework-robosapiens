@@ -144,6 +144,37 @@ lib: LocalizedRoboSAPiens = {
             """
         )
     },
+        "SelectTreeElementMenuEntry": {
+        "name": ("1573180260", "Menüeintrag in Baumelement auswählen"),
+        "args": {
+            "a1elementPath": {
+                "name": ("1214950134", "Elementpfad"),
+                "spec": {},
+            },
+            "a2menuEntry": {
+                "name": ("3129851415", "Menüeintrag"),
+                "spec": {},
+            },
+        },
+        "result": {
+            "NoSession": ("4138997384", no_session),
+            "NotFound": ("3295884259", not_found("Das Baumelement '{0}' wurde nicht gefunden.")),
+            "Pass": ("200907440", "Der Menüeintrag '{0}' wurde ausgewählt."),
+            "Exception": ("3089619033", exception("Der Menüeintrag konnte nicht ausgewählt werden. {0}"))
+        },
+        "doc": (
+            "526404901", 
+            """
+            Aus dem Kontextmenü des Baumelements mit dem angegebenen Pfad wird der angebene Eintrag ausgewählt.
+            
+            | ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``
+                    
+            Elementpfad: Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen).
+
+            Menüeintrag: Der Menüeintrag. Bei verschachtelten Menüs der Pfad zum Eintrag mit '|' als Trennzeichen (z.B. Anlegen|Wirtschaftseinheit).
+            """
+        )
+    },
     "OpenSap": {
       "name": ("1259182241", "SAP starten"),
       "args": {
