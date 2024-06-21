@@ -61,7 +61,7 @@ namespace RoboSAPiens {
         }
 
     	public bool contains(string content) {
-            return text.Equals(content) || text.StartsWith(content);
+            return text.Equals(content);
         }
 
 
@@ -156,8 +156,7 @@ namespace RoboSAPiens {
         public bool hasTooltip(string tooltip) {
             return accTooltip == tooltip ||
                    defaultTooltip == tooltip ||
-                   this.tooltip == tooltip ||
-                   defaultTooltip.StartsWith(tooltip);
+                   this.tooltip == tooltip;
         }
 
         public void insert(string content, GuiSession session) {
