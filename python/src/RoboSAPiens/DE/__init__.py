@@ -406,6 +406,8 @@ class DE(RoboSAPiensClient):
         *Textfeld mit einer Beschriftung links*
         | ``Textfeld ausfüllen    Beschriftung    Inhalt``
         
+        *Hinweis*: Wenn ein Textfeld markiert ist, wird durch Drücken der Taste F1 ein Hilfetext angezeigt, der normalerweise als Beschriftung verwendet werden kann.
+        
         *Textfeld mit einer Beschriftung oben*
         | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``
         
@@ -421,11 +423,11 @@ class DE(RoboSAPiensClient):
         *Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*
         | ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``
         
-        *Hinweise*
+        *Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*
+        | ``Textfeld ausfüllen    Beschriftung >> F1 Hilfetext    Inhalt``
         
-        - Normalerweise kann der Hilfetext, der mit der Taste F1 angezeigt wird, als Lokator verwendet werden.
-        
-        - Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name als Lokator verwendet werden.
+        Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden:
+        | ``Textfeld ausfüllen    Name    Inhalt``
         """
         
         args = [Lokator, Inhalt]
@@ -1000,4 +1002,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.1.0'
+    ROBOT_LIBRARY_VERSION = '2.2.0'

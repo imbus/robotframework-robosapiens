@@ -407,6 +407,8 @@ class RoboSAPiens(RoboSAPiensClient):
         *Text field with a label to its left*
         | ``Fill Text Field    label    content``
         
+        *Hint*: The help text obtained by selecting the text field and pressing F1 can usually be used as label.
+        
         *Text field with a label above*
         | ``Fill Text Field    @ label    content``
         
@@ -422,11 +424,11 @@ class RoboSAPiens(RoboSAPiensClient):
         *Text field with a non-unique label to the right of a text field with a label*
         | ``Fill Text Field    left label >> right label    content``
         
-        *Hints* 
+        *Text field without a label to the right of a text field with a label*
+        | ``Fill Text Field    label >> F1 help text    content``
         
-        - The description obtained by selecting a text field and pressing F1 can usually be used as locator.
-        
-        - As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used as locator.
+        As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used:
+        | ``Fill Text Field    name    content``
         """
         
         args = [locator, content]
@@ -1001,4 +1003,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.1.0'
+    ROBOT_LIBRARY_VERSION = '2.2.0'
