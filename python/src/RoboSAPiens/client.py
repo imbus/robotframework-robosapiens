@@ -12,7 +12,7 @@ from robot.libraries.Remote import RemoteResult
 
 
 class RoboSAPiensClient(object):
-    def __init__(self, args: dict[str, Any]):
+    def __init__(self, args: Dict[str, Any]):
         if args.pop("x64"):
             self.server_cmd = Path(realpath(__file__)).parent / "lib64" / "RoboSAPiens.exe"
         else:
