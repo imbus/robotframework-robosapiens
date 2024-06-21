@@ -119,6 +119,10 @@ namespace RoboSAPiens {
             };
         }
 
+        public SAPTextField? getByName(string name) {
+            return Find(textElement => textElement.isNamed(name));
+        }
+
         SAPTextField? getFromVerticalGrid(int index, string label, LabelStore labels) 
         {
             var textField = Find(field => 
@@ -163,7 +167,8 @@ namespace RoboSAPiens {
                 HLabel (var label) => 
                     getByHLabel(label) ??
                     getByTooltip(label) ??
-                    getHorizontalClosestToLabel(label, labels, this),
+                    getHorizontalClosestToLabel(label, labels, this) ??
+                    getByName(label),
                 HLabelHLabel =>
                     getAlignedWithLabels((HLabelHLabel)locator, labels, this),
                 VLabel (var label) => 
