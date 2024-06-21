@@ -538,13 +538,15 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("3667643114", exception("Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt."))
       },
       "doc": (
-          "2223988639", 
+          "2791391166", 
           """
           Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
           
           *Textfeld mit einer Beschriftung links*
           | ``Textfeld ausfüllen    Beschriftung    Inhalt``
           
+          *Hinweis*: Wenn ein Textfeld markiert ist, wird durch Drücken der Taste F1 ein Hilfetext angezeigt, der normalerweise als Beschriftung verwendet werden kann.
+
           *Textfeld mit einer Beschriftung oben*
           | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``
           
@@ -560,11 +562,11 @@ lib: LocalizedRoboSAPiens = {
           *Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*
           | ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``
           
-          *Hinweise*
-          
-          - Normalerweise kann der Hilfetext, der mit der Taste F1 angezeigt wird, als Lokator verwendet werden.
+          *Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*
+          | ``Textfeld ausfüllen    Beschriftung >> F1 Hilfetext    Inhalt``
 
-          - Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name als Lokator verwendet werden.
+          Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden:
+          | ``Textfeld ausfüllen    Name    Inhalt``
           """
       )
     },
