@@ -11,7 +11,6 @@ namespace RoboSAPiens {
 
         string accTooltip;
         string defaultTooltip;
-        int height;
         public string id;
         public string hLabel;
         public string vLabel;
@@ -29,7 +28,6 @@ namespace RoboSAPiens {
             this.changeable = textField.Changeable;
             this.defaultTooltip = textField.DefaultTooltip;
             this.grid = new List<SAPTextField>();
-            this.height = textField.Height;
             this.id = textField.Id;
             (this.hLabel, this.vLabel) = getLabel(textField);
             this.name = textField.Name;
