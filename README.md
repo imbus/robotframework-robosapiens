@@ -1,6 +1,7 @@
 # RoboSAPiens: SAP GUI Automation for Humans
 ![PyPI - Version](https://img.shields.io/pypi/v/robotframework-robosapiens)
 [![Downloads](https://static.pepy.tech/badge/robotframework-robosapiens)](https://pepy.tech/project/robotframework-robosapiens)
+[![Monthly Downloads](https://static.pepy.tech/badge/robotframework-robosapiens/month)](https://pepy.tech/project/robotframework-robosapiens)
 ![Python - Versions](https://img.shields.io/pypi/pyversions/robotframework-robosapiens)
 ![GitHub - Commit Activity](https://img.shields.io/github/commit-activity/m/imbus/robotframework-robosapiens)
 
