@@ -7,12 +7,12 @@
     "presenter-mode": {
       "name": "presenter-mode",
       "default": false,
-      "doc": "Highlight each GUI element acted upon"
+      "desc": "Highlight each GUI element acted upon"
     },
     "x64": {
       "name": "64bit",
       "default": false,
-      "doc": "Execute RoboSAPiens 64-bit"
+      "desc": "Execute RoboSAPiens 64-bit"
     }
   },
   "keywords": {
@@ -21,6 +21,7 @@
       "args": {
         "tab": {
           "name": "tab",
+          "desc": "",
           "spec": {}
         }
       },
@@ -30,13 +31,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n| ``Reiter auswählen    Name``"
+      "doc": {
+        "desc": "Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n| ``Reiter auswählen    Name``",
+        "examples": ""
+      }
     },
     "SelectTreeElement": {
       "name": "Baumelement markieren",
       "args": {
         "elementPath": {
           "name": "elementPath",
+          "desc": "",
           "spec": {}
         }
       },
@@ -46,13 +51,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das Baumelement mit dem angegebenen Pfad wird markiert.\n\n| ``Baumelement markieren    Elementpfad``"
+      "doc": {
+        "desc": "Das Baumelement mit dem angegebenen Pfad wird markiert.\n\n| ``Baumelement markieren    Elementpfad``",
+        "examples": ""
+      }
     },
     "SelectMenuItem": {
       "name": "Menüeintrag auswählen",
       "args": {
         "itemPath": {
           "name": "itemPath",
+          "desc": "",
           "spec": {}
         }
       },
@@ -62,13 +71,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.\n\n| ``Menüeintrag auswählen    Pfad``"
+      "doc": {
+        "desc": "Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.\n\n| ``Menüeintrag auswählen    Pfad``",
+        "examples": ""
+      }
     },
     "OpenSap": {
       "name": "SAP starten",
       "args": {
         "path": {
           "name": "path",
+          "desc": "",
           "spec": {}
         }
       },
@@ -79,7 +92,10 @@
         "SAPAlreadyRunning": "SAPAlreadyRunning",
         "Exception": "Exception"
       },
-      "doc": "Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``"
+      "doc": {
+        "desc": "Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n| ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``",
+        "examples": ""
+      }
     },
     "CloseConnection": {
       "name": "Verbindung zum Server trennen",
@@ -92,7 +108,10 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die Verbindung mit dem SAP Server wird beendet."
+      "doc": {
+        "desc": "Die Verbindung mit dem SAP Server wird beendet.",
+        "examples": ""
+      }
     },
     "CloseSap": {
       "name": "SAP beenden",
@@ -101,13 +120,17 @@
         "NoSapGui": "NoSapGui",
         "Pass": "Pass"
       },
-      "doc": "Die SAP GUI wird beendet."
+      "doc": {
+        "desc": "Die SAP GUI wird beendet.",
+        "examples": ""
+      }
     },
     "ExportTree": {
       "name": "Baumstruktur exportieren",
       "args": {
         "filepath": {
           "name": "filepath",
+          "desc": "",
           "spec": {}
         }
       },
@@ -117,13 +140,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die Baumstruktur wird in der angegebenen Datei gespeichert.\n\n| ``Baumstruktur exportieren     Dateipfad``"
+      "doc": {
+        "desc": "Die Baumstruktur wird in der angegebenen Datei gespeichert.\n\n| ``Baumstruktur exportieren     Dateipfad``",
+        "examples": ""
+      }
     },
     "AttachToRunningSap": {
       "name": "Laufende SAP GUI übernehmen",
       "args": {
         "sessionNumber": {
           "name": "sessionNumber",
+          "desc": "",
           "default": "1",
           "spec": {}
         }
@@ -138,13 +165,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden."
+      "doc": {
+        "desc": "Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.",
+        "examples": ""
+      }
     },
     "ConnectToServer": {
       "name": "Verbindung zum Server herstellen",
       "args": {
         "server": {
           "name": "server",
+          "desc": "",
           "spec": {}
         }
       },
@@ -156,17 +187,22 @@
         "NoServerScripting": "NoServerScripting",
         "Exception": "Exception"
       },
-      "doc": "Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n| ``Verbindung zum Server herstellen    Servername``"
+      "doc": {
+        "desc": "Die Verbindung mit dem angegebenen SAP Server wird hergestellt.\n\n| ``Verbindung zum Server herstellen    Servername``",
+        "examples": ""
+      }
     },
     "DoubleClickCell": {
       "name": "Tabellenzelle doppelklicken",
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "desc": "",
           "spec": {}
         },
         "column": {
           "name": "column",
+          "desc": "",
           "spec": {}
         }
       },
@@ -176,13 +212,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die angegebene Tabellenzelle wird doppelgeklickt.\n\n| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\nPositionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle."
+      "doc": {
+        "desc": "Die angegebene Tabellenzelle wird doppelgeklickt.\n\n| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\nPositionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle.",
+        "examples": ""
+      }
     },
     "DoubleClickTextField": {
       "name": "Textfeld doppelklicken",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -200,13 +240,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das angegebene Textfeld wird doppelgeklickt.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld doppelklicken    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld doppelklicken    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n| ``Textfeld doppelklicken    Beschriftung links @ Beschriftung oben``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld doppelklicken    Position (1,2,..) @ Beschriftung``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld doppelklicken    Beschriftung @ Position (1,2,..)``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld doppelklicken    Beschriftung des linken Textfelds >> Beschriftung``\n\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld doppelklicken    = Inhalt``"
+      "doc": {
+        "desc": "Das angegebene Textfeld wird doppelgeklickt.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld doppelklicken    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld doppelklicken    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n| ``Textfeld doppelklicken    Beschriftung links @ Beschriftung oben``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld doppelklicken    Position (1,2,..) @ Beschriftung``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld doppelklicken    Beschriftung @ Position (1,2,..)``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld doppelklicken    Beschriftung des linken Textfelds >> Beschriftung``\n\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld doppelklicken    = Inhalt``",
+        "examples": ""
+      }
     },
     "ExecuteTransaction": {
       "name": "Transaktion ausführen",
       "args": {
         "T_Code": {
           "name": "T_Code",
+          "desc": "",
           "spec": {}
         }
       },
@@ -215,17 +259,22 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n| ``Transaktion ausführen    T-Code``"
+      "doc": {
+        "desc": "Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n| ``Transaktion ausführen    T-Code``",
+        "examples": ""
+      }
     },
     "ExportWindow": {
       "name": "Maske exportieren",
       "args": {
         "name": {
           "name": "name",
+          "desc": "",
           "spec": {}
         },
         "directory": {
           "name": "directory",
+          "desc": "",
           "spec": {}
         }
       },
@@ -234,21 +283,27 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.\n\n| ``Maske exportieren     Name     Verzeichnis``\nVerzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden."
+      "doc": {
+        "desc": "Alle Texte in der aktuellen Maske werden in einer CSV-Datei gespeichert. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.\n\n| ``Maske exportieren     Name     Verzeichnis``\nVerzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.",
+        "examples": ""
+      }
     },
     "FillTableCell": {
       "name": "Tabellenzelle ausfüllen",
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "desc": "",
           "spec": {}
         },
         "column": {
           "name": "column",
+          "desc": "",
           "spec": {}
         },
         "content": {
           "name": "content",
+          "desc": "",
           "spec": {}
         }
       },
@@ -260,13 +315,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.\n\n| ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``\nZeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen."
+      "doc": {
+        "desc": "Die Zelle am Schnittpunkt der angegebenen Zeile und Spalte wird mit dem angegebenen Inhalt ausgefüllt.\n\n| ``Tabellenzelle ausfüllen     Zeile     Spaltentitel = Inhalt``\nZeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.",
+        "examples": ""
+      }
     },
     "FillTextField": {
       "name": "Textfeld ausfüllen",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -278,6 +337,7 @@
         },
         "content": {
           "name": "content",
+          "desc": "",
           "spec": {}
         }
       },
@@ -288,13 +348,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld ausfüllen    Beschriftung    Inhalt``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld ausfüllen    @ Beschriftung    Inhalt``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n| ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann."
+      "doc": {
+        "desc": "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld ausfüllen    Beschriftung    Inhalt``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld ausfüllen    @ Beschriftung    Inhalt``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben (z.B. eine Abschnittsüberschrift)*\n| ``Textfeld ausfüllen    Beschriftung links @ Beschriftung oben    Inhalt``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann.",
+        "examples": ""
+      }
     },
     "PushButton": {
       "name": "Knopf drücken",
       "args": {
         "button": {
           "name": "button",
+          "desc": "",
           "spec": {}
         }
       },
@@ -305,13 +369,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.\n\n| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``"
+      "doc": {
+        "desc": "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.\n\n| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``",
+        "examples": ""
+      }
     },
     "HighlightButton": {
       "name": "Knopf hervorheben",
       "args": {
         "button": {
           "name": "button",
+          "desc": "",
           "spec": {}
         }
       },
@@ -321,7 +389,10 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.\n\n| ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``"
+      "doc": {
+        "desc": "Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.\n\n| ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``",
+        "examples": ""
+      }
     },
     "ReadStatusbar": {
       "name": "Statusleiste auslesen",
@@ -333,17 +404,22 @@
         "NotFound": "NotFound",
         "Json": "Json"
       },
-      "doc": "Die Statusleiste wird ausgelesen.\n\n| ``Statusleiste auslesen``"
+      "doc": {
+        "desc": "Die Statusleiste wird ausgelesen.\n\n| ``Statusleiste auslesen``",
+        "examples": ""
+      }
     },
     "PushButtonCell": {
       "name": "Tabellenzelle drücken",
       "args": {
         "row_or_label": {
           "name": "row_or_label",
+          "desc": "",
           "spec": {}
         },
         "column": {
           "name": "column",
+          "desc": "",
           "spec": {}
         }
       },
@@ -354,13 +430,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die angegebene Tabellenzelle wird gedrückt.\n\n| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip)."
+      "doc": {
+        "desc": "Die angegebene Tabellenzelle wird gedrückt.\n\n| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).",
+        "examples": ""
+      }
     },
     "SelectTableRow": {
       "name": "Tabellenzeile markieren",
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "desc": "",
           "spec": {}
         }
       },
@@ -372,7 +452,10 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die angegebene Tabellenzeile wird markiert.\n\n| ``Tabellenzeile markieren     Zeilenlokator``"
+      "doc": {
+        "desc": "Die angegebene Tabellenzeile wird markiert.\n\n| ``Tabellenzeile markieren     Zeilenlokator``",
+        "examples": ""
+      }
     },
     "CountTableRows": {
       "name": "Tabellenzeilen zählen",
@@ -383,13 +466,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die Anzahl der Tabellenzeile wird gezählt.\n\n| ``Tabellenzeilen zählen``"
+      "doc": {
+        "desc": "Die Anzahl der Tabellenzeile wird gezählt.\n\n| ``Tabellenzeilen zählen``",
+        "examples": ""
+      }
     },
     "PressKeyCombination": {
       "name": "Tastenkombination drücken",
       "args": {
         "keyCombination": {
           "name": "keyCombination",
+          "desc": "",
           "spec": {}
         }
       },
@@ -399,13 +486,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die angegebene Tastenkombination wird gedrückt.\n\n| ``Tastenkombination drücken    Tastenkombination``"
+      "doc": {
+        "desc": "Die angegebene Tastenkombination wird gedrückt.\n\n| ``Tastenkombination drücken    Tastenkombination``",
+        "examples": ""
+      }
     },
     "ReadTextField": {
       "name": "Textfeld auslesen",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -420,13 +511,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Inhalt des angegebenen Textfeldes wird zurückgegeben.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld auslesen    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld auslesen    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld auslesen    = Inhalt``"
+      "doc": {
+        "desc": "Der Inhalt des angegebenen Textfeldes wird zurückgegeben.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld auslesen    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld auslesen    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld auslesen    Beschriftung links @ Beschriftung oben``\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld auslesen    = Inhalt``",
+        "examples": ""
+      }
     },
     "ReadText": {
       "name": "Text auslesen",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {
             "Content": "Content",
             "HLabel": "HLabel"
@@ -439,17 +534,22 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Inhalt des angegebenen Texts wird zurückgegeben.\n\n*Text fängt mit der angegebenen Teilzeichenfolge an*\n| ``Text auslesen    = Teilzeichenfolge``\n*Text folgt einer Beschriftung*\n| ``Text auslesen    Beschriftung``"
+      "doc": {
+        "desc": "Der Inhalt des angegebenen Texts wird zurückgegeben.\n\n*Text fängt mit der angegebenen Teilzeichenfolge an*\n| ``Text auslesen    = Teilzeichenfolge``\n*Text folgt einer Beschriftung*\n| ``Text auslesen    Beschriftung``",
+        "examples": ""
+      }
     },
     "ReadTableCell": {
       "name": "Tabellenzelle auslesen",
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "desc": "",
           "spec": {}
         },
         "column": {
           "name": "column",
+          "desc": "",
           "spec": {}
         }
       },
@@ -460,13 +560,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt."
+      "doc": {
+        "desc": "Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.",
+        "examples": ""
+      }
     },
     "SaveScreenshot": {
       "name": "Fenster aufnehmen",
       "args": {
         "filepath": {
           "name": "filepath",
+          "desc": "",
           "spec": {}
         }
       },
@@ -479,17 +583,22 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n| ``Fenster aufnehmen     Dateipfad``\nDateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses."
+      "doc": {
+        "desc": "Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n| ``Fenster aufnehmen     Dateipfad``\nDateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.",
+        "examples": ""
+      }
     },
     "ScrollTextFieldContents": {
       "name": "Inhalte scrollen",
       "args": {
         "direction": {
           "name": "direction",
+          "desc": "",
           "spec": {}
         },
         "untilTextField": {
           "name": "untilTextField",
+          "desc": "",
           "default": null,
           "spec": {}
         }
@@ -502,17 +611,22 @@
         "MaximumReached": "MaximumReached",
         "Exception": "Exception"
       },
-      "doc": "Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.\n\n| ``Inhalte scrollen   Richtung``\nRichtung: DOWN (ein Schritt nach unten), UP (ein Schritt nach oben), BEGIN (ganz am Anfang), END (ganz am Ende)"
+      "doc": {
+        "desc": "Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.\n\n| ``Inhalte scrollen   Richtung``\nRichtung: DOWN (ein Schritt nach unten), UP (ein Schritt nach oben), BEGIN (ganz am Anfang), END (ganz am Ende)",
+        "examples": ""
+      }
     },
     "SelectCell": {
       "name": "Tabellenzelle markieren",
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "desc": "",
           "spec": {}
         },
         "column": {
           "name": "column",
+          "desc": "",
           "spec": {}
         }
       },
@@ -523,21 +637,27 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die angegebene Tabellenzelle wird markiert.\n\n| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt."
+      "doc": {
+        "desc": "Die angegebene Tabellenzelle wird markiert.\n\n| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.",
+        "examples": ""
+      }
     },
     "SelectCellValue": {
       "name": "Tabellenzellenwert auswählen",
       "args": {
         "row_locator": {
           "name": "row_locator",
+          "desc": "",
           "spec": {}
         },
         "column": {
           "name": "column",
+          "desc": "",
           "spec": {}
         },
         "entry": {
           "name": "entry",
+          "desc": "",
           "spec": {}
         }
       },
@@ -548,17 +668,22 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "In der spezifizierten Zelle wird der angegebene Wert ausgewählt.\n\n| ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Eintrag``"
+      "doc": {
+        "desc": "In der spezifizierten Zelle wird der angegebene Wert ausgewählt.\n\n| ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Eintrag``",
+        "examples": ""
+      }
     },
     "SelectTreeElementMenuEntry": {
       "name": "Menüeintrag in Baumelement auswählen",
       "args": {
         "elementPath": {
           "name": "elementPath",
+          "desc": "",
           "spec": {}
         },
         "menuEntry": {
           "name": "menuEntry",
+          "desc": "",
           "spec": {}
         }
       },
@@ -568,17 +693,22 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Aus dem angegebenen Baumelement wird der angegebene Menüeintrag ausgewählt.\n\n| ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``"
+      "doc": {
+        "desc": "Aus dem angegebenen Baumelement wird der angegebene Menüeintrag ausgewählt.\n\n| ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``",
+        "examples": ""
+      }
     },
     "SelectComboBoxEntry": {
       "name": "Auswahlmenüeintrag auswählen",
       "args": {
         "comboBox": {
           "name": "comboBox",
+          "desc": "",
           "spec": {}
         },
         "entry": {
           "name": "entry",
+          "desc": "",
           "spec": {}
         }
       },
@@ -589,13 +719,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.\n\n| ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``"
+      "doc": {
+        "desc": "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.\n\n| ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``",
+        "examples": ""
+      }
     },
     "SelectRadioButton": {
       "name": "Optionsfeld auswählen",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -610,13 +744,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das angegebene Optionsfeld wird ausgewählt.\n\n*Optionsfeld mit einer Beschriftung links oder rechts*\n| ``Optionsfeld auswählen    Beschriftung``\n*Optionsfeld mit einer Beschriftung oben*\n| ``Optionsfeld auswählen    @ Beschriftung``\n*Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*\n| ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``\n"
+      "doc": {
+        "desc": "Das angegebene Optionsfeld wird ausgewählt.\n\n*Optionsfeld mit einer Beschriftung links oder rechts*\n| ``Optionsfeld auswählen    Beschriftung``\n*Optionsfeld mit einer Beschriftung oben*\n| ``Optionsfeld auswählen    @ Beschriftung``\n*Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*\n| ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``\n",
+        "examples": ""
+      }
     },
     "SelectTextField": {
       "name": "Textfeld markieren",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -634,13 +772,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das angegebene Textfeld wird markiert.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld markieren    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld markieren    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld markieren    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld markieren    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld markieren    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld markieren    = Inhalt``"
+      "doc": {
+        "desc": "Das angegebene Textfeld wird markiert.\n\n*Textfeld mit einer Beschriftung links*\n| ``Textfeld markieren    Beschriftung``\n*Textfeld mit einer Beschriftung oben*\n| ``Textfeld markieren    @ Beschriftung``\n*Textfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Textfeld markieren    Beschriftung links @ Beschriftung oben``\n*Textfeld ohne Beschriftung unter einem Textfeld mit einer Beschriftung (z.B. eine Adresszeile)*\n| ``Textfeld markieren    Position (1,2,..) @ Beschriftung    Inhalt``\n\n*Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld markieren    Beschriftung @ Position (1,2,..)    Inhalt``\n\n*Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*\n| ``Textfeld markieren    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n*Textfeld mit dem angegebenen Inhalt*\n| ``Textfeld markieren    = Inhalt``",
+        "examples": ""
+      }
     },
     "SelectText": {
       "name": "Text markieren",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {}
         }
       },
@@ -650,13 +792,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Text mit dem angegebenen Selektor wird markiert.\n*Text fängt mit der angegebenen Teilzeichenfolge an*\n| ``Text markieren    = Teilzeichenfolge``\n*Text folgt einer Beschriftung*\n| ``Text markieren    Beschriftung``"
+      "doc": {
+        "desc": "Der Text mit dem angegebenen Selektor wird markiert.\n*Text fängt mit der angegebenen Teilzeichenfolge an*\n| ``Text markieren    = Teilzeichenfolge``\n*Text folgt einer Beschriftung*\n| ``Text markieren    Beschriftung``",
+        "examples": ""
+      }
     },
     "TickCheckBox": {
       "name": "Formularfeld ankreuzen",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -671,13 +817,17 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das angegebene Formularfeld wird angekreuzt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld ankreuzen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld ankreuzen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``"
+      "doc": {
+        "desc": "Das angegebene Formularfeld wird angekreuzt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld ankreuzen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld ankreuzen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``",
+        "examples": ""
+      }
     },
     "UntickCheckBox": {
       "name": "Formularfeld abwählen",
       "args": {
         "locator": {
           "name": "locator",
+          "desc": "",
           "spec": {
             "HLabel": "HLabel",
             "VLabel": "VLabel",
@@ -692,17 +842,22 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Das angegebene Formularfeld wird abgewählt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld abwählen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld abwählen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``"
+      "doc": {
+        "desc": "Das angegebene Formularfeld wird abgewählt.\n\n*Formularfeld mit einer Beschriftung links oder rechts *\n| ``Formularfeld abwählen    Beschriftung``\n*Formularfeld mit einer Beschriftung oben*\n| ``Formularfeld abwählen    @ Beschriftung``\n*Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*\n| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``",
+        "examples": ""
+      }
     },
     "TickCheckBoxCell": {
       "name": "Tabellenzelle ankreuzen",
       "args": {
         "row": {
           "name": "row",
+          "desc": "",
           "spec": {}
         },
         "column": {
           "name": "column",
+          "desc": "",
           "spec": {}
         }
       },
@@ -713,17 +868,22 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die angegebene Tabellenzelle wird angekreuzt.\n\n| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``"
+      "doc": {
+        "desc": "Die angegebene Tabellenzelle wird angekreuzt.\n\n| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``",
+        "examples": ""
+      }
     },
     "UntickCheckBoxCell": {
       "name": "Tabellenzelle abwählen",
       "args": {
         "row": {
           "name": "row",
+          "desc": "",
           "spec": {}
         },
         "column": {
           "name": "column",
+          "desc": "",
           "spec": {}
         }
       },
@@ -734,7 +894,10 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Die angegebene Tabellenzelle wird abgewählt.\n\n| ``Tabellenzelle abwählen     Zeilennummer     Spaltentitel``"
+      "doc": {
+        "desc": "Die angegebene Tabellenzelle wird abgewählt.\n\n| ``Tabellenzelle abwählen     Zeilennummer     Spaltentitel``",
+        "examples": ""
+      }
     },
     "GetWindowTitle": {
       "name": "Fenstertitel auslesen",
@@ -744,7 +907,10 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Titel des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Titel}    Fenstertitel auslesen``"
+      "doc": {
+        "desc": "Der Titel des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Titel}    Fenstertitel auslesen``",
+        "examples": ""
+      }
     },
     "GetWindowText": {
       "name": "Fenstertext auslesen",
@@ -754,7 +920,10 @@
         "Pass": "Pass",
         "Exception": "Exception"
       },
-      "doc": "Der Text des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Text}    Fenstertext auslesen``"
+      "doc": {
+        "desc": "Der Text des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Text}    Fenstertext auslesen``",
+        "examples": ""
+      }
     }
   },
   "specs": {}

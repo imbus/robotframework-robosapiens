@@ -14,13 +14,13 @@ public class _
                     arg => new {
                         name = arg.name,
                         @default = arg.default_value, 
-                        doc = arg.doc
+                        desc = arg.doc
                     }
                 );
         libArgs.Add("x64", new {
             name = "64bit",
             @default = false,
-            doc = "Execute RoboSAPiens 64-bit"
+            desc = "Execute RoboSAPiens 64-bit"
         });
         var api = new 
         {
@@ -49,14 +49,6 @@ public class _
         return JsonSerializer.Serialize(content, options);
     }
 
-    static bool isNullable(ParameterInfo param) 
-    {
-        var nullabilityInfoContext = new NullabilityInfoContext();
-        var nullabilityInfo = nullabilityInfoContext.Create(param);
-
-        return nullabilityInfo.ReadState == NullabilityState.Nullable;
-    }
-
     static Dictionary<string, string> getSpec(ParameterInfo param)
     {
         return param.GetCustomAttribute(typeof(Locator)) switch {
@@ -70,10 +62,12 @@ public class _
         return param.DefaultValue switch {
             DBNull => new {
                 name = param.Name,
+                desc = "",
                 spec = getSpec(param)
             },
             var value => new {
                 name = param.Name,
+                desc = "",
                 @default = value,
                 spec = getSpec(param)
             }
@@ -101,7 +95,10 @@ public class _
                             .GetNestedType(method.Name)!
                             .GetNestedTypes()
                             .ToDictionary(type => type.Name, type => type.Name),
-                        doc = ((Doc)method.GetCustomAttribute(typeof(Doc))!).DocString
+                        doc = new {
+                            desc = ((Doc)method.GetCustomAttribute(typeof(Doc))!).DocString,
+                            examples = ""
+                        }
                     }
             );
     }

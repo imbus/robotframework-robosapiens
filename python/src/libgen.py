@@ -50,7 +50,7 @@ def gen_call_args(args: ArgsDict):
 
 def gen_args_doc(args: Dict[str, Dict[str, Union[str, Tuple[str,str]]]]):
     return "\n".join([
-        f"| ``{get_value(args[arg]['name'])}`` | {get_value(args[arg]["doc"])} |"
+        f"| ``{get_value(args[arg]['name'])}`` | {get_value(args[arg]["desc"])} |"
         for arg in args
     ])
 
@@ -84,9 +84,14 @@ def gen_methods(keywords: Dict[str, Dict[str, Any]]):
         methods += ["\n"] + codegen.pprint_code_block(
             [f"@keyword('{get_value(keywords[keyword]['name'])}') # type: ignore",
             f"def {codegen.camel_to_snake(keyword)}({', '.join(['self'] + gen_call_args(args))}): # type: ignore"],
-            codegen.gen_doc(get_value(keywords[keyword]['doc'])) +
+       codegen.gen_doc(
+           f"""
+                {get_value(keywords[keyword]['doc']['desc'])}
+                {gen_args_doc(keywords[keyword]["args"])}
+                {get_value(keywords[keyword]['doc']['examples'])}
+                """
+            ) +
             [""] +
-            # TODO: validate that the arguments satisfy their spec
             ["args = [" + ", ".join([get_value(arg['name']) for _, arg in args.items()]) + "]"] +
             [""] +
             gen_result(result) +
