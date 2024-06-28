@@ -11,6 +11,8 @@ class RoboSAPiens(RoboSAPiensClient):
     
     - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
     
+    *Hint*: Click a link with the mouse wheel in order to open the page in a new tab.
+    
     == New features in Version 2.0 ==
     
     - Support for SAP GUI 8.0 64-bit
@@ -59,9 +61,10 @@ class RoboSAPiens(RoboSAPiensClient):
     
     def __init__(self, presenter_mode: bool=False, x64: bool=False):
         """
-        *presenter_mode*: Highlight each GUI element acted upon
-        
-        *x64*: Execute RoboSAPiens 64-bit
+        RoboSAPiens has the following initialization arguments:
+        | =Argument= | =Description= |
+        | ``presenter_mode`` | Wait half a second after executing a keyword and highlight the GUI element acted upon (if applicable) |
+        | ``x64`` | Execute RoboSAPiens 64-bit in order to automate SAP GUI 8 64-bit |
         """
         
         args = {
@@ -76,6 +79,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def activate_tab(self, tab_name: str): # type: ignore
         """
         Select the tab with the name provided.
+        | ``tab_name`` | Name or tooltip of the tab |
         
         | ``Select Tab    tab_name``
         """
@@ -95,10 +99,9 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_tree_element(self, element_path: str): # type: ignore
         """
         Select the tree element located at the path provided.
+        | ``element_path`` | The path to the element using '/' as separator. e.g. Engineering/Civil Engineering |
         
         | ``Select Tree Element    element_path``
-        
-        element_path: The path to the element using '/' as separator. e.g. Engineering/Civil Engineering
         """
         
         args = [element_path]
@@ -116,12 +119,10 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_tree_element_menu_entry(self, element_path: str, menu_entry: str): # type: ignore
         """
         Select the given entry in the context menu of the tree element located at the path provided.
+        | ``element_path`` | The path to the element using '/' as separator, e.g. Engineering/Civil Engineering. |
+        | ``menu_entry`` | The menu entry. For nested menus the path to the entry using '|' as separator, e.g. Create|Business Unit. |
         
         | ``Select Menu Entry in Tree Element    element_path    menu_entry``
-        
-        element_path: The path to the element using '/' as separator, e.g. Engineering/Civil Engineering.
-        
-        menu_entry: The menu entry. For nested menus the path to the entry using '|' as separator, e.g. Create|Business Unit.
         """
         
         args = [element_path, menu_entry]
@@ -138,7 +139,8 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Open SAP') # type: ignore
     def open_sap(self, path: str): # type: ignore
         """
-        Open the SAP GUI. 
+        Open the SAP GUI.
+        | ``path`` | The path to saplogon.exe |
         
         | ``Open SAP   path``
         
@@ -146,7 +148,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
         
-        *Hint*: Use ${/} as path separator. Otherwise the backslashes must be escaped.
+        *Hint*: Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
         """
         
         args = [path]
@@ -165,6 +167,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def close_connection(self): # type: ignore
         """
         Terminate the connection to the SAP server.
+        
         
         | ``Disconnect from server``
         """
@@ -187,9 +190,10 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Close the SAP GUI.
         
+        
         | ``Close SAP``
         
-        *Hint*: This keyword only works if SAP GUI was started with the keyword "Open SAP".
+        *Hint*: This keyword only works if SAP GUI was started with the keyword [#Open SAP|Open SAP].
         """
         
         args = []
@@ -205,6 +209,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def count_table_rows(self): # type: ignore
         """
         Count the rows in a table.
+        
         
         | ``${row_count}   Get Row Count``
         """
@@ -224,12 +229,11 @@ class RoboSAPiens(RoboSAPiensClient):
     def export_tree(self, filepath: str): # type: ignore
         """
         Export the tree structure in the current window to the file provided.
+        | ``filepath`` | Absolute path to a file with extension .json |
         
         | ``Export Tree Structure     filepath``
         
-        filepath: Absolute path to a file with extension .json
-        
-        *Hint*: Use ${/} as path separator. Otherwise the backslashes must be escaped.
+        *Hint*: Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
         """
         
         args = [filepath]
@@ -246,10 +250,12 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Connect to Running SAP') # type: ignore
     def attach_to_running_sap(self, session_number: str='1'): # type: ignore
         """
-        Connect to a running SAP instance and take control of it. By default the session number 1 will be used. 
-        To use a different session specify the session number.
+        Connect to a running SAP instance and take control of it.
+        | ``session_number`` | The session number in the lower right corner of the window |
         
         | ``Connect to Running SAP    session_number``
+        
+        By default the session number 1 will be used. To use a different session specify the session number.
         """
         
         args = [session_number]
@@ -271,10 +277,9 @@ class RoboSAPiens(RoboSAPiensClient):
     def connect_to_server(self, server_name: str): # type: ignore
         """
         Connect to the SAP Server provided.
+        | ``server_name`` | The name of the server in SAP Logon (not the SID). |
         
         | ``Connect to Server    server_name``
-        
-        server_name: The name of the server in SAP Logon (not the SID).
         """
         
         args = [server_name]
@@ -294,10 +299,10 @@ class RoboSAPiens(RoboSAPiensClient):
     def double_click_cell(self, row_locator: str, column: str): # type: ignore
         """
         Double-click the cell at the intersection of the row and the column provided.
+        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip |
         
         | ``Double-click Cell     row_locator     column``
-        
-        row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         """
         
         args = [row_locator, column]
@@ -315,10 +320,9 @@ class RoboSAPiens(RoboSAPiensClient):
     def double_click_text_field(self, locator: str): # type: ignore
         """
         Double click the text field specified by the locator.
+        | ``locator`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
         | ``Double-click Text Field     locator``
-        
-        Text field locators are documented in the keyword Fill Text Field.
         """
         
         args = [locator]
@@ -336,6 +340,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def execute_transaction(self, T_Code: str): # type: ignore
         """
         Execute the transaction with the given T-Code.
+        | ``T_Code`` | The transaction code |
         
         | ``Execute Transaction    T_Code``
         """
@@ -354,12 +359,12 @@ class RoboSAPiens(RoboSAPiensClient):
     def export_window(self, name: str, directory: str): # type: ignore
         """
         Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.
+        | ``name`` | Name of the output files |
+        | ``directory`` | Absolute path to the directory where the files will be saved |
         
         | ``Export Window     name     directory``
         
-        directory: Absolute path to the directory where the files will be saved.
-        
-        *Hint*: Use ${/} as path separator. Otherwise the backslashes must be escaped.
+        *Hint*: Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
         
         *Note*: Currently not all GUI elements are exported.
         """
@@ -378,10 +383,11 @@ class RoboSAPiens(RoboSAPiensClient):
     def fill_table_cell(self, row_locator: str, column: str, content: str): # type: ignore
         """
         Fill the cell at the intersection of the row and column with the content provided.
+        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip |
+        | ``content`` | The new contents of the cell |
         
         | ``Fill Cell    row_locator    column   content``
-        
-        row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         
         *Hint*: To migrate from the old keyword with two arguments perform a search and replace with a regular expression.
         """
@@ -403,6 +409,8 @@ class RoboSAPiens(RoboSAPiensClient):
     def fill_text_field(self, locator: str, content: str): # type: ignore
         """
         Fill the text Field specified by the locator with the content provided.
+        | ``locator`` | The locator used to find the text field. |
+        | ``content`` | The new contents of the text field |
         
         *Text field with a label to its left*
         | ``Fill Text Field    label    content``
@@ -447,14 +455,13 @@ class RoboSAPiens(RoboSAPiensClient):
     def highlight_button(self, locator: str): # type: ignore
         """
         Highlight the button with the given locator.
+        | ``locator`` | The name or tooltip of the button |
         
         | ``Highlight Button    locator``
         
-        locator: name or tooltip.
-        
         *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
         The name may be used as locator as long as it is unique.
-        When using the full tooltip text, remember to escape the spaces (e.g. ``Back \\ \\ (F3)``).
+        When using the full tooltip text enter only one space (e.g. ``Back (F3)``).
         """
         
         args = [locator]
@@ -472,10 +479,12 @@ class RoboSAPiens(RoboSAPiensClient):
     def press_key_combination(self, key_combination: str): # type: ignore
         """
         Press the given key combination.
+        | ``key_combination`` | Either one key or several keys separated by a + sign. |
         
         | ``Press Key Combination    key_combination``
         
-        For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI].
+        For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI]. 
+        *Hint*: Click the link with the mouse wheel in order to open the page in a new tab.
         
         *Hint*: Pressing F2 is equivalent to a double-click.
         """
@@ -495,14 +504,13 @@ class RoboSAPiens(RoboSAPiensClient):
     def push_button(self, locator: str): # type: ignore
         """
         Push the button with the given locator.
+        | ``locator`` | The name or tooltip of the button |
         
         | ``Push Button    locator``
         
-        locator: name or tooltip. 
-        
         *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
         The name may be used as locator as long as it is unique.
-        When using the full tooltip text remember to escape the spaces (e.g. ``Back \\ \\ (F3)``)
+        When using the full tooltip text enter only one space (e.g. ``Back (F3)``).
         """
         
         args = [locator]
@@ -521,10 +529,10 @@ class RoboSAPiens(RoboSAPiensClient):
     def push_button_cell(self, row_locator: str, column: str): # type: ignore
         """
         Push the button cell located at the intersection of the row and column provided.
+        | ``row_locator`` | Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip |
         
         | ``Push Button Cell     row_locator     column``
-        
-        row_locator: Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks.
         """
         
         args = [row_locator, column]
@@ -542,11 +550,10 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Read Statusbar') # type: ignore
     def read_statusbar(self): # type: ignore
         """
-        Read the contents of the statusbar.
+        Read the contents of the statusbar. The return value is a dictionary with the entries 'status' and 'message'.
+        
         
         | ``${statusbar}   Read Statusbar``
-        
-        The return value is a dictionary with the entries "status" and "message".
         """
         
         args = []
@@ -565,10 +572,9 @@ class RoboSAPiens(RoboSAPiensClient):
     def read_text_field(self, locator: str): # type: ignore
         """
         Read the contents of the text field specified by the locator.
+        | ``locator`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
         | ${contents}   ``Read Text Field    locator``
-        
-        Text field locators are documented in the keyword Fill Text Field.
         """
         
         args = [locator]
@@ -586,6 +592,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def read_text(self, locator: str): # type: ignore
         """
         Read the text specified by the locator.
+        | ``locator`` | The locator used to find the text |
         
         *Text starting with a given substring*
         | ${text}   ``Read Text    = substring``
@@ -609,10 +616,10 @@ class RoboSAPiens(RoboSAPiensClient):
     def read_table_cell(self, row_locator: str, column: str): # type: ignore
         """
         Read the contents of the cell at the intersection of the row and column provided.
+        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip |
         
         | ``Read Cell     row_locator     column``
-        
-        row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         """
         
         args = [row_locator, column]
@@ -631,12 +638,11 @@ class RoboSAPiens(RoboSAPiensClient):
     def save_screenshot(self, destination: str): # type: ignore
         """
         Save a screenshot of the current window to the given destination.
+        | ``destination`` | Either the absolute path to a .png file or LOG to embed the image in the protocol. |
         
         | ``Save Screenshot     destination``
         
-        destination: Either the absolute path to a .png file or LOG to embed the image in the protocol.
-        
-        *Hint*: Use ${/} as path separator. Otherwise the backslashes must be escaped.
+        *Hint*: Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
         """
         
         args = [destination]
@@ -657,16 +663,14 @@ class RoboSAPiens(RoboSAPiensClient):
     def scroll_text_field_contents(self, direction: str, until_textfield: str=None): # type: ignore
         """
         Scroll the contents of the text fields within an area with a scrollbar.
+        | ``direction`` | UP, DOWN, BEGIN, END |
+        | ``until_textfield`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
         | ``Scroll Contents    direction``
-        
-        direction: UP, DOWN, BEGIN, END
         
         If the parameter "until_textfield" is provided, the contents are scrolled until that text field is found.
         
         | ``Scroll Contents    direction    until_textfield``
-        
-        until_textfield: locator to find a text field
         """
         
         args = [direction, until_textfield]
@@ -686,10 +690,10 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_cell(self, row_locator: str, column: str): # type: ignore
         """
         Select the cell at the intersection of the row and column provided.
+        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip |
         
         | ``Select Cell     row_locator     column``
-        
-        row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         """
         
         args = [row_locator, column]
@@ -708,10 +712,11 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_cell_value(self, row_locator: str, column: str, value: str): # type: ignore
         """
         Select the specified value in the cell at the intersection of the row and column provided.
+        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip |
+        | ``value`` | An entry from the dropdown menu |
         
         | ``Select Cell Value    row_locator    column    value``
-        
-        row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         """
         
         args = [row_locator, column, value]
@@ -730,6 +735,8 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_combo_box_entry(self, dropdown_menu: str, entry: str): # type: ignore
         """
         Select the specified entry from the dropdown menu provided.
+        | ``dropdown_menu`` | The label of the dropdown menu |
+        | ``entry`` | An entry from the dropdown menu |
         
         | ``Select Dropdown Menu Entry   dropdown_menu    entry``
         
@@ -754,10 +761,9 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_menu_item(self, menu_entry_path: str): # type: ignore
         """
         Select the menu entry with the path provided.
+        | ``menu_entry_path`` | The path to the entry with '/' as separator (e.g. System/User Profile/Own Data) |
         
         | ``Select Menu Entry    menu_entry_path``
-        
-        menu_entry_path: The path to the entry with '/' as separator (e.g. System/User Profile/Own Data).
         """
         
         args = [menu_entry_path]
@@ -775,6 +781,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_radio_button(self, locator: str): # type: ignore
         """
         Select the radio button specified by the locator.
+        | ``locator`` | A locator used to find the radio button |
         
         *Radio button with a label to its left or its right*
         | ``Select Radio Button    label``
@@ -802,10 +809,9 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_table_row(self, row_locator: str): # type: ignore
         """
         Select the specified table row.
+        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         
         | ``Select Table Row    row_locator``
-        
-        row_locator: row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         
         *Hint*: Use the row number 0 to select the whole table.
         """
@@ -827,10 +833,9 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_text_field(self, locator: str): # type: ignore
         """
         Select the text field specified by the locator.
+        | ``locator`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
         | ``Select Text Field    locator``
-        
-        Text field locators are documented in the keyword Fill Text Field.
         """
         
         args = [locator]
@@ -848,6 +853,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def select_text(self, locator: str): # type: ignore
         """
         Select the text specified by the locator.
+        | ``locator`` | The locator used to find the text |
         
         *Text starting with a given substring*
         | ``Select Text    = substring``
@@ -871,6 +877,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def tick_check_box(self, locator: str): # type: ignore
         """
         Tick the checkbox specified by the locator.
+        | ``locator`` | A locator used to find the checkbox |
         
         *Checkbox with a label to its left or its right*
         | ``Tick Checkbox    label``
@@ -898,6 +905,7 @@ class RoboSAPiens(RoboSAPiensClient):
     def untick_check_box(self, locator: str): # type: ignore
         """
         Untick the checkbox specified by the locator.
+        | ``locator`` | A locator used to find the checkbox |
         
         *Checkbox with a label to its left or its right*
         | ``Untick Checkbox    label``
@@ -925,10 +933,10 @@ class RoboSAPiens(RoboSAPiensClient):
     def tick_check_box_cell(self, row_locator: str, column: str): # type: ignore
         """
         Tick the checkbox cell at the intersection of the row and the column provided.
+        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip |
         
         | ``Tick Checkbox Cell     row_locator    column``
-        
-        row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         
         *Hint*: To tick the checkbox in the leftmost column with no title, select the row and press the "Enter" key.
         """
@@ -949,10 +957,10 @@ class RoboSAPiens(RoboSAPiensClient):
     def untick_check_box_cell(self, row_locator: str, column: str): # type: ignore
         """
         Untick the checkbox cell at the intersection of the row and the column provided.
+        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip |
         
         | ``Untick Checkbox Cell     row_locator    column``
-        
-        row_locator: either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks.
         """
         
         args = [row_locator, column]
@@ -972,6 +980,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Get the title of the window in the foreground.
         
+        
         | ``${title}    Get Window Title``
         """
         
@@ -990,6 +999,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Get the text message of the window in the foreground.
         
+        
         | ``${text}    Get Window Text``
         """
         
@@ -1003,4 +1013,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.2.0'
+    ROBOT_LIBRARY_VERSION = '2.3.0'
