@@ -80,18 +80,19 @@ lib: LocalizedRoboSAPiens = {
         |   END
         """
     ),
-    "init": ("0", ""),
+    "init": ("1576532524", "RoboSAPiens.DE hat die folgenden Initialisierungsparameter:\n| =Parameter= | =Beschreibung= |"
+    ),
   },
   "args": {
     "a1presenter_mode": {
         "name": ("781265386", "vortragsmodus"),
         "default": False,
-        "doc": ("3421082408", "Jedes GUI Element wird vor seiner Betätigung bzw. Änderung kurz hervorgehoben")
+        "doc": ("519157360", "Nach dem Aufruf eines Schlüsselworts eine halbe Sekunde warten und das betroffene GUI Element hervorheben (falls zutreffend).")
     },
     "a2x64": {
         "name": ("218858810", "x64"),
         "default": False,
-        "doc": ("2992171893", "RoboSAPiens 64-bit ausführen")
+        "doc": ("742934690", "RoboSAPiens 64-bit ausführen, um SAP GUI 8 64-bit zu automatisieren.")
     }
   },
   "keywords": {

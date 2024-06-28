@@ -85,18 +85,18 @@ lib: RoboSAPiens = {
         |       Push button       ${close button}
         |   END
         """,
-        "init": ""
+        "init": "RoboSAPiens has the following initialization arguments:\n| =Argument= | =Description= |"
     },
     "args": {
         "a1presenter_mode": {
             "name": "presenter_mode",
             "default": False,
-            "doc": "Highlight each GUI element acted upon"
+            "doc": "Wait half a second after executing a keyword and highlight the GUI element acted upon (if applicable)"
         },
         "a2x64": {
             "name": "x64",
             "default": False,
-            "doc": "Execute RoboSAPiens 64-bit"
+            "doc": "Execute RoboSAPiens 64-bit in order to automate SAP GUI 8 64-bit"
         }
     },
     "keywords": {
