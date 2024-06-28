@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using sapfewse;
 
 namespace RoboSAPiens {
@@ -17,7 +18,7 @@ namespace RoboSAPiens {
         protected string tooltip;
 
         public SAPButton(GuiButton button) {
-            this.defaultTooltip = button.DefaultTooltip;
+            this.defaultTooltip = Regex.Replace(button.DefaultTooltip, @"\s\s+", " ");
             this.focused = false;
             this.id = button.Id;
             this.position = new Position(height: button.Height, 
@@ -26,7 +27,7 @@ namespace RoboSAPiens {
                                 width: button.Width
                             );
             this.text = button.Text.Trim();
-            this.tooltip = button.Tooltip;
+            this.tooltip = Regex.Replace(button.Tooltip, @"\s\s+", " ");
         }
 
         public override bool isEnabled(GuiSession session)
