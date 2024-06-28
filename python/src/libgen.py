@@ -49,8 +49,8 @@ def gen_call_args(args: ArgsDict):
 
 
 def gen_args_doc(args: Dict[str, Dict[str, Union[str, Tuple[str,str]]]]):
-    return "\n\n".join([
-        f"*{get_value(args[arg]['name'])}*" + ": " + get_value(args[arg]["doc"])
+    return "\n".join([
+        f"| ``{get_value(args[arg]['name'])}`` | {get_value(args[arg]["doc"])} |"
         for arg in args
     ])
 
@@ -111,7 +111,7 @@ def generate_rf_lib(lib: LocalizedLib, version: str):
     ]
     doc = codegen.gen_doc(get_value(spec["doc"]["intro"]))
     init = codegen.gen_init(gen_call_args(spec["args"]),
-        codegen.gen_doc(get_value(spec["doc"]["init"]) + "\n\n" + gen_args_doc(spec["args"])),
+        codegen.gen_doc(get_value(spec["doc"]["init"]) + "\n" + gen_args_doc(spec["args"])),
         [""] +
         gen_args(spec["args"]) +
         [""] +
