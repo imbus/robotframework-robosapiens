@@ -47,8 +47,6 @@ lib: RoboSAPiens = {
         
         - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
 
-        *Hint*: Click a link with the mouse wheel in order to open the page in a new tab.
-        
         == New features in Version 2.0 ==
 
         - Support for SAP GUI 8.0 64-bit
@@ -128,6 +126,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the tab with the name provided.",
                 "examples":  
                 """
+                Examples:
+
                 | ``Select Tab    tab_name``
                 """
             }
@@ -151,6 +151,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the tree element located at the path provided.",
                 "examples": 
                 """
+                Examples:
+
                 | ``Select Tree Element    element_path``
                 """
             }
@@ -180,6 +182,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the given entry in the context menu of the tree element located at the path provided.",
                 "examples":
                 """
+                Examples:
+
                 | ``Select Menu Entry in Tree Element    element_path    menu_entry``
                 """
             }
@@ -204,6 +208,8 @@ lib: RoboSAPiens = {
                 "desc": "Open the SAP GUI.",
                  "examples":
                  rf"""
+                 Examples:
+                
                  | ``Open SAP   path``
                  
                  The standard path is
@@ -229,6 +235,8 @@ lib: RoboSAPiens = {
                 "desc": "Terminate the connection to the SAP server.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Disconnect from server``
                 """
             }
@@ -244,6 +252,8 @@ lib: RoboSAPiens = {
                 "desc": "Close the SAP GUI.",
                 "examples": 
                 """
+                Examples:
+                
                 | ``Close SAP``
 
                 *Hint*: This keyword only works if SAP GUI was started with the keyword [#Open SAP|Open SAP].
@@ -263,6 +273,8 @@ lib: RoboSAPiens = {
                 "desc": "Count the rows in a table.",
                 "examples":
                 """
+                Examples:
+                
                 | ``${row_count}   Get Row Count``
                 """
             }
@@ -286,6 +298,8 @@ lib: RoboSAPiens = {
                 "desc": "Export the tree structure in the current window to the file provided.",
                 "examples":
                 f"""
+                Examples:
+                
                 | ``Export Tree Structure     filepath``
 
                 *Hint*: {path}
@@ -316,6 +330,8 @@ lib: RoboSAPiens = {
                 "desc": "Connect to a running SAP instance and take control of it.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Connect to Running SAP    session_number``
 
                 By default the session number 1 will be used. To use a different session specify the session number.
@@ -343,6 +359,8 @@ lib: RoboSAPiens = {
                 "desc": "Connect to the SAP Server provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Connect to Server    server_name``
                 """
             }
@@ -371,6 +389,8 @@ lib: RoboSAPiens = {
                 "desc": "Double-click the cell at the intersection of the row and the column provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Double-click Cell     row_locator     column``
                 """
             }
@@ -402,6 +422,8 @@ lib: RoboSAPiens = {
                 "desc": "Double click the text field specified by the locator.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Double-click Text Field     locator``
                 """
             }
@@ -425,6 +447,8 @@ lib: RoboSAPiens = {
                 "desc": "Execute the transaction with the given T-Code.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Execute Transaction    T_Code``
                 """
             }
@@ -454,6 +478,8 @@ lib: RoboSAPiens = {
                 "desc": "Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.",
                 "examples":
                 f"""
+                Examples:
+                
                 | ``Export Window     name     directory``
                 
                 *Hint*: {path}
@@ -496,6 +522,8 @@ lib: RoboSAPiens = {
                 "desc": "Fill the cell at the intersection of the row and column with the content provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Fill Cell    row_locator    column   content``
 
                 *Hint*: To migrate from the old keyword with two arguments perform a search and replace with a regular expression.
@@ -536,6 +564,8 @@ lib: RoboSAPiens = {
                 "desc": "Fill the text Field specified by the locator with the content provided.",
                 "examples":
                 """
+                Examples:
+                
                 *Text field with a label to its left*
                 | ``Fill Text Field    label    content``
                 
@@ -559,7 +589,7 @@ lib: RoboSAPiens = {
                 *Text field without a label to the right of a text field with a label*
                 | ``Fill Text Field    label >> F1 help text    content``
 
-                As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used:
+                *As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used*
                 | ``Fill Text Field    name    content``
                 """
             }
@@ -583,6 +613,8 @@ lib: RoboSAPiens = {
                 "desc": "Highlight the button with the given locator.",
                 "examples":
                 f"""
+                Examples:
+                
                 | ``Highlight Button    locator``
 
                 *Hint*: {tooltip_hint}
@@ -608,10 +640,11 @@ lib: RoboSAPiens = {
                 "desc": "Press the given key combination.",
                 "examples": 
                 """
+                Examples:
+                
                 | ``Press Key Combination    key_combination``
                 
-                For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI]. 
-                *Hint*: Click the link with the mouse wheel in order to open the page in a new tab.
+                For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI].
 
                 *Hint*: Pressing F2 is equivalent to a double-click.
                 """
@@ -638,6 +671,8 @@ lib: RoboSAPiens = {
                 "desc": "Push the button with the given locator.",
                 "examples":
                 f"""
+                Examples:
+                
                 | ``Push Button    locator``
 
                 *Hint*: {tooltip_hint}
@@ -671,6 +706,8 @@ lib: RoboSAPiens = {
                 "desc": "Push the button cell located at the intersection of the row and column provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Push Button Cell     row_locator     column``
                 """
             }
@@ -689,6 +726,8 @@ lib: RoboSAPiens = {
                 "desc": "Read the contents of the statusbar. The return value is a dictionary with the entries 'status' and 'message'.",
                 "examples":
                 """
+                Examples:
+                
                 | ``${statusbar}   Read Statusbar``
 
                 """
@@ -719,6 +758,8 @@ lib: RoboSAPiens = {
                 "desc": "Read the contents of the text field specified by the locator.",
                 "examples":
                 """
+                Examples:
+                
                 | ${contents}   ``Read Text Field    locator``
                 """
             }
@@ -746,6 +787,8 @@ lib: RoboSAPiens = {
                 "desc": "Read the text specified by the locator.",
                 "examples":
                 """
+                Examples:
+                
                 *Text starting with a given substring*
                 | ${text}   ``Read Text    = substring``
                 
@@ -781,6 +824,8 @@ lib: RoboSAPiens = {
                 "desc": "Read the contents of the cell at the intersection of the row and column provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Read Cell     row_locator     column``
                 """
             }
@@ -808,6 +853,8 @@ lib: RoboSAPiens = {
                 "desc": "Save a screenshot of the current window to the given destination.",
                 "examples":
                 f"""
+                Examples:
+                
                 | ``Save Screenshot     destination``
                 
                 *Hint*: {path}
@@ -841,6 +888,8 @@ lib: RoboSAPiens = {
                 "desc": "Scroll the contents of the text fields within an area with a scrollbar.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Scroll Contents    direction``
 
                 If the parameter "until_textfield" is provided, the contents are scrolled until that text field is found.
@@ -876,6 +925,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the cell at the intersection of the row and column provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Select Cell     row_locator     column``
                 """
             }
@@ -912,6 +963,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the specified value in the cell at the intersection of the row and column provided.",
                 "examples":
                 f"""
+                Examples:
+                
                 | ``Select Cell Value    row_locator    column    value``
                 """
             }
@@ -943,6 +996,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the specified entry from the dropdown menu provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Select Dropdown Menu Entry   dropdown_menu    entry``
 
                 *Hints*: The numeric key that enables simplified keyboard input is not part of the entry name.
@@ -971,6 +1026,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the menu entry with the path provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Select Menu Entry    menu_entry_path``
                 """
             }
@@ -1000,6 +1057,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the radio button specified by the locator.",
                 "examples":
                 """
+                Examples:
+                
                 *Radio button with a label to its left or its right*
                 | ``Select Radio Button    label``
                 
@@ -1032,6 +1091,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the specified table row.",
                 "examples":
                 f"""
+                Examples:
+                
                 | ``Select Table Row    row_locator``
 
                 *Hint*: Use the row number 0 to select the whole table.
@@ -1066,6 +1127,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the text field specified by the locator.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Select Text Field    locator``
                 """
             }
@@ -1090,6 +1153,8 @@ lib: RoboSAPiens = {
                 "desc": "Select the text specified by the locator.",
                 "examples":
                 """
+                Examples:
+                
                 *Text starting with a given substring*
                 | ``Select Text    = substring``
                 
@@ -1123,6 +1188,8 @@ lib: RoboSAPiens = {
                 "desc": "Tick the checkbox specified by the locator.",
                 "examples":
                 """
+                Examples:
+                
                 *Checkbox with a label to its left or its right*
                 | ``Tick Checkbox    label``
                 
@@ -1159,6 +1226,8 @@ lib: RoboSAPiens = {
                 "desc": "Untick the checkbox specified by the locator.",
                 "examples":
                 """
+                Examples:
+                
                 *Checkbox with a label to its left or its right*
                 | ``Untick Checkbox    label``
                 
@@ -1195,6 +1264,8 @@ lib: RoboSAPiens = {
                 "desc": "Tick the checkbox cell at the intersection of the row and the column provided.",
                 "examples":
                 f"""
+                Examples:
+                
                 | ``Tick Checkbox Cell     row_locator    column``
 
                 *Hint*: To tick the checkbox in the leftmost column with no title, select the row and press the "Enter" key.
@@ -1228,6 +1299,8 @@ lib: RoboSAPiens = {
                 "desc": "Untick the checkbox cell at the intersection of the row and the column provided.",
                 "examples":
                 """
+                Examples:
+                
                 | ``Untick Checkbox Cell     row_locator    column``
                 """
             }
@@ -1244,6 +1317,8 @@ lib: RoboSAPiens = {
                 "desc": "Get the title of the window in the foreground.",
                 "examples":
                 """
+                Examples:
+                
                 | ``${title}    Get Window Title``
                 """
             }
@@ -1260,6 +1335,8 @@ lib: RoboSAPiens = {
                 "desc": "Get the text message of the window in the foreground.",
                 "examples":
                 """
+                Examples:
+                
                 | ``${text}    Get Window Text``
                 """
             }

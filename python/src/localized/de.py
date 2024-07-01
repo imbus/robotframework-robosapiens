@@ -33,7 +33,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 lib: LocalizedRoboSAPiens = {
   "doc": {
     "intro": (
-        "408188078", 
+        "622817387", 
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
@@ -41,8 +41,6 @@ lib: LocalizedRoboSAPiens = {
         - Das [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|Scripting] muss auf dem SAP Server aktiviert werden.
         
         - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
-
-        *Hinweis*: Drücke mit dem Mausrad auf einen Link, um die Seite in einer neuen Registerkarte zu öffnen.
 
         == Neuigkeiten in der Version 2.0 ==
 
@@ -122,8 +120,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1953544584", "Der Reiter mit dem angegebenen Namen wird ausgewählt."),
-          "examples": ("3077169460", 
+          "examples": ("439306833", 
           """
+          Beispiele:
+
           | ``Reiter auswählen    Reitername``
           """
         )
@@ -146,8 +146,10 @@ lib: LocalizedRoboSAPiens = {
         },
         "doc": {
             "desc": ("1640119296", "Das Baumelement mit dem angegebenen Pfad wird markiert."),
-            "examples": ("1346092113", 
+            "examples": ("685283271", 
             """
+            Beispiele:
+          
             | ``Baumelement markieren    Elementpfad``
             """
           )
@@ -175,8 +177,10 @@ lib: LocalizedRoboSAPiens = {
         },
         "doc": {
             "desc": ("2300654272", "Aus dem Kontextmenü des Baumelements mit dem angegebenen Pfad wird der angebene Eintrag ausgewählt."),
-            "examples": ("3785547847", 
+            "examples": ("2093125419", 
             """
+            Beispiele:
+          
             | ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``
             """
           )
@@ -200,8 +204,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("367732375", "Die SAP GUI wird gestartet."),
-          "examples": ("1541512748", 
+          "examples": ("3504496010", 
           rf"""
+          Beispiele:
+          
           | ``SAP starten   Pfad``
 
           Der übliche Pfad ist
@@ -226,8 +232,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1736796211", "Die Verbindung zum SAP Server wird getrennt."),
-          "examples": ("4270248537", 
+          "examples": ("3240780684", 
           """
+          Beispiele:
+          
           | ``Verbindung zum Server trennen``
           """
          )
@@ -242,8 +250,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3611358703", "Die SAP GUI wird beendet."),
-          "examples": ("188214570", 
+          "examples": ("1734451664", 
           """
+          Beispiele:
+          
           | ``SAP beenden``
 
           *Hinweis*: Dieses Schlüsselwort funktioniert nur, wenn die SAP GUI mit dem Schlüsselwort [#SAP starten|SAP starten] gestartet wurde.
@@ -262,8 +272,10 @@ lib: LocalizedRoboSAPiens = {
         },
         "doc": {
             "desc": ("1891631161", "Die Zeilen einer Tabelle werden gezählt."),
-            "examples": ("3619035295", 
+            "examples": ("2422780087", 
             """
+            Beispiele:
+          
             | ``${anzahl_zeilen}    Tabellenzeilen zählen``
             """
           )
@@ -286,8 +298,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("4290108709", "Die Baumstruktur in der Maske wird in JSON Format in der angegebenen Datei gespeichert."),
-          "examples": ("1670958372", 
+          "examples": ("2602036160", 
           f"""
+          Beispiele:
+          
           | ``Baumstruktur exportieren     Dateipfad``
 
           *Hinweis*: {path}
@@ -317,8 +331,12 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("866468958", "Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden."),
-          "examples": ("4062094896", 
+          "examples": ("1434521463", 
           """
+          Beispiele:
+          
+          | ``Laufende SAP GUI übernehmen
+
           Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
 
           | ``Laufende SAP GUI übernehmen    session_nummer``
@@ -346,8 +364,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1963586093", "Die Verbindung mit dem angegebenen SAP Server wird hergestellt."),
-          "examples": ("1173770764", 
+          "examples": ("1631655", 
           """
+          Beispiele:
+          
           | ``Verbindung zum Server herstellen    Servername``
           """
         )
@@ -375,8 +395,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3450830707", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird doppelgeklickt."),
-          "examples": ("3396956306", 
+          "examples": ("142831630", 
           f"""
+          Beispiele:
+          
           | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
           """
         )
@@ -408,8 +430,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3694445417", "Das angegebene Textfeld wird doppelgeklickt."),
-          "examples": ("2509533501", 
+          "examples": ("2895066361", 
           """
+          Beispiele:
+          
           | ``Textfeld doppelklicken     Lokator``
           """
         )
@@ -431,8 +455,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3379948688", "Die Transaktion mit dem angegebenen T-Code wird ausgeführt."),
-          "examples": ("3490536485", 
+          "examples": ("3858705015", 
           """
+          Beispiele:
+          
           | ``Transaktion ausführen    T-Code``
           """
         )
@@ -459,8 +485,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1046967761", "Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt."),
-          "examples": ("2313932587", 
+          "examples": ("544925055", 
           f"""
+          Beispiele:
+          
           | ``Maske exportieren     Name     Verzeichnis``
           
           *Hinweis*: {path}
@@ -500,8 +528,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("958131390", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird mit dem angegebenen Inhalt ausgefüllt."),
-          "examples": ("3787980517", 
+          "examples": ("646876225", 
           """
+          Beispiele:
+          
           | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel     Inhalt``
           
           *Hinweis*: Für die Migration aus dem alten Schlüsselwort mit zwei Argumenten soll eine Suche und Ersetzung mit einem regulären Ausdruck durchgeführt werden.
@@ -539,8 +569,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("522115454", "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt."),
-          "examples": ("2220604602", 
+          "examples": ("1813441507", 
           """
+          Beispiele:
+          
           *Textfeld mit einer Beschriftung links*
           | ``Textfeld ausfüllen    Beschriftung    Inhalt``
           
@@ -564,7 +596,7 @@ lib: LocalizedRoboSAPiens = {
           *Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*
           | ``Textfeld ausfüllen    Beschriftung >> F1 Hilfetext    Inhalt``
 
-          Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden:
+          *Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden*
           | ``Textfeld ausfüllen    Name    Inhalt``
           """
         )
@@ -587,8 +619,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1502722601", "Der Knopf mit dem angegebenen Lokator wird hervorgehoben."),
-          "examples": ("1991728165", 
+          "examples": ("1667001270", 
           f"""
+          Beispiele:
+          
           | ``Knopf hervorheben    Lokator``
 
           *Hinweis*: {tooltip_hint}
@@ -613,12 +647,13 @@ lib: LocalizedRoboSAPiens = {
         },
         "doc": {
             "desc": ("4221864820", "Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt."),
-            "examples": ("403333068",
+            "examples": ("465597838",
             """
+            Beispiele:
+          
             | ``Tastenkombination drücken    Tastenkombination``
 
             Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation von SAP GUI].
-            Drücke mit dem Mausrad auf den Link, um die Seite in einer neuen Registerkarte zu öffnen.
 
             *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
             """
@@ -643,8 +678,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1468743868", "Der Knopf mit dem angegebenen Lokator wird gedrückt."),
-          "examples": ("2136568816", 
+          "examples": ("622366541", 
           f"""
+          Beispiele:
+          
           | ``Knopf drücken    Lokator``
           
           *Hinweis*: {tooltip_hint}
@@ -675,8 +712,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3745182647", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird gedrückt."),
-          "examples": ("2136569204", 
+          "examples": ("1386630856", 
           """
+          Beispiele:
+          
           | ``Tabellenzelle drücken     Zeile     Spaltentitel``
           """
         )
@@ -704,8 +743,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("2269953849", "Der Inhalt des angegebenen Textfeldes wird zurückgegeben."),
-          "examples": ("1305404901", 
+          "examples": ("3815162586", 
           """
+          Beispiele:
+          
           | ${Inhalt}   ``Textfeld auslesen    Lokator``
           """
         )
@@ -731,8 +772,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("4185497902", "Der Inhalt des angegebenen Texts wird zurückgegeben."),
-          "examples": ("2719438119", 
+          "examples": ("2779683906", 
           """
+          Beispiele:
+          
           *Text beginnt mit der angegebenen Teilzeichenfolge*
           | ``${Text}   Text auslesen    = Teilzeichenfolge``
           
@@ -765,8 +808,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("854195584", "Der Inhalt der Zelle am Schnittpunkt der Zeile und der Spalte wird zurückgegeben."),
-          "examples": ("3866194368", 
+          "examples": ("2051107884", 
           """
+          Beispiele:
+          
           | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
           """
         )
@@ -792,8 +837,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("2322410957", "Eine Bildschirmaufnahme des Fensters wird im angegebenen Speicherort gespeichert."),
-          "examples": ("1687075200", 
+          "examples": ("438329203", 
           f"""
+          Beispiele:
+          
           | ``Fenster aufnehmen     Speicherort``
           
           *Hinweis*: {path}
@@ -826,8 +873,10 @@ lib: LocalizedRoboSAPiens = {
         },
         "doc": {
             "desc": ("4279609192", "Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt."),
-            "examples": ("1758298850", 
+            "examples": ("1685692962", 
             """
+            Beispiele:
+          
             | ``Inhalte scrollen    Richtung``
 
             Wenn der Parameter "bis_Textfeld" übergeben wird, werden die Inhalte so lange gescrollt, bis das Textfeld gefunden wird.
@@ -860,8 +909,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("71460282", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird markiert."),
-          "examples": ("3078873831", 
+          "examples": ("642690798", 
           f"""
+          Beispiele:
+          
           | ``Tabellenzelle markieren     Zeile     Spaltentitel``
           """
         )
@@ -895,8 +946,10 @@ lib: LocalizedRoboSAPiens = {
     },
     "doc": {
         "desc": ("3829091703", "In der Zelle am Schnittpunkt der Zeile und der Spalte wird der angegebene Wert ausgewählt."),
-        "examples": ("2769954405", 
+        "examples": ("1404195932", 
         """
+        Beispiele:
+          
         | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
         """
         )
@@ -925,8 +978,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1660358782", "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt."),
-          "examples": ("24021588", 
+          "examples": ("814219279", 
           """
+          Beispiele:
+          
           | ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``
 
           *Hinweise*: Der numerische Schlüssel, dass eine vereinfachte Tastaureingabe ermöglicht, ist nicht Teil des Eintragsnamens.
@@ -953,8 +1008,10 @@ lib: LocalizedRoboSAPiens = {
         },
         "doc": {
             "desc": ("3980851450", "Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt."),
-            "examples": ("1012588629", 
+            "examples": ("2691366329", 
             """
+            Beispiele:
+          
             | ``Menüeintrag auswählen    Eintragspfad``
             """
           )
@@ -982,8 +1039,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3238721707", "Das angegebene Optionsfeld wird ausgewählt."),
-          "examples": ("743828531", 
+          "examples": ("2927088619", 
           """
+          Beispiele:
+          
           *Optionsfeld mit einer Beschriftung links oder rechts*
           | ``Optionsfeld auswählen    Beschriftung``
           
@@ -1015,8 +1074,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3315710663", "Die angegebene Tabellenzeile wird markiert."),
-          "examples": ("27391320", 
+          "examples": ("3449704562", 
           f"""
+          Beispiele:
+          
           | ``Tabellenzeile markieren    Zeilenlokator``
           
           *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
@@ -1049,8 +1110,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("2749293432", "Das angegebene Textfeld wird markiert."),
-          "examples": ("627255183", 
+          "examples": ("1656590247", 
           """
+          Beispiele:
+          
           | ``Textfeld markieren    Lokator``
           """
          )
@@ -1073,8 +1136,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1016642629", "Der angegebene Text wird markiert."),
-          "examples": ("1542192483", 
+          "examples": ("680036934", 
           """
+          Beispiele:
+          
           *Text beginnt mit der angegebenen Teilzeichenfolge*
           | ``Text markieren    = Teilzeichenfolge``
           
@@ -1106,8 +1171,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("2308564624", "Das angegebene Formularfeld wird angekreuzt."),
-          "examples": ("4031003223", 
+          "examples": ("785953453", 
           """
+          Beispiele:
+          
           *Formularfeld mit einer Beschriftung links oder rechts *
           | ``Formularfeld ankreuzen    Beschriftung``
           
@@ -1132,8 +1199,10 @@ lib: LocalizedRoboSAPiens = {
         },
         "doc": {
             "desc": ("192177844", "Der Inhalt der Statusleiste wird ausgelesen. Der Rückgabewert ist ein Dictionary mit den Einträgen 'status' und 'message'."),
-            "examples": ("2202028127", 
+            "examples": ("101747441", 
             """
+            Beispiele:
+          
             | ``${statusleiste}   Statusleiste auslesen``
             """
           )
@@ -1160,9 +1229,11 @@ lib: LocalizedRoboSAPiens = {
         "Exception": ("1479426504", exception("Das Formularfeld konnte nicht abgewählt werden."))
       },
       "doc": {
-        "desc": ("524349813", "Das angegebene Formularfeld wird abgewählt."),
-        "examples": ("3902198549", 
+          "desc": ("524349813", "Das angegebene Formularfeld wird abgewählt."),
+          "examples": ("2911392799", 
           """
+          Beispiele:
+          
           *Formularfeld mit einer Beschriftung links oder rechts*
           | ``Formularfeld abwählen    Beschriftung``
           
@@ -1198,8 +1269,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("1790771617", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird angekreuzt."),
-          "examples": ("1114232753", 
+          "examples": ("1019687234", 
           f"""
+          Beispiele:
+          
           | ``Tabellenzelle ankreuzen     Zeile     Spaltentitel``
 
           *Hinweis*: Um das Formularfeld in der Spalte ganz links ohne Titel anzukreuzen, markiere die Zeile und drücke die "Enter"-Taste.
@@ -1230,8 +1303,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("177160211", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird abgewählt."),
-          "examples": ("2691699177", 
+          "examples": ("2105808389", 
           f"""
+          Beispiele:
+          
           | ``Tabellenzelle abwählen     Zeile     Spaltentitel``
           """
         )
@@ -1247,8 +1322,10 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3346161873", "Der Titel des Fensters im Fordergrund wird zurückgegeben."),
-          "examples": ("3505626152", 
+          "examples": ("2536322048", 
           """
+          Beispiele:
+          
           | ``${Titel}    Fenstertitel auslesen``
           """
         )
@@ -1264,11 +1341,13 @@ lib: LocalizedRoboSAPiens = {
       },
       "doc": {
           "desc": ("3847136589", "Der Text des Fensters im Fordergrund wird zurückgegeben."),
-          "examples":  ("1959647034", 
+          "examples": ("353358958", 
           """
+          Beispiele:
+          
           | ``${Text}    Fenstertext auslesen``
           """
-       )
+        )
       }
     }
   },
