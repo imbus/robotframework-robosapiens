@@ -11,8 +11,6 @@ class DE(RoboSAPiensClient):
     
     - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
     
-    *Hinweis*: Drücke mit dem Mausrad auf einen Link, um die Seite in einer neuen Registerkarte zu öffnen.
-    
     == Neuigkeiten in der Version 2.0 ==
     
     - Unterstützung für SAP GUI 8.0 64-bit
@@ -80,6 +78,8 @@ class DE(RoboSAPiensClient):
         Der Reiter mit dem angegebenen Namen wird ausgewählt.
         | ``Reitername`` | Name oder Kurzinfo des Reiters |
         
+        Beispiele:
+        
         | ``Reiter auswählen    Reitername``
         """
         
@@ -99,6 +99,8 @@ class DE(RoboSAPiensClient):
         """
         Das Baumelement mit dem angegebenen Pfad wird markiert.
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
+        
+        Beispiele:
         
         | ``Baumelement markieren    Elementpfad``
         """
@@ -121,6 +123,8 @@ class DE(RoboSAPiensClient):
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
         | ``Menüeintrag`` | Der Menüeintrag. Bei verschachtelten Menüs der Pfad zum Eintrag mit '|' als Trennzeichen (z.B. Anlegen|Wirtschaftseinheit). |
         
+        Beispiele:
+        
         | ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``
         """
         
@@ -140,6 +144,8 @@ class DE(RoboSAPiensClient):
         """
         Die SAP GUI wird gestartet.
         | ``Pfad`` | Der Pfad zu saplogon.exe |
+        
+        Beispiele:
         
         | ``SAP starten   Pfad``
         
@@ -168,6 +174,8 @@ class DE(RoboSAPiensClient):
         Die Verbindung zum SAP Server wird getrennt.
         
         
+        Beispiele:
+        
         | ``Verbindung zum Server trennen``
         """
         
@@ -190,6 +198,8 @@ class DE(RoboSAPiensClient):
         Die SAP GUI wird beendet.
         
         
+        Beispiele:
+        
         | ``SAP beenden``
         
         *Hinweis*: Dieses Schlüsselwort funktioniert nur, wenn die SAP GUI mit dem Schlüsselwort [#SAP starten|SAP starten] gestartet wurde.
@@ -210,6 +220,8 @@ class DE(RoboSAPiensClient):
         Die Zeilen einer Tabelle werden gezählt.
         
         
+        Beispiele:
+        
         | ``${anzahl_zeilen}    Tabellenzeilen zählen``
         """
         
@@ -229,6 +241,8 @@ class DE(RoboSAPiensClient):
         """
         Die Baumstruktur in der Maske wird in JSON Format in der angegebenen Datei gespeichert.
         | ``Dateipfad`` | Absoluter Pfad zu einer Datei mit Endung .json |
+        
+        Beispiele:
         
         | ``Baumstruktur exportieren     Dateipfad``
         
@@ -251,6 +265,10 @@ class DE(RoboSAPiensClient):
         """
         Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
         | ``session_nummer`` | Die Nummer der SAP-Session in der rechten unteren Ecke des Fensters |
+        
+        Beispiele:
+        
+        | ``Laufende SAP GUI übernehmen
         
         Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
         
@@ -278,6 +296,8 @@ class DE(RoboSAPiensClient):
         Die Verbindung mit dem angegebenen SAP Server wird hergestellt.
         | ``Servername`` | Der Name des Servers in SAP Logon (nicht der SID) |
         
+        Beispiele:
+        
         | ``Verbindung zum Server herstellen    Servername``
         """
         
@@ -301,6 +321,8 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
+        Beispiele:
+        
         | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
         """
         
@@ -320,6 +342,8 @@ class DE(RoboSAPiensClient):
         """
         Das angegebene Textfeld wird doppelgeklickt.
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
+        
+        Beispiele:
         
         | ``Textfeld doppelklicken     Lokator``
         """
@@ -341,6 +365,8 @@ class DE(RoboSAPiensClient):
         Die Transaktion mit dem angegebenen T-Code wird ausgeführt.
         | ``T_Code`` | Der Code der Transaktion |
         
+        Beispiele:
+        
         | ``Transaktion ausführen    T-Code``
         """
         
@@ -360,6 +386,8 @@ class DE(RoboSAPiensClient):
         Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
         | ``Name`` | Der Name der generierten Dateien |
         | ``Verzeichnis`` | Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden. |
+        
+        Beispiele:
         
         | ``Maske exportieren     Name     Verzeichnis``
         
@@ -386,6 +414,8 @@ class DE(RoboSAPiensClient):
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Inhalt`` | Der neue Inhalt der Zelle |
         
+        Beispiele:
+        
         | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel     Inhalt``
         
         *Hinweis*: Für die Migration aus dem alten Schlüsselwort mit zwei Argumenten soll eine Suche und Ersetzung mit einem regulären Ausdruck durchgeführt werden.
@@ -411,6 +441,8 @@ class DE(RoboSAPiensClient):
         | ``Lokator`` | Ein Lokator, um das Textfeld zu finden |
         | ``Inhalt`` | Der neue Inhalt des Textfelds |
         
+        Beispiele:
+        
         *Textfeld mit einer Beschriftung links*
         | ``Textfeld ausfüllen    Beschriftung    Inhalt``
         
@@ -434,7 +466,7 @@ class DE(RoboSAPiensClient):
         *Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*
         | ``Textfeld ausfüllen    Beschriftung >> F1 Hilfetext    Inhalt``
         
-        Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden:
+        *Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden*
         | ``Textfeld ausfüllen    Name    Inhalt``
         """
         
@@ -455,6 +487,8 @@ class DE(RoboSAPiensClient):
         """
         Der Knopf mit dem angegebenen Lokator wird hervorgehoben.
         | ``Lokator`` | Name oder Kurzinfo des Knopfes |
+        
+        Beispiele:
         
         | ``Knopf hervorheben    Lokator``
         
@@ -480,10 +514,11 @@ class DE(RoboSAPiensClient):
         Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt.
         | ``Tastenkombination`` | Entweder eine Taste oder mehrere Tasten mit '+' als Trennzeichen |
         
+        Beispiele:
+        
         | ``Tastenkombination drücken    Tastenkombination``
         
         Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation von SAP GUI].
-        Drücke mit dem Mausrad auf den Link, um die Seite in einer neuen Registerkarte zu öffnen.
         
         *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
         """
@@ -504,6 +539,8 @@ class DE(RoboSAPiensClient):
         """
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
         | ``Lokator`` | Name oder Kurzinfo des Knopfes |
+        
+        Beispiele:
         
         | ``Knopf drücken    Lokator``
         
@@ -531,6 +568,8 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
+        Beispiele:
+        
         | ``Tabellenzelle drücken     Zeile     Spaltentitel``
         """
         
@@ -552,6 +591,8 @@ class DE(RoboSAPiensClient):
         Der Inhalt des angegebenen Textfeldes wird zurückgegeben.
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
         
+        Beispiele:
+        
         | ${Inhalt}   ``Textfeld auslesen    Lokator``
         """
         
@@ -571,6 +612,8 @@ class DE(RoboSAPiensClient):
         """
         Der Inhalt des angegebenen Texts wird zurückgegeben.
         | ``Lokator`` | Ein Lokator, um den Text zu finden |
+        
+        Beispiele:
         
         *Text beginnt mit der angegebenen Teilzeichenfolge*
         | ``${Text}   Text auslesen    = Teilzeichenfolge``
@@ -597,6 +640,8 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
+        Beispiele:
+        
         | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
         """
         
@@ -617,6 +662,8 @@ class DE(RoboSAPiensClient):
         """
         Eine Bildschirmaufnahme des Fensters wird im angegebenen Speicherort gespeichert.
         | ``Speicherort`` | Entweder der absolute Pfad einer .png Datei oder LOG, um das Bild in das Protokoll einzubetten. |
+        
+        Beispiele:
         
         | ``Fenster aufnehmen     Speicherort``
         
@@ -643,6 +690,8 @@ class DE(RoboSAPiensClient):
         Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.
         | ``Richtung`` | UP, DOWN, BEGIN, END |
         | ``bis_Textfeld`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
+        
+        Beispiele:
         
         | ``Inhalte scrollen    Richtung``
         
@@ -671,6 +720,8 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
+        Beispiele:
+        
         | ``Tabellenzelle markieren     Zeile     Spaltentitel``
         """
         
@@ -694,6 +745,8 @@ class DE(RoboSAPiensClient):
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Wert`` | Ein Wert aus dem Auswahlmenü |
         
+        Beispiele:
+        
         | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
         """
         
@@ -715,6 +768,8 @@ class DE(RoboSAPiensClient):
         Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.
         | ``Auswahlmenü`` | Beschriftung des Auswahlmenüs |
         | ``Eintrag`` | Ein Eintrag aus dem Auswahlmenü |
+        
+        Beispiele:
         
         | ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``
         
@@ -741,6 +796,8 @@ class DE(RoboSAPiensClient):
         Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.
         | ``Eintragspfad`` | Der Pfad zum Eintrag mit '/' als Trennzeichen (z.B. System/Benutzervorgaben/Eigene Daten). |
         
+        Beispiele:
+        
         | ``Menüeintrag auswählen    Eintragspfad``
         """
         
@@ -760,6 +817,8 @@ class DE(RoboSAPiensClient):
         """
         Das angegebene Optionsfeld wird ausgewählt.
         | ``Lokator`` | Ein Lokator, um das Optionsfeld zu finden |
+        
+        Beispiele:
         
         *Optionsfeld mit einer Beschriftung links oder rechts*
         | ``Optionsfeld auswählen    Beschriftung``
@@ -789,6 +848,8 @@ class DE(RoboSAPiensClient):
         Die angegebene Tabellenzeile wird markiert.
         | ``Zeilenlokator`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         
+        Beispiele:
+        
         | ``Tabellenzeile markieren    Zeilenlokator``
         
         *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
@@ -813,6 +874,8 @@ class DE(RoboSAPiensClient):
         Das angegebene Textfeld wird markiert.
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
         
+        Beispiele:
+        
         | ``Textfeld markieren    Lokator``
         """
         
@@ -832,6 +895,8 @@ class DE(RoboSAPiensClient):
         """
         Der angegebene Text wird markiert.
         | ``Lokator`` | Ein Lokator, um den Text zu finden |
+        
+        Beispiele:
         
         *Text beginnt mit der angegebenen Teilzeichenfolge*
         | ``Text markieren    = Teilzeichenfolge``
@@ -856,6 +921,8 @@ class DE(RoboSAPiensClient):
         """
         Das angegebene Formularfeld wird angekreuzt.
         | ``Lokator`` | Ein Lokator, um das Formularfeld zu finden |
+        
+        Beispiele:
         
         *Formularfeld mit einer Beschriftung links oder rechts *
         | ``Formularfeld ankreuzen    Beschriftung``
@@ -885,6 +952,8 @@ class DE(RoboSAPiensClient):
         Der Inhalt der Statusleiste wird ausgelesen. Der Rückgabewert ist ein Dictionary mit den Einträgen 'status' und 'message'.
         
         
+        Beispiele:
+        
         | ``${statusleiste}   Statusleiste auslesen``
         """
         
@@ -905,6 +974,8 @@ class DE(RoboSAPiensClient):
         """
         Das angegebene Formularfeld wird abgewählt.
         | ``Lokator`` | Ein Lokator, um das Formularfeld zu finden |
+        
+        Beispiele:
         
         *Formularfeld mit einer Beschriftung links oder rechts*
         | ``Formularfeld abwählen    Beschriftung``
@@ -935,6 +1006,8 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
+        Beispiele:
+        
         | ``Tabellenzelle ankreuzen     Zeile     Spaltentitel``
         
         *Hinweis*: Um das Formularfeld in der Spalte ganz links ohne Titel anzukreuzen, markiere die Zeile und drücke die "Enter"-Taste.
@@ -959,6 +1032,8 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
+        Beispiele:
+        
         | ``Tabellenzelle abwählen     Zeile     Spaltentitel``
         """
         
@@ -980,6 +1055,8 @@ class DE(RoboSAPiensClient):
         Der Titel des Fensters im Fordergrund wird zurückgegeben.
         
         
+        Beispiele:
+        
         | ``${Titel}    Fenstertitel auslesen``
         """
         
@@ -999,6 +1076,8 @@ class DE(RoboSAPiensClient):
         Der Text des Fensters im Fordergrund wird zurückgegeben.
         
         
+        Beispiele:
+        
         | ``${Text}    Fenstertext auslesen``
         """
         
@@ -1012,4 +1091,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.3.0'
+    ROBOT_LIBRARY_VERSION = '2.3.1'

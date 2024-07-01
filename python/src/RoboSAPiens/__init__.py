@@ -11,8 +11,6 @@ class RoboSAPiens(RoboSAPiensClient):
     
     - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
     
-    *Hint*: Click a link with the mouse wheel in order to open the page in a new tab.
-    
     == New features in Version 2.0 ==
     
     - Support for SAP GUI 8.0 64-bit
@@ -81,6 +79,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the tab with the name provided.
         | ``tab_name`` | Name or tooltip of the tab |
         
+        Examples:
+        
         | ``Select Tab    tab_name``
         """
         
@@ -100,6 +100,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Select the tree element located at the path provided.
         | ``element_path`` | The path to the element using '/' as separator. e.g. Engineering/Civil Engineering |
+        
+        Examples:
         
         | ``Select Tree Element    element_path``
         """
@@ -122,6 +124,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``element_path`` | The path to the element using '/' as separator, e.g. Engineering/Civil Engineering. |
         | ``menu_entry`` | The menu entry. For nested menus the path to the entry using '|' as separator, e.g. Create|Business Unit. |
         
+        Examples:
+        
         | ``Select Menu Entry in Tree Element    element_path    menu_entry``
         """
         
@@ -141,6 +145,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Open the SAP GUI.
         | ``path`` | The path to saplogon.exe |
+        
+        Examples:
         
         | ``Open SAP   path``
         
@@ -169,6 +175,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Terminate the connection to the SAP server.
         
         
+        Examples:
+        
         | ``Disconnect from server``
         """
         
@@ -191,6 +199,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Close the SAP GUI.
         
         
+        Examples:
+        
         | ``Close SAP``
         
         *Hint*: This keyword only works if SAP GUI was started with the keyword [#Open SAP|Open SAP].
@@ -211,6 +221,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Count the rows in a table.
         
         
+        Examples:
+        
         | ``${row_count}   Get Row Count``
         """
         
@@ -230,6 +242,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Export the tree structure in the current window to the file provided.
         | ``filepath`` | Absolute path to a file with extension .json |
+        
+        Examples:
         
         | ``Export Tree Structure     filepath``
         
@@ -252,6 +266,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Connect to a running SAP instance and take control of it.
         | ``session_number`` | The session number in the lower right corner of the window |
+        
+        Examples:
         
         | ``Connect to Running SAP    session_number``
         
@@ -279,6 +295,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Connect to the SAP Server provided.
         | ``server_name`` | The name of the server in SAP Logon (not the SID). |
         
+        Examples:
+        
         | ``Connect to Server    server_name``
         """
         
@@ -302,6 +320,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         
+        Examples:
+        
         | ``Double-click Cell     row_locator     column``
         """
         
@@ -321,6 +341,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Double click the text field specified by the locator.
         | ``locator`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
+        
+        Examples:
         
         | ``Double-click Text Field     locator``
         """
@@ -342,6 +364,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Execute the transaction with the given T-Code.
         | ``T_Code`` | The transaction code |
         
+        Examples:
+        
         | ``Execute Transaction    T_Code``
         """
         
@@ -361,6 +385,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.
         | ``name`` | Name of the output files |
         | ``directory`` | Absolute path to the directory where the files will be saved |
+        
+        Examples:
         
         | ``Export Window     name     directory``
         
@@ -387,6 +413,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``column`` | Column title or tooltip |
         | ``content`` | The new contents of the cell |
         
+        Examples:
+        
         | ``Fill Cell    row_locator    column   content``
         
         *Hint*: To migrate from the old keyword with two arguments perform a search and replace with a regular expression.
@@ -412,6 +440,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``locator`` | The locator used to find the text field. |
         | ``content`` | The new contents of the text field |
         
+        Examples:
+        
         *Text field with a label to its left*
         | ``Fill Text Field    label    content``
         
@@ -435,7 +465,7 @@ class RoboSAPiens(RoboSAPiensClient):
         *Text field without a label to the right of a text field with a label*
         | ``Fill Text Field    label >> F1 help text    content``
         
-        As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used:
+        *As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used*
         | ``Fill Text Field    name    content``
         """
         
@@ -456,6 +486,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Highlight the button with the given locator.
         | ``locator`` | The name or tooltip of the button |
+        
+        Examples:
         
         | ``Highlight Button    locator``
         
@@ -481,10 +513,11 @@ class RoboSAPiens(RoboSAPiensClient):
         Press the given key combination.
         | ``key_combination`` | Either one key or several keys separated by a + sign. |
         
+        Examples:
+        
         | ``Press Key Combination    key_combination``
         
-        For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI]. 
-        *Hint*: Click the link with the mouse wheel in order to open the page in a new tab.
+        For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI].
         
         *Hint*: Pressing F2 is equivalent to a double-click.
         """
@@ -505,6 +538,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Push the button with the given locator.
         | ``locator`` | The name or tooltip of the button |
+        
+        Examples:
         
         | ``Push Button    locator``
         
@@ -532,6 +567,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``row_locator`` | Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         
+        Examples:
+        
         | ``Push Button Cell     row_locator     column``
         """
         
@@ -552,6 +589,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Read the contents of the statusbar. The return value is a dictionary with the entries 'status' and 'message'.
         
+        
+        Examples:
         
         | ``${statusbar}   Read Statusbar``
         """
@@ -574,6 +613,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Read the contents of the text field specified by the locator.
         | ``locator`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
+        Examples:
+        
         | ${contents}   ``Read Text Field    locator``
         """
         
@@ -593,6 +634,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Read the text specified by the locator.
         | ``locator`` | The locator used to find the text |
+        
+        Examples:
         
         *Text starting with a given substring*
         | ${text}   ``Read Text    = substring``
@@ -619,6 +662,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         
+        Examples:
+        
         | ``Read Cell     row_locator     column``
         """
         
@@ -639,6 +684,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Save a screenshot of the current window to the given destination.
         | ``destination`` | Either the absolute path to a .png file or LOG to embed the image in the protocol. |
+        
+        Examples:
         
         | ``Save Screenshot     destination``
         
@@ -665,6 +712,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Scroll the contents of the text fields within an area with a scrollbar.
         | ``direction`` | UP, DOWN, BEGIN, END |
         | ``until_textfield`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
+        
+        Examples:
         
         | ``Scroll Contents    direction``
         
@@ -693,6 +742,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         
+        Examples:
+        
         | ``Select Cell     row_locator     column``
         """
         
@@ -716,6 +767,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``column`` | Column title or tooltip |
         | ``value`` | An entry from the dropdown menu |
         
+        Examples:
+        
         | ``Select Cell Value    row_locator    column    value``
         """
         
@@ -737,6 +790,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the specified entry from the dropdown menu provided.
         | ``dropdown_menu`` | The label of the dropdown menu |
         | ``entry`` | An entry from the dropdown menu |
+        
+        Examples:
         
         | ``Select Dropdown Menu Entry   dropdown_menu    entry``
         
@@ -763,6 +818,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the menu entry with the path provided.
         | ``menu_entry_path`` | The path to the entry with '/' as separator (e.g. System/User Profile/Own Data) |
         
+        Examples:
+        
         | ``Select Menu Entry    menu_entry_path``
         """
         
@@ -782,6 +839,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Select the radio button specified by the locator.
         | ``locator`` | A locator used to find the radio button |
+        
+        Examples:
         
         *Radio button with a label to its left or its right*
         | ``Select Radio Button    label``
@@ -811,6 +870,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the specified table row.
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         
+        Examples:
+        
         | ``Select Table Row    row_locator``
         
         *Hint*: Use the row number 0 to select the whole table.
@@ -835,6 +896,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the text field specified by the locator.
         | ``locator`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
+        Examples:
+        
         | ``Select Text Field    locator``
         """
         
@@ -854,6 +917,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Select the text specified by the locator.
         | ``locator`` | The locator used to find the text |
+        
+        Examples:
         
         *Text starting with a given substring*
         | ``Select Text    = substring``
@@ -878,6 +943,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Tick the checkbox specified by the locator.
         | ``locator`` | A locator used to find the checkbox |
+        
+        Examples:
         
         *Checkbox with a label to its left or its right*
         | ``Tick Checkbox    label``
@@ -906,6 +973,8 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Untick the checkbox specified by the locator.
         | ``locator`` | A locator used to find the checkbox |
+        
+        Examples:
         
         *Checkbox with a label to its left or its right*
         | ``Untick Checkbox    label``
@@ -936,6 +1005,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         
+        Examples:
+        
         | ``Tick Checkbox Cell     row_locator    column``
         
         *Hint*: To tick the checkbox in the leftmost column with no title, select the row and press the "Enter" key.
@@ -960,6 +1031,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         
+        Examples:
+        
         | ``Untick Checkbox Cell     row_locator    column``
         """
         
@@ -981,6 +1054,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Get the title of the window in the foreground.
         
         
+        Examples:
+        
         | ``${title}    Get Window Title``
         """
         
@@ -1000,6 +1075,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Get the text message of the window in the foreground.
         
         
+        Examples:
+        
         | ``${text}    Get Window Text``
         """
         
@@ -1013,4 +1090,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.3.0'
+    ROBOT_LIBRARY_VERSION = '2.3.1'
