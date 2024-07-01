@@ -14,6 +14,8 @@ gendoc:
     libdoc -P .\src RoboSAPiens ../docs/RoboSAPiens.html
     libdoc -P .\src RoboSAPiens.DE ../docs/RoboSAPiens.DE.html
     python localizedoc.py ../docs/RoboSAPiens.DE.html
+    python replacelinks.py ../docs/RoboSAPiens.html
+    python replacelinks.py ../docs/RoboSAPiens.DE.html
 
 clean:
     if (Test-Path build) { rm -r build }
