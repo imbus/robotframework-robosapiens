@@ -267,7 +267,7 @@ namespace RoboSAPiens {
             this.toolbarId = toolbar.Id;
             this.id = toolbar.GetButtonId(position);
             this.text = toolbar.GetButtonText(position);
-            this.tooltip = toolbar.GetButtonTooltip(position);
+            this.tooltip = toolbar.GetButtonTooltip(position).Trim();
         }
 
         public bool isHLabeled(string label) {

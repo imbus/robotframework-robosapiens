@@ -196,6 +196,7 @@ namespace RoboSAPiens {
                 switch (toolbar.GetButtonType(i)) {
                     case "Button":
                     case "ButtonAndMenu":
+                    case "CheckBox":
                         toolbarButtons.Add(new SAPToolbarButton(toolbar, i));
                         break;
                     case "Menu":
