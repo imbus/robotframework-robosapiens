@@ -1091,4 +1091,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.3.1'
+    ROBOT_LIBRARY_VERSION = '2.3.2'
