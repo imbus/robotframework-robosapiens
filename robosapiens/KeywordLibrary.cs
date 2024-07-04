@@ -99,7 +99,8 @@ namespace RoboSAPiens
         EitherSapGui getSapGui() {
             try
             {
-                var sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
+                var rot = new CSapROTWrapper();
+                var sapGui = rot.GetROTEntry("SAPGUI") ?? rot.GetROTEntry("SAPGUISERVER");
                 if (sapGui == null) {
                     return new EitherSapGui.Err(new RobotResult.NoSapGui());
                 }
@@ -182,12 +183,13 @@ namespace RoboSAPiens
                 int elapsed = 0;
                 int waiting_time = 100; // in milliseconds
                 object? sapGui = null;
+                var rot = new CSapROTWrapper();
 
                 while (sapGui == null && elapsed < timeout)
                 {
                     Thread.Sleep(waiting_time);
                     elapsed += waiting_time;
-                    sapGui = new CSapROTWrapper().GetROTEntry("SAPGUI");
+                    sapGui = rot.GetROTEntry("SAPGUI") ?? rot.GetROTEntry("SAPGUISERVER");
                 }
 
                 if (sapGui == null) {
