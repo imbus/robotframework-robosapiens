@@ -25,7 +25,7 @@ namespace RoboSAPiens
             keywords = new Dictionary<string, Func<string[], RobotResult>>()
             {
                 {"ActivateTab", args => ActivateTab(args[0])},
-                {"AttachToRunningSap", args => args switch { [] => AttachToRunningSap(), _ =>  AttachToRunningSap(args[0]) }},
+                {"AttachToRunningSap", args => args switch { [string sessionNumber] => AttachToRunningSap(sessionNumber), _ =>  AttachToRunningSap() }},
                 {"CloseConnection", args => CloseConnection()},
                 {"CloseSap", args => CloseSap()},
                 {"ConnectToServer", args => ConnectToServer(args[0])},
@@ -40,7 +40,7 @@ namespace RoboSAPiens
                 {"GetWindowText", args => GetWindowText()},
                 {"GetWindowTitle", args => GetWindowTitle()},
                 {"HighlightButton", args => HighlightButton(args[0])},
-                {"OpenSap", args => OpenSap(args[0])},
+                {"OpenSap", args => args switch { [string path, string kwargs] => OpenSap(path, kwargs), _ =>  OpenSap(args[0]) }},
                 {"PressKeyCombination", args => PressKeyCombination(args[0])},
                 {"PushButton", args => PushButton(args[0])},
                 {"PushButtonCell", args => PushButtonCell(args[0], args[1])},
@@ -158,11 +158,19 @@ namespace RoboSAPiens
         [Keyword("SAP starten"),
          Doc("Die SAP GUI wird gestartet. Der übliche Pfad ist\n\n" +
             @"| ``C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe``")]
-        public RobotResult OpenSap(string path)
+        public RobotResult OpenSap(string path, string? sapArgs=null)
         {
             try
             {
-                proc = Process.Start(path);
+                proc = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = path,
+                        Arguments = sapArgs ?? ""
+                    }
+                };
+                proc.Start();
 
                 Thread.Sleep(500);
                 if (proc.HasExited)
