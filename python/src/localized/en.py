@@ -6,7 +6,7 @@ Fstr = Callable[[str], str]
 sap_error = 'SAP Error: {0}'
 no_session = 'No active SAP-Session. Call the keyword "Connect To Server" or "Connect To Running SAP" first.'
 no_sap_gui = 'No open SAP GUI found. Call the keyword "Open SAP" first.'
-no_gui_scripting = 'The scripting support is not activated. It must be activated in the Settings of SAP Logon.'
+no_gui_scripting = 'The scripting support is not activated. It must be activated in the Settings of the SAP client.'
 no_connection = 'No existing connection to an SAP server. Call the keyword "Connect to Server" first.'
 no_server_scripting = 'Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.'
 not_found: Fstr = lambda msg: f"{msg} Hint: Check the spelling"
@@ -46,6 +46,11 @@ lib: RoboSAPiens = {
         - Scripting on the SAP Server must be [https://help.sap.com/saphelp_aii710/helpdata/en/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|activated].
         
         - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
+
+        == New features in Version 2.4 ==
+
+        - Support for SAP Business Client
+        - Documentation for automating the embedded browser control (Edge only)
 
         == New features in Version 2.0 ==
 
@@ -91,6 +96,30 @@ lib: RoboSAPiens = {
         |       Save screenshot   LOG
         |       Push button       ${close button}
         |   END
+
+        == Automating an embedded browser control using Browser Library ==
+
+        Configure the following environment variable in Windows:
+
+        | ``Name: WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS``
+        | ``Value: --enable-features=msEdgeDevToolsWdpRemoteDebugging --remote-debugging-port=9222``
+
+        Start SAP Logon or SAP Business Client, log in to the SAP server and execute the transaction that contains a browser control.
+
+        Call the following keyword from [https://robotframework-browser.org/|Browser Library]:
+
+        | ``Connect To Browser   http://localhost:9222   chromium   use_cdp=True``
+
+        In order to inspect the web page displayed in the browser control start a Chromium-based browser, e.g. Microsoft Edge, and open the URL ``chrome://inspect``.
+
+        Under the heading "Remote Target" locate the currently open page and click on "inspect" to open the Developer Tools.
+
+        == Keeping secrets safe ==
+        In order to prevent secret leakage into the Robot Framework protocol disable the logger before calling sensitive keywords:
+
+        | ``${log_level}       Set Log Level    NONE``
+        | ``Fill Text Field    ${locator}       ${password}``
+        | ``Set Log Level      ${log_level}``
         """,
         "init": "RoboSAPiens has the following initialization arguments:\n| =Argument= | =Description= |"
     },
@@ -191,30 +220,50 @@ lib: RoboSAPiens = {
         "OpenSap": {
             "name": "Open SAP",
             "args": {
-                "path": {
+                "a1path": {
                     "name": "path",
-                    "desc": "The path to saplogon.exe",
+                    "desc": "The path of the SAP executable",
                     "spec": {},
+                },
+                "a2sapArgs": {
+                     "name": "sap_args",
+                     "desc": "Command line arguments for the SAP executable",
+                     "default": None,
+                     "spec": {}
                 }
             },
             "result": {
-                "Pass": "The SAP GUI was opened.",
+                "Pass": "SAP was opened.",
                 "NoGuiScripting": no_gui_scripting,
-                "SAPAlreadyRunning": "The SAP GUI is already running. It must be closed before calling this keyword.",
-                "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
-                "Exception": exception("The SAP GUI could not be opened. {0}")
+                "SAPAlreadyRunning": "SAP is already running. It must be closed before calling this keyword.",
+                "SAPNotStarted": "SAP could not be opened. Verify that the path and the arguments (if applicable) are correct.",
+                "Exception": exception("SAP could not be opened. {0}")
             },
             "doc": {
-                "desc": "Open the SAP GUI.",
+                "desc": "Open SAP GUI or SAP Business Client.",
                  "examples":
                  rf"""
                  Examples:
-                
+
+                 *Start the SAP client*
+
                  | ``Open SAP   path``
                  
-                 The standard path is
+                 For SAP Logon 32-bit the standard path is
                  
                  | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+
+                 For SAP Logon 64-bit the standard path is
+
+                 | ``C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+
+                 For SAP Business Client the standard path is
+
+                 | ``C:\\Program Files\\SAP\\NWBC800\\NWBC.exe``
+
+                 *Start SAP Logon logged in to a client*
+
+                 | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{{username}} -pw{{password}}``
 
                  *Hint*: {path}
                  """
@@ -332,9 +381,11 @@ lib: RoboSAPiens = {
                 """
                 Examples:
                 
-                | ``Connect to Running SAP    session_number``
+                | ``Connect to Running SAP``
 
                 By default the session number 1 will be used. To use a different session specify the session number.
+
+                | ``Connect to Running SAP    session_number``
                 """
             }
         },
