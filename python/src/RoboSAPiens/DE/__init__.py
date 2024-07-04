@@ -11,6 +11,11 @@ class DE(RoboSAPiensClient):
     
     - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
     
+    == Neuigkeiten in der Version 2.4 ==
+    
+    - Unterstützung für SAP Business Client
+    - Dokumentation zur Automatisierung eines eingebetteten Browser-Steuerelement (nur Edge) 
+    
     == Neuigkeiten in der Version 2.0 ==
     
     - Unterstützung für SAP GUI 8.0 64-bit
@@ -54,6 +59,30 @@ class DE(RoboSAPiensClient):
     |       Fenster aufnehmen   LOG
     |       Knopf drücken       ${Knopf Schließen}
     |   END
+    
+    == Automatisierung eines eingebetteten Browser-Steuerelement mittels Browser Library ==
+    
+    Die folgende Umgebungsvariable muss in Windows gesetzt werden:
+    
+    | ``Name: WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS``
+    | ``Wert: --enable-features=msEdgeDevToolsWdpRemoteDebugging --remote-debugging-port=9222``
+    
+    SAP Logon oder SAP Business Client starten. Beim SAP Server anmelden und eine Transaktion ausführen, in der ein eingebettetes Browser-Steuerelement verwendet wird.
+    
+    Das folgende Schlüsselwort aus der [https://robotframework-browser.org/|Browser Library] aufrufen:
+    
+    | ``Connect To Browser   http://localhost:9222   chromium   use_cdp=True``
+    
+    Um die Elemente der im Browser angezeigten Webseite zu untersuchen einen Chromium-basierten Browser, z.B. Microsoft Edge, starten und den URL ``chrome://inspect`` abrufen.
+    
+    Unter der Überschrift "Remote Target" wird die Webseite aufgelistet. Der Aufruf der Entwicklertools erfolgt mit einem Klick auf "inspect".
+    
+    == Schutz von sensiblen Daten ==
+    Um zu verhindern, dass sensible Daten in das Robot Framework-Protokoll gelangen, soll die Protokollierung vor dem Aufruf sensibler Schlüsselwörter deaktiviert werden:
+    
+    | ``${log_level}          Set Log Level    NONE``
+    | ``Textfeld ausfüllen    ${Lokator}       ${Kennwort}``
+    | ``Set Log Level         ${log_level}``
     """
     
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
@@ -140,30 +169,45 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('SAP starten') # type: ignore
-    def open_sap(self, Pfad: str): # type: ignore
+    def open_sap(self, Pfad: str, SAP_Parameter: str=None): # type: ignore
         """
-        Die SAP GUI wird gestartet.
-        | ``Pfad`` | Der Pfad zu saplogon.exe |
+        SAP GUI bzw. SAP Business Client wird gestartet.
+        | ``Pfad`` | Der Pfad zu saplogon.exe oder NWBC.exe |
+        | ``SAP_Parameter`` | Kommandozeileparameter für den SAP Client |
         
         Beispiele:
         
+        *Den SAP Client starten*
+        
         | ``SAP starten   Pfad``
         
-        Der übliche Pfad ist
+        Der übliche Pfad für SAP Logon 32-bit ist 
         
         | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+        
+        Der übliche Pfad für SAP Logon 64-bit ist 
+        
+        | ``C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+        
+        Der übliche Pfad für SAP Business Client ist 
+        
+        | ``C:\\Program Files\\SAP\\NWBC800\\NWBC.exe``
+        
+        *SAP Logon bereits bei einem Mandanten angemeldet starten*
+        
+        | ``SAP starten   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{username} -pw=%{password}``
         
         *Hinweis*: Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         """
         
-        args = [Pfad]
+        args = [Pfad, SAP_Parameter]
         
         result = {
-            "Pass": "Die SAP GUI wurde gestartet",
-            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.",
-            "SAPAlreadyRunning": "Die SAP GUI läuft gerade. Es muss vor dem Aufruf dieses Schlüsselworts beendet werden.",
-            "SAPNotStarted": "Die SAP GUI konnte nicht gestartet werden. Überprüfe den Pfad '{0}'.",
-            "Exception": "Die SAP GUI konnte nicht gestartet werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            "Pass": "SAP wurde gestartet",
+            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen vom SAP Client aktiviert werden.",
+            "SAPAlreadyRunning": "SAP läuft gerade. Es muss vor dem Aufruf dieses Schlüsselworts beendet werden.",
+            "SAPNotStarted": "SAP konnte nicht gestartet werden. Überprüfe den Pfad und ggf. die Parameter '{0}'.",
+            "Exception": "SAP konnte nicht gestartet werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('OpenSap', args, result) # type: ignore
     
@@ -183,7 +227,7 @@ class DE(RoboSAPiensClient):
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
-            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.",
+            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen vom SAP Client aktiviert werden.",
             "NoConnection": "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "Pass": "Die Verbindung zum Server wurde getrennt.",
@@ -268,7 +312,7 @@ class DE(RoboSAPiensClient):
         
         Beispiele:
         
-        | ``Laufende SAP GUI übernehmen
+        | ``Laufende SAP GUI übernehmen``
         
         Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
         
@@ -279,7 +323,7 @@ class DE(RoboSAPiensClient):
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
-            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.",
+            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen vom SAP Client aktiviert werden.",
             "NoConnection": "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
@@ -305,7 +349,7 @@ class DE(RoboSAPiensClient):
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
-            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.",
+            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen vom SAP Client aktiviert werden.",
             "Pass": "Die Verbindung mit dem Server '{0}' wurde erfolgreich hergestellt.",
             "SapError": "SAP Fehlermeldung: {0}",
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
@@ -1091,4 +1135,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.3.2'
+    ROBOT_LIBRARY_VERSION = '2.4.0'

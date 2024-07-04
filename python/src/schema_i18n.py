@@ -160,6 +160,9 @@ class LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec(TypedD
 class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepathSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsOpensapArgsSapargsSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsOpensapArgsPathSpec(TypedDict):
     ...
 
@@ -397,9 +400,15 @@ class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
     desc: Tuple[Literal['1664248363'], str]
     spec: LocalizedRoboSAPiensKeywordsExporttreeArgsFilepathSpec
 
+class LocalizedRoboSAPiensKeywordsOpensapArgsSapargs(TypedDict):
+    name: Tuple[Literal['3959597614'], str]
+    desc: Tuple[Literal['4215926071'], str]
+    default: Literal[None]
+    spec: LocalizedRoboSAPiensKeywordsOpensapArgsSapargsSpec
+
 class LocalizedRoboSAPiensKeywordsOpensapArgsPath(TypedDict):
     name: Tuple[Literal['190089999'], str]
-    desc: Tuple[Literal['518169755'], str]
+    desc: Tuple[Literal['4080190508'], str]
     spec: LocalizedRoboSAPiensKeywordsOpensapArgsPathSpec
 
 class LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentryArgsMenuentry(TypedDict):
@@ -850,7 +859,7 @@ class LocalizedRoboSAPiensKeywordsConnecttoserverDoc(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverResult(TypedDict):
     NoSapGui: Tuple[Literal['2987622841'], str]
-    NoGuiScripting: Tuple[Literal['2929771598'], str]
+    NoGuiScripting: Tuple[Literal['3820273098'], str]
     Pass: Tuple[Literal['1014238539'], str]
     SapError: Tuple[Literal['3246364722'], str]
     NoServerScripting: Tuple[Literal['3495213352'], str]
@@ -861,11 +870,11 @@ class LocalizedRoboSAPiensKeywordsConnecttoserverArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapDoc(TypedDict):
     desc: Tuple[Literal['866468958'], str]
-    examples: Tuple[Literal['1434521463'], str]
+    examples: Tuple[Literal['3133866093'], str]
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
     NoSapGui: Tuple[Literal['2987622841'], str]
-    NoGuiScripting: Tuple[Literal['2929771598'], str]
+    NoGuiScripting: Tuple[Literal['3820273098'], str]
     NoConnection: Tuple[Literal['509780556'], str]
     NoSession: Tuple[Literal['4138997384'], str]
     NoServerScripting: Tuple[Literal['3495213352'], str]
@@ -919,7 +928,7 @@ class LocalizedRoboSAPiensKeywordsCloseconnectionDoc(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsCloseconnectionResult(TypedDict):
     NoSapGui: Tuple[Literal['2987622841'], str]
-    NoGuiScripting: Tuple[Literal['2929771598'], str]
+    NoGuiScripting: Tuple[Literal['3820273098'], str]
     NoConnection: Tuple[Literal['509780556'], str]
     NoSession: Tuple[Literal['4138997384'], str]
     Pass: Tuple[Literal['1657006605'], str]
@@ -929,18 +938,19 @@ class LocalizedRoboSAPiensKeywordsCloseconnectionArgs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsOpensapDoc(TypedDict):
-    desc: Tuple[Literal['367732375'], str]
-    examples: Tuple[Literal['3504496010'], str]
+    desc: Tuple[Literal['211145309'], str]
+    examples: Tuple[Literal['4102780779'], str]
 
 class LocalizedRoboSAPiensKeywordsOpensapResult(TypedDict):
-    Pass: Tuple[Literal['3933791589'], str]
-    NoGuiScripting: Tuple[Literal['2929771598'], str]
-    SAPAlreadyRunning: Tuple[Literal['1210765504'], str]
-    SAPNotStarted: Tuple[Literal['4005776825'], str]
-    Exception: Tuple[Literal['2772047805'], str]
+    Pass: Tuple[Literal['871506365'], str]
+    NoGuiScripting: Tuple[Literal['3820273098'], str]
+    SAPAlreadyRunning: Tuple[Literal['1618084077'], str]
+    SAPNotStarted: Tuple[Literal['3387725186'], str]
+    Exception: Tuple[Literal['344820692'], str]
 
 class LocalizedRoboSAPiensKeywordsOpensapArgs(TypedDict):
-    path: LocalizedRoboSAPiensKeywordsOpensapArgsPath
+    a1path: LocalizedRoboSAPiensKeywordsOpensapArgsPath
+    a2sapArgs: LocalizedRoboSAPiensKeywordsOpensapArgsSapargs
 
 class LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentryDoc(TypedDict):
     desc: Tuple[Literal['2300654272'], str]
@@ -1282,7 +1292,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2x64: LocalizedRoboSAPiensArgsX64
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['622817387'], str]
+    intro: Tuple[Literal['2628003690'], str]
     init: Tuple[Literal['1576532524'], str]
 
 class LocalizedRoboSAPiens(TypedDict):

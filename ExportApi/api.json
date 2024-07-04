@@ -83,6 +83,12 @@
           "name": "path",
           "desc": "",
           "spec": {}
+        },
+        "sapArgs": {
+          "name": "sapArgs",
+          "desc": "",
+          "default": null,
+          "spec": {}
         }
       },
       "result": {

@@ -162,6 +162,9 @@ class RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec(TypedDict):
 class RoboSAPiensKeywordsExporttreeArgsFilepathSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsOpensapArgsSapargsSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsOpensapArgsPathSpec(TypedDict):
     ...
 
@@ -400,6 +403,12 @@ class RoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsExporttreeArgsFilepathSpec
+
+class RoboSAPiensKeywordsOpensapArgsSapargs(TypedDict):
+    name: str
+    desc: str
+    default: Literal[None]
+    spec: RoboSAPiensKeywordsOpensapArgsSapargsSpec
 
 class RoboSAPiensKeywordsOpensapArgsPath(TypedDict):
     name: str
@@ -940,7 +949,8 @@ class RoboSAPiensKeywordsOpensapResult(TypedDict):
     Exception: str
 
 class RoboSAPiensKeywordsOpensapArgs(TypedDict):
-    path: RoboSAPiensKeywordsOpensapArgsPath
+    a1path: RoboSAPiensKeywordsOpensapArgsPath
+    a2sapArgs: RoboSAPiensKeywordsOpensapArgsSapargs
 
 class RoboSAPiensKeywordsSelectmenuitemDoc(TypedDict):
     desc: str

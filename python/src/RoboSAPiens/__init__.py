@@ -11,6 +11,11 @@ class RoboSAPiens(RoboSAPiensClient):
     
     - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
     
+    == New features in Version 2.4 ==
+    
+    - Support for SAP Business Client
+    - Documentation for automating the embedded browser control (Edge only)
+    
     == New features in Version 2.0 ==
     
     - Support for SAP GUI 8.0 64-bit
@@ -55,6 +60,30 @@ class RoboSAPiens(RoboSAPiensClient):
     |       Save screenshot   LOG
     |       Push button       ${close button}
     |   END
+    
+    == Automating an embedded browser control using Browser Library ==
+    
+    Configure the following environment variable in Windows:
+    
+    | ``Name: WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS``
+    | ``Value: --enable-features=msEdgeDevToolsWdpRemoteDebugging --remote-debugging-port=9222``
+    
+    Start SAP Logon or SAP Business Client, log in to the SAP server and execute the transaction that contains a browser control.
+    
+    Call the following keyword from [https://robotframework-browser.org/|Browser Library]:
+    
+    | ``Connect To Browser   http://localhost:9222   chromium   use_cdp=True``
+    
+    In order to inspect the web page displayed in the browser control start a Chromium-based browser, e.g. Microsoft Edge, and open the URL ``chrome://inspect``.
+    
+    Under the heading "Remote Target" locate the currently open page and click on "inspect" to open the Developer Tools.
+    
+    == Keeping secrets safe ==
+    In order to prevent secret leakage into the Robot Framework protocol disable the logger before calling sensitive keywords:
+    
+    | ``${log_level}       Set Log Level    NONE``
+    | ``Fill Text Field    ${locator}       ${password}``
+    | ``Set Log Level      ${log_level}``
     """
     
     def __init__(self, presenter_mode: bool=False, x64: bool=False):
@@ -141,30 +170,45 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Open SAP') # type: ignore
-    def open_sap(self, path: str): # type: ignore
+    def open_sap(self, path: str, sap_args: str=None): # type: ignore
         """
-        Open the SAP GUI.
-        | ``path`` | The path to saplogon.exe |
+        Open SAP GUI or SAP Business Client.
+        | ``path`` | The path of the SAP executable |
+        | ``sap_args`` | Command line arguments for the SAP executable |
         
         Examples:
         
+        *Start the SAP client*
+        
         | ``Open SAP   path``
         
-        The standard path is
+        For SAP Logon 32-bit the standard path is
         
         | ``C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+        
+        For SAP Logon 64-bit the standard path is
+        
+        | ``C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\saplogon.exe``
+        
+        For SAP Business Client the standard path is
+        
+        | ``C:\\Program Files\\SAP\\NWBC800\\NWBC.exe``
+        
+        *Start SAP Logon logged in to a client*
+        
+        | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{username} -pw{password}``
         
         *Hint*: Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
         """
         
-        args = [path]
+        args = [path, sap_args]
         
         result = {
-            "Pass": "The SAP GUI was opened.",
-            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of SAP Logon.",
-            "SAPAlreadyRunning": "The SAP GUI is already running. It must be closed before calling this keyword.",
-            "SAPNotStarted": "The SAP GUI could not be opened. Verify that the path is correct.",
-            "Exception": "The SAP GUI could not be opened. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Pass": "SAP was opened.",
+            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
+            "SAPAlreadyRunning": "SAP is already running. It must be closed before calling this keyword.",
+            "SAPNotStarted": "SAP could not be opened. Verify that the path and the arguments (if applicable) are correct.",
+            "Exception": "SAP could not be opened. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('OpenSap', args, result) # type: ignore
     
@@ -184,7 +228,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
-            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of SAP Logon.",
+            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
             "NoConnection": "No existing connection to an SAP server. Call the keyword \"Connect to Server\" first.",
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "Pass": "Disconnected from the server.",
@@ -269,16 +313,18 @@ class RoboSAPiens(RoboSAPiensClient):
         
         Examples:
         
-        | ``Connect to Running SAP    session_number``
+        | ``Connect to Running SAP``
         
         By default the session number 1 will be used. To use a different session specify the session number.
+        
+        | ``Connect to Running SAP    session_number``
         """
         
         args = [session_number]
         
         result = {
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
-            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of SAP Logon.",
+            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
             "NoConnection": "No existing connection to an SAP server. Call the keyword \"Connect to Server\" first.",
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
@@ -304,7 +350,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
-            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of SAP Logon.",
+            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
             "Pass": "Connected to the server {0}",
             "SapError": "SAP Error: {0}",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
@@ -1090,4 +1136,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.3.2'
+    ROBOT_LIBRARY_VERSION = '2.4.0'
