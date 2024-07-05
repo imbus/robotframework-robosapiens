@@ -156,6 +156,32 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
+        "DoubleClickTreeElement": {
+            "name": ("1544352237", "Baumelement doppelklicken"),
+            "args": {
+                "elementPath": {
+                    "name": ("1214950134", "Elementpfad"),
+                    "desc": ("4061798646", "Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen)."),
+                    "spec": {},
+                }
+            },
+            "result": {
+                "NoSession": ("4138997384", no_session),
+                "NotFound": ("3295884259", not_found("Das Baumelement '{0}' wurde nicht gefunden.")),
+                "Pass": ("2589844117", "Das Baumelement '{0}' wurde doppelgeklickt."),
+                "Exception": ("178748146", exception("Das Baumelement konnte nicht doppelgeklickt werden. {0}"))
+            },
+            "doc": {
+                "desc": ("2416620933", "Das Baumelement mit dem angegebenen Pfad wird doppelgeklickt."),
+                "examples": ("3855515059", 
+                """
+                Beispiele:
+              
+                | ``Baumelement doppelklicken    Elementpfad``
+                """
+              )
+            }
+        },
         "SelectTreeElement": {
             "name": ("3234880959", "Baumelement markieren"),
             "args": {
@@ -182,7 +208,7 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
-            "SelectTreeElementMenuEntry": {
+        "SelectTreeElementMenuEntry": {
             "name": ("1573180260", "Menüeintrag in Baumelement auswählen"),
             "args": {
                 "a1elementPath": {

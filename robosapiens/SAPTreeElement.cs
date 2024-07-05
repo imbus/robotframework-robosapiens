@@ -3,7 +3,7 @@ using sapfewse;
 
 namespace RoboSAPiens
 {
-    public class SAPTreeElement: ILabeled
+    public class SAPTreeElement: ILabeled, IDoubleClickable
     {
         string treeId;
         string nodeKey;
@@ -30,6 +30,13 @@ namespace RoboSAPiens
                 var parentText = guiTree.GetNodeTextByPath(parentPath);
                 return getTextPath(guiTree, parentPath, $"{parentText}/{textPath}");
             }
+        }
+
+        public void doubleClick(GuiSession session) 
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            tree.SelectedNode = nodeKey;
+            tree.DoubleClickNode(nodeKey);
         }
 
         public void select(GuiSession session)

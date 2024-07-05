@@ -179,6 +179,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Knopf konnte nicht hervorgehoben werden.");
         }
 
+        public record DoubleClickTreeElement {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string elementPath): RobotResult.NotFound($"Das Baumelement '{elementPath}' wurde nicht gefunden.");
+            public record Pass(string elementPath): RobotResult.RobotPass($"Das Baumelement '{elementPath}' wurde doppelgeklickt.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Baumelement konnte nicht doppelgeklickt werden.");
+        }
+
         public record SelectTreeElement {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string elementPath): RobotResult.NotFound($"Das Baumelement '{elementPath}' wurde nicht gefunden.");

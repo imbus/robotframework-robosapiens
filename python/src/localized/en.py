@@ -161,6 +161,31 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "DoubleClickTreeElement": {
+            "name": "Double-click Tree Element",
+            "args": {
+                "elementPath": {
+                    "name": "element_path",
+                    "desc": "The path to the element using '/' as separator. e.g. Engineering/Civil Engineering",
+                    "spec": {},
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The tree element '{0}' could not be found."),
+                "Pass": "The tree element '{0}' was double-clicked.",
+                "Exception": exception("The tree element could not be double-clicked. {0}")
+            },
+            "doc": {
+                "desc": "Double-click the tree element located at the path provided.",
+                "examples": 
+                """
+                Examples:
+
+                | ``Double-click Tree Element    element_path``
+                """
+            }
+        },
         "SelectTreeElement": {
             "name": "Select Tree Element",
             "args": {
