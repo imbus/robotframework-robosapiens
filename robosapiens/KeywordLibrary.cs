@@ -33,6 +33,7 @@ namespace RoboSAPiens
                 {"DoubleClickCell", args => DoubleClickCell(args[0], args[1])},
                 {"DoubleClickTextField", args => DoubleClickTextField(args[0])},
                 {"DoubleClickTreeElement", args => DoubleClickTreeElement(args[0])},
+                {"ExecuteTransaction", args => ExecuteTransaction(args[0])},
                 {"ExportTree", args => ExportTree(args[0])},
                 {"ExportWindow", args => ExportWindow(args[0], args[1])},
                 {"FillTableCell", args => FillTableCell(args[0], args[1], args[2])},
