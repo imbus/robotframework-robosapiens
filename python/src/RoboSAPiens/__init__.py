@@ -124,6 +124,28 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ActivateTab', args, result) # type: ignore
     
 
+    @keyword('Double-click Tree Element') # type: ignore
+    def double_click_tree_element(self, element_path: str): # type: ignore
+        """
+        Double-click the tree element located at the path provided.
+        | ``element_path`` | The path to the element using '/' as separator. e.g. Engineering/Civil Engineering |
+        
+        Examples:
+        
+        | ``Double-click Tree Element    element_path``
+        """
+        
+        args = [element_path]
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The tree element '{0}' could not be found. Hint: Check the spelling",
+            "Pass": "The tree element '{0}' was double-clicked.",
+            "Exception": "The tree element could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('DoubleClickTreeElement', args, result) # type: ignore
+    
+
     @keyword('Select Tree Element') # type: ignore
     def select_tree_element(self, element_path: str): # type: ignore
         """
@@ -1136,4 +1158,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.4.0'
+    ROBOT_LIBRARY_VERSION = '2.5.0'

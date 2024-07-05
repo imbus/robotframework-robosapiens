@@ -56,6 +56,26 @@
         "examples": ""
       }
     },
+    "DoubleClickTreeElement": {
+      "name": "Baumelement doppelklicken",
+      "args": {
+        "elementPath": {
+          "name": "elementPath",
+          "desc": "",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Das Baumelement mit dem angegebenen Pfad wird doppelgeklickt.\n\n| ``Baumelement doppelklicken    Elementpfad``",
+        "examples": ""
+      }
+    },
     "SelectMenuItem": {
       "name": "Menüeintrag auswählen",
       "args": {

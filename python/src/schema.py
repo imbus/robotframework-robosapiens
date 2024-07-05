@@ -171,6 +171,9 @@ class RoboSAPiensKeywordsOpensapArgsPathSpec(TypedDict):
 class RoboSAPiensKeywordsSelectmenuitemArgsItempathSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsDoubleclicktreeelementArgsElementpathSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec(TypedDict):
     ...
 
@@ -419,6 +422,11 @@ class RoboSAPiensKeywordsSelectmenuitemArgsItempath(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsSelectmenuitemArgsItempathSpec
+
+class RoboSAPiensKeywordsDoubleclicktreeelementArgsElementpath(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsDoubleclicktreeelementArgsElementpathSpec
 
 class RoboSAPiensKeywordsSelecttreeelementArgsElementpath(TypedDict):
     name: str
@@ -965,6 +973,19 @@ class RoboSAPiensKeywordsSelectmenuitemResult(TypedDict):
 class RoboSAPiensKeywordsSelectmenuitemArgs(TypedDict):
     itemPath: RoboSAPiensKeywordsSelectmenuitemArgsItempath
 
+class RoboSAPiensKeywordsDoubleclicktreeelementDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsDoubleclicktreeelementResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsDoubleclicktreeelementArgs(TypedDict):
+    elementPath: RoboSAPiensKeywordsDoubleclicktreeelementArgsElementpath
+
 class RoboSAPiensKeywordsSelecttreeelementDoc(TypedDict):
     desc: str
     examples: str
@@ -1219,6 +1240,12 @@ class RoboSAPiensKeywordsSelectmenuitem(TypedDict):
     result: RoboSAPiensKeywordsSelectmenuitemResult
     doc: RoboSAPiensKeywordsSelectmenuitemDoc
 
+class RoboSAPiensKeywordsDoubleclicktreeelement(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsDoubleclicktreeelementArgs
+    result: RoboSAPiensKeywordsDoubleclicktreeelementResult
+    doc: RoboSAPiensKeywordsDoubleclicktreeelementDoc
+
 class RoboSAPiensKeywordsSelecttreeelement(TypedDict):
     name: str
     args: RoboSAPiensKeywordsSelecttreeelementArgs
@@ -1247,6 +1274,7 @@ class RoboSAPiensSpecs(TypedDict):
 class RoboSAPiensKeywords(TypedDict):
     ActivateTab: RoboSAPiensKeywordsActivatetab
     SelectTreeElement: RoboSAPiensKeywordsSelecttreeelement
+    DoubleClickTreeElement: RoboSAPiensKeywordsDoubleclicktreeelement
     SelectMenuItem: RoboSAPiensKeywordsSelectmenuitem
     OpenSap: RoboSAPiensKeywordsOpensap
     CloseConnection: RoboSAPiensKeywordsCloseconnection

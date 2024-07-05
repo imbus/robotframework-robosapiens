@@ -123,6 +123,28 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ActivateTab', args, result) # type: ignore
     
 
+    @keyword('Baumelement doppelklicken') # type: ignore
+    def double_click_tree_element(self, Elementpfad: str): # type: ignore
+        """
+        Das Baumelement mit dem angegebenen Pfad wird doppelgeklickt.
+        | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
+        
+        Beispiele:
+        
+        | ``Baumelement doppelklicken    Elementpfad``
+        """
+        
+        args = [Elementpfad]
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "NotFound": "Das Baumelement '{0}' wurde nicht gefunden.\nHinweis: Prüfe die Rechtschreibung",
+            "Pass": "Das Baumelement '{0}' wurde doppelgeklickt.",
+            "Exception": "Das Baumelement konnte nicht doppelgeklickt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('DoubleClickTreeElement', args, result) # type: ignore
+    
+
     @keyword('Baumelement markieren') # type: ignore
     def select_tree_element(self, Elementpfad: str): # type: ignore
         """
@@ -1135,4 +1157,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.4.0'
+    ROBOT_LIBRARY_VERSION = '2.5.0'
