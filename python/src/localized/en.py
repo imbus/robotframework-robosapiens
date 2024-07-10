@@ -30,27 +30,20 @@ HLabelVIndex = "label:@:index"
 Content = ":=:content"
 Column = "column"
 
-locales = {
-    "DE": "German"
-}
-
-def locales_bullet_list() -> str:
-    return "\n".join([f"- RoboSAPiens.{country} ({lang})" for country, lang in locales.items()])
-
 lib: RoboSAPiens = {
     "doc": {
         "intro": """RoboSAPiens: SAP GUI-Automation for Humans
 
         In order to use this library the following requirements must be satisfied:
 
-        - Scripting on the SAP Server must be [https://help.sap.com/saphelp_aii710/helpdata/en/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|activated].
+        - Scripting must be [https://help.sap.com/saphelp_aii710/helpdata/en/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|enabled on the SAP server].
         
-        - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|activated] in the SAP GUI.
+        - Scripting Support must be [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=en-US|enabled in SAP GUI] .
 
         == New features in Version 2.4 ==
 
         - Support for SAP Business Client
-        - Documentation for automating the embedded browser control (Edge only)
+        - Documentation for automating embedded browser controls (Edge only)
 
         == New features in Version 2.0 ==
 
@@ -72,7 +65,7 @@ lib: RoboSAPiens = {
 
         == Getting started ==
 
-        In order to login to a server execute the following:
+        In order to login to a server execute the following (adjust the path accordingly):
     
         | Open SAP             C:${/}Program Files (x86)${/}SAP${/}FrontEnd${/}SAPgui${/}saplogon.exe
         | Connect to Server    My Test Server
@@ -80,46 +73,82 @@ lib: RoboSAPiens = {
         | Fill Text Field      Password          TESTPASSWORD
         | Push Button          Enter
 
+        For a hands-on tutorial watch the talk [https://www.youtube.com/watch?v=H7fYngdY7NI|RoboSAPiens: SAP GUI Automation for Humans] presented at the Online RoboCon 2024.
+
         == Dealing with spontaneous pop-up windows ==
 
         When clicking a button it can happen that a dialog window pops up.
         The following keyword can be useful in this situation:
 
         | Click button and close pop-up window
-        |   [Arguments]   ${button}   ${title}   ${close button}
-        |
-        |   Push Button       ${button}
-        |   ${window_title}   Get Window Title
-        |
-        |   IF   $window_title == $title
-        |       Log               Pop-up window: ${title}
-        |       Save screenshot   LOG
-        |       Push button       ${close button}
-        |   END
+        |     [Arguments]   ${button}   ${title}   ${close button}
+        |  
+        |     Push Button       ${button}
+        |     ${window_title}   Get Window Title
+        |  
+        |     IF   $window_title == $title
+        |         Log               Pop-up window: ${title}
+        |         Save screenshot   LOG
+        |         Push button       ${close button}
+        |     END
 
-        == Automating an embedded browser control using Browser Library ==
+        == Automating embedded browser controls using Browser Library ==
 
         Configure the following environment variable in Windows:
 
-        | ``Name: WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS``
-        | ``Value: --enable-features=msEdgeDevToolsWdpRemoteDebugging --remote-debugging-port=9222``
+        | Name:  WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
+        | Value: --enable-features=msEdgeDevToolsWdpRemoteDebugging --remote-debugging-port=4711
 
-        Start SAP Logon or SAP Business Client, log in to the SAP server and execute the transaction that contains a browser control.
+        Start SAP Logon or SAP Business Client.
 
-        Call the following keyword from [https://robotframework-browser.org/|Browser Library]:
+        In SAP Logon go to ``Options > Interaction Design > Control Settings`` and set "Browser Control" to "Edge".
 
-        | ``Connect To Browser   http://localhost:9222   chromium   use_cdp=True``
+        In SAP Business Client go to ``Settings > Browser`` and set "Primary Browser Control" to "Edge".
+         
+        Log in to the SAP server and execute the transaction that contains one or more browser controls.
 
-        In order to inspect the web page displayed in the browser control start a Chromium-based browser, e.g. Microsoft Edge, and open the URL ``chrome://inspect``.
+        Start a Chromium-based browser, e.g. Microsoft Edge, and open the URL ``chrome://inspect``.
 
-        Under the heading "Remote Target" locate the currently open page and click on "inspect" to open the Developer Tools.
+        Click on "Configure...", add the entry ``localhost:4711`` and delete all other entries.
 
+        Under the heading "Remote Target" the pages from all browser controls will be shown. In order to open the Developer Tools for a page click on "inspect".
+
+        In Robot Framework call the following keyword from [https://robotframework-browser.org/|Browser Library]:
+
+        | ``Connect To Browser   http://localhost:4711   chromium   use_cdp=True``
+
+        Get the ``id`` of the page you want to automate using the following keyword:
+
+        | Get Page Id by Title
+        |     [Arguments]    ${title}
+        | 
+        |     ${browsers}    Get Browser Catalog
+        |     ${contexts}    Set Variable           ${browsers}[0][contexts]
+        |     ${pages}       Set Variable           ${contexts}[0][pages]
+        | 
+        |     FOR  ${page}  IN  @{pages}
+        |         IF  '${page}[title]' == '${title}'
+        |             Return From Keyword    ${page}[id]
+        |         END
+        |     END
+        |
+        |     Fail    The page '${title}' is not open in the current browser.
+        
+        Activate the page with:
+
+        | ``Switch Page    ${id}``
+
+        *Hint*: If the element you want to automate is inside an ``iframe`` or a ``frame``, prepend the (i)frame selector to its selector.
+        Example:
+
+        | ``Highlight Elements    id=frameId >>> element[name=elementName]``
+        
         == Keeping secrets safe ==
         In order to prevent secret leakage into the Robot Framework protocol disable the logger before calling sensitive keywords:
 
-        | ``${log_level}       Set Log Level    NONE``
-        | ``Fill Text Field    ${locator}       ${password}``
-        | ``Set Log Level      ${log_level}``
+        | ${log_level}       Set Log Level    NONE
+        | Fill Text Field    ${locator}       ${password}
+        | Set Log Level      ${log_level}
         """,
         "init": "RoboSAPiens has the following initialization arguments:\n| =Argument= | =Description= |"
     },
@@ -132,7 +161,7 @@ lib: RoboSAPiens = {
         "a2x64": {
             "name": "x64",
             "default": False,
-            "desc": "Execute RoboSAPiens 64-bit in order to automate SAP GUI 8 64-bit"
+            "desc": "Execute RoboSAPiens 64-bit in order to automate SAP GUI 8 64-bit or SAP Business Client"
         }
     },
     "keywords": {

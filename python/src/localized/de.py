@@ -32,19 +32,19 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("2628003690", 
+        "intro": ("577267837",
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
 
-        - Das [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|Scripting] muss auf dem SAP Server aktiviert werden.
+        - Das Scripting muss [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|auf dem SAP Server aktiviert werden].
         
-        - Die [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|Skriptunterstützung] muss in der SAP GUI aktiviert werden.
+        - Die Skriptunterstützung muss [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|in der SAP GUI aktiviert werden].
 
         == Neuigkeiten in der Version 2.4 ==
 
         - Unterstützung für SAP Business Client
-        - Dokumentation zur Automatisierung eines eingebetteten Browser-Steuerelement (nur Edge) 
+        - Dokumentation zur Automatisierung eingebetteter Browser-Steuerelemente (nur Edge) 
 
         == Neuigkeiten in der Version 2.0 ==
 
@@ -65,7 +65,7 @@ lib: LocalizedRoboSAPiens = {
         
         == Erste Schritte ==
 
-        Die Anmeldung bei einem SAP Server erfolgt mit der folgenden Sequenz:
+        Die Anmeldung bei einem SAP Server erfolgt mit der folgenden Sequenz (der Pfad muss ggf. angepasst werden):
     
         | SAP starten                         C:${/}Program Files (x86)${/}SAP${/}FrontEnd${/}SAPgui${/}saplogon.exe
         | Verbindung zum Server herstellen    Mein Testserver
@@ -73,46 +73,82 @@ lib: LocalizedRoboSAPiens = {
         | Textfeld ausfüllen                  Kennwort           TESTPASSWORD
         | Knopf drücken                       Weiter
 
+        Der Vortrag [https://www.youtube.com/watch?v=H7fYngdY7NI|RoboSAPiens: SAP GUI Automation for Humans] aus der Online RoboCon 2024 dient als praktisches Tutorial.
+
         == Umgang mit spontanen Pop-up-Fenstern ==
 
         Beim Drücken eines Knopfes kann u.U. ein Dialogfenster aufpoppen.
         Das folgende Schlüsselwort kann in diesem Fall hilfreich sein:
 
         | Knopf drücken und Pop-up-Fenster schließen
-        |   [Argumente]   ${Knopf}   ${Titel}    ${Knopf Schließen}
-        |
-        |   Knopf drücken     ${Knopf}
-        |   ${Fenstertitel}   Fenstertitel auslesen
-        |
-        |   IF   $Fenstertitel == $Titel
-        |       Log                 Pop-up Fenster: ${Titel}
-        |       Fenster aufnehmen   LOG
-        |       Knopf drücken       ${Knopf Schließen}
-        |   END
+        |     [Argumente]   ${Knopf}   ${Titel}    ${Knopf Schließen}
+        |  
+        |     Knopf drücken     ${Knopf}
+        |     ${Fenstertitel}   Fenstertitel auslesen
+        |  
+        |     IF   $Fenstertitel == $Titel
+        |         Log                 Pop-up Fenster: ${Titel}
+        |         Fenster aufnehmen   LOG
+        |         Knopf drücken       ${Knopf Schließen}
+        |     END
 
-        == Automatisierung eines eingebetteten Browser-Steuerelement mittels Browser Library ==
+        == Automatisierung eingebetteter Browser-Steuerelemente mittels Browser Library ==
 
         Die folgende Umgebungsvariable muss in Windows gesetzt werden:
 
         | ``Name: WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS``
-        | ``Wert: --enable-features=msEdgeDevToolsWdpRemoteDebugging --remote-debugging-port=9222``
+        | ``Wert: --enable-features=msEdgeDevToolsWdpRemoteDebugging --remote-debugging-port=4711``
 
-        SAP Logon oder SAP Business Client starten. Beim SAP Server anmelden und eine Transaktion ausführen, in der ein eingebettetes Browser-Steuerelement verwendet wird.
+        SAP Logon oder SAP Business Client starten. 
+        
+        In SAP Logon auf ``Optionen > Interaktionsdesign > Control-Einstellungen`` gehen. Für "Browser-Control" den Wert "Edge" auswählen.
 
-        Das folgende Schlüsselwort aus der [https://robotframework-browser.org/|Browser Library] aufrufen:
+        In SAP Business Client auf ``Einstellungen > Browser`` gehen. Für "Primäres Browser-Control" den Wert "Edge" auswählen.
+        
+        Beim SAP Server anmelden und eine Transaktion ausführen, in der ein oder mehrere eingebettete Browser-Steuerelemente verwendet werden.
+
+        Einen Chromium-basierten Browser, z.B. Microsoft Edge, starten und den URL ``chrome://inspect`` abrufen.
+
+        Auf "Configure..." klicken, den Eintrag ``localhost:4711`` hinzufügen und alle andere Einträge löschen.
+
+        Unter der Überschrift "Remote Target" werden die Webseiten aus allen Browser-Steuerelementen aufgelistet. Der Aufruf der Entwicklertools für eine Webseite erfolgt mit einem Klick auf "inspect".
+
+        In Robot Framework das folgende Schlüsselwort aus der [https://robotframework-browser.org/|Browser Library] aufrufen:
      
-        | ``Connect To Browser   http://localhost:9222   chromium   use_cdp=True``
+        | ``Connect To Browser   http://localhost:4711   chromium   use_cdp=True``
 
-        Um die Elemente der im Browser angezeigten Webseite zu untersuchen einen Chromium-basierten Browser, z.B. Microsoft Edge, starten und den URL ``chrome://inspect`` abrufen.
+        Die ``id`` der zu automatisierenden Webseite mit dem folgenden Schlüsselwort ermitteln:
 
-        Unter der Überschrift "Remote Target" wird die Webseite aufgelistet. Der Aufruf der Entwicklertools erfolgt mit einem Klick auf "inspect".
+        | Get Page Id by Title
+        |     [Arguments]    ${title}
+        | 
+        |     ${browsers}    Get Browser Catalog
+        |     ${contexts}    Set Variable           ${browsers}[0][contexts]
+        |     ${pages}       Set Variable           ${contexts}[0][pages]
+        | 
+        |     FOR  ${page}  IN  @{pages}
+        |         IF  '${page}[title]' == '${title}'
+        |             Return From Keyword    ${page}[id]
+        |         END
+        |     END
+        |
+        |     Fail    The page '${title}' is not open in the current browser.
+        
+        Die Webseite wie folgt aktivieren:
+        
+        | ``Switch Page   ${id}``
+
+        *Hinweis*: Das gewünschte Element kann sich in einem ``iframe`` bzw. einem ``frame`` befinden. In diesem Fall muss der Lokator des (i)frame dem Lokator des Elements vorangestellt werden.
+        Beispiel:
+
+        | ``Highlight Elements    id=frameId >>> element[name=elementName]``
 
         == Schutz von sensiblen Daten ==
         Um zu verhindern, dass sensible Daten in das Robot Framework-Protokoll gelangen, soll die Protokollierung vor dem Aufruf sensibler Schlüsselwörter deaktiviert werden:
 
-        | ``${log_level}          Set Log Level    NONE``
-        | ``Textfeld ausfüllen    ${Lokator}       ${Kennwort}``
-        | ``Set Log Level         ${log_level}``
+        | ${log_level}          Set Log Level    NONE
+        | Textfeld ausfüllen    ${Lokator}       ${Kennwort}
+        | Set Log Level         ${log_level}
         """
         ),
         "init": ("1576532524", "RoboSAPiens.DE hat die folgenden Initialisierungsparameter:\n| =Parameter= | =Beschreibung= |"),
@@ -126,7 +162,7 @@ lib: LocalizedRoboSAPiens = {
         "a2x64": {
             "name": ("218858810", "x64"),
             "default": False,
-            "desc": ("742934690", "RoboSAPiens 64-bit ausführen, um SAP GUI 8 64-bit zu automatisieren.")
+            "desc": ("2623383622", "RoboSAPiens 64-bit ausführen, um SAP GUI 8 64-bit bzw. SAP Business Client zu automatisieren.")
         }
     },
     "keywords": {
