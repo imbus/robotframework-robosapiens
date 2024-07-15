@@ -124,6 +124,7 @@ class DE(RoboSAPiensClient):
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
         """
         RoboSAPiens.DE hat die folgenden Initialisierungsparameter:
+        
         | =Parameter= | =Beschreibung= |
         | ``vortragsmodus`` | Nach dem Aufruf eines Schlüsselworts eine halbe Sekunde warten und das betroffene GUI Element hervorheben (falls zutreffend). |
         | ``x64`` | RoboSAPiens 64-bit ausführen, um SAP GUI 8 64-bit bzw. SAP Business Client zu automatisieren. |
@@ -141,7 +142,9 @@ class DE(RoboSAPiensClient):
     def activate_tab(self, Reitername: str): # type: ignore
         """
         Der Reiter mit dem angegebenen Namen wird ausgewählt.
+        
         | ``Reitername`` | Name oder Kurzinfo des Reiters |
+        
         
         Beispiele:
         
@@ -163,7 +166,9 @@ class DE(RoboSAPiensClient):
     def double_click_tree_element(self, Elementpfad: str): # type: ignore
         """
         Das Baumelement mit dem angegebenen Pfad wird doppelgeklickt.
+        
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
+        
         
         Beispiele:
         
@@ -185,7 +190,9 @@ class DE(RoboSAPiensClient):
     def select_tree_element(self, Elementpfad: str): # type: ignore
         """
         Das Baumelement mit dem angegebenen Pfad wird markiert.
+        
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
+        
         
         Beispiele:
         
@@ -207,8 +214,10 @@ class DE(RoboSAPiensClient):
     def select_tree_element_menu_entry(self, Elementpfad: str, Menüeintrag: str): # type: ignore
         """
         Aus dem Kontextmenü des Baumelements mit dem angegebenen Pfad wird der angebene Eintrag ausgewählt.
+        
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
         | ``Menüeintrag`` | Der Menüeintrag. Bei verschachtelten Menüs der Pfad zum Eintrag mit '|' als Trennzeichen (z.B. Anlegen|Wirtschaftseinheit). |
+        
         
         Beispiele:
         
@@ -230,8 +239,10 @@ class DE(RoboSAPiensClient):
     def open_sap(self, Pfad: str, SAP_Parameter: str=None): # type: ignore
         """
         SAP GUI bzw. SAP Business Client wird gestartet.
+        
         | ``Pfad`` | Der Pfad zu saplogon.exe oder NWBC.exe |
         | ``SAP_Parameter`` | Kommandozeileparameter für den SAP Client |
+        
         
         Beispiele:
         
@@ -342,7 +353,9 @@ class DE(RoboSAPiensClient):
     def export_tree(self, Dateipfad: str): # type: ignore
         """
         Die Baumstruktur in der Maske wird in JSON Format in der angegebenen Datei gespeichert.
+        
         | ``Dateipfad`` | Absoluter Pfad zu einer Datei mit Endung .json |
+        
         
         Beispiele:
         
@@ -366,7 +379,9 @@ class DE(RoboSAPiensClient):
     def attach_to_running_sap(self, session_nummer: str='1'): # type: ignore
         """
         Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
+        
         | ``session_nummer`` | Die Nummer der SAP-Session in der rechten unteren Ecke des Fensters |
+        
         
         Beispiele:
         
@@ -396,7 +411,9 @@ class DE(RoboSAPiensClient):
     def connect_to_server(self, Servername: str): # type: ignore
         """
         Die Verbindung mit dem angegebenen SAP Server wird hergestellt.
+        
         | ``Servername`` | Der Name des Servers in SAP Logon (nicht der SID) |
+        
         
         Beispiele:
         
@@ -420,8 +437,10 @@ class DE(RoboSAPiensClient):
     def double_click_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird doppelgeklickt.
+        
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        
         
         Beispiele:
         
@@ -443,7 +462,9 @@ class DE(RoboSAPiensClient):
     def double_click_text_field(self, Lokator: str): # type: ignore
         """
         Das angegebene Textfeld wird doppelgeklickt.
+        
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
+        
         
         Beispiele:
         
@@ -465,7 +486,9 @@ class DE(RoboSAPiensClient):
     def execute_transaction(self, T_Code: str): # type: ignore
         """
         Die Transaktion mit dem angegebenen T-Code wird ausgeführt.
+        
         | ``T_Code`` | Der Code der Transaktion |
+        
         
         Beispiele:
         
@@ -486,8 +509,10 @@ class DE(RoboSAPiensClient):
     def export_window(self, Name: str, Verzeichnis: str): # type: ignore
         """
         Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
+        
         | ``Name`` | Der Name der generierten Dateien |
         | ``Verzeichnis`` | Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden. |
+        
         
         Beispiele:
         
@@ -512,9 +537,11 @@ class DE(RoboSAPiensClient):
     def fill_table_cell(self, Zeile: str, Spaltentitel: str, Inhalt: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird mit dem angegebenen Inhalt ausgefüllt.
+        
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Inhalt`` | Der neue Inhalt der Zelle |
+        
         
         Beispiele:
         
@@ -540,8 +567,10 @@ class DE(RoboSAPiensClient):
     def fill_text_field(self, Lokator: str, Inhalt: str): # type: ignore
         """
         Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
+        
         | ``Lokator`` | Ein Lokator, um das Textfeld zu finden |
         | ``Inhalt`` | Der neue Inhalt des Textfelds |
+        
         
         Beispiele:
         
@@ -588,7 +617,9 @@ class DE(RoboSAPiensClient):
     def highlight_button(self, Lokator: str): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird hervorgehoben.
+        
         | ``Lokator`` | Name oder Kurzinfo des Knopfes |
+        
         
         Beispiele:
         
@@ -614,7 +645,9 @@ class DE(RoboSAPiensClient):
     def press_key_combination(self, Tastenkombination: str): # type: ignore
         """
         Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt.
+        
         | ``Tastenkombination`` | Entweder eine Taste oder mehrere Tasten mit '+' als Trennzeichen |
+        
         
         Beispiele:
         
@@ -640,7 +673,9 @@ class DE(RoboSAPiensClient):
     def push_button(self, Lokator: str): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
+        
         | ``Lokator`` | Name oder Kurzinfo des Knopfes |
+        
         
         Beispiele:
         
@@ -667,8 +702,10 @@ class DE(RoboSAPiensClient):
     def push_button_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird gedrückt.
+        
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        
         
         Beispiele:
         
@@ -691,7 +728,9 @@ class DE(RoboSAPiensClient):
     def read_text_field(self, Lokator: str): # type: ignore
         """
         Der Inhalt des angegebenen Textfeldes wird zurückgegeben.
+        
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
+        
         
         Beispiele:
         
@@ -713,7 +752,9 @@ class DE(RoboSAPiensClient):
     def read_text(self, Lokator: str): # type: ignore
         """
         Der Inhalt des angegebenen Texts wird zurückgegeben.
+        
         | ``Lokator`` | Ein Lokator, um den Text zu finden |
+        
         
         Beispiele:
         
@@ -739,8 +780,10 @@ class DE(RoboSAPiensClient):
     def read_table_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Der Inhalt der Zelle am Schnittpunkt der Zeile und der Spalte wird zurückgegeben.
+        
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        
         
         Beispiele:
         
@@ -763,7 +806,9 @@ class DE(RoboSAPiensClient):
     def save_screenshot(self, Speicherort: str): # type: ignore
         """
         Eine Bildschirmaufnahme des Fensters wird im angegebenen Speicherort gespeichert.
+        
         | ``Speicherort`` | Entweder der absolute Pfad einer .png Datei oder LOG, um das Bild in das Protokoll einzubetten. |
+        
         
         Beispiele:
         
@@ -790,8 +835,10 @@ class DE(RoboSAPiensClient):
     def scroll_text_field_contents(self, Richtung: str, bis_Textfeld: str=None): # type: ignore
         """
         Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.
+        
         | ``Richtung`` | UP, DOWN, BEGIN, END |
         | ``bis_Textfeld`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
+        
         
         Beispiele:
         
@@ -819,8 +866,10 @@ class DE(RoboSAPiensClient):
     def select_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird markiert.
+        
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        
         
         Beispiele:
         
@@ -843,9 +892,11 @@ class DE(RoboSAPiensClient):
     def select_cell_value(self, Zeile: str, Spaltentitel: str, Wert: str): # type: ignore
         """
         In der Zelle am Schnittpunkt der Zeile und der Spalte wird der angegebene Wert ausgewählt.
+        
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Wert`` | Ein Wert aus dem Auswahlmenü |
+        
         
         Beispiele:
         
@@ -868,8 +919,10 @@ class DE(RoboSAPiensClient):
     def select_combo_box_entry(self, Auswahlmenü: str, Eintrag: str): # type: ignore
         """
         Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.
+        
         | ``Auswahlmenü`` | Beschriftung des Auswahlmenüs |
         | ``Eintrag`` | Ein Eintrag aus dem Auswahlmenü |
+        
         
         Beispiele:
         
@@ -896,7 +949,9 @@ class DE(RoboSAPiensClient):
     def select_menu_item(self, Eintragspfad: str): # type: ignore
         """
         Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.
+        
         | ``Eintragspfad`` | Der Pfad zum Eintrag mit '/' als Trennzeichen (z.B. System/Benutzervorgaben/Eigene Daten). |
+        
         
         Beispiele:
         
@@ -918,7 +973,9 @@ class DE(RoboSAPiensClient):
     def select_radio_button(self, Lokator: str): # type: ignore
         """
         Das angegebene Optionsfeld wird ausgewählt.
+        
         | ``Lokator`` | Ein Lokator, um das Optionsfeld zu finden |
+        
         
         Beispiele:
         
@@ -948,7 +1005,9 @@ class DE(RoboSAPiensClient):
     def select_table_row(self, Zeilenlokator: str): # type: ignore
         """
         Die angegebene Tabellenzeile wird markiert.
+        
         | ``Zeilenlokator`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
+        
         
         Beispiele:
         
@@ -974,7 +1033,9 @@ class DE(RoboSAPiensClient):
     def select_text_field(self, Lokator: str): # type: ignore
         """
         Das angegebene Textfeld wird markiert.
+        
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
+        
         
         Beispiele:
         
@@ -996,7 +1057,9 @@ class DE(RoboSAPiensClient):
     def select_text(self, Lokator: str): # type: ignore
         """
         Der angegebene Text wird markiert.
+        
         | ``Lokator`` | Ein Lokator, um den Text zu finden |
+        
         
         Beispiele:
         
@@ -1022,7 +1085,9 @@ class DE(RoboSAPiensClient):
     def tick_check_box(self, Lokator: str): # type: ignore
         """
         Das angegebene Formularfeld wird angekreuzt.
+        
         | ``Lokator`` | Ein Lokator, um das Formularfeld zu finden |
+        
         
         Beispiele:
         
@@ -1075,7 +1140,9 @@ class DE(RoboSAPiensClient):
     def untick_check_box(self, Lokator: str): # type: ignore
         """
         Das angegebene Formularfeld wird abgewählt.
+        
         | ``Lokator`` | Ein Lokator, um das Formularfeld zu finden |
+        
         
         Beispiele:
         
@@ -1105,8 +1172,10 @@ class DE(RoboSAPiensClient):
     def tick_check_box_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird angekreuzt.
+        
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        
         
         Beispiele:
         
@@ -1131,8 +1200,10 @@ class DE(RoboSAPiensClient):
     def untick_check_box_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird abgewählt.
+        
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        
         
         Beispiele:
         
@@ -1193,4 +1264,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.6.0'
+    ROBOT_LIBRARY_VERSION = '2.6.1'
