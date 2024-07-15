@@ -150,7 +150,7 @@ lib: RoboSAPiens = {
         | Fill Text Field    ${locator}       ${password}
         | Set Log Level      ${log_level}
         """,
-        "init": "RoboSAPiens has the following initialization arguments:\n| =Argument= | =Description= |"
+        "init": "RoboSAPiens has the following initialization arguments:\n\n| =Argument= | =Description= |"
     },
     "args": {
         "a1presenter_mode": {

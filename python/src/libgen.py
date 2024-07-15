@@ -84,13 +84,11 @@ def gen_methods(keywords: Dict[str, Dict[str, Any]]):
         methods += ["\n"] + codegen.pprint_code_block(
             [f"@keyword('{get_value(keywords[keyword]['name'])}') # type: ignore",
             f"def {codegen.camel_to_snake(keyword)}({', '.join(['self'] + gen_call_args(args))}): # type: ignore"],
-       codegen.gen_doc(
-           f"""
-                {get_value(keywords[keyword]['doc']['desc'])}
-                {gen_args_doc(keywords[keyword]["args"])}
-                {get_value(keywords[keyword]['doc']['examples'])}
-                """
-            ) +
+       codegen.gen_doc("\n\n".join(
+                [get_value(keywords[keyword]['doc']['desc'])] +
+                ([gen_args_doc(keywords[keyword]["args"])] if keywords[keyword]["args"] else []) +
+                [get_value(keywords[keyword]['doc']['examples'])]
+            )) +
             [""] +
             ["args = [" + ", ".join([get_value(arg['name']) for _, arg in args.items()]) + "]"] +
             [""] +

@@ -151,7 +151,7 @@ lib: LocalizedRoboSAPiens = {
         | Set Log Level         ${log_level}
         """
         ),
-        "init": ("1576532524", "RoboSAPiens.DE hat die folgenden Initialisierungsparameter:\n| =Parameter= | =Beschreibung= |"),
+        "init": ("3172568578", "RoboSAPiens.DE hat die folgenden Initialisierungsparameter:\n\n| =Parameter= | =Beschreibung= |"),
     },
     "args": {
         "a1presenter_mode": {
