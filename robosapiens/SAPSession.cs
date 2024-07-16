@@ -784,6 +784,43 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult scrollWindowHorizontally(string direction)
+        {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var directions = new HashSet<string> {"LEFT", "RIGHT", "BEGIN", "END"};
+
+            if (!directions.Contains(direction))
+            {
+                return new Result.ScrollWindowHorizontally.InvalidDirection();
+            }
+
+            var horizontalScrollbar = window.components.getHorizontalScrollbar();
+
+            if (horizontalScrollbar == null) {
+                return new Result.ScrollWindowHorizontally.NoScrollbar();
+            }
+
+            try
+            {
+                var scrolled = horizontalScrollbar.scroll(session, direction);
+                if (scrolled)
+                {
+                    return new Result.ScrollWindowHorizontally.Pass();
+                }
+                else 
+                {
+                    return new Result.ScrollWindowHorizontally.MaximumReached();
+                }
+            }
+            catch (Exception e)
+            {
+                return new Result.ScrollWindowHorizontally.Exception(e);
+            }
+        }
+
         public TextCell? findTextCell(ITable table, CellLocator locator)
         {
             var cell = window.components.findTextCell(locator, session);

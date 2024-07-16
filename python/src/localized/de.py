@@ -995,6 +995,34 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
+        "ScrollWindowHorizontally": {
+            "name": ("3189335385", "Fenster horizontal scrollen"),
+            "args": {
+                "direction": {
+                    "name": ("1045090739", "Richtung"),
+                    "desc": ("3961976030", "LEFT, RIGHT, BEGIN, END"),
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": ("4138997384", no_session),
+                "Exception": ("1815500836", exception("Das Fenster konnte nicht horizontal gescrollt werden.")),
+                "NoScrollbar": ("876328389", "Das Fenster enthält keine horizontale Bildlaufleiste."),
+                "MaximumReached": ("136266215", "Das Fenster kann nicht weiter gescrollt werden."),
+                "InvalidDirection": ("103681373", "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: LEFT, RIGHT, BEGIN, END"),
+                "Pass": ("2330635320", "Das Fenster wurde in die Richtung '{0}' horizontal gescrollt.")
+            },
+            "doc": {
+                "desc": ("21072201", "Die horizontale Bildlaufleiste des Fensters wird in die angegebene Richtung bewegt."),
+                "examples": ("3013891708", 
+                """
+                Beispiele:
+              
+                | ``Fenster horizontal scrollen    Richtung``
+                """
+              )
+            }
+        },
         "SelectCell": {
             "name": ("1049942265", "Tabellenzelle markieren"),
             "args": {

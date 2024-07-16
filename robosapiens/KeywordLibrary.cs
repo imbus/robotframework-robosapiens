@@ -51,6 +51,7 @@ namespace RoboSAPiens
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
                 {"ScrollTextFieldContents", args => ScrollTextFieldContents(args[0], args[1])},
+                {"ScrollWindowHorizontally", args => ScrollWindowHorizontally(args[0])},
                 {"SelectCell", args => SelectCell(args[0], args[1])},
                 {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
                 {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
@@ -647,6 +648,18 @@ namespace RoboSAPiens
                 _ => new Result.ScrollTextFieldContents.NoSession()
             };
         }
+
+        [Keyword("Fenster horizontal scrollen"),
+         Doc("Die horizontale Bildlaufleiste des Fensters wird bewegt.\n\n" +
+             "| ``Fenster horizontal scrollen   Richtung``\n" +
+             "Richtung: RIGHT (ein Schritt nach rechts), LEFT (ein Schritt nach links), BEGIN (ganz am Anfang), END (ganz am Ende)")]
+        public RobotResult ScrollWindowHorizontally(string direction) {
+            return session switch {
+                SAPSession session => session.scrollWindowHorizontally(direction),
+                _ => new Result.ScrollWindowHorizontally.NoSession()
+            };
+        }
+
 
         [Keyword("Tabellenzelle markieren"),
          Doc("Die angegebene Tabellenzelle wird markiert.\n\n" +

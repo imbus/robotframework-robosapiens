@@ -22,6 +22,7 @@ namespace RoboSAPiens {
         TextFieldStore textFields = new TextFieldStore();
         ButtonStore toolbarButtons = new ButtonStore();
         TreeStore trees = new TreeStore();
+        HorizontalScrollbar? horizontalScrollbar = null;
         VerticalScrollbar? verticalScrollbar = null;
         private bool debug;
         private string indentation = "";
@@ -112,6 +113,10 @@ namespace RoboSAPiens {
                     break;
                 case "GuiUserArea": 
                     var userArea = (GuiUserArea)container;
+                    var horizontalScrollbar = userArea.HorizontalScrollbar;
+                    if (horizontalScrollbar != null && horizontalScrollbar.Maximum > 0) {
+                        this.horizontalScrollbar = new HorizontalScrollbar(userArea);
+                    }
                     var verticalScrollbar = userArea.VerticalScrollbar;
                     if (verticalScrollbar != null && verticalScrollbar.Maximum > 0) {
                         this.verticalScrollbar = new VerticalScrollbar(userArea);
@@ -390,6 +395,10 @@ namespace RoboSAPiens {
 
         public List<SAPGridView> getGridViews() {
             return gridViews;
+        }
+
+        public HorizontalScrollbar? getHorizontalScrollbar() {
+            return horizontalScrollbar;
         }
 
         public VerticalScrollbar? getVerticalScrollbar() {

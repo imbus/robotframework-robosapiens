@@ -1003,6 +1003,33 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "ScrollWindowHorizontally": {
+            "name": "Scroll Window Horizontally",
+            "args": {
+                "direction": {
+                    "name": "direction",
+                    "desc": "LEFT, RIGHT, BEGIN, END",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "Exception": exception("The window could not be scrolled horizontally."),
+                "NoScrollbar": "The window contains no horizontal scrollbar.",
+                "MaximumReached": "The window cannot be scrolled any further.",
+                "InvalidDirection": "Invalid direction. The direction must be one of: LEFT, RIGHT, BEGIN, END",
+                "Pass": "The window was scrolled horizontally in the direction '{0}'."
+            },
+            "doc": {
+                "desc": "Displace the horizontal scrollbar of the window in the given direction.",
+                "examples":
+                """
+                Examples:
+                
+                | ``Scroll Window Horizontally    direction``
+                """
+            }
+        },
         "SelectCell": {
             "name": "Select Cell",
             "args": {

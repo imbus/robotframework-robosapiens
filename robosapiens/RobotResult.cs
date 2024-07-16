@@ -272,6 +272,15 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Inhalte der Textfelder konnten nicht gescrollt werden.");
         }
 
+        public record ScrollWindowHorizontally {
+            public record NoSession(): RobotResult.NoSession();
+            public record Pass(): RobotResult.RobotPass($"Das Fenster wurde horizontal gescrollt.");
+            public record NoScrollbar(): RobotResult.RobotFail("NoScrollbar", "Das Fenster enthält keine horizontale Bildlaufleiste.");
+            public record InvalidDirection(): RobotResult.RobotFail("InvalidDirection", "Die angegebene Richtung ist ungültig.");
+            public record MaximumReached(): RobotResult.RobotFail("MaximumReached", "Das Fenster kann nicht weiter gescrollt werden.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Fenster konnte nicht gescrollt werden.");
+        }
+
         public record SelectCell {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
