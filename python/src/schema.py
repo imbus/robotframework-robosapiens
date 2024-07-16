@@ -66,6 +66,9 @@ class RoboSAPiensKeywordsSelectcellArgsColumnSpec(TypedDict):
 class RoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsScrollwindowhorizontallyArgsDirectionSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsScrolltextfieldcontentsArgsUntiltextfieldSpec(TypedDict):
     ...
 
@@ -269,6 +272,11 @@ class RoboSAPiensKeywordsSelectcellArgsRow_Locator(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec
+
+class RoboSAPiensKeywordsScrollwindowhorizontallyArgsDirection(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsScrollwindowhorizontallyArgsDirectionSpec
 
 class RoboSAPiensKeywordsScrolltextfieldcontentsArgsUntiltextfield(TypedDict):
     name: str
@@ -619,6 +627,21 @@ class RoboSAPiensKeywordsSelectcellResult(TypedDict):
 class RoboSAPiensKeywordsSelectcellArgs(TypedDict):
     a1row_locator: RoboSAPiensKeywordsSelectcellArgsRow_Locator
     a2column: RoboSAPiensKeywordsSelectcellArgsColumn
+
+class RoboSAPiensKeywordsScrollwindowhorizontallyDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsScrollwindowhorizontallyResult(TypedDict):
+    NoSession: str
+    Pass: str
+    NoScrollbar: str
+    InvalidDirection: str
+    MaximumReached: str
+    Exception: str
+
+class RoboSAPiensKeywordsScrollwindowhorizontallyArgs(TypedDict):
+    direction: RoboSAPiensKeywordsScrollwindowhorizontallyArgsDirection
 
 class RoboSAPiensKeywordsScrolltextfieldcontentsDoc(TypedDict):
     desc: str
@@ -1090,6 +1113,12 @@ class RoboSAPiensKeywordsSelectcell(TypedDict):
     result: RoboSAPiensKeywordsSelectcellResult
     doc: RoboSAPiensKeywordsSelectcellDoc
 
+class RoboSAPiensKeywordsScrollwindowhorizontally(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsScrollwindowhorizontallyArgs
+    result: RoboSAPiensKeywordsScrollwindowhorizontallyResult
+    doc: RoboSAPiensKeywordsScrollwindowhorizontallyDoc
+
 class RoboSAPiensKeywordsScrolltextfieldcontents(TypedDict):
     name: str
     args: RoboSAPiensKeywordsScrolltextfieldcontentsArgs
@@ -1300,6 +1329,7 @@ class RoboSAPiensKeywords(TypedDict):
     ReadTableCell: RoboSAPiensKeywordsReadtablecell
     SaveScreenshot: RoboSAPiensKeywordsSavescreenshot
     ScrollTextFieldContents: RoboSAPiensKeywordsScrolltextfieldcontents
+    ScrollWindowHorizontally: RoboSAPiensKeywordsScrollwindowhorizontally
     SelectCell: RoboSAPiensKeywordsSelectcell
     SelectCellValue: RoboSAPiensKeywordsSelectcellvalue
     SelectTreeElementMenuEntry: RoboSAPiensKeywordsSelecttreeelementmenuentry

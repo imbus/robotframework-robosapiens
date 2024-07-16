@@ -886,6 +886,32 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ScrollTextFieldContents', args, result) # type: ignore
     
 
+    @keyword('Scroll Window Horizontally') # type: ignore
+    def scroll_window_horizontally(self, direction: str): # type: ignore
+        """
+        Displace the horizontal scrollbar of the window in the given direction.
+        
+        | ``direction`` | LEFT, RIGHT, BEGIN, END |
+        
+        
+        Examples:
+        
+        | ``Scroll Window Horizontally    direction``
+        """
+        
+        args = [direction]
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "Exception": "The window could not be scrolled horizontally.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "NoScrollbar": "The window contains no horizontal scrollbar.",
+            "MaximumReached": "The window cannot be scrolled any further.",
+            "InvalidDirection": "Invalid direction. The direction must be one of: LEFT, RIGHT, BEGIN, END",
+            "Pass": "The window was scrolled horizontally in the direction '{0}'."
+        }
+        return super()._run_keyword('ScrollWindowHorizontally', args, result) # type: ignore
+    
+
     @keyword('Select Cell') # type: ignore
     def select_cell(self, row_locator: str, column: str): # type: ignore
         """
@@ -1265,4 +1291,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.6.1'
+    ROBOT_LIBRARY_VERSION = '2.7.0'

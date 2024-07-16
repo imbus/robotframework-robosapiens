@@ -67,6 +67,9 @@ class LocalizedRoboSAPiensKeywordsSelectcellArgsColumnSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyArgsDirectionSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsScrolltextfieldcontentsArgsUntiltextfieldSpec(TypedDict):
     ...
 
@@ -270,6 +273,11 @@ class LocalizedRoboSAPiensKeywordsSelectcellArgsRow_Locator(TypedDict):
     name: Tuple[Literal['315353924'], str]
     desc: Tuple[Literal['331065732'], str]
     spec: LocalizedRoboSAPiensKeywordsSelectcellArgsRow_LocatorSpec
+
+class LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyArgsDirection(TypedDict):
+    name: Tuple[Literal['1045090739'], str]
+    desc: Tuple[Literal['3961976030'], str]
+    spec: LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyArgsDirectionSpec
 
 class LocalizedRoboSAPiensKeywordsScrolltextfieldcontentsArgsUntiltextfield(TypedDict):
     name: Tuple[Literal['2676914944'], str]
@@ -634,6 +642,21 @@ class LocalizedRoboSAPiensKeywordsSelectcellResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsSelectcellArgs(TypedDict):
     a1row_locator: LocalizedRoboSAPiensKeywordsSelectcellArgsRow_Locator
     a2column: LocalizedRoboSAPiensKeywordsSelectcellArgsColumn
+
+class LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyDoc(TypedDict):
+    desc: Tuple[Literal['21072201'], str]
+    examples: Tuple[Literal['3013891708'], str]
+
+class LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyResult(TypedDict):
+    NoSession: Tuple[Literal['4138997384'], str]
+    Exception: Tuple[Literal['1815500836'], str]
+    NoScrollbar: Tuple[Literal['876328389'], str]
+    MaximumReached: Tuple[Literal['136266215'], str]
+    InvalidDirection: Tuple[Literal['103681373'], str]
+    Pass: Tuple[Literal['2330635320'], str]
+
+class LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyArgs(TypedDict):
+    direction: LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyArgsDirection
 
 class LocalizedRoboSAPiensKeywordsScrolltextfieldcontentsDoc(TypedDict):
     desc: Tuple[Literal['4279609192'], str]
@@ -1097,6 +1120,12 @@ class LocalizedRoboSAPiensKeywordsSelectcell(TypedDict):
     result: LocalizedRoboSAPiensKeywordsSelectcellResult
     doc: LocalizedRoboSAPiensKeywordsSelectcellDoc
 
+class LocalizedRoboSAPiensKeywordsScrollwindowhorizontally(TypedDict):
+    name: Tuple[Literal['3189335385'], str]
+    args: LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyArgs
+    result: LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyResult
+    doc: LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyDoc
+
 class LocalizedRoboSAPiensKeywordsScrolltextfieldcontents(TypedDict):
     name: Tuple[Literal['61854466'], str]
     args: LocalizedRoboSAPiensKeywordsScrolltextfieldcontentsArgs
@@ -1300,6 +1329,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     ReadTableCell: LocalizedRoboSAPiensKeywordsReadtablecell
     SaveScreenshot: LocalizedRoboSAPiensKeywordsSavescreenshot
     ScrollTextFieldContents: LocalizedRoboSAPiensKeywordsScrolltextfieldcontents
+    ScrollWindowHorizontally: LocalizedRoboSAPiensKeywordsScrollwindowhorizontally
     SelectCell: LocalizedRoboSAPiensKeywordsSelectcell
     SelectCellValue: LocalizedRoboSAPiensKeywordsSelectcellvalue
     SelectComboBoxEntry: LocalizedRoboSAPiensKeywordsSelectcomboboxentry

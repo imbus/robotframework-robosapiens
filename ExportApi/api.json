@@ -642,6 +642,28 @@
         "examples": ""
       }
     },
+    "ScrollWindowHorizontally": {
+      "name": "Fenster horizontal scrollen",
+      "args": {
+        "direction": {
+          "name": "direction",
+          "desc": "",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "NoScrollbar": "NoScrollbar",
+        "InvalidDirection": "InvalidDirection",
+        "MaximumReached": "MaximumReached",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Die horizontale Bildlaufleiste des Fensters wird bewegt.\n\n| ``Fenster horizontal scrollen   Richtung``\nRichtung: RIGHT (ein Schritt nach rechts), LEFT (ein Schritt nach links), BEGIN (ganz am Anfang), END (ganz am Ende)",
+        "examples": ""
+      }
+    },
     "SelectCell": {
       "name": "Tabellenzelle markieren",
       "args": {

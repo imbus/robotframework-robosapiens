@@ -862,6 +862,32 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ScrollTextFieldContents', args, result) # type: ignore
     
 
+    @keyword('Fenster horizontal scrollen') # type: ignore
+    def scroll_window_horizontally(self, Richtung: str): # type: ignore
+        """
+        Die horizontale Bildlaufleiste des Fensters wird in die angegebene Richtung bewegt.
+        
+        | ``Richtung`` | LEFT, RIGHT, BEGIN, END |
+        
+        
+        Beispiele:
+        
+        | ``Fenster horizontal scrollen    Richtung``
+        """
+        
+        args = [Richtung]
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "Exception": "Das Fenster konnte nicht horizontal gescrollt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
+            "NoScrollbar": "Das Fenster enthält keine horizontale Bildlaufleiste.",
+            "MaximumReached": "Das Fenster kann nicht weiter gescrollt werden.",
+            "InvalidDirection": "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: LEFT, RIGHT, BEGIN, END",
+            "Pass": "Das Fenster wurde in die Richtung '{0}' horizontal gescrollt."
+        }
+        return super()._run_keyword('ScrollWindowHorizontally', args, result) # type: ignore
+    
+
     @keyword('Tabellenzelle markieren') # type: ignore
     def select_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
@@ -1264,4 +1290,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.6.1'
+    ROBOT_LIBRARY_VERSION = '2.7.0'
