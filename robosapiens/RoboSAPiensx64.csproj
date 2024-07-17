@@ -17,19 +17,14 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugSymbols>False</DebugSymbols>
     <DebugType>None</DebugType>
-    <PublishDir>build</PublishDir>
+    <PublishDir>..\python\src\RoboSAPiens\lib64</PublishDir>
   </PropertyGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)'=='Release'">
-    <Exec Command="rmdir /S /Q $(PublishDir)" />
-  </Target>
-
-  <Target Name="CopyFiles" AfterTargets="Publish">
-    <ItemGroup>
-      <BuildFiles Include="$(PublishDir)\*.*" />
-    </ItemGroup>
-    <Exec Command="rmdir /S /Q ..\python\src\RoboSAPiens\lib64" />
-    <Copy SourceFiles="@(BuildFiles)" DestinationFolder="..\python\src\RoboSAPiens\lib64" />
+  <Target Name="RemoveDir" BeforeTargets="BeforeBuild">
+      <RemoveDir Directories="$(BaseIntermediateOutputPath)"/><!-- obj -->
+      <RemoveDir Directories="$(BaseOutputPath)"/><!-- bin -->
+      <RemoveDir Directories="$(PublishDir)"/>
+      <Exec Command="dotnet restore RoboSAPiensx64.csproj"/>
   </Target>
 
   <ItemGroup>

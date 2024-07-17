@@ -15,8 +15,4 @@ libgen: localize-i18n
 mypy:
     mypy RoboSAPiens
 
-clean:
-    if (Test-Path RoboSAPiens/lib32) { rm -r RoboSAPiens/lib32 }
-    if (Test-Path RoboSAPiens/lib64) { rm -r RoboSAPiens/lib64 }
-
 build: libgen mypy
