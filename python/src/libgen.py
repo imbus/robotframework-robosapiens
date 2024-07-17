@@ -50,7 +50,7 @@ def gen_call_args(args: ArgsDict):
 
 def gen_args_doc(args: Dict[str, Dict[str, Union[str, Tuple[str,str]]]]):
     return "\n".join([
-        f"| ``{get_value(args[arg]['name'])}`` | {get_value(args[arg]["desc"])} |"
+        f'| ``{get_value(args[arg]["name"])}`` | {get_value(args[arg]["desc"])} |'
         for arg in args
     ])
 
