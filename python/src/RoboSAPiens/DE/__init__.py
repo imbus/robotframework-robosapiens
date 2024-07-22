@@ -390,6 +390,10 @@ class DE(RoboSAPiensClient):
         Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
         
         | ``Laufende SAP GUI übernehmen    session_nummer``
+        
+        Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID:
+        
+        | ``${session_info}    Laufende SAP GUI übernehmen    session_nummer``
         """
         
         args = [session_nummer]
@@ -401,6 +405,7 @@ class DE(RoboSAPiensClient):
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
             "InvalidSessionId": "Keine Session mit Nummer {0} vorhanden",
+            "Json": "Der Rückgabewert ist im JSON-Format",
             "Pass": "Die laufende SAP GUI wurde erfolgreich übernommen.",
             "Exception": "Die laufende SAP GUI konnte nicht übernommen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
@@ -1290,4 +1295,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.7.0'
+    ROBOT_LIBRARY_VERSION = '2.7.1'

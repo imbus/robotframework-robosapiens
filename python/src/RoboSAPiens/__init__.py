@@ -391,6 +391,10 @@ class RoboSAPiens(RoboSAPiensClient):
         By default the session number 1 will be used. To use a different session specify the session number.
         
         | ``Connect to Running SAP    session_number``
+        
+        The return value contains session information such as client number and system ID:
+        
+        | ``${session_info}    Connect to Running SAP    session_number``
         """
         
         args = [session_number]
@@ -402,6 +406,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
             "InvalidSessionId": "There is no session number {0}",
+            "Json": "The return value is in JSON format",
             "Pass": "Connected to a running SAP instance.",
             "Exception": "Could not connect to a running SAP instance. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -1291,4 +1296,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.7.0'
+    ROBOT_LIBRARY_VERSION = '2.7.1'

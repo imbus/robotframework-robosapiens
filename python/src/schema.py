@@ -923,6 +923,7 @@ class RoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
     NoServerScripting: str
     NoSession: str
     InvalidSessionId: str
+    Json: str
     Pass: str
     Exception: str
 

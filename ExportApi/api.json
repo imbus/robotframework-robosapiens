@@ -188,6 +188,7 @@
         "NoServerScripting": "NoServerScripting",
         "NoSession": "NoSession",
         "InvalidSessionId": "InvalidSessionId",
+        "Json": "Json",
         "Pass": "Pass",
         "Exception": "Exception"
       },

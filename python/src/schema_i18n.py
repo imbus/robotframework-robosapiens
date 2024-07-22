@@ -901,7 +901,7 @@ class LocalizedRoboSAPiensKeywordsConnecttoserverArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapDoc(TypedDict):
     desc: Tuple[Literal['866468958'], str]
-    examples: Tuple[Literal['3133866093'], str]
+    examples: Tuple[Literal['2576679484'], str]
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
     NoSapGui: Tuple[Literal['2987622841'], str]
@@ -910,6 +910,7 @@ class LocalizedRoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
     NoServerScripting: Tuple[Literal['3495213352'], str]
     InvalidSessionId: Tuple[Literal['800596714'], str]
+    Json: Tuple[Literal['144359828'], str]
     Pass: Tuple[Literal['2481655346'], str]
     Exception: Tuple[Literal['3120673076'], str]
 
