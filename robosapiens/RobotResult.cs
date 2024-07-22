@@ -109,6 +109,7 @@ namespace RoboSAPiens {
             public record NoServerScripting(): RobotResult.NoServerScripting();
             public record NoSession(): RobotResult.NoSession();
             public record InvalidSessionId(string sessionId): RobotResult.RobotFail("InvalidSessionId", $"Der Session Id {sessionId} ist nicht gültig");
+            public record Json(string json): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.", returnValue: json);
             public record Pass(): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
         }

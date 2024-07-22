@@ -435,12 +435,13 @@ lib: LocalizedRoboSAPiens = {
               "NoSession": ("4138997384", no_session),
               "NoServerScripting": ("3495213352", no_server_scripting),
               "InvalidSessionId": ("800596714", "Keine Session mit Nummer {0} vorhanden"),
+              "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
               "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
               "Exception": ("3120673076", exception("Die laufende SAP GUI konnte nicht übernommen werden."))
             },
             "doc": {
                 "desc": ("866468958", "Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden."),
-                "examples": ("3133866093", 
+                "examples": ("2576679484", 
                 """
                 Beispiele:
                 
@@ -449,6 +450,10 @@ lib: LocalizedRoboSAPiens = {
                 Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
 
                 | ``Laufende SAP GUI übernehmen    session_nummer``
+
+                Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID:
+
+                | ``${session_info}    Laufende SAP GUI übernehmen    session_nummer``
                 """
               )
             }

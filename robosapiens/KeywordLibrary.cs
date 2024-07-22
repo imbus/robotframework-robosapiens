@@ -327,12 +327,13 @@ namespace RoboSAPiens
                         for (int s = 0; s < connection.Sessions.Count; s++)
                         {
                             var guiSession = (GuiSession)connection.Sessions.ElementAt(s);
-                            var sessionInfo = guiSession.Info;
-                            if (sessionInfo.SessionNumber == intSessionNumber)
+                            var guiSessionInfo = guiSession.Info;
+                            if (guiSessionInfo.SessionNumber == intSessionNumber)
                             {
                                 guiSession.TestToolMode = 1;
                                 this.session = new SAPSession(guiSession, connection, options, logger);
-                                return new Result.AttachToRunningSap.Pass();
+                                var sessionInfo = JSON.serialize(session.getSessionInfo(), typeof(SessionInfo));
+                                return new Result.AttachToRunningSap.Json(sessionInfo);
                             }
                         }
                         result = new Result.AttachToRunningSap.InvalidSessionId(sessionNumber);

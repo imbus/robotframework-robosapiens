@@ -6,8 +6,18 @@ using System.Linq;
 using System.Threading;
 
 namespace RoboSAPiens {
-    public sealed class NoSAPSession : ISession {}
+    public record SessionInfo(string? server, string? client);
+    
+    public sealed class NoSAPSession : ISession
+    {
+        public SessionInfo getSessionInfo()
+        {
+            return new SessionInfo(null, null);
+        }
+    }
+
     public sealed class SAPSession : ISession {
+        string sapClient;
         GuiConnection connection;
         ILogger logger;
         Options options;
@@ -22,6 +32,12 @@ namespace RoboSAPiens {
             this.systemName = session.Info.SystemName;
             this.options = options;
             this.window = new SAPWindow(session.ActiveWindow, debug: options.debug);
+            sapClient = session.Info.Client;
+        }
+
+        public SessionInfo getSessionInfo()
+        {
+            return new SessionInfo(systemName, sapClient);
         }
 
         bool windowChanged() {

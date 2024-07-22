@@ -34,7 +34,9 @@ namespace RoboSAPiens {
         public void select(GuiSession session);
     }
 
-    public interface ISession {}
+    public interface ISession {
+        public SessionInfo getSessionInfo();
+    }
 
     public interface ITextElement: ISelectable {
         public bool contains(string text);

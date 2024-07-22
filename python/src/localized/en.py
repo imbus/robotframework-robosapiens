@@ -426,6 +426,7 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "NoServerScripting": no_server_scripting,
                 "InvalidSessionId": "There is no session number {0}",
+                "Json": "The return value is in JSON format",
                 "Pass": "Connected to a running SAP instance.",
                 "Exception": exception("Could not connect to a running SAP instance. {0}")
             },
@@ -440,6 +441,10 @@ lib: RoboSAPiens = {
                 By default the session number 1 will be used. To use a different session specify the session number.
 
                 | ``Connect to Running SAP    session_number``
+
+                The return value contains session information such as client number and system ID:
+
+                | ``${session_info}    Connect to Running SAP    session_number``
                 """
             }
         },

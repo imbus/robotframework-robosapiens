@@ -5,11 +5,12 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RoboSAPiens 
+namespace RoboSAPiens
 {
     [JsonSerializable(typeof(List<FormField>))]
     [JsonSerializable(typeof(List<SAPTree.Node>))]
     [JsonSerializable(typeof(StatusbarMessage))]
+    [JsonSerializable(typeof(SessionInfo))]
     [JsonSerializable(typeof(RobotResult))]
     [JsonSerializable(typeof(JSONResponse))]
     [JsonSerializable(typeof(JSONError))]
