@@ -327,7 +327,7 @@ class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
     name: Tuple[Literal['2051440239'], str]
-    desc: Tuple[Literal['2400215713'], str]
+    desc: Tuple[Literal['1583064803'], str]
     spec: LocalizedRoboSAPiensKeywordsPushbuttonArgsButtonSpec
 
 class LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombination(TypedDict):
@@ -762,7 +762,7 @@ class LocalizedRoboSAPiensKeywordsPushbuttoncellArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsPushbuttonDoc(TypedDict):
     desc: Tuple[Literal['1468743868'], str]
-    examples: Tuple[Literal['622366541'], str]
+    examples: Tuple[Literal['3942785738'], str]
 
 class LocalizedRoboSAPiensKeywordsPushbuttonResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -801,8 +801,8 @@ class LocalizedRoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
     button: LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButton
 
 class LocalizedRoboSAPiensKeywordsFilltextfieldDoc(TypedDict):
-    desc: Tuple[Literal['522115454'], str]
-    examples: Tuple[Literal['1813441507'], str]
+    desc: Tuple[Literal['3165034876'], str]
+    examples: Tuple[Literal['3133793047'], str]
 
 class LocalizedRoboSAPiensKeywordsFilltextfieldResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]

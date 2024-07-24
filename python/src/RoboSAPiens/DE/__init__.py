@@ -596,11 +596,11 @@ class DE(RoboSAPiensClient):
         *Textfeld in einem horizontalen Raster nach einer Beschriftung*
         | ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``
         
-        *Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*
-        | ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``
+        *Textfeld mit einer nicht eindeutigen Beschriftung links oder rechts von einer eindeutigen Beschriftung*
+        | ``Textfeld ausfüllen    eindeutige Beschriftung >> Textfeld-Beschriftung    Inhalt``
         
-        *Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*
-        | ``Textfeld ausfüllen    Beschriftung >> F1 Hilfetext    Inhalt``
+        *Textfeld ohne Beschriftung links oder rechts von einer eindeutigen Beschriftung*
+        | ``Textfeld ausfüllen    eindeutige Beschriftung >> F1 Hilfetext    Inhalt``
         
         *Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden*
         | ``Textfeld ausfüllen    Name    Inhalt``
@@ -679,12 +679,18 @@ class DE(RoboSAPiensClient):
         """
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
         
-        | ``Lokator`` | Name oder Kurzinfo des Knopfes |
+        | ``Lokator`` | Ein Lokator, um den Knopf zu finden |
         
         
         Beispiele:
         
-        | ``Knopf drücken    Lokator``
+        *Knopf mit Namen oder Kurzinfo*
+        
+        | ``Knopf drücken    Name oder Kurzinfo``
+        
+        *Knopf mit einem nicht eindeutigen Namen oder Kurzinfo links oder rechts von einer eindeutigen Beschriftung*
+        
+        | ``Knopf drücken    eindeutige Beschriftung >> Name oder Kurzinfo``
         
         *Hinweis*: Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
         Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
@@ -1295,4 +1301,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.7.1'
+    ROBOT_LIBRARY_VERSION = '2.7.2'

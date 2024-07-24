@@ -572,7 +572,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Fill Text Field') # type: ignore
     def fill_text_field(self, locator: str, content: str): # type: ignore
         """
-        Fill the text Field specified by the locator with the content provided.
+        Fill the text field specified by the locator with the content provided.
         
         | ``locator`` | The locator used to find the text field. |
         | ``content`` | The new contents of the text field |
@@ -597,11 +597,11 @@ class RoboSAPiens(RoboSAPiensClient):
         *Text field in a horizontal grid following a label*
         | ``Fill Text Field    label @ position (1,2,..)    content``
         
-        *Text field with a non-unique label to the right of a text field with a label*
-        | ``Fill Text Field    left label >> right label    content``
+        *Text field with a non-unique label to the left or right of a unique label*
+        | ``Fill Text Field    unique label >> text field label    content``
         
-        *Text field without a label to the right of a text field with a label*
-        | ``Fill Text Field    label >> F1 help text    content``
+        *Text field without a label to the left or right of a unique label*
+        | ``Fill Text Field    unique label >> F1 help text    content``
         
         *As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used*
         | ``Fill Text Field    name    content``
@@ -680,12 +680,18 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Push the button with the given locator.
         
-        | ``locator`` | The name or tooltip of the button |
+        | ``locator`` | The locator used to find the button. |
         
         
         Examples:
         
-        | ``Push Button    locator``
+        *Button with a name or tooltip*
+        
+        | ``Push Button    name or tooltip``
+        
+        *Button with a non-unique name or tooltip to the left or right of a unique label*
+        
+        | ``Push Button    unique label >> name or tooltip``
         
         *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
         The name may be used as locator as long as it is unique.
@@ -1296,4 +1302,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.7.1'
+    ROBOT_LIBRARY_VERSION = '2.7.2'
