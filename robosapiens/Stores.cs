@@ -1,10 +1,12 @@
 namespace RoboSAPiens {
     public sealed class ButtonStore: ComponentRepository<Button> {
-        public Button? get(ILocator locator) {
+        public Button? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ??
                     getByTooltip(label),
+                HLabelHLabel =>
+                    getAlignedWithLabels((HLabelHLabel)locator, labels, textFieldLabels),
                 _ => null
             };
         }

@@ -297,8 +297,8 @@ namespace RoboSAPiens {
         }
 
         public Button? findButton(ButtonLocator button) {
-            return buttons.get(button.locator) ?? 
-                   toolbarButtons.get(button.locator);
+            return buttons.get(button.locator,  labels, textFields) ?? 
+                   toolbarButtons.get(button.locator,  labels, textFields);
         }
 
         public CheckBox? findCheckBox(CheckBoxLocator checkBox) {

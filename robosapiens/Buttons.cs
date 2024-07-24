@@ -10,7 +10,7 @@ namespace RoboSAPiens {
         public abstract void toggleHighlight(GuiSession session);
     }
 
-    public class SAPButton: Button, ILabeled {
+    public class SAPButton: Button, ILabeled, ILocatable {
         protected string defaultTooltip;
         public string id;
         public Position position {get;}
@@ -57,6 +57,38 @@ namespace RoboSAPiens {
             focused = !focused;
             var guiButton = (GuiButton)session.FindById(id);
             guiButton.Visualize(focused);
+        }
+
+
+        // To Do: Factor out this common function
+        public bool isHorizontalAlignedWithLabel(SAPLabel? label) {
+            return label switch {
+                SAPLabel => label.position.horizontalAlignedWith(position),
+                _ => false
+            };
+        }
+
+        public bool isHorizontalAlignedWithTextField(SAPTextField? textField) {
+            return textField switch {
+                SAPTextField => textField.position.horizontalAlignedWith(position),
+                _ => false
+            };
+        }
+
+        public bool isLocated(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels)
+        {
+            return locator switch {
+                HLabelHLabel(var leftLabel, var rightLabel) =>
+                    (isHorizontalAlignedWithLabel(labels.getByName(leftLabel)) || 
+                    isHorizontalAlignedWithTextField(textFieldLabels.getByContent(leftLabel))) &&
+                    (isHLabeled(rightLabel) || hasTooltip(rightLabel)),
+                _ => false
+            };
+        }
+
+        public Position getPosition()
+        {
+            return position;
         }
     }
 

@@ -682,8 +682,8 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("3667643114", exception("Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt."))
             },
             "doc": {
-                "desc": ("522115454", "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt."),
-                "examples": ("1813441507", 
+                "desc": ("3165034876", "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt."),
+                "examples": ("3133793047", 
                 """
                 Beispiele:
                 
@@ -704,11 +704,11 @@ lib: LocalizedRoboSAPiens = {
                 *Textfeld in einem horizontalen Raster nach einer Beschriftung*
                 | ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``
                 
-                *Textfeld mit einer nicht eindeutigen Beschriftung rechts von einem Textfeld mit einer Beschriftung*
-                | ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``
+                *Textfeld mit einer nicht eindeutigen Beschriftung links oder rechts von einer eindeutigen Beschriftung*
+                | ``Textfeld ausfüllen    eindeutige Beschriftung >> Textfeld-Beschriftung    Inhalt``
                 
-                *Textfeld ohne Beschriftung rechts von einem Textfeld mit einer Beschriftung*
-                | ``Textfeld ausfüllen    Beschriftung >> F1 Hilfetext    Inhalt``
+                *Textfeld ohne Beschriftung links oder rechts von einer eindeutigen Beschriftung*
+                | ``Textfeld ausfüllen    eindeutige Beschriftung >> F1 Hilfetext    Inhalt``
 
                 *Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden*
                 | ``Textfeld ausfüllen    Name    Inhalt``
@@ -779,7 +779,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
               "button": {
                 "name": ("2051440239", "Lokator"),
-                "desc": ("2400215713", "Name oder Kurzinfo des Knopfes"),
+                "desc": ("1583064803", "Ein Lokator, um den Knopf zu finden"),
                 "spec": {},
               }
             },
@@ -792,11 +792,17 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("1468743868", "Der Knopf mit dem angegebenen Lokator wird gedrückt."),
-                "examples": ("622366541", 
+                "examples": ("3942785738", 
                 f"""
                 Beispiele:
+
+                *Knopf mit Namen oder Kurzinfo*
                 
-                | ``Knopf drücken    Lokator``
+                | ``Knopf drücken    Name oder Kurzinfo``
+
+                *Knopf mit einem nicht eindeutigen Namen oder Kurzinfo links oder rechts von einer eindeutigen Beschriftung*
+
+                | ``Knopf drücken    eindeutige Beschriftung >> Name oder Kurzinfo``
                 
                 *Hinweis*: {tooltip_hint}
                 """

@@ -671,7 +671,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The text field could not be filled. {0}")
             },
             "doc": {
-                "desc": "Fill the text Field specified by the locator with the content provided.",
+                "desc": "Fill the text field specified by the locator with the content provided.",
                 "examples":
                 """
                 Examples:
@@ -693,11 +693,11 @@ lib: RoboSAPiens = {
                 *Text field in a horizontal grid following a label*
                 | ``Fill Text Field    label @ position (1,2,..)    content``
                 
-                *Text field with a non-unique label to the right of a text field with a label*
-                | ``Fill Text Field    left label >> right label    content``
+                *Text field with a non-unique label to the left or right of a unique label*
+                | ``Fill Text Field    unique label >> text field label    content``
                 
-                *Text field without a label to the right of a text field with a label*
-                | ``Fill Text Field    label >> F1 help text    content``
+                *Text field without a label to the left or right of a unique label*
+                | ``Fill Text Field    unique label >> F1 help text    content``
 
                 *As a last resort the name obtained using [https://tracker.stschnell.de/|Scripting Tracker] can be used*
                 | ``Fill Text Field    name    content``
@@ -765,9 +765,8 @@ lib: RoboSAPiens = {
             "args": {
                 "button": {
                     "name": "locator",
-                    "desc": "The name or tooltip of the button",
-                    "spec": {},
-
+                    "desc": "The locator used to find the button.",
+                    "spec": {}
                 }
             },
             "result": {
@@ -783,7 +782,13 @@ lib: RoboSAPiens = {
                 f"""
                 Examples:
                 
-                | ``Push Button    locator``
+                *Button with a name or tooltip*
+
+                | ``Push Button    name or tooltip``
+
+                *Button with a non-unique name or tooltip to the left or right of a unique label*
+
+                | ``Push Button    unique label >> name or tooltip``
 
                 *Hint*: {tooltip_hint}
                 """
