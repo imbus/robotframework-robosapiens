@@ -119,6 +119,27 @@ class DE(RoboSAPiensClient):
     | ${log_level}          Set Log Level    NONE
     | Textfeld ausfüllen    ${Lokator}       ${Kennwort}
     | Set Log Level         ${log_level}
+    
+    == Zusicherungen ==
+    Das folgende Schlüsselwort unterstützt die Implementierung von Zusicherungen.
+    Gültige Werte für ``${state}`` sind aktuell Found und Changeable.
+    
+    | Element should be ${state}
+    |     [Arguments]    ${keyword}    ${locator}    ${message}
+    |     [Tags]         robot:flatten
+    |     
+    |     TRY
+    |         Run Keyword    ${keyword}    ${locator}
+    |     EXCEPT  Not${state}: *    type=GLOB
+    |         Fail    ${message}
+    |     END
+    
+    Zum Beispiel, das folgende Schlüsselwort sichert zu, dass ein bestimmtes Textfeld vorhanden ist.
+    
+    | Textfeld ist vorhanden
+    |     [Argumente]    ${Lokator}
+    | 
+    |     Element should be Found    Textfeld markieren    ${Lokator}    Das Textfeld '${Lokator}' ist nicht vorhanden.
     """
     
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
@@ -407,7 +428,7 @@ class DE(RoboSAPiensClient):
             "InvalidSessionId": "Keine Session mit Nummer {0} vorhanden",
             "Json": "Der Rückgabewert ist im JSON-Format",
             "Pass": "Die laufende SAP GUI wurde erfolgreich übernommen.",
-            "Exception": "Die laufende SAP GUI konnte nicht übernommen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+            "Exception": "Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('AttachToRunningSap', args, result) # type: ignore
     
@@ -1301,4 +1322,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.7.2'
+    ROBOT_LIBRARY_VERSION = '2.8.0'

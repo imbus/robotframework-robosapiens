@@ -912,7 +912,7 @@ class LocalizedRoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
     InvalidSessionId: Tuple[Literal['800596714'], str]
     Json: Tuple[Literal['144359828'], str]
     Pass: Tuple[Literal['2481655346'], str]
-    Exception: Tuple[Literal['3120673076'], str]
+    Exception: Tuple[Literal['3410975181'], str]
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapArgs(TypedDict):
     sessionNumber: LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber
@@ -1351,7 +1351,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2x64: LocalizedRoboSAPiensArgsX64
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['577267837'], str]
+    intro: Tuple[Literal['3504280527'], str]
     init: Tuple[Literal['3172568578'], str]
 
 class LocalizedRoboSAPiens(TypedDict):

@@ -120,6 +120,27 @@ class RoboSAPiens(RoboSAPiensClient):
     | ${log_level}       Set Log Level    NONE
     | Fill Text Field    ${locator}       ${password}
     | Set Log Level      ${log_level}
+    
+    == Assertions ==
+    Using the following helper keyword custom assertions can be implemented.
+    Currently ``${state}`` can only be Found or Changeable.
+    
+    | Element should be ${state}
+    |     [Arguments]    ${keyword}    ${locator}    ${message}
+    |     [Tags]         robot:flatten
+    |     
+    |     TRY
+    |         Run Keyword    ${keyword}    ${locator}
+    |     EXCEPT  Not${state}: *    type=GLOB
+    |         Fail    ${message}
+    |     END
+    
+    For example, the following keyword asserts that a given text field should be present.
+    
+    | Text field should be present
+    |     [Arguments]    ${locator}
+    | 
+    |     Element should be Found    Select Text Field    ${locator}    The text field '${locator}' is not present.
     """
     
     def __init__(self, presenter_mode: bool=False, x64: bool=False):
@@ -408,7 +429,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "InvalidSessionId": "There is no session number {0}",
             "Json": "The return value is in JSON format",
             "Pass": "Connected to a running SAP instance.",
-            "Exception": "Could not connect to a running SAP instance. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "Could not connect to a running SAP instance. Hint: In order to connect to a 64-bit SAP client import RoboSAPiens with x64=True. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('AttachToRunningSap', args, result) # type: ignore
     
@@ -1302,4 +1323,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.7.2'
+    ROBOT_LIBRARY_VERSION = '2.8.0'
