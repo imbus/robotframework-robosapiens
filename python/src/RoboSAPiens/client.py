@@ -11,6 +11,26 @@ from robot.errors import RemoteError
 from robot.libraries.Remote import RemoteResult
 
 
+class NotChangeable(Exception):
+    def __init__(self, message='', details=''):
+        super().__init__(message)
+        self.details = details
+
+    @property
+    def message(self):
+        return str(self)
+
+
+class NotFound(Exception):
+    def __init__(self, message='', details=''):
+        super().__init__(message)
+        self.details = details
+
+    @property
+    def message(self):
+        return str(self)
+
+
 class RoboSAPiensClient(object):
     def __init__(self, args: Dict[str, Any]):
         if args.pop("x64"):
@@ -67,11 +87,15 @@ class RoboSAPiensClient(object):
             else:
                 message = result[error_type].format(*args)
 
+            if error_type == 'NotFound':
+                raise NotFound(message, rf_result.traceback)
+            
+            if error_type == 'NotChangeable':
+                raise NotChangeable(message, rf_result.traceback)
+
             raise RemoteError(
                 message,
-                rf_result.traceback,
-                rf_result.fatal,
-                rf_result.continuable
+                rf_result.traceback
             )
 
         if "Log" in result:

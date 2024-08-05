@@ -149,6 +149,27 @@ lib: RoboSAPiens = {
         | ${log_level}       Set Log Level    NONE
         | Fill Text Field    ${locator}       ${password}
         | Set Log Level      ${log_level}
+
+        == Assertions ==
+        Using the following helper keyword custom assertions can be implemented.
+        Currently ``${state}`` can only be Found or Changeable.
+        
+        | Element should be ${state}
+        |     [Arguments]    ${keyword}    ${locator}    ${message}
+        |     [Tags]         robot:flatten
+        |     
+        |     TRY
+        |         Run Keyword    ${keyword}    ${locator}
+        |     EXCEPT  Not${state}: *    type=GLOB
+        |         Fail    ${message}
+        |     END
+
+        For example, the following keyword asserts that a given text field should be present.
+
+        | Text field should be present
+        |     [Arguments]    ${locator}
+        | 
+        |     Element should be Found    Select Text Field    ${locator}    The text field '${locator}' is not present.
         """,
         "init": "RoboSAPiens has the following initialization arguments:\n\n| =Argument= | =Description= |"
     },

@@ -32,7 +32,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("577267837",
+        "intro": ("3504280527",
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
@@ -149,6 +149,27 @@ lib: LocalizedRoboSAPiens = {
         | ${log_level}          Set Log Level    NONE
         | Textfeld ausfüllen    ${Lokator}       ${Kennwort}
         | Set Log Level         ${log_level}
+
+        == Zusicherungen ==
+        Das folgende Schlüsselwort unterstützt die Implementierung von Zusicherungen.
+        Gültige Werte für ``${state}`` sind aktuell Found und Changeable.
+        
+        | Element should be ${state}
+        |     [Arguments]    ${keyword}    ${locator}    ${message}
+        |     [Tags]         robot:flatten
+        |     
+        |     TRY
+        |         Run Keyword    ${keyword}    ${locator}
+        |     EXCEPT  Not${state}: *    type=GLOB
+        |         Fail    ${message}
+        |     END
+
+        Zum Beispiel, das folgende Schlüsselwort sichert zu, dass ein bestimmtes Textfeld vorhanden ist.
+
+        | Textfeld ist vorhanden
+        |     [Argumente]    ${Lokator}
+        | 
+        |     Element should be Found    Textfeld markieren    ${Lokator}    Das Textfeld '${Lokator}' ist nicht vorhanden.
         """
         ),
         "init": ("3172568578", "RoboSAPiens.DE hat die folgenden Initialisierungsparameter:\n\n| =Parameter= | =Beschreibung= |"),
