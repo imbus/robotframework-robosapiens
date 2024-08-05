@@ -428,7 +428,7 @@ lib: RoboSAPiens = {
                 "InvalidSessionId": "There is no session number {0}",
                 "Json": "The return value is in JSON format",
                 "Pass": "Connected to a running SAP instance.",
-                "Exception": exception("Could not connect to a running SAP instance. {0}")
+                "Exception": exception("Could not connect to a running SAP instance. Hint: In order to connect to a 64-bit SAP client import RoboSAPiens with x64=True. {0}")
             },
             "doc": {
                 "desc": "Connect to a running SAP instance and take control of it.",

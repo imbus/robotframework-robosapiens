@@ -437,7 +437,7 @@ lib: LocalizedRoboSAPiens = {
               "InvalidSessionId": ("800596714", "Keine Session mit Nummer {0} vorhanden"),
               "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
               "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
-              "Exception": ("3120673076", exception("Die laufende SAP GUI konnte nicht übernommen werden."))
+              "Exception": ("3410975181", exception("Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden."))
             },
             "doc": {
                 "desc": ("866468958", "Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden."),
