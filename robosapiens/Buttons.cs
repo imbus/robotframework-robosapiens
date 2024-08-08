@@ -154,8 +154,8 @@ namespace RoboSAPiens {
 
         public override bool isEnabled(GuiSession session) 
         {
-            GuiGridView gridView = (GuiGridView)session.FindById(gridViewId);
-            return gridView.GetCellChangeable(rowIndex, columnId);
+            // gridView.GetCellChangeable is not reliable
+            return true;
         }
 
         public bool isLabeled(string label) {
