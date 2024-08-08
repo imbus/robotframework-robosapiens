@@ -132,7 +132,6 @@ namespace RoboSAPiens {
         string columnId;
         public HashSet<string> columnTitles;
         string gridViewId;
-        // string buttonId; // must start with &
         int rowIndex;
         string tooltip;
 
@@ -150,6 +149,7 @@ namespace RoboSAPiens {
             {
                 this.columnTitles.Add((string)columnTitles.ElementAt(i));
             }
+            this.columnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
         }
 
         public override bool isEnabled(GuiSession session) 

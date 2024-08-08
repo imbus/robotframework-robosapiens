@@ -69,6 +69,7 @@ namespace RoboSAPiens
             {
                 this.columnTitles.Add((string)columnTitles.ElementAt(i));
             }
+            this.columnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
 
             this.columnId = columnId;
             gridViewId = gridView.Id;

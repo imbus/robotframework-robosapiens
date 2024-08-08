@@ -198,6 +198,7 @@ namespace RoboSAPiens {
             {
                 this.columnTitles.Add((string)columnTitles.ElementAt(i));
             }
+            this.columnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
         }
 
         public override bool isEnabled(GuiSession session) 

@@ -257,6 +257,7 @@ namespace RoboSAPiens {
             {
                 this.columnTitles.Add((string)columnTitles.ElementAt(i));
             }
+            this.columnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
         }
 
         // The innerObject parameter of the Visualize method of GuiGridView
