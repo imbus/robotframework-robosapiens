@@ -185,10 +185,16 @@ namespace RoboSAPiens {
             gridView.PressButton(rowIndex, columnId);
         }
 
-        // From the documentation for GuiVComponent
-        // Some components such as GuiCtrlGridView support displaying the frame around inner objects, 
-        // such as cells. The format of the innerObject string is the same as for the dumpState method.
-        public override void toggleHighlight(GuiSession session) {}
+        // The innerObject parameter of the Visualize method of GuiGridView
+        // can only take the values "Toolbar" and "Cell(row,column)".
+        // References:
+        // https://community.sap.com/t5/technology-q-a/get-innerobject-for-visualizing/qaq-p/12150835
+        // https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf
+        public override void toggleHighlight(GuiSession session) {
+            focused = !focused;
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.Visualize(focused, $"Cell({rowIndex},{columnId})");
+        }
     }
 
     public sealed class SAPGridViewToolbarButton: Button, ILabeled {
