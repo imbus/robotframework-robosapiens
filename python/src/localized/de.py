@@ -486,7 +486,6 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("3584233446", "Servername"),
                 "desc": ("2752287258", "Der Name des Servers in SAP Logon (nicht der SID)"),
                 "spec": {},
-
               }
             },
             "result": {

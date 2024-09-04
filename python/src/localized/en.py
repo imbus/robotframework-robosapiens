@@ -268,7 +268,6 @@ lib: RoboSAPiens = {
                     "name": "element_path",
                     "desc": "The path to the element using '/' as separator, e.g. Engineering/Civil Engineering.",
                     "spec": {},
-
                 },
                 "a2menuEntry": {
                     "name": "menu_entry",
@@ -566,7 +565,6 @@ lib: RoboSAPiens = {
                     "name": "T_Code",
                     "desc": "The transaction code",
                     "spec": {},
-
                 }
             },
             "result": {
@@ -591,13 +589,11 @@ lib: RoboSAPiens = {
                     "name": "name",
                     "desc": "Name of the output files",
                     "spec": {},
-
                 },
                 "a2directory": {
                     "name": "directory",
                     "desc": "Absolute path to the directory where the files will be saved",
                     "spec": {},
-
                 }
             },
             "result": {
@@ -626,19 +622,16 @@ lib: RoboSAPiens = {
                     "name": "row_locator",
                     "desc": row_locator,
                     "spec": {},
-
                 },
                 "a2column": {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-
                 },
                 "a3content": {
                     "name": "content",
                     "desc": "The new contents of the cell",
                     "spec": {},
-
                 }
             },
             "result": {
@@ -707,7 +700,6 @@ lib: RoboSAPiens = {
                     "name": "content",
                     "desc": "The new contents of the text field",
                     "spec": {},
-
                 }
             },
             "result": {
@@ -848,13 +840,11 @@ lib: RoboSAPiens = {
                     "name": "row_locator",
                     "desc": "Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks.",
                     "spec": {},
-
                 },
                 "a2column": {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-
                 }
             },
             "result": {
@@ -907,7 +897,6 @@ lib: RoboSAPiens = {
                         "HLabelVLabel": HLabelVLabel,
                         "Content": Content
                     },
-
                 }
             },
             "result": {
@@ -966,13 +955,11 @@ lib: RoboSAPiens = {
                     "name": "row_locator",
                     "desc": row_locator,
                     "spec": {},
-
                 },
                 "a2column": {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-
                 }
             },
             "result": {
@@ -999,7 +986,6 @@ lib: RoboSAPiens = {
                     "name": "destination",
                     "desc": "Either the absolute path to a .png file or LOG to embed the image in the protocol.",
                     "spec": {},
-
                 }
             },
             "result": {
@@ -1094,13 +1080,11 @@ lib: RoboSAPiens = {
                     "name": "row_locator",
                     "desc": row_locator,
                     "spec": {},
-
                 },
                 "a2column": {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-
                 }
             },
             "result": {
@@ -1127,13 +1111,11 @@ lib: RoboSAPiens = {
                     "name": "row_locator",
                     "desc": row_locator,
                     "spec": {},
-
                 },
                 "a2column": {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-
                 },
                 "a3entry": {
                     "name": "value",
@@ -1225,7 +1207,6 @@ lib: RoboSAPiens = {
                     "name": "menu_entry_path",
                     "desc": "The path to the entry with '/' as separator (e.g. System/User Profile/Own Data)",
                     "spec": {},
-
                 }
             },
             "result": {
@@ -1255,7 +1236,6 @@ lib: RoboSAPiens = {
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
                     },
-
                 }
             },
             "result": {
@@ -1352,7 +1332,6 @@ lib: RoboSAPiens = {
                     "name": "locator",
                     "desc": "The locator used to find the text",
                     "spec": {},
-
                 }
             },
             "result": {
@@ -1386,7 +1365,6 @@ lib: RoboSAPiens = {
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
                     },
-
                 }
             },
             "result": {
@@ -1424,7 +1402,6 @@ lib: RoboSAPiens = {
                         "VLabel": VLabel,
                         "HLabelVLabel": HLabelVLabel
                     },
-
                 }
             },
             "result": {
@@ -1491,13 +1468,11 @@ lib: RoboSAPiens = {
                     "name": "row_locator",
                     "desc": row_locator,
                     "spec": {},
-
                 },
                 "a2column": {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-
                 }
             },
             "result": {
