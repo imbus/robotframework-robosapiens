@@ -1187,32 +1187,30 @@ lib: RoboSAPiens = {
             "name": "Select Dropdown Menu Entry",
             "args": {
                 "a1comboBox": {
-                    "name": "dropdown_menu",
-                    "desc": "The label of the dropdown menu",
+                    "name": "locator",
+                    "desc": "The label or tooltip of the dropdown menu",
                     "spec": {},
-
                 },
                 "a2entry": {
                     "name": "entry",
                     "desc": "An entry from the dropdown menu",
                     "spec": {},
-
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The dropdown menu '{0}' could not be found."),
-                "EntryNotFound": not_found("In the dropdown menu '{0}' no entry '{1}' could be found."),
+                "EntryNotFound": not_found("In the dropdown menu '{0}' the entry '{1}' could not be found."),
                 "Pass": "In the dropdown menu '{0}' the entry '{1}' was selected.",
                 "Exception": exception("The entry could not be selected. {0}")
             },
             "doc": {
-                "desc": "Select the specified entry from the dropdown menu provided.",
+                "desc": "Select the specified entry from the given dropdown menu.",
                 "examples":
                 """
                 Examples:
                 
-                | ``Select Dropdown Menu Entry   dropdown_menu    entry``
+                | ``Select Dropdown Menu Entry   locator    entry``
 
                 *Hints*: The numeric key that enables simplified keyboard input is not part of the entry name.
 

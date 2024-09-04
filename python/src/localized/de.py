@@ -1181,8 +1181,8 @@ lib: LocalizedRoboSAPiens = {
             "name": ("2133292945", "Auswahlmenüeintrag auswählen"),
             "args": {
               "a1comboBox": {
-                "name": ("3378336226", "Auswahlmenü"),
-                "desc": ("3834186610", "Beschriftung des Auswahlmenüs"),
+                "name": ("2051440239", "Lokator"),
+                "desc": ("1540323925", "Beschriftung oder Kurzinfo des Auswahlmenüs"),
                 "spec": {},
               },
               "a2entry": {
@@ -1194,17 +1194,17 @@ lib: LocalizedRoboSAPiens = {
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3185471891", not_found("Das Auswahlmenü mit dem Lokator '{0}' wurde nicht gefunden.")),
-              "EntryNotFound": ("1357582115", not_found("Der Eintrag '{1}' wurde im Auswahlmenü '{0}' nicht gefunden.")),
+              "EntryNotFound": ("3289775842", not_found("Der Eintrag '{1}' wurde im Auswahlmenü '{0}' nicht gefunden.")),
               "Pass": ("2235674925", "Der Eintrag '{1}' wurde ausgewählt."),
               "Exception": ("2433413970", exception("Der Eintrag konnte nicht ausgewählt werden."))
             },
             "doc": {
-                "desc": ("1660358782", "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt."),
-                "examples": ("814219279", 
+                "desc": ("473069895", "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt."),
+                "examples": ("224567686", 
                 """
                 Beispiele:
                 
-                | ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``
+                | ``Auswahlmenüeintrag auswählen    Lokator    Eintrag``
 
                 *Hinweise*: Der numerische Schlüssel, dass eine vereinfachte Tastaureingabe ermöglicht, ist nicht Teil des Eintragsnamens.
 
