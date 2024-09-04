@@ -42,7 +42,7 @@ namespace RoboSAPiens
         public int getNumRows(GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(id);
-            return gridView.VisibleRowCount;
+            return gridView.RowCount;
         }
 
         public void classifyCells(GuiSession session, CellRepository repo) 
