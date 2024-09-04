@@ -308,6 +308,13 @@ namespace RoboSAPiens {
 
         }
 
+        public record ReadComboBoxEntry {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string locator): RobotResult.NotFound($"Das Auswahlmenü mit dem Lokator '{locator}' wurde nicht gefunden.");
+            public record Pass(string entry): RobotResult.RobotPass($"Der aktuelle Eintrag wurde ausgelesen.", returnValue: entry);
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Eintrag konnte nicht ausgelesen werden.");
+        }
+
         public record SelectComboBoxEntry {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Das Auswahlmenü mit dem Lokator '{locator}' wurde nicht gefunden.");

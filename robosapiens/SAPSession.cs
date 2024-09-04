@@ -957,6 +957,32 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult readComboBoxEntry(string labels) {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var theComboBox = new ComboBoxLocator(labels);
+            var comboBox = window.components.findComboBox(theComboBox);
+            
+            if (comboBox == null) {
+                return new Result.ReadComboBoxEntry.NotFound(theComboBox.atLocation);
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, comboBox)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+
+            try {
+                var entry = comboBox.getText(session);
+                return new Result.ReadComboBoxEntry.Pass(entry);
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.ReadComboBoxEntry.Exception(e);
+            }
+        }
+
         public RobotResult selectComboBoxEntry(string labels, string entry) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

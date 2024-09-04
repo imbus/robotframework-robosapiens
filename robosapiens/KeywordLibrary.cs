@@ -46,6 +46,7 @@ namespace RoboSAPiens
                 {"PressKeyCombination", args => PressKeyCombination(args[0])},
                 {"PushButton", args => PushButton(args[0])},
                 {"PushButtonCell", args => PushButtonCell(args[0], args[1])},
+                {"ReadComboBoxEntry", args => ReadComboBoxEntry(args[0])},
                 {"ReadStatusbar", args => ReadStatusbar()},
                 {"ReadTableCell", args => ReadTableCell(args[0], args[1])},
                 {"ReadText", args => ReadText(args[0])},
@@ -701,6 +702,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.selectTreeElementMenuEntry(elementPath, menuEntry),
                 _ => new Result.SelectTreeElementMenuEntry.NoSession()
+            };
+        }
+
+        [Keyword("Auswahlmenüeintrag auslesen"),
+         Doc("Der aktuelle Eintrag wird aus dem angegebenen Auswahlmenü ausgelesen.\n\n" +
+             "| ``Auswahlmenüeintrag auslesen    Auswahlmenü ``")]
+        public RobotResult ReadComboBoxEntry(string comboBox) {
+            return session switch {
+                SAPSession session => session.readComboBoxEntry(comboBox),
+                _ => new Result.ReadComboBoxEntry.NoSession()
             };
         }
 

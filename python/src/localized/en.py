@@ -1158,6 +1158,31 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "ReadComboBoxEntry": {
+            "name": "Read Dropdown Menu Entry",
+            "args": {
+                "comboBox": {
+                    "name": "locator",
+                    "desc": "The label or tooltip of the dropdown menu",
+                    "spec": {},
+                },
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The dropdown menu '{0}' could not be found."),
+                "Pass": "The current entry of the dropdown menu '{0}' was read.",
+                "Exception": exception("The entry could not be read. {0}")
+            },
+            "doc": {
+                "desc": "Read the current entry from the given dropdown menu.",
+                "examples":
+                """
+                Examples:
+                
+                | ``${entry}   Read Dropdown Menu Entry   locator``
+                """
+            }
+        },
         "SelectComboBoxEntry": {
             "name": "Select Dropdown Menu Entry",
             "args": {

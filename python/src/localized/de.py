@@ -1151,6 +1151,32 @@ lib: LocalizedRoboSAPiens = {
                 )
             }
         },
+        "ReadComboBoxEntry": {
+            "name": ("1020913973", "Auswahlmenüeintrag auslesen"),
+            "args": {
+              "comboBox": {
+                "name": ("2051440239", "Lokator"),
+                "desc": ("1540323925", "Beschriftung oder Kurzinfo des Auswahlmenüs"),
+                "spec": {},
+              }
+            },
+            "result": {
+              "NoSession": ("4138997384", no_session),
+              "NotFound": ("3185471891", not_found("Das Auswahlmenü mit dem Lokator '{0}' wurde nicht gefunden.")),
+              "Pass": ("1356248111", "Der aktuelle Eintrag wurde ausgelesen."),
+              "Exception": ("1202236059", exception("Der Eintrag konnte nicht ausgelesen werden."))
+            },
+            "doc": {
+                "desc": ("2874967331", "Aus dem angegebenen Auswahlmenü wird der aktuelle Eintrag ausgelesen."),
+                "examples": ("2962365709", 
+                """
+                Beispiele:
+                
+                | ``${Eintrag}   Auswahlmenüeintrag auslesen    Lokator``
+                """
+              )
+            }
+        },
         "SelectComboBoxEntry": {
             "name": ("2133292945", "Auswahlmenüeintrag auswählen"),
             "args": {
