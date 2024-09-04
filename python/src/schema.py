@@ -45,6 +45,9 @@ class RoboSAPiensKeywordsSelectcomboboxentryArgsEntrySpec(TypedDict):
 class RoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsReadcomboboxentryArgsComboboxSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsSelecttreeelementmenuentryArgsMenuentrySpec(TypedDict):
     ...
 
@@ -110,6 +113,9 @@ class RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsPushbuttonArgsButtonSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsFilltexteditArgsContentSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsFilltextfieldArgsContentSpec(TypedDict):
@@ -238,6 +244,11 @@ class RoboSAPiensKeywordsSelectcomboboxentryArgsCombobox(TypedDict):
     desc: str
     spec: RoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec
 
+class RoboSAPiensKeywordsReadcomboboxentryArgsCombobox(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsReadcomboboxentryArgsComboboxSpec
+
 class RoboSAPiensKeywordsSelecttreeelementmenuentryArgsMenuentry(TypedDict):
     name: str
     desc: str
@@ -343,6 +354,11 @@ class RoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsPushbuttonArgsButtonSpec
+
+class RoboSAPiensKeywordsFilltexteditArgsContent(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsFilltexteditArgsContentSpec
 
 class RoboSAPiensKeywordsFilltextfieldArgsContent(TypedDict):
     name: str
@@ -583,6 +599,19 @@ class RoboSAPiensKeywordsSelectcomboboxentryArgs(TypedDict):
     a1comboBox: RoboSAPiensKeywordsSelectcomboboxentryArgsCombobox
     a2entry: RoboSAPiensKeywordsSelectcomboboxentryArgsEntry
 
+class RoboSAPiensKeywordsReadcomboboxentryDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsReadcomboboxentryResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsReadcomboboxentryArgs(TypedDict):
+    comboBox: RoboSAPiensKeywordsReadcomboboxentryArgsCombobox
+
 class RoboSAPiensKeywordsSelecttreeelementmenuentryDoc(TypedDict):
     desc: str
     examples: str
@@ -812,6 +841,20 @@ class RoboSAPiensKeywordsPushbuttonResult(TypedDict):
 
 class RoboSAPiensKeywordsPushbuttonArgs(TypedDict):
     button: RoboSAPiensKeywordsPushbuttonArgsButton
+
+class RoboSAPiensKeywordsFilltexteditDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsFilltexteditResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    NotChangeable: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsFilltexteditArgs(TypedDict):
+    content: RoboSAPiensKeywordsFilltexteditArgsContent
 
 class RoboSAPiensKeywordsFilltextfieldDoc(TypedDict):
     desc: str
@@ -1096,6 +1139,12 @@ class RoboSAPiensKeywordsSelectcomboboxentry(TypedDict):
     result: RoboSAPiensKeywordsSelectcomboboxentryResult
     doc: RoboSAPiensKeywordsSelectcomboboxentryDoc
 
+class RoboSAPiensKeywordsReadcomboboxentry(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsReadcomboboxentryArgs
+    result: RoboSAPiensKeywordsReadcomboboxentryResult
+    doc: RoboSAPiensKeywordsReadcomboboxentryDoc
+
 class RoboSAPiensKeywordsSelecttreeelementmenuentry(TypedDict):
     name: str
     args: RoboSAPiensKeywordsSelecttreeelementmenuentryArgs
@@ -1191,6 +1240,12 @@ class RoboSAPiensKeywordsPushbutton(TypedDict):
     args: RoboSAPiensKeywordsPushbuttonArgs
     result: RoboSAPiensKeywordsPushbuttonResult
     doc: RoboSAPiensKeywordsPushbuttonDoc
+
+class RoboSAPiensKeywordsFilltextedit(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsFilltexteditArgs
+    result: RoboSAPiensKeywordsFilltexteditResult
+    doc: RoboSAPiensKeywordsFilltexteditDoc
 
 class RoboSAPiensKeywordsFilltextfield(TypedDict):
     name: str
@@ -1318,6 +1373,7 @@ class RoboSAPiensKeywords(TypedDict):
     ExportWindow: RoboSAPiensKeywordsExportwindow
     FillTableCell: RoboSAPiensKeywordsFilltablecell
     FillTextField: RoboSAPiensKeywordsFilltextfield
+    FillTextEdit: RoboSAPiensKeywordsFilltextedit
     PushButton: RoboSAPiensKeywordsPushbutton
     HighlightButton: RoboSAPiensKeywordsHighlightbutton
     ReadStatusbar: RoboSAPiensKeywordsReadstatusbar
@@ -1334,6 +1390,7 @@ class RoboSAPiensKeywords(TypedDict):
     SelectCell: RoboSAPiensKeywordsSelectcell
     SelectCellValue: RoboSAPiensKeywordsSelectcellvalue
     SelectTreeElementMenuEntry: RoboSAPiensKeywordsSelecttreeelementmenuentry
+    ReadComboBoxEntry: RoboSAPiensKeywordsReadcomboboxentry
     SelectComboBoxEntry: RoboSAPiensKeywordsSelectcomboboxentry
     SelectRadioButton: RoboSAPiensKeywordsSelectradiobutton
     SelectTextField: RoboSAPiensKeywordsSelecttextfield

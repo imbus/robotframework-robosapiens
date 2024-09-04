@@ -590,6 +590,31 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('FillTableCell', args, result) # type: ignore
     
 
+    @keyword('Fill Multiline Text Field') # type: ignore
+    def fill_text_edit(self, content: str): # type: ignore
+        """
+        Fill the multiline text field in the window with the content provided.
+        
+        | ``content`` | The new contents of the multiline text field |
+        
+        
+        Examples:
+        
+        | ``Fill Multiline Text Field    A long text. With two sentences.``
+        """
+        
+        args = [content]
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The window contains no multiline text field. Hint: Check the spelling",
+            "NotChangeable": "The multiline text field is not editable.",
+            "Pass": "The multiline text field was filled.",
+            "Exception": "The multiline text field could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('FillTextEdit', args, result) # type: ignore
+    
+
     @keyword('Fill Text Field') # type: ignore
     def fill_text_field(self, locator: str, content: str): # type: ignore
         """
@@ -997,30 +1022,54 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('SelectCellValue', args, result) # type: ignore
     
 
-    @keyword('Select Dropdown Menu Entry') # type: ignore
-    def select_combo_box_entry(self, dropdown_menu: str, entry: str): # type: ignore
+    @keyword('Read Dropdown Menu Entry') # type: ignore
+    def read_combo_box_entry(self, locator: str): # type: ignore
         """
-        Select the specified entry from the dropdown menu provided.
+        Read the current entry from the given dropdown menu.
         
-        | ``dropdown_menu`` | The label of the dropdown menu |
+        | ``locator`` | The label or tooltip of the dropdown menu |
+        
+        
+        Examples:
+        
+        | ``${entry}   Read Dropdown Menu Entry   locator``
+        """
+        
+        args = [locator]
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The dropdown menu '{0}' could not be found. Hint: Check the spelling",
+            "Pass": "The current entry of the dropdown menu '{0}' was read.",
+            "Exception": "The entry could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('ReadComboBoxEntry', args, result) # type: ignore
+    
+
+    @keyword('Select Dropdown Menu Entry') # type: ignore
+    def select_combo_box_entry(self, locator: str, entry: str): # type: ignore
+        """
+        Select the specified entry from the given dropdown menu.
+        
+        | ``locator`` | The label or tooltip of the dropdown menu |
         | ``entry`` | An entry from the dropdown menu |
         
         
         Examples:
         
-        | ``Select Dropdown Menu Entry   dropdown_menu    entry``
+        | ``Select Dropdown Menu Entry   locator    entry``
         
         *Hints*: The numeric key that enables simplified keyboard input is not part of the entry name.
         
         To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
         """
         
-        args = [dropdown_menu, entry]
+        args = [locator, entry]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The dropdown menu '{0}' could not be found. Hint: Check the spelling",
-            "EntryNotFound": "In the dropdown menu '{0}' no entry '{1}' could be found. Hint: Check the spelling",
+            "EntryNotFound": "In the dropdown menu '{0}' the entry '{1}' could not be found. Hint: Check the spelling",
             "Pass": "In the dropdown menu '{0}' the entry '{1}' was selected.",
             "Exception": "The entry could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -1323,4 +1372,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.8.2'
+    ROBOT_LIBRARY_VERSION = '2.9.0'

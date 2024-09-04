@@ -380,6 +380,27 @@
         "examples": ""
       }
     },
+    "FillTextEdit": {
+      "name": "Mehrzeiliges Textfeld ausfüllen",
+      "args": {
+        "content": {
+          "name": "content",
+          "desc": "",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "NotChangeable": "NotChangeable",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Das mehrzeilige Textfeld in der Maske wird mit dem angegebenen Inhalt ausgefüllt.\n\n| ``Mehrzeiliges Textfeld ausfüllen     Inhalt``",
+        "examples": ""
+      }
+    },
     "PushButton": {
       "name": "Knopf drücken",
       "args": {
@@ -744,6 +765,26 @@
       },
       "doc": {
         "desc": "Aus dem angegebenen Baumelement wird der angegebene Menüeintrag ausgewählt.\n\n| ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``",
+        "examples": ""
+      }
+    },
+    "ReadComboBoxEntry": {
+      "name": "Auswahlmenüeintrag auslesen",
+      "args": {
+        "comboBox": {
+          "name": "comboBox",
+          "desc": "",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Der aktuelle Eintrag wird aus dem angegebenen Auswahlmenü ausgelesen.\n\n| ``Auswahlmenüeintrag auslesen    Auswahlmenü ``",
         "examples": ""
       }
     },

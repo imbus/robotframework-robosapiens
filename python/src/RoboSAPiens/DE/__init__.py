@@ -589,6 +589,31 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('FillTableCell', args, result) # type: ignore
     
 
+    @keyword('Mehrzeiliges Textfeld ausfüllen') # type: ignore
+    def fill_text_edit(self, Inhalt: str): # type: ignore
+        """
+        Das mehrzeilige Textfeld in der Maske wird mit dem angegebenen Inhalt ausgefüllt.
+        
+        | ``Inhalt`` | Der neue Inhalt des mehrzeiligen Textfelds |
+        
+        
+        Beispiele:
+        
+        | ``Mehrzeiliges Textfeld ausfüllen    Ein langer Text. Mit zwei Sätzen.``
+        """
+        
+        args = [Inhalt]
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "NotFound": "Die Maske enthält kein mehrzeiliges Textfeld.\nHinweis: Prüfe die Rechtschreibung",
+            "NotChangeable": "Das mehrzeilige Textfeld ist nicht bearbeitbar.",
+            "Pass": "Das mehrzeilige Textfeld wurde ausgefüllt.",
+            "Exception": "Das mehrzeilige Textfeld konnte nicht ausgefüllt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('FillTextEdit', args, result) # type: ignore
+    
+
     @keyword('Textfeld ausfüllen') # type: ignore
     def fill_text_field(self, Lokator: str, Inhalt: str): # type: ignore
         """
@@ -973,25 +998,49 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('SelectCellValue', args, result) # type: ignore
     
 
+    @keyword('Auswahlmenüeintrag auslesen') # type: ignore
+    def read_combo_box_entry(self, Lokator: str): # type: ignore
+        """
+        Aus dem angegebenen Auswahlmenü wird der aktuelle Eintrag ausgelesen.
+        
+        | ``Lokator`` | Beschriftung oder Kurzinfo des Auswahlmenüs |
+        
+        
+        Beispiele:
+        
+        | ``${Eintrag}   Auswahlmenüeintrag auslesen    Lokator``
+        """
+        
+        args = [Lokator]
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "NotFound": "Das Auswahlmenü mit dem Lokator '{0}' wurde nicht gefunden.\nHinweis: Prüfe die Rechtschreibung",
+            "Pass": "Der aktuelle Eintrag wurde ausgelesen.",
+            "Exception": "Der Eintrag konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('ReadComboBoxEntry', args, result) # type: ignore
+    
+
     @keyword('Auswahlmenüeintrag auswählen') # type: ignore
-    def select_combo_box_entry(self, Auswahlmenü: str, Eintrag: str): # type: ignore
+    def select_combo_box_entry(self, Lokator: str, Eintrag: str): # type: ignore
         """
         Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt.
         
-        | ``Auswahlmenü`` | Beschriftung des Auswahlmenüs |
+        | ``Lokator`` | Beschriftung oder Kurzinfo des Auswahlmenüs |
         | ``Eintrag`` | Ein Eintrag aus dem Auswahlmenü |
         
         
         Beispiele:
         
-        | ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``
+        | ``Auswahlmenüeintrag auswählen    Lokator    Eintrag``
         
         *Hinweise*: Der numerische Schlüssel, dass eine vereinfachte Tastaureingabe ermöglicht, ist nicht Teil des Eintragsnamens.
         
         Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, drücke zuerst den Knopf und verwende danach dieses Schlüsselwort.
         """
         
-        args = [Auswahlmenü, Eintrag]
+        args = [Lokator, Eintrag]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1322,4 +1371,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.8.2'
+    ROBOT_LIBRARY_VERSION = '2.9.0'
