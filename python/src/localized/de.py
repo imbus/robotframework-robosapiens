@@ -674,6 +674,33 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
+        "FillTextEdit": {
+            "name": ("896071987", "Mehrzeiliges Textfeld ausfüllen"),
+            "args": {
+                "content": {
+                    "name": ("4274335913", "Inhalt"),
+                    "desc": ("2819333797", "Der neue Inhalt des mehrzeiligen Textfelds"),
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": ("4138997384", no_session),
+                "NotFound": ("2220996720", not_found("Die Maske enthält kein mehrzeiliges Textfeld.")),
+                "NotChangeable": ("1635324573", "Das mehrzeilige Textfeld ist nicht bearbeitbar."),
+                "Pass": ("3073974581", "Das mehrzeilige Textfeld wurde ausgefüllt."),
+                "Exception": ("3230145683", exception("Das mehrzeilige Textfeld konnte nicht ausgefüllt werden. {0}"))
+            },
+            "doc": {
+                "desc": ("2252184307", "Das mehrzeilige Textfeld in der Maske wird mit dem angegebenen Inhalt ausgefüllt."),
+                "examples": ("1933559513",
+                """
+                Beispiele:
+                
+                | ``Mehrzeiliges Textfeld ausfüllen    Ein langer Text. Mit zwei Sätzen.``
+                """
+                )
+            }
+        },
         "FillTextField": {
             "name": ("3103200585", "Textfeld ausfüllen"),
             "args": {

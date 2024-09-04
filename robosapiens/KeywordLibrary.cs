@@ -37,6 +37,7 @@ namespace RoboSAPiens
                 {"ExportTree", args => ExportTree(args[0])},
                 {"ExportWindow", args => ExportWindow(args[0], args[1])},
                 {"FillTableCell", args => FillTableCell(args[0], args[1], args[2])},
+                {"FillTextEdit", args => FillTextEdit(args[0])},
                 {"FillTextField", args => FillTextField(args[0], args[1])},
                 {"GetWindowText", args => GetWindowText()},
                 {"GetWindowTitle", args => GetWindowTitle()},
@@ -513,6 +514,16 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.fillTextField(locator, content),
                 _ => new Result.FillTextField.NoSession()
+            };
+        }
+
+        [Keyword("Mehrzeiliges Textfeld ausfüllen"),
+         Doc("Das mehrzeilige Textfeld in der Maske wird mit dem angegebenen Inhalt ausgefüllt.\n\n" +
+             "| ``Mehrzeiliges Textfeld ausfüllen     Inhalt``")]
+        public RobotResult FillTextEdit(string content) {
+            return session switch {
+                SAPSession session => session.fillTextEdit(content),
+                _ => new Result.FillTextEdit.NoSession()
             };
         }
 

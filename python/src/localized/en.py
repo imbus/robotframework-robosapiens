@@ -661,6 +661,32 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "FillTextEdit": {
+            "name": "Fill Multiline Text Field",
+            "args": {
+                "content": {
+                    "name": "content",
+                    "desc": "The new contents of the multiline text field",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The window contains no multiline text field."),
+                "NotChangeable": "The multiline text field is not editable.",
+                "Pass": "The multiline text field was filled.",
+                "Exception": exception("The multiline text field could not be filled. {0}")
+            },
+            "doc": {
+                "desc": "Fill the multiline text field in the window with the content provided.",
+                "examples":
+                """
+                Examples:
+                
+                | ``Fill Multiline Text Field    A long text. With two sentences.``
+                """
+            }
+        },
         "FillTextField": {
             "name": "Fill Text Field",
             "args": {

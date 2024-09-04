@@ -17,6 +17,7 @@ namespace RoboSAPiens {
         MenuItemStore menuItems = new MenuItemStore();
         RadioButtonStore radioButtons = new RadioButtonStore();
         SAPStatusbar? statusBar = null;
+        SAPTextEdit? textEdit = null;
         TabStore tabs = new TabStore();
         TableStore tables = new TableStore();
         TextFieldStore textFields = new TextFieldStore();
@@ -150,6 +151,9 @@ namespace RoboSAPiens {
                     var sapTree = new SAPTree(guiTree);
                     this.trees.Add(sapTree);
                     if (debug) sapTree.print(guiTree);
+                    break;
+                case "TextEdit":
+                    textEdit = new SAPTextEdit((GuiTextedit)guiShell);
                     break;
                 default:
                     getWindowComponents(guiShell.Children);
@@ -387,6 +391,10 @@ namespace RoboSAPiens {
 
         public SAPStatusbar? getStatusBar() {
             return statusBar;
+        }
+
+        public SAPTextEdit? getTextEdit() {
+            return textEdit;
         }
 
         public void setStatusBar(GuiStatusbar guiStatusbar) {

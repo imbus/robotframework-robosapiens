@@ -427,6 +427,36 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult fillTextEdit(string content) 
+        {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var textEdit = window.components.getTextEdit();
+
+            if (textEdit == null) {
+                return new Result.FillTextEdit.NotFound();
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, textEdit)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+
+            try {
+                if (textEdit.isChangeable(session)) 
+                {
+                    textEdit.insert(session, content);
+                    return new Result.FillTextEdit.Pass();
+                }
+                return new Result.FillTextEdit.NotChangeable();
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.FillTextEdit.Exception(e);
+            }
+        }
+
         public RobotResult fillTextField(string labels, string content) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

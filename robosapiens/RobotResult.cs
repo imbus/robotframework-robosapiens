@@ -173,6 +173,14 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.");
         }
 
+        public record FillTextEdit {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(): RobotResult.NotFound($"Die Maske enthält kein mehrzeiliges Textfeld");
+            public record NotChangeable(): RobotResult.NotChangeable($"Das mehrzeilige Textfeld ist schreibgeschützt.");
+            public record Pass(): RobotResult.RobotPass($"Das mehrzeilige Textfeld wurde ausgefüllt.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das mehrzeilige Textfeld konnte nicht ausgefüllt werden.");
+        }
+
         public record HighlightButton {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Der Knopf mit dem Lokator '{locator}' wurde nicht gefunden.");
