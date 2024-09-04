@@ -243,6 +243,11 @@ namespace RoboSAPiens {
 
             try {
                 cell.doubleClick(session);
+                // After double-clicking a cell the window contents may change
+                switch (updateWindow()) {
+                    case RobotResult.UIScanFail exceptionError:
+                        return exceptionError;
+                }
                 return new Result.DoubleClickCell.Pass(locator.location);
             }
             catch (Exception e) {
