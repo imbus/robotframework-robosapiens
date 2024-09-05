@@ -162,6 +162,12 @@ namespace RoboSAPiens {
 
             try {
                 treeElement.doubleClick(session);
+
+                switch (updateWindow()) {
+                    case RobotResult.UIScanFail exceptionError:
+                        return exceptionError;
+                }
+                
                 return new Result.DoubleClickTreeElement.Pass(elementPath);
             } 
             catch (Exception e) {
