@@ -74,61 +74,61 @@ namespace RoboSAPiens
         {
             var tree = (GuiTree)session.FindById(id);
             var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+            var columnNames = (GuiCollection)tree.GetColumnNames();
 
-            if (nodeKeys != null)
+            if (nodeKeys == null) return;
+            
+            for (int nodeIndex = 0; nodeIndex < nodeKeys.Count; nodeIndex++) 
             {
-                for (int nodeIndex = 0; nodeIndex < nodeKeys.Count; nodeIndex++) 
-                {
-                    var nodeKey = (string)nodeKeys.ElementAt(nodeIndex);
-                    var nodePath = tree.GetNodePathByKey(nodeKey);
-                    var columnNames = (GuiCollection)tree.GetColumnNames();
+                var nodeKey = (string)nodeKeys.ElementAt(nodeIndex);
+                var nodePath = tree.GetNodePathByKey(nodeKey);
         
-                    if (columnNames == null) {
-                        treeElements.Add(new SAPTreeElement(tree, nodeKey, nodePath));
-                    }
-                    else
+                if (columnNames == null)
+                {
+                    treeElements.Add(new SAPTreeElement(tree, nodeKey, nodePath));
+                }
+                else
+                {
+                    for (int c = 0; c < columnNames.Length; c++) 
                     {
-                        for (int c = 0; c < columnNames.Length; c++) 
+                        if (c == 0) {
+                            treeElements.Add(new SAPTreeElement(tree, nodeKey, nodePath));
+                        }
+
+                        var columnName = (string)columnNames.ElementAt(c);
+                        if (columnName == null) continue;
+
+                        string columnTitle;
+                        try {
+                            columnTitle = tree.GetColumnTitleFromName(columnName);
+                        }
+                        catch (Exception) {
+                            continue;
+                        }
+
+                        TreeItem itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
+                        if (itemType == TreeItem.Hierarchy) {
+                            continue;
+                        }
+
+                        var itemText = tree.GetItemText(nodeKey, columnName);
+
+                        switch (itemType) 
                         {
-                            if (c == 0) {
-                                treeElements.Add(new SAPTreeElement(tree, nodeKey, nodePath));
-                            }
-
-                            var columnName = (string)columnNames.ElementAt(c);
-                            if (columnName == null) continue;
-
-                            string columnTitle;
-                            try {
-                                columnTitle = tree.GetColumnTitleFromName(columnName);
-                            }
-                            catch (Exception) {
-                                continue;
-                            }
-
-                            TreeItem itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
-                            if (itemType == TreeItem.Hierarchy) {
-                                continue;
-                            }
-
-                            var itemText = tree.GetItemText(nodeKey, columnName);
-
-                            switch (itemType) 
-                            {
-                                case TreeItem.Bool:
-                                    repo.checkBoxes.Add(new SAPTreeCheckBox(columnName, columnTitle, nodeKey, rowNumber: nodeIndex, tree.Id));
-                                    break;
-                                case TreeItem.Button:
-                                    repo.buttons.Add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: nodeIndex, tree.Id));
-                                    break;
-                                case TreeItem.Link:
-                                    var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
-                                    repo.buttons.Add(new SAPTreeLink(columnName, columnTitle, itemText, itemTooltip, nodeKey, rowNumber: nodeIndex, tree.Id));
-                                    repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: nodeIndex, content: itemText, nodeKey, tree));
-                                    break;
-                                case TreeItem.Text:
-                                    repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: nodeIndex, content: itemText, nodeKey, tree));
-                                    break;
-                            }
+                            case TreeItem.Bool:
+                                repo.checkBoxes.Add(new SAPTreeCheckBox(columnName, columnTitle, nodeKey, rowNumber: nodeIndex, tree.Id));
+                                break;
+                            case TreeItem.Button:
+                                repo.buttons.Add(new SAPTreeButton(columnName, columnTitle, itemText, nodeKey, rowNumber: nodeIndex, tree.Id));
+                                break;
+                            case TreeItem.Link:
+                                var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
+                                repo.buttons.Add(new SAPTreeLink(columnName, columnTitle, itemText, itemTooltip, nodeKey, rowNumber: nodeIndex, tree.Id));
+                                repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: nodeIndex, content: itemText, nodeKey, tree));
+                                break;
+                            case TreeItem.Text:
+                                repo.textCells.Add(new SAPTreeCell(columnName, columnTitle, rowIndex: nodeIndex, content: itemText, nodeKey, tree));
+                                break;
                         }
                     }
                 }
