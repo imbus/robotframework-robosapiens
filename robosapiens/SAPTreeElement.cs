@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using sapfewse;
 
@@ -15,8 +16,27 @@ namespace RoboSAPiens
             treeId = guiTree.Id;
             this.nodeKey = nodeKey;
             nodePath = path;
-            var text = guiTree.GetNodeTextByPath(path);
+            var text = getText(guiTree, nodeKey);
             textPath = getTextPath(guiTree, path, text);
+        }
+
+        private string getText(GuiTree tree, string nodeKey)
+        {
+            var treeType = (TreeType)tree.GetTreeType();
+            if (treeType == TreeType.List) 
+            {
+                var texts = new List<string>();
+                for (int i = 1; i < tree.GetListTreeNodeItemCount(nodeKey)+1; i++)
+                {
+                    var itemText = tree.GetItemText(nodeKey, i.ToString());
+                    if (itemText != null && itemText.Trim() != "") {
+                        texts.Add(itemText);
+                    }
+                }
+                return string.Join(" ", texts);
+            }
+
+            return tree.GetNodeTextByKey(nodeKey);
         }
 
         private string getTextPath(GuiTree guiTree, string path, string textPath)
@@ -27,7 +47,7 @@ namespace RoboSAPiens
                 return textPath;
             }
             else {
-                var parentText = guiTree.GetNodeTextByPath(parentPath);
+                var parentText = getText(guiTree, guiTree.GetNodeKeyByPath(parentPath));
                 return getTextPath(guiTree, parentPath, $"{parentText}/{textPath}");
             }
         }
@@ -35,8 +55,23 @@ namespace RoboSAPiens
         public void doubleClick(GuiSession session) 
         {
             var tree = (GuiTree)session.FindById(treeId);
+            var treeType = (TreeType)tree.GetTreeType();
             tree.SelectedNode = nodeKey;
-            tree.DoubleClickNode(nodeKey);
+
+            if (treeType == TreeType.List) 
+            {
+                var column = tree.GetListTreeNodeItemCount(nodeKey).ToString();
+                if (column == "1") {
+                    tree.DoubleClickNode(nodeKey);    
+                }
+                else {
+                    tree.DoubleClickItem(nodeKey, column);
+                }
+            }
+            else
+            {
+                tree.DoubleClickNode(nodeKey);
+            }
         }
 
         public void select(GuiSession session)
@@ -63,7 +98,17 @@ namespace RoboSAPiens
 
         public bool isHLabeled(string label)
         {
-            return textPath == label;
+            var pathParts = textPath.Split("/");
+            var queryParts = label.Split("/");
+
+            if (pathParts.Length != queryParts.Length) return false;
+
+            return pathParts.Zip(queryParts).All(
+                tuple => {
+                    (string first, string second) = tuple;
+                    return first == second || first.StartsWith(second);
+                }
+            );
         }
 
         public bool isVLabeled(string label)
