@@ -195,6 +195,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Examples:
         
         | ``Double-click Tree Element    element_path``
+        
+        *Hint*: A slash that is not a path separator must be written twice.
         """
         
         args = [element_path]
@@ -219,6 +221,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Examples:
         
         | ``Select Tree Element    element_path``
+        
+        *Hint*: A slash that is not a path separator must be written twice.
         """
         
         args = [element_path]
@@ -1372,4 +1376,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.9.1'
+    ROBOT_LIBRARY_VERSION = '2.9.2'

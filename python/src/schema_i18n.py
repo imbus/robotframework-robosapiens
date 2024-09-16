@@ -1043,7 +1043,7 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentryArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelecttreeelementDoc(TypedDict):
     desc: Tuple[Literal['1640119296'], str]
-    examples: Tuple[Literal['685283271'], str]
+    examples: Tuple[Literal['437032973'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttreeelementResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -1056,7 +1056,7 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktreeelementDoc(TypedDict):
     desc: Tuple[Literal['2416620933'], str]
-    examples: Tuple[Literal['3855515059'], str]
+    examples: Tuple[Literal['1502441278'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktreeelementResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
