@@ -30,7 +30,7 @@ namespace RoboSAPiens
                 {
                     var itemText = tree.GetItemText(nodeKey, i.ToString());
                     if (itemText != null && itemText.Trim() != "") {
-                        texts.Add(itemText);
+                        texts.Add(itemText.Replace("/", "|"));
                     }
                 }
                 return string.Join(" ", texts);
@@ -99,7 +99,7 @@ namespace RoboSAPiens
         public bool isHLabeled(string label)
         {
             var pathParts = textPath.Split("/");
-            var queryParts = label.Split("/");
+            var queryParts = label.Replace("//", "|").Split("/");
 
             if (pathParts.Length != queryParts.Length) return false;
 

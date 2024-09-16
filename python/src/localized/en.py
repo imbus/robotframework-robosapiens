@@ -233,6 +233,8 @@ lib: RoboSAPiens = {
                 Examples:
 
                 | ``Double-click Tree Element    element_path``
+
+                *Hint*: A slash that is not a path separator must be written twice.
                 """
             }
         },
@@ -258,6 +260,8 @@ lib: RoboSAPiens = {
                 Examples:
 
                 | ``Select Tree Element    element_path``
+
+                *Hint*: A slash that is not a path separator must be written twice.
                 """
             }
         },

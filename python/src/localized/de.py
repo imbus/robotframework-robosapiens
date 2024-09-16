@@ -230,11 +230,13 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("2416620933", "Das Baumelement mit dem angegebenen Pfad wird doppelgeklickt."),
-                "examples": ("3855515059", 
+                "examples": ("1502441278", 
                 """
                 Beispiele:
               
                 | ``Baumelement doppelklicken    Elementpfad``
+
+                *Hinweis*: Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
                 """
               )
             }
@@ -256,11 +258,13 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("1640119296", "Das Baumelement mit dem angegebenen Pfad wird markiert."),
-                "examples": ("685283271", 
+                "examples": ("437032973", 
                 """
                 Beispiele:
               
                 | ``Baumelement markieren    Elementpfad``
+
+                *Hinweis*: Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
                 """
               )
             }
