@@ -11,8 +11,7 @@ namespace RoboSAPiens {
         public SAPTable(GuiTableControl table) {
             this.id = table.Id;
             // https://answers.sap.com/questions/11100660/how-to-get-a-correct-row-count-in-sap-table.html
-            this.totalRows = table.VerticalScrollbar.Maximum + 1;
-            this.visibleRowCount = table.VisibleRowCount;
+            this.totalRows = table.RowCount;
         }
 
         List<string> getColumnTitles(GuiTableControl table)
@@ -33,39 +32,42 @@ namespace RoboSAPiens {
         {
             var table = (GuiTableControl)session.FindById(id);
             var columns = table.Columns;
-            var numRows = getVisibleRows();
+            var firstRow = table.VerticalScrollbar?.Position ?? 0;
+            var lastRow = firstRow + table.VisibleRowCount - 1;
 
-            for (int colIdx = 0; colIdx < columns.Length; colIdx++) 
+            for (int relRowIndex = 0; relRowIndex <= lastRow; relRowIndex++)
             {
-                var column = (GuiTableColumn)columns.ElementAt(colIdx);
-                var columnTitle = column.Title;
-
-                for (int rowIdx = 0; rowIdx < numRows; rowIdx++) 
+                for (int colIdx = 0; colIdx < columns.Length; colIdx++) 
                 {
+                    var column = (GuiTableColumn)columns.ElementAt(colIdx);
+                    var columnTitle = column.Title;
+                    int absRowIndex = firstRow + relRowIndex;
+
                     GuiVComponent cell;
 
                     // Tables are not necessarily rectangular grids
                     // A column may have a hole. Holes are skipped
                     try {
-                        cell = table.GetCell(rowIdx, colIdx);
+                        cell = table.GetCell(relRowIndex, colIdx);
                     }
                     catch (Exception) {
                         continue;
                     }
 
-                    switch (cell.Type) {
+                    switch (cell.Type)
+                    {
                         case "GuiButton":
-                            repo.buttons.Add(new SAPTableButton(columnTitle, rowIdx, (GuiButton)cell, this));
+                            repo.buttons.Add(new SAPTableButton(columnTitle, absRowIndex, (GuiButton)cell, this));
                             break;
                         case "GuiCheckBox":
-                            repo.checkBoxes.Add(new SAPTableCheckBox(columnTitle, rowIdx, (GuiCheckBox)cell, this));
+                            repo.checkBoxes.Add(new SAPTableCheckBox(columnTitle, absRowIndex, (GuiCheckBox)cell, this));
                             break;
                         case "GuiTextField":
                         case "GuiCTextField":
-                            repo.textCells.Add(new SAPTableCell(columnTitle, rowIdx, (GuiTextField)cell, this));
+                            repo.textCells.Add(new SAPTableCell(columnTitle, absRowIndex, (GuiTextField)cell, this));
                             break;
                         case "GuiComboBox":
-                            repo.comboBoxes.Add(new SAPTableComboBox(columnTitle, rowIdx, (GuiComboBox)cell));
+                            repo.comboBoxes.Add(new SAPTableComboBox(columnTitle, absRowIndex, (GuiComboBox)cell));
                             break;
                     }
                 }
@@ -75,10 +77,6 @@ namespace RoboSAPiens {
         public int getNumRows(GuiSession session) {
             var table = (GuiTableControl)session.FindById(id);
             return table.VerticalScrollbar.Maximum + 1;
-        }
-
-        public int getVisibleRows() {
-            return visibleRowCount;
         }
 
         public void makeSureCellIsVisible(int rowIndex, GuiSession session) {
