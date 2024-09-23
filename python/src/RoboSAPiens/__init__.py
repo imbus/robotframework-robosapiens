@@ -292,7 +292,10 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{username} -pw{password}``
         
-        *Hint*: Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
+        *Hints*
+        
+        - Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
+        - 64-bit SAP clients can only be used when the library is imported with ``x64=True``
         """
         
         args = [path, sap_args]
@@ -1376,4 +1379,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.9.2'
+    ROBOT_LIBRARY_VERSION = '2.9.3'

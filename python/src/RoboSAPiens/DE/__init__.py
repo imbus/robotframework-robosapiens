@@ -291,7 +291,10 @@ class DE(RoboSAPiensClient):
         
         | ``SAP starten   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{username} -pw=%{password}``
         
-        *Hinweis*: Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
+        *Hinweise*: 
+        
+        - Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
+        - 64-bit SAP-Clients erfordern, dass die Bibliothek mit ``x64=True`` importiert wird
         """
         
         args = [Pfad, SAP_Parameter]
@@ -1375,4 +1378,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.9.2'
+    ROBOT_LIBRARY_VERSION = '2.9.3'

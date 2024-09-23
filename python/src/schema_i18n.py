@@ -1014,7 +1014,7 @@ class LocalizedRoboSAPiensKeywordsCloseconnectionArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsOpensapDoc(TypedDict):
     desc: Tuple[Literal['211145309'], str]
-    examples: Tuple[Literal['4102780779'], str]
+    examples: Tuple[Literal['1816370490'], str]
 
 class LocalizedRoboSAPiensKeywordsOpensapResult(TypedDict):
     Pass: Tuple[Literal['871506365'], str]
