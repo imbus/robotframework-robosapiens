@@ -122,7 +122,7 @@ namespace RoboSAPiens
         public override void toggleHighlight(GuiSession session) {
             focused = !focused;
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.Visualize(focused, $"Cell({rowIndex},{columnId})");
+            gridView.Visualize(focused, $"Cell({rowIndex+1},{columnId})");
         }
     }
 
