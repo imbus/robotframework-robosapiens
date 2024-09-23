@@ -343,7 +343,10 @@ lib: RoboSAPiens = {
 
                  | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{{username}} -pw{{password}}``
 
-                 *Hint*: {path}
+                 *Hints*
+                 
+                 - {path}
+                 - 64-bit SAP clients can only be used when the library is imported with ``x64=True``
                  """
             }
         },
