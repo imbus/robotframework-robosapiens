@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using sapfewse;
 
 namespace RoboSAPiens 
@@ -23,6 +24,7 @@ namespace RoboSAPiens
 
     public class SAPTree: ITable
     {
+        List<string> columnTitles;
         string id;
         int rowCount;
         TreeType treeType;
@@ -39,6 +41,7 @@ namespace RoboSAPiens
             else {
                 rowCount = 0;
             }
+            columnTitles = getColumnTitles(tree);
         }
 
         List<string> getColumnTitles(GuiTree tree)
@@ -212,13 +215,32 @@ namespace RoboSAPiens
             return treeElements.get(folderPath);
         }
 
-        public void print(GuiTree tree)
+        public void print()
         {
-            var columnTitles = getColumnTitles(tree);
             Console.Write($" ({treeType})");
             Console.WriteLine();
             Console.WriteLine($"Rows: {rowCount}");
             Console.Write("Column titles: " + string.Join(", ", columnTitles));
+        }
+
+        public bool rowCountChanged(GuiSession session)
+        {
+            return false;
+        }
+
+        public bool rowIsAbove(GuiSession session, int rowIndex)
+        {
+            return false;
+        }
+
+        public bool rowIsBelow(GuiSession session, int rowIndex)
+        {
+            return false;
+        }
+
+        public bool hasColumn(string column)
+        {
+            return columnTitles.ToImmutableHashSet().Contains(column);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using sapfewse;
 
@@ -7,12 +8,14 @@ namespace RoboSAPiens
 {
     public class SAPGridView: ITable
     {
+        List<List<string>> allColumnTitles;
         string id;
         int rowCount;
 
         public SAPGridView(GuiGridView guiGridView) {
             id = guiGridView.Id;
             rowCount = guiGridView.RowCount;
+            allColumnTitles = getColumnTitles(guiGridView);
         }
 
         List<List<string>> getColumnTitles(GuiGridView gridView) 
@@ -115,12 +118,35 @@ namespace RoboSAPiens
             return false;
         }
 
-        public void print(GuiGridView gridView)
+        public void print()
         {
-            var allColumnTitles = getColumnTitles(gridView);
             Console.WriteLine();
             Console.WriteLine($"Rows: {rowCount}");
             Console.Write("Columns: " + string.Join(", ", allColumnTitles.Select(columnTitles => $"[{string.Join(", ", columnTitles)}]")));
+        }
+
+        public bool rowCountChanged(GuiSession session)
+        {
+            return getNumRows(session) != rowCount;
+        }
+
+        public bool rowIsAbove(GuiSession session, int rowIndex)
+        {
+            var gridView = (GuiGridView)session.FindById(id);
+            return rowIndex < gridView.FirstVisibleRow;
+        }
+
+        public bool rowIsBelow(GuiSession session, int rowIndex)
+        {
+            var gridView = (GuiGridView)session.FindById(id);
+            var firstRow = gridView.FirstVisibleRow;
+            var lastRow = firstRow + gridView.VisibleRowCount - 1;
+            return rowIndex > lastRow;
+        }
+
+        public bool hasColumn(string column)
+        {
+            return allColumnTitles.SelectMany(columnTitles => columnTitles).ToImmutableHashSet().Contains(column);
         }
     }
 }

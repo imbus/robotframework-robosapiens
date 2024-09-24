@@ -12,7 +12,6 @@ namespace RoboSAPiens {
         CheckBoxStore checkBoxes = new CheckBoxStore();
         CellRepository cellRepository = new CellRepository();
         ComboBoxStore comboBoxes = new ComboBoxStore();
-        GridViewStore gridViews = new GridViewStore();
         LabelStore labels = new LabelStore();
         MenuItemStore menuItems = new MenuItemStore();
         RadioButtonStore radioButtons = new RadioButtonStore();
@@ -107,7 +106,7 @@ namespace RoboSAPiens {
                     var guiTableControl = (GuiTableControl)container;
                     var sapTable = new SAPTable(guiTableControl);
                     tables.Add(sapTable);
-                    if (debug) sapTable.print(guiTableControl);
+                    if (debug) sapTable.print();
                     break;
                 case "GuiToolbar":
                     classifyToolbar((GuiToolbar)container);
@@ -139,9 +138,9 @@ namespace RoboSAPiens {
                 case "GridView":
                     var gridView = (GuiGridView)guiShell;
                     var sapGridView = new SAPGridView(gridView);
-                    gridViews.Add(new SAPGridView(gridView));
+                    tables.Add(new SAPGridView(gridView));
                     classifyGridViewToolbar(gridView);
-                    if (debug) sapGridView.print(gridView);
+                    if (debug) sapGridView.print();
                     break;
                 case "Toolbar":
                     classifyToolbarControl((GuiToolbarControl)guiShell);
@@ -150,7 +149,7 @@ namespace RoboSAPiens {
                     var guiTree = (GuiTree)guiShell;
                     var sapTree = new SAPTree(guiTree);
                     this.trees.Add(sapTree);
-                    if (debug) sapTree.print(guiTree);
+                    if (debug) sapTree.print();
                     break;
                 case "TextEdit":
                     textEdit = new SAPTextEdit((GuiTextedit)guiShell);
@@ -293,10 +292,13 @@ namespace RoboSAPiens {
             }
         }
 
+        public void updateTable(GuiSession session, ITable table) {
+            table.classifyCells(session, cellRepository);
+        }
+
         public void updateTables(GuiSession session)
         {
             tables.ForEach(table => table.classifyCells(session, cellRepository));
-            gridViews.ForEach(gridView => gridView.classifyCells(session, cellRepository));
             trees.ForEach(tree => tree.classifyCells(session, cellRepository));
         }
 
@@ -370,11 +372,15 @@ namespace RoboSAPiens {
         }
         
         public SAPTreeElement? findTreeElement(string elementPath, GuiSession session) {
+            var tree = getTree();
+
+            if (tree == null) return null;
+
             if (cellRepository.isEmpty()) {
-                updateTables(session);
+                tree.classifyCells(session, cellRepository);
             }
             
-            return getTree()?.findTreeElement(elementPath);
+            return tree.findTreeElement(elementPath);
         }
 
         public List<SAPButton> getAllButtons() {
@@ -402,7 +408,7 @@ namespace RoboSAPiens {
         }
 
         public List<SAPGridView> getGridViews() {
-            return gridViews;
+            return tables.filterBy<SAPGridView>();
         }
 
         public HorizontalScrollbar? getHorizontalScrollbar() {
@@ -413,11 +419,9 @@ namespace RoboSAPiens {
             return verticalScrollbar;
         }
 
-        public ITable? getFirstTable()
+        public List<ITable> getTables()
         {
-            return tables.FirstOrDefault() as ITable ??
-                   gridViews.FirstOrDefault() as ITable ??
-                   trees.FirstOrDefault();
+            return tables;
         }
 
         public SAPTree? getTree() {

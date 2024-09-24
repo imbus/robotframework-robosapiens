@@ -82,13 +82,11 @@ namespace RoboSAPiens {
 
     public sealed class BoxStore: ContainerRepository<SAPBox> {}
 
-    public sealed class GridViewStore: Repository<SAPGridView> {}
-
     public sealed class TabStore: ContainerRepository<SAPTab> {}
 
     public sealed class MenuItemStore: ContainerRepository<SAPMenu> {}
 
-    public sealed class TableStore: Repository<SAPTable> {}
+    public sealed class TableStore: Repository<ITable> {}
 
     public sealed class TextCellStore: Repository<TextCell> {
         public TextCell? getByContent(string text) {

@@ -405,12 +405,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var table = window.components.getFirstTable();
-
-            if (table == null)
-                return new Result.FillTableCell.NoTable();
-
-            var cell = findTextCell(table, locator);
+            var cell = findTextCell(locator);
 
             if (cell == null) {
                 return new Result.FillTableCell.NotFound(locator.location);
@@ -636,7 +631,7 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var table = window.components.getFirstTable();
+            var table = window.components.getTables().FirstOrDefault();
 
             if (table == null)
                 return new Result.CountTableRows.NotFound();
@@ -657,12 +652,7 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowNumberOrButtonLabel, column);
-            var table = window.components.getFirstTable();
-
-            if (table == null)
-                return new Result.ReadTableCell.NoTable();
-
-            var cell = findTextCell(table, locator) as ITextElement ??
+            var cell = findTextCell(locator) as ITextElement ??
                        window.components.findComboBoxCell(locator, session);
 
             if (cell == null) {
@@ -878,11 +868,28 @@ namespace RoboSAPiens {
             }
         }
 
-        public TextCell? findTextCell(ITable table, CellLocator locator)
+        public TextCell? findTextCellByRowNumber(RowCellLocator locator, ITable table)
+        {
+            if (table.rowIsAbove(session, locator.rowIndex)) return null;
+            if (table.rowIsBelow(session, locator.rowIndex))
+            {
+                bool scrolled = table.scrollOnePage(session);
+                if (scrolled)
+                {
+                    // Scrolling the table redraws the screen,
+                    // therefore the components have to be scanned
+                    updateWindow();
+                    return findTextCellByRowNumber(locator, table);
+                }
+            }
+
+            return window.components.findTextCell(locator, session);
+        }
+
+        public TextCell? findTextCellByLabel(ILocator locator, ITable table)
         {
             var cell = window.components.findTextCell(locator, session);
-            if (cell != null)
-                return cell;
+            if (cell != null) return cell;
 
             bool scrolled = table.scrollOnePage(session);
             if (scrolled)
@@ -890,7 +897,46 @@ namespace RoboSAPiens {
                 // Scrolling the table redraws the screen,
                 // therefore the components have to be scanned
                 updateWindow();
-                return findTextCell(table, locator);
+                return findTextCellByLabel(locator, table);
+            }
+
+            return null;
+        }
+
+        public TextCell? findTextCellByRowAndColumn(CellLocator cellLocator, ITable table)
+        {
+            if (!table.hasColumn(cellLocator.column)) return null;
+
+            return cellLocator switch 
+            {
+                RowCellLocator rowCellLocator => findTextCellByRowNumber(rowCellLocator, table),
+                LabelCellLocator labelCellLocator => findTextCellByLabel(labelCellLocator, table),
+                _ => null
+            };
+        }
+
+        public TextCell? findTextCellInTable(ILocator locator, ITable table)
+        {
+            if (table.rowCountChanged(session)) {
+                window.components.updateTable(session, table);
+            }
+
+            return locator switch
+            {
+                Content content => findTextCellByLabel(content, table),
+                CellLocator cellLocator => findTextCellByRowAndColumn(cellLocator, table),
+                _ => null
+            };
+        }
+
+        public TextCell? findTextCell(CellLocator locator)
+        {
+            var tables = window.components.getTables();
+
+            foreach (var table in tables)
+            {
+                var cell = findTextCellInTable(locator, table);
+                if (cell != null) return cell;
             }
 
             return null;
@@ -901,23 +947,18 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var table = window.components.getFirstTable();
-
-            if (table == null)
-                return new Result.SelectCell.NoTable();
-
             var locator = CellLocator.of(rowIndexOrCellContent, column);
-            
+            var cell = findTextCell(locator);
+
+            if (cell == null) {
+                return new Result.SelectCell.NotFound(locator.location);
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, cell)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+
             try {
-                var cell = findTextCell(table, locator);
-                if (cell == null) {
-                    return new Result.SelectCell.NotFound(locator.location);
-                }
-
-                if (options.presenterMode) switch(highlightElement(session, cell)) {
-                    case RobotResult.HighlightFail exceptionError: return exceptionError;
-                }
-
                 cell.select(session);
                 return new Result.SelectCell.Pass(locator.location);
             }
@@ -1024,7 +1065,7 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var table = window.components.getFirstTable();
+            var table = window.components.getTables().FirstOrDefault();
 
             if (table == null) {
                 return new Result.SelectTableRow.NoTable();
@@ -1039,13 +1080,10 @@ namespace RoboSAPiens {
             }
             else {
                 var rowLocator = new RowLocator($"= {rowIndexOrLabel}");
-                var cell = window.components.findTextCell(rowLocator.locator, session);
-                if (cell != null) {
-                    rowIndex = cell.rowIndex;
-                }
-                else {
-                    return new Result.SelectTableRow.NotFound(rowIndexOrLabel);
-                }
+                var cell = findTextCellInTable(rowLocator.locator, table);
+
+                if (cell == null) return new Result.SelectTableRow.NotFound(rowIndexOrLabel);
+                rowIndex = cell.rowIndex;
             }
 
             try {

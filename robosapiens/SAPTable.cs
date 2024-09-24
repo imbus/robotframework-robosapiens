@@ -1,17 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using sapfewse;
 
 namespace RoboSAPiens {
     public class SAPTable: ITable {
+        List<string> columnTitles;
         public string id {get;}
-        int visibleRowCount;
         public int totalRows;
 
         public SAPTable(GuiTableControl table) {
             this.id = table.Id;
             // https://answers.sap.com/questions/11100660/how-to-get-a-correct-row-count-in-sap-table.html
             this.totalRows = table.RowCount;
+            this.columnTitles = getColumnTitles(table);
         }
 
         List<string> getColumnTitles(GuiTableControl table)
@@ -76,13 +78,32 @@ namespace RoboSAPiens {
 
         public int getNumRows(GuiSession session) {
             var table = (GuiTableControl)session.FindById(id);
-            return table.VerticalScrollbar.Maximum + 1;
+            return table.RowCount;
         }
 
-        public void makeSureCellIsVisible(int rowIndex, GuiSession session) {
-            if (rowIndex + 1 > visibleRowCount) {
-                scrollOnePage(session);
-            }
+        public bool hasColumn(string column)
+        {
+            return columnTitles.ToImmutableHashSet().Contains(column);
+        }
+
+        public bool rowCountChanged(GuiSession session)
+        {
+            return getNumRows(session) != totalRows;
+        }
+
+        public bool rowIsAbove(GuiSession session, int rowIndex)
+        {
+            var table = (GuiTableControl)session.FindById(id);
+            var firstRow = table.VerticalScrollbar?.Position ?? 0;
+            return rowIndex < firstRow;
+        }
+
+        public bool rowIsBelow(GuiSession session, int rowIndex)
+        {
+            var table = (GuiTableControl)session.FindById(id);
+            var firstRow = table.VerticalScrollbar?.Position ?? 0;
+            var lastRow = firstRow + table.VisibleRowCount - 1;
+            return rowIndex > lastRow;
         }
 
         public void selectRow(int rowIndex, GuiSession session) {
@@ -108,9 +129,8 @@ namespace RoboSAPiens {
             return false;
         }
 
-        public void print(GuiTableControl guiTableControl)
+        public void print()
         {
-            var columnTitles = getColumnTitles(guiTableControl);
             Console.WriteLine();
             Console.WriteLine($"Rows: {totalRows}");
             Console.Write("Columns: " + string.Join(", ", columnTitles));

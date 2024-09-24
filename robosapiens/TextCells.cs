@@ -159,8 +159,6 @@ namespace RoboSAPiens
 
         public override void insert(string content, GuiSession session) 
         {
-            table.makeSureCellIsVisible(rowIndex, session);
-
             var textField = (GuiTextField)session.FindById(id);
             textField.Text = content;
             text = content;

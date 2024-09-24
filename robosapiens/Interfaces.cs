@@ -50,7 +50,12 @@ namespace RoboSAPiens {
 
     public interface ITable
     {
+        public void classifyCells(GuiSession session, CellRepository repo);
         public int getNumRows(GuiSession session);
+        public bool hasColumn(string column);
+        public bool rowCountChanged(GuiSession session);
+        public bool rowIsAbove(GuiSession session, int rowIndex);
+        public bool rowIsBelow(GuiSession session, int rowIndex);
         public bool scrollOnePage(GuiSession session);
         public void selectRow(int rowNumber, GuiSession session);
     }
