@@ -9,8 +9,6 @@ namespace RoboSAPiens {
         const int maxVerticalDistance = 20;
         const int overlapTolerance = 3;
 
-        string accTooltip;
-        string defaultTooltip;
         public string id;
         public string hLabel;
         public string vLabel;
@@ -20,13 +18,16 @@ namespace RoboSAPiens {
         public string name;
         public Position position {get;}
         public string text;
-        string tooltip;
+        HashSet<string> tooltips;
         int width;
 
         public SAPTextField(GuiTextField textField) {
-            this.accTooltip = textField.AccTooltip.Trim();
+            this.tooltips = new HashSet<string>{
+                textField.AccTooltip.Trim(),
+                textField.DefaultTooltip.Trim(),
+                textField.Tooltip.Trim()
+            };
             this.changeable = textField.Changeable;
-            this.defaultTooltip = textField.DefaultTooltip;
             this.grid = new List<SAPTextField>();
             this.id = textField.Id;
             (this.hLabel, this.vLabel) = getLabel(textField);
@@ -36,7 +37,6 @@ namespace RoboSAPiens {
                                          top: textField.ScreenTop, 
                                          width: textField.Width);
             this.text = textField.Text.Trim();
-            this.tooltip = textField.Tooltip;
             this.width = textField.Width;
         }
 
@@ -152,9 +152,8 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return accTooltip == tooltip ||
-                   defaultTooltip == tooltip ||
-                   this.tooltip == tooltip;
+            return tooltips.Any(t => t.Equals(tooltip)) || 
+            tooltips.Any(t => t.StartsWith(tooltip));
         }
 
         public void insert(string content, GuiSession session) {
