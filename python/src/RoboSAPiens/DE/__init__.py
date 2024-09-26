@@ -567,7 +567,7 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Tabellenzelle ausfüllen') # type: ignore
-    def fill_table_cell(self, Zeile: str, Spaltentitel: str, Inhalt: str): # type: ignore
+    def fill_cell(self, Zeile: str, Spaltentitel: str, Inhalt: str): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird mit dem angegebenen Inhalt ausgefüllt.
         
@@ -593,7 +593,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt.",
             "Exception": "Die Zelle konnte nicht ausgefüllt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('FillTableCell', args, result) # type: ignore
+        return super()._run_keyword('FillCell', args, result) # type: ignore
     
 
     @keyword('Mehrzeiliges Textfeld ausfüllen') # type: ignore
@@ -841,7 +841,7 @@ class DE(RoboSAPiensClient):
     
 
     @keyword('Tabellenzelle auslesen') # type: ignore
-    def read_table_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
+    def read_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
         Der Inhalt der Zelle am Schnittpunkt der Zeile und der Spalte wird zurückgegeben.
         
@@ -863,7 +863,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen.",
             "Exception": "Die Zelle konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadTableCell', args, result) # type: ignore
+        return super()._run_keyword('ReadCell', args, result) # type: ignore
     
 
     @keyword('Fenster aufnehmen') # type: ignore
@@ -1378,4 +1378,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.9.3'
+    ROBOT_LIBRARY_VERSION = '2.10.0'

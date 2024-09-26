@@ -568,7 +568,7 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Fill Cell') # type: ignore
-    def fill_table_cell(self, row_locator: str, column: str, content: str): # type: ignore
+    def fill_cell(self, row_locator: str, column: str, content: str): # type: ignore
         """
         Fill the cell at the intersection of the row and column with the content provided.
         
@@ -594,7 +594,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The cell with the locator '{0}, {1}' was filled.",
             "Exception": "The cell could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('FillTableCell', args, result) # type: ignore
+        return super()._run_keyword('FillCell', args, result) # type: ignore
     
 
     @keyword('Fill Multiline Text Field') # type: ignore
@@ -865,7 +865,7 @@ class RoboSAPiens(RoboSAPiensClient):
     
 
     @keyword('Read Cell') # type: ignore
-    def read_table_cell(self, row_locator: str, column: str): # type: ignore
+    def read_cell(self, row_locator: str, column: str): # type: ignore
         """
         Read the contents of the cell at the intersection of the row and column provided.
         
@@ -887,7 +887,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The cell with the locator '{0}, {1}' was read.",
             "Exception": "The cell could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('ReadTableCell', args, result) # type: ignore
+        return super()._run_keyword('ReadCell', args, result) # type: ignore
     
 
     @keyword('Save Screenshot') # type: ignore
@@ -1379,4 +1379,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.9.3'
+    ROBOT_LIBRARY_VERSION = '2.10.0'
