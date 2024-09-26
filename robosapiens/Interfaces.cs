@@ -24,10 +24,6 @@ namespace RoboSAPiens {
         public Position getPosition();
     }
 
-    public interface ILocatableCell {
-        public bool isLocated(CellLocator locator, TextCellStore labelCells);
-    }
-
     public interface ILocator {}
 
     public interface ISelectable: IHighlightable {
@@ -50,7 +46,8 @@ namespace RoboSAPiens {
 
     public interface ITable
     {
-        public void classifyCells(GuiSession session, CellRepository repo);
+        public void classifyCells(GuiSession session);
+        public Cell? findCell(ILocator locator, GuiSession session);
         public int getNumRows(GuiSession session);
         public bool hasColumn(string column);
         public bool rowCountChanged(GuiSession session);

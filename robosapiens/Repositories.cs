@@ -10,34 +10,32 @@ namespace RoboSAPiens {
         }
     }
 
-    public class CellRepository
+    public class CellRepository: Repository<Cell>
     {
-        public ButtonStore buttons = new ButtonStore();
-        public CheckBoxStore checkBoxes = new CheckBoxStore();
-        public ComboBoxStore comboBoxes = new ComboBoxStore();
-        public TextCellStore textCells = new TextCellStore();
-
-        public TextCell? findTextCell(ILocator locator) {
-            return textCells.get(locator);
+        public Cell? findCellByContent(string content)
+        {
+            return Find(cell => cell.isLabeled(content));
         }
 
-        public ComboBox? findComboBoxCell(CellLocator locator) {
-            return comboBoxes.getCell(locator, textCells);
+        public Cell? findCellByLabelAndColumn(string label, string column)
+        {
+            return Find(cell => cell.inColumn(column) && 
+                (cell.isLabeled(label) || cell.inRow(getRowIndex(label)))
+            );
         }
 
-        public CheckBox? findCheckBoxCell(CellLocator locator) {
-            return checkBoxes.get(locator, textCells);
+        public Cell? findCellByRowAndColumn(int rowIndex, string column)
+        {
+            return Find(cell => cell.inColumn(column) && cell.inRow(rowIndex));
         }
 
-        public Button? findButtonCell(CellLocator locator) {
-            return buttons.get(locator, textCells);
-        }
+        int getRowIndex(string label)
+        {
+            var cell = Find(cell => cell.isTextCell() && cell.isLabeled(label));
 
-        public bool isEmpty() {
-            return buttons.Count == 0 && 
-                   checkBoxes.Count == 0 && 
-                   comboBoxes.Count == 0 && 
-                   textCells.Count == 0;
+            if (cell != null) return cell.rowIndex;
+
+            return -1;
         }
     }
 
@@ -56,10 +54,6 @@ namespace RoboSAPiens {
 
         public T? getByVLabel(string label) {
             return filterBy<ILabeled>().Find(item => item.isVLabeled(label)) as T;
-        }
-
-        public T? getCell(CellLocator locator, TextCellStore rowLabels) {
-            return filterBy<ILocatableCell>().Find(cell => cell.isLocated(locator, rowLabels)) as T;
         }
 
         public T? getHorizontalClosestToLabel(string label, LabelStore labels, TextFieldRepository textFieldLabels) 

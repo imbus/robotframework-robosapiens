@@ -34,6 +34,14 @@ namespace RoboSAPiens {
                                          width: comboBox.Width);
         }
 
+        public List<string> getLabels()
+        {
+            return new List<string>
+            {
+                accTooltip
+            };
+        }
+
         void getEntries(GuiComboBox comboBox) {
             var entries = comboBox.Entries;
             for (int i = 0; i < entries.Length; i++) {
@@ -120,34 +128,6 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPTableComboBox: SAPComboBox, ILocatableCell {
-        string column;
-        int rowIndex;
-
-        public SAPTableComboBox(string column, int rowIndex, GuiComboBox comboBox): base(comboBox) 
-        {
-            this.column = column;
-            this.rowIndex = rowIndex;
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return column == locator.column && locator switch {
-                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => inRowOfCell(rowLabels.getByContent(labelLocator.label)),
-                _ => false
-            };
-        }
-
-        private bool inRowOfCell(TextCell? cell) 
-        {
-            return cell switch {
-                TextCell => rowIndex == cell.rowIndex,
-                _ => false
-            };
-        }
-    }
-
     public sealed class SAPGridViewToolbarButtonMenuComboBox: ComboBox, ILabeled 
     {
         string gridViewId;
@@ -189,121 +169,6 @@ namespace RoboSAPiens {
         public override string getText(GuiSession session)
         {
             return "";
-        }
-    }
-
-    public sealed class SAPGridViewToolbarMenu: ComboBox, ILabeled 
-    {
-        string gridViewId;
-        string tooltip;
-
-        public SAPGridViewToolbarMenu(GuiGridView gridView, string tooltip) 
-        {
-            this.gridViewId = gridView.Id;
-            this.tooltip = tooltip;
-        }
-
-        public override bool contains(string entry)
-        {
-            return true;
-        }
-
-        public bool isHLabeled(string label) {
-            return false;
-        }
-
-        public bool isVLabeled(string label) {
-            return false;
-        }
-
-        public bool hasTooltip(string tooltip) 
-        {
-            return this.tooltip == tooltip;
-        }
-
-        public override void setValue(string entry, GuiSession session)
-        {
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.SelectContextMenuItemByText(entry);
-        }
-
-        public override void toggleHighlight(GuiSession session) {}
-
-        // This method cannot be implemented for a GridView Toolbar Menu
-        public override string getText(GuiSession session)
-        {
-            return "";
-        }
-    }
-
-
-    public class GridViewValueList: ComboBox, ILocatableCell
-    {
-        string columnId;
-        public HashSet<string> columnTitles;
-        string gridViewId;
-        int rowIndex;
-
-        public GridViewValueList(string columnId, GuiGridView gridView, int rowIndex) 
-        {
-            this.columnId = columnId;
-            this.columnTitles = new HashSet<string>(){};
-            this.gridViewId = gridView.Id;
-            this.rowIndex = rowIndex;
-
-            // GetDisplayedColumnTitle might not be reliable
-            GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
-            for (int i = 0; i < columnTitles.Length; i++) 
-            {
-                this.columnTitles.Add((string)columnTitles.ElementAt(i));
-            }
-            this.columnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
-        }
-
-        // The innerObject parameter of the Visualize method of GuiGridView
-        // can only take the values "Toolbar" and "Cell(row,column)".
-        // References:
-        // https://community.sap.com/t5/technology-q-a/get-innerobject-for-visualizing/qaq-p/12150835
-        // https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf
-        public override void toggleHighlight(GuiSession session) {
-            focused = !focused;
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.Visualize(focused, $"Cell({rowIndex},{columnId})");
-        }
-
-        // This method cannot be implemented for a ValueList
-        public override bool contains(string entry)
-        {
-            return true;
-        }
-
-        public override void setValue(string entry, GuiSession session)
-        {
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.ModifyCell(rowIndex, columnId, entry);
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return columnTitles.Contains(locator.column) && locator switch {
-                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => inRowOfCell(rowLabels.getByContent(labelLocator.label)),
-                _ => false
-            };
-        }
-
-        private bool inRowOfCell(TextCell? cell) 
-        {
-            return cell switch {
-                TextCell => rowIndex == cell.rowIndex,
-                _ => false
-            };
-        }
-
-        public override string getText(GuiSession session)
-        {
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            return gridView.GetCellValue(rowIndex, columnId);
         }
     }
 

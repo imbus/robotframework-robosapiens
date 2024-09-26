@@ -90,6 +90,13 @@ namespace RoboSAPiens {
             }
         }
 
+        void highlightCell(Cell cell)
+        {
+            cell.highlight(session);
+            Thread.Sleep(500);
+            cell.highlight(session);
+        }
+
         public RobotResult activateTab(string tabLabel) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
@@ -237,15 +244,13 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrContent, column);
-            var cell = window.components.findTextCell(locator, session);
+            var cell = window.components.findCell(locator, session);
 
             if (cell == null) {
                 return new Result.DoubleClickCell.NotFound(locator.location);
             }
 
-            if (options.presenterMode) switch(highlightElement(session, cell)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
+            if (options.presenterMode) highlightCell(cell);
 
             try {
                 cell.doubleClick(session);
@@ -382,14 +387,14 @@ namespace RoboSAPiens {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var tree = window.components.getTree();
+            var tree = window.components.getTrees().FirstOrDefault();
 
             if (tree == null) return new Result.ExportTree.NotFound();
 
             try
             {
                 var treeNodes = tree.getAllNodes(session);
-                JSON.writeFile(filePath, JSON.serialize(treeNodes, typeof(List<SAPTree.Node>)));
+                JSON.writeFile(filePath, JSON.serialize(treeNodes, typeof(List<TreeNode>)));
                 return new Result.ExportTree.Pass(filePath);
             }
             catch (Exception e)
@@ -405,19 +410,18 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var cell = findTextCell(locator);
+            var cell = window.components.findCell(locator, session);
 
             if (cell == null) {
                 return new Result.FillTableCell.NotFound(locator.location);
             }
 
-            if (options.presenterMode) switch(highlightElement(session, cell)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
+            if (options.presenterMode) highlightCell(cell);
 
             try {
-                if (cell.isChangeable(session)) {
-                    cell.insert(content, session);
+                if (cell.isChangeable(session))
+                {
+                    cell.setValue(content, session);
                     return new Result.FillTableCell.Pass(locator.location);
                 }
                 return new Result.FillTableCell.NotChangeable(locator.location);
@@ -586,20 +590,18 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowNumberOrButtonLabel, column);
-            var button = window.components.findButtonCell(locator, session);
+            var cell = window.components.findCell(locator, session);
 
-            if (button == null) {
+            if (cell == null) {
                 return new Result.PushButtonCell.NotFound(locator.location);
             }
 
-            if (options.presenterMode) switch(highlightElement(session, button)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
+            if (options.presenterMode) highlightCell(cell);
 
             try {
-                if (button.isEnabled(session))
+                if (cell.isChangeable(session))
                 {
-                    button.push(session);
+                    cell.click(session);
                     return new Result.PushButtonCell.Pass(locator.location);
                 }
                 return new Result.PushButtonCell.NotChangeable(locator.location);
@@ -652,19 +654,16 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowNumberOrButtonLabel, column);
-            var cell = findTextCell(locator) as ITextElement ??
-                       window.components.findComboBoxCell(locator, session);
+            var cell = window.components.findCell(locator, session);
 
             if (cell == null) {
                 return new Result.ReadTableCell.NotFound(locator.location);
             }
 
-            if (options.presenterMode) switch(highlightElement(session, cell)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
+            if (options.presenterMode) highlightCell(cell);
 
             try {
-                var text = cell.getText(session);
+                var text = cell.getValue(session);
                 return new Result.ReadTableCell.Pass(text, locator.location);
             }
             catch (Exception e) {
@@ -868,98 +867,22 @@ namespace RoboSAPiens {
             }
         }
 
-        public TextCell? findTextCellByRowNumber(RowCellLocator locator, ITable table)
-        {
-            if (table.rowIsAbove(session, locator.rowIndex)) return null;
-            if (table.rowIsBelow(session, locator.rowIndex))
-            {
-                bool scrolled = table.scrollOnePage(session);
-                if (scrolled)
-                {
-                    // Scrolling the table redraws the screen,
-                    // therefore the components have to be scanned
-                    updateWindow();
-                    return findTextCellByRowNumber(locator, table);
-                }
-            }
-
-            return window.components.findTextCell(locator, session);
-        }
-
-        public TextCell? findTextCellByLabel(ILocator locator, ITable table)
-        {
-            var cell = window.components.findTextCell(locator, session);
-            if (cell != null) return cell;
-
-            bool scrolled = table.scrollOnePage(session);
-            if (scrolled)
-            {
-                // Scrolling the table redraws the screen,
-                // therefore the components have to be scanned
-                updateWindow();
-                return findTextCellByLabel(locator, table);
-            }
-
-            return null;
-        }
-
-        public TextCell? findTextCellByRowAndColumn(CellLocator cellLocator, ITable table)
-        {
-            if (!table.hasColumn(cellLocator.column)) return null;
-
-            return cellLocator switch 
-            {
-                RowCellLocator rowCellLocator => findTextCellByRowNumber(rowCellLocator, table),
-                LabelCellLocator labelCellLocator => findTextCellByLabel(labelCellLocator, table),
-                _ => null
-            };
-        }
-
-        public TextCell? findTextCellInTable(ILocator locator, ITable table)
-        {
-            if (table.rowCountChanged(session)) {
-                window.components.updateTable(session, table);
-            }
-
-            return locator switch
-            {
-                Content content => findTextCellByLabel(content, table),
-                CellLocator cellLocator => findTextCellByRowAndColumn(cellLocator, table),
-                _ => null
-            };
-        }
-
-        public TextCell? findTextCell(CellLocator locator)
-        {
-            var tables = window.components.getTables();
-
-            foreach (var table in tables)
-            {
-                var cell = findTextCellInTable(locator, table);
-                if (cell != null) return cell;
-            }
-
-            return null;
-        }
-
         public RobotResult selectCell(string rowIndexOrCellContent, string column) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var locator = CellLocator.of(rowIndexOrCellContent, column);
-            var cell = findTextCell(locator);
+            var cell = window.components.findCell(locator, session);
 
             if (cell == null) {
                 return new Result.SelectCell.NotFound(locator.location);
             }
 
-            if (options.presenterMode) switch(highlightElement(session, cell)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
+            if (options.presenterMode) highlightCell(cell);
 
             try {
-                cell.select(session);
+                cell.click(session);
                 return new Result.SelectCell.Pass(locator.location);
             }
             catch (Exception e) {
@@ -974,23 +897,17 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrCellContent, column);
-            var cell = window.components.findComboBoxCell(locator, session);
+            var cell = window.components.findCell(locator, session);
 
             if (cell == null) {
                 return new Result.SelectCellValue.NotFound(locator.location);
             }
 
-            if (!cell.contains(entry)) {
-                return new Result.SelectCellValue.EntryNotFound(entry, locator.location);
-            }
-
-            if (options.presenterMode) switch(highlightElement(session, cell)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
+            if (options.presenterMode) highlightCell(cell);
 
             try {
                 cell.setValue(entry, session);
-                var value = cell.getText(session);
+                var value = cell.getValue(session);
 
                 if (value.Equals(entry)) {
                     return new Result.SelectCellValue.Pass(entry, locator.location);
@@ -1079,8 +996,8 @@ namespace RoboSAPiens {
                 rowIndex--;
             }
             else {
-                var rowLocator = new RowLocator($"= {rowIndexOrLabel}");
-                var cell = findTextCellInTable(rowLocator.locator, table);
+                var rowLocator = (ILocator)new RowLocator($"= {rowIndexOrLabel}");
+                var cell = table.findCell(rowLocator, session);
 
                 if (cell == null) return new Result.SelectTableRow.NotFound(rowIndexOrLabel);
                 rowIndex = cell.rowIndex;
@@ -1244,20 +1161,18 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var checkBox = window.components.findCheckBoxCell(locator, session);
+            var cell = window.components.findCell(locator, session);
             
-            if (checkBox == null) {
+            if (cell == null) {
                 return new Result.TickCheckBoxCell.NotFound(locator.location);
             }
 
-            if (options.presenterMode) switch(highlightElement(session, checkBox)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
+            if (options.presenterMode) highlightCell(cell);
 
             try {
-                if (checkBox.isEnabled(session))
+                if (cell.isChangeable(session))
                 {
-                    checkBox.select(session);
+                    cell.click(session);
                     return new Result.TickCheckBoxCell.Pass(locator.location);
                 }
                 return new Result.TickCheckBoxCell.NotChangeable(locator.location);
@@ -1274,20 +1189,18 @@ namespace RoboSAPiens {
             }
 
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var checkBox = window.components.findCheckBoxCell(locator, session);
+            var cell = window.components.findCell(locator, session);
             
-            if (checkBox == null) {
+            if (cell == null) {
                 return new Result.UntickCheckBoxCell.NotFound(locator.location);
             }
 
-            if (options.presenterMode) switch(highlightElement(session, checkBox)) {
-                case RobotResult.HighlightFail exceptionError: return exceptionError;
-            }
+            if (options.presenterMode) highlightCell(cell);
 
             try {
-                if (checkBox.isEnabled(session))
+                if (cell.isChangeable(session))
                 {
-                    checkBox.deselect(session);
+                    cell.click(session);
                     return new Result.UntickCheckBoxCell.Pass(locator.location);
                 }
                 return new Result.UntickCheckBoxCell.NotChangeable(locator.location);

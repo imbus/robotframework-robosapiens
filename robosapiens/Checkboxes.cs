@@ -17,13 +17,21 @@ namespace RoboSAPiens {
         string text;
 
         public SAPCheckBox(GuiCheckBox checkBox) {
-            this.defaultTooltip = checkBox.DefaultTooltip;
+            this.defaultTooltip = checkBox.DefaultTooltip.Trim();
             this.id = checkBox.Id;
             this.position = new Position(height: checkBox.Height, 
                                 left: checkBox.ScreenLeft,
                                 top: checkBox.ScreenTop, 
                                 width: checkBox.Width);
             this.text = checkBox.Text;
+        }
+
+        public List<string> getLabels()
+        {
+            return new List<string>
+            {
+                defaultTooltip
+            };
         }
 
         public Position getPosition() {
@@ -92,159 +100,6 @@ namespace RoboSAPiens {
             focused = !focused;
             var guiCheckBox = (GuiCheckBox)session.FindById(id);
             guiCheckBox.Visualize(focused);
-        }
-    }
-
-    public sealed class SAPTableCheckBox: SAPCheckBox, ILocatableCell {
-        string column;
-        int rowIndex;
-        SAPTable table;
-
-        public SAPTableCheckBox(string column, int rowIndex, GuiCheckBox checkBox, SAPTable table): base(checkBox) {
-            this.column = column;
-            this.table = table;
-            this.rowIndex = rowIndex;
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return column == locator.column && locator switch {
-                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => isHLabeled(labelLocator.label) ||
-                                                 inRowOfCell(rowLabels.getByContent(labelLocator.label)),
-                _ => false
-            };
-        }
-
-        private bool inRowOfCell(TextCell? cell) 
-        {
-            return cell switch {
-                TextCell => rowIndex == cell.rowIndex,
-                _ => false
-            };
-        }
-    }
-
-    public sealed class SAPTreeCheckBox: CheckBox, ILocatableCell {
-        string columnName;
-        string columnTitle;
-        string nodeKey;
-        int rowNumber;
-        string treeId;
-
-        public SAPTreeCheckBox(string columnName, string columnTitle, string nodeKey, int rowNumber, string treeId) {
-            this.columnName = columnName;
-            this.columnTitle = columnTitle;
-            this.nodeKey = nodeKey;
-            this.rowNumber = rowNumber;
-            this.treeId = treeId;
-        }
-
-        public override bool isEnabled(GuiSession session)
-        {
-            var tree = (GuiTree)session.FindById(treeId);
-            return tree.GetIsEditable(nodeKey, columnName);
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return columnTitle == locator.column && locator switch {
-                RowCellLocator rowLocator => rowLocator.rowIndex > 0 && rowNumber == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => inRowOfCell(rowLabels.getByContent(labelLocator.label)),
-                _ => false
-            };
-        }
-
-        private bool inRowOfCell(TextCell? cell) 
-        {
-            return cell switch {
-                TextCell => rowNumber == cell.rowIndex,
-                _ => false
-            };
-        }
-
-        public override void select(GuiSession session) {
-            var tree = (GuiTree)session.FindById(treeId);
-            tree.SetCheckBoxState(nodeKey, columnName, 1);
-        }
-
-        public override void deselect(GuiSession session) {
-            var tree = (GuiTree)session.FindById(treeId);
-            tree.SetCheckBoxState(nodeKey, columnName, 0);
-        }
-
-        public override void toggleHighlight(GuiSession session) {
-            focused = !focused;
-            var tree = (GuiTree)session.FindById(treeId);
-            tree.Visualize(focused);
-        }
-    }
-
-    public sealed class SAPGridViewCheckBox: CheckBox, ILocatableCell, ISelectable {
-        string columnId;
-        public HashSet<string> columnTitles;
-        string gridViewId;
-        int rowIndex;
-
-        public SAPGridViewCheckBox(string columnId, GuiGridView gridView, int rowIndex) {
-            this.columnId = columnId;
-            this.columnTitles = new HashSet<string>(){};
-            this.gridViewId = gridView.Id;
-            this.rowIndex = rowIndex;
-
-            // GetDisplayedColumnTitle might not be reliable
-            GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
-            for (int i = 0; i < columnTitles.Length; i++) 
-            {
-                this.columnTitles.Add((string)columnTitles.ElementAt(i));
-            }
-            this.columnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
-        }
-
-        public override bool isEnabled(GuiSession session) 
-        {
-            GuiGridView gridView = (GuiGridView)session.FindById(gridViewId);
-            return gridView.GetCellChangeable(rowIndex, columnId);
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return columnTitles.Contains(locator.column) && locator switch {
-                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => inRowOfCell(rowLabels.getByContent(labelLocator.label)),
-                _ => false
-            };
-        }
-
-        private bool inRowOfCell(TextCell? cell) 
-        {
-            return cell switch {
-                TextCell => rowIndex == cell.rowIndex,
-                _ => false
-            };
-        }
-
-        public override void select(GuiSession session) {
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.ModifyCheckBox(rowIndex, columnId, true);
-            gridView.TriggerModified();
-        }
-
-        public override void deselect(GuiSession session) {
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.ModifyCheckBox(rowIndex, columnId, false);
-            gridView.TriggerModified();   
-        }
-
-        // The innerObject parameter of the Visualize method of GuiGridView
-        // can only take the values "Toolbar" and "Cell(row,column)".
-        // References:
-        // https://community.sap.com/t5/technology-q-a/get-innerobject-for-visualizing/qaq-p/12150835
-        // https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf
-        public override void toggleHighlight(GuiSession session) {
-            focused = !focused;
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.Visualize(focused, $"Cell({rowIndex},{columnId})");
         }
     }
 }

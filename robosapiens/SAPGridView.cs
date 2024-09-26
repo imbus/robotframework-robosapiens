@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using sapfewse;
 
@@ -8,35 +7,136 @@ namespace RoboSAPiens
 {
     public class SAPGridView: ITable
     {
-        List<List<string>> allColumnTitles;
+        CellRepository cells;
+        Dictionary<string, List<string>> columnTitles;
         string id;
         int rowCount;
 
-        public SAPGridView(GuiGridView guiGridView) {
+        Dictionary<string, CellType> cellType = new Dictionary<string, CellType>
+        {
+            {"Button", CellType.Button},
+            {"CheckBox", CellType.CheckBox},
+            {"Normal", CellType.Text},
+            {"ValueList", CellType.ComboBox},
+        };
+
+        public SAPGridView(GuiGridView guiGridView)
+        {
             id = guiGridView.Id;
             rowCount = guiGridView.RowCount;
-            allColumnTitles = getColumnTitles(guiGridView);
+            columnTitles = getColumnTitles(guiGridView);
+            cells = new CellRepository();
         }
 
-        List<List<string>> getColumnTitles(GuiGridView gridView) 
+        public void classifyCells(GuiSession session) 
         {
-            var allColumnTitles = new List<List<string>>();
+            var gridView = (GuiGridView)session.FindById(id);
+            var columnCount = gridView.ColumnCount;
+            var firstVisibleRow = gridView.FirstVisibleRow;
+            var visibleRowCount = gridView.VisibleRowCount;
+            var columnIds = (GuiCollection)gridView.ColumnOrder;
+
+            for (int row = firstVisibleRow; row < firstVisibleRow + visibleRowCount; row++) 
+            {
+                for (int column = 0; column < columnCount; column++) 
+                {
+                    var columnId = (string)columnIds.ElementAt(column);
+                    string type;
+                    try {
+                        type = gridView.GetCellType(row, columnId);
+                    }
+                    // When a row is empty an exception is thrown
+                    catch (Exception) {
+                        continue;
+                    }
+
+                    if (cellType.ContainsKey(type))
+                    {
+                        var labels = new List<string>
+                        {
+                            gridView.GetCellTooltip(row, columnId),
+                            gridView.GetCellValue(row, columnId),
+                        };
+
+                        var cell = new GridViewCell(
+                            row, 
+                            columnId, 
+                            columnTitles[columnId], 
+                            cellType[type], 
+                            labels,
+                            id
+                        );
+                        cells.Add(cell);
+                    }
+                }
+            }
+        }
+
+        public Cell? findCell(ILocator locator, GuiSession session)
+        {
+            if (rowCountChanged(session))
+            {
+                rowCount = getNumRows(session);
+                cells = new CellRepository();
+            }
+            if (cells.Count == 0) classifyCells(session);
+            
+            switch(locator)
+            {
+                case Content(string content):
+                    return cells.findCellByContent(content);
+
+                case RowColumnLocator(int rowIndex, string column):
+                    int rowIndex0 = rowIndex - 1;
+                    if (rowIndex > rowCount) return null;
+                    if (rowIsAbove(session, rowIndex0)) return null;
+                    if (!hasColumn(column)) return null;
+                    if (rowIsBelow(session, rowIndex0))
+                    {
+                        if (scrollOnePage(session))
+                        {
+                            cells = new CellRepository();
+                            return findCell(locator, session);
+                        }
+                    }
+                    return cells.findCellByRowAndColumn(rowIndex0, column);
+                    
+                case LabelColumnLocator(string label, string column):
+                    if (!hasColumn(column)) return null;
+                    var cell = cells.findCellByLabelAndColumn(label, column);
+                    if (cell != null) return cell;
+                    if (scrollOnePage(session))
+                    {
+                        cells = new CellRepository();
+                        return findCell(locator, session);
+                    }
+                    return null;
+
+                default:
+                    return null;
+            }
+        }
+
+        Dictionary<string, List<string>> getColumnTitles(GuiGridView gridView) 
+        {
+            var allColumnTitles = new Dictionary<string, List<string>>();
             var columnCount = gridView.ColumnCount;
             var columnIds = (GuiCollection)gridView.ColumnOrder;
 
             for (int column = 0; column < columnCount; column++) 
             {
-                var thisColumnTitles = new List<string>();
                 var columnId = (string)columnIds.ElementAt(column);
-                thisColumnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
+                var thisColumnTitles = new HashSet<string>();
 
                 GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
                 for (int i = 0; i < columnTitles.Length; i++) 
                 {
-                    thisColumnTitles.Add((string)columnTitles.ElementAt(i));
+                    var columnTitle = (string)columnTitles.ElementAt(i);
+                    thisColumnTitles.Add(columnTitle.Trim());
                 }
+                thisColumnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
 
-                allColumnTitles.Add(thisColumnTitles);
+                allColumnTitles.Add(columnId, thisColumnTitles.ToList());
             }
 
             return allColumnTitles;
@@ -48,46 +148,9 @@ namespace RoboSAPiens
             return gridView.RowCount;
         }
 
-        public void classifyCells(GuiSession session, CellRepository repo) 
+        public bool hasColumn(string column)
         {
-            var gridView = (GuiGridView)session.FindById(id);
-            var columnCount = gridView.ColumnCount;
-            var firstRow = gridView.FirstVisibleRow;
-            var rowCount = gridView.VisibleRowCount;
-            var columnIds = (GuiCollection)gridView.ColumnOrder;
-
-            for (int row = firstRow; row < firstRow + rowCount; row++) 
-            {
-                for (int column = 0; column < columnCount; column++) 
-                {
-                    var columnId = (string)columnIds.ElementAt(column);
-                    string type;
-                    
-                    try {
-                        type = gridView.GetCellType(row, columnId);
-                    }
-                    // When a row is empty an exception is thrown
-                    catch (Exception) {
-                        continue;
-                    }
-
-                    switch (type) 
-                    {
-                        case "Button":
-                            repo.buttons.Add(new SAPGridViewButton(columnId, gridView, row));
-                            break;
-                        case "CheckBox":
-                            repo.checkBoxes.Add(new SAPGridViewCheckBox(columnId, gridView, row));
-                            break;
-                        case "Normal":
-                            repo.textCells.Add(new SAPGridViewCell(columnId, gridView, row));
-                            break;
-                        case "ValueList":
-                            repo.comboBoxes.Add(new GridViewValueList(columnId, gridView, row));
-                            break;
-                    }
-                }
-            }
+            return columnTitles.Values.SelectMany(x => x).ToHashSet().Contains(column);
         }
 
         public void pressKey(string key, GuiSession session) 
@@ -98,31 +161,11 @@ namespace RoboSAPiens
             if (key == "F4") guiGridView.PressF4();
         }
 
-        public void selectRow(int rowIdx, GuiSession session)
-        {
-            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
-            guiGridView.CurrentCellRow = rowIdx;
-            guiGridView.SelectedRows = rowIdx.ToString();
-        }
-
-        public bool scrollOnePage(GuiSession session)
-        {
-            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
-
-            if (guiGridView.FirstVisibleRow + guiGridView.VisibleRowCount < guiGridView.RowCount)
-            {
-                guiGridView.FirstVisibleRow += guiGridView.VisibleRowCount;
-                return true;
-            }
-
-            return false;
-        }
-
         public void print()
         {
             Console.WriteLine();
             Console.WriteLine($"Rows: {rowCount}");
-            Console.Write("Columns: " + string.Join(", ", allColumnTitles.Select(columnTitles => $"[{string.Join(", ", columnTitles)}]")));
+            Console.Write("Columns: " + string.Join(", ", columnTitles.Values.Select(columns => "[" + string.Join(", ", columns) + "]")));
         }
 
         public bool rowCountChanged(GuiSession session)
@@ -144,9 +187,24 @@ namespace RoboSAPiens
             return rowIndex > lastRow;
         }
 
-        public bool hasColumn(string column)
+        public bool scrollOnePage(GuiSession session)
         {
-            return allColumnTitles.SelectMany(columnTitles => columnTitles).ToImmutableHashSet().Contains(column);
+            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
+
+            if (guiGridView.FirstVisibleRow + guiGridView.VisibleRowCount < guiGridView.RowCount)
+            {
+                guiGridView.FirstVisibleRow += guiGridView.VisibleRowCount;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void selectRow(int rowIdx, GuiSession session)
+        {
+            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
+            guiGridView.CurrentCellRow = rowIdx;
+            guiGridView.SelectedRows = rowIdx.ToString();
         }
     }
 }

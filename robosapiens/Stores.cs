@@ -10,10 +10,6 @@ namespace RoboSAPiens {
                 _ => null
             };
         }
-
-        public Button? get(CellLocator locator, TextCellStore rowLabels) {
-            return getCell(locator, rowLabels);
-        }
     }
 
     public sealed class CheckBoxStore: ComponentRepository<CheckBox> {
@@ -30,10 +26,6 @@ namespace RoboSAPiens {
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
                 _ => null
             };
-        }
-
-        public CheckBox? get(CellLocator locator, TextCellStore rowLabels) {
-            return getCell(locator, rowLabels);
         }
     }
 
@@ -88,20 +80,6 @@ namespace RoboSAPiens {
 
     public sealed class TableStore: Repository<ITable> {}
 
-    public sealed class TextCellStore: Repository<TextCell> {
-        public TextCell? getByContent(string text) {
-            return Find(cell => cell.contains(text));
-        }
-
-        public TextCell? get(ILocator locator) {
-            return locator switch {
-                Content(var content) => getByContent(content),
-                CellLocator cellLocator => filterBy<ILocatableCell>().Find(cell => cell.isLocated(cellLocator, this)) as TextCell,
-                _ => null
-            };
-        }
-    }
-
     public sealed class TextFieldStore: TextFieldRepository {
         public SAPTextField? get(ILocator locator, LabelStore labels, BoxStore boxes) {
             return getTextField(locator, labels, boxes);
@@ -109,6 +87,4 @@ namespace RoboSAPiens {
     }
 
     public sealed class TreeElementStore: ContainerRepository<SAPTreeElement> {}
-
-    public sealed class TreeStore: Repository<SAPTree> {}
 }

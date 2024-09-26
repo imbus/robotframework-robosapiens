@@ -8,19 +8,19 @@ namespace RoboSAPiens {
         {
             int index;
             if (Int32.TryParse(rowIndexOrLabel, out index)) {
-                return new RowCellLocator(rowIndex: index, column: column);
+                return new RowColumnLocator(rowIndex: index, column: column);
             } 
             else {
                 // If the label is a number it must be quoted, so that it is not interpreted as a row number
                 string label = rowIndexOrLabel.Trim('"');
-                return new LabelCellLocator(label: label, column: column);
+                return new LabelColumnLocator(label: label, column: column);
             }
         }
     }
 
-    public record RowCellLocator(int rowIndex, string column): CellLocator(column, $"{rowIndex}, {column}");
+    public record RowColumnLocator(int rowIndex, string column): CellLocator(column, $"{rowIndex}, {column}");
 
-    public record LabelCellLocator(string label, string column): CellLocator(column, $"{label}, {column}");
+    public record LabelColumnLocator(string label, string column): CellLocator(column, $"{label}, {column}");
 
     public abstract class ComponentLocator {
         public string atLocation;

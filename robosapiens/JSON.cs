@@ -7,8 +7,11 @@ using System.Text.Json.Serialization;
 
 namespace RoboSAPiens
 {
+    [JsonSerializable(typeof(TableCell))]
+    [JsonSerializable(typeof(GridViewCell))]
+    [JsonSerializable(typeof(TreeCell))]
     [JsonSerializable(typeof(List<FormField>))]
-    [JsonSerializable(typeof(List<SAPTree.Node>))]
+    [JsonSerializable(typeof(List<TreeNode>))]
     [JsonSerializable(typeof(StatusbarMessage))]
     [JsonSerializable(typeof(SessionInfo))]
     [JsonSerializable(typeof(RobotResult))]

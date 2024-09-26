@@ -1,0 +1,258 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using sapfewse;
+
+namespace RoboSAPiens
+{
+    public enum CellType
+    {
+        Button,
+        CheckBox,
+        ComboBox,
+        RadioButton,
+        Text
+    }
+    
+    public abstract record Cell(
+        int rowIndex, 
+        List<string> columnTitles,
+        CellType type, 
+        List<string> labels
+    )
+    {
+        protected bool focused = false;
+        public abstract void click(GuiSession session);
+        public abstract void doubleClick(GuiSession session);
+        public abstract string getValue(GuiSession session);
+        public abstract void highlight(GuiSession session);
+        public abstract bool isChangeable(GuiSession session);
+        public abstract void setValue(string value, GuiSession session);
+
+        public bool inColumn(string column)
+        {
+            return columnTitles.Any(title => title.Equals(column));
+        }
+
+        public bool inRow(int row)
+        {
+            return row == rowIndex;
+        }
+
+        public bool isLabeled(string label)
+        {
+            return labels.Any(l => l.Equals(label) || l.StartsWith(label));
+        }
+
+        public bool isTextCell()
+        {
+            return type == CellType.Text;
+        }
+
+        public sealed override string ToString()
+        {
+            return JSON.serialize(this, GetType());
+        }
+    }
+
+    public record GridViewCell(
+        int rowIndex,
+        string columnId,
+        List<string> columnTitles,
+        CellType type,
+        List<string> labels,
+        string gridViewId
+    ): Cell(rowIndex, columnTitles, type, labels)
+    {
+        public override void click(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+
+            switch(type)
+            {
+                case CellType.Button:
+                    gridView.PressButton(rowIndex, columnId);
+                    break;
+                case CellType.CheckBox:
+                    var checkBoxState = gridView.GetCellCheckBoxChecked(rowIndex, columnId);
+                    gridView.ModifyCheckBox(rowIndex, columnId, !checkBoxState);
+                    break;
+                case CellType.Text:
+                    gridView.SetCurrentCell(rowIndex, columnId);
+                    gridView.SelectedRows = rowIndex.ToString();
+                    break;
+            }
+        }
+
+        public override void doubleClick(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.DoubleClick(rowIndex, columnId);
+        }
+
+        public override string getValue(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetCellValue(rowIndex, columnId);
+        }
+
+        // The innerObject parameter of the Visualize method of GuiGridView
+        // can only take the values "Toolbar" and "Cell(row,column)".
+        // References:
+        // https://community.sap.com/t5/technology-q-a/get-innerobject-for-visualizing/qaq-p/12150835
+        // https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf
+
+        public override void highlight(GuiSession session)
+        {
+            focused = !focused;
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.Visualize(focused, $"Cell({rowIndex},{columnId})");
+        }
+
+        public override bool isChangeable(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            return gridView.GetCellChangeable(rowIndex, columnId);
+        }
+
+        public override void setValue(string value, GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.ModifyCell(rowIndex, columnId, value);
+        }
+    }
+
+    public record TableCell(
+        int rowIndex,
+        string id,
+        List<string> columnTitles,
+        CellType type,
+        List<string> labels,
+        string tableId
+    ): Cell(rowIndex, columnTitles, type, labels)
+    {
+        public override void click(GuiSession session)
+        {
+            var cell = session.FindById(id);
+            switch(type)
+            {
+                case CellType.Button:
+                    new SAPButton((GuiButton)cell).push(session);
+                    break;
+                case CellType.CheckBox:
+                    new SAPCheckBox((GuiCheckBox)cell).select(session);
+                    break;
+                case CellType.Text:
+                    new SAPTextField((GuiTextField)cell).select(session);
+                    break;
+                case CellType.RadioButton:
+                    new SAPRadioButton((GuiRadioButton)cell).select(session);
+                    break;
+            }
+        }
+
+        public override void doubleClick(GuiSession session)
+        {
+            var cell = session.FindById(id);
+            switch(type)
+            {
+                case CellType.Text:
+                    new SAPTextField((GuiTextField)cell).doubleClick(session);
+                    break;
+            }
+        }
+
+        public override string getValue(GuiSession session)
+        {
+            var cell = session.FindById(id);
+            
+            return type switch
+            {
+                CellType.Text => new SAPTextField((GuiTextField)cell).getText(session),
+                CellType.ComboBox => new SAPComboBox((GuiComboBox)cell).getText(session),
+                _ => throw new NotImplementedException()
+            };
+        }
+
+        public override void highlight(GuiSession session)
+        {
+            focused = !focused;
+            ((GuiVComponent)session.FindById(id)).Visualize(focused);
+        }
+
+        public override bool isChangeable(GuiSession session)
+        {
+            return ((GuiVComponent)session.FindById(id)).Changeable;
+        }
+
+        public override void setValue(string value, GuiSession session)
+        {
+            var cell = session.FindById(id);
+            switch(type)
+            {
+                case CellType.Text:
+                    new SAPTextField((GuiTextField)cell).insert(value, session);
+                    break;
+                case CellType.ComboBox:
+                    new SAPComboBox((GuiComboBox)cell).setValue(value, session);
+                    break;
+            }
+        }
+    }
+
+    public record TreeCell(
+        int rowIndex,
+        string textPath,
+        string nodeKey,
+        string columnName,
+        List<string> columnTitles,
+        CellType type,
+        List<string> labels,
+        string treeId
+    ) : Cell(rowIndex, columnTitles, type, labels)
+    {
+        public override void click(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+
+            switch(type)
+            {
+                case CellType.Button:
+                    tree.PressButton(nodeKey, columnName);
+                    break;
+                case CellType.CheckBox:
+                    var checkBoxState = tree.GetCheckBoxState(nodeKey, columnName);
+                    tree.ChangeCheckbox(nodeKey, columnName, !checkBoxState);
+                    break;
+            }
+        }
+
+        public override void doubleClick(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            tree.DoubleClickItem(nodeKey, columnName);
+        }
+
+        public override string getValue(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            return tree.GetItemText(nodeKey, columnName);
+        }
+
+        public override void highlight(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            tree.SelectItem(nodeKey, columnName);
+        }
+
+        public override bool isChangeable(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            return !tree.GetIsDisabled(nodeKey, columnName);
+        }
+
+        public override void setValue(string value, GuiSession session)
+        {
+        }
+    }
+}

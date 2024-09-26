@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using sapfewse;
 
 namespace RoboSAPiens {
@@ -22,8 +23,16 @@ namespace RoboSAPiens {
                                          top: radioButton.ScreenTop, 
                                          width: radioButton.Width);
             this.text = radioButton.Text;
-            this.tooltip = radioButton.DefaultTooltip;
+            this.tooltip = radioButton.DefaultTooltip.Trim();
             this.vLabel = getVLabel(radioButton);
+        }
+
+        public List<string> getLabels()
+        {
+            return new List<string>
+            {
+                tooltip
+            };
         }
 
         public string getVLabel(GuiRadioButton radioButton)

@@ -18,7 +18,7 @@ namespace RoboSAPiens {
         protected string tooltip;
 
         public SAPButton(GuiButton button) {
-            this.defaultTooltip = Regex.Replace(button.DefaultTooltip, @"\s\s+", " ");
+            this.defaultTooltip = Regex.Replace(button.DefaultTooltip, @"\s\s+", " ").Trim();
             this.focused = false;
             this.id = button.Id;
             this.position = new Position(height: button.Height, 
@@ -27,7 +27,17 @@ namespace RoboSAPiens {
                                 width: button.Width
                             );
             this.text = button.Text.Trim();
-            this.tooltip = Regex.Replace(button.Tooltip, @"\s\s+", " ");
+            this.tooltip = Regex.Replace(button.Tooltip, @"\s\s+", " ").Trim();
+        }
+
+        public List<string> getLabels()
+        {
+            return new List<string>
+            {
+                defaultTooltip,
+                text,
+                tooltip
+            };
         }
 
         public override bool isEnabled(GuiSession session)
@@ -89,111 +99,6 @@ namespace RoboSAPiens {
         public Position getPosition()
         {
             return position;
-        }
-    }
-
-    public sealed class SAPTableButton: SAPButton, ILocatableCell {
-        string column;
-        int rowIndex;
-        SAPTable table;
-
-        public SAPTableButton(string column, int rowIndex, GuiButton button, SAPTable table): base(button) {
-            this.column = column;
-            this.rowIndex = rowIndex;
-            this.table = table;
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return column == locator.column && locator switch {
-                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => isHLabeled(labelLocator.label) ||
-                                                 inRowOfCell(rowLabels.getByContent(labelLocator.label)),
-                _ => false
-            };
-        }
-
-        private bool inRowOfCell(TextCell? cell) 
-        {
-            return cell switch {
-                TextCell => rowIndex == cell.rowIndex,
-                _ => false
-            };
-        }
-
-        public override void push(GuiSession session) {
-            table.selectRow(rowIndex, session);
-            var tableButton = (GuiButton)session.FindById(id);
-            tableButton.Press();
-        }
-    }
-
-    public sealed class SAPGridViewButton: Button, ILocatableCell {
-        string columnId;
-        public HashSet<string> columnTitles;
-        string gridViewId;
-        int rowIndex;
-        string tooltip;
-
-        public SAPGridViewButton(string columnId, GuiGridView gridView, int rowIndex) {
-            this.columnId = columnId;
-            this.columnTitles = new HashSet<string>(){};
-            this.gridViewId = gridView.Id;
-            // this.buttonId = buttonId;
-            this.rowIndex = rowIndex;
-            this.tooltip = gridView.GetCellTooltip(rowIndex, columnId);
-
-            // GetDisplayedColumnTitle might not be reliable
-            GuiCollection columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
-            for (int i = 0; i < columnTitles.Length; i++) 
-            {
-                this.columnTitles.Add((string)columnTitles.ElementAt(i));
-            }
-            this.columnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
-        }
-
-        public override bool isEnabled(GuiSession session) 
-        {
-            // gridView.GetCellChangeable is not reliable
-            return true;
-        }
-
-        public bool isLabeled(string label) {
-            return label == tooltip;
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return columnTitles.Contains(locator.column) && locator switch {
-                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => isLabeled(labelLocator.label) || 
-                                                 inRowOfCell(rowLabels.getByContent(labelLocator.label)),
-                _ => false
-            };
-        }
-
-        private bool inRowOfCell(TextCell? cell) 
-        {
-            return cell switch {
-                TextCell => rowIndex == cell.rowIndex,
-                _ => false
-            };
-        }
-
-        public override void push(GuiSession session) {
-            GuiGridView gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.PressButton(rowIndex, columnId);
-        }
-
-        // The innerObject parameter of the Visualize method of GuiGridView
-        // can only take the values "Toolbar" and "Cell(row,column)".
-        // References:
-        // https://community.sap.com/t5/technology-q-a/get-innerobject-for-visualizing/qaq-p/12150835
-        // https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf
-        public override void toggleHighlight(GuiSession session) {
-            focused = !focused;
-            var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.Visualize(focused, $"Cell({rowIndex},{columnId})");
         }
     }
 
@@ -329,99 +234,6 @@ namespace RoboSAPiens {
         public override void push(GuiSession session) {
             var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
             toolbar.PressButton(id);
-        }
-
-        public override void toggleHighlight(GuiSession session)
-        {
-        }
-    }
-
-    public sealed class SAPTreeButton: Button, ILocatableCell {
-        string columnName;
-        string columnTitle;
-        string nodeKey;
-        string label;
-        int rowNumber;
-        string treeId;
-
-        public SAPTreeButton(string columnName, string columnTitle, string label, string nodeKey, int rowNumber, string treeId) {
-            this.columnName = columnName;
-            this.columnTitle = columnTitle;
-            this.nodeKey = nodeKey;
-            this.label = label;
-            this.rowNumber = rowNumber;
-            this.treeId = treeId;
-        }
-
-        public override bool isEnabled(GuiSession session)
-        {
-            var tree = (GuiTree)session.FindById(treeId);
-            return !tree.GetIsDisabled(nodeKey, columnName);
-        }
-
-        public bool isLabeled(string label) {
-            return this.label == label;
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return columnTitle == locator.column && locator switch {
-                RowCellLocator rowLocator => rowLocator.rowIndex > 0 && rowNumber == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => isLabeled(labelLocator.label),
-                _ => false
-            };
-        }
-
-        public override void push(GuiSession session) {
-            var tree = (GuiTree)session.FindById(treeId);
-            tree.PressButton(nodeKey, columnName);
-        }
-
-        public override void toggleHighlight(GuiSession session)
-        {
-        }
-    }
-
-    public sealed class SAPTreeLink: Button, ILocatableCell {
-        string columnName;
-        string columnTitle;
-        string nodeKey;
-        int rowIndex;
-        string text;
-        string tooltip;
-        string treeId;
-
-        public SAPTreeLink(string columnName, string columnTitle, string text, string tooltip, string nodeKey, int rowNumber, string treeId) {
-            this.columnName = columnName;
-            this.columnTitle = columnTitle;
-            this.nodeKey = nodeKey;
-            this.rowIndex = rowNumber;
-            this.text = text;
-            this.tooltip = tooltip;
-            this.treeId = treeId;
-        }
-
-        public override bool isEnabled(GuiSession session)
-        {
-            return true;
-        }
-
-        public bool isLabeled(string label) {
-            return this.tooltip == label || this.text == label;
-        }
-
-        public bool isLocated(CellLocator locator, TextCellStore rowLabels) 
-        {
-            return columnTitle == locator.column && locator switch {
-                RowCellLocator rowLocator => rowIndex == rowLocator.rowIndex - 1,
-                LabelCellLocator labelLocator => isLabeled(labelLocator.label),
-                _ => false
-            };
-        }
-
-        public override void push(GuiSession session) {
-            var tree = (GuiTree)session.FindById(treeId);
-            tree.ClickLink(nodeKey, columnName);
         }
 
         public override void toggleHighlight(GuiSession session)

@@ -4,7 +4,18 @@ using System.Collections.Generic;
 using System;
 
 namespace RoboSAPiens {
-    public class SAPTextField: ILabeled, ILocatable, ITextElement, IHighlightable {
+    public abstract class TextField: ITextElement
+    {
+        protected bool focused;
+        public abstract bool contains(string entry);
+        public abstract string getText(GuiSession session);
+        public abstract void insert(string entry, GuiSession session);
+        public abstract bool isChangeable(GuiSession session);
+        public abstract void select(GuiSession session);
+        public abstract void toggleHighlight(GuiSession session);
+    }
+
+    public class SAPTextField: TextField, ILabeled, ILocatable {
         const int maxHorizontalDistance = 22;
         const int maxVerticalDistance = 20;
         const int overlapTolerance = 3;
@@ -13,7 +24,6 @@ namespace RoboSAPiens {
         public string hLabel;
         public string vLabel;
         public bool changeable;
-        protected bool focused;
         List<SAPTextField> grid;
         public string name;
         public Position position {get;}
@@ -40,6 +50,20 @@ namespace RoboSAPiens {
             this.width = textField.Width;
         }
 
+        public List<string> getLabels()
+        {
+            return new List<string>(tooltips)
+            {
+                text
+            };
+        }
+
+        public void doubleClick(GuiSession session)
+        {
+            select(session);
+            session.ActiveWindow.SendVKey((int)VKeys.getKeyCombination("F2")!);
+        }
+
         // To Do: Factor out this common function
         Tuple<string, string> getLabel(GuiTextField textField) {
             var leftLabel = textField.LeftLabel;
@@ -58,7 +82,7 @@ namespace RoboSAPiens {
             return new Tuple<string, string>("", "");
         }
 
-    	public bool contains(string content) {
+    	public override bool contains(string content) {
             return text.Equals(content);
         }
 
@@ -136,7 +160,7 @@ namespace RoboSAPiens {
             return position;
         }
 
-        public string getText(GuiSession session) {
+        public override string getText(GuiSession session) {
             var guiTextField = (GuiTextField)session.FindById(id);
             return guiTextField.Text;
         }
@@ -156,13 +180,13 @@ namespace RoboSAPiens {
             tooltips.Any(t => t.StartsWith(tooltip));
         }
 
-        public void insert(string content, GuiSession session) {
+        public override void insert(string content, GuiSession session) {
             var guiTextField = (GuiTextField)session.FindById(id);
             guiTextField.Text = content;
             text = content;
         }
 
-        public bool isChangeable(GuiSession session) {
+        public override bool isChangeable(GuiSession session) {
             var guiTextField = (GuiTextField)session.FindById(id);
             return guiTextField.Changeable;
         }
@@ -223,12 +247,12 @@ namespace RoboSAPiens {
             };
         }
 
-        public void select(GuiSession session) {
+        public override void select(GuiSession session) {
             var guiTextField = (GuiTextField)session.FindById(id);
             guiTextField.SetFocus();
         }
 
-        public void toggleHighlight(GuiSession session){
+        public override void toggleHighlight(GuiSession session){
             focused = !focused;
             var guiTextField = (GuiTextField)session.FindById(id);
             guiTextField.Visualize(focused);

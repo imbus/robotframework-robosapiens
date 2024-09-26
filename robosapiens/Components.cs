@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using sapfewse;
 
 
@@ -10,7 +9,6 @@ namespace RoboSAPiens {
         BoxStore boxes = new BoxStore();
         ButtonStore buttons = new ButtonStore();
         CheckBoxStore checkBoxes = new CheckBoxStore();
-        CellRepository cellRepository = new CellRepository();
         ComboBoxStore comboBoxes = new ComboBoxStore();
         LabelStore labels = new LabelStore();
         MenuItemStore menuItems = new MenuItemStore();
@@ -21,7 +19,6 @@ namespace RoboSAPiens {
         TableStore tables = new TableStore();
         TextFieldStore textFields = new TextFieldStore();
         ButtonStore toolbarButtons = new ButtonStore();
-        TreeStore trees = new TreeStore();
         HorizontalScrollbar? horizontalScrollbar = null;
         VerticalScrollbar? verticalScrollbar = null;
         private bool debug;
@@ -148,7 +145,7 @@ namespace RoboSAPiens {
                 case "Tree":
                     var guiTree = (GuiTree)guiShell;
                     var sapTree = new SAPTree(guiTree);
-                    this.trees.Add(sapTree);
+                    this.tables.Add(sapTree);
                     if (debug) sapTree.print();
                     break;
                 case "TextEdit":
@@ -292,16 +289,6 @@ namespace RoboSAPiens {
             }
         }
 
-        public void updateTable(GuiSession session, ITable table) {
-            table.classifyCells(session, cellRepository);
-        }
-
-        public void updateTables(GuiSession session)
-        {
-            tables.ForEach(table => table.classifyCells(session, cellRepository));
-            trees.ForEach(tree => tree.classifyCells(session, cellRepository));
-        }
-
         public Button? findButton(ButtonLocator button) {
             return buttons.get(button.locator,  labels, textFields) ?? 
                    toolbarButtons.get(button.locator,  labels, textFields);
@@ -334,53 +321,27 @@ namespace RoboSAPiens {
         public SAPTextField? findTextField(TextFieldLocator textField) {
             return textFields.get(textField.locator, labels, boxes);
         }
-
-        public Button? findButtonCell(CellLocator locator, GuiSession session) 
-        {
-            if (cellRepository.isEmpty()) {
-                updateTables(session);
-            }
-
-            return cellRepository.findButtonCell(locator);
-        }
-
-        public CheckBox? findCheckBoxCell(CellLocator locator, GuiSession session) 
-        {
-            if (cellRepository.isEmpty()) {
-                updateTables(session);
-            }
-
-            return cellRepository.findCheckBoxCell(locator);
-        }
-
-        public ComboBox? findComboBoxCell(CellLocator locator, GuiSession session) 
-        {
-            if (cellRepository.isEmpty()) {
-                updateTables(session);
-            }
-
-            return cellRepository.findComboBoxCell(locator);
-        }
-
-        public TextCell? findTextCell(ILocator locator, GuiSession session) 
-        {
-            if (cellRepository.isEmpty()) {
-                updateTables(session);
-            }
-
-            return cellRepository.findTextCell(locator);
-        }
         
-        public SAPTreeElement? findTreeElement(string elementPath, GuiSession session) {
-            var tree = getTree();
+        public Cell? findCell(ILocator locator, GuiSession session)
+        {
+            foreach (var table in getTables())
+            {
+                var cell = table.findCell(locator, session);
+                if (cell != null) return cell;
+            }
 
-            if (tree == null) return null;
+            return null;
+        }
 
-            if (cellRepository.isEmpty()) {
-                tree.classifyCells(session, cellRepository);
+        public SAPTreeElement? findTreeElement(string elementPath, GuiSession session)
+        {
+            foreach (var tree in getTrees())
+            {
+                var treeElement = tree.findTreeElement(elementPath, session);
+                if (treeElement != null) return treeElement;
             }
             
-            return tree.findTreeElement(elementPath);
+            return null;
         }
 
         public List<SAPButton> getAllButtons() {
@@ -424,8 +385,8 @@ namespace RoboSAPiens {
             return tables;
         }
 
-        public SAPTree? getTree() {
-            return trees.FirstOrDefault();
+        public List<SAPTree> getTrees() {
+            return tables.filterBy<SAPTree>();
         }
     }
 

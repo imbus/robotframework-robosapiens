@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using sapfewse;
 
@@ -11,45 +10,12 @@ namespace RoboSAPiens
         string nodePath;
         string textPath;
 
-        public SAPTreeElement(GuiTree guiTree, string nodeKey, string path)
+        public SAPTreeElement(GuiTree guiTree, string nodeKey, string path, string textPath)
         {
             treeId = guiTree.Id;
             this.nodeKey = nodeKey;
             nodePath = path;
-            var text = getText(guiTree, nodeKey);
-            textPath = getTextPath(guiTree, path, text);
-        }
-
-        private string getText(GuiTree tree, string nodeKey)
-        {
-            var treeType = (TreeType)tree.GetTreeType();
-            if (treeType == TreeType.List) 
-            {
-                var texts = new List<string>();
-                for (int i = 1; i < tree.GetListTreeNodeItemCount(nodeKey)+1; i++)
-                {
-                    var itemText = tree.GetItemText(nodeKey, i.ToString());
-                    if (itemText != null && itemText.Trim() != "") {
-                        texts.Add(itemText.Replace("/", "|"));
-                    }
-                }
-                return string.Join(" ", texts);
-            }
-
-            return tree.GetNodeTextByKey(nodeKey);
-        }
-
-        private string getTextPath(GuiTree guiTree, string path, string textPath)
-        {
-            var parentPath = SAPTree.getParentPath(path);
-
-            if (parentPath == "ROOT") {
-                return textPath;
-            }
-            else {
-                var parentText = getText(guiTree, guiTree.GetNodeKeyByPath(parentPath));
-                return getTextPath(guiTree, parentPath, $"{parentText}/{textPath}");
-            }
+            this.textPath = textPath;
         }
 
         public void doubleClick(GuiSession session) 
