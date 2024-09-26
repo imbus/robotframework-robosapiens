@@ -622,7 +622,7 @@ lib: RoboSAPiens = {
                 """
             }
         },
-        "FillTableCell": {
+        "FillCell": {
             "name": "Fill Cell",
             "args": {
                 "a1row_locator": {
@@ -955,7 +955,7 @@ lib: RoboSAPiens = {
                 """
             }
         },
-        "ReadTableCell": {
+        "ReadCell": {
             "name": "Read Cell",
             "args": {
                 "a1row_locator": {

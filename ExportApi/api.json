@@ -315,7 +315,7 @@
         "examples": ""
       }
     },
-    "FillTableCell": {
+    "FillCell": {
       "name": "Tabellenzelle ausfüllen",
       "args": {
         "row_locator": {
@@ -587,7 +587,7 @@
         "examples": ""
       }
     },
-    "ReadTableCell": {
+    "ReadCell": {
       "name": "Tabellenzelle auslesen",
       "args": {
         "row_locator": {

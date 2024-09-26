@@ -156,7 +156,7 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Maske konnte nicht exportiert werden.");
         }
 
-        public record FillTableCell {
+        public record FillCell {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist schreibgeschützt.");
@@ -254,7 +254,7 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Text konnte nicht ausgelesen werden.");
         }
 
-        public record ReadTableCell {
+        public record ReadCell {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");

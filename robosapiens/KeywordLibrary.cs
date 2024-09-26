@@ -36,7 +36,7 @@ namespace RoboSAPiens
                 {"ExecuteTransaction", args => ExecuteTransaction(args[0])},
                 {"ExportTree", args => ExportTree(args[0])},
                 {"ExportWindow", args => ExportWindow(args[0], args[1])},
-                {"FillTableCell", args => FillTableCell(args[0], args[1], args[2])},
+                {"FillCell", args => FillCell(args[0], args[1], args[2])},
                 {"FillTextEdit", args => FillTextEdit(args[0])},
                 {"FillTextField", args => FillTextField(args[0], args[1])},
                 {"GetWindowText", args => GetWindowText()},
@@ -48,7 +48,7 @@ namespace RoboSAPiens
                 {"PushButtonCell", args => PushButtonCell(args[0], args[1])},
                 {"ReadComboBoxEntry", args => ReadComboBoxEntry(args[0])},
                 {"ReadStatusbar", args => ReadStatusbar()},
-                {"ReadTableCell", args => ReadTableCell(args[0], args[1])},
+                {"ReadCell", args => ReadCell(args[0], args[1])},
                 {"ReadText", args => ReadText(args[0])},
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
@@ -488,10 +488,10 @@ namespace RoboSAPiens
              "Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n" +
              "*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. " +
              "In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")]
-        public RobotResult FillTableCell(string row_locator, string column, string content) {
+        public RobotResult FillCell(string row_locator, string column, string content) {
             return session switch {
-                SAPSession session => session.fillTableCell(row_locator, column, content),
-                _ => new Result.FillTableCell.NoSession()
+                SAPSession session => session.fillCell(row_locator, column, content),
+                _ => new Result.FillCell.NoSession()
             };
         }
 
@@ -633,10 +633,10 @@ namespace RoboSAPiens
          Doc("Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n" +
              "| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
-        public RobotResult ReadTableCell(string row_locator, string column) {
+        public RobotResult ReadCell(string row_locator, string column) {
             return session switch {
-                SAPSession session => session.readTableCell(row_locator, column),
-                _ => new Result.ReadTableCell.NoSession()
+                SAPSession session => session.readCell(row_locator, column),
+                _ => new Result.ReadCell.NoSession()
             };
         }
 

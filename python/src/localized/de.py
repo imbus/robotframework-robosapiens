@@ -639,7 +639,7 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
-        "FillTableCell": {
+        "FillCell": {
             "name": ("1010164935", "Tabellenzelle ausfüllen"),
             "args": {
               "a1row_locator": {
@@ -959,7 +959,7 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
-        "ReadTableCell": {
+        "ReadCell": {
             "name": ("389153112", "Tabellenzelle auslesen"),
             "args": {
               "a1row_locator": {

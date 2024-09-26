@@ -404,7 +404,7 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult fillTableCell(string rowIndexOrLabel, string column, string content) {
+        public RobotResult fillCell(string rowIndexOrLabel, string column, string content) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
@@ -413,7 +413,7 @@ namespace RoboSAPiens {
             var cell = window.components.findCell(locator, session);
 
             if (cell == null) {
-                return new Result.FillTableCell.NotFound(locator.location);
+                return new Result.FillCell.NotFound(locator.location);
             }
 
             if (options.presenterMode) highlightCell(cell);
@@ -422,13 +422,13 @@ namespace RoboSAPiens {
                 if (cell.isChangeable(session))
                 {
                     cell.setValue(content, session);
-                    return new Result.FillTableCell.Pass(locator.location);
+                    return new Result.FillCell.Pass(locator.location);
                 }
-                return new Result.FillTableCell.NotChangeable(locator.location);
+                return new Result.FillCell.NotChangeable(locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
-                return new Result.FillTableCell.Exception(e);
+                return new Result.FillCell.Exception(e);
             }
         }
 
@@ -648,7 +648,7 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult readTableCell(string rowNumberOrButtonLabel, string column) {
+        public RobotResult readCell(string rowNumberOrButtonLabel, string column) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
@@ -657,18 +657,18 @@ namespace RoboSAPiens {
             var cell = window.components.findCell(locator, session);
 
             if (cell == null) {
-                return new Result.ReadTableCell.NotFound(locator.location);
+                return new Result.ReadCell.NotFound(locator.location);
             }
 
             if (options.presenterMode) highlightCell(cell);
 
             try {
                 var text = cell.getValue(session);
-                return new Result.ReadTableCell.Pass(text, locator.location);
+                return new Result.ReadCell.Pass(text, locator.location);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
-                return new Result.ReadTableCell.Exception(e);
+                return new Result.ReadCell.Exception(e);
             }
         }
 
