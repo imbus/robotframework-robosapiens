@@ -10,6 +10,7 @@ namespace RoboSAPiens
         Button,
         CheckBox,
         ComboBox,
+        Label,
         RadioButton,
         Text
     }
@@ -142,6 +143,9 @@ namespace RoboSAPiens
                 case CellType.CheckBox:
                     new SAPCheckBox((GuiCheckBox)cell).select(session);
                     break;
+                case CellType.Label:
+                    ((GuiVComponent)cell).SetFocus();
+                    break;
                 case CellType.Text:
                     new SAPTextField((GuiTextField)cell).select(session);
                     break;
@@ -168,8 +172,9 @@ namespace RoboSAPiens
             
             return type switch
             {
-                CellType.Text => new SAPTextField((GuiTextField)cell).getText(session),
                 CellType.ComboBox => new SAPComboBox((GuiComboBox)cell).getText(session),
+                CellType.Label => new SAPLabel((GuiLabel)cell).text,
+                CellType.Text => new SAPTextField((GuiTextField)cell).getText(session),
                 _ => throw new NotImplementedException()
             };
         }

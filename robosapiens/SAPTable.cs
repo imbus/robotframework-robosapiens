@@ -14,6 +14,7 @@ namespace RoboSAPiens {
         {
             {"GuiButton", CellType.Button},
             {"GuiCheckBox", CellType.CheckBox},
+            {"GuiLabel", CellType.Label},
             {"GuiTextField", CellType.Text},
             {"GuiCTextField", CellType.Text},
             {"GuiComboBox", CellType.ComboBox},
@@ -61,6 +62,7 @@ namespace RoboSAPiens {
                             CellType.ComboBox => new SAPComboBox((GuiComboBox)tableCell).getLabels(),
                             CellType.RadioButton => new SAPRadioButton((GuiRadioButton)tableCell).getLabels(),
                             CellType.Text => new SAPTextField((GuiTextField)tableCell).getLabels(),
+                            CellType.Label => new SAPLabel((GuiLabel)tableCell).getLabels(),
                             _ => new List<string>()
                         };
 

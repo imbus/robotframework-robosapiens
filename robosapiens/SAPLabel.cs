@@ -11,6 +11,7 @@ namespace RoboSAPiens {
         public string id;
         public Position position {get;}
         public string text;
+        public List<string> tooltips;
         private bool focused;
 
         public SAPLabel(GuiLabel label) {
@@ -20,11 +21,25 @@ namespace RoboSAPiens {
                                          top: label.ScreenTop, 
                                          width: label.Width
                                         );
-            this.text = label.Text;
+            this.text = label.Text.Trim();
+            this.tooltips = new List<string>
+            {
+                label.AccTooltip.Trim(),
+                label.DefaultTooltip.Trim(),
+                label.Tooltip.Trim()
+            };
         }
 
         public bool contains(string content) {
             return text.Equals(content) || text.StartsWith(content);
+        }
+
+        public List<string> getLabels()
+        {
+            return new List<string>(tooltips)
+            {
+                text,
+            };
         }
 
         public bool isLocated(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
