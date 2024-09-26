@@ -162,19 +162,19 @@ namespace RoboSAPiens {
             return getNumRows(session) != rowCount;
         }
 
-        public bool rowIsAbove(GuiSession session, int rowIndex)
+        public bool rowIsAbove(GuiSession session, int rowIndex0)
         {
             var table = (GuiTableControl)session.FindById(id);
             var firstRow = table.VerticalScrollbar?.Position ?? 0;
-            return rowIndex < firstRow;
+            return rowIndex0 < firstRow;
         }
 
-        public bool rowIsBelow(GuiSession session, int rowIndex)
+        public bool rowIsBelow(GuiSession session, int rowIndex0)
         {
             var table = (GuiTableControl)session.FindById(id);
             var firstRow = table.VerticalScrollbar?.Position ?? 0;
             var lastRow = firstRow + table.VisibleRowCount - 1;
-            return rowIndex > lastRow;
+            return rowIndex0 > lastRow;
         }
 
         public bool scrollOnePage(GuiSession session) {
@@ -193,10 +193,17 @@ namespace RoboSAPiens {
             return false;
         }
 
-        public void selectRow(int rowIndex, GuiSession session) {
+        public void selectRow(int rowIndex0, GuiSession session)
+        {
             var table = (GuiTableControl)session.FindById(id);
-            var rows = table.Rows;
-            var row = (GuiTableRow)rows.ElementAt(rowIndex);
+            if (rowIndex0 >= table.RowCount) return;
+            if (rowIsAbove(session, rowIndex0)) return;
+
+            while (rowIsBelow(session, rowIndex0)) {
+                scrollOnePage(session);
+            }
+            table = (GuiTableControl)session.FindById(id);
+            var row = table.GetAbsoluteRow(rowIndex0);
             row.Selected = true;
         }
     }

@@ -24,9 +24,9 @@ namespace RoboSAPiens {
             );
         }
 
-        public Cell? findCellByRowAndColumn(int rowIndex, string column)
+        public Cell? findCellByRowAndColumn(int rowIndex0, string column)
         {
-            return Find(cell => cell.inColumn(column) && cell.inRow(rowIndex));
+            return Find(cell => cell.inColumn(column) && cell.inRow(rowIndex0));
         }
 
         int getRowIndex(string label)
