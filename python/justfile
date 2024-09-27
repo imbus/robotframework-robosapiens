@@ -3,11 +3,16 @@ set windows-shell := ["pwsh.exe", "-NoProfile", "-Command"]
 python-requirements:
     pip install -r requirements.txt
 
-gen-robosapiens: python-requirements
+export-api:
+    #!pwsh
+    cd ../ExportApi; dotnet run
+    cp api.json ../python/src
+
+genlib: export-api
     Get-Content ../VERSION | Join-String -FormatString "__version__ = '{0}'" | Set-Content src/version.py
     cd src; just build
 
-build-wheel: gen-robosapiens
+build-wheel: python-requirements genlib
     python -m build --wheel
 
 gendoc:
