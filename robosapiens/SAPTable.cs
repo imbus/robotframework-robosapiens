@@ -196,6 +196,12 @@ namespace RoboSAPiens {
         public void selectRow(int rowIndex0, GuiSession session)
         {
             var table = (GuiTableControl)session.FindById(id);
+
+            if (rowIndex0 == -1)
+            {
+                table.SelectAllColumns();
+                return;
+            }
             if (rowIndex0 >= table.RowCount) return;
             if (rowIsAbove(session, rowIndex0)) return;
 

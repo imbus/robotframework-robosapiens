@@ -200,11 +200,18 @@ namespace RoboSAPiens
             return false;
         }
 
-        public void selectRow(int rowIdx, GuiSession session)
+        public void selectRow(int rowIdx0, GuiSession session)
         {
-            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
-            guiGridView.CurrentCellRow = rowIdx;
-            guiGridView.SelectedRows = rowIdx.ToString();
+            GuiGridView gridView = (GuiGridView)session.FindById(id);
+
+            if (rowIdx0 == -1)
+            {
+                gridView.SelectAll();
+                return;
+            }
+
+            gridView.CurrentCellRow = rowIdx0;
+            gridView.SelectedRows = rowIdx0.ToString();
         }
     }
 }
