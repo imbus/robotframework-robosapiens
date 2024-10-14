@@ -1,7 +1,7 @@
 using System;
 
 namespace RoboSAPiens {
-    public struct Position {
+    public record Position {
         const int horizontalDeviation = 5;
         const int verticalDeviation = 5;
         const int verticalSeparation = 30;

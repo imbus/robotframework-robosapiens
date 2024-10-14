@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 
 namespace RoboSAPiens {
-    public abstract class TextField: ITextElement
+    public abstract record TextField: ITextElement
     {
         protected bool focused;
         public abstract bool contains(string entry);
@@ -15,7 +15,7 @@ namespace RoboSAPiens {
         public abstract void toggleHighlight(GuiSession session);
     }
 
-    public class SAPTextField: TextField, ILabeled, ILocatable {
+    public record SAPTextField: TextField, ILabeled, ILocatable {
         const int maxHorizontalDistance = 22;
         const int maxVerticalDistance = 20;
         const int overlapTolerance = 3;
