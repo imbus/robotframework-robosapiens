@@ -232,10 +232,17 @@ namespace RoboSAPiens {
                     isHorizontalAlignedWithTextField(textFieldLabels.getByContent(leftLabel))) &&
                     (isHLabeled(rightLabel) || 
                     hasTooltip(rightLabel) || 
-                    isHorizontalAlignedWithLabel(labels.getByName(rightLabel)) || 
-                    isHorizontalAlignedWithTextField(textFieldLabels.getByContent(rightLabel))),
+                    isRightOf(labels.Find(label => label.contains(rightLabel) && label.position.horizontalAlignedWith(position))) || 
+                    isRightOf(textFieldLabels.Find(textField => textField.contains(rightLabel) && textField.position.horizontalAlignedWith(position)))),
                 _ => false
             };
+        }
+
+        public bool isRightOf(ILocatable? other) {
+            if (other != null)
+                return other.getPosition().right < position.left;
+
+            return false;
         }
 
         public bool isNamed(string name) {
