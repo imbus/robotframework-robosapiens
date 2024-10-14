@@ -230,7 +230,10 @@ namespace RoboSAPiens {
                 HLabelHLabel(var leftLabel, var rightLabel) =>
                     (isHorizontalAlignedWithLabel(labels.getByName(leftLabel)) || 
                     isHorizontalAlignedWithTextField(textFieldLabels.getByContent(leftLabel))) &&
-                    (isHLabeled(rightLabel) || hasTooltip(rightLabel)),
+                    (isHLabeled(rightLabel) || 
+                    hasTooltip(rightLabel) || 
+                    isHorizontalAlignedWithLabel(labels.getByName(rightLabel)) || 
+                    isHorizontalAlignedWithTextField(textFieldLabels.getByContent(rightLabel))),
                 _ => false
             };
         }
