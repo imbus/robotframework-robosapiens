@@ -49,6 +49,7 @@ namespace RoboSAPiens
                 {"ReadComboBoxEntry", args => ReadComboBoxEntry(args[0])},
                 {"ReadStatusbar", args => ReadStatusbar()},
                 {"ReadCell", args => ReadCell(args[0], args[1])},
+                {"ReadCheckBox", args => ReadCheckBox(args[0])},
                 {"ReadText", args => ReadText(args[0])},
                 {"ReadTextField", args => ReadTextField(args[0])},
                 {"SaveScreenshot", args => SaveScreenshot(args[0])},
@@ -525,6 +526,17 @@ namespace RoboSAPiens
             return session switch {
                 SAPSession session => session.fillTextEdit(content),
                 _ => new Result.FillTextEdit.NoSession()
+            };
+        }
+
+        [Keyword("Formularfeld-Status auslesen"),
+         Doc("Der Status des angegebenen Formularfelds wird ausgelesen.\n\n" +
+             "| ``Formularfeld-Status auslesen    Lokator``")]
+        public RobotResult ReadCheckBox(string locator) 
+        {
+            return session switch {
+                SAPSession session => session.readCheckBox(locator),
+                _ => new Result.ReadCheckBox.NoSession()
             };
         }
 

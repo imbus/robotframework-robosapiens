@@ -1154,6 +1154,38 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "ReadCheckBox": {
+            "name": "Read Checkbox Status",
+            "args": {
+                "locator": {
+                    "name": "locator",
+                    "desc": "A locator used to find the checkbox",
+                    "spec": {},
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The checkbox with the locator '{0}' could not be found."),
+                "Pass": "The status of the checkbox with the locator '{0}' was read.",
+                "Exception": exception("The status of the checkbox could not be read. {0}")
+            },
+            "doc": {
+                "desc": "Read the status of the checkbox specified by the locator.",
+                "examples":
+                """
+                Examples:
+                
+                *Checkbox with a label to its left or its right*
+                | ``Read Checkbox Status    label``
+                
+                *Checkbox with a label above it*
+                | ``Read Checkbox Status    @ label``
+                
+                *Checkbox at the intersection of a label to its left and a label above it*
+                | ``Read Checkbox Status    left label @ label above``
+                """
+            }
+        },
         "ReadComboBoxEntry": {
             "name": "Read Dropdown Menu Entry",
             "args": {

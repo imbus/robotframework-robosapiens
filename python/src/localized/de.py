@@ -1164,6 +1164,39 @@ lib: LocalizedRoboSAPiens = {
                 )
             }
         },
+        "ReadCheckBox": {
+            "name": ("706816611", "Formularfeld-Status auslesen"),
+            "args": {
+              "locator": {
+                "name": ("2051440239", "Lokator"),
+                "desc": ("896463449", "Ein Lokator, um das Formularfeld zu finden"),
+                "spec": {},
+              }
+            },
+            "result": {
+              "NoSession": ("4138997384", no_session),
+              "NotFound": ("3274358834", not_found("Das Formularfeld mit dem Lokator '{0}' wurde nicht gefunden.")),
+              "Pass": ("1829602114", "Der Status des Formularfelds mit dem Lokator '{0}' wurde ausgelesen."),
+              "Exception": ("817866934", exception("Der Status des Formularfelds konnte nicht ausgelesen werden."))
+            },
+            "doc": {
+                "desc": ("417984648", "Der Status des angegebenen Formularfelds wird ausgelesen."),
+                "examples": ("2386772967", 
+                """
+                Beispiele:
+                
+                *Formularfeld mit einer Beschriftung links oder rechts *
+                | ``Formularfeld-Status auslesen    Beschriftung``
+                
+                *Formularfeld mit einer Beschriftung oben*
+                | ``Formularfeld-Status auslesen    @ Beschriftung``
+                
+                *Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*
+                | ``Formularfeld-Status auslesen    Beschriftung links @ Beschriftung oben``
+                """
+              )
+            }
+        },
         "ReadComboBoxEntry": {
             "name": ("1020913973", "Auswahlmenüeintrag auslesen"),
             "args": {

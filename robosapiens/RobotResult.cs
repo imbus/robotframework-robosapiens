@@ -361,6 +361,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Textzeile konnte nicht markiert werden.");
         }
 
+        public record ReadCheckBox {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string locator): RobotResult.NotFound($"Das Formularfeld mit dem Lokator '{locator}' wurde nicht gefunden.");
+            public record Pass(string locator, bool selected): RobotResult.RobotPass($"Das Formularfeld mit dem Lokator '{locator}' wurde angekreuzt.", returnValue: selected);
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Formularfeld konnte nicht angekreuzt werden.");
+        }
+
         public record TickCheckBox {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Das Formularfeld mit dem Lokator '{locator}' wurde nicht gefunden.");

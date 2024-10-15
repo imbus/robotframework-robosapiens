@@ -5,6 +5,7 @@ namespace RoboSAPiens {
     public abstract class CheckBox: IHighlightable {
         protected bool focused;
         public abstract bool isEnabled(GuiSession session);
+        public abstract bool isSelected(GuiSession session);
         public abstract void select(GuiSession session);
         public abstract void deselect(GuiSession session);
         public abstract void toggleHighlight(GuiSession session);
@@ -84,6 +85,11 @@ namespace RoboSAPiens {
                 isVerticalAlignedWithLabel(labels.getByName(vLabel)),
                 _ => false
             };
+        }
+
+        public override bool isSelected(GuiSession session) {
+            var guiCheckBox = (GuiCheckBox)session.FindById(id);
+            return guiCheckBox.Selected;
         }
 
         public override void select(GuiSession session) {

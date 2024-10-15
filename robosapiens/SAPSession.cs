@@ -1095,6 +1095,26 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult readCheckBox(string locator) 
+        {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var theCheckBox = new CheckBoxLocator(locator);
+            var checkBox = window.components.findCheckBox(theCheckBox);
+            
+            if (checkBox == null) {
+                return new Result.ReadCheckBox.NotFound(theCheckBox.atLocation);
+            }
+
+            if (options.presenterMode) switch(highlightElement(session, checkBox)) {
+                case RobotResult.HighlightFail exceptionError: return exceptionError;
+            }
+            
+            return new Result.ReadCheckBox.Pass(theCheckBox.atLocation, checkBox.isSelected(session));
+        }
+
         public RobotResult tickCheckBox(string labels) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
