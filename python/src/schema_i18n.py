@@ -1408,7 +1408,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2x64: LocalizedRoboSAPiensArgsX64
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['1871465536'], str]
+    intro: Tuple[Literal['3442708652'], str]
     init: Tuple[Literal['3172568578'], str]
 
 class LocalizedRoboSAPiens(TypedDict):

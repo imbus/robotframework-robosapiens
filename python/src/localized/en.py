@@ -171,7 +171,7 @@ lib: RoboSAPiens = {
         | 
         |     Element should be Found    Select Text Field    ${locator}    message=The text field '${locator}' is not present.
 
-        And the followwing keyword asserts that a given cell should be present in a table:
+        And the following keyword asserts that a given cell should be present in a table:
 
         | Cell should be present
         |     [Arguments]     ${row}    ${col}
