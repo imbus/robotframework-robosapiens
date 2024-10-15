@@ -115,6 +115,9 @@ class RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec(TypedDict):
 class RoboSAPiensKeywordsPushbuttonArgsButtonSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsReadcheckboxArgsLocatorSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsFilltexteditArgsContentSpec(TypedDict):
     ...
 
@@ -354,6 +357,11 @@ class RoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsPushbuttonArgsButtonSpec
+
+class RoboSAPiensKeywordsReadcheckboxArgsLocator(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsReadcheckboxArgsLocatorSpec
 
 class RoboSAPiensKeywordsFilltexteditArgsContent(TypedDict):
     name: str
@@ -842,6 +850,19 @@ class RoboSAPiensKeywordsPushbuttonResult(TypedDict):
 class RoboSAPiensKeywordsPushbuttonArgs(TypedDict):
     button: RoboSAPiensKeywordsPushbuttonArgsButton
 
+class RoboSAPiensKeywordsReadcheckboxDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsReadcheckboxResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsReadcheckboxArgs(TypedDict):
+    locator: RoboSAPiensKeywordsReadcheckboxArgsLocator
+
 class RoboSAPiensKeywordsFilltexteditDoc(TypedDict):
     desc: str
     examples: str
@@ -1241,6 +1262,12 @@ class RoboSAPiensKeywordsPushbutton(TypedDict):
     result: RoboSAPiensKeywordsPushbuttonResult
     doc: RoboSAPiensKeywordsPushbuttonDoc
 
+class RoboSAPiensKeywordsReadcheckbox(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsReadcheckboxArgs
+    result: RoboSAPiensKeywordsReadcheckboxResult
+    doc: RoboSAPiensKeywordsReadcheckboxDoc
+
 class RoboSAPiensKeywordsFilltextedit(TypedDict):
     name: str
     args: RoboSAPiensKeywordsFilltexteditArgs
@@ -1374,6 +1401,7 @@ class RoboSAPiensKeywords(TypedDict):
     FillCell: RoboSAPiensKeywordsFillcell
     FillTextField: RoboSAPiensKeywordsFilltextfield
     FillTextEdit: RoboSAPiensKeywordsFilltextedit
+    ReadCheckBox: RoboSAPiensKeywordsReadcheckbox
     PushButton: RoboSAPiensKeywordsPushbutton
     HighlightButton: RoboSAPiensKeywordsHighlightbutton
     ReadStatusbar: RoboSAPiensKeywordsReadstatusbar

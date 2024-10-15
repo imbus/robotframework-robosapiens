@@ -401,6 +401,26 @@
         "examples": ""
       }
     },
+    "ReadCheckBox": {
+      "name": "Formularfeld-Status auslesen",
+      "args": {
+        "locator": {
+          "name": "locator",
+          "desc": "",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Der Status des angegebenen Formularfelds wird ausgelesen.\n\n| ``Formularfeld-Status auslesen    Lokator``",
+        "examples": ""
+      }
+    },
     "PushButton": {
       "name": "Knopf drücken",
       "args": {

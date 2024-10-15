@@ -1036,6 +1036,37 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('SelectCellValue', args, result) # type: ignore
     
 
+    @keyword('Read Checkbox Status') # type: ignore
+    def read_check_box(self, locator: str): # type: ignore
+        """
+        Read the status of the checkbox specified by the locator.
+        
+        | ``locator`` | A locator used to find the checkbox |
+        
+        
+        Examples:
+        
+        *Checkbox with a label to its left or its right*
+        | ``Read Checkbox Status    label``
+        
+        *Checkbox with a label above it*
+        | ``Read Checkbox Status    @ label``
+        
+        *Checkbox at the intersection of a label to its left and a label above it*
+        | ``Read Checkbox Status    left label @ label above``
+        """
+        
+        args = [locator]
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The checkbox with the locator '{0}' could not be found. Hint: Check the spelling",
+            "Pass": "The status of the checkbox with the locator '{0}' was read.",
+            "Exception": "The status of the checkbox could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('ReadCheckBox', args, result) # type: ignore
+    
+
     @keyword('Read Dropdown Menu Entry') # type: ignore
     def read_combo_box_entry(self, locator: str): # type: ignore
         """
@@ -1386,4 +1417,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.10.4'
+    ROBOT_LIBRARY_VERSION = '2.11.0'

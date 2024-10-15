@@ -55,6 +55,9 @@ class LocalizedRoboSAPiensKeywordsSelectcomboboxentryArgsComboboxSpec(TypedDict)
 class LocalizedRoboSAPiensKeywordsReadcomboboxentryArgsComboboxSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsReadcheckboxArgsLocatorSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsEntrySpec(TypedDict):
     ...
 
@@ -259,6 +262,11 @@ class LocalizedRoboSAPiensKeywordsReadcomboboxentryArgsCombobox(TypedDict):
     name: Tuple[Literal['2051440239'], str]
     desc: Tuple[Literal['1540323925'], str]
     spec: LocalizedRoboSAPiensKeywordsReadcomboboxentryArgsComboboxSpec
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxArgsLocator(TypedDict):
+    name: Tuple[Literal['2051440239'], str]
+    desc: Tuple[Literal['896463449'], str]
+    spec: LocalizedRoboSAPiensKeywordsReadcheckboxArgsLocatorSpec
 
 class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsEntry(TypedDict):
     name: Tuple[Literal['494360628'], str]
@@ -640,6 +648,19 @@ class LocalizedRoboSAPiensKeywordsReadcomboboxentryResult(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsReadcomboboxentryArgs(TypedDict):
     comboBox: LocalizedRoboSAPiensKeywordsReadcomboboxentryArgsCombobox
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxDoc(TypedDict):
+    desc: Tuple[Literal['417984648'], str]
+    examples: Tuple[Literal['2386772967'], str]
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxResult(TypedDict):
+    NoSession: Tuple[Literal['4138997384'], str]
+    NotFound: Tuple[Literal['3274358834'], str]
+    Pass: Tuple[Literal['1829602114'], str]
+    Exception: Tuple[Literal['817866934'], str]
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxArgs(TypedDict):
+    locator: LocalizedRoboSAPiensKeywordsReadcheckboxArgsLocator
 
 class LocalizedRoboSAPiensKeywordsSelectcellvalueDoc(TypedDict):
     desc: Tuple[Literal['3829091703'], str]
@@ -1158,6 +1179,12 @@ class LocalizedRoboSAPiensKeywordsReadcomboboxentry(TypedDict):
     result: LocalizedRoboSAPiensKeywordsReadcomboboxentryResult
     doc: LocalizedRoboSAPiensKeywordsReadcomboboxentryDoc
 
+class LocalizedRoboSAPiensKeywordsReadcheckbox(TypedDict):
+    name: Tuple[Literal['706816611'], str]
+    args: LocalizedRoboSAPiensKeywordsReadcheckboxArgs
+    result: LocalizedRoboSAPiensKeywordsReadcheckboxResult
+    doc: LocalizedRoboSAPiensKeywordsReadcheckboxDoc
+
 class LocalizedRoboSAPiensKeywordsSelectcellvalue(TypedDict):
     name: Tuple[Literal['993388184'], str]
     args: LocalizedRoboSAPiensKeywordsSelectcellvalueArgs
@@ -1389,6 +1416,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     ScrollWindowHorizontally: LocalizedRoboSAPiensKeywordsScrollwindowhorizontally
     SelectCell: LocalizedRoboSAPiensKeywordsSelectcell
     SelectCellValue: LocalizedRoboSAPiensKeywordsSelectcellvalue
+    ReadCheckBox: LocalizedRoboSAPiensKeywordsReadcheckbox
     ReadComboBoxEntry: LocalizedRoboSAPiensKeywordsReadcomboboxentry
     SelectComboBoxEntry: LocalizedRoboSAPiensKeywordsSelectcomboboxentry
     SelectMenuItem: LocalizedRoboSAPiensKeywordsSelectmenuitem
