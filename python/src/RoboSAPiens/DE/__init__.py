@@ -125,21 +125,28 @@ class DE(RoboSAPiensClient):
     Gültige Werte für ``${state}`` sind aktuell Found und Changeable.
     
     | Element should be ${state}
-    |     [Arguments]    ${keyword}    ${locator}    ${message}
+    |     [Arguments]    ${keyword}    @{args}    ${message}
     |     [Tags]         robot:flatten
     |     
     |     TRY
-    |         Run Keyword    ${keyword}    ${locator}
+    |         Run Keyword    ${keyword}    @{args}
     |     EXCEPT  Not${state}: *    type=GLOB
     |         Fail    ${message}
     |     END
     
-    Zum Beispiel, das folgende Schlüsselwort sichert zu, dass ein bestimmtes Textfeld vorhanden ist.
+    Zum Beispiel, das folgende Schlüsselwort sichert zu, dass ein bestimmtes Textfeld vorhanden ist:
     
     | Textfeld ist vorhanden
     |     [Argumente]    ${Lokator}
     | 
-    |     Element should be Found    Textfeld markieren    ${Lokator}    Das Textfeld '${Lokator}' ist nicht vorhanden.
+    |     Element should be Found    Textfeld markieren    ${Lokator}    message=Das Textfeld '${Lokator}' ist nicht vorhanden.
+    
+    Und das folgende Schlüsselwort sichert zu, dass eine bestimmte Tabellenzelle vorhanden ist:
+    
+    | Tabellenzelle ist vorhanden
+    |     [Arguments]     ${Zeile}    ${Spalte}
+    | 
+    |     Element should be Found    Tabellenzelle markieren    ${Zeile}    ${Spalte}    message=Die Zelle '${Zeile}, ${Spalte}' ist nicht vorhanden.
     """
     
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
@@ -1378,4 +1385,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.10.3'
+    ROBOT_LIBRARY_VERSION = '2.10.4'
