@@ -996,8 +996,8 @@ namespace RoboSAPiens {
                 rowIndex--;
             }
             else {
-                var rowLocator = (ILocator)new RowLocator($"= {rowIndexOrLabel}");
-                var cell = table.findCell(rowLocator, session);
+                var rowLocator = new RowLocator($"= {rowIndexOrLabel}");
+                var cell = table.findCell(rowLocator.locator, session);
 
                 if (cell == null) return new Result.SelectTableRow.NotFound(rowIndexOrLabel);
                 rowIndex = cell.rowIndex;
