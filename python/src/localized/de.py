@@ -32,7 +32,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("3504280527",
+        "intro": ("1871465536",
         """RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
@@ -155,21 +155,28 @@ lib: LocalizedRoboSAPiens = {
         Gültige Werte für ``${state}`` sind aktuell Found und Changeable.
         
         | Element should be ${state}
-        |     [Arguments]    ${keyword}    ${locator}    ${message}
+        |     [Arguments]    ${keyword}    @{args}    ${message}
         |     [Tags]         robot:flatten
         |     
         |     TRY
-        |         Run Keyword    ${keyword}    ${locator}
+        |         Run Keyword    ${keyword}    @{args}
         |     EXCEPT  Not${state}: *    type=GLOB
         |         Fail    ${message}
         |     END
 
-        Zum Beispiel, das folgende Schlüsselwort sichert zu, dass ein bestimmtes Textfeld vorhanden ist.
+        Zum Beispiel, das folgende Schlüsselwort sichert zu, dass ein bestimmtes Textfeld vorhanden ist:
 
         | Textfeld ist vorhanden
         |     [Argumente]    ${Lokator}
         | 
-        |     Element should be Found    Textfeld markieren    ${Lokator}    Das Textfeld '${Lokator}' ist nicht vorhanden.
+        |     Element should be Found    Textfeld markieren    ${Lokator}    message=Das Textfeld '${Lokator}' ist nicht vorhanden.
+
+        Und das folgende Schlüsselwort sichert zu, dass eine bestimmte Tabellenzelle vorhanden ist:
+
+        | Tabellenzelle ist vorhanden
+        |     [Arguments]     ${Zeile}    ${Spalte}
+        | 
+        |     Element should be Found    Tabellenzelle markieren    ${Zeile}    ${Spalte}    message=Die Zelle '${Zeile}, ${Spalte}' ist nicht vorhanden.
         """
         ),
         "init": ("3172568578", "RoboSAPiens.DE hat die folgenden Initialisierungsparameter:\n\n| =Parameter= | =Beschreibung= |"),

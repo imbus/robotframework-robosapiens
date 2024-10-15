@@ -155,21 +155,28 @@ lib: RoboSAPiens = {
         Currently ``${state}`` can only be Found or Changeable.
         
         | Element should be ${state}
-        |     [Arguments]    ${keyword}    ${locator}    ${message}
+        |     [Arguments]    ${keyword}    @{args}    ${message}
         |     [Tags]         robot:flatten
         |     
         |     TRY
-        |         Run Keyword    ${keyword}    ${locator}
+        |         Run Keyword    ${keyword}    @{args}
         |     EXCEPT  Not${state}: *    type=GLOB
         |         Fail    ${message}
         |     END
 
-        For example, the following keyword asserts that a given text field should be present.
+        For example, the following keyword asserts that a given text field should be present:
 
         | Text field should be present
         |     [Arguments]    ${locator}
         | 
-        |     Element should be Found    Select Text Field    ${locator}    The text field '${locator}' is not present.
+        |     Element should be Found    Select Text Field    ${locator}    message=The text field '${locator}' is not present.
+
+        And the followwing keyword asserts that a given cell should be present in a table:
+
+        | Cell should be present
+        |     [Arguments]     ${row}    ${col}
+        | 
+        |     Element should be Found    Select Cell    ${row}    ${col}    message=The cell '${row}, ${col}' is not present.
         """,
         "init": "RoboSAPiens has the following initialization arguments:\n\n| =Argument= | =Description= |"
     },
