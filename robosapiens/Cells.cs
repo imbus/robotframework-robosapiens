@@ -229,6 +229,9 @@ namespace RoboSAPiens
                     var checkBoxState = tree.GetCheckBoxState(nodeKey, columnName);
                     tree.ChangeCheckbox(nodeKey, columnName, !checkBoxState);
                     break;
+                case CellType.Text:
+                    select(tree);
+                    break;
             }
         }
 
@@ -247,13 +250,28 @@ namespace RoboSAPiens
         public override void highlight(GuiSession session)
         {
             var tree = (GuiTree)session.FindById(treeId);
-            tree.SelectItem(nodeKey, columnName);
+            select(tree);
         }
 
         public override bool isChangeable(GuiSession session)
         {
             var tree = (GuiTree)session.FindById(treeId);
             return !tree.GetIsDisabled(nodeKey, columnName);
+        }
+
+        public void select(GuiTree tree)
+        { 
+            switch (tree.GetSelectionMode()) 
+            {
+                // Single node
+                case 0:
+                    tree.SelectNode(nodeKey);
+                    break;
+                // Single item
+                case 2:
+                    tree.SelectItem(nodeKey, columnName);
+                    break;
+            }
         }
 
         public override void setValue(string value, GuiSession session)
