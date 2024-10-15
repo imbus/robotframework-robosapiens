@@ -131,9 +131,15 @@ namespace RoboSAPiens
 
             switch(locator)
             {
+                case Content(string labelOrPath):
+                    return cells.filterBy<TreeCell>().Find(
+                        cell => cell.isLabeled(labelOrPath)
+                    );
+
                 case RowColumnLocator(int rowIndex, string column):
                     if (!hasColumn(column)) return null;
                     return cells.findCellByRowAndColumn(rowIndex-1, column);
+
                 case LabelColumnLocator(string labelOrPath, string column):
                     if (!hasColumn(column)) return null;
                     return cells.filterBy<TreeCell>().Find(cell => 
