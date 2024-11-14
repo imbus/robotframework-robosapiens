@@ -1,0 +1,52 @@
+from robot.api.deco import keyword
+from RoboSAPiens.client import RoboSAPiensClient
+
+__version__ = "{{ version }}"
+
+class {{ module_name }}(RoboSAPiensClient):
+    """
+    {%- for line in doc.intro|get_value|trim|splitlines %}
+    {{ line }}
+    {%- endfor %}
+    """
+
+    def __init__(self, {{ args.values()|map('format_arg')|join(', ') }}):
+        """
+        {{ doc.init|get_value|trim }}
+        {%- for arg in args.values() %}
+        | ``{{ arg.name|get_value }}`` | {{ arg.desc|get_value }} |
+        {%- endfor %}
+        """
+        
+        args = {
+            {%- for arg_id, arg_spec in args.items() %}
+            '{{ arg_id|drop_prefix }}': {{ arg_spec.name|get_value }}{{ "," if not loop.last else "" }}
+            {%- endfor %}
+        }
+        
+        super().__init__(args)
+    
+    {% for api_function, keyword in keywords.items() %}
+    @keyword('{{ keyword.name|get_value }}') # type: ignore
+    def {{ api_function|snake_case }}({{ (["self"] + keyword.args.values()|map('format_arg')|list)|join(", ") }}): # type: ignore
+        """
+        {{ keyword.doc.desc|get_value }}
+        {% for arg in keyword.args.values() %}
+        | ``{{ arg.name|get_value }}`` | {{ arg.desc|get_value }} |
+        {%- endfor %}
+        {%- for line in keyword.doc.examples|get_value|splitlines %}
+        {{ line }}
+        {%- endfor -%}
+        """
+
+        args = [{{ keyword.args.values()|map(attribute='name')|map('get_value')|join(", ") }}]
+        
+        result = {
+            {%- for name, message in keyword.result.items() %}
+            "{{ name }}": "{{ message|get_value|escape_chars }}"{{ "," if not loop.last else "" }}
+            {%- endfor %}
+        }
+        return super()._run_keyword('{{ api_function }}', args, result) # type: ignore
+    {% endfor %}
+    ROBOT_LIBRARY_SCOPE = 'SUITE'
+    ROBOT_LIBRARY_VERSION = '{{ version }}'

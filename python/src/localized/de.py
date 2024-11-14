@@ -32,8 +32,9 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("3442708652",
-        """RoboSAPiens: SAP GUI-Automatisierung für Menschen
+        "intro": ("1092041708",
+        """
+        RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
 
@@ -179,7 +180,12 @@ lib: LocalizedRoboSAPiens = {
         |     Element should be Found    Tabellenzelle markieren    ${Zeile}    ${Spalte}    message=Die Zelle '${Zeile}, ${Spalte}' ist nicht vorhanden.
         """
         ),
-        "init": ("3172568578", "RoboSAPiens.DE hat die folgenden Initialisierungsparameter:\n\n| =Parameter= | =Beschreibung= |"),
+        "init": ("3784687869", 
+        """
+        RoboSAPiens.DE hat die folgenden Initialisierungsparameter:
+        
+        | =Parameter= | =Beschreibung= |
+        """),
     },
     "args": {
         "a1presenter_mode": {

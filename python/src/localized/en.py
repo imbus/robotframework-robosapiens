@@ -32,7 +32,8 @@ Column = "column"
 
 lib: RoboSAPiens = {
     "doc": {
-        "intro": """RoboSAPiens: SAP GUI-Automation for Humans
+        "intro": """
+        RoboSAPiens: SAP GUI-Automation for Humans
 
         In order to use this library the following requirements must be satisfied:
 
@@ -178,7 +179,11 @@ lib: RoboSAPiens = {
         | 
         |     Element should be Found    Select Cell    ${row}    ${col}    message=The cell '${row}, ${col}' is not present.
         """,
-        "init": "RoboSAPiens has the following initialization arguments:\n\n| =Argument= | =Description= |"
+        "init": """
+        RoboSAPiens has the following initialization arguments:
+        
+        | =Argument= | =Description= |
+        """
     },
     "args": {
         "a1presenter_mode": {
