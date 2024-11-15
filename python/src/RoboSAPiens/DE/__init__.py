@@ -1,6 +1,8 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
+__version__ = "2.11.2"
+
 class DE(RoboSAPiensClient):
     """
     RoboSAPiens: SAP GUI-Automatisierung für Menschen
@@ -148,7 +150,7 @@ class DE(RoboSAPiensClient):
     | 
     |     Element should be Found    Tabellenzelle markieren    ${Zeile}    ${Spalte}    message=Die Zelle '${Zeile}, ${Spalte}' ist nicht vorhanden.
     """
-    
+
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
         """
         RoboSAPiens.DE hat die folgenden Initialisierungsparameter:
@@ -160,12 +162,12 @@ class DE(RoboSAPiensClient):
         
         args = {
             'presenter_mode': vortragsmodus,
-            'x64': x64,
+            'x64': x64
         }
         
         super().__init__(args)
     
-
+    
     @keyword('Reiter auswählen') # type: ignore
     def activate_tab(self, Reitername: str): # type: ignore
         """
@@ -173,12 +175,11 @@ class DE(RoboSAPiensClient):
         
         | ``Reitername`` | Name oder Kurzinfo des Reiters |
         
-        
         Beispiele:
         
         | ``Reiter auswählen    Reitername``
         """
-        
+
         args = [Reitername]
         
         result = {
@@ -189,7 +190,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ActivateTab', args, result) # type: ignore
     
-
     @keyword('Baumelement doppelklicken') # type: ignore
     def double_click_tree_element(self, Elementpfad: str): # type: ignore
         """
@@ -197,14 +197,13 @@ class DE(RoboSAPiensClient):
         
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
         
-        
         Beispiele:
         
         | ``Baumelement doppelklicken    Elementpfad``
         
         *Hinweis*: Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
         """
-        
+
         args = [Elementpfad]
         
         result = {
@@ -215,7 +214,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('DoubleClickTreeElement', args, result) # type: ignore
     
-
     @keyword('Baumelement markieren') # type: ignore
     def select_tree_element(self, Elementpfad: str): # type: ignore
         """
@@ -223,14 +221,13 @@ class DE(RoboSAPiensClient):
         
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
         
-        
         Beispiele:
         
         | ``Baumelement markieren    Elementpfad``
         
         *Hinweis*: Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
         """
-        
+
         args = [Elementpfad]
         
         result = {
@@ -241,7 +238,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectTreeElement', args, result) # type: ignore
     
-
     @keyword('Menüeintrag in Baumelement auswählen') # type: ignore
     def select_tree_element_menu_entry(self, Elementpfad: str, Menüeintrag: str): # type: ignore
         """
@@ -250,12 +246,11 @@ class DE(RoboSAPiensClient):
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
         | ``Menüeintrag`` | Der Menüeintrag. Bei verschachtelten Menüs der Pfad zum Eintrag mit '|' als Trennzeichen (z.B. Anlegen|Wirtschaftseinheit). |
         
-        
         Beispiele:
         
         | ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``
         """
-        
+
         args = [Elementpfad, Menüeintrag]
         
         result = {
@@ -266,7 +261,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectTreeElementMenuEntry', args, result) # type: ignore
     
-
     @keyword('SAP starten') # type: ignore
     def open_sap(self, Pfad: str, SAP_Parameter: str=None): # type: ignore
         """
@@ -274,7 +268,6 @@ class DE(RoboSAPiensClient):
         
         | ``Pfad`` | Der Pfad zu saplogon.exe oder NWBC.exe |
         | ``SAP_Parameter`` | Kommandozeileparameter für den SAP Client |
-        
         
         Beispiele:
         
@@ -303,7 +296,7 @@ class DE(RoboSAPiensClient):
         - Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         - 64-bit SAP-Clients erfordern, dass die Bibliothek mit ``x64=True`` importiert wird
         """
-        
+
         args = [Pfad, SAP_Parameter]
         
         result = {
@@ -315,7 +308,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('OpenSap', args, result) # type: ignore
     
-
     @keyword('Verbindung zum Server trennen') # type: ignore
     def close_connection(self): # type: ignore
         """
@@ -326,7 +318,7 @@ class DE(RoboSAPiensClient):
         
         | ``Verbindung zum Server trennen``
         """
-        
+
         args = []
         
         result = {
@@ -339,7 +331,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('CloseConnection', args, result) # type: ignore
     
-
     @keyword('SAP beenden') # type: ignore
     def close_sap(self): # type: ignore
         """
@@ -352,7 +343,7 @@ class DE(RoboSAPiensClient):
         
         *Hinweis*: Dieses Schlüsselwort funktioniert nur, wenn die SAP GUI mit dem Schlüsselwort [#SAP starten|SAP starten] gestartet wurde.
         """
-        
+
         args = []
         
         result = {
@@ -361,7 +352,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('CloseSap', args, result) # type: ignore
     
-
     @keyword('Tabellenzeilen zählen') # type: ignore
     def count_table_rows(self): # type: ignore
         """
@@ -372,7 +362,7 @@ class DE(RoboSAPiensClient):
         
         | ``${anzahl_zeilen}    Tabellenzeilen zählen``
         """
-        
+
         args = []
         
         result = {
@@ -383,7 +373,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('CountTableRows', args, result) # type: ignore
     
-
     @keyword('Baumstruktur exportieren') # type: ignore
     def export_tree(self, Dateipfad: str): # type: ignore
         """
@@ -391,14 +380,13 @@ class DE(RoboSAPiensClient):
         
         | ``Dateipfad`` | Absoluter Pfad zu einer Datei mit Endung .json |
         
-        
         Beispiele:
         
         | ``Baumstruktur exportieren     Dateipfad``
         
         *Hinweis*: Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         """
-        
+
         args = [Dateipfad]
         
         result = {
@@ -409,14 +397,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ExportTree', args, result) # type: ignore
     
-
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
     def attach_to_running_sap(self, session_nummer: str='1'): # type: ignore
         """
         Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
         
         | ``session_nummer`` | Die Nummer der SAP-Session in der rechten unteren Ecke des Fensters |
-        
         
         Beispiele:
         
@@ -430,7 +416,7 @@ class DE(RoboSAPiensClient):
         
         | ``${session_info}    Laufende SAP GUI übernehmen    session_nummer``
         """
-        
+
         args = [session_nummer]
         
         result = {
@@ -446,7 +432,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('AttachToRunningSap', args, result) # type: ignore
     
-
     @keyword('Verbindung zum Server herstellen') # type: ignore
     def connect_to_server(self, Servername: str): # type: ignore
         """
@@ -454,12 +439,11 @@ class DE(RoboSAPiensClient):
         
         | ``Servername`` | Der Name des Servers in SAP Logon (nicht der SID) |
         
-        
         Beispiele:
         
         | ``Verbindung zum Server herstellen    Servername``
         """
-        
+
         args = [Servername]
         
         result = {
@@ -472,7 +456,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ConnectToServer', args, result) # type: ignore
     
-
     @keyword('Tabellenzelle doppelklicken') # type: ignore
     def double_click_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
@@ -481,12 +464,11 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
-        
         Beispiele:
         
         | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
         """
-        
+
         args = [Zeile, Spaltentitel]
         
         result = {
@@ -497,7 +479,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('DoubleClickCell', args, result) # type: ignore
     
-
     @keyword('Textfeld doppelklicken') # type: ignore
     def double_click_text_field(self, Lokator: str): # type: ignore
         """
@@ -505,12 +486,11 @@ class DE(RoboSAPiensClient):
         
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
         
-        
         Beispiele:
         
         | ``Textfeld doppelklicken     Lokator``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -521,7 +501,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('DoubleClickTextField', args, result) # type: ignore
     
-
     @keyword('Transaktion ausführen') # type: ignore
     def execute_transaction(self, T_Code: str): # type: ignore
         """
@@ -529,12 +508,11 @@ class DE(RoboSAPiensClient):
         
         | ``T_Code`` | Der Code der Transaktion |
         
-        
         Beispiele:
         
         | ``Transaktion ausführen    T-Code``
         """
-        
+
         args = [T_Code]
         
         result = {
@@ -544,7 +522,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ExecuteTransaction', args, result) # type: ignore
     
-
     @keyword('Maske exportieren') # type: ignore
     def export_window(self, Name: str, Verzeichnis: str): # type: ignore
         """
@@ -552,7 +529,6 @@ class DE(RoboSAPiensClient):
         
         | ``Name`` | Der Name der generierten Dateien |
         | ``Verzeichnis`` | Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden. |
-        
         
         Beispiele:
         
@@ -562,7 +538,7 @@ class DE(RoboSAPiensClient):
         
         *Anmerkung*: Aktuell werden nicht alle GUI-Elemente exportiert.
         """
-        
+
         args = [Name, Verzeichnis]
         
         result = {
@@ -572,7 +548,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ExportWindow', args, result) # type: ignore
     
-
     @keyword('Tabellenzelle ausfüllen') # type: ignore
     def fill_cell(self, Zeile: str, Spaltentitel: str, Inhalt: str): # type: ignore
         """
@@ -582,14 +557,13 @@ class DE(RoboSAPiensClient):
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Inhalt`` | Der neue Inhalt der Zelle |
         
-        
         Beispiele:
         
         | ``Tabellenzelle ausfüllen     Zeile     Spaltentitel     Inhalt``
         
         *Hinweis*: Für die Migration aus dem alten Schlüsselwort mit zwei Argumenten soll eine Suche und Ersetzung mit einem regulären Ausdruck durchgeführt werden.
         """
-        
+
         args = [Zeile, Spaltentitel, Inhalt]
         
         result = {
@@ -602,7 +576,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('FillCell', args, result) # type: ignore
     
-
     @keyword('Mehrzeiliges Textfeld ausfüllen') # type: ignore
     def fill_text_edit(self, Inhalt: str): # type: ignore
         """
@@ -610,12 +583,11 @@ class DE(RoboSAPiensClient):
         
         | ``Inhalt`` | Der neue Inhalt des mehrzeiligen Textfelds |
         
-        
         Beispiele:
         
         | ``Mehrzeiliges Textfeld ausfüllen    Ein langer Text. Mit zwei Sätzen.``
         """
-        
+
         args = [Inhalt]
         
         result = {
@@ -627,7 +599,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('FillTextEdit', args, result) # type: ignore
     
-
     @keyword('Textfeld ausfüllen') # type: ignore
     def fill_text_field(self, Lokator: str, Inhalt: str): # type: ignore
         """
@@ -635,7 +606,6 @@ class DE(RoboSAPiensClient):
         
         | ``Lokator`` | Ein Lokator, um das Textfeld zu finden |
         | ``Inhalt`` | Der neue Inhalt des Textfelds |
-        
         
         Beispiele:
         
@@ -665,7 +635,7 @@ class DE(RoboSAPiensClient):
         *Als letzter Ausweg kann der mit [https://tracker.stschnell.de/|Scripting Tracker] ermittelte Name verwendet werden*
         | ``Textfeld ausfüllen    Name    Inhalt``
         """
-        
+
         args = [Lokator, Inhalt]
         
         result = {
@@ -677,14 +647,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('FillTextField', args, result) # type: ignore
     
-
     @keyword('Knopf hervorheben') # type: ignore
     def highlight_button(self, Lokator: str): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird hervorgehoben.
         
         | ``Lokator`` | Name oder Kurzinfo des Knopfes |
-        
         
         Beispiele:
         
@@ -693,8 +661,9 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
         Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
         Wenn der gesamte Text des Tooltips als Lokator verwendet wird, muss lediglich ein Leerzeichen eingetippt werden (z.B. ``Zurück (F3)``).
-        """
         
+        """
+
         args = [Lokator]
         
         result = {
@@ -705,14 +674,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('HighlightButton', args, result) # type: ignore
     
-
     @keyword('Tastenkombination drücken') # type: ignore
     def press_key_combination(self, Tastenkombination: str): # type: ignore
         """
         Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt.
         
         | ``Tastenkombination`` | Entweder eine Taste oder mehrere Tasten mit '+' als Trennzeichen |
-        
         
         Beispiele:
         
@@ -722,7 +689,7 @@ class DE(RoboSAPiensClient):
         
         *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
         """
-        
+
         args = [Tastenkombination]
         
         result = {
@@ -733,14 +700,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('PressKeyCombination', args, result) # type: ignore
     
-
     @keyword('Knopf drücken') # type: ignore
     def push_button(self, Lokator: str): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
         
         | ``Lokator`` | Ein Lokator, um den Knopf zu finden |
-        
         
         Beispiele:
         
@@ -755,8 +720,9 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
         Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
         Wenn der gesamte Text des Tooltips als Lokator verwendet wird, muss lediglich ein Leerzeichen eingetippt werden (z.B. ``Zurück (F3)``).
-        """
         
+        """
+
         args = [Lokator]
         
         result = {
@@ -768,7 +734,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('PushButton', args, result) # type: ignore
     
-
     @keyword('Tabellenzelle drücken') # type: ignore
     def push_button_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
@@ -777,12 +742,11 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
-        
         Beispiele:
         
         | ``Tabellenzelle drücken     Zeile     Spaltentitel``
         """
-        
+
         args = [Zeile, Spaltentitel]
         
         result = {
@@ -794,7 +758,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('PushButtonCell', args, result) # type: ignore
     
-
     @keyword('Textfeld auslesen') # type: ignore
     def read_text_field(self, Lokator: str): # type: ignore
         """
@@ -802,12 +765,11 @@ class DE(RoboSAPiensClient):
         
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
         
-        
         Beispiele:
         
         | ${Inhalt}   ``Textfeld auslesen    Lokator``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -818,14 +780,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ReadTextField', args, result) # type: ignore
     
-
     @keyword('Text auslesen') # type: ignore
     def read_text(self, Lokator: str): # type: ignore
         """
         Der Inhalt des angegebenen Texts wird zurückgegeben.
         
         | ``Lokator`` | Ein Lokator, um den Text zu finden |
-        
         
         Beispiele:
         
@@ -835,7 +795,7 @@ class DE(RoboSAPiensClient):
         *Text folgt einer Beschriftung*
         | ``${Text}   Text auslesen    Beschriftung``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -846,7 +806,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ReadText', args, result) # type: ignore
     
-
     @keyword('Tabellenzelle auslesen') # type: ignore
     def read_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
@@ -855,12 +814,11 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
-        
         Beispiele:
         
         | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
         """
-        
+
         args = [Zeile, Spaltentitel]
         
         result = {
@@ -872,7 +830,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ReadCell', args, result) # type: ignore
     
-
     @keyword('Fenster aufnehmen') # type: ignore
     def save_screenshot(self, Speicherort: str): # type: ignore
         """
@@ -880,20 +837,19 @@ class DE(RoboSAPiensClient):
         
         | ``Speicherort`` | Entweder der absolute Pfad einer .png Datei oder LOG, um das Bild in das Protokoll einzubetten. |
         
-        
         Beispiele:
         
         | ``Fenster aufnehmen     Speicherort``
         
         *Hinweis*: Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         """
-        
+
         args = [Speicherort]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "InvalidPath": "Der Pfad '{0}' ist ungültig",
-            "UNCPath": "Ein UNC Pfad (d.h. beginnend mit \\\\) ist nicht erlaubt",
+            "UNCPath": "Ein UNC Pfad (d.h. beginnend mit \\) ist nicht erlaubt",
             "NoAbsPath": "'{0}' ist kein absoluter Pfad",
             "Log": "Der Rückgabewert wird in das Protokoll geschrieben.",
             "Pass": "Eine Aufnahme des Fensters wurde in '{0}' gespeichert.",
@@ -901,7 +857,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SaveScreenshot', args, result) # type: ignore
     
-
     @keyword('Inhalte scrollen') # type: ignore
     def scroll_text_field_contents(self, Richtung: str, bis_Textfeld: str=None): # type: ignore
         """
@@ -909,7 +864,6 @@ class DE(RoboSAPiensClient):
         
         | ``Richtung`` | UP, DOWN, BEGIN, END |
         | ``bis_Textfeld`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
-        
         
         Beispiele:
         
@@ -919,7 +873,7 @@ class DE(RoboSAPiensClient):
         
         | ``Inhalte scrollen    Richtung   bis_Textfeld``
         """
-        
+
         args = [Richtung, bis_Textfeld]
         
         result = {
@@ -932,7 +886,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ScrollTextFieldContents', args, result) # type: ignore
     
-
     @keyword('Fenster horizontal scrollen') # type: ignore
     def scroll_window_horizontally(self, Richtung: str): # type: ignore
         """
@@ -940,12 +893,11 @@ class DE(RoboSAPiensClient):
         
         | ``Richtung`` | LEFT, RIGHT, BEGIN, END |
         
-        
         Beispiele:
         
         | ``Fenster horizontal scrollen    Richtung``
         """
-        
+
         args = [Richtung]
         
         result = {
@@ -958,7 +910,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ScrollWindowHorizontally', args, result) # type: ignore
     
-
     @keyword('Tabellenzelle markieren') # type: ignore
     def select_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
@@ -967,12 +918,11 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
-        
         Beispiele:
         
         | ``Tabellenzelle markieren     Zeile     Spaltentitel``
         """
-        
+
         args = [Zeile, Spaltentitel]
         
         result = {
@@ -984,7 +934,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectCell', args, result) # type: ignore
     
-
     @keyword('Tabellenzellenwert auswählen') # type: ignore
     def select_cell_value(self, Zeile: str, Spaltentitel: str, Wert: str): # type: ignore
         """
@@ -994,12 +943,11 @@ class DE(RoboSAPiensClient):
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Wert`` | Ein Wert aus dem Auswahlmenü |
         
-        
         Beispiele:
         
         | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
         """
-        
+
         args = [Zeile, Spaltentitel, Wert]
         
         result = {
@@ -1011,14 +959,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectCellValue', args, result) # type: ignore
     
-
     @keyword('Formularfeld-Status auslesen') # type: ignore
     def read_check_box(self, Lokator: str): # type: ignore
         """
         Der Status des angegebenen Formularfelds wird ausgelesen.
         
         | ``Lokator`` | Ein Lokator, um das Formularfeld zu finden |
-        
         
         Beispiele:
         
@@ -1031,7 +977,7 @@ class DE(RoboSAPiensClient):
         *Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*
         | ``Formularfeld-Status auslesen    Beschriftung links @ Beschriftung oben``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -1042,7 +988,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ReadCheckBox', args, result) # type: ignore
     
-
     @keyword('Auswahlmenüeintrag auslesen') # type: ignore
     def read_combo_box_entry(self, Lokator: str): # type: ignore
         """
@@ -1050,12 +995,11 @@ class DE(RoboSAPiensClient):
         
         | ``Lokator`` | Beschriftung oder Kurzinfo des Auswahlmenüs |
         
-        
         Beispiele:
         
         | ``${Eintrag}   Auswahlmenüeintrag auslesen    Lokator``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -1066,7 +1010,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ReadComboBoxEntry', args, result) # type: ignore
     
-
     @keyword('Auswahlmenüeintrag auswählen') # type: ignore
     def select_combo_box_entry(self, Lokator: str, Eintrag: str): # type: ignore
         """
@@ -1074,7 +1017,6 @@ class DE(RoboSAPiensClient):
         
         | ``Lokator`` | Beschriftung oder Kurzinfo des Auswahlmenüs |
         | ``Eintrag`` | Ein Eintrag aus dem Auswahlmenü |
-        
         
         Beispiele:
         
@@ -1084,7 +1026,7 @@ class DE(RoboSAPiensClient):
         
         Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, drücke zuerst den Knopf und verwende danach dieses Schlüsselwort.
         """
-        
+
         args = [Lokator, Eintrag]
         
         result = {
@@ -1096,7 +1038,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectComboBoxEntry', args, result) # type: ignore
     
-
     @keyword('Menüeintrag auswählen') # type: ignore
     def select_menu_item(self, Eintragspfad: str): # type: ignore
         """
@@ -1104,12 +1045,11 @@ class DE(RoboSAPiensClient):
         
         | ``Eintragspfad`` | Der Pfad zum Eintrag mit '/' als Trennzeichen (z.B. System/Benutzervorgaben/Eigene Daten). |
         
-        
         Beispiele:
         
         | ``Menüeintrag auswählen    Eintragspfad``
         """
-        
+
         args = [Eintragspfad]
         
         result = {
@@ -1120,14 +1060,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectMenuItem', args, result) # type: ignore
     
-
     @keyword('Optionsfeld auswählen') # type: ignore
     def select_radio_button(self, Lokator: str): # type: ignore
         """
         Das angegebene Optionsfeld wird ausgewählt.
         
         | ``Lokator`` | Ein Lokator, um das Optionsfeld zu finden |
-        
         
         Beispiele:
         
@@ -1140,7 +1078,7 @@ class DE(RoboSAPiensClient):
         *Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*
         | ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -1152,7 +1090,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
-
     @keyword('Tabellenzeile markieren') # type: ignore
     def select_table_row(self, Zeilenlokator: str): # type: ignore
         """
@@ -1160,14 +1097,13 @@ class DE(RoboSAPiensClient):
         
         | ``Zeilenlokator`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         
-        
         Beispiele:
         
         | ``Tabellenzeile markieren    Zeilenlokator``
         
         *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
         """
-        
+
         args = [Zeilenlokator]
         
         result = {
@@ -1180,7 +1116,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectTableRow', args, result) # type: ignore
     
-
     @keyword('Textfeld markieren') # type: ignore
     def select_text_field(self, Lokator: str): # type: ignore
         """
@@ -1188,12 +1123,11 @@ class DE(RoboSAPiensClient):
         
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
         
-        
         Beispiele:
         
         | ``Textfeld markieren    Lokator``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -1204,14 +1138,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectTextField', args, result) # type: ignore
     
-
     @keyword('Text markieren') # type: ignore
     def select_text(self, Lokator: str): # type: ignore
         """
         Der angegebene Text wird markiert.
         
         | ``Lokator`` | Ein Lokator, um den Text zu finden |
-        
         
         Beispiele:
         
@@ -1221,7 +1153,7 @@ class DE(RoboSAPiensClient):
         *Text folgt einer Beschriftung*
         | ``Text markieren    Beschriftung``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -1232,14 +1164,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectText', args, result) # type: ignore
     
-
     @keyword('Formularfeld ankreuzen') # type: ignore
     def tick_check_box(self, Lokator: str): # type: ignore
         """
         Das angegebene Formularfeld wird angekreuzt.
         
         | ``Lokator`` | Ein Lokator, um das Formularfeld zu finden |
-        
         
         Beispiele:
         
@@ -1252,7 +1182,7 @@ class DE(RoboSAPiensClient):
         *Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*
         | ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -1264,7 +1194,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('TickCheckBox', args, result) # type: ignore
     
-
     @keyword('Statusleiste auslesen') # type: ignore
     def read_statusbar(self): # type: ignore
         """
@@ -1275,7 +1204,7 @@ class DE(RoboSAPiensClient):
         
         | ``${statusleiste}   Statusleiste auslesen``
         """
-        
+
         args = []
         
         result = {
@@ -1287,14 +1216,12 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ReadStatusbar', args, result) # type: ignore
     
-
     @keyword('Formularfeld abwählen') # type: ignore
     def untick_check_box(self, Lokator: str): # type: ignore
         """
         Das angegebene Formularfeld wird abgewählt.
         
         | ``Lokator`` | Ein Lokator, um das Formularfeld zu finden |
-        
         
         Beispiele:
         
@@ -1307,7 +1234,7 @@ class DE(RoboSAPiensClient):
         *Formularfeld am Schnittpunkt einer Beschriftung links und einer oben*
         | ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``
         """
-        
+
         args = [Lokator]
         
         result = {
@@ -1319,7 +1246,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('UntickCheckBox', args, result) # type: ignore
     
-
     @keyword('Tabellenzelle ankreuzen') # type: ignore
     def tick_check_box_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
@@ -1328,14 +1254,13 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
-        
         Beispiele:
         
         | ``Tabellenzelle ankreuzen     Zeile     Spaltentitel``
         
         *Hinweis*: Um das Formularfeld in der Spalte ganz links ohne Titel anzukreuzen, markiere die Zeile und drücke die "Enter"-Taste.
         """
-        
+
         args = [Zeile, Spaltentitel]
         
         result = {
@@ -1347,7 +1272,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('TickCheckBoxCell', args, result) # type: ignore
     
-
     @keyword('Tabellenzelle abwählen') # type: ignore
     def untick_check_box_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
         """
@@ -1356,12 +1280,11 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         
-        
         Beispiele:
         
         | ``Tabellenzelle abwählen     Zeile     Spaltentitel``
         """
-        
+
         args = [Zeile, Spaltentitel]
         
         result = {
@@ -1373,7 +1296,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('UntickCheckBoxCell', args, result) # type: ignore
     
-
     @keyword('Fenstertitel auslesen') # type: ignore
     def get_window_title(self): # type: ignore
         """
@@ -1384,7 +1306,7 @@ class DE(RoboSAPiensClient):
         
         | ``${Titel}    Fenstertitel auslesen``
         """
-        
+
         args = []
         
         result = {
@@ -1394,7 +1316,6 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('GetWindowTitle', args, result) # type: ignore
     
-
     @keyword('Fenstertext auslesen') # type: ignore
     def get_window_text(self): # type: ignore
         """
@@ -1405,7 +1326,7 @@ class DE(RoboSAPiensClient):
         
         | ``${Text}    Fenstertext auslesen``
         """
-        
+
         args = []
         
         result = {
@@ -1416,4 +1337,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.11.1'
+    ROBOT_LIBRARY_VERSION = '2.11.2'
