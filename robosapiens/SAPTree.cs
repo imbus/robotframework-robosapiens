@@ -37,7 +37,7 @@ namespace RoboSAPiens
             {TreeItem.Button, CellType.Button},
             {TreeItem.Bool, CellType.CheckBox},
             {TreeItem.Text, CellType.Text},
-            {TreeItem.Link, CellType.Button},
+            {TreeItem.Link, CellType.Link},
             {TreeItem.Image, CellType.Button},
         };
 

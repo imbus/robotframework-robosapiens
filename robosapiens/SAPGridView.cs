@@ -16,6 +16,7 @@ namespace RoboSAPiens
         {
             {"Button", CellType.Button},
             {"CheckBox", CellType.CheckBox},
+            {"Link", CellType.Link},
             {"Normal", CellType.Text},
             {"ValueList", CellType.ComboBox},
         };
@@ -44,6 +45,10 @@ namespace RoboSAPiens
                     string type;
                     try {
                         type = gridView.GetCellType(row, columnId);
+
+                        if (gridView.IsCellHotspot(row, columnId)) {
+                            type = gridView.GetCellHotspotType(row, columnId);
+                        }
                     }
                     // When a row is empty an exception is thrown
                     catch (Exception) {

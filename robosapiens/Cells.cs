@@ -11,6 +11,7 @@ namespace RoboSAPiens
         CheckBox,
         ComboBox,
         Label,
+        Link,
         RadioButton,
         Text
     }
@@ -77,6 +78,9 @@ namespace RoboSAPiens
                 case CellType.CheckBox:
                     var checkBoxState = gridView.GetCellCheckBoxChecked(rowIndex, columnId);
                     gridView.ModifyCheckBox(rowIndex, columnId, !checkBoxState);
+                    break;
+                case CellType.Link:
+                    gridView.Click(rowIndex, columnId);
                     break;
                 case CellType.Text:
                     gridView.SetCurrentCell(rowIndex, columnId);
@@ -228,6 +232,9 @@ namespace RoboSAPiens
                 case CellType.CheckBox:
                     var checkBoxState = tree.GetCheckBoxState(nodeKey, columnName);
                     tree.ChangeCheckbox(nodeKey, columnName, !checkBoxState);
+                    break;
+                case CellType.Link:
+                    tree.ClickLink(nodeKey, columnName);
                     break;
                 case CellType.Text:
                     select(tree);
