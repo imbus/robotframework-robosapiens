@@ -97,7 +97,7 @@ namespace RoboSAPiens {
 
         public record CloseWindow {
             public record NoSession(): RobotResult.NoSession();
-            public record Pass(): RobotResult.RobotPass("Das Fenster im Fordergrund wurde geschlossen.");
+            public record Pass(): RobotResult.RobotPass("Das Fenster im Vordergrund wurde geschlossen.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Fenster konnte nicht geschlossen werden.");
         }
 

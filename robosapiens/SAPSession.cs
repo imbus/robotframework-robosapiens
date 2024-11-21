@@ -241,7 +241,7 @@ namespace RoboSAPiens {
         public RobotResult closeWindow()
         {
             try {
-                window.close();                
+                session.ActiveWindow.Close();
                 return new Result.CloseWindow.Pass();
             }
             catch (Exception e) {
