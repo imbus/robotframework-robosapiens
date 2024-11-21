@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.11.3"
+__version__ = "2.12.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -352,6 +352,26 @@ class RoboSAPiens(RoboSAPiensClient):
             "Pass": "The SAP GUI was closed."
         }
         return super()._run_keyword('CloseSap', args, result) # type: ignore
+    
+    @keyword('Close Window') # type: ignore
+    def close_window(self): # type: ignore
+        """
+        Close the window in the foreground.
+        
+        
+        Examples:
+        
+        | ``Close Window``
+        """
+
+        args = []
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "Exception": "The window could not be closed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "Pass": "The window in the foreground was closed."
+        }
+        return super()._run_keyword('CloseWindow', args, result) # type: ignore
     
     @keyword('Get Row Count') # type: ignore
     def count_table_rows(self): # type: ignore
@@ -1339,4 +1359,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.11.3'
+    ROBOT_LIBRARY_VERSION = '2.12.0'

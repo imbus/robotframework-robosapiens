@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.11.3"
+__version__ = "2.12.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -351,6 +351,26 @@ class DE(RoboSAPiensClient):
             "Pass": "Die SAP GUI wurde beendet"
         }
         return super()._run_keyword('CloseSap', args, result) # type: ignore
+    
+    @keyword('Fenster schließen') # type: ignore
+    def close_window(self): # type: ignore
+        """
+        Das Fenster im Vordergrund wird geschlossen.
+        
+        
+        Beispiele:
+        
+        | ``Fenster schließen``
+        """
+
+        args = []
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "Pass": "Das Fenster im Vordergrund wurde geschlossen.",
+            "Exception": "Das Fenster konnte nicht geschlossen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('CloseWindow', args, result) # type: ignore
     
     @keyword('Tabellenzeilen zählen') # type: ignore
     def count_table_rows(self): # type: ignore
@@ -1337,4 +1357,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.11.3'
+    ROBOT_LIBRARY_VERSION = '2.12.0'
