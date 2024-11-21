@@ -25,6 +25,10 @@ namespace RoboSAPiens
             self = window;
         }
 
+        public void close() {
+            self.Close();
+        }
+
         public string getMessage() 
         {
             if (components.getAllTextFields().Count > 0) {

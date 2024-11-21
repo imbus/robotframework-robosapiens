@@ -238,6 +238,18 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult closeWindow()
+        {
+            try {
+                window.close();                
+                return new Result.CloseWindow.Pass();
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.CloseWindow.Exception(e);
+            }
+        }
+
         public RobotResult doubleClickCell(string rowIndexOrContent, string column) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

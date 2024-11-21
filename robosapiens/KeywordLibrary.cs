@@ -28,6 +28,7 @@ namespace RoboSAPiens
                 {"AttachToRunningSap", args => args switch { [string sessionNumber] => AttachToRunningSap(sessionNumber), _ =>  AttachToRunningSap() }},
                 {"CloseConnection", args => CloseConnection()},
                 {"CloseSap", args => CloseSap()},
+                {"CloseWindow", args => CloseWindow()},
                 {"ConnectToServer", args => ConnectToServer(args[0])},
                 {"CountTableRows", args => CountTableRows()},
                 {"DoubleClickCell", args => DoubleClickCell(args[0], args[1])},
@@ -265,6 +266,15 @@ namespace RoboSAPiens
             return new Result.CloseSap.Pass();
         }
 
+        [Keyword("Fenster schließen"),
+         Doc("Das Fenster im Fordergrund wird geschlossen.")]
+        public RobotResult CloseWindow()
+        {
+            return session switch {
+                SAPSession session => session.closeWindow(),
+                _ => new Result.CloseWindow.NoSession()
+            };
+        }
 
         [Keyword("Baumstruktur exportieren"),
          Doc("Die Baumstruktur wird in der angegebenen Datei gespeichert.\n\n" +

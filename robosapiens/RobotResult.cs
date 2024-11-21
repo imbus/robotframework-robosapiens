@@ -95,6 +95,12 @@ namespace RoboSAPiens {
             public record Pass(): RobotResult.RobotPass("Die SAP GUI wurde beendet");
         }
 
+        public record CloseWindow {
+            public record NoSession(): RobotResult.NoSession();
+            public record Pass(): RobotResult.RobotPass("Das Fenster im Fordergrund wurde geschlossen.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Fenster konnte nicht geschlossen werden.");
+        }
+
         public record ExportTree {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(): RobotResult.NotFound("Die Maske enthält keine Baumstruktur");

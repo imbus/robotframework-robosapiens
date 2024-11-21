@@ -402,6 +402,24 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "CloseWindow": {
+            "name": "Close Window",
+            "args": {},
+            "result": {
+                "NoSession": no_session,
+                "Exception": exception("The window could not be closed. {0}"),
+                "Pass": "The window in the foreground was closed."
+            },
+            "doc": {
+                "desc": "Close the window in the foreground.",
+                "examples": 
+                """
+                Examples:
+                
+                | ``Close Window``
+                """
+            }
+        },
         "CountTableRows": {
             "name": "Get Row Count",
             "args": {},

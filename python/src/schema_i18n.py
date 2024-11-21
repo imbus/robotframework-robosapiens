@@ -1007,6 +1007,18 @@ class LocalizedRoboSAPiensKeywordsCounttablerowsResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsCounttablerowsArgs(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsClosewindowDoc(TypedDict):
+    desc: Tuple[Literal['3032332168'], str]
+    examples: Tuple[Literal['3865488397'], str]
+
+class LocalizedRoboSAPiensKeywordsClosewindowResult(TypedDict):
+    NoSession: Tuple[Literal['4138997384'], str]
+    Exception: Tuple[Literal['1090626587'], str]
+    Pass: Tuple[Literal['320353308'], str]
+
+class LocalizedRoboSAPiensKeywordsClosewindowArgs(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsClosesapDoc(TypedDict):
     desc: Tuple[Literal['3611358703'], str]
     examples: Tuple[Literal['1734451664'], str]
@@ -1329,6 +1341,12 @@ class LocalizedRoboSAPiensKeywordsCounttablerows(TypedDict):
     result: LocalizedRoboSAPiensKeywordsCounttablerowsResult
     doc: LocalizedRoboSAPiensKeywordsCounttablerowsDoc
 
+class LocalizedRoboSAPiensKeywordsClosewindow(TypedDict):
+    name: Tuple[Literal['3843607926'], str]
+    args: LocalizedRoboSAPiensKeywordsClosewindowArgs
+    result: LocalizedRoboSAPiensKeywordsClosewindowResult
+    doc: LocalizedRoboSAPiensKeywordsClosewindowDoc
+
 class LocalizedRoboSAPiensKeywordsClosesap(TypedDict):
     name: Tuple[Literal['1795765665'], str]
     args: LocalizedRoboSAPiensKeywordsClosesapArgs
@@ -1392,6 +1410,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     OpenSap: LocalizedRoboSAPiensKeywordsOpensap
     CloseConnection: LocalizedRoboSAPiensKeywordsCloseconnection
     CloseSap: LocalizedRoboSAPiensKeywordsClosesap
+    CloseWindow: LocalizedRoboSAPiensKeywordsClosewindow
     CountTableRows: LocalizedRoboSAPiensKeywordsCounttablerows
     ExportTree: LocalizedRoboSAPiensKeywordsExporttree
     AttachToRunningSap: LocalizedRoboSAPiensKeywordsAttachtorunningsap

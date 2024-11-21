@@ -411,6 +411,25 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
+        "CloseWindow": {
+            "name": ("3843607926", "Fenster schließen"),
+            "args": {},
+            "result": {
+              "NoSession": ("4138997384", no_session),
+              "Pass": ("320353308", "Das Fenster im Vordergrund wurde geschlossen."),
+              "Exception": ("1090626587", exception("Das Fenster konnte nicht geschlossen werden."))
+            },
+            "doc": {
+                "desc": ("3032332168", "Das Fenster im Vordergrund wird geschlossen."),
+                "examples": ("3865488397", 
+                """
+                Beispiele:
+                
+                | ``Fenster schließen``
+                """
+              )
+            }
+        },
         "CountTableRows": {
             "name": ("2280342727", "Tabellenzeilen zählen"),
             "args": {},

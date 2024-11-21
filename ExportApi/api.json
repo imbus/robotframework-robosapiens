@@ -151,6 +151,19 @@
         "examples": ""
       }
     },
+    "CloseWindow": {
+      "name": "Fenster schließen",
+      "args": {},
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Das Fenster im Fordergrund wird geschlossen.",
+        "examples": ""
+      }
+    },
     "ExportTree": {
       "name": "Baumstruktur exportieren",
       "args": {
