@@ -484,7 +484,7 @@ lib: LocalizedRoboSAPiens = {
                 "sessionNumber": {
                     "name": ("4193981709", "session_nummer"),
                     "desc": ("1547983273", "Die Nummer der SAP-Session in der rechten unteren Ecke des Fensters"),
-                    "default": ("2212294583", "1"),
+                    "default": 1,
                     "spec": {}
                 }
             },

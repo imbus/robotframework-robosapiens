@@ -190,7 +190,7 @@
         "sessionNumber": {
           "name": "sessionNumber",
           "desc": "",
-          "default": "1",
+          "default": 1,
           "spec": {}
         }
       },

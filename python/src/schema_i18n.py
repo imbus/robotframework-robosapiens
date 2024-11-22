@@ -427,7 +427,7 @@ class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber(TypedDict):
     name: Tuple[Literal['4193981709'], str]
     desc: Tuple[Literal['1547983273'], str]
-    default: Tuple[Literal['2212294583'], str]
+    default: Literal[1]
     spec: LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec
 
 class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):

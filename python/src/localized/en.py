@@ -472,7 +472,7 @@ lib: RoboSAPiens = {
                 "sessionNumber": {
                     "name": "session_number",
                     "desc": "The session number in the lower right corner of the window",
-                    "default": "1",
+                    "default": 1,
                     "spec": {}
                 }
             },

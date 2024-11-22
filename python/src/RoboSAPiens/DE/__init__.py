@@ -418,7 +418,7 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ExportTree', args, result) # type: ignore
     
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
-    def attach_to_running_sap(self, session_nummer: str='1'): # type: ignore
+    def attach_to_running_sap(self, session_nummer: int=1): # type: ignore
         """
         Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
         

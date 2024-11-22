@@ -431,7 +431,7 @@ class RoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
 class RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber(TypedDict):
     name: str
     desc: str
-    default: str
+    default: Literal[1]
     spec: RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec
 
 class RoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):

@@ -288,14 +288,8 @@ namespace RoboSAPiens
 
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult AttachToRunningSap(string sessionNumber="1") {
+        public RobotResult AttachToRunningSap(int sessionNumber=1) {
             GuiApplication? guiApplication = null;
-
-            int intSessionNumber;
-            if (!Int32.TryParse(sessionNumber, out intSessionNumber))
-            {
-                return new Result.AttachToRunningSap.InvalidSessionId(sessionNumber);
-            }
 
             switch(getSapGui()) 
             {
@@ -341,7 +335,7 @@ namespace RoboSAPiens
                         {
                             var guiSession = (GuiSession)connection.Sessions.ElementAt(s);
                             var guiSessionInfo = guiSession.Info;
-                            if (guiSessionInfo.SessionNumber == intSessionNumber)
+                            if (guiSessionInfo.SessionNumber == sessionNumber)
                             {
                                 guiSession.TestToolMode = 1;
                                 this.session = new SAPSession(guiSession, connection, options, logger);

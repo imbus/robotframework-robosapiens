@@ -419,7 +419,7 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ExportTree', args, result) # type: ignore
     
     @keyword('Connect to Running SAP') # type: ignore
-    def attach_to_running_sap(self, session_number: str='1'): # type: ignore
+    def attach_to_running_sap(self, session_number: int=1): # type: ignore
         """
         Connect to a running SAP instance and take control of it.
         
