@@ -19,22 +19,23 @@ def escape_chars(string: str) -> str:
 
 def format_arg(arg: dict) -> str:
     name = get_value(arg["name"])
+    type_name = arg.get('type', 'str')
     
     if 'default' in arg:
         default = get_value(arg['default'])
-    
-        if default is None:
-            return "%s: str=None" % name
+
+        if default is not None:
+            type_name = type(default).__name__
         
-        if isinstance(default, bool):
-            return "%s: bool=%s" % (name, default)
-        else:
-            return "%s: str='%s'" % (name, default)
+            if type_name == 'str':
+                default = "'" + default + "'"
 
-    return "%s: str" % name
+        return "%s: %s=%s" % (name, type_name, default)
+
+    return "%s: %s" % (name, type_name)
 
 
-def get_value(value: str|tuple[str, str]) -> str:
+def get_value(value: str|tuple):
     if isinstance(value, tuple): return value[1]
     return value
 
