@@ -9,9 +9,8 @@ using saprotwr.net;
 
 namespace RoboSAPiens 
 {
-    public class KeywordLibrary 
+    public class KeywordLibrary: IKeywordLibrary
     {
-        private readonly Dictionary<string, Func<string[], RobotResult>> keywords;
         private ILogger logger;
         private Options options;
         private Process? proc = null;
@@ -22,68 +21,13 @@ namespace RoboSAPiens
             this.logger = logger;
             this.options = options;
             session = new NoSAPSession();
-            keywords = new Dictionary<string, Func<string[], RobotResult>>()
-            {
-                {"ActivateTab", args => ActivateTab(args[0])},
-                {"AttachToRunningSap", args => args switch { [string sessionNumber] => AttachToRunningSap(sessionNumber), _ =>  AttachToRunningSap() }},
-                {"CloseConnection", args => CloseConnection()},
-                {"CloseSap", args => CloseSap()},
-                {"CloseWindow", args => CloseWindow()},
-                {"ConnectToServer", args => ConnectToServer(args[0])},
-                {"CountTableRows", args => CountTableRows()},
-                {"DoubleClickCell", args => DoubleClickCell(args[0], args[1])},
-                {"DoubleClickTextField", args => DoubleClickTextField(args[0])},
-                {"DoubleClickTreeElement", args => DoubleClickTreeElement(args[0])},
-                {"ExecuteTransaction", args => ExecuteTransaction(args[0])},
-                {"ExportTree", args => ExportTree(args[0])},
-                {"ExportWindow", args => ExportWindow(args[0], args[1])},
-                {"FillCell", args => FillCell(args[0], args[1], args[2])},
-                {"FillTextEdit", args => FillTextEdit(args[0])},
-                {"FillTextField", args => FillTextField(args[0], args[1])},
-                {"GetWindowText", args => GetWindowText()},
-                {"GetWindowTitle", args => GetWindowTitle()},
-                {"HighlightButton", args => HighlightButton(args[0])},
-                {"OpenSap", args => args switch { [string path, string kwargs] => OpenSap(path, kwargs), _ =>  OpenSap(args[0]) }},
-                {"PressKeyCombination", args => PressKeyCombination(args[0])},
-                {"PushButton", args => PushButton(args[0])},
-                {"PushButtonCell", args => PushButtonCell(args[0], args[1])},
-                {"ReadComboBoxEntry", args => ReadComboBoxEntry(args[0])},
-                {"ReadStatusbar", args => ReadStatusbar()},
-                {"ReadCell", args => ReadCell(args[0], args[1])},
-                {"ReadCheckBox", args => ReadCheckBox(args[0])},
-                {"ReadText", args => ReadText(args[0])},
-                {"ReadTextField", args => ReadTextField(args[0])},
-                {"SaveScreenshot", args => SaveScreenshot(args[0])},
-                {"ScrollTextFieldContents", args => ScrollTextFieldContents(args[0], args[1])},
-                {"ScrollWindowHorizontally", args => ScrollWindowHorizontally(args[0])},
-                {"SelectCell", args => SelectCell(args[0], args[1])},
-                {"SelectCellValue", args => SelectCellValue(args[0], args[1], args[2])},
-                {"SelectComboBoxEntry", args => SelectComboBoxEntry(args[0], args[1])},
-                {"SelectMenuItem", args => SelectMenuItem(args[0])},
-                {"SelectRadioButton", args => SelectRadioButton(args[0])},
-                {"SelectTableRow", args => SelectTableRow(args[0])},
-                {"SelectText", args => SelectText(args[0])},
-                {"SelectTextField", args => SelectTextField(args[0])},
-                {"SelectTreeElement", args => SelectTreeElement(args[0])},
-                {"SelectTreeElementMenuEntry", args => SelectTreeElementMenuEntry(args[0], args[1])},
-                {"TickCheckBox", args => TickCheckBox(args[0])},
-                {"TickCheckBoxCell", args => TickCheckBoxCell(args[0], args[1])},
-                {"UntickCheckBox", args => UntickCheckBox(args[0])},
-                {"UntickCheckBoxCell", args => UntickCheckBoxCell(args[0], args[1])},
-            };
         }
 
-        // TODO: Implement a test to verify that this function handles all keywords
-        // That is, the function should not return KeywordNotFound.
-        public RobotResult callKeyword(string methodName, string[] args) 
+        public RobotResult callKeyword(string methodName, object[] args) 
         {
-            if (!keywords.ContainsKey(methodName)) {
-                return new Result.KeywordLibrary.KeywordNotFound(methodName);
-            }
-
             try
             {
-                return keywords[methodName].Invoke(args);
+                return (RobotResult)typeof(KeywordLibrary).GetMethod(methodName)!.Invoke(this, args)!;
             }
             catch (Exception e)
             {
@@ -94,7 +38,20 @@ namespace RoboSAPiens
 
         public List<string> getKeywordNames()
         {
-            return keywords.Keys.ToList();
+            return typeof(IKeywordLibrary)
+                .GetMethods()
+                .Select(m => m.Name)
+                .Order()
+                .ToList();
+        }
+
+        public string[] getKeywordArgumentTypes(string methodName)
+        {
+            return typeof(IKeywordLibrary)
+                .GetMethod(methodName)!
+                .GetParameters()
+                .Select(param => param.ParameterType.FullName!)
+                .ToArray();
         }
 
         record EitherSapGui {
