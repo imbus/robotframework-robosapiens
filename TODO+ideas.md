@@ -19,21 +19,6 @@
 - Link to the docs
 
 
-## Support SAP GUI 8.0
-
-It is 64-bit. It will probably be necessary to generate the DLLs.
-
-Compile the project once for 32-bit and once for 64-bit.
-
-Copy the resulting artifacts to python/src/RoboSAPiens/lib32,lib64
-
-Add the parameter `32_bit: bool = True` to the Python library. It will be used to determine which RoboSAPiens.exe to execute. Delete it from args before passing args to start_server.te
-
-When exporting the API in C# add
-
-new Arg("32-bit", "Whether to launch the 32-bit server or the 64-bit server", default: true, export: true).
-
-
 ## Screenshot on error
 
 For SapError and NotFound set the output to:
@@ -49,50 +34,25 @@ The current solution is to always return the first match.
 
 # C#
 
+## Remove invalid characters from filenames
+
+Keywords affected:
+
+- Save Screenshot
+- Export Form
+
+
 ## Keywords
 
 ### Export form
 
 Refactor this function:
   - Simple and clear
-  - Do not depend on a CSV library
-
-### Highlight Elements
-
-- Implement the keyword "Highlight Elements", which highlights all the elements matching a locator.
-
-Should accept the following selectors: HLabel, @ VLabel, HLabel @ VLabel, HLabel >> HLabel, etc.
-
-### Press Key
-
-### Read Statusbar
-
-- Read the statusbar and return the message to the user
-
-- Usually only the main window has a statusbar. If the current window is a modal window read the statusbar of the main window.
-
-### Select Row
-
-Args: row_index: int, table=None
-
-1. If there is more than one table, find the table using the title of the enclosing box.
-2. Get the row and select it.
-
-
-## GuiHTMLViewer
-
-When a GuiShell has subtype GuiHTMLViewer, take a screenshot and use Tesseract to get the coordinates of the labels. Then we can use the usual strategies to locate labels. Or try to get the coordinates from the Browser object. That way we spare a dependency.
-
-GuiHTMLViewer.BrowserHandle.document.all(0).innerText
 
 
 ## Headless mode
 
-As described in the [SAP GUI Scripting API documentation](https://www.synactive.com/download/sap%20gui%20scripting/sap%20gui%20scripting%20api.pdf), the GUI can be embedded in another application (that supports ActiveX controls). For example Office, Internet Explorer. This can be used for headless automation:
-
-https://help.qualibrate.com/space/QXP/3960186362/Headless+Execution
-
-Moreover, there is [SAP GUI for HTML](https://help.sap.com/docs/SAP_NETWEAVER_700/1095c5c36c531014a190e3910e107855/4c3a83ddb48f1ca9e10000000a42189e.html?locale=en-US), maps SAP screens to HTML pages.
+See [Why you should run UI testing in Windows containers](https://www.pdq.com/blog/ui-testing-in-windows-containers-why/).
 
 
 ## Record & Replay: RF Code Generator
@@ -102,19 +62,12 @@ The GuiSession object supports recording changes made to GUI elements and sends 
 This functionality can be used for recording Robot Framework scripts, which can be later refactored into keywords. 
 
 
-## Tables
+## ABAP Lists
 
-- Add an abstract class Table
+An ABAP List constists of a bunch of labels arranged in a grid
 
-- Add the following implementations of the Table class:
-  - SAPTable
-  - GridView
-  - List (a bunch of labels arranged in a grid)
-
-- Lists can be exported as Markdown tables using the Menu Item: 
+- Some of them can be exported as Markdown tables using the Menu Item: 
   System -> List -> Save to file -> Unconverted
-
-- Some tables can be exported as Excel spreadsheets
 
 
 ## TestToolMode
