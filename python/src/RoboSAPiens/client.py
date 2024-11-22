@@ -63,7 +63,7 @@ class RoboSAPiensClient(object):
         request = {
             "jsonrpc": "2.0",
             "method": name,
-            "params": args,
+            "args": args,
             "id": next(self.counter)
         }
 

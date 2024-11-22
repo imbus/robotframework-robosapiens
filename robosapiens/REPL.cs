@@ -73,7 +73,7 @@ namespace RoboSAPiens
                 while ((input = readInput()) != null && input != "quit")
                 {
                     var request = JSON.deserialize(input) ?? throw new Exception("Received null");
-                    var result = keywordLibrary.callKeyword(request.method, request.@params);
+                    var result = keywordLibrary.callKeyword(request.method, request.args);
                     var response = result.status switch
                     {
                         Status.FAIL => JSON.Fail(new JSONError(-32000, "Keyword call failed.", result), id: request.id),
