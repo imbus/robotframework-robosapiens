@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.12.0"
+__version__ = "2.12.1"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -388,7 +388,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
-            "Exception": "Could not count the rows in the table.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "Exception": "Could not count the rows in the table. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
             "NotFound": "The window contains no table.",
             "Pass": "Counted the number of rows in the table."
         }
@@ -717,7 +717,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
             "Pass": "The key combination '{0}' was pressed.",
-            "Exception": "The key combination '{0}' could not be pressed.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The key combination could not be pressed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('PressKeyCombination', args, result) # type: ignore
     
@@ -798,7 +798,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "No statusbar was found.",
             "Pass": "The statusbar was read.",
-            "Exception": "The statusbar could not be read\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The statusbar could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ReadStatusbar', args, result) # type: ignore
     
@@ -922,7 +922,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
-            "Exception": "The contents of the text fields could not be scrolled.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "Exception": "The contents of the text fields could not be scrolled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
             "NoScrollbar": "The window contains no scrollable text fields.",
             "MaximumReached": "The contents of the text fields cannot be scrolled any further.",
             "InvalidDirection": "Invalid direction. The direction must be one of: UP, DOWN, BEGIN, END",
@@ -946,7 +946,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
-            "Exception": "The window could not be scrolled horizontally.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "Exception": "The window could not be scrolled horizontally. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
             "NoScrollbar": "The window contains no horizontal scrollbar.",
             "MaximumReached": "The window cannot be scrolled any further.",
             "InvalidDirection": "Invalid direction. The direction must be one of: LEFT, RIGHT, BEGIN, END",
@@ -1334,7 +1334,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "Pass": "The title of the window was obtained.",
-            "Exception": "The window title could not be read.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The window title could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('GetWindowTitle', args, result) # type: ignore
     
@@ -1354,9 +1354,9 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "Pass": "The text message of the window was obtained.",
-            "Exception": "The text message of the window could not be read.\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "The text message of the window could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.12.0'
+    ROBOT_LIBRARY_VERSION = '2.12.1'
