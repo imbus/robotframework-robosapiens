@@ -435,7 +435,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
-                "Exception": ("2467830426", exception("Die Zeilen der Tabelle konnten nicht gezählt werden.")),
+                "Exception": ("1934626298", exception("Die Zeilen der Tabelle konnten nicht gezählt werden.")),
                 "NotFound": ("2399256699", "Die Maske enthält keine Tabelle."),
                 "Pass": ("1614075368", "Die Tabellenzeillen wurden gezählt.")
             },
@@ -841,7 +841,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "result": {
                 "NoSession": ("4138997384", no_session),
-                "Exception": ("3348926009", exception("Die Tastenkombination konnte nicht gedrückt werden.")),
+                "Exception": ("3975296116", exception("Die Tastenkombination konnte nicht gedrückt werden.")),
                 "NotFound": ("2294374604", "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen."),
                 "Pass": ("3497306705", "Die Tastenkombination '{0}' wurde gedrückt.")
             },
@@ -1071,7 +1071,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "result": {
                 "NoSession": ("4138997384", no_session),
-                "Exception": ("2581980086", exception("Die Inhalte der Textfelder konnten nicht gescrollt werden.")),
+                "Exception": ("1650861005", exception("Die Inhalte der Textfelder konnten nicht gescrollt werden.")),
                 "NoScrollbar": ("3931385040", "Das Fenster enthält keine scrollbaren Textfelder."),
                 "MaximumReached": ("3349368208", "Die Inhalte der Textfelder können nicht weiter gescrollt werden."),
                 "InvalidDirection": ("2667316811", "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: UP, DOWN, BEGIN, END"),
@@ -1103,7 +1103,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "result": {
                 "NoSession": ("4138997384", no_session),
-                "Exception": ("1815500836", exception("Das Fenster konnte nicht horizontal gescrollt werden.")),
+                "Exception": ("3689319260", exception("Das Fenster konnte nicht horizontal gescrollt werden.")),
                 "NoScrollbar": ("876328389", "Das Fenster enthält keine horizontale Bildlaufleiste."),
                 "MaximumReached": ("136266215", "Das Fenster kann nicht weiter gescrollt werden."),
                 "InvalidDirection": ("103681373", "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: LEFT, RIGHT, BEGIN, END"),
@@ -1487,7 +1487,7 @@ lib: LocalizedRoboSAPiens = {
                 "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("2342000252", "Keine Statusleiste gefunden."),
-                "Exception": ("803476123", exception("Die Statusleiste konnte nicht ausgelesen werden.")),
+                "Exception": ("4016539365", exception("Die Statusleiste konnte nicht ausgelesen werden.")),
                 "Pass": ("1105532895", "Die Statusleiste wurde ausgelesen.")
             },
             "doc": {
@@ -1611,7 +1611,7 @@ lib: LocalizedRoboSAPiens = {
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("2852411998", "Der Fenstertitel wurde ausgelesen"),
-              "Exception": ("2687794215", exception("Der Titel des Fensters konnte nicht ausgelesen werden."))
+              "Exception": ("1458775703", exception("Der Titel des Fensters konnte nicht ausgelesen werden."))
             },
             "doc": {
                 "desc": ("3346161873", "Der Titel des Fensters im Fordergrund wird zurückgegeben."),
@@ -1630,7 +1630,7 @@ lib: LocalizedRoboSAPiens = {
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("2562559050", "Der Text des Fensters wurde ausgelesen"),
-              "Exception": ("922315409", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
+              "Exception": ("293173089", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
             },
             "doc": {
                 "desc": ("3847136589", "Der Text des Fensters im Fordergrund wird zurückgegeben."),

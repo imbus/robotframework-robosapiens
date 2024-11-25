@@ -425,7 +425,7 @@ lib: RoboSAPiens = {
             "args": {},
             "result": {
                 "NoSession": no_session,
-                "Exception": exception("Could not count the rows in the table."),
+                "Exception": exception("Could not count the rows in the table. {0}"),
                 "NotFound": "The window contains no table.",
                 "Pass": "Counted the number of rows in the table."
             },
@@ -820,7 +820,7 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
                 "Pass": "The key combination '{0}' was pressed.",
-                "Exception": exception("The key combination '{0}' could not be pressed.")
+                "Exception": exception("The key combination could not be pressed. {0}")
             },
             "doc": {
                 "desc": "Press the given key combination.",
@@ -909,7 +909,7 @@ lib: RoboSAPiens = {
                 "NoSession": no_session,
                 "NotFound": "No statusbar was found.",
                 "Pass": "The statusbar was read.",
-                "Exception": exception("The statusbar could not be read")
+                "Exception": exception("The statusbar could not be read. {0}")
             },
             "doc": {
                 "desc": "Read the contents of the statusbar. The return value is a dictionary with the entries 'status' and 'message'.",
@@ -1063,7 +1063,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "Exception": exception("The contents of the text fields could not be scrolled."),
+                "Exception": exception("The contents of the text fields could not be scrolled. {0}"),
                 "NoScrollbar": "The window contains no scrollable text fields.",
                 "MaximumReached": "The contents of the text fields cannot be scrolled any further.",
                 "InvalidDirection": "Invalid direction. The direction must be one of: UP, DOWN, BEGIN, END",
@@ -1094,7 +1094,7 @@ lib: RoboSAPiens = {
             },
             "result": {
                 "NoSession": no_session,
-                "Exception": exception("The window could not be scrolled horizontally."),
+                "Exception": exception("The window could not be scrolled horizontally. {0}"),
                 "NoScrollbar": "The window contains no horizontal scrollbar.",
                 "MaximumReached": "The window cannot be scrolled any further.",
                 "InvalidDirection": "Invalid direction. The direction must be one of: LEFT, RIGHT, BEGIN, END",
@@ -1567,7 +1567,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "Pass": "The title of the window was obtained.",
-                "Exception": exception("The window title could not be read.")
+                "Exception": exception("The window title could not be read. {0}")
             },
             "doc": {
                 "desc": "Get the title of the window in the foreground.",
@@ -1585,7 +1585,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "Pass": "The text message of the window was obtained.",
-                "Exception": exception("The text message of the window could not be read.")
+                "Exception": exception("The text message of the window could not be read. {0}")
             },
             "doc": {
                 "desc": "Get the text message of the window in the foreground.",
