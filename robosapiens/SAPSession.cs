@@ -531,14 +531,21 @@ namespace RoboSAPiens {
             
             try 
             {
-                if (keyCombination == "F1" || keyCombination == "F4")
+                switch(keyCombination)
                 {
-                    var gridView = window.components.getGridViews().FirstOrDefault();
-                    if (gridView != null) gridView.pressKey(keyCombination, session);
-                    else window.pressKey((int)vkey!);
+                    case "PageDown":
+                        window.pressPageDown();
+                        break;
+                    case "F1":
+                    case "F4":
+                        var gridView = window.components.getGridViews().FirstOrDefault();
+                        if (gridView != null) gridView.pressKey(keyCombination, session);
+                        else window.pressKey((int)vkey!);
+                        break;
+                    default:
+                        window.pressKey((int)vkey!);
+                        break;
                 }
-                else window.pressKey((int)vkey!);
-
                return new Result.PressKeyCombination.Pass(keyCombination);
             }
             catch (Exception ex) {
