@@ -47,7 +47,7 @@ namespace RoboSAPiens
                         type = gridView.GetCellType(row, columnId);
 
                         if (gridView.IsCellHotspot(row, columnId)) {
-                            type = gridView.GetCellHotspotType(row, columnId);
+                            type = "Link";
                         }
                     }
                     // When a row is empty an exception is thrown
