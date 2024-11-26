@@ -250,13 +250,18 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult doubleClickCell(string rowIndexOrContent, string column) {
+        public RobotResult doubleClickCell(string rowIndexOrContent, string column, int? tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.DoubleClickCell.InvalidTable((int)tableNumber);
+
             var locator = CellLocator.of(rowIndexOrContent, column);
-            var cell = window.components.findCell(locator, session);
+            var cell = window.components.findCell(locator, session, tableNumber);
 
             if (cell == null) {
                 return new Result.DoubleClickCell.NotFound(locator.location);
@@ -416,13 +421,18 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult fillCell(string rowIndexOrLabel, string column, string content) {
+        public RobotResult fillCell(string rowIndexOrLabel, string column, string content, int? tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.FillCell.InvalidTable((int)tableNumber);
+
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var cell = window.components.findCell(locator, session);
+            var cell = window.components.findCell(locator, session, tableNumber);
 
             if (cell == null) {
                 return new Result.FillCell.NotFound(locator.location);
@@ -603,13 +613,18 @@ namespace RoboSAPiens {
             return new Result.PushButton.Pass(theButton.atLocation);
         }
 
-        public RobotResult pushButtonCell(string rowNumberOrButtonLabel, string column) {
+        public RobotResult pushButtonCell(string rowNumberOrButtonLabel, string column, int? tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.PushButtonCell.InvalidTable((int)tableNumber);
+
             var locator = CellLocator.of(rowNumberOrButtonLabel, column);
-            var cell = window.components.findCell(locator, session);
+            var cell = window.components.findCell(locator, session, tableNumber);
 
             if (cell == null) {
                 return new Result.PushButtonCell.NotFound(locator.location);
@@ -647,15 +662,18 @@ namespace RoboSAPiens {
             return new Result.ReadStatusbar.Json(statusbar.getMessage());
         }
 
-        public RobotResult countTableRows() {
+        public RobotResult countTableRows(int tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var table = window.components.getTables().FirstOrDefault();
+            var tables = window.components.getTables();
 
-            if (table == null)
-                return new Result.CountTableRows.NotFound();
+            if (tableNumber > tables.Count)
+                return new Result.CountTableRows.InvalidTable(tableNumber);
+
+            var table = tables[tableNumber-1];
 
             try {
                 int rowCount = table.getNumRows(session);
@@ -667,13 +685,18 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult readCell(string rowNumberOrButtonLabel, string column) {
+        public RobotResult readCell(string rowNumberOrButtonLabel, string column, int? tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.ReadCell.InvalidTable((int)tableNumber);
+
             var locator = CellLocator.of(rowNumberOrButtonLabel, column);
-            var cell = window.components.findCell(locator, session);
+            var cell = window.components.findCell(locator, session, tableNumber);
 
             if (cell == null) {
                 return new Result.ReadCell.NotFound(locator.location);
@@ -886,13 +909,18 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult selectCell(string rowIndexOrCellContent, string column) {
+        public RobotResult selectCell(string rowIndexOrCellContent, string column, int? tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.SelectCell.InvalidTable((int)tableNumber);
+
             var locator = CellLocator.of(rowIndexOrCellContent, column);
-            var cell = window.components.findCell(locator, session);
+            var cell = window.components.findCell(locator, session, tableNumber);
 
             if (cell == null) {
                 return new Result.SelectCell.NotFound(locator.location);
@@ -910,13 +938,18 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult selectCellValue(string rowIndexOrCellContent, string column, string entry) {
+        public RobotResult selectCellValue(string rowIndexOrCellContent, string column, string entry, int? tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.SelectCellValue.InvalidTable((int)tableNumber);
+
             var locator = CellLocator.of(rowIndexOrCellContent, column);
-            var cell = window.components.findCell(locator, session);
+            var cell = window.components.findCell(locator, session, tableNumber);
 
             if (cell == null) {
                 return new Result.SelectCellValue.NotFound(locator.location);
@@ -996,16 +1029,18 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult selectTableRow(string rowIndexOrLabel) {
+        public RobotResult selectTableRow(string rowIndexOrLabel, int tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
-            var table = window.components.getTables().FirstOrDefault();
+            var tables = window.components.getTables();
 
-            if (table == null) {
-                return new Result.SelectTableRow.NoTable();
-            }
+            if (tableNumber > tables.Count)
+                return new Result.SelectTableRow.InvalidTable(tableNumber);
+
+            var table = tables[tableNumber-1];
 
             int rowIndex;
             if (Int32.TryParse(rowIndexOrLabel, out rowIndex)) {
@@ -1194,13 +1229,18 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult tickCheckBoxCell(string rowIndexOrLabel, string column) {
+        public RobotResult tickCheckBoxCell(string rowIndexOrLabel, string column, int? tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.TickCheckBoxCell.InvalidTable((int)tableNumber);
+
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var cell = window.components.findCell(locator, session);
+            var cell = window.components.findCell(locator, session, tableNumber);
             
             if (cell == null) {
                 return new Result.TickCheckBoxCell.NotFound(locator.location);
@@ -1222,13 +1262,18 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult untickCheckBoxCell(string rowIndexOrLabel, string column) {
+        public RobotResult untickCheckBoxCell(string rowIndexOrLabel, string column, int? tableNumber)
+        {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.UntickCheckBoxCell.InvalidTable((int)tableNumber);
+
             var locator = CellLocator.of(rowIndexOrLabel, column);
-            var cell = window.components.findCell(locator, session);
+            var cell = window.components.findCell(locator, session, tableNumber);
             
             if (cell == null) {
                 return new Result.UntickCheckBoxCell.NotFound(locator.location);

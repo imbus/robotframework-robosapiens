@@ -130,6 +130,7 @@ namespace RoboSAPiens {
         }
 
         public record CountTableRows {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
             public record Pass(int rowCount): RobotResult.RobotPass("Die Tabellenzeilen wurden gezählt", returnValue: rowCount);
@@ -137,6 +138,7 @@ namespace RoboSAPiens {
         }
 
         public record DoubleClickCell {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde doppelgeklickt.");
@@ -163,6 +165,7 @@ namespace RoboSAPiens {
         }
 
         public record FillCell {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist schreibgeschützt.");
@@ -231,6 +234,7 @@ namespace RoboSAPiens {
         }
 
         public record PushButtonCell {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");
@@ -261,6 +265,7 @@ namespace RoboSAPiens {
         }
 
         public record ReadCell {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
@@ -297,6 +302,7 @@ namespace RoboSAPiens {
         }
 
         public record SelectCell {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
@@ -306,6 +312,7 @@ namespace RoboSAPiens {
         }
 
         public record SelectCellValue {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record EntryNotFound(string value, string locator): RobotResult.EntryNotFound($"Der Wert '{value}' ist in der Zelle mit dem Lokator '{locator}' nicht vorhanden.");
@@ -348,6 +355,7 @@ namespace RoboSAPiens {
             public record NoSession(): RobotResult.NoSession();
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle");
             public record InvalidIndex(int rowIndex): RobotResult.RobotFail("InvalidIndex", $"Die Tabelle enthält keine Zeile mit Index {rowIndex}'.");
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NotFound(string cellContents): RobotResult.NotFound($"Die Zelle mit dem Inhalt '{cellContents}' wurde nicht gefunden.");
             public record Pass(string rowLocator): RobotResult.RobotPass($"Die Zeile mit dem Lokator '{rowLocator}' wurde markiert");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zeile konnte nicht markiert werden.");
@@ -391,6 +399,7 @@ namespace RoboSAPiens {
         }
 
         public record TickCheckBoxCell {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");
@@ -399,6 +408,7 @@ namespace RoboSAPiens {
         }
 
         public record UntickCheckBoxCell {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");

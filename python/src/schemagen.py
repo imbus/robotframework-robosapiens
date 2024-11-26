@@ -10,6 +10,11 @@ StrDict = Dict[str, Union[str, "StrDict"]]
 Fields = Dict[str, str]
 Func = Callable[[str, str], str]
 
+cs_to_python = {
+    "Boolean": "bool",
+    "Int32": "int",
+    "String": "str"
+}
 
 def process_tree(
     type_name: str,
@@ -37,8 +42,8 @@ def process_tree(
             fields[field_name] = field_type
             todo.append((path + [name], field_type, val))
         elif type(val) == str:
-            if type_name.endswith("Specs"):
-                fields[field_name] = f"Literal[r'{val}']"
+            if type_name.endswith("Specs") or field_name == "type":
+                fields[field_name] = f"Literal[r'{cs_to_python.get(val, val)}']"
             else:
                 fields[field_name] = gen_str_type(".".join(path + [name]), val)
         else:

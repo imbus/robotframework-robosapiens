@@ -8,14 +8,14 @@ namespace RoboSAPiens
         public RobotResult CloseSap();
         public RobotResult CloseWindow();
         public RobotResult ConnectToServer(string server);
-        public RobotResult CountTableRows();
-        public RobotResult DoubleClickCell(string row_locator, string column);
+        public RobotResult CountTableRows(int tableNumber=1);
+        public RobotResult DoubleClickCell(string row_locator, string column, int? tableNumber=null);
         public RobotResult DoubleClickTextField(string locator);
         public RobotResult DoubleClickTreeElement(string elementPath);
         public RobotResult ExecuteTransaction(string T_Code);
         public RobotResult ExportTree(string filepath);
         public RobotResult ExportWindow(string name, string directory);
-        public RobotResult FillCell(string row_locator, string column, string content);
+        public RobotResult FillCell(string row_locator, string column, string content, int? tableNumber=null);
         public RobotResult FillTextEdit(string content);
         public RobotResult FillTextField(string locator, string content);
         public RobotResult GetWindowText();
@@ -24,9 +24,9 @@ namespace RoboSAPiens
         public RobotResult OpenSap(string path, string? sapArgs=null);
         public RobotResult PressKeyCombination(string keyCombination);
         public RobotResult PushButton(string button);
-        public RobotResult PushButtonCell(string row_locator, string column);
+        public RobotResult PushButtonCell(string row_locator, string column, int? tableNumber=null);
         public RobotResult ReadCheckBox(string locator);
-        public RobotResult ReadCell(string row_locator, string column);
+        public RobotResult ReadCell(string row_locator, string column, int? tableNumber=null);
         public RobotResult ReadComboBoxEntry(string comboBox);
         public RobotResult ReadStatusbar();
         public RobotResult ReadText(string locator);
@@ -34,19 +34,19 @@ namespace RoboSAPiens
         public RobotResult SaveScreenshot(string filepath);
         public RobotResult ScrollTextFieldContents(string direction, string? untilTextField=null);
         public RobotResult ScrollWindowHorizontally(string direction);
-        public RobotResult SelectCell(string row_locator, string column);
-        public RobotResult SelectCellValue(string row_locator, string column, string entry);
+        public RobotResult SelectCell(string row_locator, string column, int? tableNumber=null);
+        public RobotResult SelectCellValue(string row_locator, string column, string entry, int? tableNumber=null);
         public RobotResult SelectComboBoxEntry(string comboBox, string entry);
         public RobotResult SelectMenuItem(string itemPath);
         public RobotResult SelectRadioButton(string locator);
-        public RobotResult SelectTableRow(string row_locator);
+        public RobotResult SelectTableRow(string row_locator, int tableNumber=1);
         public RobotResult SelectText(string locator);
         public RobotResult SelectTextField(string locator);
         public RobotResult SelectTreeElement(string elementPath);
         public RobotResult SelectTreeElementMenuEntry(string elementPath, string menuEntry);
         public RobotResult TickCheckBox(string locator);
-        public RobotResult TickCheckBoxCell(string row_locator, string column);
+        public RobotResult TickCheckBoxCell(string row_locator, string column, int? tableNumber=null);
         public RobotResult UntickCheckBox(string locator);
-        public RobotResult UntickCheckBoxCell(string row_locator, string column);
+        public RobotResult UntickCheckBoxCell(string row_locator, string column, int? tableNumber=null);
     }
 }

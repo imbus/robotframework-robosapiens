@@ -325,6 +325,7 @@ lib: LocalizedRoboSAPiens = {
                   "name": ("3959597614", "SAP_Parameter"),
                   "desc": ("4215926071", "Kommandozeileparameter für den SAP Client"),
                   "default": None,
+                  "type": "str",
                   "spec": {}
               }
             },
@@ -432,11 +433,20 @@ lib: LocalizedRoboSAPiens = {
         },
         "CountTableRows": {
             "name": ("2280342727", "Tabellenzeilen zählen"),
-            "args": {},
+            "args": {
+              "tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": 1,
+                  "type": "int",
+                  "spec": {}
+              }
+            },
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "Exception": ("1934626298", exception("Die Zeilen der Tabelle konnten nicht gezählt werden.")),
                 "NotFound": ("2399256699", "Die Maske enthält keine Tabelle."),
+                "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
                 "Pass": ("1614075368", "Die Tabellenzeillen wurden gezählt.")
             },
             "doc": {
@@ -485,6 +495,7 @@ lib: LocalizedRoboSAPiens = {
                     "name": ("4193981709", "session_nummer"),
                     "desc": ("1547983273", "Die Nummer der SAP-Session in der rechten unteren Ecke des Fensters"),
                     "default": 1,
+                    "type": "int",
                     "spec": {}
                 }
             },
@@ -558,11 +569,19 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
+              },
+              "a3tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
               }
             },
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
+              "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
               "Pass": ("4023459711", "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt."),
               "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
             },
@@ -689,6 +708,13 @@ lib: LocalizedRoboSAPiens = {
                   "name": ("4274335913", "Inhalt"),
                   "desc": ("449567510", "Der neue Inhalt der Zelle"),
                   "spec": {},
+              },
+              "a4tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
               }
             },
             "result": {
@@ -696,6 +722,7 @@ lib: LocalizedRoboSAPiens = {
               "NotFound": ("807131089", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
               "NotChangeable": ("2520536917", "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar."),
               "NoTable": ("2399256699", "Die Maske enthält keine Tabelle."),
+              "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
               "Pass": ("2876607603", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt."),
               "Exception": ("1958379303", exception("Die Zelle konnte nicht ausgefüllt werden."))
             },
@@ -908,12 +935,20 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
+              },
+              "a3tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
               }
             },
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3485811037", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
               "NotChangeable": ("333463039", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
+              "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
               "Pass": ("1801284202", "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt."),
               "Exception": ("1751102722", exception("Die Zelle konnte nicht gedrückt werden."))
             },
@@ -1004,12 +1039,20 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
+              },
+              "a3tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
               }
             },
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
               "NoTable": ("2399256699", "Die Maske enthält keine Tabelle."),
+              "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
               "Pass": ("4222878164", "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen."),
               "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
             },
@@ -1067,6 +1110,7 @@ lib: LocalizedRoboSAPiens = {
                     "name": ("2676914944", "bis_Textfeld"),
                     "desc": ("1257056815", textfield_locator),
                     "default": None,
+                    "type": "str",
                     "spec": {}
                 }
             },
@@ -1133,12 +1177,20 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
+              },
+              "a3tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
               }
             },
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
               "NoTable": ("2399256699", "Die Maske enthält keine Tabelle."),
+              "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
               "Pass": ("1239645311", "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert."),
               "Exception": ("2355177759", exception("Die Zelle konnte nicht markiert werden."))
             },
@@ -1170,12 +1222,20 @@ lib: LocalizedRoboSAPiens = {
                     "name": ("494360628", "Wert"),
                     "desc": ("3335814071", "Ein Wert aus dem Auswahlmenü"),
                     "spec": {},
-                }
+                },
+                "a4tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
+              }
             },
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
                 "EntryNotFound": ("1900787420", not_found("Der Wert '{2}' ist in der Zelle mit dem Lokator '{0}, {1}' nicht vorhanden.")),
+                "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
                 "Exception": ("813375986", exception("Der Wert konnte nicht ausgewählt werden. {0}")),
                 "Pass": ("1530467143", "Der Wert '{2}' wurde ausgewählt.")
             },
@@ -1352,16 +1412,24 @@ lib: LocalizedRoboSAPiens = {
         "SelectTableRow": {
             "name": ("1966160675", "Tabellenzeile markieren"),
             "args": {
-                "row_locator": {
+                "a1row_locator": {
                     "name": ("315353924", "Zeilenlokator"),
                     "desc": ("331065732", row_locator),
                     "spec": {},
-                }
+                },
+                "a2tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": 1,
+                  "type": "int",
+                  "spec": {}
+              }
             },
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "Exception": ("3194892480", exception("Die Zeile konnte nicht markiert werden. {0}")),
                 "NoTable": ("1798632660", "Die Maske entählt keine Tabelle"),
+                "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
                 "InvalidIndex": ("3624573287", "Die Tabelle hat keine Zeile '{0}'"),
                 "NotFound": ("3975114955", "Die Tabelle enthält keine Zelle mit dem Inhalt '{0}'"),
                 "Pass": ("2631747337", "Die Zeile mit dem Lokator '{0}' wurde markiert")
@@ -1552,12 +1620,20 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
+              },
+              "a3tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
               }
             },
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("2297657056", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
               "NotChangeable": ("366722275", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
+              "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
               "Pass": ("342341552", "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt."),
               "Exception": ("870126097", exception("Die Zelle konnte nicht angekreuzt werden."))
             },
@@ -1586,12 +1662,20 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
+              },
+              "a3tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
               }
             },
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("2297657056", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
               "NotChangeable": ("366722275", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
+              "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
               "Pass": ("1958589605", "Die Zelle mit dem Lokator '{0}, {1}' wurde abgewählt."),
               "Exception": ("3759601296", exception("Die Zelle konnte nicht abgewählt werden."))
             },

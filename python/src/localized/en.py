@@ -319,6 +319,7 @@ lib: RoboSAPiens = {
                      "name": "sap_args",
                      "desc": "Command line arguments for the SAP executable",
                      "default": None,
+                     "type": "str",
                      "spec": {}
                 }
             },
@@ -422,11 +423,20 @@ lib: RoboSAPiens = {
         },
         "CountTableRows": {
             "name": "Get Row Count",
-            "args": {},
+            "args": {
+                "tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": 1,
+                    "type": "int",
+                    "spec": {}
+                }
+            },
             "result": {
                 "NoSession": no_session,
                 "Exception": exception("Could not count the rows in the table. {0}"),
                 "NotFound": "The window contains no table.",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "Counted the number of rows in the table."
             },
             "doc": {
@@ -473,6 +483,7 @@ lib: RoboSAPiens = {
                     "name": "session_number",
                     "desc": "The session number in the lower right corner of the window",
                     "default": 1,
+                    "type": "int",
                     "spec": {}
                 }
             },
@@ -544,11 +555,19 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
+                },
+                "a3tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
                 "Exception": exception("The cell could not be double-clicked. {0}")
             },
@@ -669,6 +688,13 @@ lib: RoboSAPiens = {
                     "name": "content",
                     "desc": "The new contents of the cell",
                     "spec": {},
+                },
+                "a4tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
@@ -676,6 +702,7 @@ lib: RoboSAPiens = {
                 "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found"),
                 "NotChangeable": "The cell with the locator '{0}, {1}' is not editable.",
                 "NoTable": "The window contains no table.",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The cell with the locator '{0}, {1}' was filled.",
                 "Exception": exception("The cell could not be filled. {0}")
             },
@@ -883,12 +910,20 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
+                },
+               "a3tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The button cell with the locator '{0}, {1}' could not be found."),
                 "NotChangeable": "The button cell with the locator '{0}, {1}' is disabled.",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The button cell with the locator '{0}, {1}' was pushed.",
                 "Exception": exception("The button cell could not be pushed. {0}")
             },
@@ -998,12 +1033,20 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
+                },
+                "a3tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
                 "NoTable": "The window contains no table.",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The cell with the locator '{0}, {1}' was read.",
                 "Exception": exception("The cell could not be read. {0}")
             },
@@ -1059,6 +1102,7 @@ lib: RoboSAPiens = {
                     "name": "until_textfield",
                     "desc": textfield_locator,
                     "default": None,
+                    "type": "str",
                     "spec": {}
                 }
             },
@@ -1123,12 +1167,20 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
+                },
+                "a3tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
                 "NoTable": "The window contains no table.",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The cell with the locator '{0}, {1}' was selected.",
                 "Exception": exception("The cell could not be selected. {0}")
             },
@@ -1159,12 +1211,20 @@ lib: RoboSAPiens = {
                     "name": "value",
                     "desc": "An entry from the dropdown menu",
                     "spec": {},
+                },
+                "a4tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
                 "EntryNotFound": not_found("The value '{2}' is not available in the cell with the locator '{0}, {1}'."),
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Exception": exception("The value could not be selected. {0}"),
                 "Pass": "The value '{2}' was selected."
             },
@@ -1335,16 +1395,24 @@ lib: RoboSAPiens = {
         "SelectTableRow": {
             "name": "Select Table Row",
             "args": {
-                "row_locator": {
+                "a1row_locator": {
                     "name": "row_locator",
                     "desc": row_locator,
                     "spec": {},
+                },
+                "a2tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": 1,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "Exception": exception("The row could not be selected. {0}"),
                 "NoTable": "The window contains no table",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "InvalidIndex": "The table does not have a row with index '{0}'",
                 "NotFound": "The table does not contain a cell with the contents '{0}'",
                 "Pass": "The row with the locator '{0}' was selected"
@@ -1510,12 +1578,20 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
+                },
+                "a3tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The checkbox cell with the locator '{0}, {1}' could not be found."),
                 "NotChangeable": "The checkbox cell with the locator '{0}, {1}' is disabled.",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The checkbox cell with the locator '{0}, {1}' was ticked.",
                 "Exception": exception("The checkbox cell could not be ticked. {0}")
             },
@@ -1543,12 +1619,20 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
+                },
+                "a3tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The checkbox cell with the locator '{0}, {1}' could not be found."),
                 "NotChangeable": "The checkbox cell with the locator '{0}, {1}' is disabled.",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The checkbox cell with the locator '{0}, {1}' was unticked.",
                 "Exception": exception("The checkbox cell could not be unticked. {0}")
             },

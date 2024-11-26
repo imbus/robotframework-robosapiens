@@ -322,12 +322,22 @@ namespace RoboSAPiens {
             return textFields.get(textField.locator, labels, boxes);
         }
         
-        public Cell? findCell(ILocator locator, GuiSession session)
+        public Cell? findCell(ILocator locator, GuiSession session, int? tableNumber)
         {
-            foreach (var table in getTables())
+            var tables = getTables();
+
+            if (tableNumber != null) 
             {
-                var cell = table.findCell(locator, session);
-                if (cell != null) return cell;
+                var table = tables[(int)tableNumber-1];
+                return table.findCell(locator, session);
+            }
+            else
+            {
+                foreach (var table in tables)
+                {
+                    var cell = table.findCell(locator, session);
+                    if (cell != null) return cell;
+                }
             }
 
             return null;

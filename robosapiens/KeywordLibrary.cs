@@ -392,9 +392,9 @@ namespace RoboSAPiens
          Doc("Die angegebene Tabellenzelle wird doppelgeklickt.\n\n" +
              "| ``Tabellenzelle doppelklicken     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle.")]
-        public RobotResult DoubleClickCell(string row_locator, string column) {
+        public RobotResult DoubleClickCell(string row_locator, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.doubleClickCell(row_locator, column),
+                SAPSession session => session.doubleClickCell(row_locator, column, tableNumber),
                 _ => new Result.DoubleClickCell.NoSession()
             };
         }
@@ -450,9 +450,9 @@ namespace RoboSAPiens
              "Zeile: entweder eine Zeilennummer oder der Inhalt einer Zelle in der Zeile.\n\n" +
              "*Hinweis*: Eine Tabellenzelle hat u.U. eine Beschriftung, die man über die Hilfe (Taste F1) herausfinden kann. " +
              "In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")]
-        public RobotResult FillCell(string row_locator, string column, string content) {
+        public RobotResult FillCell(string row_locator, string column, string content, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.fillCell(row_locator, column, content),
+                SAPSession session => session.fillCell(row_locator, column, content, tableNumber),
                 _ => new Result.FillCell.NoSession()
             };
         }
@@ -535,9 +535,9 @@ namespace RoboSAPiens
          Doc("Die angegebene Tabellenzelle wird gedrückt.\n\n" +
              "| ``Tabellenzelle drücken     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).")]
-        public RobotResult PushButtonCell(string row_or_label, string column) {
+        public RobotResult PushButtonCell(string row_or_label, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.pushButtonCell(row_or_label, column),
+                SAPSession session => session.pushButtonCell(row_or_label, column, tableNumber),
                 _ => new Result.PushButtonCell.NoSession()
             };
         }
@@ -545,9 +545,9 @@ namespace RoboSAPiens
         [Keyword("Tabellenzeile markieren"),
          Doc("Die angegebene Tabellenzeile wird markiert.\n\n" +
              "| ``Tabellenzeile markieren     Zeilenlokator``")]
-        public RobotResult SelectTableRow(string row_locator) {
+        public RobotResult SelectTableRow(string row_locator, int tableNumber=1) {
             return session switch {
-                SAPSession session => session.selectTableRow(row_locator),
+                SAPSession session => session.selectTableRow(row_locator, tableNumber),
                 _ => new Result.SelectTableRow.NoSession()
             };
         }
@@ -555,9 +555,9 @@ namespace RoboSAPiens
         [Keyword("Tabellenzeilen zählen"),
          Doc("Die Anzahl der Tabellenzeile wird gezählt.\n\n" +
              "| ``Tabellenzeilen zählen``")]
-        public RobotResult CountTableRows() {
+        public RobotResult CountTableRows(int tableNumber=1) {
             return session switch {
-                SAPSession session => session.countTableRows(),
+                SAPSession session => session.countTableRows(tableNumber),
                 _ => new Result.CountTableRows.NoSession()
             };
         }
@@ -606,9 +606,9 @@ namespace RoboSAPiens
          Doc("Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n" +
              "| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
-        public RobotResult ReadCell(string row_locator, string column) {
+        public RobotResult ReadCell(string row_locator, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.readCell(row_locator, column),
+                SAPSession session => session.readCell(row_locator, column, tableNumber),
                 _ => new Result.ReadCell.NoSession()
             };
         }
@@ -651,9 +651,9 @@ namespace RoboSAPiens
          Doc("Die angegebene Tabellenzelle wird markiert.\n\n" +
              "| ``Tabellenzelle markieren     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
-        public RobotResult SelectCell(string row_locator, string column) {
+        public RobotResult SelectCell(string row_locator, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.selectCell(row_locator, column),
+                SAPSession session => session.selectCell(row_locator, column, tableNumber),
                 _ => new Result.SelectCell.NoSession()
             };
         }
@@ -661,9 +661,9 @@ namespace RoboSAPiens
         [Keyword("Tabellenzellenwert auswählen"),
          Doc("In der spezifizierten Zelle wird der angegebene Wert ausgewählt.\n\n" +
              "| ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Eintrag``")]
-        public RobotResult SelectCellValue(string row_locator, string column, string entry) {
+        public RobotResult SelectCellValue(string row_locator, string column, string entry, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.selectCellValue(row_locator, column, entry),
+                SAPSession session => session.selectCellValue(row_locator, column, entry, tableNumber),
                 _ => new Result.SelectCellValue.NoSession()
             };
         }
@@ -783,9 +783,9 @@ namespace RoboSAPiens
         [Keyword("Tabellenzelle ankreuzen"),
          Doc("Die angegebene Tabellenzelle wird angekreuzt.\n\n" +
              "| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``")]
-        public RobotResult TickCheckBoxCell(string row, string column) {
+        public RobotResult TickCheckBoxCell(string row, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.tickCheckBoxCell(row, column),
+                SAPSession session => session.tickCheckBoxCell(row, column, tableNumber),
                 _ => new Result.TickCheckBoxCell.NoSession()
             };
         }
@@ -793,9 +793,9 @@ namespace RoboSAPiens
         [Keyword("Tabellenzelle abwählen"),
          Doc("Die angegebene Tabellenzelle wird abgewählt.\n\n" +
              "| ``Tabellenzelle abwählen     Zeilennummer     Spaltentitel``")]
-        public RobotResult UntickCheckBoxCell(string row, string column) {
+        public RobotResult UntickCheckBoxCell(string row, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.untickCheckBoxCell(row, column),
+                SAPSession session => session.untickCheckBoxCell(row, column, tableNumber),
                 _ => new Result.UntickCheckBoxCell.NoSession()
             };
         }

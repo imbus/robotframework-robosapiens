@@ -69,6 +69,10 @@ public class _
                 name = param.Name,
                 desc = "",
                 @default = value,
+                type = param.ParameterType switch {
+                    var type when type.IsGenericType => type.GenericTypeArguments.First().Name,
+                    var type => type.Name
+                },
                 spec = getSpec(param)
             }
         };
