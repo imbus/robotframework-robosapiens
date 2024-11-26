@@ -381,7 +381,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("2209141929", exception("Die Verbindung zum Server konnte nicht getrennt werden."))
             },
             "doc": {
-                "desc": ("1736796211", "Die Verbindung zum SAP Server wird getrennt."),
+                "desc": ("1736796211", "Die laufende Verbindung zum SAP Server wird getrennt."),
                 "examples": ("3240780684", 
                 """
                 Beispiele:
@@ -399,7 +399,7 @@ lib: LocalizedRoboSAPiens = {
               "Pass": ("2970606098", "Die SAP GUI wurde beendet")
             },
             "doc": {
-                "desc": ("3611358703", "Die SAP GUI wird beendet."),
+                "desc": ("3611358703", "Schließt die SAP GUI und beendet ihren Prozess."),
                 "examples": ("1734451664", 
                 """
                 Beispiele:
@@ -481,7 +481,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("3410975181", exception("Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden."))
             },
             "doc": {
-                "desc": ("866468958", "Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden."),
+                "desc": ("866468958", "Nach der Ausführung dieses Keywords kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden."),
                 "examples": ("2576679484", 
                 """
                 Beispiele:
@@ -548,7 +548,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
             },
             "doc": {
-                "desc": ("3450830707", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird doppelgeklickt."),
+                "desc": ("3450830707", "Führt einen Doppelklick auf die Zelle aus, die an der Schnittstelle der gegebenen Zeile und Spalte liegt."),
                 "examples": ("142831630", 
                 f"""
                 Beispiele:
@@ -583,7 +583,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("504842288", exception("Das Textfeld konnte nicht doppelgeklickt werden."))
             },
             "doc": {
-                "desc": ("3694445417", "Das angegebene Textfeld wird doppelgeklickt."),
+                "desc": ("3694445417", "Führt einen Doppelklick auf das angegebene Textfeld aus."),
                 "examples": ("2895066361", 
                 """
                 Beispiele:
@@ -628,7 +628,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2directory": {
                 "name": ("1182287066", "Verzeichnis"),
-                "desc": ("3819401787", "Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden."),
+                "desc": ("3819401787", "Der absolute Pfad des Verzeichnisses, wo die Dateien gespeichert werden."),
                 "spec": {},
               }
             },
@@ -638,7 +638,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("1068065483", exception("Die Maske konnte nicht exportiert werden."))
             },
             "doc": {
-                "desc": ("1046967761", "Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt."),
+                "desc": ("1046967761", "Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto automatisch in PNG-Format erstellt."),
                 "examples": ("544925055", 
                 f"""
                 Beispiele:
@@ -1160,7 +1160,7 @@ lib: LocalizedRoboSAPiens = {
                 "Pass": ("1530467143", "Der Wert '{2}' wurde ausgewählt.")
             },
             "doc": {
-                "desc": ("3829091703", "In der Zelle am Schnittpunkt der Zeile und der Spalte wird der angegebene Wert ausgewählt."),
+                "desc": ("3829091703", "In der Zelle am Schnittpunkt der Zeile und Spalte wird der angegebene Wert ausgewählt."),
                 "examples": ("1404195932", 
                 """
                 Beispiele:
@@ -1595,7 +1595,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("2687794215", exception("Der Titel des Fensters konnte nicht ausgelesen werden."))
             },
             "doc": {
-                "desc": ("3346161873", "Der Titel des Fensters im Fordergrund wird zurückgegeben."),
+                "desc": ("3346161873", "Der Titel des gerade aktiven Fensters wird zurückgegeben."),
                 "examples": ("2536322048", 
                 """
                 Beispiele:
@@ -1614,7 +1614,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("922315409", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
             },
             "doc": {
-                "desc": ("3847136589", "Der Text des Fensters im Fordergrund wird zurückgegeben."),
+                "desc": ("3847136589", "Der Text des gerade aktiven Fensters wird zurückgegeben."),
                 "examples": ("353358958", 
                 """
                 Beispiele:

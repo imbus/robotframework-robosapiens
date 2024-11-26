@@ -374,7 +374,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("Could not disconnect from the server. {0}")
             },
             "doc": {
-                "desc": "Terminate the connection to the SAP server.",
+                "desc": "Terminate the running connection to the SAP server.",
                 "examples":
                 """
                 Examples:
@@ -391,7 +391,7 @@ lib: RoboSAPiens = {
                 "Pass": "The SAP GUI was closed."
             },
             "doc": {
-                "desc": "Close the SAP GUI.",
+                "desc": "Close the SAP GUI and terminate it's process.",
                 "examples": 
                 """
                 Examples:
@@ -437,7 +437,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The tree structure could not be exported. {0}")
             },
             "doc": {
-                "desc": "Export the tree structure in the current window to the file provided.",
+                "desc": "Export the tree structure in the current window in JSON format to the file provided.",
                 "examples":
                 f"""
                 Examples:
@@ -470,7 +470,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("Could not connect to a running SAP instance. Hint: In order to connect to a 64-bit SAP client import RoboSAPiens with x64=True. {0}")
             },
             "doc": {
-                "desc": "Connect to a running SAP instance and take control of it.",
+                "desc": "Connect to an already running SAP instance and take control of it.",
                 "examples":
                 """
                 Examples:
@@ -535,7 +535,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The cell could not be double-clicked. {0}")
             },
             "doc": {
-                "desc": "Double-click the cell at the intersection of the row and the column provided.",
+                "desc": "Double-click the cell at the intersection of the provided row and column.",
                 "examples":
                 """
                 Examples:
@@ -621,7 +621,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The window contents could not be exported. {0}")
             },
             "doc": {
-                "desc": "Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.",
+                "desc": "Export the window contents to a JSON file. A screenshot will automatically be saved in PNG format.",
                 "examples":
                 f"""
                 Examples:
@@ -1552,7 +1552,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The window title could not be read.")
             },
             "doc": {
-                "desc": "Get the title of the window in the foreground.",
+                "desc": "Get the title of the currently active window.",
                 "examples":
                 """
                 Examples:
@@ -1570,7 +1570,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The text message of the window could not be read.")
             },
             "doc": {
-                "desc": "Get the text message of the window in the foreground.",
+                "desc": "Get the text message of the currently active window.",
                 "examples":
                 """
                 Examples:
