@@ -381,7 +381,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("2209141929", exception("Die Verbindung zum Server konnte nicht getrennt werden."))
             },
             "doc": {
-                "desc": ("1736796211", "Die Verbindung zum SAP Server wird getrennt."),
+                "desc": ("3753666144", "Die aktuelle Verbindung zum SAP Server wird getrennt."),
                 "examples": ("3240780684", 
                 """
                 Beispiele:
@@ -399,7 +399,7 @@ lib: LocalizedRoboSAPiens = {
               "Pass": ("2970606098", "Die SAP GUI wurde beendet")
             },
             "doc": {
-                "desc": ("3611358703", "Die SAP GUI wird beendet."),
+                "desc": ("1925934178", "Schließt die SAP GUI und beendet ihren Prozess."),
                 "examples": ("1734451664", 
                 """
                 Beispiele:
@@ -466,7 +466,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("3215052656", exception("Die Baumstruktur konnte nicht exportiert werden."))
             },
             "doc": {
-                "desc": ("4290108709", "Die Baumstruktur in der Maske wird in JSON Format in der angegebenen Datei gespeichert."),
+                "desc": ("1676608340", "Die Baumstruktur in der Maske wird in JSON Format in der angegebenen Datei gespeichert."),
                 "examples": ("2602036160", 
                 f"""
                 Beispiele:
@@ -500,7 +500,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("3410975181", exception("Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden."))
             },
             "doc": {
-                "desc": ("866468958", "Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden."),
+                "desc": ("3032107536", "Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden."),
                 "examples": ("2576679484", 
                 """
                 Beispiele:
@@ -567,7 +567,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("2384367029", exception("Die Zelle konnte nicht doppelgeklickt werden."))
             },
             "doc": {
-                "desc": ("3450830707", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird doppelgeklickt."),
+                "desc": ("3460694629", "Führt einen Doppelklick auf die Zelle aus, die an der Schnittstelle der gegebenen Zeile und Spalte liegt."),
                 "examples": ("142831630", 
                 f"""
                 Beispiele:
@@ -602,7 +602,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("504842288", exception("Das Textfeld konnte nicht doppelgeklickt werden."))
             },
             "doc": {
-                "desc": ("3694445417", "Das angegebene Textfeld wird doppelgeklickt."),
+                "desc": ("3694445417", "Führt einen Doppelklick auf das angegebene Textfeld aus."),
                 "examples": ("2895066361", 
                 """
                 Beispiele:
@@ -647,7 +647,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2directory": {
                 "name": ("1182287066", "Verzeichnis"),
-                "desc": ("3819401787", "Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden."),
+                "desc": ("3819401787", "Der absolute Pfad des Verzeichnisses, wo die Dateien gespeichert werden."),
                 "spec": {},
               }
             },
@@ -657,7 +657,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("1068065483", exception("Die Maske konnte nicht exportiert werden."))
             },
             "doc": {
-                "desc": ("1046967761", "Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt."),
+                "desc": ("2766864209", "Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto automatisch in PNG-Format erstellt."),
                 "examples": ("544925055", 
                 f"""
                 Beispiele:
@@ -769,14 +769,14 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("3165034876", "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt."),
-                "examples": ("3133793047", 
+                "examples": ("539076557", 
                 """
                 Beispiele:
                 
                 *Textfeld mit einer Beschriftung links*
                 | ``Textfeld ausfüllen    Beschriftung    Inhalt``
                 
-                *Hinweis*: Wenn ein Textfeld markiert ist, wird durch Drücken der Taste F1 ein Hilfetext angezeigt, der normalerweise als Beschriftung verwendet werden kann.
+                *Hinweis*: Die Beschreibung, die durch die Auswahl eines Textfeldes und Drücken von F1 erscheint, kann ebenfalls als Beschriftung genutzt werden.
 
                 *Textfeld mit einer Beschriftung oben*
                 | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``
@@ -847,12 +847,13 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("4221864820", "Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt."),
-                "examples": ("465597838",
+                "examples": ("1153360110",
                 """
                 Beispiele:
               
                 | ``Tastenkombination drücken    Tastenkombination``
 
+                Gültige Tastenkombinationen sind unter anderem die Tastenkürzel im Kontextmenü (angezeigt, wenn die rechte Maustaste gedrückt wird). 
                 Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation von SAP GUI].
 
                 *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
@@ -1179,7 +1180,7 @@ lib: LocalizedRoboSAPiens = {
                 "Pass": ("1530467143", "Der Wert '{2}' wurde ausgewählt.")
             },
             "doc": {
-                "desc": ("3829091703", "In der Zelle am Schnittpunkt der Zeile und der Spalte wird der angegebene Wert ausgewählt."),
+                "desc": ("3829091703", "In der Zelle am Schnittpunkt der Zeile und Spalte wird der angegebene Wert ausgewählt."),
                 "examples": ("1404195932", 
                 """
                 Beispiele:
@@ -1614,7 +1615,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("1458775703", exception("Der Titel des Fensters konnte nicht ausgelesen werden."))
             },
             "doc": {
-                "desc": ("3346161873", "Der Titel des Fensters im Fordergrund wird zurückgegeben."),
+                "desc": ("2557939136", "Der Titel des gerade aktiven Fensters wird zurückgegeben."),
                 "examples": ("2536322048", 
                 """
                 Beispiele:
@@ -1633,7 +1634,7 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("293173089", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
             },
             "doc": {
-                "desc": ("3847136589", "Der Text des Fensters im Fordergrund wird zurückgegeben."),
+                "desc": ("2795776118", "Der Text des gerade aktiven Fensters wird zurückgegeben."),
                 "examples": ("353358958", 
                 """
                 Beispiele:

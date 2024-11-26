@@ -374,7 +374,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("Could not disconnect from the server. {0}")
             },
             "doc": {
-                "desc": "Terminate the connection to the SAP server.",
+                "desc": "Terminate the current connection to the SAP server.",
                 "examples":
                 """
                 Examples:
@@ -391,7 +391,7 @@ lib: RoboSAPiens = {
                 "Pass": "The SAP GUI was closed."
             },
             "doc": {
-                "desc": "Close the SAP GUI.",
+                "desc": "Close the SAP GUI and terminate its process.",
                 "examples": 
                 """
                 Examples:
@@ -455,7 +455,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The tree structure could not be exported. {0}")
             },
             "doc": {
-                "desc": "Export the tree structure in the current window to the file provided.",
+                "desc": "Export the tree structure in the current window to the provided JSON file.",
                 "examples":
                 f"""
                 Examples:
@@ -488,7 +488,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("Could not connect to a running SAP instance. Hint: In order to connect to a 64-bit SAP client import RoboSAPiens with x64=True. {0}")
             },
             "doc": {
-                "desc": "Connect to a running SAP instance and take control of it.",
+                "desc": "Connect to an already running SAP instance and take control of it.",
                 "examples":
                 """
                 Examples:
@@ -553,7 +553,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The cell could not be double-clicked. {0}")
             },
             "doc": {
-                "desc": "Double-click the cell at the intersection of the row and the column provided.",
+                "desc": "Double-click the cell at the intersection of the provided row and column.",
                 "examples":
                 """
                 Examples:
@@ -639,7 +639,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The window contents could not be exported. {0}")
             },
             "doc": {
-                "desc": "Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.",
+                "desc": "Export the window contents to a JSON file. A screenshot will automatically be saved in PNG format.",
                 "examples":
                 f"""
                 Examples:
@@ -755,7 +755,7 @@ lib: RoboSAPiens = {
                 *Text field with a label to its left*
                 | ``Fill Text Field    label    content``
                 
-                *Hint*: The help text obtained by selecting the text field and pressing F1 can usually be used as label.
+                *Hint*: The description obtained by selecting a text field and pressing F1 can usually be used as label.
 
                 *Text field with a label above*
                 | ``Fill Text Field    @ label    content``
@@ -830,6 +830,7 @@ lib: RoboSAPiens = {
                 
                 | ``Press Key Combination    key_combination``
                 
+                Among the valid key combinations are the keyboard shortcuts in the context menu (shown when the right mouse button is pressed). 
                 For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI].
 
                 *Hint*: Pressing F2 is equivalent to a double-click.
@@ -1570,7 +1571,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The window title could not be read. {0}")
             },
             "doc": {
-                "desc": "Get the title of the window in the foreground.",
+                "desc": "Get the title of the currently active window.",
                 "examples":
                 """
                 Examples:
@@ -1588,7 +1589,7 @@ lib: RoboSAPiens = {
                 "Exception": exception("The text message of the window could not be read. {0}")
             },
             "doc": {
-                "desc": "Get the text message of the window in the foreground.",
+                "desc": "Get the text message of the currently active window.",
                 "examples":
                 """
                 Examples:
