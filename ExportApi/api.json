@@ -108,6 +108,7 @@
           "name": "sapArgs",
           "desc": "",
           "default": null,
+          "type": "String",
           "spec": {}
         }
       },
@@ -191,6 +192,7 @@
           "name": "sessionNumber",
           "desc": "",
           "default": 1,
+          "type": "Int32",
           "spec": {}
         }
       },
@@ -244,9 +246,17 @@
           "name": "column",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "Pass": "Pass",
@@ -345,9 +355,17 @@
           "name": "content",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "NotChangeable": "NotChangeable",
@@ -502,9 +520,17 @@
           "name": "column",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "NotChangeable": "NotChangeable",
@@ -523,12 +549,20 @@
           "name": "row_locator",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": 1,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
         "NoSession": "NoSession",
         "NoTable": "NoTable",
         "InvalidIndex": "InvalidIndex",
+        "InvalidTable": "InvalidTable",
         "NotFound": "NotFound",
         "Pass": "Pass",
         "Exception": "Exception"
@@ -540,8 +574,17 @@
     },
     "CountTableRows": {
       "name": "Tabellenzeilen zählen",
-      "args": {},
+      "args": {
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": 1,
+          "type": "Int32",
+          "spec": {}
+        }
+      },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "Pass": "Pass",
@@ -632,9 +675,17 @@
           "name": "column",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "NoTable": "NoTable",
@@ -681,6 +732,7 @@
           "name": "untilTextField",
           "desc": "",
           "default": null,
+          "type": "String",
           "spec": {}
         }
       },
@@ -731,9 +783,17 @@
           "name": "column",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "NoTable": "NoTable",
@@ -762,9 +822,17 @@
           "name": "entry",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "EntryNotFound": "EntryNotFound",
@@ -982,9 +1050,17 @@
           "name": "column",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "NotChangeable": "NotChangeable",
@@ -1008,9 +1084,17 @@
           "name": "column",
           "desc": "",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {
+        "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
         "NotChangeable": "NotChangeable",

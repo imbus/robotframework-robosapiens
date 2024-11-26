@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.12.1"
+__version__ = "2.13.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -312,7 +312,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Disconnect from Server') # type: ignore
     def close_connection(self): # type: ignore
         """
-        Terminate the connection to the SAP server.
+        Terminate the current connection to the SAP server.
         
         
         Examples:
@@ -335,7 +335,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Close SAP') # type: ignore
     def close_sap(self): # type: ignore
         """
-        Close the SAP GUI.
+        Close the SAP GUI and terminate its process.
         
         
         Examples:
@@ -374,22 +374,24 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('CloseWindow', args, result) # type: ignore
     
     @keyword('Get Row Count') # type: ignore
-    def count_table_rows(self): # type: ignore
+    def count_table_rows(self, table_number: int=1): # type: ignore
         """
         Count the rows in a table.
         
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
         | ``${row_count}   Get Row Count``
         """
 
-        args = []
+        args = [table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "Exception": "Could not count the rows in the table. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
             "NotFound": "The window contains no table.",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "Counted the number of rows in the table."
         }
         return super()._run_keyword('CountTableRows', args, result) # type: ignore
@@ -397,7 +399,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Export Tree Structure') # type: ignore
     def export_tree(self, filepath: str): # type: ignore
         """
-        Export the tree structure in the current window to the file provided.
+        Export the tree structure in the current window to the provided JSON file.
         
         | ``filepath`` | Absolute path to a file with extension .json |
         
@@ -421,7 +423,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Connect to Running SAP') # type: ignore
     def attach_to_running_sap(self, session_number: int=1): # type: ignore
         """
-        Connect to a running SAP instance and take control of it.
+        Connect to an already running SAP instance and take control of it.
         
         | ``session_number`` | The session number in the lower right corner of the window |
         
@@ -478,23 +480,25 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ConnectToServer', args, result) # type: ignore
     
     @keyword('Double-click Cell') # type: ignore
-    def double_click_cell(self, row_locator: str, column: str): # type: ignore
+    def double_click_cell(self, row_locator: str, column: str, table_number: int=None): # type: ignore
         """
-        Double-click the cell at the intersection of the row and the column provided.
+        Double-click the cell at the intersection of the provided row and column.
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
         | ``Double-click Cell     row_locator     column``
         """
 
-        args = [row_locator, column]
+        args = [row_locator, column, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The cell with the locator '{0}, {1}' was double-clicked.",
             "Exception": "The cell could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -546,7 +550,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Export Window') # type: ignore
     def export_window(self, name: str, directory: str): # type: ignore
         """
-        Export the window contents to a JSON file. Also a screenshot will be saved in PNG format.
+        Export the window contents to a JSON file. A screenshot will automatically be saved in PNG format.
         
         | ``name`` | Name of the output files |
         | ``directory`` | Absolute path to the directory where the files will be saved |
@@ -570,13 +574,14 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ExportWindow', args, result) # type: ignore
     
     @keyword('Fill Cell') # type: ignore
-    def fill_cell(self, row_locator: str, column: str, content: str): # type: ignore
+    def fill_cell(self, row_locator: str, column: str, content: str, table_number: int=None): # type: ignore
         """
         Fill the cell at the intersection of the row and column with the content provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``content`` | The new contents of the cell |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -585,13 +590,14 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: To migrate from the old keyword with two arguments perform a search and replace with a regular expression.
         """
 
-        args = [row_locator, column, content]
+        args = [row_locator, column, content, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found Hints: Check the spelling, maximize the SAP window",
             "NotChangeable": "The cell with the locator '{0}, {1}' is not editable.",
             "NoTable": "The window contains no table.",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The cell with the locator '{0}, {1}' was filled.",
             "Exception": "The cell could not be filled. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -633,7 +639,7 @@ class RoboSAPiens(RoboSAPiensClient):
         *Text field with a label to its left*
         | ``Fill Text Field    label    content``
         
-        *Hint*: The help text obtained by selecting the text field and pressing F1 can usually be used as label.
+        *Hint*: The description obtained by selecting a text field and pressing F1 can usually be used as label.
         
         *Text field with a label above*
         | ``Fill Text Field    @ label    content``
@@ -706,6 +712,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Press Key Combination    key_combination``
         
+        Among the valid key combinations are the keyboard shortcuts in the context menu (shown when the right mouse button is pressed). 
         For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI].
         
         *Hint*: Pressing F2 is equivalent to a double-click.
@@ -756,24 +763,26 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('PushButton', args, result) # type: ignore
     
     @keyword('Push Button Cell') # type: ignore
-    def push_button_cell(self, row_locator: str, column: str): # type: ignore
+    def push_button_cell(self, row_locator: str, column: str, table_number: int=None): # type: ignore
         """
         Push the button cell located at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
         | ``Push Button Cell     row_locator     column``
         """
 
-        args = [row_locator, column]
+        args = [row_locator, column, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The button cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
             "NotChangeable": "The button cell with the locator '{0}, {1}' is disabled.",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The button cell with the locator '{0}, {1}' was pushed.",
             "Exception": "The button cell could not be pushed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -851,24 +860,26 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ReadText', args, result) # type: ignore
     
     @keyword('Read Cell') # type: ignore
-    def read_cell(self, row_locator: str, column: str): # type: ignore
+    def read_cell(self, row_locator: str, column: str, table_number: int=None): # type: ignore
         """
         Read the contents of the cell at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
         | ``Read Cell     row_locator     column``
         """
 
-        args = [row_locator, column]
+        args = [row_locator, column, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
             "NoTable": "The window contains no table.",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The cell with the locator '{0}, {1}' was read.",
             "Exception": "The cell could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -955,49 +966,53 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ScrollWindowHorizontally', args, result) # type: ignore
     
     @keyword('Select Cell') # type: ignore
-    def select_cell(self, row_locator: str, column: str): # type: ignore
+    def select_cell(self, row_locator: str, column: str, table_number: int=None): # type: ignore
         """
         Select the cell at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
         | ``Select Cell     row_locator     column``
         """
 
-        args = [row_locator, column]
+        args = [row_locator, column, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
             "NoTable": "The window contains no table.",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The cell with the locator '{0}, {1}' was selected.",
             "Exception": "The cell could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('SelectCell', args, result) # type: ignore
     
     @keyword('Select Cell Value') # type: ignore
-    def select_cell_value(self, row_locator: str, column: str, value: str): # type: ignore
+    def select_cell_value(self, row_locator: str, column: str, value: str, table_number: int=None): # type: ignore
         """
         Select the specified value in the cell at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``value`` | An entry from the dropdown menu |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
         | ``Select Cell Value    row_locator    column    value``
         """
 
-        args = [row_locator, column, value]
+        args = [row_locator, column, value, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
             "EntryNotFound": "The value '{2}' is not available in the cell with the locator '{0}, {1}'. Hint: Check the spelling",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Exception": "The value could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
             "Pass": "The value '{2}' was selected."
         }
@@ -1135,11 +1150,12 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
     @keyword('Select Table Row') # type: ignore
-    def select_table_row(self, row_locator: str): # type: ignore
+    def select_table_row(self, row_locator: str, table_number: int=1): # type: ignore
         """
         Select the specified table row.
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1148,12 +1164,13 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: Use the row number 0 to select the whole table.
         """
 
-        args = [row_locator]
+        args = [row_locator, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "Exception": "The row could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
             "NoTable": "The window contains no table",
+            "InvalidTable": "The window contains no table with index {0}.",
             "InvalidIndex": "The table does not have a row with index '{0}'",
             "NotFound": "The table does not contain a cell with the contents '{0}'",
             "Pass": "The row with the locator '{0}' was selected"
@@ -1269,12 +1286,13 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('UntickCheckBox', args, result) # type: ignore
     
     @keyword('Tick Checkbox Cell') # type: ignore
-    def tick_check_box_cell(self, row_locator: str, column: str): # type: ignore
+    def tick_check_box_cell(self, row_locator: str, column: str, table_number: int=None): # type: ignore
         """
         Tick the checkbox cell at the intersection of the row and the column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1283,36 +1301,39 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: To tick the checkbox in the leftmost column with no title, select the row and press the "Enter" key.
         """
 
-        args = [row_locator, column]
+        args = [row_locator, column, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The checkbox cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
             "NotChangeable": "The checkbox cell with the locator '{0}, {1}' is disabled.",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The checkbox cell with the locator '{0}, {1}' was ticked.",
             "Exception": "The checkbox cell could not be ticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('TickCheckBoxCell', args, result) # type: ignore
     
     @keyword('Untick Checkbox Cell') # type: ignore
-    def untick_check_box_cell(self, row_locator: str, column: str): # type: ignore
+    def untick_check_box_cell(self, row_locator: str, column: str, table_number: int=None): # type: ignore
         """
         Untick the checkbox cell at the intersection of the row and the column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
         | ``Untick Checkbox Cell     row_locator    column``
         """
 
-        args = [row_locator, column]
+        args = [row_locator, column, table_number]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The checkbox cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
             "NotChangeable": "The checkbox cell with the locator '{0}, {1}' is disabled.",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The checkbox cell with the locator '{0}, {1}' was unticked.",
             "Exception": "The checkbox cell could not be unticked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -1321,7 +1342,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Get Window Title') # type: ignore
     def get_window_title(self): # type: ignore
         """
-        Get the title of the window in the foreground.
+        Get the title of the currently active window.
         
         
         Examples:
@@ -1341,7 +1362,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Get Window Text') # type: ignore
     def get_window_text(self): # type: ignore
         """
-        Get the text message of the window in the foreground.
+        Get the text message of the currently active window.
         
         
         Examples:
@@ -1359,4 +1380,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.12.1'
+    ROBOT_LIBRARY_VERSION = '2.13.0'

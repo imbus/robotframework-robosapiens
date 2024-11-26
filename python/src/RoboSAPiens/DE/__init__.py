@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.12.1"
+__version__ = "2.13.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -311,7 +311,7 @@ class DE(RoboSAPiensClient):
     @keyword('Verbindung zum Server trennen') # type: ignore
     def close_connection(self): # type: ignore
         """
-        Die Verbindung zum SAP Server wird getrennt.
+        Die aktuelle Verbindung zum SAP Server wird getrennt.
         
         
         Beispiele:
@@ -334,7 +334,7 @@ class DE(RoboSAPiensClient):
     @keyword('SAP beenden') # type: ignore
     def close_sap(self): # type: ignore
         """
-        Die SAP GUI wird beendet.
+        Schließt die SAP GUI und beendet ihren Prozess.
         
         
         Beispiele:
@@ -373,22 +373,24 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('CloseWindow', args, result) # type: ignore
     
     @keyword('Tabellenzeilen zählen') # type: ignore
-    def count_table_rows(self): # type: ignore
+    def count_table_rows(self, tabelle_nummer: int=1): # type: ignore
         """
         Die Zeilen einer Tabelle werden gezählt.
         
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``${anzahl_zeilen}    Tabellenzeilen zählen``
         """
 
-        args = []
+        args = [tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "Exception": "Die Zeilen der Tabelle konnten nicht gezählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
             "NotFound": "Die Maske enthält keine Tabelle.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Tabellenzeillen wurden gezählt."
         }
         return super()._run_keyword('CountTableRows', args, result) # type: ignore
@@ -420,7 +422,7 @@ class DE(RoboSAPiensClient):
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
     def attach_to_running_sap(self, session_nummer: int=1): # type: ignore
         """
-        Nach der Ausführung dieses Keywords kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.
+        Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden.
         
         | ``session_nummer`` | Die Nummer der SAP-Session in der rechten unteren Ecke des Fensters |
         
@@ -477,23 +479,25 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ConnectToServer', args, result) # type: ignore
     
     @keyword('Tabellenzelle doppelklicken') # type: ignore
-    def double_click_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
+    def double_click_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
         """
-        Die Zelle am Schnittpunkt der Zeile und der Spalte wird doppelgeklickt.
+        Führt einen Doppelklick auf die Zelle aus, die an der Schnittstelle der gegebenen Zeile und Spalte liegt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel]
+        args = [Zeile, Spaltentitel, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt.",
             "Exception": "Die Zelle konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
@@ -502,7 +506,7 @@ class DE(RoboSAPiensClient):
     @keyword('Textfeld doppelklicken') # type: ignore
     def double_click_text_field(self, Lokator: str): # type: ignore
         """
-        Das angegebene Textfeld wird doppelgeklickt.
+        Führt einen Doppelklick auf das angegebene Textfeld aus.
         
         | ``Lokator`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
         
@@ -545,10 +549,10 @@ class DE(RoboSAPiensClient):
     @keyword('Maske exportieren') # type: ignore
     def export_window(self, Name: str, Verzeichnis: str): # type: ignore
         """
-        Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto in PNG-Format erstellt.
+        Die Inhalte der Maske werden in einer JSON-Datei geschrieben. Außerdem wird ein Bildschirmfoto automatisch in PNG-Format erstellt.
         
         | ``Name`` | Der Name der generierten Dateien |
-        | ``Verzeichnis`` | Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden. |
+        | ``Verzeichnis`` | Der absolute Pfad des Verzeichnisses, wo die Dateien gespeichert werden. |
         
         Beispiele:
         
@@ -569,13 +573,14 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ExportWindow', args, result) # type: ignore
     
     @keyword('Tabellenzelle ausfüllen') # type: ignore
-    def fill_cell(self, Zeile: str, Spaltentitel: str, Inhalt: str): # type: ignore
+    def fill_cell(self, Zeile: str, Spaltentitel: str, Inhalt: str, tabelle_nummer: int=None): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird mit dem angegebenen Inhalt ausgefüllt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Inhalt`` | Der neue Inhalt der Zelle |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -584,13 +589,14 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Für die Migration aus dem alten Schlüsselwort mit zwei Argumenten soll eine Suche und Ersetzung mit einem regulären Ausdruck durchgeführt werden.
         """
 
-        args = [Zeile, Spaltentitel, Inhalt]
+        args = [Zeile, Spaltentitel, Inhalt, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
             "NotChangeable": "Die Zelle mit dem Lokator '{0}, {1}' ist nicht bearbeitbar.",
             "NoTable": "Die Maske enthält keine Tabelle.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt.",
             "Exception": "Die Zelle konnte nicht ausgefüllt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
@@ -632,7 +638,7 @@ class DE(RoboSAPiensClient):
         *Textfeld mit einer Beschriftung links*
         | ``Textfeld ausfüllen    Beschriftung    Inhalt``
         
-        *Hinweis*: Wenn ein Textfeld markiert ist, wird durch Drücken der Taste F1 ein Hilfetext angezeigt, der normalerweise als Beschriftung verwendet werden kann.
+        *Hinweis*: Die Beschreibung, die durch die Auswahl eines Textfeldes und Drücken von F1 erscheint, kann ebenfalls als Beschriftung genutzt werden.
         
         *Textfeld mit einer Beschriftung oben*
         | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``
@@ -705,6 +711,7 @@ class DE(RoboSAPiensClient):
         
         | ``Tastenkombination drücken    Tastenkombination``
         
+        Gültige Tastenkombinationen sind unter anderem die Tastenkürzel im Kontextmenü (angezeigt, wenn die rechte Maustaste gedrückt wird). 
         Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation von SAP GUI].
         
         *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
@@ -755,24 +762,26 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('PushButton', args, result) # type: ignore
     
     @keyword('Tabellenzelle drücken') # type: ignore
-    def push_button_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
+    def push_button_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird gedrückt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle drücken     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel]
+        args = [Zeile, Spaltentitel, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
             "NotChangeable": "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt.",
             "Exception": "Die Zelle konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
@@ -827,24 +836,26 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ReadText', args, result) # type: ignore
     
     @keyword('Tabellenzelle auslesen') # type: ignore
-    def read_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
+    def read_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
         """
         Der Inhalt der Zelle am Schnittpunkt der Zeile und der Spalte wird zurückgegeben.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel]
+        args = [Zeile, Spaltentitel, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
             "NoTable": "Die Maske enthält keine Tabelle.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen.",
             "Exception": "Die Zelle konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
@@ -931,49 +942,53 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ScrollWindowHorizontally', args, result) # type: ignore
     
     @keyword('Tabellenzelle markieren') # type: ignore
-    def select_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
+    def select_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird markiert.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle markieren     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel]
+        args = [Zeile, Spaltentitel, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
             "NoTable": "Die Maske enthält keine Tabelle.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert.",
             "Exception": "Die Zelle konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('SelectCell', args, result) # type: ignore
     
     @keyword('Tabellenzellenwert auswählen') # type: ignore
-    def select_cell_value(self, Zeile: str, Spaltentitel: str, Wert: str): # type: ignore
+    def select_cell_value(self, Zeile: str, Spaltentitel: str, Wert: str, tabelle_nummer: int=None): # type: ignore
         """
-        In der Zelle am Schnittpunkt der Zeile und der Spalte wird der angegebene Wert ausgewählt.
+        In der Zelle am Schnittpunkt der Zeile und Spalte wird der angegebene Wert ausgewählt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Wert`` | Ein Wert aus dem Auswahlmenü |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
         """
 
-        args = [Zeile, Spaltentitel, Wert]
+        args = [Zeile, Spaltentitel, Wert, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
             "EntryNotFound": "Der Wert '{2}' ist in der Zelle mit dem Lokator '{0}, {1}' nicht vorhanden.\nHinweis: Prüfe die Rechtschreibung",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Exception": "Der Wert konnte nicht ausgewählt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
             "Pass": "Der Wert '{2}' wurde ausgewählt."
         }
@@ -1111,11 +1126,12 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
     @keyword('Tabellenzeile markieren') # type: ignore
-    def select_table_row(self, Zeilenlokator: str): # type: ignore
+    def select_table_row(self, Zeilenlokator: str, tabelle_nummer: int=1): # type: ignore
         """
         Die angegebene Tabellenzeile wird markiert.
         
         | ``Zeilenlokator`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1124,12 +1140,13 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
         """
 
-        args = [Zeilenlokator]
+        args = [Zeilenlokator, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "Exception": "Die Zeile konnte nicht markiert werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
             "NoTable": "Die Maske entählt keine Tabelle",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "InvalidIndex": "Die Tabelle hat keine Zeile '{0}'",
             "NotFound": "Die Tabelle enthält keine Zelle mit dem Inhalt '{0}'",
             "Pass": "Die Zeile mit dem Lokator '{0}' wurde markiert"
@@ -1267,12 +1284,13 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('UntickCheckBox', args, result) # type: ignore
     
     @keyword('Tabellenzelle ankreuzen') # type: ignore
-    def tick_check_box_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
+    def tick_check_box_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird angekreuzt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1281,36 +1299,39 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Um das Formularfeld in der Spalte ganz links ohne Titel anzukreuzen, markiere die Zeile und drücke die "Enter"-Taste.
         """
 
-        args = [Zeile, Spaltentitel]
+        args = [Zeile, Spaltentitel, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
             "NotChangeable": "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt.",
             "Exception": "Die Zelle konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('TickCheckBoxCell', args, result) # type: ignore
     
     @keyword('Tabellenzelle abwählen') # type: ignore
-    def untick_check_box_cell(self, Zeile: str, Spaltentitel: str): # type: ignore
+    def untick_check_box_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
         """
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird abgewählt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle abwählen     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel]
+        args = [Zeile, Spaltentitel, tabelle_nummer]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
             "NotChangeable": "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde abgewählt.",
             "Exception": "Die Zelle konnte nicht abgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
@@ -1319,7 +1340,7 @@ class DE(RoboSAPiensClient):
     @keyword('Fenstertitel auslesen') # type: ignore
     def get_window_title(self): # type: ignore
         """
-        Der Titel des Fensters im Fordergrund wird zurückgegeben.
+        Der Titel des gerade aktiven Fensters wird zurückgegeben.
         
         
         Beispiele:
@@ -1339,7 +1360,7 @@ class DE(RoboSAPiensClient):
     @keyword('Fenstertext auslesen') # type: ignore
     def get_window_text(self): # type: ignore
         """
-        Der Text des Fensters im Fordergrund wird zurückgegeben.
+        Der Text des gerade aktiven Fensters wird zurückgegeben.
         
         
         Beispiele:
@@ -1357,4 +1378,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.12.1'
+    ROBOT_LIBRARY_VERSION = '2.13.0'
