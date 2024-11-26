@@ -21,8 +21,25 @@ namespace RoboSAPiens
     internal partial class SerializerContext : JsonSerializerContext {}
     
     public record JSONError(int code, string message, RobotResult data);
-    public record JSONRequest(string method, string[] @params, int id, string jsonrpc = "2.0");
+    public record JSONRequest(string method, object[] args, int id, string jsonrpc = "2.0");
     public record JSONResponse(RobotResult? result, JSONError? error, int id, string jsonrpc = "2.0");
+
+    public class ObjectToInferredTypesConverter: JsonConverter<object>
+    {
+        public override object Read(
+            ref Utf8JsonReader reader,
+            Type typeToConvert,
+            JsonSerializerOptions options) => reader.TokenType switch
+            {
+                JsonTokenType.True => true,
+                JsonTokenType.False => false,
+                JsonTokenType.Number when reader.TryGetInt32(out int l) => l,
+                JsonTokenType.String => reader.GetString()!,
+                _ => JsonDocument.ParseValue(ref reader).RootElement.Clone()
+            };
+
+        public override void Write(Utf8JsonWriter writer, object objectToWrite, JsonSerializerOptions options) {}  
+    }
 
     public class JSON
     {
@@ -37,7 +54,9 @@ namespace RoboSAPiens
         }
 
         public static JSONRequest? deserialize(string jsonString) {
-            return JsonSerializer.Deserialize(jsonString, typeof(JSONRequest), SerializerContext.Default) as JSONRequest;
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new ObjectToInferredTypesConverter());
+            return JsonSerializer.Deserialize(jsonString, typeof(JSONRequest), new SerializerContext(options)) as JSONRequest;
         }
 
         public static string serialize(object content, Type type)

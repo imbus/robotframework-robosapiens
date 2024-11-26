@@ -1,5 +1,8 @@
 using sapfewse;
+using System;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace RoboSAPiens 
 {
@@ -48,6 +51,22 @@ namespace RoboSAPiens
         
         public void pressKey(int key) {
             self.SendVKey(key);
+        }
+
+		[DllImport("user32.dll", SetLastError = true)]
+		static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
+        
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        public void pressPageDown()
+        {
+            const int KEYEVENTF_KEYUP = 0x0002;
+		    const int VK_NEXT  = 0x22;
+            
+            SetForegroundWindow(self.Handle);
+            keybd_event(VK_NEXT, 0, 0, 0);
+            keybd_event(VK_NEXT, 0, KEYEVENTF_KEYUP, 0);
         }
 
         public void setStatusbar(GuiSession session, string statusbarId) {

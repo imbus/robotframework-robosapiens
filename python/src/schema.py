@@ -431,7 +431,7 @@ class RoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
 class RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber(TypedDict):
     name: str
     desc: str
-    default: str
+    default: Literal[1]
     spec: RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec
 
 class RoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
@@ -1007,6 +1007,18 @@ class RoboSAPiensKeywordsExporttreeResult(TypedDict):
 class RoboSAPiensKeywordsExporttreeArgs(TypedDict):
     filepath: RoboSAPiensKeywordsExporttreeArgsFilepath
 
+class RoboSAPiensKeywordsClosewindowDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsClosewindowResult(TypedDict):
+    NoSession: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsClosewindowArgs(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsClosesapDoc(TypedDict):
     desc: str
     examples: str
@@ -1328,6 +1340,12 @@ class RoboSAPiensKeywordsExporttree(TypedDict):
     result: RoboSAPiensKeywordsExporttreeResult
     doc: RoboSAPiensKeywordsExporttreeDoc
 
+class RoboSAPiensKeywordsClosewindow(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsClosewindowArgs
+    result: RoboSAPiensKeywordsClosewindowResult
+    doc: RoboSAPiensKeywordsClosewindowDoc
+
 class RoboSAPiensKeywordsClosesap(TypedDict):
     name: str
     args: RoboSAPiensKeywordsClosesapArgs
@@ -1391,6 +1409,7 @@ class RoboSAPiensKeywords(TypedDict):
     OpenSap: RoboSAPiensKeywordsOpensap
     CloseConnection: RoboSAPiensKeywordsCloseconnection
     CloseSap: RoboSAPiensKeywordsClosesap
+    CloseWindow: RoboSAPiensKeywordsClosewindow
     ExportTree: RoboSAPiensKeywordsExporttree
     AttachToRunningSap: RoboSAPiensKeywordsAttachtorunningsap
     ConnectToServer: RoboSAPiensKeywordsConnecttoserver

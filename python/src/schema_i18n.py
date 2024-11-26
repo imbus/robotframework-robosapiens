@@ -427,7 +427,7 @@ class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber(TypedDict):
     name: Tuple[Literal['4193981709'], str]
     desc: Tuple[Literal['1547983273'], str]
-    default: Tuple[Literal['2212294583'], str]
+    default: Literal[1]
     spec: LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec
 
 class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
@@ -478,7 +478,7 @@ class LocalizedRoboSAPiensKeywordsGetwindowtextDoc(TypedDict):
 class LocalizedRoboSAPiensKeywordsGetwindowtextResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
     Pass: Tuple[Literal['2562559050'], str]
-    Exception: Tuple[Literal['922315409'], str]
+    Exception: Tuple[Literal['293173089'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtextArgs(TypedDict):
     ...
@@ -490,7 +490,7 @@ class LocalizedRoboSAPiensKeywordsGetwindowtitleDoc(TypedDict):
 class LocalizedRoboSAPiensKeywordsGetwindowtitleResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
     Pass: Tuple[Literal['2852411998'], str]
-    Exception: Tuple[Literal['2687794215'], str]
+    Exception: Tuple[Literal['1458775703'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtitleArgs(TypedDict):
     ...
@@ -699,7 +699,7 @@ class LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyDoc(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsScrollwindowhorizontallyResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
-    Exception: Tuple[Literal['1815500836'], str]
+    Exception: Tuple[Literal['3689319260'], str]
     NoScrollbar: Tuple[Literal['876328389'], str]
     MaximumReached: Tuple[Literal['136266215'], str]
     InvalidDirection: Tuple[Literal['103681373'], str]
@@ -714,7 +714,7 @@ class LocalizedRoboSAPiensKeywordsScrolltextfieldcontentsDoc(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsScrolltextfieldcontentsResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
-    Exception: Tuple[Literal['2581980086'], str]
+    Exception: Tuple[Literal['1650861005'], str]
     NoScrollbar: Tuple[Literal['3931385040'], str]
     MaximumReached: Tuple[Literal['3349368208'], str]
     InvalidDirection: Tuple[Literal['2667316811'], str]
@@ -790,7 +790,7 @@ class LocalizedRoboSAPiensKeywordsReadstatusbarResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
     NotFound: Tuple[Literal['2342000252'], str]
     Pass: Tuple[Literal['1105532895'], str]
-    Exception: Tuple[Literal['803476123'], str]
+    Exception: Tuple[Literal['4016539365'], str]
 
 class LocalizedRoboSAPiensKeywordsReadstatusbarArgs(TypedDict):
     ...
@@ -832,7 +832,7 @@ class LocalizedRoboSAPiensKeywordsPresskeycombinationResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
     NotFound: Tuple[Literal['2294374604'], str]
     Pass: Tuple[Literal['3497306705'], str]
-    Exception: Tuple[Literal['3348926009'], str]
+    Exception: Tuple[Literal['3975296116'], str]
 
 class LocalizedRoboSAPiensKeywordsPresskeycombinationArgs(TypedDict):
     keyCombination: LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombination
@@ -1000,11 +1000,23 @@ class LocalizedRoboSAPiensKeywordsCounttablerowsDoc(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsCounttablerowsResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
-    Exception: Tuple[Literal['2467830426'], str]
+    Exception: Tuple[Literal['1934626298'], str]
     NotFound: Tuple[Literal['2399256699'], str]
     Pass: Tuple[Literal['1614075368'], str]
 
 class LocalizedRoboSAPiensKeywordsCounttablerowsArgs(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsClosewindowDoc(TypedDict):
+    desc: Tuple[Literal['3032332168'], str]
+    examples: Tuple[Literal['3865488397'], str]
+
+class LocalizedRoboSAPiensKeywordsClosewindowResult(TypedDict):
+    NoSession: Tuple[Literal['4138997384'], str]
+    Exception: Tuple[Literal['1090626587'], str]
+    Pass: Tuple[Literal['320353308'], str]
+
+class LocalizedRoboSAPiensKeywordsClosewindowArgs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsClosesapDoc(TypedDict):
@@ -1329,6 +1341,12 @@ class LocalizedRoboSAPiensKeywordsCounttablerows(TypedDict):
     result: LocalizedRoboSAPiensKeywordsCounttablerowsResult
     doc: LocalizedRoboSAPiensKeywordsCounttablerowsDoc
 
+class LocalizedRoboSAPiensKeywordsClosewindow(TypedDict):
+    name: Tuple[Literal['3843607926'], str]
+    args: LocalizedRoboSAPiensKeywordsClosewindowArgs
+    result: LocalizedRoboSAPiensKeywordsClosewindowResult
+    doc: LocalizedRoboSAPiensKeywordsClosewindowDoc
+
 class LocalizedRoboSAPiensKeywordsClosesap(TypedDict):
     name: Tuple[Literal['1795765665'], str]
     args: LocalizedRoboSAPiensKeywordsClosesapArgs
@@ -1392,6 +1410,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     OpenSap: LocalizedRoboSAPiensKeywordsOpensap
     CloseConnection: LocalizedRoboSAPiensKeywordsCloseconnection
     CloseSap: LocalizedRoboSAPiensKeywordsClosesap
+    CloseWindow: LocalizedRoboSAPiensKeywordsClosewindow
     CountTableRows: LocalizedRoboSAPiensKeywordsCounttablerows
     ExportTree: LocalizedRoboSAPiensKeywordsExporttree
     AttachToRunningSap: LocalizedRoboSAPiensKeywordsAttachtorunningsap

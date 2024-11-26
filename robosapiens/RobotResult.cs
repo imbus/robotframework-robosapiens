@@ -95,6 +95,12 @@ namespace RoboSAPiens {
             public record Pass(): RobotResult.RobotPass("Die SAP GUI wurde beendet");
         }
 
+        public record CloseWindow {
+            public record NoSession(): RobotResult.NoSession();
+            public record Pass(): RobotResult.RobotPass("Das Fenster im Vordergrund wurde geschlossen.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Fenster konnte nicht geschlossen werden.");
+        }
+
         public record ExportTree {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(): RobotResult.NotFound("Die Maske enthält keine Baumstruktur");
@@ -108,7 +114,7 @@ namespace RoboSAPiens {
             public record NoConnection(): RobotResult.NoConnection();
             public record NoServerScripting(): RobotResult.NoServerScripting();
             public record NoSession(): RobotResult.NoSession();
-            public record InvalidSessionId(string sessionId): RobotResult.RobotFail("InvalidSessionId", $"Der Session Id {sessionId} ist nicht gültig");
+            public record InvalidSessionId(int sessionId): RobotResult.RobotFail("InvalidSessionId", $"Der Session Id {sessionId} ist nicht gültig");
             public record Json(string json): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.", returnValue: json);
             public record Pass(): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");

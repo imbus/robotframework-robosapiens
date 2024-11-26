@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace RoboSAPiens
@@ -11,6 +12,18 @@ namespace RoboSAPiens
             {
                 Console.Write("> ");
                 return Console.ReadLine();
+            }
+
+            static object[] parseArgs(string[] args, string[] types)
+            {
+                return args.Zip(types)
+                    .Select<(string, string), object>(argType => 
+                        argType switch {
+                            (var arg, var type) when type.Contains("System.Int32") => int.Parse(arg),
+                            (var arg, _) => arg
+                        }
+                    )
+                    .ToArray();
             }
 
             public static void start(KeywordLibrary keywordLibrary)
@@ -33,7 +46,10 @@ namespace RoboSAPiens
                         {
                             var result = Regex.Split(input, @"\s\s+") switch {
                                 [] => null,
-                                [var method, ..var @params] => keywordLibrary.callKeyword(method, @params),
+                                [var method, ..var args] => keywordLibrary.callKeyword(
+                                    method, 
+                                    parseArgs(args, keywordLibrary.getKeywordArgumentTypes(method))
+                                ),
                             };
 
                             if (result == null) {
@@ -73,7 +89,7 @@ namespace RoboSAPiens
                 while ((input = readInput()) != null && input != "quit")
                 {
                     var request = JSON.deserialize(input) ?? throw new Exception("Received null");
-                    var result = keywordLibrary.callKeyword(request.method, request.@params);
+                    var result = keywordLibrary.callKeyword(request.method, request.args);
                     var response = result.status switch
                     {
                         Status.FAIL => JSON.Fail(new JSONError(-32000, "Keyword call failed.", result), id: request.id),
