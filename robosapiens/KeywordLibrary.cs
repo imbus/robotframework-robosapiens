@@ -152,23 +152,6 @@ namespace RoboSAPiens
                     return new Result.OpenSap.SAPAlreadyRunning();
                 }
 
-                int timeout = 10000;    // in milliseconds
-                int elapsed = 0;
-                int waiting_time = 100; // in milliseconds
-                object? sapGui = null;
-                var rot = new CSapROTWrapper();
-
-                while (sapGui == null && elapsed < timeout)
-                {
-                    Thread.Sleep(waiting_time);
-                    elapsed += waiting_time;
-                    sapGui = rot.GetROTEntry("SAPGUI") ?? rot.GetROTEntry("SAPGUISERVER");
-                }
-
-                if (sapGui == null) {
-                    return new Result.OpenSap.NoGuiScripting();
-                }
-
                 return new Result.OpenSap.Pass();
             }
             catch (Exception e)
