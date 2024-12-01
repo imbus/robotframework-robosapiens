@@ -605,12 +605,16 @@ lib: RoboSAPiens = {
                 "Exception": exception("The text field could not be double-clicked. {0}")
             },
             "doc": {
-                "desc": "Double click the text field specified by the locator.",
+                "desc": "Double-click the text field specified by the locator or with the given content.",
                 "examples":
                 """
                 Examples:
                 
+                *Find the text field using a locator*
                 | ``Double-click Text Field     locator``
+
+                *Find the text field by its content*
+                | ``Double-click Text Field    = content``
                 """
             }
         },
@@ -1456,12 +1460,16 @@ lib: RoboSAPiens = {
                 "Exception": exception("The text field could not be selected. {0}")
             },
             "doc": {
-                "desc": "Select the text field specified by the locator.",
+                "desc": "Select the text field specified by the locator or with the given content.",
                 "examples":
                 """
                 Examples:
                 
+                *Find the text field using a locator*
                 | ``Select Text Field    locator``
+
+                *Find the text field by its content*
+                | ``Select Text Field    = content``
                 """
             }
         },

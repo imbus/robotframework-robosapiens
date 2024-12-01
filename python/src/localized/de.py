@@ -626,7 +626,11 @@ lib: LocalizedRoboSAPiens = {
                 """
                 Beispiele:
                 
+                *Identifizierung des Textfeldes über einen Lokator*
                 | ``Textfeld doppelklicken     Lokator``
+
+                *Identifizierung des Textfeldes über seinen Inhalt*
+                | ``Textfeld doppelklicken     = Inhalt``
                 """
               )
             }
@@ -1478,7 +1482,11 @@ lib: LocalizedRoboSAPiens = {
                 """
                 Beispiele:
                 
+                *Identifizierung des Textfeldes über einen Lokator*
                 | ``Textfeld markieren    Lokator``
+
+                *Identifizierung des Textfeldes über seinen Inhalt*
+                | ``Textfeld markieren     = Inhalt``
                 """
               )
             }
