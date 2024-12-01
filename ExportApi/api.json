@@ -533,6 +533,7 @@
         "InvalidTable": "InvalidTable",
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "NotAButton": "NotAButton",
         "NotChangeable": "NotChangeable",
         "Pass": "Pass",
         "Exception": "Exception"

@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.13.2"
+__version__ = "2.13.3"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -290,7 +290,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Start SAP Logon logged in to a client*
         
-        | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{username} -pw{password}``
+        | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{username} -pw=%{password}``
         
         *Hints*
         
@@ -507,13 +507,17 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Double-click Text Field') # type: ignore
     def double_click_text_field(self, locator: str): # type: ignore
         """
-        Double click the text field specified by the locator.
+        Double-click the text field specified by the locator or with the given content.
         
         | ``locator`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
         Examples:
         
+        *Find the text field using a locator*
         | ``Double-click Text Field     locator``
+        
+        *Find the text field by its content*
+        | ``Double-click Text Field    = content``
         """
 
         args = [locator]
@@ -781,6 +785,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The button cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
+            "NotAButton": "The cell with the locator '{0}, {1}' is not a button.",
             "NotChangeable": "The button cell with the locator '{0}, {1}' is disabled.",
             "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The button cell with the locator '{0}, {1}' was pushed.",
@@ -977,6 +982,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Examples:
         
         | ``Select Cell     row_locator     column``
+        
+        *Hint*: This keyword can be used to click a link (underlined text) in a cell.
         """
 
         args = [row_locator, column, table_number]
@@ -1180,13 +1187,17 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Select Text Field') # type: ignore
     def select_text_field(self, locator: str): # type: ignore
         """
-        Select the text field specified by the locator.
+        Select the text field specified by the locator or with the given content.
         
         | ``locator`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
         Examples:
         
+        *Find the text field using a locator*
         | ``Select Text Field    locator``
+        
+        *Find the text field by its content*
+        | ``Select Text Field    = content``
         """
 
         args = [locator]
@@ -1380,4 +1391,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.13.2'
+    ROBOT_LIBRARY_VERSION = '2.13.3'

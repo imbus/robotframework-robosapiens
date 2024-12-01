@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.13.2"
+__version__ = "2.13.3"
 
 class DE(RoboSAPiensClient):
     """
@@ -512,7 +512,11 @@ class DE(RoboSAPiensClient):
         
         Beispiele:
         
+        *Identifizierung des Textfeldes über einen Lokator*
         | ``Textfeld doppelklicken     Lokator``
+        
+        *Identifizierung des Textfeldes über seinen Inhalt*
+        | ``Textfeld doppelklicken     = Inhalt``
         """
 
         args = [Lokator]
@@ -780,6 +784,7 @@ class DE(RoboSAPiensClient):
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
+            "NotAButton": "Die Zelle mit dem Lokator '{0}, {1}' ist kein Knopf.",
             "NotChangeable": "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert.",
             "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt.",
@@ -953,6 +958,8 @@ class DE(RoboSAPiensClient):
         Beispiele:
         
         | ``Tabellenzelle markieren     Zeile     Spaltentitel``
+        
+        *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text) in einer Zelle zu klicken.
         """
 
         args = [Zeile, Spaltentitel, tabelle_nummer]
@@ -1162,7 +1169,11 @@ class DE(RoboSAPiensClient):
         
         Beispiele:
         
+        *Identifizierung des Textfeldes über einen Lokator*
         | ``Textfeld markieren    Lokator``
+        
+        *Identifizierung des Textfeldes über seinen Inhalt*
+        | ``Textfeld markieren     = Inhalt``
         """
 
         args = [Lokator]
@@ -1378,4 +1389,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.13.2'
+    ROBOT_LIBRARY_VERSION = '2.13.3'

@@ -338,7 +338,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("211145309", "SAP GUI bzw. SAP Business Client wird gestartet."),
-                "examples": ("1816370490", 
+                "examples": ("1778776775", 
                 rf"""
                 Beispiele:
 
@@ -621,8 +621,8 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("504842288", exception("Das Textfeld konnte nicht doppelgeklickt werden."))
             },
             "doc": {
-                "desc": ("3694445417", "Führt einen Doppelklick auf das angegebene Textfeld aus."),
-                "examples": ("2895066361", 
+                "desc": ("4159310422", "Führt einen Doppelklick auf das angegebene Textfeld aus."),
+                "examples": ("573214453", 
                 """
                 Beispiele:
                 
@@ -1201,7 +1201,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("71460282", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird markiert."),
-                "examples": ("642690798", 
+                "examples": ("3351621149", 
                 f"""
                 Beispiele:
                 
@@ -1478,8 +1478,8 @@ lib: LocalizedRoboSAPiens = {
               "Exception": ("1228826942", exception("Das Textfeld konnte nicht markiert werden."))
             },
             "doc": {
-                "desc": ("2749293432", "Das angegebene Textfeld wird markiert."),
-                "examples": ("1656590247", 
+                "desc": ("2850695645", "Das angegebene Textfeld wird markiert."),
+                "examples": ("1471605922", 
                 """
                 Beispiele:
                 

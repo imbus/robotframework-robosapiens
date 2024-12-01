@@ -674,8 +674,8 @@ class LocalizedRoboSAPiensKeywordsSelecttextArgs(TypedDict):
     locator: LocalizedRoboSAPiensKeywordsSelecttextArgsLocator
 
 class LocalizedRoboSAPiensKeywordsSelecttextfieldDoc(TypedDict):
-    desc: Tuple[Literal['2749293432'], str]
-    examples: Tuple[Literal['1656590247'], str]
+    desc: Tuple[Literal['2850695645'], str]
+    examples: Tuple[Literal['1471605922'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttextfieldResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -791,7 +791,7 @@ class LocalizedRoboSAPiensKeywordsSelectcellvalueArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelectcellDoc(TypedDict):
     desc: Tuple[Literal['71460282'], str]
-    examples: Tuple[Literal['642690798'], str]
+    examples: Tuple[Literal['3351621149'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcellResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -917,6 +917,7 @@ class LocalizedRoboSAPiensKeywordsPushbuttoncellDoc(TypedDict):
 class LocalizedRoboSAPiensKeywordsPushbuttoncellResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
     NotFound: Tuple[Literal['3485811037'], str]
+    NotAButton: Tuple[Literal['2476489266'], str]
     NotChangeable: Tuple[Literal['333463039'], str]
     InvalidTable: Tuple[Literal['2205241003'], str]
     Pass: Tuple[Literal['1801284202'], str]
@@ -1041,8 +1042,8 @@ class LocalizedRoboSAPiensKeywordsExecutetransactionArgs(TypedDict):
     T_Code: LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_Code
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldDoc(TypedDict):
-    desc: Tuple[Literal['3694445417'], str]
-    examples: Tuple[Literal['2895066361'], str]
+    desc: Tuple[Literal['4159310422'], str]
+    examples: Tuple[Literal['573214453'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktextfieldResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -1169,7 +1170,7 @@ class LocalizedRoboSAPiensKeywordsCloseconnectionArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsOpensapDoc(TypedDict):
     desc: Tuple[Literal['211145309'], str]
-    examples: Tuple[Literal['1816370490'], str]
+    examples: Tuple[Literal['1778776775'], str]
 
 class LocalizedRoboSAPiensKeywordsOpensapResult(TypedDict):
     Pass: Tuple[Literal['871506365'], str]

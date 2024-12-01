@@ -918,6 +918,7 @@ class RoboSAPiensKeywordsPushbuttoncellResult(TypedDict):
     InvalidTable: str
     NoSession: str
     NotFound: str
+    NotAButton: str
     NotChangeable: str
     Pass: str
     Exception: str
