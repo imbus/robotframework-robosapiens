@@ -354,7 +354,7 @@ lib: RoboSAPiens = {
 
                  *Start SAP Logon logged in to a client*
 
-                 | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{{username}} -pw{{password}}``
+                 | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{{username}} -pw=%{{password}}``
 
                  *Hints*
                  
