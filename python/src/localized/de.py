@@ -1201,6 +1201,8 @@ lib: LocalizedRoboSAPiens = {
                 Beispiele:
                 
                 | ``Tabellenzelle markieren     Zeile     Spaltentitel``
+
+                *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text) in einer Zelle zu klicken.
                 """
               )
             }
