@@ -926,6 +926,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": button_or_cell_not_found("The button cell with the locator '{0}, {1}' could not be found."),
+                "NotAButton": "The cell with the locator '{0}, {1}' is not a button.",
                 "NotChangeable": "The button cell with the locator '{0}, {1}' is disabled.",
                 "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The button cell with the locator '{0}, {1}' was pushed.",

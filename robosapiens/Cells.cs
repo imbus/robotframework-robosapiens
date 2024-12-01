@@ -46,6 +46,11 @@ namespace RoboSAPiens
             return labels.Any(l => l.Equals(label) || l.StartsWith(label));
         }
 
+        public bool isButtonCell()
+        {
+            return type == CellType.Button;
+        }
+
         public bool isTextCell()
         {
             return type == CellType.Text;

@@ -632,6 +632,10 @@ namespace RoboSAPiens {
 
             if (options.presenterMode) highlightCell(cell);
 
+            if (!cell.isButtonCell()) {
+                return new Result.PushButtonCell.NotAButton(locator.location);
+            }
+
             try {
                 if (cell.isChangeable(session))
                 {

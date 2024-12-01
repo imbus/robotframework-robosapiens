@@ -951,6 +951,7 @@ lib: LocalizedRoboSAPiens = {
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3485811037", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
+              "NotAButton": ("2476489266", "Die Zelle mit dem Lokator '{0}, {1}' ist kein Knopf."),
               "NotChangeable": ("333463039", "Die Zelle mit dem Lokator '{0}, {1}' ist deaktiviert."),
               "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
               "Pass": ("1801284202", "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt."),

@@ -237,6 +237,7 @@ namespace RoboSAPiens {
             public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
+            public record NotAButton(string locator): RobotResult.RobotFail("NotAButton", $"Die Zelle mit dem Lokator '{locator}' enthält keinen Knopf.");
             public record NotChangeable(string locator): RobotResult.NotChangeable($"Die Zelle mit dem Lokator '{locator}' ist deaktiviert.");
             public record Pass(string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde gedrückt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht gedrückt werden.");
