@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.13.4"
+__version__ = "2.13.5"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -202,7 +202,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Double-click Tree Element    element_path``
         
-        *Hint*: A slash that is not a path separator must be written twice.
+        Further details about the element path are provided in the keyword [#Select Tree Element|Select Tree Element].
         """
 
         args = [element_path]
@@ -226,7 +226,9 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Select Tree Element    element_path``
         
-        *Hint*: A slash that is not a path separator must be written twice.
+        *Hints*
+        - A slash that is not a path separator must be written twice.
+        - Each segment of the path may be partially specified. For example, IDoc instead of IDoc 1234.
         """
 
         args = [element_path]
@@ -250,6 +252,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Examples:
         
         | ``Select Menu Entry in Tree Element    element_path    menu_entry``
+        
+        Further details about the element path are provided in the keyword [#Select Tree Element|Select Tree Element].
         """
 
         args = [element_path, menu_entry]
@@ -1391,4 +1395,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.13.4'
+    ROBOT_LIBRARY_VERSION = '2.13.5'

@@ -1185,7 +1185,7 @@ class LocalizedRoboSAPiensKeywordsOpensapArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentryDoc(TypedDict):
     desc: Tuple[Literal['2300654272'], str]
-    examples: Tuple[Literal['2093125419'], str]
+    examples: Tuple[Literal['4134001137'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentryResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -1199,7 +1199,7 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentryArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelecttreeelementDoc(TypedDict):
     desc: Tuple[Literal['1640119296'], str]
-    examples: Tuple[Literal['437032973'], str]
+    examples: Tuple[Literal['3248861206'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttreeelementResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -1212,7 +1212,7 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktreeelementDoc(TypedDict):
     desc: Tuple[Literal['2416620933'], str]
-    examples: Tuple[Literal['1502441278'], str]
+    examples: Tuple[Literal['3491178920'], str]
 
 class LocalizedRoboSAPiensKeywordsDoubleclicktreeelementResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]

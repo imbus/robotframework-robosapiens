@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.13.4"
+__version__ = "2.13.5"
 
 class DE(RoboSAPiensClient):
     """
@@ -201,7 +201,7 @@ class DE(RoboSAPiensClient):
         
         | ``Baumelement doppelklicken    Elementpfad``
         
-        *Hinweis*: Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
+        Für weitere Infos zum Elementpfad siehe [#Baumelement markieren|Baumelement markieren].
         """
 
         args = [Elementpfad]
@@ -225,7 +225,9 @@ class DE(RoboSAPiensClient):
         
         | ``Baumelement markieren    Elementpfad``
         
-        *Hinweis*: Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
+        *Hinweise*
+        - Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
+        - Jedes Segment des Pfades kann teilweise angegeben werden. Zum Beispiel IDoc anstelle von IDoc 1234.
         """
 
         args = [Elementpfad]
@@ -249,6 +251,8 @@ class DE(RoboSAPiensClient):
         Beispiele:
         
         | ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``
+        
+        Für weitere Infos zum Elementpfad siehe [#Baumelement markieren|Baumelement markieren].
         """
 
         args = [Elementpfad, Menüeintrag]
@@ -1389,4 +1393,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.13.4'
+    ROBOT_LIBRARY_VERSION = '2.13.5'
