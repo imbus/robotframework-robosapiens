@@ -246,7 +246,7 @@ lib: RoboSAPiens = {
 
                 | ``Double-click Tree Element    element_path``
 
-                *Hint*: A slash that is not a path separator must be written twice.
+                Further details about the element path are provided in the keyword [#Select Tree Element|Select Tree Element].
                 """
             }
         },
@@ -273,7 +273,9 @@ lib: RoboSAPiens = {
 
                 | ``Select Tree Element    element_path``
 
-                *Hint*: A slash that is not a path separator must be written twice.
+                *Hints*
+                - A slash that is not a path separator must be written twice.
+                - Each segment of the path may be partially specified. For example, IDoc instead of IDoc 1234.
                 """
             }
         },
@@ -304,6 +306,8 @@ lib: RoboSAPiens = {
                 Examples:
 
                 | ``Select Menu Entry in Tree Element    element_path    menu_entry``
+
+                Further details about the element path are provided in the keyword [#Select Tree Element|Select Tree Element].
                 """
             }
         },

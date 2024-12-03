@@ -243,13 +243,13 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("2416620933", "Das Baumelement mit dem angegebenen Pfad wird doppelgeklickt."),
-                "examples": ("1502441278", 
+                "examples": ("3491178920", 
                 """
                 Beispiele:
               
                 | ``Baumelement doppelklicken    Elementpfad``
 
-                *Hinweis*: Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
+                Für weitere Infos zum Elementpfad siehe [#Baumelement markieren|Baumelement markieren].
                 """
               )
             }
@@ -271,13 +271,15 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("1640119296", "Das Baumelement mit dem angegebenen Pfad wird markiert."),
-                "examples": ("437032973", 
+                "examples": ("3248861206", 
                 """
                 Beispiele:
               
                 | ``Baumelement markieren    Elementpfad``
 
-                *Hinweis*: Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
+                *Hinweise*
+                - Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
+                - Jedes Segment des Pfades kann teilweise angegeben werden. Zum Beispiel IDoc anstelle von IDoc 1234.
                 """
               )
             }
@@ -304,11 +306,13 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("2300654272", "Aus dem Kontextmenü des Baumelements mit dem angegebenen Pfad wird der angebene Eintrag ausgewählt."),
-                "examples": ("2093125419", 
+                "examples": ("4134001137", 
                 """
                 Beispiele:
               
                 | ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``
+
+                Für weitere Infos zum Elementpfad siehe [#Baumelement markieren|Baumelement markieren].
                 """
               )
             }
