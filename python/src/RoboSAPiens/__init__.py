@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.13.3"
+__version__ = "2.13.4"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -305,7 +305,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
             "SAPAlreadyRunning": "SAP is already running. It must be closed before calling this keyword.",
             "SAPNotStarted": "SAP could not be opened. Verify that the path and the arguments (if applicable) are correct.",
-            "Exception": "SAP could not be opened. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Exception": "SAP could not be opened. Hint: In order to start a 64-bit SAP client import RoboSAPiens with x64=True. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('OpenSap', args, result) # type: ignore
     
@@ -1391,4 +1391,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.13.3'
+    ROBOT_LIBRARY_VERSION = '2.13.4'
