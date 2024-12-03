@@ -334,7 +334,7 @@ lib: LocalizedRoboSAPiens = {
               "NoGuiScripting": ("3820273098", no_gui_scripting),
               "SAPAlreadyRunning": ("1618084077", "SAP läuft gerade. Es muss vor dem Aufruf dieses Schlüsselworts beendet werden."),
               "SAPNotStarted": ("3387725186", "SAP konnte nicht gestartet werden. Überprüfe den Pfad und ggf. die Parameter '{0}'."),
-              "Exception": ("344820692", exception("SAP konnte nicht gestartet werden."))
+              "Exception": ("1731801036", exception("SAP konnte nicht gestartet werden. Hinweis: Um einen 64-bit SAP Client zu starten, muss RoboSAPiens.DE mit x64=True importiert werden."))
             },
             "doc": {
                 "desc": ("211145309", "SAP GUI bzw. SAP Business Client wird gestartet."),

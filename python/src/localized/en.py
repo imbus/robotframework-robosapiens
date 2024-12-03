@@ -328,7 +328,7 @@ lib: RoboSAPiens = {
                 "NoGuiScripting": no_gui_scripting,
                 "SAPAlreadyRunning": "SAP is already running. It must be closed before calling this keyword.",
                 "SAPNotStarted": "SAP could not be opened. Verify that the path and the arguments (if applicable) are correct.",
-                "Exception": exception("SAP could not be opened. {0}")
+                "Exception": exception("SAP could not be opened. Hint: In order to start a 64-bit SAP client import RoboSAPiens with x64=True. {0}")
             },
             "doc": {
                 "desc": "Open SAP GUI or SAP Business Client.",
