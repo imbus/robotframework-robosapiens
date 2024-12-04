@@ -18,6 +18,17 @@ namespace RoboSAPiens
             this.textPath = textPath;
         }
 
+        void expandParentNodes(GuiTree guiTree)
+        {
+            var parentNodes = nodePath.Split("\\")[0..^1];
+            Enumerable.Range(1, parentNodes.Length)
+                .Select(i => string.Join("\\", parentNodes.Take(i)))
+                .ToList()
+                .ForEach(path =>
+                    guiTree.ExpandNode(guiTree.GetNodeKeyByPath(path))
+                );
+        }
+
         public void doubleClick(GuiSession session) 
         {
             var tree = (GuiTree)session.FindById(treeId);
@@ -28,6 +39,7 @@ namespace RoboSAPiens
             {
                 var column = tree.GetListTreeNodeItemCount(nodeKey).ToString();
                 if (column == "1") {
+                    expandParentNodes(tree);
                     tree.DoubleClickNode(nodeKey);    
                 }
                 else {
@@ -36,6 +48,7 @@ namespace RoboSAPiens
             }
             else
             {
+                expandParentNodes(tree);
                 tree.DoubleClickNode(nodeKey);
             }
         }
@@ -43,13 +56,7 @@ namespace RoboSAPiens
         public void select(GuiSession session)
         {
             var guiTree = (GuiTree)session.FindById(treeId);
-            var parentNodes = nodePath.Split("\\")[0..^1];
-            Enumerable.Range(1, parentNodes.Length)
-                .Select(i => string.Join("\\", parentNodes.Take(i)))
-                .ToList()
-                .ForEach(path =>
-                    guiTree.ExpandNode(guiTree.GetNodeKeyByPath(path))
-                );
+            expandParentNodes(guiTree);
             guiTree.SelectedNode = nodeKey;
         }
 
