@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.13.5"
+__version__ = "2.14.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -214,6 +214,30 @@ class RoboSAPiens(RoboSAPiensClient):
             "Exception": "The tree element could not be double-clicked. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('DoubleClickTreeElement', args, result) # type: ignore
+    
+    @keyword('Expand Tree Folder') # type: ignore
+    def expand_tree_folder(self, folder_path: str): # type: ignore
+        """
+        Expand the folder located at the path provided in a tree structure.
+        
+        | ``folder_path`` | The path to the folder using '/' as separator. e.g. Engineering/Civil Engineering |
+        
+        Examples:
+        
+        | ``Expand Tree Folder    folder_path``
+        
+        Further details about the folder path are provided in the keyword [#Select Tree Element|Select Tree Element].
+        """
+
+        args = [folder_path]
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The tree folder '{0}' could not be found. Hint: Check the spelling",
+            "Pass": "The tree folder '{0}' was expanded.",
+            "Exception": "The tree folder could not be expanded. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('ExpandTreeFolder', args, result) # type: ignore
     
     @keyword('Select Tree Element') # type: ignore
     def select_tree_element(self, element_path: str): # type: ignore
@@ -1395,4 +1419,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.13.5'
+    ROBOT_LIBRARY_VERSION = '2.14.0'

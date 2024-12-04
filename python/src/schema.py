@@ -213,6 +213,9 @@ class RoboSAPiensKeywordsOpensapArgsPathSpec(TypedDict):
 class RoboSAPiensKeywordsSelectmenuitemArgsItempathSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsExpandtreefolderArgsFolderpathSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsDoubleclicktreeelementArgsElementpathSpec(TypedDict):
     ...
 
@@ -557,6 +560,11 @@ class RoboSAPiensKeywordsSelectmenuitemArgsItempath(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsSelectmenuitemArgsItempathSpec
+
+class RoboSAPiensKeywordsExpandtreefolderArgsFolderpath(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsExpandtreefolderArgsFolderpathSpec
 
 class RoboSAPiensKeywordsDoubleclicktreeelementArgsElementpath(TypedDict):
     name: str
@@ -1196,6 +1204,19 @@ class RoboSAPiensKeywordsSelectmenuitemResult(TypedDict):
 class RoboSAPiensKeywordsSelectmenuitemArgs(TypedDict):
     itemPath: RoboSAPiensKeywordsSelectmenuitemArgsItempath
 
+class RoboSAPiensKeywordsExpandtreefolderDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsExpandtreefolderResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsExpandtreefolderArgs(TypedDict):
+    folderPath: RoboSAPiensKeywordsExpandtreefolderArgsFolderpath
+
 class RoboSAPiensKeywordsDoubleclicktreeelementDoc(TypedDict):
     desc: str
     examples: str
@@ -1493,6 +1514,12 @@ class RoboSAPiensKeywordsSelectmenuitem(TypedDict):
     result: RoboSAPiensKeywordsSelectmenuitemResult
     doc: RoboSAPiensKeywordsSelectmenuitemDoc
 
+class RoboSAPiensKeywordsExpandtreefolder(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsExpandtreefolderArgs
+    result: RoboSAPiensKeywordsExpandtreefolderResult
+    doc: RoboSAPiensKeywordsExpandtreefolderDoc
+
 class RoboSAPiensKeywordsDoubleclicktreeelement(TypedDict):
     name: str
     args: RoboSAPiensKeywordsDoubleclicktreeelementArgs
@@ -1528,6 +1555,7 @@ class RoboSAPiensKeywords(TypedDict):
     ActivateTab: RoboSAPiensKeywordsActivatetab
     SelectTreeElement: RoboSAPiensKeywordsSelecttreeelement
     DoubleClickTreeElement: RoboSAPiensKeywordsDoubleclicktreeelement
+    ExpandTreeFolder: RoboSAPiensKeywordsExpandtreefolder
     SelectMenuItem: RoboSAPiensKeywordsSelectmenuitem
     OpenSap: RoboSAPiensKeywordsOpensap
     CloseConnection: RoboSAPiensKeywordsCloseconnection

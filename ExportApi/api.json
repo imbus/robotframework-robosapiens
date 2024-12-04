@@ -76,6 +76,26 @@
         "examples": ""
       }
     },
+    "ExpandTreeFolder": {
+      "name": "Baumordner aufklappen",
+      "args": {
+        "folderPath": {
+          "name": "folderPath",
+          "desc": "",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Der Baumordner mit dem angegebenen Pfad wird aufgeklappt.\n\n| ``Baumordner aufklappen    Elementpfad``",
+        "examples": ""
+      }
+    },
     "SelectMenuItem": {
       "name": "Menüeintrag auswählen",
       "args": {

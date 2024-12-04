@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.13.5"
+__version__ = "2.14.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -213,6 +213,30 @@ class DE(RoboSAPiensClient):
             "Exception": "Das Baumelement konnte nicht doppelgeklickt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('DoubleClickTreeElement', args, result) # type: ignore
+    
+    @keyword('Baumordner aufklappen') # type: ignore
+    def expand_tree_folder(self, Ordnerpfad: str): # type: ignore
+        """
+        Der Ordner mit dem angegebenen Pfad in einer Baumstruktur wird aufgeklappt.
+        
+        | ``Ordnerpfad`` | Der Pfad zum Ordner, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
+        
+        Beispiele:
+        
+        | ``Baumordner aufklappen    Ordnerpfad``
+        
+        Für weitere Infos zum Ordnerpfad siehe [#Baumelement markieren|Baumelement markieren].
+        """
+
+        args = [Ordnerpfad]
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "NotFound": "Der Baumordner '{0}' wurde nicht gefunden.\nHinweis: Prüfe die Rechtschreibung",
+            "Pass": "Der Baumordner '{0}' wurde aufgeklappt.",
+            "Exception": "Der Baumordner konnte nicht aufgeklappt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('ExpandTreeFolder', args, result) # type: ignore
     
     @keyword('Baumelement markieren') # type: ignore
     def select_tree_element(self, Elementpfad: str): # type: ignore
@@ -1393,4 +1417,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.13.5'
+    ROBOT_LIBRARY_VERSION = '2.14.0'
