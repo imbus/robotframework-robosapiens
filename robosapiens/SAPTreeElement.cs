@@ -70,9 +70,10 @@ namespace RoboSAPiens
             if (pathParts.Length != queryParts.Length) return false;
 
             return pathParts.Zip(queryParts).All(
-                tuple => {
-                    (string first, string second) = tuple;
-                    return first == second || first.StartsWith(second);
+                tuple => tuple switch {
+                    var (pathSegment, querySegment) => 
+                        pathSegment == querySegment || 
+                        pathSegment.StartsWith(querySegment)
                 }
             );
         }
