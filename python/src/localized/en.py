@@ -250,6 +250,33 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "ExpandTreeFolder": {
+            "name": "Expand Tree Folder",
+            "args": {
+                "folderPath": {
+                    "name": "folder_path",
+                    "desc": "The path to the folder using '/' as separator. e.g. Engineering/Civil Engineering",
+                    "spec": {},
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The tree folder '{0}' could not be found."),
+                "Pass": "The tree folder '{0}' was expanded.",
+                "Exception": exception("The tree folder could not be expanded. {0}")
+            },
+            "doc": {
+                "desc": "Expand the folder located at the path provided in a tree structure.",
+                "examples":
+                """
+                Examples:
+
+                | ``Expand Tree Folder    folder_path``
+
+                Further details about the folder path are provided in the keyword [#Select Tree Element|Select Tree Element].
+                """
+            }
+        },
         "SelectTreeElement": {
             "name": "Select Tree Element",
             "args": {

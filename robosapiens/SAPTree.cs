@@ -27,10 +27,10 @@ namespace RoboSAPiens
     {
         CellRepository cells;
         List<string> columnTitles;
-        string id;
+        public string id;
         int rowCount;
         TreeType treeType;
-        TreeElementStore treeElements = new TreeElementStore();
+        TreeElementStore treeElements;
 
         Dictionary<TreeItem, CellType> cellType = new Dictionary<TreeItem, CellType>
         {
@@ -54,10 +54,13 @@ namespace RoboSAPiens
             }
             columnTitles = getColumnTitles(tree);
             cells = new CellRepository();
+            treeElements = new TreeElementStore();
         }
 
         public void classifyCells(GuiSession session) 
         {
+            cells = new CellRepository();
+            treeElements = new TreeElementStore();
             var tree = (GuiTree)session.FindById(id);
             var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
             var columnNames = (GuiCollection)tree.GetColumnNames();
@@ -73,14 +76,14 @@ namespace RoboSAPiens
         
                 if (columnNames == null)
                 {
-                    treeElements.Add(new SAPTreeElement(tree, nodeKey, nodePath, textPath));
+                    treeElements.Add(new SAPTreeElement(this, nodeKey, nodePath, textPath));
                 }
                 else
                 {
                     for (int c = 0; c < columnNames.Length; c++) 
                     {
                         if (c == 0) {
-                            treeElements.Add(new SAPTreeElement(tree, nodeKey, nodePath, textPath));
+                            treeElements.Add(new SAPTreeElement(this, nodeKey, nodePath, textPath));
                         }
 
                         var columnName = (string)columnNames.ElementAt(c);

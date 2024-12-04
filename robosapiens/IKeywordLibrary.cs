@@ -13,6 +13,7 @@ namespace RoboSAPiens
         public RobotResult DoubleClickTextField(string locator);
         public RobotResult DoubleClickTreeElement(string elementPath);
         public RobotResult ExecuteTransaction(string T_Code);
+        public RobotResult ExpandTreeFolder(string folderPath);
         public RobotResult ExportTree(string filepath);
         public RobotResult ExportWindow(string name, string directory);
         public RobotResult FillCell(string row_locator, string column, string content, int? tableNumber=null);

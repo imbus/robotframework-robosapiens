@@ -254,6 +254,34 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
+        "ExpandTreeFolder": {
+            "name": ("788776543", "Baumordner aufklappen"),
+            "args": {
+                "folderPath": {
+                    "name": ("315338010", "Ordnerpfad"),
+                    "desc": ("109187537", "Der Pfad zum Ordner, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen)."),
+                    "spec": {},
+                }
+            },
+            "result": {
+                "NoSession": ("4138997384", no_session),
+                "NotFound": ("3001333208", not_found("Der Baumordner '{0}' wurde nicht gefunden.")),
+                "Pass": ("1780102701", "Der Baumordner '{0}' wurde aufgeklappt."),
+                "Exception": ("4153938705", exception("Der Baumordner konnte nicht aufgeklappt werden. {0}"))
+            },
+            "doc": {
+                "desc": ("3001885302", "Der Ordner mit dem angegebenen Pfad in einer Baumstruktur wird aufgeklappt."),
+                "examples": ("3996641622",
+                """
+                Beispiele:
+              
+                | ``Baumordner aufklappen    Ordnerpfad``
+
+                Für weitere Infos zum Ordnerpfad siehe [#Baumelement markieren|Baumelement markieren].
+                """
+                )
+            }
+        },
         "SelectTreeElement": {
             "name": ("3234880959", "Baumelement markieren"),
             "args": {

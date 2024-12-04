@@ -164,6 +164,13 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Maske konnte nicht exportiert werden.");
         }
 
+        public record ExpandTreeFolder {
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string elementPath): RobotResult.NotFound($"Der Baumordner '{elementPath}' wurde nicht gefunden.");
+            public record Pass(string elementPath): RobotResult.RobotPass($"Der Baumordner '{elementPath}' wurde aufgeklappt.");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Baumordner konnte nicht aufgeklappt werden.");
+        }
+
         public record FillCell {
             public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NoSession(): RobotResult.NoSession();

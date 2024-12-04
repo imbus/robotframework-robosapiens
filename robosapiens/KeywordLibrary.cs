@@ -119,6 +119,16 @@ namespace RoboSAPiens
             };
         }
 
+        [Keyword("Baumordner aufklappen"),
+         Doc("Der Baumordner mit dem angegebenen Pfad wird aufgeklappt.\n\n" +
+             "| ``Baumordner aufklappen    Elementpfad``")]
+        public RobotResult ExpandTreeFolder(string folderPath) {
+            return session switch {
+                SAPSession session => session.expandTreeFolder(folderPath),
+                _ => new Result.ExpandTreeFolder.NoSession()
+            };
+        }
+
         [Keyword("Menüeintrag auswählen"),
          Doc("Der Menüeintrag mit dem angegebenen Pfad wird ausgewählt.\n\n" +
              "| ``Menüeintrag auswählen    Pfad``")]

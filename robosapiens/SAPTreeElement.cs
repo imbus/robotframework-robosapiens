@@ -5,14 +5,16 @@ namespace RoboSAPiens
 {
     public class SAPTreeElement: ILabeled, IDoubleClickable
     {
+        SAPTree tree;
         string treeId;
         string nodeKey;
         string nodePath;
         string textPath;
 
-        public SAPTreeElement(GuiTree guiTree, string nodeKey, string path, string textPath)
+        public SAPTreeElement(SAPTree tree, string nodeKey, string path, string textPath)
         {
-            treeId = guiTree.Id;
+            this.tree = tree;
+            treeId = tree.id;
             this.nodeKey = nodeKey;
             nodePath = path;
             this.textPath = textPath;
@@ -51,6 +53,14 @@ namespace RoboSAPiens
                 expandParentNodes(tree);
                 tree.DoubleClickNode(nodeKey);
             }
+        }
+
+        public void expand(GuiSession session)
+        {
+            var guiTree = (GuiTree)session.FindById(treeId);
+            guiTree.ExpandNode(nodeKey);
+            // after expanding a node its subnodes could be loaded dynamically
+            tree.classifyCells(session);
         }
 
         public void select(GuiSession session)
