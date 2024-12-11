@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.14.0"
+__version__ = "2.14.1"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -1116,9 +1116,9 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Select Dropdown Menu Entry   locator    entry``
         
-        *Hints*: The numeric key that enables simplified keyboard input is not part of the entry name.
-        
-        To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
+        *Hints*: 
+        - If the entry name is not unique use the key shown when "Show keys within dropdown lists" is activated in the SAP GUI options.
+        - To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
         """
 
         args = [locator, entry]
@@ -1419,4 +1419,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.14.0'
+    ROBOT_LIBRARY_VERSION = '2.14.1'

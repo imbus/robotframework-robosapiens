@@ -740,7 +740,7 @@ class LocalizedRoboSAPiensKeywordsSelectmenuitemArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryDoc(TypedDict):
     desc: Tuple[Literal['473069895'], str]
-    examples: Tuple[Literal['224567686'], str]
+    examples: Tuple[Literal['2785675877'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]

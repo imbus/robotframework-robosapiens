@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.14.0"
+__version__ = "2.14.1"
 
 class DE(RoboSAPiensClient):
     """
@@ -1092,9 +1092,9 @@ class DE(RoboSAPiensClient):
         
         | ``Auswahlmenüeintrag auswählen    Lokator    Eintrag``
         
-        *Hinweise*: Der numerische Schlüssel, dass eine vereinfachte Tastaureingabe ermöglicht, ist nicht Teil des Eintragsnamens.
-        
-        Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, drücke zuerst den Knopf und verwende danach dieses Schlüsselwort.
+        *Hinweise*: 
+        - Wenn der Eintrag nicht eindeutig ist, verwende den Schlüssel, der angezeigt wird, wenn "Schlüssel in Dropdown-Listen anzeigen" in den SAP GUI-Optionen aktiviert ist.
+        - Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, drücke zuerst den Knopf und verwende danach dieses Schlüsselwort.
         """
 
         args = [Lokator, Eintrag]
@@ -1417,4 +1417,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.14.0'
+    ROBOT_LIBRARY_VERSION = '2.14.1'
