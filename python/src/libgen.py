@@ -3,6 +3,7 @@ import re
 from glob import glob
 from importlib import import_module
 from pathlib import Path
+from typing import Union
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -35,7 +36,7 @@ def format_arg(arg: dict) -> str:
     return "%s: %s" % (name, type_name)
 
 
-def get_value(value: str|tuple):
+def get_value(value: Union[str, tuple]):
     if isinstance(value, tuple): return value[1]
     return value
 
