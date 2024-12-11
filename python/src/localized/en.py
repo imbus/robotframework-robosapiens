@@ -1362,9 +1362,9 @@ lib: RoboSAPiens = {
                 
                 | ``Select Dropdown Menu Entry   locator    entry``
 
-                *Hints*: The numeric key that enables simplified keyboard input is not part of the entry name.
-
-                To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
+                *Hints*: 
+                - If the entry name is not unique use the key shown when "Show keys within dropdown lists" is activated in the SAP GUI options.
+                - To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
                 """
             }
         },

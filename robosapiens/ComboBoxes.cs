@@ -17,14 +17,16 @@ namespace RoboSAPiens {
 
     public class SAPComboBox: ComboBox, ILabeled, ILocatable {
         string accTooltip;
-        List<string> entries;
+        HashSet<string> values;
+        HashSet<string> keys;
         string id;
         string label;
         Position position;
 
         public SAPComboBox(GuiComboBox comboBox) {
             accTooltip = comboBox.AccTooltip.Trim();
-            entries = new List<string>();
+            keys = new HashSet<string>();
+            values = new HashSet<string>();
             id = comboBox.Id;
             label = getLeftLabel(comboBox);
             getEntries(comboBox);
@@ -42,11 +44,14 @@ namespace RoboSAPiens {
             };
         }
 
-        void getEntries(GuiComboBox comboBox) {
+        void getEntries(GuiComboBox comboBox) 
+        {
             var entries = comboBox.Entries;
-            for (int i = 0; i < entries.Length; i++) {
+            for (int i = 0; i < entries.Length; i++) 
+            {
                 var comboBoxEntry = (GuiComboBoxEntry)entries.ElementAt(i);
-                this.entries.Add(comboBoxEntry.Value);
+                keys.Add(comboBoxEntry.Key);
+                values.Add(comboBoxEntry.Value);
             }
         }
 
@@ -67,8 +72,7 @@ namespace RoboSAPiens {
         }
 
         public override bool contains(string query) {
-            var result = entries.Find(entry => entry.Equals(query));
-            return result != null;
+            return values.Contains(query) || keys.Contains(query);
         }
 
         public Position getPosition() {
@@ -113,7 +117,13 @@ namespace RoboSAPiens {
         public override void select(string entry, GuiSession session)
         {
             var guiComboBox = (GuiComboBox)session.FindById(id);
-            guiComboBox.Value = entry;
+
+            if (keys.Contains(entry)) {
+                guiComboBox.Key = entry;
+            }
+            else {
+                guiComboBox.Value = entry;
+            }
         }
 
         public override void toggleHighlight(GuiSession session) {
