@@ -1045,7 +1045,8 @@ namespace RoboSAPiens {
             }
 
             try {
-                comboBox.setValue(entry, session);
+                comboBox.select(entry, session);
+
                 return new Result.SelectComboBoxEntry.Pass(entry);
             }
             catch (Exception e) {

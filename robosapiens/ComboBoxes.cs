@@ -8,7 +8,7 @@ namespace RoboSAPiens {
 
         public abstract string getText(GuiSession session);
 
-        public abstract void setValue(string entry, GuiSession session);
+        public abstract void select(string entry, GuiSession session);
 
         public void select(GuiSession session) {}
 
@@ -110,7 +110,8 @@ namespace RoboSAPiens {
             return accTooltip == tooltip;
         }
 
-        public override void setValue(string entry, GuiSession session) {
+        public override void select(string entry, GuiSession session)
+        {
             var guiComboBox = (GuiComboBox)session.FindById(id);
             guiComboBox.Value = entry;
         }
@@ -157,7 +158,7 @@ namespace RoboSAPiens {
             return this.tooltip == tooltip;
         }
 
-        public override void setValue(string entry, GuiSession session)
+        public override void select(string entry, GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
             gridView.SelectContextMenuItemByText(entry);
@@ -205,7 +206,7 @@ namespace RoboSAPiens {
             return this.tooltip == tooltip;
         }
 
-        public override void setValue(string entry, GuiSession session)
+        public override void select(string entry, GuiSession session)
         {
             var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
             toolbar.PressContextButton(id);

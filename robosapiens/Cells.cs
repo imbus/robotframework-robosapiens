@@ -208,7 +208,7 @@ namespace RoboSAPiens
                     new SAPTextField((GuiTextField)cell).insert(value, session);
                     break;
                 case CellType.ComboBox:
-                    new SAPComboBox((GuiComboBox)cell).setValue(value, session);
+                    new SAPComboBox((GuiComboBox)cell).select(value, session);
                     break;
             }
         }
