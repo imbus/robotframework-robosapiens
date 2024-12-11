@@ -102,6 +102,7 @@ namespace RoboSAPiens {
                 case "GuiTableControl":
                     var guiTableControl = (GuiTableControl)container;
                     var sapTable = new SAPTable(guiTableControl);
+                    sapTable.getTextFields(guiTableControl, textFields);
                     tables.Add(sapTable);
                     if (debug) sapTable.print();
                     break;

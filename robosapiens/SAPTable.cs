@@ -28,6 +28,29 @@ namespace RoboSAPiens {
             cells = new CellRepository();
         }
 
+        public void getTextFields(GuiTableControl table, TextFieldStore textFields)
+        {
+            for (int rowIndex = 0; rowIndex < table.VisibleRowCount; rowIndex++)
+            {
+                for (int colIndex = 0; colIndex < table.Columns.Length; colIndex++) 
+                {
+                    GuiVComponent tableCell;
+                    // Tables are not necessarily rectangular grids
+                    // A column may have a hole. Holes are skipped
+                    try {
+                        tableCell = table.GetCell(rowIndex, colIndex);
+                    }
+                    catch (Exception) {
+                        continue;
+                    }
+
+                    if (tableCell.Type == "GuiTextField" && tableCell.Text != "") {
+                        textFields.Add(new SAPTextField((GuiTextField)tableCell));
+                    }
+                }
+            }
+        }
+
         public void classifyCells(GuiSession session)
         {
             var table = (GuiTableControl)session.FindById(id);
