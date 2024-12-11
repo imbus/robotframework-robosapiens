@@ -1047,6 +1047,11 @@ namespace RoboSAPiens {
             try {
                 comboBox.select(entry, session);
 
+                switch (updateWindow()) {
+                    case RobotResult.UIScanFail exceptionError:
+                        return exceptionError;
+                }
+                
                 return new Result.SelectComboBoxEntry.Pass(entry);
             }
             catch (Exception e) {
