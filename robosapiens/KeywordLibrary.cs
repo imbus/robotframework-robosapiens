@@ -369,6 +369,7 @@ namespace RoboSAPiens
                     return new Result.ConnectToServer.NoServerScripting();
 
                 var guiSession = (GuiSession)connection.Sessions.ElementAt(0);
+                guiSession.TestToolMode = 1;
                 this.session = new SAPSession(guiSession, connection, options, logger);
 
                 return new Result.ConnectToServer.Pass(server);
