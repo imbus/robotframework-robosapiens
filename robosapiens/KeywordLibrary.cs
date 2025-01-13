@@ -166,6 +166,7 @@ namespace RoboSAPiens
             }
             catch (Exception e)
             {
+                proc = null;
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
 
                 if (e is System.ComponentModel.Win32Exception)
