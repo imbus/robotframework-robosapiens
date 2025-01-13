@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.14.4"
+__version__ = "2.14.5"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -471,7 +471,7 @@ class RoboSAPiens(RoboSAPiensClient):
         args = [session_number]
         
         result = {
-            "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
+            "NoSapGui": "No running SAP GUI found.",
             "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
             "NoConnection": "No existing connection to an SAP server. Call the keyword \"Connect to Server\" first.",
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1419,4 +1419,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.14.4'
+    ROBOT_LIBRARY_VERSION = '2.14.5'

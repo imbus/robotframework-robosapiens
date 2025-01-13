@@ -1098,7 +1098,7 @@ class LocalizedRoboSAPiensKeywordsAttachtorunningsapDoc(TypedDict):
     examples: Tuple[Literal['2576679484'], str]
 
 class LocalizedRoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
-    NoSapGui: Tuple[Literal['2987622841'], str]
+    NoSapGui: Tuple[Literal['3729995647'], str]
     NoGuiScripting: Tuple[Literal['3820273098'], str]
     NoConnection: Tuple[Literal['509780556'], str]
     NoSession: Tuple[Literal['4138997384'], str]
