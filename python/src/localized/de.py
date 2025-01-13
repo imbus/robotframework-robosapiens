@@ -532,7 +532,7 @@ lib: LocalizedRoboSAPiens = {
                 }
             },
             "result": {
-              "NoSapGui": ("2987622841", no_sap_gui),
+              "NoSapGui": ("3729995647", 'Keine laufende SAP GUI gefunden.'),
               "NoGuiScripting": ("3820273098", no_gui_scripting),
               "NoConnection": ("509780556", no_connection),
               "NoSession": ("4138997384", no_session),

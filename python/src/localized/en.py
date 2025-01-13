@@ -519,7 +519,7 @@ lib: RoboSAPiens = {
                 }
             },
             "result": {
-                "NoSapGui": no_sap_gui,
+                "NoSapGui": 'No running SAP GUI found.',
                 "NoGuiScripting": no_gui_scripting,
                 "NoConnection": no_connection,
                 "NoSession": no_session,
