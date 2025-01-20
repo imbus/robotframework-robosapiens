@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.14.5"
+__version__ = "2.14.6"
 
 class DE(RoboSAPiensClient):
     """
@@ -11,7 +11,7 @@ class DE(RoboSAPiensClient):
     
     - Das Scripting muss [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|auf dem SAP Server aktiviert werden].
     
-    - Die Skriptunterstützung muss [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|in der SAP GUI aktiviert werden].
+    - Die Skriptunterstützung muss [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=de-DE|in der SAP GUI aktiviert werden].
     
     == Neuigkeiten in der Version 2.4 ==
     
@@ -1417,4 +1417,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.14.5'
+    ROBOT_LIBRARY_VERSION = '2.14.6'
