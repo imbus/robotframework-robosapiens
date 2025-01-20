@@ -40,7 +40,7 @@ lib: LocalizedRoboSAPiens = {
 
         - Das Scripting muss [https://help.sap.com/saphelp_aii710/helpdata/de/ba/b8710932b8c64a9e8acf5b6f65e740/content.htm|auf dem SAP Server aktiviert werden].
         
-        - Die Skriptunterstützung muss [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html|in der SAP GUI aktiviert werden].
+        - Die Skriptunterstützung muss [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/7ddb7c9c4a4c43219a65eee4ca8db001.html?locale=de-DE|in der SAP GUI aktiviert werden].
 
         == Neuigkeiten in der Version 2.4 ==
 
