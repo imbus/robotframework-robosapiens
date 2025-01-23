@@ -109,11 +109,11 @@ namespace RoboSAPiens {
             if (currentRowCount != rowCount) {
                 cells = new CellRepository();
             }
-            if (cells.Count == 0) classifyCells(session);
             
             switch(locator)
             {
                 case Content(string content):
+                    if (cells.Count == 0) classifyCells(session);
                     return cells.findCellByContent(content);
 
                 case RowColumnLocator(int rowIndex, string column):
@@ -129,10 +129,28 @@ namespace RoboSAPiens {
                             return findCell(locator, session);
                         }
                     }
-                    return cells.findCellByRowAndColumn(rowIndex0, column);
                     
+                    var table = (GuiTableControl)session.FindById(id);
+                    var tableCell = table.GetCell(rowIndex0, columnTitles.IndexOf(column));
+
+                    if (cellType.ContainsKey(tableCell.Type))
+                    {
+                        return new TableCell(
+                            rowIndex0,
+                            tableCell.Id,
+                            new List<string>{column},
+                            cellType[tableCell.Type],
+                            new List<string>(),
+                            id
+                        );
+                    }
+                    else {
+                        return null;
+                    }
+
                 case LabelColumnLocator(string label, string column):
                     if (!hasColumn(column)) return null;
+                    if (cells.Count == 0) classifyCells(session);
                     var cell = cells.findCellByLabelAndColumn(label, column);
                     if (cell != null) return cell;
                     if (scrollOnePage(session))
