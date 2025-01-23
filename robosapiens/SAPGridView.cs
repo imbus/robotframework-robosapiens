@@ -199,9 +199,16 @@ namespace RoboSAPiens
             return false;
         }
 
+        public void selectColumn(string column, GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(id);
+            var columnId = columnTitles.Where(_ => _.Value.Contains(column)).First().Key;
+            gridView.SelectColumn(columnId);
+        }
+
         public void selectRow(int rowIdx0, GuiSession session)
         {
-            GuiGridView gridView = (GuiGridView)session.FindById(id);
+            var gridView = (GuiGridView)session.FindById(id);
 
             if (rowIdx0 == -1)
             {

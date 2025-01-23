@@ -1448,6 +1448,41 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
+        "SelectTableColumn": {
+            "name": ("3486989426", "Tabellenspalte markieren"),
+            "args": {
+                "a1column": {
+                    "name": ("2102626174", "Spalte"),
+                    "desc": ("2490445981", "Spaltentitel oder Kurzhilfe (Tooltip)"),
+                    "spec": {},
+                },
+                "a2tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": 1,
+                  "type": "int",
+                  "spec": {}
+              }
+            },
+            "result": {
+                "NoSession": ("4138997384", no_session),
+                "Exception": ("3528372356", exception("Die Spalte konnte nicht markiert werden. {0}")),
+                "NoTable": ("1798632660", "Die Maske entählt keine Tabelle"),
+                "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
+                "NotFound": ("3613832630", "Die Tabelle enthält keine Spalte '{0}'"),
+                "Pass": ("3274536988", "Die Spalte '{0}' wurde markiert")
+            },
+            "doc": {
+                "desc": ("2661352379", "Die angegebene Tabellenspalte wird markiert."),
+                "examples": ("3612584524", 
+                f"""
+                Beispiele:
+                
+                | ``Tabellenspalte markieren    Spalte``
+                """
+              )
+            }
+        },
         "SelectTableRow": {
             "name": ("1966160675", "Tabellenzeile markieren"),
             "args": {

@@ -26,7 +26,7 @@ namespace RoboSAPiens
     public class SAPTree: ITable
     {
         CellRepository cells;
-        List<string> columnTitles;
+        Dictionary<string, string> columnTitles;
         public string id;
         int rowCount;
         TreeType treeType;
@@ -158,15 +158,15 @@ namespace RoboSAPiens
             return treeElements.get(folderPath);
         }
 
-        List<string> getColumnTitles(GuiTree tree)
+        Dictionary<string, string> getColumnTitles(GuiTree tree)
         {
             var columnNames = (GuiCollection)tree.GetColumnNames();
 
             if (columnNames == null) {
-                return new List<string>();
+                return new Dictionary<string, string>();
             }
 
-            var columnTitles = new List<string>();
+            var columnTitles = new Dictionary<string, string>();
 
             for (int i = 0; i < columnNames.Length; i++) 
             {
@@ -177,7 +177,7 @@ namespace RoboSAPiens
 
                 try {
                     var columnTitle = tree.GetColumnTitleFromName(columnName);
-                    columnTitles.Add(columnTitle);
+                    columnTitles.Add(columnName, columnTitle);
                 }
                 catch (Exception) {
                     continue;
@@ -279,7 +279,7 @@ namespace RoboSAPiens
 
         public bool hasColumn(string column)
         {
-            return columnTitles.ToHashSet().Contains(column);
+            return columnTitles.ContainsValue(column);
         }
 
         public void print()
@@ -303,6 +303,13 @@ namespace RoboSAPiens
         public bool scrollOnePage(GuiSession session)
         {
             return false;
+        }
+
+        public void selectColumn(string column, GuiSession session)
+        {
+            GuiTree tree = (GuiTree)session.FindById(id);
+            var columnName = columnTitles.Where(_ => _.Value == column).First().Key;
+            tree.SelectColumn(columnName);
         }
 
         public void selectRow(int rowNumber, GuiSession session)

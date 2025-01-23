@@ -210,6 +210,14 @@ namespace RoboSAPiens {
             return false;
         }
 
+        public void selectColumn(string column, GuiSession session)
+        {
+            var table = (GuiTableControl)session.FindById(id);
+            var columnIndex = columnTitles.IndexOf(column);
+            var tableColumn = (GuiTableColumn)table.Columns.ElementAt(columnIndex);
+            tableColumn.Selected = true;
+        }
+
         public void selectRow(int rowIndex0, GuiSession session)
         {
             var table = (GuiTableControl)session.FindById(id);

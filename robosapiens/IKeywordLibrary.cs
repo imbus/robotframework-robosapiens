@@ -37,6 +37,7 @@ namespace RoboSAPiens
         public RobotResult ScrollWindowHorizontally(string direction);
         public RobotResult SelectCell(string row_locator, string column, int? tableNumber=null);
         public RobotResult SelectCellValue(string row_locator, string column, string entry, int? tableNumber=null);
+        public RobotResult SelectTableColumn(string column, int tableNumber=1);
         public RobotResult SelectComboBoxEntry(string comboBox, string entry);
         public RobotResult SelectMenuItem(string itemPath);
         public RobotResult SelectRadioButton(string locator);

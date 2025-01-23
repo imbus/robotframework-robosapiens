@@ -359,6 +359,15 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Der Menüeintrag konnte nicht ausgewählt werden.");
         }
 
+        public record SelectTableColumn {
+            public record NoSession(): RobotResult.NoSession();
+            public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle");
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
+            public record NotFound(string column): RobotResult.NotFound($"Die Spalte '{column}' wurde nicht gefunden.");
+            public record Pass(string column): RobotResult.RobotPass($"Die Spalte '{column}' wurde markiert");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Spalte konnte nicht markiert werden.");
+        }
+
         public record SelectTableRow {
             public record NoSession(): RobotResult.NoSession();
             public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle");

@@ -708,6 +708,17 @@ namespace RoboSAPiens
             };
         }
 
+        [Keyword("Tabellenspalte markieren"),
+         Doc("Die angegebene Tabellenspalte wird markiert.\n\n" +
+             "| ``Tabellenspalte markieren     Spaltentitel``")]
+        public RobotResult SelectTableColumn(string column, int tableNumber = 1)
+        {
+            return session switch {
+                SAPSession session => session.selectTableColumn(column, tableNumber),
+                _ => new Result.SelectTableColumn.NoSession()
+            };
+        }
+
         [Keyword("Textfeld markieren"),
          Doc("Das angegebene Textfeld wird markiert.\n\n" +
              "*Textfeld mit einer Beschriftung links*\n" +

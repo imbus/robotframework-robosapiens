@@ -1430,6 +1430,40 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "SelectTableColumn": {
+            "name": "Select Table Column",
+            "args": {
+                "a1column": {
+                    "name": "column",
+                    "desc": "The title or tooltip of the column",
+                    "spec": {},
+                },
+                "a2tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": 1,
+                    "type": "int",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "Exception": exception("The column could not be selected. {0}"),
+                "NoTable": "The window contains no table",
+                "InvalidTable": "The window contains no table with index {0}.",
+                "NotFound": "The table does not contain the column '{0}'",
+                "Pass": "The column '{0}' was selected"
+            },
+            "doc": {
+                "desc": "Select the specified column in the given table.",
+                "examples":
+                f"""
+                Examples:
+                
+                | ``Select Table Column    column``
+                """
+            }
+        },
         "SelectTableRow": {
             "name": "Select Table Row",
             "args": {

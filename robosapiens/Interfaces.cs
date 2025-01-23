@@ -53,6 +53,7 @@ namespace RoboSAPiens {
         public bool rowIsAbove(GuiSession session, int rowIndex);
         public bool rowIsBelow(GuiSession session, int rowIndex);
         public bool scrollOnePage(GuiSession session);
+        public void selectColumn(string column, GuiSession session);
         public void selectRow(int rowNumber, GuiSession session);
     }
 }

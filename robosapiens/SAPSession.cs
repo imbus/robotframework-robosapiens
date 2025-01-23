@@ -1060,6 +1060,37 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult selectTableColumn(string column, int tableNumber)
+        {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var tables = window.components.getTables();
+
+            if (tables.Count == 0) {
+                return new Result.SelectTableColumn.NoTable();
+            }
+
+            if (tableNumber > tables.Count)
+                return new Result.SelectTableColumn.InvalidTable(tableNumber);
+
+            var table = tables[tableNumber-1];
+
+            if (!table.hasColumn(column)) {
+                return new Result.SelectTableColumn.NotFound(column);
+            }
+
+            try {
+                table.selectColumn(column, session);
+                return new Result.SelectTableColumn.Pass(column);
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.SelectTableColumn.Exception(e);
+            }
+        }
+
         public RobotResult selectTableRow(string rowIndexOrLabel, int tableNumber)
         {
             switch (updateComponentsIfWindowChanged()) {

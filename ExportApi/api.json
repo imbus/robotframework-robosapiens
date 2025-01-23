@@ -961,6 +961,35 @@
         "examples": ""
       }
     },
+    "SelectTableColumn": {
+      "name": "Tabellenspalte markieren",
+      "args": {
+        "column": {
+          "name": "column",
+          "desc": "",
+          "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": 1,
+          "type": "Int32",
+          "spec": {}
+        }
+      },
+      "result": {
+        "NoSession": "NoSession",
+        "NoTable": "NoTable",
+        "InvalidTable": "InvalidTable",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Die angegebene Tabellenspalte wird markiert.\n\n| ``Tabellenspalte markieren     Spaltentitel``",
+        "examples": ""
+      }
+    },
     "SelectTextField": {
       "name": "Textfeld markieren",
       "args": {
