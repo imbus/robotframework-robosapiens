@@ -290,11 +290,6 @@ namespace RoboSAPiens
             Console.Write("Column titles: " + string.Join(", ", columnTitles));
         }
 
-        public bool rowCountChanged(GuiSession session)
-        {
-            return false;
-        }
-
         public bool rowIsAbove(GuiSession session, int rowIndex)
         {
             return false;

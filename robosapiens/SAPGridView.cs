@@ -79,9 +79,8 @@ namespace RoboSAPiens
 
         public Cell? findCell(ILocator locator, GuiSession session)
         {
-            if (rowCountChanged(session))
-            {
-                rowCount = getNumRows(session);
+            var currentRowCount = getNumRows(session);
+            if (currentRowCount != rowCount) {
                 cells = new CellRepository();
             }
             if (cells.Count == 0) classifyCells(session);
@@ -171,11 +170,6 @@ namespace RoboSAPiens
             Console.WriteLine();
             Console.WriteLine($"Rows: {rowCount}");
             Console.Write("Columns: " + string.Join(", ", columnTitles.Values.Select(columns => "[" + string.Join(", ", columns) + "]")));
-        }
-
-        public bool rowCountChanged(GuiSession session)
-        {
-            return getNumRows(session) != rowCount;
         }
 
         public bool rowIsAbove(GuiSession session, int rowIndex)

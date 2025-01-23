@@ -50,7 +50,6 @@ namespace RoboSAPiens {
         public Cell? findCell(ILocator locator, GuiSession session);
         public int getNumRows(GuiSession session);
         public bool hasColumn(string column);
-        public bool rowCountChanged(GuiSession session);
         public bool rowIsAbove(GuiSession session, int rowIndex);
         public bool rowIsBelow(GuiSession session, int rowIndex);
         public bool scrollOnePage(GuiSession session);
