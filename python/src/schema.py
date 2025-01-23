@@ -40,6 +40,12 @@ class RoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec(TypedDict):
     HLabelHLabel: str
     Content: str
 
+class RoboSAPiensKeywordsSelecttablecolumnArgsTablenumberSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsSelecttablecolumnArgsColumnSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsSelectradiobuttonArgsLocatorSpec(TypedDict):
     HLabel: str
     VLabel: str
@@ -278,6 +284,18 @@ class RoboSAPiensKeywordsSelecttextfieldArgsLocator(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsSelecttextfieldArgsLocatorSpec
+
+class RoboSAPiensKeywordsSelecttablecolumnArgsTablenumber(TypedDict):
+    name: str
+    desc: str
+    default: Literal[1]
+    type: Literal[r'int']
+    spec: RoboSAPiensKeywordsSelecttablecolumnArgsTablenumberSpec
+
+class RoboSAPiensKeywordsSelecttablecolumnArgsColumn(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsSelecttablecolumnArgsColumnSpec
 
 class RoboSAPiensKeywordsSelectradiobuttonArgsLocator(TypedDict):
     name: str
@@ -692,6 +710,22 @@ class RoboSAPiensKeywordsSelecttextfieldResult(TypedDict):
 
 class RoboSAPiensKeywordsSelecttextfieldArgs(TypedDict):
     locator: RoboSAPiensKeywordsSelecttextfieldArgsLocator
+
+class RoboSAPiensKeywordsSelecttablecolumnDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsSelecttablecolumnResult(TypedDict):
+    NoSession: str
+    NoTable: str
+    InvalidTable: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsSelecttablecolumnArgs(TypedDict):
+    a1column: RoboSAPiensKeywordsSelecttablecolumnArgsColumn
+    a2tableNumber: RoboSAPiensKeywordsSelecttablecolumnArgsTablenumber
 
 class RoboSAPiensKeywordsSelectradiobuttonDoc(TypedDict):
     desc: str
@@ -1304,6 +1338,12 @@ class RoboSAPiensKeywordsSelecttextfield(TypedDict):
     result: RoboSAPiensKeywordsSelecttextfieldResult
     doc: RoboSAPiensKeywordsSelecttextfieldDoc
 
+class RoboSAPiensKeywordsSelecttablecolumn(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsSelecttablecolumnArgs
+    result: RoboSAPiensKeywordsSelecttablecolumnResult
+    doc: RoboSAPiensKeywordsSelecttablecolumnDoc
+
 class RoboSAPiensKeywordsSelectradiobutton(TypedDict):
     name: str
     args: RoboSAPiensKeywordsSelectradiobuttonArgs
@@ -1591,6 +1631,7 @@ class RoboSAPiensKeywords(TypedDict):
     ReadComboBoxEntry: RoboSAPiensKeywordsReadcomboboxentry
     SelectComboBoxEntry: RoboSAPiensKeywordsSelectcomboboxentry
     SelectRadioButton: RoboSAPiensKeywordsSelectradiobutton
+    SelectTableColumn: RoboSAPiensKeywordsSelecttablecolumn
     SelectTextField: RoboSAPiensKeywordsSelecttextfield
     SelectText: RoboSAPiensKeywordsSelecttext
     TickCheckBox: RoboSAPiensKeywordsTickcheckbox

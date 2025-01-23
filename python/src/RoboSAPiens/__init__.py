@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.14.6"
+__version__ = "2.15.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -1184,6 +1184,31 @@ class RoboSAPiens(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
+    @keyword('Select Table Column') # type: ignore
+    def select_table_column(self, column: str, table_number: int=1): # type: ignore
+        """
+        Select the specified column in the given table.
+        
+        | ``column`` | The title or tooltip of the column |
+        | ``table_number`` | Specify which table: 1, 2, ... |
+        
+        Examples:
+        
+        | ``Select Table Column    column``
+        """
+
+        args = [column, table_number]
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "Exception": "The column could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
+            "NoTable": "The window contains no table",
+            "InvalidTable": "The window contains no table with index {0}.",
+            "NotFound": "The table does not contain the column '{0}'",
+            "Pass": "The column '{0}' was selected"
+        }
+        return super()._run_keyword('SelectTableColumn', args, result) # type: ignore
+    
     @keyword('Select Table Row') # type: ignore
     def select_table_row(self, row_locator: str, table_number: int=1): # type: ignore
         """
@@ -1419,4 +1444,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.14.6'
+    ROBOT_LIBRARY_VERSION = '2.15.0'

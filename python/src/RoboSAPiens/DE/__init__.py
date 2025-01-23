@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.14.6"
+__version__ = "2.15.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -1160,6 +1160,31 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
     
+    @keyword('Tabellenspalte markieren') # type: ignore
+    def select_table_column(self, Spalte: str, tabelle_nummer: int=1): # type: ignore
+        """
+        Die angegebene Tabellenspalte wird markiert.
+        
+        | ``Spalte`` | Spaltentitel oder Kurzhilfe (Tooltip) |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
+        
+        Beispiele:
+        
+        | ``Tabellenspalte markieren    Spalte``
+        """
+
+        args = [Spalte, tabelle_nummer]
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "Exception": "Die Spalte konnte nicht markiert werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
+            "NoTable": "Die Maske entählt keine Tabelle",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
+            "NotFound": "Die Tabelle enthält keine Spalte '{0}'",
+            "Pass": "Die Spalte '{0}' wurde markiert"
+        }
+        return super()._run_keyword('SelectTableColumn', args, result) # type: ignore
+    
     @keyword('Tabellenzeile markieren') # type: ignore
     def select_table_row(self, Zeilenlokator: str, tabelle_nummer: int=1): # type: ignore
         """
@@ -1417,4 +1442,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.14.6'
+    ROBOT_LIBRARY_VERSION = '2.15.0'
