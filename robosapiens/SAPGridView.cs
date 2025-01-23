@@ -83,11 +83,11 @@ namespace RoboSAPiens
             if (currentRowCount != rowCount) {
                 cells = new CellRepository();
             }
-            if (cells.Count == 0) classifyCells(session);
             
             switch(locator)
             {
                 case Content(string content):
+                    if (cells.Count == 0) classifyCells(session);
                     return cells.findCellByContent(content);
 
                 case RowColumnLocator(int rowIndex, string column):
@@ -103,10 +103,29 @@ namespace RoboSAPiens
                             return findCell(locator, session);
                         }
                     }
-                    return cells.findCellByRowAndColumn(rowIndex0, column);
+                    
+                    var gridView = (GuiGridView)session.FindById(id);
+                    var columnId = columnTitles.AsEnumerable().Where(_ => _.Value.Contains(column)).First().Key;
+                    var type = gridView.GetCellType(rowIndex0, columnId);
+
+                    if (cellType.ContainsKey(type))
+                    {
+                        return new GridViewCell(
+                            rowIndex0, 
+                            columnId, 
+                            columnTitles[columnId], 
+                            cellType[type], 
+                            new List<string>(),
+                            id
+                        );
+                    }
+                    else {
+                        return null;
+                    }
                     
                 case LabelColumnLocator(string label, string column):
                     if (!hasColumn(column)) return null;
+                    if (cells.Count == 0) classifyCells(session);
                     var cell = cells.findCellByLabelAndColumn(label, column);
                     if (cell != null) return cell;
                     if (scrollOnePage(session))
