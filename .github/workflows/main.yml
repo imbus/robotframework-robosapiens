@@ -1,0 +1,13 @@
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: windows-latest
+    name: Build
+    steps:
+    - uses: actions/checkout@v4
+    - uses: extractions/setup-just@v2
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '7'
+    - run: just build
+  
