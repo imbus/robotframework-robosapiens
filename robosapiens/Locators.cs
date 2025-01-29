@@ -77,8 +77,9 @@ namespace RoboSAPiens {
                         return new HLabelVIndex(label: horizontalLabel, vIndex: index);
                     }
 
-                    var hLabel = tokens[0];
-                    var vLabel = tokens[1];
+                    // If the label is a number it must be quoted, so that it is not interpreted as an index
+                    var hLabel = tokens[0].Trim('"');
+                    var vLabel = tokens[1].Trim('"');
 
                     atLocation += $"{hLabel} @ {vLabel}";
 
