@@ -1,4 +1,5 @@
 on: workflow_dispatch
+name: Build Python wheel
 jobs:
   build:
     runs-on: windows-latest
