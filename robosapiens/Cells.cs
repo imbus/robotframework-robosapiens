@@ -122,7 +122,14 @@ namespace RoboSAPiens
         public override bool isChangeable(GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            return gridView.GetCellChangeable(rowIndex, columnId);
+
+            return type switch
+            {
+                // For button cells GetCellChangeable cannot be used
+                // to determine whether the button is enabled
+                CellType.Button => true,
+                _ => gridView.GetCellChangeable(rowIndex, columnId)
+            };
         }
 
         public override void setValue(string value, GuiSession session)
