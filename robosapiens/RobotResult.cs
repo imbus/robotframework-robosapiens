@@ -40,7 +40,7 @@ namespace RoboSAPiens {
         }
 
         const string errorDEBUG = "Für mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.";
-        public record RobotException(string name, System.Exception e, string errorMessage): RobotFail(name, output: $"*ERROR* {errorMessage}\n{e.Message}\n{errorDEBUG}", error: e.Message, stacktrace: e.StackTrace ?? "");
+        public record RobotException(string name, System.Exception e, string errorMessage): RobotFail(name, output: $"*ERROR* {errorMessage}\n{e.Message}\n{errorDEBUG}", error: e.Message, stacktrace: e.ToString() ?? "");
 
         public record ExceptionError(System.Exception e, string errorMessage): RobotException("Exception", e, errorMessage);
         public record NoConnection(): RobotFail("NoConnection", "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.");
