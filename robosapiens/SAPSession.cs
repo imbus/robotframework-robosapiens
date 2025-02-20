@@ -511,7 +511,7 @@ namespace RoboSAPiens {
             }
 
             var theTextField = new TextFieldLocator(labels);
-            var textField = window.components.findTextField(theTextField);
+            var textField = window.components.findTextField(theTextField, changeable: true);
 
             if (textField == null) {
                 return new Result.FillTextField.NotFound(theTextField.atLocation);

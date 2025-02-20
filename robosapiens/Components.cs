@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using sapfewse;
 
 
@@ -18,6 +19,7 @@ namespace RoboSAPiens {
         TabStore tabs = new TabStore();
         TableStore tables = new TableStore();
         TextFieldStore textFields = new TextFieldStore();
+        TextFieldStore editableTextFields = new TextFieldStore();
         ButtonStore toolbarButtons = new ButtonStore();
         HorizontalScrollbar? horizontalScrollbar = null;
         VerticalScrollbar? verticalScrollbar = null;
@@ -319,7 +321,15 @@ namespace RoboSAPiens {
             return tabs.get(tabName);
         }
 
-        public SAPTextField? findTextField(TextFieldLocator textField) {
+        public SAPTextField? findTextField(TextFieldLocator textField, bool changeable=false) {
+            if (changeable)
+            {
+                if (editableTextFields.Count == 0) {
+                    editableTextFields = (TextFieldStore)textFields.Where(_ => _.changeable).ToList();
+                }
+                editableTextFields.get(textField.locator, labels, boxes);
+            }
+
             return textFields.get(textField.locator, labels, boxes);
         }
         
