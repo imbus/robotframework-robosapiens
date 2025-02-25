@@ -330,7 +330,7 @@ namespace RoboSAPiens {
                         editableTextFields.Add(editableTextField);
                     }
                 }
-                editableTextFields.get(textField.locator, labels, boxes);
+                return editableTextFields.get(textField.locator, labels, boxes);
             }
 
             return textFields.get(textField.locator, labels, boxes);
