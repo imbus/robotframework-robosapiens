@@ -1,6 +1,6 @@
 namespace RoboSAPiens {
     public sealed class ButtonStore: ComponentRepository<Button> {
-        public Button? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
+        public Button? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ??
@@ -13,7 +13,7 @@ namespace RoboSAPiens {
     }
 
     public sealed class CheckBoxStore: ComponentRepository<CheckBox> {
-        public CheckBox? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
+        public CheckBox? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ?? 
@@ -30,7 +30,7 @@ namespace RoboSAPiens {
     }
 
     public sealed class ComboBoxStore: ComponentRepository<ComboBox> {
-        public ComboBox? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
+        public ComboBox? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ?? 
@@ -42,7 +42,7 @@ namespace RoboSAPiens {
     }
 
     public sealed class LabelStore: ComponentRepository<SAPLabel> {
-        public SAPLabel? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
+        public SAPLabel? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return locator switch {
                 HLabel(var label) => getHorizontalClosestToLabel(label, labels, textFieldLabels),
                 VLabel(var label) => getVerticalClosestToLabel(label, labels, textFieldLabels),
@@ -57,7 +57,7 @@ namespace RoboSAPiens {
     }
 
     public sealed class RadioButtonStore: ComponentRepository<RadioButton> {
-        public RadioButton? get(ILocator locator, LabelStore labels, TextFieldStore textFieldLabels) {
+        public RadioButton? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ??
@@ -80,9 +80,47 @@ namespace RoboSAPiens {
 
     public sealed class TableStore: Repository<ITable> {}
 
-    public sealed class TextFieldStore: TextFieldRepository {
-        public SAPTextField? get(ILocator locator, LabelStore labels, BoxStore boxes) {
-            return getTextField(locator, labels, boxes);
+    public sealed class TextFieldStore
+    {
+        TextFieldRepository changeableTextFields = new TextFieldRepository();
+        TextFieldRepository nonChangeableTextFields = new TextFieldRepository();
+        TextFieldRepository textFields = new TextFieldRepository();
+
+        public void Add(SAPTextField textField)
+        {
+            textFields.Add(textField);
+
+            if (textField.changeable) {
+                changeableTextFields.Add(textField);
+            }
+            else {
+                nonChangeableTextFields.Add(textField);
+            }
+        }
+
+        public TextFieldRepository GetAll()
+        {
+            return textFields;
+        }
+    
+        public TextFieldRepository NonChangeable()
+        {
+            return nonChangeableTextFields;
+        }
+
+        public SAPTextField? get(ILocator locator, LabelStore labels, BoxStore boxes) 
+        {
+            return textFields.getTextField(locator, labels, nonChangeableTextFields, boxes);
+        }
+
+        public SAPTextField? getChangeable(ILocator locator, LabelStore labels, BoxStore boxes) 
+        {
+            return changeableTextFields.getTextField(locator, labels, nonChangeableTextFields, boxes);
+        }
+
+        public SAPTextField? getNonChangeable(ILocator locator, LabelStore labels, BoxStore boxes) 
+        {
+            return nonChangeableTextFields.getTextField(locator, labels, nonChangeableTextFields, boxes);
         }
     }
 

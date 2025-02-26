@@ -19,7 +19,6 @@ namespace RoboSAPiens {
         TabStore tabs = new TabStore();
         TableStore tables = new TableStore();
         TextFieldStore textFields = new TextFieldStore();
-        TextFieldStore editableTextFields = new TextFieldStore();
         ButtonStore toolbarButtons = new ButtonStore();
         HorizontalScrollbar? horizontalScrollbar = null;
         VerticalScrollbar? verticalScrollbar = null;
@@ -293,20 +292,20 @@ namespace RoboSAPiens {
         }
 
         public Button? findButton(ButtonLocator button) {
-            return buttons.get(button.locator,  labels, textFields) ?? 
-                   toolbarButtons.get(button.locator,  labels, textFields);
+            return buttons.get(button.locator, labels, textFields.NonChangeable()) ?? 
+                   toolbarButtons.get(button.locator,  labels, textFields.NonChangeable());
         }
 
         public CheckBox? findCheckBox(CheckBoxLocator checkBox) {
-            return checkBoxes.get(checkBox.locator, labels, textFields);
+            return checkBoxes.get(checkBox.locator, labels, textFields.NonChangeable());
         }
 
         public ComboBox? findComboBox(ComboBoxLocator comboBox) {
-            return comboBoxes.get(comboBox.locator, labels, textFields);
+            return comboBoxes.get(comboBox.locator, labels, textFields.NonChangeable());
         }
 
         public ITextElement? findLabel(LabelLocator labelLocator) {
-            return labels.get(labelLocator.locator, labels, textFields);
+            return labels.get(labelLocator.locator, labels, textFields.NonChangeable());
         }
 
         public SAPMenu? findMenuItem(String itemPath) {
@@ -314,7 +313,7 @@ namespace RoboSAPiens {
         }
 
         public RadioButton? findRadioButton(RadioButtonLocator radioButton) {
-            return radioButtons.get(radioButton.locator, labels, textFields);
+            return radioButtons.get(radioButton.locator, labels, textFields.NonChangeable());
         }
 
         public SAPTab? findTab(string tabName) {
@@ -322,18 +321,15 @@ namespace RoboSAPiens {
         }
 
         public SAPTextField? findTextField(TextFieldLocator textField, bool changeable=false) {
-            if (changeable)
+            if (changeable) 
             {
-                if (editableTextFields.Count == 0) {
-                    foreach (var editableTextField in textFields.Where(_ => _.changeable))
-                    {
-                        editableTextFields.Add(editableTextField);
-                    }
-                }
-                return editableTextFields.get(textField.locator, labels, boxes);
+                return textFields.getChangeable(textField.locator, labels, boxes) ??
+                       textFields.getNonChangeable(textField.locator, labels, boxes);
             }
-
-            return textFields.get(textField.locator, labels, boxes);
+            else
+            {
+                return textFields.get(textField.locator, labels, boxes);
+            }
         }
         
         public Cell? findCell(ILocator locator, GuiSession session, int? tableNumber)
@@ -377,7 +373,7 @@ namespace RoboSAPiens {
         }
 
         public List<SAPTextField> getAllTextFields() {
-            return textFields;
+            return textFields.GetAll();
         }
 
         public SAPStatusbar? getStatusBar() {

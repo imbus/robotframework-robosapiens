@@ -87,7 +87,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public abstract class TextFieldRepository: ComponentRepository<SAPTextField> 
+    public class TextFieldRepository: ComponentRepository<SAPTextField> 
     {
         SAPTextField? findInBox(ILocator locator, BoxStore boxes) {
             return locator switch {
@@ -154,22 +154,22 @@ namespace RoboSAPiens {
             return null;
         }
 
-        public SAPTextField? getTextField(ILocator locator, LabelStore labels, BoxStore boxes) 
+        public SAPTextField? getTextField(ILocator locator, LabelStore labels, TextFieldRepository nonChangeableTextFields, BoxStore boxes) 
         {
             return locator switch 
             {
                 HLabel (var label) => 
                     getByHLabel(label) ??
                     getByTooltip(label) ??
-                    getHorizontalClosestToLabel(label, labels, this) ??
+                    getHorizontalClosestToLabel(label, labels, nonChangeableTextFields) ??
                     getByName(label),
                 HLabelHLabel =>
-                    getAlignedWithLabels((HLabelHLabel)locator, labels, this),
+                    getAlignedWithLabels((HLabelHLabel)locator, labels, nonChangeableTextFields),
                 VLabel (var label) => 
                     getByVLabel(label) ??
-                    getVerticalClosestToLabel(label, labels, this),
+                    getVerticalClosestToLabel(label, labels, nonChangeableTextFields),
                 HLabelVLabel => 
-                    getAlignedWithLabels((HLabelVLabel)locator, labels, this) ??
+                    getAlignedWithLabels((HLabelVLabel)locator, labels, nonChangeableTextFields) ??
                     findInBox(locator, boxes),
                 IIndexLocator indexLocator => 
                     getByIndex(indexLocator, labels),
