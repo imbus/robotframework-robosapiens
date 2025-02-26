@@ -369,7 +369,7 @@ namespace RoboSAPiens {
         }
 
         public List<SAPButton> getAllButtons() {
-            return new List<SAPButton>(buttons.filterBy<SAPButton>());
+            return buttons.filterBy<SAPButton>().ToList();
         }
 
         public List<SAPLabel> getAllLabels() {
