@@ -162,14 +162,14 @@ namespace RoboSAPiens {
 
             if (textField != null)
             {
-                matches.Add(textField.id, textField);
+                matches[textField.id] = textField;
             }
 
             textField = getByTooltip(label) ?? getByName(label);
 
             if (textField != null)
             {
-                matches.Add(textField.id, textField);
+                matches[textField.id] = textField;
             }
 
             if (changeable == true)
