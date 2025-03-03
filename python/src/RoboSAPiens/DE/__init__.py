@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.15.6"
+__version__ = "2.15.7"
 
 class DE(RoboSAPiensClient):
     """
@@ -1442,4 +1442,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.15.6'
+    ROBOT_LIBRARY_VERSION = '2.15.7'
