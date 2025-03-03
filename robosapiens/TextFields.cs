@@ -176,8 +176,7 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return tooltips.Any(t => t.Equals(tooltip)) || 
-            tooltips.Any(t => t.StartsWith(tooltip));
+            return tooltips.Any(t => t.Equals(tooltip));
         }
 
         public override void insert(string content, GuiSession session) {
