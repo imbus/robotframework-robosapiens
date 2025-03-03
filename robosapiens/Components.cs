@@ -320,16 +320,8 @@ namespace RoboSAPiens {
             return tabs.get(tabName);
         }
 
-        public SAPTextField? findTextField(TextFieldLocator textField, bool changeable=false) {
-            if (changeable) 
-            {
-                return textFields.getChangeable(textField.locator, labels, boxes) ??
-                       textFields.getNonChangeable(textField.locator, labels, boxes);
-            }
-            else
-            {
-                return textFields.get(textField.locator, labels, boxes);
-            }
+        public SAPTextField? findTextField(TextFieldLocator textField, bool? changeable=null) {
+            return textFields.get(textField.locator, changeable, labels, boxes);
         }
         
         public Cell? findCell(ILocator locator, GuiSession session, int? tableNumber)

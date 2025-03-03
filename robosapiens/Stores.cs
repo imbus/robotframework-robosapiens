@@ -82,7 +82,6 @@ namespace RoboSAPiens {
 
     public sealed class TextFieldStore
     {
-        TextFieldRepository changeableTextFields = new TextFieldRepository();
         TextFieldRepository nonChangeableTextFields = new TextFieldRepository();
         TextFieldRepository textFields = new TextFieldRepository();
 
@@ -90,10 +89,8 @@ namespace RoboSAPiens {
         {
             textFields.Add(textField);
 
-            if (textField.changeable) {
-                changeableTextFields.Add(textField);
-            }
-            else {
+            if (!textField.changeable)
+            {
                 nonChangeableTextFields.Add(textField);
             }
         }
@@ -108,19 +105,9 @@ namespace RoboSAPiens {
             return nonChangeableTextFields;
         }
 
-        public SAPTextField? get(ILocator locator, LabelStore labels, BoxStore boxes) 
+        public SAPTextField? get(ILocator locator, bool? changeable, LabelStore labels, BoxStore boxes) 
         {
-            return textFields.getTextField(locator, labels, nonChangeableTextFields, boxes);
-        }
-
-        public SAPTextField? getChangeable(ILocator locator, LabelStore labels, BoxStore boxes) 
-        {
-            return changeableTextFields.getTextField(locator, labels, nonChangeableTextFields, boxes);
-        }
-
-        public SAPTextField? getNonChangeable(ILocator locator, LabelStore labels, BoxStore boxes) 
-        {
-            return nonChangeableTextFields.getTextField(locator, labels, nonChangeableTextFields, boxes);
+            return textFields.getTextField(locator, changeable, labels, nonChangeableTextFields, boxes);
         }
     }
 
