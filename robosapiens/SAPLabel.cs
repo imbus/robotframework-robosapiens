@@ -31,7 +31,7 @@ namespace RoboSAPiens {
         }
 
         public bool contains(string content) {
-            return text.Equals(content) || text.StartsWith(content);
+            return text.Equals(content);
         }
 
         public List<string> getLabels()
