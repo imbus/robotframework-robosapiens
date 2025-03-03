@@ -154,40 +154,15 @@ namespace RoboSAPiens {
             return null;
         }
 
-        public SAPTextField? getbyLabel(string label, bool? changeable, LabelStore labels, TextFieldRepository nonChangeableTextFields)
-        {
-            var matches = new Dictionary<string, SAPTextField>();
-
-            var textField = getByHLabel(label) ?? getHorizontalClosestToLabel(label, labels, nonChangeableTextFields);
-
-            if (textField != null)
-            {
-                matches[textField.id] = textField;
-            }
-
-            textField = getByTooltip(label) ?? getByName(label);
-
-            if (textField != null)
-            {
-                matches[textField.id] = textField;
-            }
-
-            if (changeable == true)
-            {
-                return matches.Values.Where(_ => _.changeable).FirstOrDefault();
-            }
-            else
-            {
-                return matches.Values.FirstOrDefault();
-            }
-        }
-
-        public SAPTextField? getTextField(ILocator locator, bool? changeable, LabelStore labels, TextFieldRepository nonChangeableTextFields, BoxStore boxes) 
+        public SAPTextField? getTextField(ILocator locator, LabelStore labels, TextFieldRepository nonChangeableTextFields, BoxStore boxes) 
         {
             return locator switch 
             {
                 HLabel (var label) => 
-                    getbyLabel(label, changeable, labels, nonChangeableTextFields),
+                    getByHLabel(label) ??
+                    getByTooltip(label) ??
+                    getHorizontalClosestToLabel(label, labels, nonChangeableTextFields) ??
+                    getByName(label),
                 HLabelHLabel =>
                     getAlignedWithLabels((HLabelHLabel)locator, labels, nonChangeableTextFields),
                 VLabel (var label) => 

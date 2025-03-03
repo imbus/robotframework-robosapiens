@@ -105,9 +105,9 @@ namespace RoboSAPiens {
             return nonChangeableTextFields;
         }
 
-        public SAPTextField? get(ILocator locator, bool? changeable, LabelStore labels, BoxStore boxes) 
+        public SAPTextField? get(ILocator locator, LabelStore labels, BoxStore boxes) 
         {
-            return textFields.getTextField(locator, changeable, labels, nonChangeableTextFields, boxes);
+            return textFields.getTextField(locator, labels, nonChangeableTextFields, boxes);
         }
     }
 
