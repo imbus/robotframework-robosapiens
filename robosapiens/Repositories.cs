@@ -174,11 +174,11 @@ namespace RoboSAPiens {
 
             if (changeable == true)
             {
-                return matches.Values.Where(_ => _.changeable).First();
+                return matches.Values.Where(_ => _.changeable).FirstOrDefault();
             }
             else
             {
-                return matches.Values.First();
+                return matches.Values.FirstOrDefault();
             }
         }
 
