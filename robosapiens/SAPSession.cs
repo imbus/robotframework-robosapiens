@@ -626,7 +626,8 @@ namespace RoboSAPiens {
 
             try
             {
-                isActive = session.IsActive;
+                // This call throws an exception if the session was detroyed
+                var name = session.Name;
                 // Pushing a Button may result in the window being rerendered,
                 // and the properties of some components may change.
                 if (!windowChanged()) {
