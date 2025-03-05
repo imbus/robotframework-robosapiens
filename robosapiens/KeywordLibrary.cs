@@ -94,7 +94,7 @@ namespace RoboSAPiens
              "| ``Reiter auswählen    Name``")]
         public RobotResult ActivateTab(string tab) {
             return session switch {
-                SAPSession session => session.activateTab(tab),
+                SAPSession session when session.isActive => session.activateTab(tab),
                 _ => new Result.ActivateTab.NoSession()
             };
         }
@@ -104,7 +104,7 @@ namespace RoboSAPiens
              "| ``Baumelement markieren    Elementpfad``")]
         public RobotResult SelectTreeElement(string elementPath) {
             return session switch {
-                SAPSession session => session.selectTreeElement(elementPath),
+                SAPSession session when session.isActive => session.selectTreeElement(elementPath),
                 _ => new Result.SelectTreeElement.NoSession()
             };
         }
@@ -114,7 +114,7 @@ namespace RoboSAPiens
              "| ``Baumelement doppelklicken    Elementpfad``")]
         public RobotResult DoubleClickTreeElement(string elementPath) {
             return session switch {
-                SAPSession session => session.doubleClickTreeElement(elementPath),
+                SAPSession session when session.isActive => session.doubleClickTreeElement(elementPath),
                 _ => new Result.DoubleClickTreeElement.NoSession()
             };
         }
@@ -124,7 +124,7 @@ namespace RoboSAPiens
              "| ``Baumordner aufklappen    Elementpfad``")]
         public RobotResult ExpandTreeFolder(string folderPath) {
             return session switch {
-                SAPSession session => session.expandTreeFolder(folderPath),
+                SAPSession session when session.isActive => session.expandTreeFolder(folderPath),
                 _ => new Result.ExpandTreeFolder.NoSession()
             };
         }
@@ -134,7 +134,7 @@ namespace RoboSAPiens
              "| ``Menüeintrag auswählen    Pfad``")]
         public RobotResult SelectMenuItem(string itemPath) {
             return session switch {
-                SAPSession session => session.selectMenuItem(itemPath),
+                SAPSession session when session.isActive => session.selectMenuItem(itemPath),
                 _ => new Result.SelectMenuItem.NoSession()
             };
         }
@@ -201,7 +201,7 @@ namespace RoboSAPiens
             }
 
             return session switch {
-                SAPSession session => session.closeConnection(),
+                SAPSession session when session.isActive => session.closeConnection(),
                 _ => new Result.CloseConnection.NoSession()
             };
         }
@@ -222,7 +222,7 @@ namespace RoboSAPiens
         public RobotResult CloseWindow()
         {
             return session switch {
-                SAPSession session => session.closeWindow(),
+                SAPSession session when session.isActive => session.closeWindow(),
                 _ => new Result.CloseWindow.NoSession()
             };
         }
@@ -232,7 +232,7 @@ namespace RoboSAPiens
              "| ``Baumstruktur exportieren     Dateipfad``")]
         public RobotResult ExportTree(string filepath) {
             return session switch {
-                SAPSession session => session.exportTree(filepath),
+                SAPSession session when session.isActive => session.exportTree(filepath),
                 _ => new Result.ExportTree.NoSession()
             };
         }
@@ -389,7 +389,7 @@ namespace RoboSAPiens
              "Positionsgeber: entweder die Zeilennummer oder der Inhalt der Zelle.")]
         public RobotResult DoubleClickCell(string row_locator, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.doubleClickCell(row_locator, column, tableNumber),
+                SAPSession session when session.isActive => session.doubleClickCell(row_locator, column, tableNumber),
                 _ => new Result.DoubleClickCell.NoSession()
             };
         }
@@ -413,7 +413,7 @@ namespace RoboSAPiens
              )]
         public RobotResult DoubleClickTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.HIndexVLabel, Loc.HLabelVIndex, Loc.HLabelHLabel, Loc.Content)] string locator) {
             return session switch {
-                SAPSession session => session.doubleClickTextField(locator),
+                SAPSession session when session.isActive => session.doubleClickTextField(locator),
                 _ => new Result.DoubleClickTextField.NoSession()
             };
         }
@@ -423,7 +423,7 @@ namespace RoboSAPiens
               "| ``Transaktion ausführen    T-Code``")]
         public RobotResult ExecuteTransaction(string T_Code) {
             return session switch {
-                SAPSession session => session.executeTransaction(T_Code),
+                SAPSession session when session.isActive => session.executeTransaction(T_Code),
                 _ => new Result.ExecuteTransaction.NoSession()
             };
         }
@@ -434,7 +434,7 @@ namespace RoboSAPiens
              "Verzeichnis: Der absolute Pfad des Verzeichnisses, wo die Dateien abgelegt werden.")]
         public RobotResult ExportWindow(string name, string directory) {
             return session switch {
-                SAPSession session => session.exportWindow(name, directory),
+                SAPSession session when session.isActive => session.exportWindow(name, directory),
                 _ => new Result.ExportWindow.NoSession()
             };
         }
@@ -447,7 +447,7 @@ namespace RoboSAPiens
              "In diesem Fall kann man die Zelle mit dem Keyword [#Textfeld%20Ausfüllen|Textfeld ausfüllen] ausfüllen.")]
         public RobotResult FillCell(string row_locator, string column, string content, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.fillCell(row_locator, column, content, tableNumber),
+                SAPSession session when session.isActive => session.fillCell(row_locator, column, content, tableNumber),
                 _ => new Result.FillCell.NoSession()
             };
         }
@@ -470,7 +470,7 @@ namespace RoboSAPiens
              "die man über die Hilfe (Taste F1) herausfinden kann.")]
         public RobotResult FillTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.HIndexVLabel, Loc.HLabelVIndex, Loc.HLabelHLabel)] string locator, string content) {
             return session switch {
-                SAPSession session => session.fillTextField(locator, content),
+                SAPSession session when session.isActive => session.fillTextField(locator, content),
                 _ => new Result.FillTextField.NoSession()
             };
         }
@@ -480,7 +480,7 @@ namespace RoboSAPiens
              "| ``Mehrzeiliges Textfeld ausfüllen     Inhalt``")]
         public RobotResult FillTextEdit(string content) {
             return session switch {
-                SAPSession session => session.fillTextEdit(content),
+                SAPSession session when session.isActive => session.fillTextEdit(content),
                 _ => new Result.FillTextEdit.NoSession()
             };
         }
@@ -491,7 +491,7 @@ namespace RoboSAPiens
         public RobotResult ReadCheckBox(string locator) 
         {
             return session switch {
-                SAPSession session => session.readCheckBox(locator),
+                SAPSession session when session.isActive => session.readCheckBox(locator),
                 _ => new Result.ReadCheckBox.NoSession()
             };
         }
@@ -501,7 +501,7 @@ namespace RoboSAPiens
              "| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``")]
         public RobotResult PushButton(string button) {
             return session switch {
-                SAPSession session => session.pushButton(button),
+                SAPSession session when session.isActive => session.pushButton(button),
                 _ => new Result.PushButton.NoSession()
             };
         }
@@ -511,7 +511,7 @@ namespace RoboSAPiens
              "| ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``")]
         public RobotResult HighlightButton(string button) {
             return session switch {
-                SAPSession session => session.highlightButton(button),
+                SAPSession session when session.isActive => session.highlightButton(button),
                 _ => new Result.HighlightButton.NoSession()
             };
         }
@@ -521,7 +521,7 @@ namespace RoboSAPiens
              "| ``Statusleiste auslesen``")]
         public RobotResult ReadStatusbar() {
             return session switch {
-                SAPSession session => session.readStatusbar(),
+                SAPSession session when session.isActive => session.readStatusbar(),
                 _ => new Result.ReadStatusbar.NoSession()
             };
         }
@@ -532,7 +532,7 @@ namespace RoboSAPiens
              "Positionsgeber: Zeilennummer, Beschriftung oder Kurzinfo (Tooltip).")]
         public RobotResult PushButtonCell(string row_or_label, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.pushButtonCell(row_or_label, column, tableNumber),
+                SAPSession session when session.isActive => session.pushButtonCell(row_or_label, column, tableNumber),
                 _ => new Result.PushButtonCell.NoSession()
             };
         }
@@ -542,7 +542,7 @@ namespace RoboSAPiens
              "| ``Tabellenzeile markieren     Zeilenlokator``")]
         public RobotResult SelectTableRow(string row_locator, int tableNumber=1) {
             return session switch {
-                SAPSession session => session.selectTableRow(row_locator, tableNumber),
+                SAPSession session when session.isActive => session.selectTableRow(row_locator, tableNumber),
                 _ => new Result.SelectTableRow.NoSession()
             };
         }
@@ -552,7 +552,7 @@ namespace RoboSAPiens
              "| ``Tabellenzeilen zählen``")]
         public RobotResult CountTableRows(int tableNumber=1) {
             return session switch {
-                SAPSession session => session.countTableRows(tableNumber),
+                SAPSession session when session.isActive => session.countTableRows(tableNumber),
                 _ => new Result.CountTableRows.NoSession()
             };
         }
@@ -562,7 +562,7 @@ namespace RoboSAPiens
              "| ``Tastenkombination drücken    Tastenkombination``")]
         public RobotResult PressKeyCombination(string keyCombination) {
             return session switch {
-                SAPSession session => session.pressKeyCombination(keyCombination),
+                SAPSession session when session.isActive => session.pressKeyCombination(keyCombination),
                 _ => new Result.PressKeyCombination.NoSession()
             };
         }
@@ -579,7 +579,7 @@ namespace RoboSAPiens
              "| ``Textfeld auslesen    = Inhalt``")]
         public RobotResult ReadTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.Content)] string locator) {
             return session switch {
-                SAPSession session => session.readTextField(locator),
+                SAPSession session when session.isActive => session.readTextField(locator),
                 _ => new Result.ReadTextField.NoSession()
             };
         }
@@ -592,7 +592,7 @@ namespace RoboSAPiens
              "| ``Text auslesen    Beschriftung``")]
         public RobotResult ReadText([Locator(Loc.Content, Loc.HLabel)] string locator) {
             return session switch {
-                SAPSession session => session.readText(locator),
+                SAPSession session when session.isActive => session.readText(locator),
                 _ => new Result.ReadText.NoSession()
             };
         }
@@ -603,7 +603,7 @@ namespace RoboSAPiens
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
         public RobotResult ReadCell(string row_locator, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.readCell(row_locator, column, tableNumber),
+                SAPSession session when session.isActive => session.readCell(row_locator, column, tableNumber),
                 _ => new Result.ReadCell.NoSession()
             };
         }
@@ -614,7 +614,7 @@ namespace RoboSAPiens
              "Dateifpad: Der absolute Pfad einer .png Datei bzw. eines Verzeichnisses.")]
         public RobotResult SaveScreenshot(string filepath) {
             return session switch {
-                SAPSession session => session.saveScreenshot(filepath),
+                SAPSession session when session.isActive => session.saveScreenshot(filepath),
                 _ => new Result.SaveScreenshot.NoSession()
             };
         }
@@ -625,7 +625,7 @@ namespace RoboSAPiens
              "Richtung: DOWN (ein Schritt nach unten), UP (ein Schritt nach oben), BEGIN (ganz am Anfang), END (ganz am Ende)")]
         public RobotResult ScrollTextFieldContents(string direction, string? untilTextField=null) {
             return session switch {
-                SAPSession session => session.scrollTextFieldContents(direction, untilTextField),
+                SAPSession session when session.isActive => session.scrollTextFieldContents(direction, untilTextField),
                 _ => new Result.ScrollTextFieldContents.NoSession()
             };
         }
@@ -636,7 +636,7 @@ namespace RoboSAPiens
              "Richtung: RIGHT (ein Schritt nach rechts), LEFT (ein Schritt nach links), BEGIN (ganz am Anfang), END (ganz am Ende)")]
         public RobotResult ScrollWindowHorizontally(string direction) {
             return session switch {
-                SAPSession session => session.scrollWindowHorizontally(direction),
+                SAPSession session when session.isActive => session.scrollWindowHorizontally(direction),
                 _ => new Result.ScrollWindowHorizontally.NoSession()
             };
         }
@@ -648,7 +648,7 @@ namespace RoboSAPiens
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
         public RobotResult SelectCell(string row_locator, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.selectCell(row_locator, column, tableNumber),
+                SAPSession session when session.isActive => session.selectCell(row_locator, column, tableNumber),
                 _ => new Result.SelectCell.NoSession()
             };
         }
@@ -658,7 +658,7 @@ namespace RoboSAPiens
              "| ``Tabellenzellenwert auswählen    Zeilennummer    Spaltentitel    Eintrag``")]
         public RobotResult SelectCellValue(string row_locator, string column, string entry, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.selectCellValue(row_locator, column, entry, tableNumber),
+                SAPSession session when session.isActive => session.selectCellValue(row_locator, column, entry, tableNumber),
                 _ => new Result.SelectCellValue.NoSession()
             };
         }
@@ -668,7 +668,7 @@ namespace RoboSAPiens
              "| ``Menüeintrag in Baumelement auswählen    Elementpfad    Menüeintrag``")]
         public RobotResult SelectTreeElementMenuEntry(string elementPath, string menuEntry) {
             return session switch {
-                SAPSession session => session.selectTreeElementMenuEntry(elementPath, menuEntry),
+                SAPSession session when session.isActive => session.selectTreeElementMenuEntry(elementPath, menuEntry),
                 _ => new Result.SelectTreeElementMenuEntry.NoSession()
             };
         }
@@ -678,7 +678,7 @@ namespace RoboSAPiens
              "| ``Auswahlmenüeintrag auslesen    Auswahlmenü ``")]
         public RobotResult ReadComboBoxEntry(string comboBox) {
             return session switch {
-                SAPSession session => session.readComboBoxEntry(comboBox),
+                SAPSession session when session.isActive => session.readComboBoxEntry(comboBox),
                 _ => new Result.ReadComboBoxEntry.NoSession()
             };
         }
@@ -688,7 +688,7 @@ namespace RoboSAPiens
              "| ``Auswahlmenüeintrag auswählen    Auswahlmenü    Eintrag``")]
         public RobotResult SelectComboBoxEntry(string comboBox, string entry) {
             return session switch {
-                SAPSession session => session.selectComboBoxEntry(comboBox, entry),
+                SAPSession session when session.isActive => session.selectComboBoxEntry(comboBox, entry),
                 _ => new Result.SelectComboBoxEntry.NoSession()
             };
         }
@@ -703,7 +703,7 @@ namespace RoboSAPiens
              "| ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``\n")]
         public RobotResult SelectRadioButton([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel)] string locator) {
             return session switch {
-                SAPSession session => session.selectRadioButton(locator),
+                SAPSession session when session.isActive => session.selectRadioButton(locator),
                 _ => new Result.SelectRadioButton.NoSession()
             };
         }
@@ -714,7 +714,7 @@ namespace RoboSAPiens
         public RobotResult SelectTableColumn(string column, int tableNumber = 1)
         {
             return session switch {
-                SAPSession session => session.selectTableColumn(column, tableNumber),
+                SAPSession session when session.isActive => session.selectTableColumn(column, tableNumber),
                 _ => new Result.SelectTableColumn.NoSession()
             };
         }
@@ -738,7 +738,7 @@ namespace RoboSAPiens
              )]
         public RobotResult SelectTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.HIndexVLabel, Loc.HLabelVIndex, Loc.HLabelHLabel, Loc.Content)] string locator) {
             return session switch {
-                SAPSession session => session.selectTextField(locator),
+                SAPSession session when session.isActive => session.selectTextField(locator),
                 _ => new Result.SelectTextField.NoSession()
             };
         }
@@ -751,7 +751,7 @@ namespace RoboSAPiens
              "| ``Text markieren    Beschriftung``")]
         public RobotResult SelectText(string locator) {
             return session switch {
-                SAPSession session => session.selectText(locator),
+                SAPSession session when session.isActive => session.selectText(locator),
                 _ => new Result.SelectText.NoSession()
             };
         }
@@ -766,7 +766,7 @@ namespace RoboSAPiens
              "| ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``")]
         public RobotResult TickCheckBox([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel)] string locator) {
             return session switch {
-                SAPSession session => session.tickCheckBox(locator),
+                SAPSession session when session.isActive => session.tickCheckBox(locator),
                 _ => new Result.TickCheckBox.NoSession()
             };
         }
@@ -781,7 +781,7 @@ namespace RoboSAPiens
              "| ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``")]
         public RobotResult UntickCheckBox([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel)] string locator) {
             return session switch {
-                SAPSession session => session.untickCheckBox(locator),
+                SAPSession session when session.isActive => session.untickCheckBox(locator),
                 _ => new Result.UntickCheckBox.NoSession()
             };
         }
@@ -791,7 +791,7 @@ namespace RoboSAPiens
              "| ``Tabellenzelle ankreuzen     Zeilennummer     Spaltentitel``")]
         public RobotResult TickCheckBoxCell(string row, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.tickCheckBoxCell(row, column, tableNumber),
+                SAPSession session when session.isActive => session.tickCheckBoxCell(row, column, tableNumber),
                 _ => new Result.TickCheckBoxCell.NoSession()
             };
         }
@@ -801,7 +801,7 @@ namespace RoboSAPiens
              "| ``Tabellenzelle abwählen     Zeilennummer     Spaltentitel``")]
         public RobotResult UntickCheckBoxCell(string row, string column, int? tableNumber=null) {
             return session switch {
-                SAPSession session => session.untickCheckBoxCell(row, column, tableNumber),
+                SAPSession session when session.isActive => session.untickCheckBoxCell(row, column, tableNumber),
                 _ => new Result.UntickCheckBoxCell.NoSession()
             };
         }
@@ -811,7 +811,7 @@ namespace RoboSAPiens
              "| ``${Titel}    Fenstertitel auslesen``")]
         public RobotResult GetWindowTitle() {
             return session switch {
-                SAPSession session => session.getWindowTitle(),
+                SAPSession session when session.isActive => session.getWindowTitle(),
                 _ => new Result.GetWindowTitle.NoSession()
             };
         }
@@ -821,7 +821,7 @@ namespace RoboSAPiens
              "| ``${Text}    Fenstertext auslesen``")]
         public RobotResult GetWindowText() {
             return session switch {
-                SAPSession session => session.getWindowText(),
+                SAPSession session when session.isActive => session.getWindowText(),
                 _ => new Result.GetWindowText.NoSession()
             };
         }

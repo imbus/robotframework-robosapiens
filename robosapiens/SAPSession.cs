@@ -17,10 +17,11 @@ namespace RoboSAPiens {
     }
 
     public sealed class SAPSession : ISession {
-        string sapClient;
+        public bool isActive;
         GuiConnection connection;
         ILogger logger;
         Options options;
+        string sapClient;
         GuiSession session;
         string systemName;
         SAPWindow window;
@@ -33,6 +34,7 @@ namespace RoboSAPiens {
             this.options = options;
             this.window = new SAPWindow(session.ActiveWindow, debug: options.debug);
             sapClient = session.Info.Client;
+            isActive = true;
         }
 
         public SessionInfo getSessionInfo()
@@ -622,13 +624,22 @@ namespace RoboSAPiens {
                 return new Result.PushButton.Exception(e);
             }
 
-            // Pushing a Button may result in the window being rerendered,
-            // and the properties of some components may change.
-            if (!windowChanged()) {
-                switch (updateWindow()) {
-                    case RobotResult.UIScanFail exceptionError:
-                        return exceptionError;
+            try
+            {
+                isActive = session.IsActive;
+                // Pushing a Button may result in the window being rerendered,
+                // and the properties of some components may change.
+                if (!windowChanged()) {
+                    switch (updateWindow()) {
+                        case RobotResult.UIScanFail exceptionError:
+                            return exceptionError;
+                    }
                 }
+            }
+            catch (Exception e) 
+            {
+                isActive = false;
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
             }
 
             return new Result.PushButton.Pass(theButton.atLocation);
