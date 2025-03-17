@@ -3,7 +3,7 @@ from schema_i18n import LocalizedRoboSAPiens
 
 Fstr = Callable[[str], str]
 
-sap_error = 'SAP Fehlermeldung: {0}'
+sap_error = ('SAP Fehlermeldung: {0}')
 no_session = 'Keine aktive SAP-Session gefunden. Das Keyword "Verbindung zum Server Herstellen" oder "Laufende SAP GUI Übernehmen" muss zuerst aufgerufen werden.'
 no_sap_gui = 'Keine laufende SAP GUI gefunden. Das Keyword "SAP starten" muss zuerst aufgerufen werden.'
 no_gui_scripting = 'Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen vom SAP Client aktiviert werden.'
@@ -16,9 +16,9 @@ row_locator = 'Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeil
 column = "Spaltentitel oder Kurzinfo"
 textfield_locator = "Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert."
 path = "Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen."
-tooltip_hint = """Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
-Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
-Wenn der gesamte Text des Tooltips als Lokator verwendet wird, muss lediglich ein Leerzeichen eingetippt werden (z.B. ``Zurück (F3)``).
+tooltip_hint = """Tooltips mit einem Tastenkürzel am Ende kommen oft vor. 
+Der Standardwert ``exakt=False`` sorgt dafür, dass das Tastenkürzel bei der Suche vernachlässigt wird.
+Für Tooltips ohne Tastenkürzel ist eher eine genaue Übereinstimmung (``exakt=True``) wünschenswert.
 """
 
 HLabel = "::Beschriftung"
@@ -868,9 +868,16 @@ lib: LocalizedRoboSAPiens = {
         "HighlightButton": {
             "name": ("2180269929", "Knopf hervorheben"),
             "args": {
-              "button": {
+              "a1button": {
                 "name": ("2051440239", "Lokator"),
-                "desc": ("2400215713", "Name oder Kurzinfo des Knopfes"),
+                "desc": ("2400215713", "Name oder Kurzinfo (Tooltip) des Knopfes"),
+                "spec": {},
+              },
+              "a2exact": {
+                "name": ("1775676165", "exakt"),
+                "desc": ("4137356431", "`True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False`"),
+                "default": False,
+                "type": "bool",
                 "spec": {},
               }
             },
@@ -882,7 +889,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("1502722601", "Der Knopf mit dem angegebenen Lokator wird hervorgehoben."),
-                "examples": ("1667001270", 
+                "examples": ("3155266330", 
                 f"""
                 Beispiele:
                 
@@ -927,9 +934,16 @@ lib: LocalizedRoboSAPiens = {
         "PushButton": {
             "name": ("2326550334", "Knopf drücken"),
             "args": {
-              "button": {
+              "a1button": {
                 "name": ("2051440239", "Lokator"),
-                "desc": ("1583064803", "Ein Lokator, um den Knopf zu finden"),
+                "desc": ("2400215713", "Name oder Kurzinfo (Tooltip) des Knopfes"),
+                "spec": {},
+              },
+              "a2exact": {
+                "name": ("1775676165", "exakt"),
+                "desc": ("4137356431", "`True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False`."),
+                "default": False,
+                "type": "bool",
                 "spec": {},
               }
             },
@@ -942,7 +956,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("1468743868", "Der Knopf mit dem angegebenen Lokator wird gedrückt."),
-                "examples": ("3942785738", 
+                "examples": ("635984313", 
                 f"""
                 Beispiele:
 

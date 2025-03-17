@@ -499,9 +499,9 @@ namespace RoboSAPiens
         [Keyword("Knopf drücken"),
          Doc("Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird gedrückt.\n\n" +
              "| ``Knopf drücken    Name oder Kurzinfo (Tooltip)``")]
-        public RobotResult PushButton(string button) {
+        public RobotResult PushButton(string button, bool exact=false) {
             return session switch {
-                SAPSession session when session.isActive => session.pushButton(button),
+                SAPSession session when session.isActive => session.pushButton(button, exact),
                 _ => new Result.PushButton.NoSession()
             };
         }
@@ -509,9 +509,9 @@ namespace RoboSAPiens
         [Keyword("Knopf hervorheben"),
          Doc("Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.\n\n" +
              "| ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``")]
-        public RobotResult HighlightButton(string button) {
+        public RobotResult HighlightButton(string button, bool exact=false) {
             return session switch {
-                SAPSession session when session.isActive => session.highlightButton(button),
+                SAPSession session when session.isActive => session.highlightButton(button, exact),
                 _ => new Result.HighlightButton.NoSession()
             };
         }

@@ -16,9 +16,9 @@ row_locator = 'Either the row number or the contents of a cell in the row. If th
 column = "Column title or tooltip"
 textfield_locator = "Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]."
 path = "Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator."
-tooltip_hint = """Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
-The name may be used as locator as long as it is unique.
-When using the full tooltip text enter only one space (e.g. ``Back (F3)``).
+tooltip_hint = """Tooltips ending with a keyboard shortcut are common.
+By default ``exact=False`` in order to match the tooltip ignoring the shortcut.
+For tooltips without a keyboard shortcut an exact match (``exact=True``) is preferable.
 """
 
 HLabel = "::label"
@@ -845,10 +845,17 @@ lib: RoboSAPiens = {
         "HighlightButton": {
             "name": "Highlight Button",
             "args": {
-                "button": {
+                "a1button": {
                     "name": "locator",
                     "desc": "The name or tooltip of the button",
                     "spec": {},
+                },
+                "a2exact": {
+                    "name": "exact",
+                    "desc": "`True` if the locator matches exactly the tooltip, `False` otherwise.",
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
                 }
             },
             "result": {
@@ -902,9 +909,16 @@ lib: RoboSAPiens = {
         "PushButton": {
             "name": "Push Button",
             "args": {
-                "button": {
+                "a1button": {
                     "name": "locator",
-                    "desc": "The locator used to find the button.",
+                    "desc": "The name or tooltip of the button",
+                    "spec": {},
+                },
+                "a2exact": {
+                    "name": "exact",
+                    "desc": "`True` if the locator matches exactly the tooltip, `False` otherwise.",
+                    "default": False,
+                    "type": "bool",
                     "spec": {}
                 }
             },

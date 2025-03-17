@@ -55,7 +55,11 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return this.tooltip.StartsWith(tooltip);
+            if (tooltip.StartsWith("~")) {
+                return this.tooltip.StartsWith(tooltip.TrimStart('~'));
+            }
+
+            return this.tooltip == tooltip;
         }
 
         public override void push(GuiSession session) {
@@ -133,7 +137,7 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return this.tooltip == tooltip;
+            return this.tooltip == tooltip.TrimStart('~');
         }
     
         public override void push(GuiSession session) {
@@ -186,7 +190,7 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return this.tooltip == tooltip;
+            return this.tooltip == tooltip.TrimStart('~');
         }
     
         public override void push(GuiSession session) 
@@ -222,7 +226,7 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return this.tooltip == tooltip;
+            return this.tooltip == tooltip.TrimStart('~');
         }
 
         public override bool isEnabled(GuiSession session) 

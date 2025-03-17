@@ -291,9 +291,9 @@ namespace RoboSAPiens {
             }
         }
 
-        public Button? findButton(ButtonLocator button) {
-            return buttons.get(button.locator, labels, textFields.NonChangeable()) ?? 
-                   toolbarButtons.get(button.locator,  labels, textFields.NonChangeable());
+        public Button? findButton(ButtonLocator button, bool exact) {
+            return buttons.get(button.locator, labels, textFields.NonChangeable(), exact) ?? 
+                   toolbarButtons.get(button.locator,  labels, textFields.NonChangeable(), exact);
         }
 
         public CheckBox? findCheckBox(CheckBoxLocator checkBox) {

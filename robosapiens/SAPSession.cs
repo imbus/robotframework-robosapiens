@@ -536,13 +536,13 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult highlightButton(string label) {
+        public RobotResult highlightButton(string label, bool exact) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
             
             var theButton = new ButtonLocator(label);
-            var button = window.components.findButton(theButton);
+            var button = window.components.findButton(theButton, exact);
 
             if (button == null) {
                 return new Result.HighlightButton.NotFound(theButton.atLocation);
@@ -586,13 +586,13 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult pushButton(string label) {
+        public RobotResult pushButton(string label, bool exact) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theButton = new ButtonLocator(label);
-            var button = window.components.findButton(theButton);
+            var button = window.components.findButton(theButton, exact);
 
             if (button == null) 
             {
@@ -600,7 +600,7 @@ namespace RoboSAPiens {
                     case RobotResult.UIScanFail exceptionError: return exceptionError;
                 }
             
-                button = window.components.findButton(theButton);
+                button = window.components.findButton(theButton, exact);
             
                 if (button == null) {
                     return new Result.PushButton.NotFound(theButton.atLocation);
