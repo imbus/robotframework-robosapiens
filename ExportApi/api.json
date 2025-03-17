@@ -479,6 +479,13 @@
           "name": "button",
           "desc": "",
           "spec": {}
+        },
+        "exact": {
+          "name": "exact",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
+          "spec": {}
         }
       },
       "result": {
@@ -499,6 +506,13 @@
         "button": {
           "name": "button",
           "desc": "",
+          "spec": {}
+        },
+        "exact": {
+          "name": "exact",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
           "spec": {}
         }
       },

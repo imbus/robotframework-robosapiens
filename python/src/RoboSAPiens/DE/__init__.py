@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.15.10"
+__version__ = "2.16.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -706,23 +706,24 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('FillTextField', args, result) # type: ignore
     
     @keyword('Knopf hervorheben') # type: ignore
-    def highlight_button(self, Lokator: str): # type: ignore
+    def highlight_button(self, Lokator: str, exakt: bool=False): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird hervorgehoben.
         
-        | ``Lokator`` | Name oder Kurzinfo des Knopfes |
+        | ``Lokator`` | Name oder Kurzinfo (Tooltip) des Knopfes |
+        | ``exakt`` | `True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False` |
         
         Beispiele:
         
         | ``Knopf hervorheben    Lokator``
         
-        *Hinweis*: Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
-        Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
-        Wenn der gesamte Text des Tooltips als Lokator verwendet wird, muss lediglich ein Leerzeichen eingetippt werden (z.B. ``Zurück (F3)``).
+        *Hinweis*: Tooltips mit einem Tastenkürzel am Ende kommen oft vor. 
+        Der Standardwert ``exakt=False`` sorgt dafür, dass das Tastenkürzel bei der Suche vernachlässigt wird.
+        Für Tooltips ohne Tastenkürzel ist eher eine genaue Übereinstimmung (``exakt=True``) wünschenswert.
         
         """
 
-        args = [Lokator]
+        args = [Lokator, exakt]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -760,11 +761,12 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('PressKeyCombination', args, result) # type: ignore
     
     @keyword('Knopf drücken') # type: ignore
-    def push_button(self, Lokator: str): # type: ignore
+    def push_button(self, Lokator: str, exakt: bool=False): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
         
-        | ``Lokator`` | Ein Lokator, um den Knopf zu finden |
+        | ``Lokator`` | Name oder Kurzinfo (Tooltip) des Knopfes |
+        | ``exakt`` | `True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False`. |
         
         Beispiele:
         
@@ -776,13 +778,13 @@ class DE(RoboSAPiensClient):
         
         | ``Knopf drücken    eindeutige Beschriftung >> Name oder Kurzinfo``
         
-        *Hinweis*: Einige Tooltips bestehen aus einem Namen, gefolgt von mehreren Leerzeichen und einem Tastaturkürzel.
-        Der Name kann als Lokator verwendet werden, solange er eindeutig ist.
-        Wenn der gesamte Text des Tooltips als Lokator verwendet wird, muss lediglich ein Leerzeichen eingetippt werden (z.B. ``Zurück (F3)``).
+        *Hinweis*: Tooltips mit einem Tastenkürzel am Ende kommen oft vor. 
+        Der Standardwert ``exakt=False`` sorgt dafür, dass das Tastenkürzel bei der Suche vernachlässigt wird.
+        Für Tooltips ohne Tastenkürzel ist eher eine genaue Übereinstimmung (``exakt=True``) wünschenswert.
         
         """
 
-        args = [Lokator]
+        args = [Lokator, exakt]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1442,4 +1444,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.15.10'
+    ROBOT_LIBRARY_VERSION = '2.16.0'

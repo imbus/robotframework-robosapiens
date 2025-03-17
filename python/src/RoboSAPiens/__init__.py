@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.15.10"
+__version__ = "2.16.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -707,23 +707,24 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('FillTextField', args, result) # type: ignore
     
     @keyword('Highlight Button') # type: ignore
-    def highlight_button(self, locator: str): # type: ignore
+    def highlight_button(self, locator: str, exact: bool=False): # type: ignore
         """
         Highlight the button with the given locator.
         
         | ``locator`` | The name or tooltip of the button |
+        | ``exact`` | `True` if the locator matches exactly the tooltip, `False` otherwise. |
         
         Examples:
         
         | ``Highlight Button    locator``
         
-        *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
-        The name may be used as locator as long as it is unique.
-        When using the full tooltip text enter only one space (e.g. ``Back (F3)``).
+        *Hint*: Tooltips ending with a keyboard shortcut are common.
+        By default ``exact=False`` in order to match the tooltip ignoring the shortcut.
+        For tooltips without a keyboard shortcut an exact match (``exact=True``) is preferable.
         
         """
 
-        args = [locator]
+        args = [locator, exact]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -761,11 +762,12 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('PressKeyCombination', args, result) # type: ignore
     
     @keyword('Push Button') # type: ignore
-    def push_button(self, locator: str): # type: ignore
+    def push_button(self, locator: str, exact: bool=False): # type: ignore
         """
         Push the button with the given locator.
         
-        | ``locator`` | The locator used to find the button. |
+        | ``locator`` | The name or tooltip of the button |
+        | ``exact`` | `True` if the locator matches exactly the tooltip, `False` otherwise. |
         
         Examples:
         
@@ -777,13 +779,13 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Push Button    unique label >> name or tooltip``
         
-        *Hint*: Some tooltips consist of a name followed by several spaces and a keyboard shortcut.
-        The name may be used as locator as long as it is unique.
-        When using the full tooltip text enter only one space (e.g. ``Back (F3)``).
+        *Hint*: Tooltips ending with a keyboard shortcut are common.
+        By default ``exact=False`` in order to match the tooltip ignoring the shortcut.
+        For tooltips without a keyboard shortcut an exact match (``exact=True``) is preferable.
         
         """
 
-        args = [locator]
+        args = [locator, exact]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1444,4 +1446,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.15.10'
+    ROBOT_LIBRARY_VERSION = '2.16.0'

@@ -139,7 +139,13 @@ class RoboSAPiensKeywordsPushbuttoncellArgsColumnSpec(TypedDict):
 class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsHighlightbuttonArgsExactSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsPushbuttonArgsExactSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsPushbuttonArgsButtonSpec(TypedDict):
@@ -456,10 +462,24 @@ class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
     desc: str
     spec: RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec
 
+class RoboSAPiensKeywordsHighlightbuttonArgsExact(TypedDict):
+    name: str
+    desc: str
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsHighlightbuttonArgsExactSpec
+
 class RoboSAPiensKeywordsHighlightbuttonArgsButton(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec
+
+class RoboSAPiensKeywordsPushbuttonArgsExact(TypedDict):
+    name: str
+    desc: str
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsPushbuttonArgsExactSpec
 
 class RoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
     name: str
@@ -995,7 +1015,8 @@ class RoboSAPiensKeywordsHighlightbuttonResult(TypedDict):
     Exception: str
 
 class RoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
-    button: RoboSAPiensKeywordsHighlightbuttonArgsButton
+    a1button: RoboSAPiensKeywordsHighlightbuttonArgsButton
+    a2exact: RoboSAPiensKeywordsHighlightbuttonArgsExact
 
 class RoboSAPiensKeywordsPushbuttonDoc(TypedDict):
     desc: str
@@ -1009,7 +1030,8 @@ class RoboSAPiensKeywordsPushbuttonResult(TypedDict):
     Exception: str
 
 class RoboSAPiensKeywordsPushbuttonArgs(TypedDict):
-    button: RoboSAPiensKeywordsPushbuttonArgsButton
+    a1button: RoboSAPiensKeywordsPushbuttonArgsButton
+    a2exact: RoboSAPiensKeywordsPushbuttonArgsExact
 
 class RoboSAPiensKeywordsReadcheckboxDoc(TypedDict):
     desc: str
