@@ -30,22 +30,25 @@ namespace RoboSAPiens {
 
         public void getTextFields(GuiTableControl table, TextFieldStore textFields)
         {
-            for (int rowIndex = 0; rowIndex < table.VisibleRowCount; rowIndex++)
+            if (table.VisibleRowCount < 11 && table.Columns.Length < 11)
             {
-                for (int colIndex = 0; colIndex < table.Columns.Length; colIndex++) 
+                for (int rowIndex = 0; rowIndex < table.VisibleRowCount; rowIndex++)
                 {
-                    GuiVComponent tableCell;
-                    // Tables are not necessarily rectangular grids
-                    // A column may have a hole. Holes are skipped
-                    try {
-                        tableCell = table.GetCell(rowIndex, colIndex);
-                    }
-                    catch (Exception) {
-                        continue;
-                    }
+                    for (int colIndex = 0; colIndex < table.Columns.Length; colIndex++) 
+                    {
+                        GuiVComponent tableCell;
+                        // Tables are not necessarily rectangular grids
+                        // A column may have a hole. Holes are skipped
+                        try {
+                            tableCell = table.GetCell(rowIndex, colIndex);
+                        }
+                        catch (Exception) {
+                            continue;
+                        }
 
-                    if (tableCell.Type == "GuiTextField" && tableCell.Text != "") {
-                        textFields.Add(new SAPTextField((GuiTextField)tableCell));
+                        if (tableCell.Type == "GuiTextField" && tableCell.Text != "") {
+                            textFields.Add(new SAPTextField((GuiTextField)tableCell));
+                        }
                     }
                 }
             }
