@@ -579,7 +579,20 @@ namespace RoboSAPiens {
                         window.pressKey((int)vkey!);
                         break;
                 }
-               return new Result.PressKeyCombination.Pass(keyCombination);
+
+                if (keyCombination == "Enter")
+                {
+                    // Pressing the Enter key may result in the window being rerendered,
+                    // and the properties of some components may change.
+                    if (!windowChanged()) {
+                        switch (updateWindow()) {
+                            case RobotResult.UIScanFail exceptionError:
+                                return exceptionError;
+                        }
+                    }
+                }
+
+                return new Result.PressKeyCombination.Pass(keyCombination);
             }
             catch (Exception ex) {
                 return new Result.PressKeyCombination.Exception(ex);
