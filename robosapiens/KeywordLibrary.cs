@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using sapfewse;
 using saprotwr.net;
 
@@ -13,7 +12,6 @@ namespace RoboSAPiens
     {
         private ILogger logger;
         private Options options;
-        private Process? proc = null;
         private ISession session;
 
         public KeywordLibrary(Options options, ILogger logger) 
@@ -146,27 +144,21 @@ namespace RoboSAPiens
         {
             try
             {
-                proc = new Process
+                var proc = new Process
                 {
                     StartInfo =
                     {
                         FileName = path,
-                        Arguments = sapArgs ?? ""
+                        Arguments = sapArgs ?? "",
+                        UseShellExecute = true
                     }
                 };
                 proc.Start();
-
-                Thread.Sleep(500);
-                if (proc.HasExited)
-                {
-                    return new Result.OpenSap.SAPAlreadyRunning();
-                }
 
                 return new Result.OpenSap.Pass();
             }
             catch (Exception e)
             {
-                proc = null;
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
 
                 if (e is System.ComponentModel.Win32Exception)
@@ -208,13 +200,18 @@ namespace RoboSAPiens
 
         [Keyword("SAP beenden"),
          Doc("Die SAP GUI wird beendet.")]
-        public RobotResult CloseSap() {
-            if (proc == null) {
+        public RobotResult CloseSap()
+        {
+            var saplogon = Process.GetProcessesByName("saplogon").FirstOrDefault();
+
+            if (saplogon != null)
+            {
+                saplogon.Kill();
+                return new Result.CloseSap.Pass();
+            }
+            else {
                 return new Result.CloseSap.NoSapGui();
             }
-
-            proc.Kill();
-            return new Result.CloseSap.Pass();
         }
 
         [Keyword("Fenster schließen"),
