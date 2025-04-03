@@ -569,27 +569,34 @@ namespace RoboSAPiens {
                     case "PageDown":
                         window.pressPageDown();
                         break;
+                    case "Enter":
                     case "F1":
                     case "F4":
                         var gridView = window.components.getGridViews().FirstOrDefault();
-                        if (gridView != null) gridView.pressKey(keyCombination, session);
-                        else window.pressKey((int)vkey!);
+                        if (gridView != null)
+                        {
+                            gridView.pressKey(keyCombination, session);
+                        }
+                        else
+                        {
+                            window.pressKey((int)vkey!);
+                            
+                            if (keyCombination == "Enter")
+                            {
+                                // Pressing the Enter key may result in the window being rerendered,
+                                // and the properties of some components may change.
+                                if (!windowChanged()) {
+                                    switch (updateWindow()) {
+                                        case RobotResult.UIScanFail exceptionError:
+                                            return exceptionError;
+                                    }
+                                }
+                            }
+                        }
                         break;
                     default:
                         window.pressKey((int)vkey!);
                         break;
-                }
-
-                if (keyCombination == "Enter")
-                {
-                    // Pressing the Enter key may result in the window being rerendered,
-                    // and the properties of some components may change.
-                    if (!windowChanged()) {
-                        switch (updateWindow()) {
-                            case RobotResult.UIScanFail exceptionError:
-                                return exceptionError;
-                        }
-                    }
                 }
 
                 return new Result.PressKeyCombination.Pass(keyCombination);

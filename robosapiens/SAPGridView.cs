@@ -178,10 +178,15 @@ namespace RoboSAPiens
 
         public void pressKey(string key, GuiSession session) 
         {
-            GuiGridView guiGridView = (GuiGridView)session.FindById(id);
+            var guiGridView = (GuiGridView)session.FindById(id);
 
-            if (key == "F1") guiGridView.PressF1();
-            if (key == "F4") guiGridView.PressF4();
+            // Press a key only if a cell is selected
+            if (guiGridView.CurrentCellRow > -1)
+            {
+                if (key == "Enter") guiGridView.PressEnter();
+                if (key == "F1") guiGridView.PressF1();
+                if (key == "F4") guiGridView.PressF4();
+            }
         }
 
         public void print()
