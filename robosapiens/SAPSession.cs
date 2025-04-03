@@ -573,7 +573,7 @@ namespace RoboSAPiens {
                     case "F1":
                     case "F4":
                         var gridView = window.components.getGridViews().FirstOrDefault();
-                        if (gridView != null)
+                        if (gridView != null && gridView.cellIsSelected(session))
                         {
                             gridView.pressKey(keyCombination, session);
                         }

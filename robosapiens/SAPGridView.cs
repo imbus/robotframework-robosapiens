@@ -176,17 +176,19 @@ namespace RoboSAPiens
             return columnTitles.Values.SelectMany(x => x).ToHashSet().Contains(column);
         }
 
+        public bool cellIsSelected(GuiSession session)
+        {
+            var guiGridView = (GuiGridView)session.FindById(id);
+            return guiGridView.CurrentCellRow > -1;
+        }
+
         public void pressKey(string key, GuiSession session) 
         {
             var guiGridView = (GuiGridView)session.FindById(id);
 
-            // Press a key only if a cell is selected
-            if (guiGridView.CurrentCellRow > -1)
-            {
-                if (key == "Enter") guiGridView.PressEnter();
-                if (key == "F1") guiGridView.PressF1();
-                if (key == "F4") guiGridView.PressF4();
-            }
+            if (key == "Enter") guiGridView.PressEnter();
+            if (key == "F1") guiGridView.PressF1();
+            if (key == "F4") guiGridView.PressF4();
         }
 
         public void print()
