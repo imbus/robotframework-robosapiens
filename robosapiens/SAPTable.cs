@@ -121,9 +121,18 @@ namespace RoboSAPiens {
 
                 case RowColumnLocator(int rowIndex, string column):
                     int rowIndex0 = rowIndex - 1;
+                    (string colTitle, int colIndexOffset) = column.Split("__") switch 
+                    {
+                        [string title, string index] when int.TryParse(index, out int intIndex) => (title, intIndex - 1),
+                        _ => (column, 0)
+                    };
+
                     if (rowIndex > rowCount) return null;
                     if (rowIsAbove(session, rowIndex0)) return null;
-                    if (!hasColumn(column)) return null;
+                    if (!hasColumn(colTitle)) return null;
+
+                    var colIndex0 = columnTitles.IndexOf(colTitle) + colIndexOffset;
+                    if (colIndex0 > columnTitles.Count - 1) return null;
                     if (rowIsBelow(session, rowIndex0))
                     {
                         if (scrollOnePage(session))
@@ -134,14 +143,14 @@ namespace RoboSAPiens {
                     }
                     
                     var table = (GuiTableControl)session.FindById(id);
-                    var tableCell = table.GetCell(rowIndex0, columnTitles.IndexOf(column));
+                    var tableCell = table.GetCell(rowIndex0, colIndex0);
 
                     if (cellType.ContainsKey(tableCell.Type))
                     {
                         return new TableCell(
                             rowIndex0,
                             tableCell.Id,
-                            new List<string>{column},
+                            new List<string>{colTitle},
                             cellType[tableCell.Type],
                             new List<string>(),
                             id
