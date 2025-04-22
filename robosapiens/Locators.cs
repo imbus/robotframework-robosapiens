@@ -6,21 +6,26 @@ namespace RoboSAPiens {
     {
         public static CellLocator of(string rowIndexOrLabel, string column) 
         {
-            int index;
-            if (Int32.TryParse(rowIndexOrLabel, out index)) {
-                return new RowColumnLocator(rowIndex: index, column: column);
+            (string colTitle, int colIndexOffset) = column.Split("__") switch 
+            {
+                [string title, string indexOffset] when int.TryParse(indexOffset, out int intIndex) => (title, intIndex - 1),
+                _ => (column, 0)
+            };
+
+            if (int.TryParse(rowIndexOrLabel, out int index)) {
+                return new RowColumnLocator(rowIndex: index, column: colTitle, colIndexOffset: colIndexOffset);
             } 
             else {
                 // If the label is a number it must be quoted, so that it is not interpreted as a row number
                 string label = rowIndexOrLabel.Trim('"');
-                return new LabelColumnLocator(label: label, column: column);
+                return new LabelColumnLocator(label: label, column: colTitle, colIndexOffset: colIndexOffset);
             }
         }
     }
 
-    public record RowColumnLocator(int rowIndex, string column): CellLocator(column, $"{rowIndex}, {column}");
+    public record RowColumnLocator(int rowIndex, string column, int colIndexOffset): CellLocator(column, $"{rowIndex}, {column}");
 
-    public record LabelColumnLocator(string label, string column): CellLocator(column, $"{label}, {column}");
+    public record LabelColumnLocator(string label, string column, int colIndexOffset): CellLocator(column, $"{label}, {column}");
 
     public abstract class ComponentLocator {
         public string atLocation;

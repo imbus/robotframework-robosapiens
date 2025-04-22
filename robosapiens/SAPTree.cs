@@ -140,11 +140,11 @@ namespace RoboSAPiens
                         cell => cell.isLabeled(labelOrPath)
                     );
 
-                case RowColumnLocator(int rowIndex, string column):
+                case RowColumnLocator(int rowIndex, string column, int colIndexOffset):
                     if (!hasColumn(column)) return null;
                     return cells.findCellByRowAndColumn(rowIndex-1, column);
 
-                case LabelColumnLocator(string labelOrPath, string column):
+                case LabelColumnLocator(string labelOrPath, string column, int colIndexOffset):
                     if (!hasColumn(column)) return null;
                     return cells.filterBy<TreeCell>().Find(cell => 
                         cell.inColumn(column) && (cell.isLabeled(labelOrPath) || cell.textPath == labelOrPath)

@@ -93,7 +93,7 @@ namespace RoboSAPiens
                     if (cells.Count == 0) classifyCells(session);
                     return cells.findCellByContent(content);
 
-                case RowColumnLocator(int rowIndex, string column):
+                case RowColumnLocator(int rowIndex, string column, int colIndexOffset):
                     int rowIndex0 = rowIndex - 1;
                     if (rowIndex > rowCount) return null;
                     if (rowIsAbove(session, rowIndex0)) return null;
@@ -129,7 +129,7 @@ namespace RoboSAPiens
                         return null;
                     }
                     
-                case LabelColumnLocator(string label, string column):
+                case LabelColumnLocator(string label, string column, int colIndexOffset):
                     if (!hasColumn(column)) return null;
                     if (cells.Count == 0) classifyCells(session);
                     var cell = cells.findCellByLabelAndColumn(label, column);
