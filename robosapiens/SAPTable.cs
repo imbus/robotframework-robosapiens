@@ -131,13 +131,11 @@ namespace RoboSAPiens {
                         var colIndex0 = columnTitles.IndexOf(column) + colIndexOffset;
                         if (colIndex0 > columnTitles.Count - 1) return null;
                         if (columnTitles[colIndex0] != column) return null;
-                        if (rowIsBelow(session, rowIndex0))
+                        if (rowIsBelow(session, rowIndex0) && scrollOnePage(session))
                         {
-                            if (scrollOnePage(session))
-                            {
-                                cells = new CellRepository();
-                                return findCell(locator, session);
-                            }
+                            // TODO: The row index is relative to the visible rows
+                            //  and must be adjusted
+                            return findCell(locator, session);
                         }
                         
                         var table = (GuiTableControl)session.FindById(id);
