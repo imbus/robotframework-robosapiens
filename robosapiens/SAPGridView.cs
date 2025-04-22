@@ -7,8 +7,10 @@ namespace RoboSAPiens
 {
     public class SAPGridView: ITable
     {
+        record Column(string columnId, List<string> columnTitles);
+
         CellRepository cells;
-        Dictionary<string, List<string>> columnTitles;
+        List<Column> columns;
         string id;
         int rowCount;
 
@@ -25,7 +27,7 @@ namespace RoboSAPiens
         {
             id = guiGridView.Id;
             rowCount = guiGridView.RowCount;
-            columnTitles = getColumnTitles(guiGridView);
+            columns = getColumns(guiGridView);
             cells = new CellRepository();
         }
 
@@ -39,9 +41,9 @@ namespace RoboSAPiens
 
             for (int row = firstVisibleRow; row < firstVisibleRow + visibleRowCount; row++) 
             {
-                for (int column = 0; column < columnCount; column++) 
+                for (int colIndex0 = 0; colIndex0 < columnCount; colIndex0++) 
                 {
-                    var columnId = (string)columnIds.ElementAt(column);
+                    var columnId = (string)columnIds.ElementAt(colIndex0);
                     string type;
                     try {
                         type = gridView.GetCellType(row, columnId);
@@ -65,8 +67,9 @@ namespace RoboSAPiens
 
                         var cell = new GridViewCell(
                             row, 
+                            colIndex0,
                             columnId, 
-                            columnTitles[columnId], 
+                            columns[colIndex0].columnTitles, 
                             cellType[type], 
                             labels,
                             id
@@ -105,15 +108,18 @@ namespace RoboSAPiens
                     }
                     
                     var gridView = (GuiGridView)session.FindById(id);
-                    var columnId = columnTitles.AsEnumerable().Where(_ => _.Value.Contains(column)).First().Key;
+                    var col = columns.Find(col => col.columnTitles.Contains(column));
+                    var colIndex = columns.FindIndex(col => col.columnTitles.Contains(column));
+                    var columnId = col!.columnId;
                     var type = gridView.GetCellType(rowIndex0, columnId);
 
                     if (cellType.ContainsKey(type))
                     {
                         return new GridViewCell(
                             rowIndex0, 
+                            colIndex,
                             columnId, 
-                            columnTitles[columnId], 
+                            col.columnTitles, 
                             cellType[type], 
                             new List<string>(),
                             id
@@ -140,9 +146,9 @@ namespace RoboSAPiens
             }
         }
 
-        Dictionary<string, List<string>> getColumnTitles(GuiGridView gridView) 
+        List<Column> getColumns(GuiGridView gridView) 
         {
-            var allColumnTitles = new Dictionary<string, List<string>>();
+            var allColumns = new List<Column>();
             var columnCount = gridView.ColumnCount;
             var columnIds = (GuiCollection)gridView.ColumnOrder;
 
@@ -159,10 +165,10 @@ namespace RoboSAPiens
                 }
                 thisColumnTitles.Add(gridView.GetColumnTooltip(columnId).Trim());
 
-                allColumnTitles.Add(columnId, thisColumnTitles.ToList());
+                allColumns.Add(new Column(columnId, thisColumnTitles.ToList()));
             }
 
-            return allColumnTitles;
+            return allColumns;
         }
 
         public int getNumRows(GuiSession session)
@@ -173,7 +179,7 @@ namespace RoboSAPiens
 
         public bool hasColumn(string column)
         {
-            return columnTitles.Values.SelectMany(x => x).ToHashSet().Contains(column);
+            return columns.SelectMany(col => col.columnTitles).ToHashSet().Contains(column);
         }
 
         public bool cellIsSelected(GuiSession session)
@@ -195,7 +201,7 @@ namespace RoboSAPiens
         {
             Console.WriteLine();
             Console.WriteLine($"Rows: {rowCount}");
-            Console.Write("Columns: " + string.Join(", ", columnTitles.Values.Select(columns => "[" + string.Join(", ", columns) + "]")));
+            Console.Write("Columns: " + string.Join(", ", columns.Select(column => "[" + string.Join(", ", column.columnTitles) + "]")));
         }
 
         public bool rowIsAbove(GuiSession session, int rowIndex)
@@ -228,7 +234,7 @@ namespace RoboSAPiens
         public void selectColumn(string column, GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(id);
-            var columnId = columnTitles.Where(_ => _.Value.Contains(column)).First().Key;
+            var columnId = columns.Find(col => col.columnTitles.Contains(column))!.columnId;
             gridView.SelectColumn(columnId);
         }
 

@@ -80,13 +80,13 @@ namespace RoboSAPiens
                 }
                 else
                 {
-                    for (int c = 0; c < columnNames.Length; c++) 
+                    for (int colIndex0 = 0; colIndex0 < columnNames.Length; colIndex0++) 
                     {
-                        if (c == 0) {
+                        if (colIndex0 == 0) {
                             treeElements.Add(new SAPTreeElement(this, nodeKey, nodePath, textPath));
                         }
 
-                        var columnName = (string)columnNames.ElementAt(c);
+                        var columnName = (string)columnNames.ElementAt(colIndex0);
                         if (columnName == null) continue;
 
                         string columnTitle;
@@ -113,6 +113,7 @@ namespace RoboSAPiens
 
                             var cell = new TreeCell(
                                 nodeIndex,
+                                colIndex0,
                                 textPath,
                                 nodeKey,
                                 columnName,

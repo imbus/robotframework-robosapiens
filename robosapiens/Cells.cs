@@ -18,6 +18,7 @@ namespace RoboSAPiens
     
     public abstract record Cell(
         int rowIndex, 
+        int colIndex,
         List<string> columnTitles,
         CellType type, 
         List<string> labels
@@ -64,12 +65,13 @@ namespace RoboSAPiens
 
     public record GridViewCell(
         int rowIndex,
+        int colIndex,
         string columnId,
         List<string> columnTitles,
         CellType type,
         List<string> labels,
         string gridViewId
-    ): Cell(rowIndex, columnTitles, type, labels)
+    ): Cell(rowIndex, colIndex, columnTitles, type, labels)
     {
         public override void click(GuiSession session)
         {
@@ -141,12 +143,13 @@ namespace RoboSAPiens
 
     public record TableCell(
         int rowIndex,
+        int colIndex,
         string id,
         List<string> columnTitles,
         CellType type,
         List<string> labels,
         string tableId
-    ): Cell(rowIndex, columnTitles, type, labels)
+    ): Cell(rowIndex, colIndex, columnTitles, type, labels)
     {
         public override void click(GuiSession session)
         {
@@ -223,6 +226,7 @@ namespace RoboSAPiens
 
     public record TreeCell(
         int rowIndex,
+        int colIndex,
         string textPath,
         string nodeKey,
         string columnName,
@@ -230,7 +234,7 @@ namespace RoboSAPiens
         CellType type,
         List<string> labels,
         string treeId
-    ) : Cell(rowIndex, columnTitles, type, labels)
+    ) : Cell(rowIndex, colIndex, columnTitles, type, labels)
     {
         public override void click(GuiSession session)
         {

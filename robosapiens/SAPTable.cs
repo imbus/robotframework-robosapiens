@@ -94,6 +94,7 @@ namespace RoboSAPiens {
 
                         var cell = new TableCell(
                             absRowIndex,
+                            colIdx,
                             tableCell.Id,
                             new List<string>{columnTitle},
                             type,
@@ -149,6 +150,7 @@ namespace RoboSAPiens {
                     {
                         return new TableCell(
                             rowIndex0,
+                            colIndex0,
                             tableCell.Id,
                             new List<string>{colTitle},
                             cellType[tableCell.Type],
