@@ -87,8 +87,7 @@ namespace RoboSAPiens
                     gridView.ModifyCheckBox(rowIndex, columnId, !checkBoxState);
                     break;
                 case CellType.Link:
-                    gridView.SetCurrentCell(rowIndex, columnId);
-                    gridView.ClickCurrentCell();
+                    gridView.Click(rowIndex, columnId);
                     break;
                 case CellType.Text:
                     gridView.SetCurrentCell(rowIndex, columnId);
