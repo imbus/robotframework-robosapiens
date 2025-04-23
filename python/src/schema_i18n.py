@@ -853,7 +853,7 @@ class LocalizedRoboSAPiensKeywordsSelectcellvalueArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelectcellDoc(TypedDict):
     desc: Tuple[Literal['71460282'], str]
-    examples: Tuple[Literal['3351621149'], str]
+    examples: Tuple[Literal['3988385147'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcellResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -1234,7 +1234,7 @@ class LocalizedRoboSAPiensKeywordsCloseconnectionArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsOpensapDoc(TypedDict):
     desc: Tuple[Literal['211145309'], str]
-    examples: Tuple[Literal['1778776775'], str]
+    examples: Tuple[Literal['1700015374'], str]
 
 class LocalizedRoboSAPiensKeywordsOpensapResult(TypedDict):
     Pass: Tuple[Literal['871506365'], str]
@@ -1669,7 +1669,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2x64: LocalizedRoboSAPiensArgsX64
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['1092041708'], str]
+    intro: Tuple[Literal['2019600799'], str]
     init: Tuple[Literal['3784687869'], str]
 
 class LocalizedRoboSAPiens(TypedDict):

@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.16.6"
+__version__ = "2.16.7"
 
 class DE(RoboSAPiensClient):
     """
@@ -149,6 +149,11 @@ class DE(RoboSAPiensClient):
     |     [Arguments]     ${Zeile}    ${Spalte}
     | 
     |     Element should be Found    Tabellenzelle markieren    ${Zeile}    ${Spalte}    message=Die Zelle '${Zeile}, ${Spalte}' ist nicht vorhanden.
+    
+    == Aufeinanderfolgende Spalten mit demselben Namen ==
+    Wenn eine Tabelle aufeinanderfolgende Spalten mit demselben Namen enthält, kann eine Spalte eindeutig identifiziert werden, indem dem Namen ein numerisches Suffix hinzugefügt wird.
+    
+    Enthält eine Tabelle beispielsweise die Spalten Variante, Variante, Variante, so können diese wie folgt eindeutig identifiziert werden: Variante__1, Variante__2, Variante__3.
     """
 
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
@@ -317,12 +322,13 @@ class DE(RoboSAPiensClient):
         
         *SAP Logon bereits bei einem Mandanten angemeldet starten*
         
-        | ``SAP starten   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{username} -pw=%{password}``
+        | ``SAP starten   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -sysname=XXX -client=NNN -user=%{username} -pw=%{password}``
         
         *Hinweise*: 
         
         - Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         - 64-bit SAP-Clients erfordern, dass die Bibliothek mit ``x64=True`` importiert wird
+        - sysname ist der Name der Verbindung in SAP Logon. Wenn es Leerzeichen enthält, muss es in Anführungszeichen gesetzt werden.
         """
 
         args = [Pfad, SAP_Parameter]
@@ -989,7 +995,7 @@ class DE(RoboSAPiensClient):
         
         | ``Tabellenzelle markieren     Zeile     Spaltentitel``
         
-        *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text) in einer Zelle zu klicken.
+        *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text oder Symbol) in einer Zelle zu klicken.
         """
 
         args = [Zeile, Spaltentitel, tabelle_nummer]
@@ -1444,4 +1450,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.16.6'
+    ROBOT_LIBRARY_VERSION = '2.16.7'

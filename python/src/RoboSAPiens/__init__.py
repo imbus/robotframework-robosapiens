@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.16.6"
+__version__ = "2.16.7"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -150,6 +150,11 @@ class RoboSAPiens(RoboSAPiensClient):
     |     [Arguments]     ${row}    ${col}
     | 
     |     Element should be Found    Select Cell    ${row}    ${col}    message=The cell '${row}, ${col}' is not present.
+    
+    == Consecutive columns with the same name ==
+    If a table contains consecutive columns with the same name a given column can be specified by appending a numeric suffix.
+    
+    For example, if a table contains the columns Variant, Variant, Variant. They can be identified as Variant__1, Variant__2, Variant__3.
     """
 
     def __init__(self, presenter_mode: bool=False, x64: bool=False):
@@ -318,12 +323,13 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Start SAP Logon logged in to a client*
         
-        | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{username} -pw=%{password}``
+        | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -sysname=XXX -client=NNN -user=%{username} -pw=%{password}``
         
         *Hints*
         
         - Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
         - 64-bit SAP clients can only be used when the library is imported with ``x64=True``
+        - sysname is the name of the connection in SAP Logon. If it contains spaces it must be enclosed in double quotes.
         """
 
         args = [path, sap_args]
@@ -1013,7 +1019,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Select Cell     row_locator     column``
         
-        *Hint*: This keyword can be used to click a link (underlined text) in a cell.
+        *Hint*: This keyword can be used to click a link (underlined text or icon) in a cell.
         """
 
         args = [row_locator, column, table_number]
@@ -1446,4 +1452,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.16.6'
+    ROBOT_LIBRARY_VERSION = '2.16.7'
