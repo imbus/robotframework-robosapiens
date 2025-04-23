@@ -92,6 +92,9 @@ namespace RoboSAPiens
                 case CellType.Text:
                     gridView.SetCurrentCell(rowIndex, columnId);
                     gridView.SelectedRows = rowIndex.ToString();
+
+                    var cellIcon = gridView.GetCellIcon(rowIndex, columnId);
+                    if (cellIcon != "") gridView.ClickCurrentCell();
                     break;
             }
         }
