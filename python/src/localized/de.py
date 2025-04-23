@@ -1253,13 +1253,13 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("71460282", "Die Zelle am Schnittpunkt der Zeile und der Spalte wird markiert."),
-                "examples": ("3351621149", 
+                "examples": ("3988385147", 
                 f"""
                 Beispiele:
                 
                 | ``Tabellenzelle markieren     Zeile     Spaltentitel``
 
-                *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text) in einer Zelle zu klicken.
+                *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text oder Symbol) in einer Zelle zu klicken.
                 """
               )
             }
