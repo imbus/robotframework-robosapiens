@@ -32,7 +32,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("1092041708",
+        "intro": ("2019600799",
         """
         RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
@@ -178,6 +178,11 @@ lib: LocalizedRoboSAPiens = {
         |     [Arguments]     ${Zeile}    ${Spalte}
         | 
         |     Element should be Found    Tabellenzelle markieren    ${Zeile}    ${Spalte}    message=Die Zelle '${Zeile}, ${Spalte}' ist nicht vorhanden.
+
+        == Aufeinanderfolgende Spalten mit demselben Namen ==
+        Wenn eine Tabelle aufeinanderfolgende Spalten mit demselben Namen enthält, kann eine Spalte eindeutig identifiziert werden, indem dem Namen ein numerisches Suffix hinzugefügt wird.
+
+        Enthält eine Tabelle beispielsweise die Spalten Variante, Variante, Variante, so können diese wie folgt eindeutig identifiziert werden: Variante__1, Variante__2, Variante__3.
         """
         ),
         "init": ("3784687869", 

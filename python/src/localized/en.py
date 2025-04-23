@@ -178,6 +178,11 @@ lib: RoboSAPiens = {
         |     [Arguments]     ${row}    ${col}
         | 
         |     Element should be Found    Select Cell    ${row}    ${col}    message=The cell '${row}, ${col}' is not present.
+
+        == Consecutive columns with the same name ==
+        If a table contains consecutive columns with the same name a given column can be specified by appending a numeric suffix.
+        
+        For example, if a table contains the columns Variant, Variant, Variant. They can be identified as Variant__1, Variant__2, Variant__3.
         """,
         "init": """
         RoboSAPiens has the following initialization arguments:
