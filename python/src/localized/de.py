@@ -375,7 +375,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("211145309", "SAP GUI bzw. SAP Business Client wird gestartet."),
-                "examples": ("1778776775", 
+                "examples": ("1700015374", 
                 rf"""
                 Beispiele:
 
@@ -397,12 +397,13 @@ lib: LocalizedRoboSAPiens = {
 
                 *SAP Logon bereits bei einem Mandanten angemeldet starten*
 
-                | ``SAP starten   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{{username}} -pw=%{{password}}``
+                | ``SAP starten   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -sysname=XXX -client=NNN -user=%{{username}} -pw=%{{password}}``
 
                 *Hinweise*: 
                 
                 - {path}
                 - 64-bit SAP-Clients erfordern, dass die Bibliothek mit ``x64=True`` importiert wird
+                - sysname ist der Name der Verbindung in SAP Logon. Wenn es Leerzeichen enthält, muss es in Anführungszeichen gesetzt werden.
                 """
                 )
             }

@@ -390,12 +390,13 @@ lib: RoboSAPiens = {
 
                  *Start SAP Logon logged in to a client*
 
-                 | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -system=XXX -client=NNN -user=%{{username}} -pw=%{{password}}``
+                 | ``Open SAP   C:\\Program Files\\SAP\\FrontEnd\\SAPgui\\sapshcut.exe -sysname=XXX -client=NNN -user=%{{username}} -pw=%{{password}}``
 
                  *Hints*
                  
                  - {path}
                  - 64-bit SAP clients can only be used when the library is imported with ``x64=True``
+                 - sysname is the name of the connection in SAP Logon. If it contains spaces it must be enclosed in double quotes.
                  """
             }
         },
