@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.16.9"
+__version__ = "2.17.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -664,19 +664,20 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('FillTextEdit', args, result) # type: ignore
     
     @keyword('Textfeld ausfüllen') # type: ignore
-    def fill_text_field(self, Lokator: str, Inhalt: str): # type: ignore
+    def fill_text_field(self, Lokator: str, Inhalt: str, exakt: bool=True): # type: ignore
         """
         Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt.
         
         | ``Lokator`` | Ein Lokator, um das Textfeld zu finden |
         | ``Inhalt`` | Der neue Inhalt des Textfelds |
+        | ``exakt`` | Entweder eine genaue oder eine partielle Übereinstimmung mit dem Lokator. |
         
         Beispiele:
         
         *Textfeld mit einer Beschriftung links*
         | ``Textfeld ausfüllen    Beschriftung    Inhalt``
         
-        *Hinweis*: Die Beschreibung, die durch die Auswahl eines Textfeldes und Drücken von F1 erscheint, kann ebenfalls als Beschriftung genutzt werden.
+        *Hinweis*: Die Beschreibung, die durch die Auswahl eines Textfeldes und Drücken von F1 erscheint, kann ebenfalls als Beschriftung genutzt werden. Wenn sie zu lang ist, kann der Anfang verwendet werden, indem exakt=False gesetzt wird.
         
         *Textfeld mit einer Beschriftung oben*
         | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``
@@ -700,7 +701,7 @@ class DE(RoboSAPiensClient):
         | ``Textfeld ausfüllen    Name    Inhalt``
         """
 
-        args = [Lokator, Inhalt]
+        args = [Lokator, Inhalt, exakt]
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1450,4 +1451,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.16.9'
+    ROBOT_LIBRARY_VERSION = '2.17.0'

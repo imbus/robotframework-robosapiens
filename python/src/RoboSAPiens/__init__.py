@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.16.9"
+__version__ = "2.17.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -665,19 +665,20 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('FillTextEdit', args, result) # type: ignore
     
     @keyword('Fill Text Field') # type: ignore
-    def fill_text_field(self, locator: str, content: str): # type: ignore
+    def fill_text_field(self, locator: str, content: str, exact: bool=True): # type: ignore
         """
         Fill the text field specified by the locator with the content provided.
         
         | ``locator`` | The locator used to find the text field. |
         | ``content`` | The new contents of the text field |
+        | ``exact`` | Whether to perform an exact search |
         
         Examples:
         
         *Text field with a label to its left*
         | ``Fill Text Field    label    content``
         
-        *Hint*: The description obtained by selecting a text field and pressing F1 can usually be used as label.
+        *Hint*: The description obtained by selecting a text field and pressing F1 can usually be used as label. If it is too long, the beginning can be used by setting exact=False. 
         
         *Text field with a label above*
         | ``Fill Text Field    @ label    content``
@@ -701,7 +702,7 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Fill Text Field    name    content``
         """
 
-        args = [locator, content]
+        args = [locator, content, exact]
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1452,4 +1453,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.16.9'
+    ROBOT_LIBRARY_VERSION = '2.17.0'

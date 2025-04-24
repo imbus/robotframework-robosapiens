@@ -417,6 +417,13 @@
           "name": "content",
           "desc": "",
           "spec": {}
+        },
+        "exact": {
+          "name": "exact",
+          "desc": "",
+          "default": true,
+          "type": "Boolean",
+          "spec": {}
         }
       },
       "result": {
