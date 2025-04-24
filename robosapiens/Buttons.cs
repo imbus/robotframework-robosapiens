@@ -55,8 +55,8 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            if (tooltip.StartsWith("~")) {
-                return this.tooltip.StartsWith(tooltip.TrimStart('~'));
+            if (tooltip.EndsWith("~")) {
+                return this.tooltip.StartsWith(tooltip.TrimEnd('~'));
             }
 
             return this.tooltip == tooltip;
@@ -137,7 +137,11 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return this.tooltip == tooltip.TrimStart('~');
+            if (tooltip.EndsWith("~")) {
+                return this.tooltip.StartsWith(tooltip.TrimEnd('~'));
+            }
+
+            return this.tooltip == tooltip;
         }
     
         public override void push(GuiSession session) {
@@ -190,7 +194,11 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return this.tooltip == tooltip.TrimStart('~');
+            if (tooltip.EndsWith("~")) {
+                return this.tooltip.StartsWith(tooltip.TrimEnd('~'));
+            }
+
+            return this.tooltip == tooltip;
         }
     
         public override void push(GuiSession session) 
@@ -226,7 +234,11 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            return this.tooltip == tooltip.TrimStart('~');
+            if (tooltip.EndsWith("~")) {
+                return this.tooltip.StartsWith(tooltip.TrimEnd('~'));
+            }
+
+            return this.tooltip == tooltip;
         }
 
         public override bool isEnabled(GuiSession session) 

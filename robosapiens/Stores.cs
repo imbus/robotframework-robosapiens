@@ -4,7 +4,7 @@ namespace RoboSAPiens {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ??
-                    getByTooltip(exact? label : "~" + label),
+                    getByTooltip(exact? label : label + "~"),
                 HLabelHLabel =>
                     getAlignedWithLabels((HLabelHLabel)locator, labels, textFieldLabels),
                 _ => null
