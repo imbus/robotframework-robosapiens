@@ -320,8 +320,8 @@ namespace RoboSAPiens {
             return tabs.get(tabName);
         }
 
-        public SAPTextField? findTextField(TextFieldLocator textField) {
-            return textFields.get(textField.locator, labels, boxes);
+        public SAPTextField? findTextField(TextFieldLocator textField, bool exact) {
+            return textFields.get(textField.locator, labels, boxes, exact);
         }
         
         public Cell? findCell(ILocator locator, GuiSession session, int? tableNumber)

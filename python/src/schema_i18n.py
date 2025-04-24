@@ -149,6 +149,9 @@ class LocalizedRoboSAPiensKeywordsHighlightbuttonArgsExactSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButtonSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsFilltextfieldArgsExactSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsFilltextfieldArgsContentSpec(TypedDict):
     ...
 
@@ -479,6 +482,13 @@ class LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButton(TypedDict):
     name: Tuple[Literal['2051440239'], str]
     desc: Tuple[Literal['2400215713'], str]
     spec: LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButtonSpec
+
+class LocalizedRoboSAPiensKeywordsFilltextfieldArgsExact(TypedDict):
+    name: Tuple[Literal['1775676165'], str]
+    desc: Tuple[Literal['82873837'], str]
+    default: Literal[True]
+    type: Literal[r'bool']
+    spec: LocalizedRoboSAPiensKeywordsFilltextfieldArgsExactSpec
 
 class LocalizedRoboSAPiensKeywordsFilltextfieldArgsContent(TypedDict):
     name: Tuple[Literal['4274335913'], str]
@@ -1034,7 +1044,7 @@ class LocalizedRoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsFilltextfieldDoc(TypedDict):
     desc: Tuple[Literal['3165034876'], str]
-    examples: Tuple[Literal['539076557'], str]
+    examples: Tuple[Literal['1211580635'], str]
 
 class LocalizedRoboSAPiensKeywordsFilltextfieldResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -1046,6 +1056,7 @@ class LocalizedRoboSAPiensKeywordsFilltextfieldResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsFilltextfieldArgs(TypedDict):
     a1locator: LocalizedRoboSAPiensKeywordsFilltextfieldArgsLocator
     a2content: LocalizedRoboSAPiensKeywordsFilltextfieldArgsContent
+    a3exact: LocalizedRoboSAPiensKeywordsFilltextfieldArgsExact
 
 class LocalizedRoboSAPiensKeywordsFilltexteditDoc(TypedDict):
     desc: Tuple[Literal['2252184307'], str]

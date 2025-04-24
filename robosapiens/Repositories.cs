@@ -161,13 +161,13 @@ namespace RoboSAPiens {
             return null;
         }
 
-        public SAPTextField? getTextField(ILocator locator, LabelStore labels, TextFieldRepository nonChangeableTextFields, BoxStore boxes) 
+        public SAPTextField? getTextField(ILocator locator, LabelStore labels, TextFieldRepository nonChangeableTextFields, BoxStore boxes, bool exact) 
         {
             return locator switch 
             {
                 HLabel (var label) => 
                     getByHLabel(label) ??
-                    getByTooltip(label) ??
+                    getByTooltip(exact? label : "~" + label) ??
                     getHorizontalClosestToLabel(label, labels, nonChangeableTextFields) ??
                     getByName(label),
                 HLabelHLabel =>

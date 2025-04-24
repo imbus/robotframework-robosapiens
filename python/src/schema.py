@@ -157,6 +157,9 @@ class RoboSAPiensKeywordsReadcheckboxArgsLocatorSpec(TypedDict):
 class RoboSAPiensKeywordsFilltexteditArgsContentSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsFilltextfieldArgsExactSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsFilltextfieldArgsContentSpec(TypedDict):
     ...
 
@@ -495,6 +498,13 @@ class RoboSAPiensKeywordsFilltexteditArgsContent(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsFilltexteditArgsContentSpec
+
+class RoboSAPiensKeywordsFilltextfieldArgsExact(TypedDict):
+    name: str
+    desc: str
+    default: Literal[True]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsFilltextfieldArgsExactSpec
 
 class RoboSAPiensKeywordsFilltextfieldArgsContent(TypedDict):
     name: str
@@ -1074,6 +1084,7 @@ class RoboSAPiensKeywordsFilltextfieldResult(TypedDict):
 class RoboSAPiensKeywordsFilltextfieldArgs(TypedDict):
     a1locator: RoboSAPiensKeywordsFilltextfieldArgsLocator
     a2content: RoboSAPiensKeywordsFilltextfieldArgsContent
+    a3exact: RoboSAPiensKeywordsFilltextfieldArgsExact
 
 class RoboSAPiensKeywordsFillcellDoc(TypedDict):
     desc: str

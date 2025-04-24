@@ -827,6 +827,13 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("4274335913", "Inhalt"),
                 "desc": ("3646718294", "Der neue Inhalt des Textfelds"),
                 "spec": {},
+              },
+              "a3exact": {
+                  "name": ("1775676165", "exakt"),
+                  "desc": ("82873837", "Entweder eine genaue oder eine partielle Übereinstimmung mit dem Lokator."),
+                  "default": True,
+                  "type": "bool",
+                  "spec": {}
               }
             },
             "result": {
@@ -838,14 +845,14 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("3165034876", "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt."),
-                "examples": ("539076557", 
+                "examples": ("1211580635", 
                 """
                 Beispiele:
                 
                 *Textfeld mit einer Beschriftung links*
                 | ``Textfeld ausfüllen    Beschriftung    Inhalt``
                 
-                *Hinweis*: Die Beschreibung, die durch die Auswahl eines Textfeldes und Drücken von F1 erscheint, kann ebenfalls als Beschriftung genutzt werden.
+                *Hinweis*: Die Beschreibung, die durch die Auswahl eines Textfeldes und Drücken von F1 erscheint, kann ebenfalls als Beschriftung genutzt werden. Wenn sie zu lang ist, kann der Anfang verwendet werden, indem exakt=False gesetzt wird.
 
                 *Textfeld mit einer Beschriftung oben*
                 | ``Textfeld ausfüllen    @ Beschriftung    Inhalt``

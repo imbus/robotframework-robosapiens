@@ -805,6 +805,13 @@ lib: RoboSAPiens = {
                     "name": "content",
                     "desc": "The new contents of the text field",
                     "spec": {},
+                },
+                "a3exact": {
+                    "name": "exact",
+                    "desc": "Whether to perform an exact search",
+                    "default": True,
+                    "type": "bool",
+                    "spec": {}
                 }
             },
             "result": {
@@ -823,7 +830,7 @@ lib: RoboSAPiens = {
                 *Text field with a label to its left*
                 | ``Fill Text Field    label    content``
                 
-                *Hint*: The description obtained by selecting a text field and pressing F1 can usually be used as label.
+                *Hint*: The description obtained by selecting a text field and pressing F1 can usually be used as label. If it is too long, the beginning can be used by setting exact=False. 
 
                 *Text field with a label above*
                 | ``Fill Text Field    @ label    content``

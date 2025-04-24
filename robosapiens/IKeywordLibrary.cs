@@ -18,7 +18,7 @@ namespace RoboSAPiens
         public RobotResult ExportWindow(string name, string directory);
         public RobotResult FillCell(string row_locator, string column, string content, int? tableNumber=null);
         public RobotResult FillTextEdit(string content);
-        public RobotResult FillTextField(string locator, string content);
+        public RobotResult FillTextField(string locator, string content, bool exact=true);
         public RobotResult GetWindowText();
         public RobotResult GetWindowTitle();
         public RobotResult HighlightButton(string button, bool exact=false);

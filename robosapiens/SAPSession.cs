@@ -313,7 +313,7 @@ namespace RoboSAPiens {
             }
 
             var theTextField = new TextFieldLocator(label);
-            var textField = window.components.findTextField(theTextField);
+            var textField = window.components.findTextField(theTextField, exact: true);
 
             if (textField == null) {
                 return new Result.DoubleClickTextField.NotFound(theTextField.atLocation);
@@ -507,13 +507,13 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult fillTextField(string labels, string content) {
+        public RobotResult fillTextField(string labels, string content, bool exact) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
 
             var theTextField = new TextFieldLocator(labels);
-            var textField = window.components.findTextField(theTextField);
+            var textField = window.components.findTextField(theTextField, exact);
 
             if (textField == null) {
                 return new Result.FillTextField.NotFound(theTextField.atLocation);
@@ -777,7 +777,7 @@ namespace RoboSAPiens {
             }
 
             var theTextField = new TextFieldLocator(labels);
-            var textField = window.components.findTextField(theTextField);
+            var textField = window.components.findTextField(theTextField, exact: true);
             if (textField == null) {
                 return new Result.ReadTextField.NotFound(theTextField.atLocation);
             }
@@ -802,7 +802,7 @@ namespace RoboSAPiens {
             }
 
             var text = window.components.findLabel(new LabelLocator(content)) ?? 
-                       window.components.findTextField(new TextFieldLocator(content));
+                       window.components.findTextField(new TextFieldLocator(content), exact: true);
 
             if (text == null) {
                 return new Result.ReadText.NotFound(content);
@@ -889,7 +889,7 @@ namespace RoboSAPiens {
             }
 
             if (untilTextField != null) {
-                var textField = window.components.findTextField(new TextFieldLocator(untilTextField));
+                var textField = window.components.findTextField(new TextFieldLocator(untilTextField), exact: true);
 
                 if (textField != null) {
                    if (options.presenterMode) switch(highlightElement(session, textField)) {
@@ -1167,7 +1167,7 @@ namespace RoboSAPiens {
             }
 
             var theTextField = new TextFieldLocator(labels);
-            var textField = window.components.findTextField(theTextField);
+            var textField = window.components.findTextField(theTextField, exact: true);
 
             if (textField == null) {
                 return new Result.SelectTextField.NotFound(theTextField.atLocation);
@@ -1193,7 +1193,7 @@ namespace RoboSAPiens {
             }
 
             var text = window.components.findLabel(new LabelLocator(content)) ?? 
-                       window.components.findTextField(new TextFieldLocator(content));
+                       window.components.findTextField(new TextFieldLocator(content), exact: true);
 
             if (text == null) {
                 return new Result.SelectText.NotFound(content);

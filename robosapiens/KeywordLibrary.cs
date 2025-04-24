@@ -468,9 +468,9 @@ namespace RoboSAPiens
              "| ``Textfeld ausfüllen    Beschriftung des linken Textfelds >> Beschriftung    Inhalt``\n\n" +
              "*Hinweis*: In der Regel hat ein Textfeld eine unsichtbare Beschriftung, " +
              "die man über die Hilfe (Taste F1) herausfinden kann.")]
-        public RobotResult FillTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.HIndexVLabel, Loc.HLabelVIndex, Loc.HLabelHLabel)] string locator, string content) {
+        public RobotResult FillTextField([Locator(Loc.HLabel, Loc.VLabel, Loc.HLabelVLabel, Loc.HIndexVLabel, Loc.HLabelVIndex, Loc.HLabelHLabel)] string locator, string content, bool exact=true) {
             return session switch {
-                SAPSession session when session.isActive => session.fillTextField(locator, content),
+                SAPSession session when session.isActive => session.fillTextField(locator, content, exact),
                 _ => new Result.FillTextField.NoSession()
             };
         }
