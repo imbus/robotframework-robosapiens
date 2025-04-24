@@ -176,8 +176,8 @@ namespace RoboSAPiens {
         }
 
         public bool hasTooltip(string tooltip) {
-            if (tooltip.StartsWith("~")) {
-                return tooltips.Any(t => t.StartsWith(tooltip.TrimStart('~')));
+            if (tooltip.EndsWith("~")) {
+                return tooltips.Any(t => t.StartsWith(tooltip.TrimEnd('~')));
             }
 
             return tooltips.Any(t => t.Equals(tooltip));

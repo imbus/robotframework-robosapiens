@@ -167,11 +167,13 @@ namespace RoboSAPiens {
             {
                 HLabel (var label) => 
                     getByHLabel(label) ??
-                    getByTooltip(exact? label : "~" + label) ??
+                    getByTooltip(exact? label : label + "~") ??
                     getHorizontalClosestToLabel(label, labels, nonChangeableTextFields) ??
                     getByName(label),
-                HLabelHLabel =>
-                    getAlignedWithLabels((HLabelHLabel)locator, labels, nonChangeableTextFields),
+                HLabelHLabel(var leftLabel, var rightLabel) => exact switch {
+                    true => getAlignedWithLabels((HLabelHLabel)locator, labels, nonChangeableTextFields),
+                    _ => getAlignedWithLabels(new HLabelHLabel(leftLabel, rightLabel + "~"), labels, nonChangeableTextFields)
+                },
                 VLabel (var label) => 
                     getByVLabel(label) ??
                     getVerticalClosestToLabel(label, labels, nonChangeableTextFields),
