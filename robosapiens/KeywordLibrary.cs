@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using sapfewse;
 using saprotwr.net;
 
@@ -154,6 +155,8 @@ namespace RoboSAPiens
                     }
                 };
                 proc.Start();
+                // Wait 500ms. Enough time for the object SAPGUI to appear in the Running Object Table (ROT)
+                Thread.Sleep(500);
 
                 return new Result.OpenSap.Pass();
             }
