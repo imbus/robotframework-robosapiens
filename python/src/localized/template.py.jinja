@@ -39,7 +39,11 @@ class {{ module_name }}(RoboSAPiensClient):
         {%- endfor -%}
         """
 
-        args = [{{ keyword.args.values()|map(attribute='name')|map('get_value')|join(", ") }}]
+        args = {
+        {%- for name in keyword.args.values()|map(attribute='name')|map('get_value') %}
+            "{{ name }}": {{ name }}{{ "," if not loop.last else "" }}
+        {%- endfor %}
+        }
         
         result = {
             {%- for name, message in keyword.result.items() %}
