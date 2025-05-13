@@ -3,10 +3,10 @@ namespace RoboSAPiens
     public interface IKeywordLibrary
     {
         public RobotResult ActivateTab(string tab);
-        public RobotResult AttachToRunningSap(int sessionNumber=1);
         public RobotResult CloseConnection();
         public RobotResult CloseSap();
         public RobotResult CloseWindow();
+        public RobotResult ConnectToRunningSap(int sessionNumber=1, string? connection=null);
         public RobotResult ConnectToServer(string server);
         public RobotResult CountTableRows(int tableNumber=1);
         public RobotResult DoubleClickCell(string row_locator, string column, int? tableNumber=null);

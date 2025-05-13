@@ -43,6 +43,7 @@ namespace RoboSAPiens {
         public record RobotException(string name, System.Exception e, string errorMessage): RobotFail(name, output: $"*ERROR* {errorMessage}\n{e.Message}\n{errorDEBUG}", error: e.Message, stacktrace: e.ToString() ?? "");
 
         public record ExceptionError(System.Exception e, string errorMessage): RobotException("Exception", e, errorMessage);
+        public record InvalidSession(int sessionId): RobotFail("InvalidSession", $"Die aktuelle Verbindung hat keine Session {sessionId}.");
         public record NoConnection(): RobotFail("NoConnection", "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword 'Verbindung zum Server Herstellen' aufzurufen.");
         public record NoGuiScripting(): RobotFail("NoGuiScripting", "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen von SAP Logon aktiviert werden.");
         public record NoServerScripting(): RobotFail("NoServerScripting", "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.");
@@ -105,13 +106,15 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Baumstruktur konnte nicht exportiert werden.");
         }
 
-        public record AttachToRunningSap {
+        public record ConnectToRunningSap {
             public record NoSapGui(): RobotResult.NoSapGui();
             public record NoGuiScripting(): RobotResult.NoGuiScripting();
             public record NoConnection(): RobotResult.NoConnection();
             public record NoServerScripting(): RobotResult.NoServerScripting();
             public record NoSession(): RobotResult.NoSession();
-            public record InvalidSessionId(int sessionId): RobotResult.RobotFail("InvalidSessionId", $"Der Session Id {sessionId} ist nicht gültig");
+            public record InvalidSession(int sessionId): RobotResult.InvalidSession(sessionId);
+            public record SapError(string message): RobotResult.SapError(message);
+            public record InvalidConnection(string name): RobotResult.RobotFail("InvalidConnection", $"Es gibt keine Verbindung mit dem Namen '{name}'.");
             public record Json(string json): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.", returnValue: json);
             public record Pass(): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
@@ -120,6 +123,7 @@ namespace RoboSAPiens {
         public record ConnectToServer {
             public record NoSapGui(): RobotResult.NoSapGui();
             public record NoGuiScripting(): RobotResult.NoGuiScripting();
+            public record InvalidSession(int sessionId): RobotResult.InvalidSession(sessionId);
             public record Pass(string server): RobotResult.RobotPass($"Die Verbindung mit dem Server '{server}' wurde erfolgreich hergestellt.");
             public record SapError(string message): RobotResult.SapError(message);
             public record NoServerScripting(): RobotResult.NoServerScripting();

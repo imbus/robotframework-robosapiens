@@ -523,31 +523,40 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
-        "AttachToRunningSap": {
+        "ConnectToRunningSap": {
             "name": ("4126309856", "Laufende SAP GUI übernehmen"),
             "args": {
-                "sessionNumber": {
+                "a1sessionNumber": {
                     "name": ("4193981709", "session_nummer"),
-                    "desc": ("1547983273", "Die Nummer der SAP-Session in der rechten unteren Ecke des Fensters"),
+                    "desc": ("1605605041", "Die Nummer der SAP-Session in der rechten oberen oder unteren Ecke des Fensters"),
                     "default": 1,
                     "type": "int",
+                    "spec": {}
+                },
+                "a2connectionName": {
+                    "name": ("704082790", "Verbindung"),
+                    "desc": ("2063424522", "Der Name der Verbindung in SAP Logon (nicht der SID)"),
+                    "default": None,
+                    "type": "str",
                     "spec": {}
                 }
             },
             "result": {
-              "NoSapGui": ("3729995647", 'Keine laufende SAP GUI gefunden.'),
+              "NoSapGui": ("3729995647", "Keine laufende SAP GUI gefunden."),
               "NoGuiScripting": ("3820273098", no_gui_scripting),
               "NoConnection": ("509780556", no_connection),
               "NoSession": ("4138997384", no_session),
               "NoServerScripting": ("3495213352", no_server_scripting),
-              "InvalidSessionId": ("800596714", "Keine Session mit Nummer {0} vorhanden"),
+              "InvalidConnection": ("3664622222", "Es gibt keine Verbindung mit dem Namen '{Verbindung}'"),
+              "SapError": ("3246364722", sap_error),
+              "InvalidSession": ("3727388681", "Die aktuelle Verbindung hat keine Session '{session_nummer}'"),
               "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
               "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
               "Exception": ("3410975181", exception("Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden."))
             },
             "doc": {
                 "desc": ("3032107536", "Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden."),
-                "examples": ("2576679484", 
+                "examples": ("4070858693", 
                 """
                 Beispiele:
                 
@@ -557,9 +566,11 @@ lib: LocalizedRoboSAPiens = {
 
                 | ``Laufende SAP GUI übernehmen    session_nummer``
 
-                Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID:
+                Eine Session bei einer bestimmten Verbindung kann auch spezifiert werden.
 
-                | ``${session_info}    Laufende SAP GUI übernehmen    session_nummer``
+                | ``Laufende SAP GUI übernehmen    session_nummer    Verbindung``
+
+                Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID.
                 """
               )
             }
@@ -569,20 +580,21 @@ lib: LocalizedRoboSAPiens = {
             "args": {
               "server": {
                 "name": ("3584233446", "Servername"),
-                "desc": ("2752287258", "Der Name des Servers in SAP Logon (nicht der SID)"),
+                "desc": ("4054806856", "Der Name der Verbindung in SAP Logon (nicht der SID)"),
                 "spec": {},
               }
             },
             "result": {
               "NoSapGui": ("2987622841", no_sap_gui),
               "NoGuiScripting": ("3820273098", no_gui_scripting),
-              "Pass": ("1014238539", "Die Verbindung mit dem Server '{0}' wurde erfolgreich hergestellt."),
+              "Pass": ("1441526843", "Die Verbindung '{0}' wurde erfolgreich hergestellt."),
               "SapError": ("3246364722", sap_error),
               "NoServerScripting": ("3495213352", no_server_scripting),
+              "InvalidSession": ("3314696332", "Die aktuelle Verbindung hat keine Session '{0}'."),
               "Exception": ("667377482", exception("Die Verbindung konnte nicht hergestellt werden."))
             },
             "doc": {
-                "desc": ("1963586093", "Die Verbindung mit dem angegebenen SAP Server wird hergestellt."),
+                "desc": ("1003283283", "Die angegebene Verbindung mit einem SAP Server wird hergestellt."),
                 "examples": ("1631655", 
                 """
                 Beispiele:

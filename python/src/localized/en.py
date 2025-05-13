@@ -510,14 +510,21 @@ lib: RoboSAPiens = {
                 """
             }
         },
-        "AttachToRunningSap": {
+        "ConnectToRunningSap": {
             "name": "Connect to Running SAP",
             "args": {
-                "sessionNumber": {
+                "a1sessionNumber": {
                     "name": "session_number",
-                    "desc": "The session number in the lower right corner of the window",
+                    "desc": "The session number shown in the upper right or lower right corner of the window",
                     "default": 1,
                     "type": "int",
+                    "spec": {}
+                },
+                "a2connectionName": {
+                    "name": "connection",
+                    "desc": "The name of the connection in SAP Logon",
+                    "default": None,
+                    "type": "str",
                     "spec": {}
                 }
             },
@@ -527,7 +534,9 @@ lib: RoboSAPiens = {
                 "NoConnection": no_connection,
                 "NoSession": no_session,
                 "NoServerScripting": no_server_scripting,
-                "InvalidSessionId": "There is no session number {0}",
+                "InvalidSession": "There is no session number {session_number} for the current connection.",
+                "SapError": sap_error,
+                "InvalidConnection": "There is no connection with the name '{connection}'",
                 "Json": "The return value is in JSON format",
                 "Pass": "Connected to a running SAP instance.",
                 "Exception": exception("Could not connect to a running SAP instance. Hint: In order to connect to a 64-bit SAP client import RoboSAPiens with x64=True. {0}")
@@ -544,9 +553,11 @@ lib: RoboSAPiens = {
 
                 | ``Connect to Running SAP    session_number``
 
-                The return value contains session information such as client number and system ID:
+                In order to connect to a session on a specific connection:
 
-                | ``${session_info}    Connect to Running SAP    session_number``
+                | ``Connect to Running SAP    session_number    connection``
+
+                The return value contains session information such as client number and system ID.
                 """
             }
         },
@@ -555,20 +566,21 @@ lib: RoboSAPiens = {
             "args": {
                 "server": {
                     "name": "server_name",
-                    "desc": "The name of the server in SAP Logon (not the SID).",
+                    "desc": "The name of the connection in SAP Logon (not the SID).",
                     "spec": {},
                 }
             },
             "result": {
                 "NoSapGui": no_sap_gui,
                 "NoGuiScripting": no_gui_scripting,
-                "Pass": "Connected to the server {0}",
+                "Pass": "Connected to '{0}'",
                 "SapError": sap_error,
                 "NoServerScripting": no_server_scripting,
+                "InvalidSession": "There is no session number '{0}' for the current connection.",
                 "Exception": exception("Could not establish the connection. {0}")
             },
             "doc": {
-                "desc": "Connect to the SAP Server provided.",
+                "desc": "Connect to the SAP server using the provided connection.",
                 "examples":
                 """
                 Examples:
