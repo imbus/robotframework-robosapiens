@@ -250,12 +250,16 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult closeConnection() {
-            try {
-                connection.CloseConnection();                
+        public RobotResult closeConnection()
+        {
+            try
+            {
+                connection.CloseConnection();
+                isActive = false;
                 return new Result.CloseConnection.Pass(systemName);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
                 return new Result.CloseConnection.Exception(e);
             }
