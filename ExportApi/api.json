@@ -148,9 +148,6 @@
       "name": "Verbindung zum Server trennen",
       "args": {},
       "result": {
-        "NoSapGui": "NoSapGui",
-        "NoGuiScripting": "NoGuiScripting",
-        "NoConnection": "NoConnection",
         "NoSession": "NoSession",
         "Pass": "Pass",
         "Exception": "Exception"
@@ -205,7 +202,7 @@
         "examples": ""
       }
     },
-    "AttachToRunningSap": {
+    "ConnectToRunningSap": {
       "name": "Laufende SAP GUI übernehmen",
       "args": {
         "sessionNumber": {
@@ -213,6 +210,13 @@
           "desc": "",
           "default": 1,
           "type": "Int32",
+          "spec": {}
+        },
+        "connectionName": {
+          "name": "connectionName",
+          "desc": "",
+          "default": null,
+          "type": "String",
           "spec": {}
         }
       },
@@ -222,7 +226,9 @@
         "NoConnection": "NoConnection",
         "NoServerScripting": "NoServerScripting",
         "NoSession": "NoSession",
-        "InvalidSessionId": "InvalidSessionId",
+        "InvalidSession": "InvalidSession",
+        "SapError": "SapError",
+        "InvalidConnection": "InvalidConnection",
         "Json": "Json",
         "Pass": "Pass",
         "Exception": "Exception"
@@ -244,6 +250,7 @@
       "result": {
         "NoSapGui": "NoSapGui",
         "NoGuiScripting": "NoGuiScripting",
+        "InvalidSession": "InvalidSession",
         "Pass": "Pass",
         "SapError": "SapError",
         "NoServerScripting": "NoServerScripting",

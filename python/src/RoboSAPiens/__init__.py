@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.17.0"
+__version__ = "2.18.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -186,7 +186,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Select Tab    tab_name``
         """
 
-        args = [tab_name]
+        args = {
+            "tab_name": tab_name
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -210,7 +212,9 @@ class RoboSAPiens(RoboSAPiensClient):
         Further details about the element path are provided in the keyword [#Select Tree Element|Select Tree Element].
         """
 
-        args = [element_path]
+        args = {
+            "element_path": element_path
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -234,7 +238,9 @@ class RoboSAPiens(RoboSAPiensClient):
         Further details about the folder path are provided in the keyword [#Select Tree Element|Select Tree Element].
         """
 
-        args = [folder_path]
+        args = {
+            "folder_path": folder_path
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -260,7 +266,9 @@ class RoboSAPiens(RoboSAPiensClient):
         - Each segment of the path may be partially specified. For example, IDoc instead of IDoc 1234.
         """
 
-        args = [element_path]
+        args = {
+            "element_path": element_path
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -285,7 +293,10 @@ class RoboSAPiens(RoboSAPiensClient):
         Further details about the element path are provided in the keyword [#Select Tree Element|Select Tree Element].
         """
 
-        args = [element_path, menu_entry]
+        args = {
+            "element_path": element_path,
+            "menu_entry": menu_entry
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -332,7 +343,10 @@ class RoboSAPiens(RoboSAPiensClient):
         - sysname is the name of the connection in SAP Logon. If it contains spaces it must be enclosed in double quotes.
         """
 
-        args = [path, sap_args]
+        args = {
+            "path": path,
+            "sap_args": sap_args
+        }
         
         result = {
             "Pass": "SAP was opened.",
@@ -354,12 +368,10 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Disconnect from server``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
-            "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
-            "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
-            "NoConnection": "No existing connection to an SAP server. Call the keyword \"Connect to Server\" first.",
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "Pass": "Disconnected from the server.",
             "Exception": "Could not disconnect from the server. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
@@ -379,7 +391,8 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: This keyword only works if SAP GUI was started with the keyword [#Open SAP|Open SAP].
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
@@ -398,7 +411,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Close Window``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -419,7 +433,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``${row_count}   Get Row Count``
         """
 
-        args = [table_number]
+        args = {
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -444,7 +460,9 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
         """
 
-        args = [filepath]
+        args = {
+            "filepath": filepath
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -455,11 +473,12 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ExportTree', args, result) # type: ignore
     
     @keyword('Connect to Running SAP') # type: ignore
-    def attach_to_running_sap(self, session_number: int=1): # type: ignore
+    def connect_to_running_sap(self, session_number: int=1, connection: str=None): # type: ignore
         """
         Connect to an already running SAP instance and take control of it.
         
-        | ``session_number`` | The session number in the lower right corner of the window |
+        | ``session_number`` | The session number shown in the upper right or lower right corner of the window |
+        | ``connection`` | The name of the connection in SAP Logon |
         
         Examples:
         
@@ -469,12 +488,17 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Connect to Running SAP    session_number``
         
-        The return value contains session information such as client number and system ID:
+        In order to connect to a session on a specific connection:
         
-        | ``${session_info}    Connect to Running SAP    session_number``
+        | ``Connect to Running SAP    session_number    connection``
+        
+        The return value contains session information such as client number and system ID.
         """
 
-        args = [session_number]
+        args = {
+            "session_number": session_number,
+            "connection": connection
+        }
         
         result = {
             "NoSapGui": "No running SAP GUI found.",
@@ -482,33 +506,38 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoConnection": "No existing connection to an SAP server. Call the keyword \"Connect to Server\" first.",
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
-            "InvalidSessionId": "There is no session number {0}",
+            "InvalidSession": "There is no session number {session_number} for the current connection.",
+            "SapError": "SAP Error: {0}",
+            "InvalidConnection": "There is no connection with the name '{connection}'",
             "Json": "The return value is in JSON format",
             "Pass": "Connected to a running SAP instance.",
             "Exception": "Could not connect to a running SAP instance. Hint: In order to connect to a 64-bit SAP client import RoboSAPiens with x64=True. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
-        return super()._run_keyword('AttachToRunningSap', args, result) # type: ignore
+        return super()._run_keyword('ConnectToRunningSap', args, result) # type: ignore
     
     @keyword('Connect to Server') # type: ignore
     def connect_to_server(self, server_name: str): # type: ignore
         """
-        Connect to the SAP Server provided.
+        Connect to the SAP server using the provided connection.
         
-        | ``server_name`` | The name of the server in SAP Logon (not the SID). |
+        | ``server_name`` | The name of the connection in SAP Logon (not the SID). |
         
         Examples:
         
         | ``Connect to Server    server_name``
         """
 
-        args = [server_name]
+        args = {
+            "server_name": server_name
+        }
         
         result = {
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
             "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
-            "Pass": "Connected to the server {0}",
+            "Pass": "Connected to '{0}'",
             "SapError": "SAP Error: {0}",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
+            "InvalidSession": "There is no session number '{0}' for the current connection.",
             "Exception": "Could not establish the connection. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ConnectToServer', args, result) # type: ignore
@@ -527,7 +556,11 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Double-click Cell     row_locator     column``
         """
 
-        args = [row_locator, column, table_number]
+        args = {
+            "row_locator": row_locator,
+            "column": column,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -554,7 +587,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Double-click Text Field    = content``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -576,7 +611,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Execute Transaction    T_Code``
         """
 
-        args = [T_Code]
+        args = {
+            "T_Code": T_Code
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -602,7 +639,10 @@ class RoboSAPiens(RoboSAPiensClient):
         *Note*: Currently not all GUI elements are exported.
         """
 
-        args = [name, directory]
+        args = {
+            "name": name,
+            "directory": directory
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -628,7 +668,12 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: To migrate from the old keyword with two arguments perform a search and replace with a regular expression.
         """
 
-        args = [row_locator, column, content, table_number]
+        args = {
+            "row_locator": row_locator,
+            "column": column,
+            "content": content,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -653,7 +698,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Fill Multiline Text Field    A long text. With two sentences.``
         """
 
-        args = [content]
+        args = {
+            "content": content
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -702,7 +749,11 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Fill Text Field    name    content``
         """
 
-        args = [locator, content, exact]
+        args = {
+            "locator": locator,
+            "content": content,
+            "exact": exact
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -731,7 +782,10 @@ class RoboSAPiens(RoboSAPiensClient):
         
         """
 
-        args = [locator, exact]
+        args = {
+            "locator": locator,
+            "exact": exact
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -758,7 +812,9 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: Pressing F2 is equivalent to a double-click.
         """
 
-        args = [key_combination]
+        args = {
+            "key_combination": key_combination
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -792,7 +848,10 @@ class RoboSAPiens(RoboSAPiensClient):
         
         """
 
-        args = [locator, exact]
+        args = {
+            "locator": locator,
+            "exact": exact
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -817,7 +876,11 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Push Button Cell     row_locator     column``
         """
 
-        args = [row_locator, column, table_number]
+        args = {
+            "row_locator": row_locator,
+            "column": column,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -842,7 +905,8 @@ class RoboSAPiens(RoboSAPiensClient):
         
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "Json": "The return value is in JSON format",
@@ -865,7 +929,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ${contents}   ``Read Text Field    locator``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -891,7 +957,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ${text}   ``Read Text    label``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -915,7 +983,11 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Read Cell     row_locator     column``
         """
 
-        args = [row_locator, column, table_number]
+        args = {
+            "row_locator": row_locator,
+            "column": column,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -941,7 +1013,9 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator.
         """
 
-        args = [destination]
+        args = {
+            "destination": destination
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -971,7 +1045,10 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Scroll Contents    direction    until_textfield``
         """
 
-        args = [direction, until_textfield]
+        args = {
+            "direction": direction,
+            "until_textfield": until_textfield
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -995,7 +1072,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Scroll Window Horizontally    direction``
         """
 
-        args = [direction]
+        args = {
+            "direction": direction
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1023,7 +1102,11 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: This keyword can be used to click a link (underlined text or icon) in a cell.
         """
 
-        args = [row_locator, column, table_number]
+        args = {
+            "row_locator": row_locator,
+            "column": column,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1050,7 +1133,12 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Select Cell Value    row_locator    column    value``
         """
 
-        args = [row_locator, column, value, table_number]
+        args = {
+            "row_locator": row_locator,
+            "column": column,
+            "value": value,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1081,7 +1169,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Read Checkbox Status    left label @ label above``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1103,7 +1193,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``${entry}   Read Dropdown Menu Entry   locator``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1130,7 +1222,10 @@ class RoboSAPiens(RoboSAPiensClient):
         - To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
         """
 
-        args = [locator, entry]
+        args = {
+            "locator": locator,
+            "entry": entry
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1153,7 +1248,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Select Menu Entry    menu_entry_path``
         """
 
-        args = [menu_entry_path]
+        args = {
+            "menu_entry_path": menu_entry_path
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1182,7 +1279,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Select Radio Button    left or right label @ label above``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1206,7 +1305,10 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Select Table Column    column``
         """
 
-        args = [column, table_number]
+        args = {
+            "column": column,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1233,7 +1335,10 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: Use the row number 0 to select the whole table.
         """
 
-        args = [row_locator, table_number]
+        args = {
+            "row_locator": row_locator,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1262,7 +1367,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Select Text Field    = content``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1288,7 +1395,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Select Text    Label``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1317,7 +1426,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Tick Checkbox    left label @ label above``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1347,7 +1458,9 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Untick Checkbox    left label @ label above``
         """
 
-        args = [locator]
+        args = {
+            "locator": locator
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1374,7 +1487,11 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hint*: To tick the checkbox in the leftmost column with no title, select the row and press the "Enter" key.
         """
 
-        args = [row_locator, column, table_number]
+        args = {
+            "row_locator": row_locator,
+            "column": column,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1400,7 +1517,11 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Untick Checkbox Cell     row_locator    column``
         """
 
-        args = [row_locator, column, table_number]
+        args = {
+            "row_locator": row_locator,
+            "column": column,
+            "table_number": table_number
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1423,7 +1544,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``${title}    Get Window Title``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1443,7 +1565,8 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``${text}    Get Window Text``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
@@ -1453,4 +1576,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.17.0'
+    ROBOT_LIBRARY_VERSION = '2.18.0'

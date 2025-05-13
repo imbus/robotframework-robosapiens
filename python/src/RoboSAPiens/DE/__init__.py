@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.17.0"
+__version__ = "2.18.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -185,7 +185,9 @@ class DE(RoboSAPiensClient):
         | ``Reiter auswählen    Reitername``
         """
 
-        args = [Reitername]
+        args = {
+            "Reitername": Reitername
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -209,7 +211,9 @@ class DE(RoboSAPiensClient):
         Für weitere Infos zum Elementpfad siehe [#Baumelement markieren|Baumelement markieren].
         """
 
-        args = [Elementpfad]
+        args = {
+            "Elementpfad": Elementpfad
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -233,7 +237,9 @@ class DE(RoboSAPiensClient):
         Für weitere Infos zum Ordnerpfad siehe [#Baumelement markieren|Baumelement markieren].
         """
 
-        args = [Ordnerpfad]
+        args = {
+            "Ordnerpfad": Ordnerpfad
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -259,7 +265,9 @@ class DE(RoboSAPiensClient):
         - Jedes Segment des Pfades kann teilweise angegeben werden. Zum Beispiel IDoc anstelle von IDoc 1234.
         """
 
-        args = [Elementpfad]
+        args = {
+            "Elementpfad": Elementpfad
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -284,7 +292,10 @@ class DE(RoboSAPiensClient):
         Für weitere Infos zum Elementpfad siehe [#Baumelement markieren|Baumelement markieren].
         """
 
-        args = [Elementpfad, Menüeintrag]
+        args = {
+            "Elementpfad": Elementpfad,
+            "Menüeintrag": Menüeintrag
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -331,7 +342,10 @@ class DE(RoboSAPiensClient):
         - sysname ist der Name der Verbindung in SAP Logon. Wenn es Leerzeichen enthält, muss es in Anführungszeichen gesetzt werden.
         """
 
-        args = [Pfad, SAP_Parameter]
+        args = {
+            "Pfad": Pfad,
+            "SAP_Parameter": SAP_Parameter
+        }
         
         result = {
             "Pass": "SAP wurde gestartet",
@@ -353,12 +367,10 @@ class DE(RoboSAPiensClient):
         | ``Verbindung zum Server trennen``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
-            "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
-            "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen vom SAP Client aktiviert werden.",
-            "NoConnection": "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "Pass": "Die Verbindung zum Server wurde getrennt.",
             "Exception": "Die Verbindung zum Server konnte nicht getrennt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
@@ -378,7 +390,8 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Dieses Schlüsselwort funktioniert nur, wenn die SAP GUI mit dem Schlüsselwort [#SAP starten|SAP starten] gestartet wurde.
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
@@ -397,7 +410,8 @@ class DE(RoboSAPiensClient):
         | ``Fenster schließen``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -418,7 +432,9 @@ class DE(RoboSAPiensClient):
         | ``${anzahl_zeilen}    Tabellenzeilen zählen``
         """
 
-        args = [tabelle_nummer]
+        args = {
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -443,7 +459,9 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         """
 
-        args = [Dateipfad]
+        args = {
+            "Dateipfad": Dateipfad
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -454,11 +472,12 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ExportTree', args, result) # type: ignore
     
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
-    def attach_to_running_sap(self, session_nummer: int=1): # type: ignore
+    def connect_to_running_sap(self, session_nummer: int=1, Verbindung: str=None): # type: ignore
         """
         Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden.
         
-        | ``session_nummer`` | Die Nummer der SAP-Session in der rechten unteren Ecke des Fensters |
+        | ``session_nummer`` | Die Nummer der SAP-Session in der rechten oberen oder unteren Ecke des Fensters |
+        | ``Verbindung`` | Der Name der Verbindung in SAP Logon (nicht der SID) |
         
         Beispiele:
         
@@ -468,12 +487,17 @@ class DE(RoboSAPiensClient):
         
         | ``Laufende SAP GUI übernehmen    session_nummer``
         
-        Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID:
+        Eine Session bei einer bestimmten Verbindung kann auch spezifiert werden.
         
-        | ``${session_info}    Laufende SAP GUI übernehmen    session_nummer``
+        | ``Laufende SAP GUI übernehmen    session_nummer    Verbindung``
+        
+        Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID.
         """
 
-        args = [session_nummer]
+        args = {
+            "session_nummer": session_nummer,
+            "Verbindung": Verbindung
+        }
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden.",
@@ -481,33 +505,38 @@ class DE(RoboSAPiensClient):
             "NoConnection": "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
-            "InvalidSessionId": "Keine Session mit Nummer {0} vorhanden",
+            "InvalidConnection": "Es gibt keine Verbindung mit dem Namen '{Verbindung}'",
+            "SapError": "SAP Fehlermeldung: {0}",
+            "InvalidSession": "Die aktuelle Verbindung hat keine Session '{session_nummer}'",
             "Json": "Der Rückgabewert ist im JSON-Format",
             "Pass": "Die laufende SAP GUI wurde erfolgreich übernommen.",
             "Exception": "Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('AttachToRunningSap', args, result) # type: ignore
+        return super()._run_keyword('ConnectToRunningSap', args, result) # type: ignore
     
     @keyword('Verbindung zum Server herstellen') # type: ignore
     def connect_to_server(self, Servername: str): # type: ignore
         """
-        Die Verbindung mit dem angegebenen SAP Server wird hergestellt.
+        Die angegebene Verbindung mit einem SAP Server wird hergestellt.
         
-        | ``Servername`` | Der Name des Servers in SAP Logon (nicht der SID) |
+        | ``Servername`` | Der Name der Verbindung in SAP Logon (nicht der SID) |
         
         Beispiele:
         
         | ``Verbindung zum Server herstellen    Servername``
         """
 
-        args = [Servername]
+        args = {
+            "Servername": Servername
+        }
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
             "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen vom SAP Client aktiviert werden.",
-            "Pass": "Die Verbindung mit dem Server '{0}' wurde erfolgreich hergestellt.",
+            "Pass": "Die Verbindung '{0}' wurde erfolgreich hergestellt.",
             "SapError": "SAP Fehlermeldung: {0}",
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
+            "InvalidSession": "Die aktuelle Verbindung hat keine Session '{0}'.",
             "Exception": "Die Verbindung konnte nicht hergestellt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('ConnectToServer', args, result) # type: ignore
@@ -526,7 +555,11 @@ class DE(RoboSAPiensClient):
         | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel, tabelle_nummer]
+        args = {
+            "Zeile": Zeile,
+            "Spaltentitel": Spaltentitel,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -553,7 +586,9 @@ class DE(RoboSAPiensClient):
         | ``Textfeld doppelklicken     = Inhalt``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -575,7 +610,9 @@ class DE(RoboSAPiensClient):
         | ``Transaktion ausführen    T-Code``
         """
 
-        args = [T_Code]
+        args = {
+            "T_Code": T_Code
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -601,7 +638,10 @@ class DE(RoboSAPiensClient):
         *Anmerkung*: Aktuell werden nicht alle GUI-Elemente exportiert.
         """
 
-        args = [Name, Verzeichnis]
+        args = {
+            "Name": Name,
+            "Verzeichnis": Verzeichnis
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -627,7 +667,12 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Für die Migration aus dem alten Schlüsselwort mit zwei Argumenten soll eine Suche und Ersetzung mit einem regulären Ausdruck durchgeführt werden.
         """
 
-        args = [Zeile, Spaltentitel, Inhalt, tabelle_nummer]
+        args = {
+            "Zeile": Zeile,
+            "Spaltentitel": Spaltentitel,
+            "Inhalt": Inhalt,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -652,7 +697,9 @@ class DE(RoboSAPiensClient):
         | ``Mehrzeiliges Textfeld ausfüllen    Ein langer Text. Mit zwei Sätzen.``
         """
 
-        args = [Inhalt]
+        args = {
+            "Inhalt": Inhalt
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -701,7 +748,11 @@ class DE(RoboSAPiensClient):
         | ``Textfeld ausfüllen    Name    Inhalt``
         """
 
-        args = [Lokator, Inhalt, exakt]
+        args = {
+            "Lokator": Lokator,
+            "Inhalt": Inhalt,
+            "exakt": exakt
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -730,7 +781,10 @@ class DE(RoboSAPiensClient):
         
         """
 
-        args = [Lokator, exakt]
+        args = {
+            "Lokator": Lokator,
+            "exakt": exakt
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -757,7 +811,9 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
         """
 
-        args = [Tastenkombination]
+        args = {
+            "Tastenkombination": Tastenkombination
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -791,7 +847,10 @@ class DE(RoboSAPiensClient):
         
         """
 
-        args = [Lokator, exakt]
+        args = {
+            "Lokator": Lokator,
+            "exakt": exakt
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -816,7 +875,11 @@ class DE(RoboSAPiensClient):
         | ``Tabellenzelle drücken     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel, tabelle_nummer]
+        args = {
+            "Zeile": Zeile,
+            "Spaltentitel": Spaltentitel,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -841,7 +904,9 @@ class DE(RoboSAPiensClient):
         | ${Inhalt}   ``Textfeld auslesen    Lokator``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -867,7 +932,9 @@ class DE(RoboSAPiensClient):
         | ``${Text}   Text auslesen    Beschriftung``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -891,7 +958,11 @@ class DE(RoboSAPiensClient):
         | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel, tabelle_nummer]
+        args = {
+            "Zeile": Zeile,
+            "Spaltentitel": Spaltentitel,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -917,7 +988,9 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         """
 
-        args = [Speicherort]
+        args = {
+            "Speicherort": Speicherort
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -947,7 +1020,10 @@ class DE(RoboSAPiensClient):
         | ``Inhalte scrollen    Richtung   bis_Textfeld``
         """
 
-        args = [Richtung, bis_Textfeld]
+        args = {
+            "Richtung": Richtung,
+            "bis_Textfeld": bis_Textfeld
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -971,7 +1047,9 @@ class DE(RoboSAPiensClient):
         | ``Fenster horizontal scrollen    Richtung``
         """
 
-        args = [Richtung]
+        args = {
+            "Richtung": Richtung
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -999,7 +1077,11 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text oder Symbol) in einer Zelle zu klicken.
         """
 
-        args = [Zeile, Spaltentitel, tabelle_nummer]
+        args = {
+            "Zeile": Zeile,
+            "Spaltentitel": Spaltentitel,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1026,7 +1108,12 @@ class DE(RoboSAPiensClient):
         | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
         """
 
-        args = [Zeile, Spaltentitel, Wert, tabelle_nummer]
+        args = {
+            "Zeile": Zeile,
+            "Spaltentitel": Spaltentitel,
+            "Wert": Wert,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1057,7 +1144,9 @@ class DE(RoboSAPiensClient):
         | ``Formularfeld-Status auslesen    Beschriftung links @ Beschriftung oben``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1079,7 +1168,9 @@ class DE(RoboSAPiensClient):
         | ``${Eintrag}   Auswahlmenüeintrag auslesen    Lokator``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1106,7 +1197,10 @@ class DE(RoboSAPiensClient):
         - Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, drücke zuerst den Knopf und verwende danach dieses Schlüsselwort.
         """
 
-        args = [Lokator, Eintrag]
+        args = {
+            "Lokator": Lokator,
+            "Eintrag": Eintrag
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1129,7 +1223,9 @@ class DE(RoboSAPiensClient):
         | ``Menüeintrag auswählen    Eintragspfad``
         """
 
-        args = [Eintragspfad]
+        args = {
+            "Eintragspfad": Eintragspfad
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1158,7 +1254,9 @@ class DE(RoboSAPiensClient):
         | ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1182,7 +1280,10 @@ class DE(RoboSAPiensClient):
         | ``Tabellenspalte markieren    Spalte``
         """
 
-        args = [Spalte, tabelle_nummer]
+        args = {
+            "Spalte": Spalte,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1209,7 +1310,10 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
         """
 
-        args = [Zeilenlokator, tabelle_nummer]
+        args = {
+            "Zeilenlokator": Zeilenlokator,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1238,7 +1342,9 @@ class DE(RoboSAPiensClient):
         | ``Textfeld markieren     = Inhalt``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1264,7 +1370,9 @@ class DE(RoboSAPiensClient):
         | ``Text markieren    Beschriftung``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1293,7 +1401,9 @@ class DE(RoboSAPiensClient):
         | ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1315,7 +1425,8 @@ class DE(RoboSAPiensClient):
         | ``${statusleiste}   Statusleiste auslesen``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "Json": "Der Rückgabewert ist im JSON-Format",
@@ -1345,7 +1456,9 @@ class DE(RoboSAPiensClient):
         | ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``
         """
 
-        args = [Lokator]
+        args = {
+            "Lokator": Lokator
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1372,7 +1485,11 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Um das Formularfeld in der Spalte ganz links ohne Titel anzukreuzen, markiere die Zeile und drücke die "Enter"-Taste.
         """
 
-        args = [Zeile, Spaltentitel, tabelle_nummer]
+        args = {
+            "Zeile": Zeile,
+            "Spaltentitel": Spaltentitel,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1398,7 +1515,11 @@ class DE(RoboSAPiensClient):
         | ``Tabellenzelle abwählen     Zeile     Spaltentitel``
         """
 
-        args = [Zeile, Spaltentitel, tabelle_nummer]
+        args = {
+            "Zeile": Zeile,
+            "Spaltentitel": Spaltentitel,
+            "tabelle_nummer": tabelle_nummer
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1421,7 +1542,8 @@ class DE(RoboSAPiensClient):
         | ``${Titel}    Fenstertitel auslesen``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1441,7 +1563,8 @@ class DE(RoboSAPiensClient):
         | ``${Text}    Fenstertext auslesen``
         """
 
-        args = []
+        args = {
+        }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
@@ -1451,4 +1574,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.17.0'
+    ROBOT_LIBRARY_VERSION = '2.18.0'

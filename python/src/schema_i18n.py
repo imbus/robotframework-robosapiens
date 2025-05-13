@@ -208,7 +208,10 @@ class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsRow_LocatorSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServerSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec(TypedDict):
+class LocalizedRoboSAPiensKeywordsConnecttorunningsapArgsConnectionnameSpec(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsConnecttorunningsapArgsSessionnumberSpec(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepathSpec(TypedDict):
@@ -566,15 +569,22 @@ class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsRow_Locator(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
     name: Tuple[Literal['3584233446'], str]
-    desc: Tuple[Literal['2752287258'], str]
+    desc: Tuple[Literal['4054806856'], str]
     spec: LocalizedRoboSAPiensKeywordsConnecttoserverArgsServerSpec
 
-class LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber(TypedDict):
+class LocalizedRoboSAPiensKeywordsConnecttorunningsapArgsConnectionname(TypedDict):
+    name: Tuple[Literal['704082790'], str]
+    desc: Tuple[Literal['2063424522'], str]
+    default: Literal[None]
+    type: Literal[r'str']
+    spec: LocalizedRoboSAPiensKeywordsConnecttorunningsapArgsConnectionnameSpec
+
+class LocalizedRoboSAPiensKeywordsConnecttorunningsapArgsSessionnumber(TypedDict):
     name: Tuple[Literal['4193981709'], str]
-    desc: Tuple[Literal['1547983273'], str]
+    desc: Tuple[Literal['1605605041'], str]
     default: Literal[1]
     type: Literal[r'int']
-    spec: LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec
+    spec: LocalizedRoboSAPiensKeywordsConnecttorunningsapArgsSessionnumberSpec
 
 class LocalizedRoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
     name: Tuple[Literal['1769741420'], str]
@@ -1146,37 +1156,41 @@ class LocalizedRoboSAPiensKeywordsDoubleclickcellArgs(TypedDict):
     a3tableNumber: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsTablenumber
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverDoc(TypedDict):
-    desc: Tuple[Literal['1963586093'], str]
+    desc: Tuple[Literal['1003283283'], str]
     examples: Tuple[Literal['1631655'], str]
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverResult(TypedDict):
     NoSapGui: Tuple[Literal['2987622841'], str]
     NoGuiScripting: Tuple[Literal['3820273098'], str]
-    Pass: Tuple[Literal['1014238539'], str]
+    Pass: Tuple[Literal['1441526843'], str]
     SapError: Tuple[Literal['3246364722'], str]
     NoServerScripting: Tuple[Literal['3495213352'], str]
+    InvalidSession: Tuple[Literal['3314696332'], str]
     Exception: Tuple[Literal['667377482'], str]
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverArgs(TypedDict):
     server: LocalizedRoboSAPiensKeywordsConnecttoserverArgsServer
 
-class LocalizedRoboSAPiensKeywordsAttachtorunningsapDoc(TypedDict):
+class LocalizedRoboSAPiensKeywordsConnecttorunningsapDoc(TypedDict):
     desc: Tuple[Literal['3032107536'], str]
-    examples: Tuple[Literal['2576679484'], str]
+    examples: Tuple[Literal['4070858693'], str]
 
-class LocalizedRoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
+class LocalizedRoboSAPiensKeywordsConnecttorunningsapResult(TypedDict):
     NoSapGui: Tuple[Literal['3729995647'], str]
     NoGuiScripting: Tuple[Literal['3820273098'], str]
     NoConnection: Tuple[Literal['509780556'], str]
     NoSession: Tuple[Literal['4138997384'], str]
     NoServerScripting: Tuple[Literal['3495213352'], str]
-    InvalidSessionId: Tuple[Literal['800596714'], str]
+    InvalidSession: Tuple[Literal['3727388681'], str]
+    SapError: Tuple[Literal['3246364722'], str]
+    InvalidConnection: Tuple[Literal['3664622222'], str]
     Json: Tuple[Literal['144359828'], str]
     Pass: Tuple[Literal['2481655346'], str]
     Exception: Tuple[Literal['3410975181'], str]
 
-class LocalizedRoboSAPiensKeywordsAttachtorunningsapArgs(TypedDict):
-    sessionNumber: LocalizedRoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber
+class LocalizedRoboSAPiensKeywordsConnecttorunningsapArgs(TypedDict):
+    a1sessionNumber: LocalizedRoboSAPiensKeywordsConnecttorunningsapArgsSessionnumber
+    a2connectionName: LocalizedRoboSAPiensKeywordsConnecttorunningsapArgsConnectionname
 
 class LocalizedRoboSAPiensKeywordsExporttreeDoc(TypedDict):
     desc: Tuple[Literal['1676608340'], str]
@@ -1233,9 +1247,6 @@ class LocalizedRoboSAPiensKeywordsCloseconnectionDoc(TypedDict):
     examples: Tuple[Literal['3240780684'], str]
 
 class LocalizedRoboSAPiensKeywordsCloseconnectionResult(TypedDict):
-    NoSapGui: Tuple[Literal['2987622841'], str]
-    NoGuiScripting: Tuple[Literal['3820273098'], str]
-    NoConnection: Tuple[Literal['509780556'], str]
     NoSession: Tuple[Literal['4138997384'], str]
     Pass: Tuple[Literal['1657006605'], str]
     Exception: Tuple[Literal['2209141929'], str]
@@ -1540,11 +1551,11 @@ class LocalizedRoboSAPiensKeywordsConnecttoserver(TypedDict):
     result: LocalizedRoboSAPiensKeywordsConnecttoserverResult
     doc: LocalizedRoboSAPiensKeywordsConnecttoserverDoc
 
-class LocalizedRoboSAPiensKeywordsAttachtorunningsap(TypedDict):
+class LocalizedRoboSAPiensKeywordsConnecttorunningsap(TypedDict):
     name: Tuple[Literal['4126309856'], str]
-    args: LocalizedRoboSAPiensKeywordsAttachtorunningsapArgs
-    result: LocalizedRoboSAPiensKeywordsAttachtorunningsapResult
-    doc: LocalizedRoboSAPiensKeywordsAttachtorunningsapDoc
+    args: LocalizedRoboSAPiensKeywordsConnecttorunningsapArgs
+    result: LocalizedRoboSAPiensKeywordsConnecttorunningsapResult
+    doc: LocalizedRoboSAPiensKeywordsConnecttorunningsapDoc
 
 class LocalizedRoboSAPiensKeywordsExporttree(TypedDict):
     name: Tuple[Literal['23518835'], str]
@@ -1637,7 +1648,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     CloseWindow: LocalizedRoboSAPiensKeywordsClosewindow
     CountTableRows: LocalizedRoboSAPiensKeywordsCounttablerows
     ExportTree: LocalizedRoboSAPiensKeywordsExporttree
-    AttachToRunningSap: LocalizedRoboSAPiensKeywordsAttachtorunningsap
+    ConnectToRunningSap: LocalizedRoboSAPiensKeywordsConnecttorunningsap
     ConnectToServer: LocalizedRoboSAPiensKeywordsConnecttoserver
     DoubleClickCell: LocalizedRoboSAPiensKeywordsDoubleclickcell
     DoubleClickTextField: LocalizedRoboSAPiensKeywordsDoubleclicktextfield

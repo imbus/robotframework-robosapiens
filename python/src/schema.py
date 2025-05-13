@@ -213,7 +213,10 @@ class RoboSAPiensKeywordsDoubleclickcellArgsRow_LocatorSpec(TypedDict):
 class RoboSAPiensKeywordsConnecttoserverArgsServerSpec(TypedDict):
     ...
 
-class RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec(TypedDict):
+class RoboSAPiensKeywordsConnecttorunningsapArgsConnectionnameSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsConnecttorunningsapArgsSessionnumberSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsExporttreeArgsFilepathSpec(TypedDict):
@@ -580,12 +583,19 @@ class RoboSAPiensKeywordsConnecttoserverArgsServer(TypedDict):
     desc: str
     spec: RoboSAPiensKeywordsConnecttoserverArgsServerSpec
 
-class RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber(TypedDict):
+class RoboSAPiensKeywordsConnecttorunningsapArgsConnectionname(TypedDict):
+    name: str
+    desc: str
+    default: Literal[None]
+    type: Literal[r'str']
+    spec: RoboSAPiensKeywordsConnecttorunningsapArgsConnectionnameSpec
+
+class RoboSAPiensKeywordsConnecttorunningsapArgsSessionnumber(TypedDict):
     name: str
     desc: str
     default: Literal[1]
     type: Literal[r'int']
-    spec: RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumberSpec
+    spec: RoboSAPiensKeywordsConnecttorunningsapArgsSessionnumberSpec
 
 class RoboSAPiensKeywordsExporttreeArgsFilepath(TypedDict):
     name: str
@@ -1166,6 +1176,7 @@ class RoboSAPiensKeywordsConnecttoserverDoc(TypedDict):
 class RoboSAPiensKeywordsConnecttoserverResult(TypedDict):
     NoSapGui: str
     NoGuiScripting: str
+    InvalidSession: str
     Pass: str
     SapError: str
     NoServerScripting: str
@@ -1174,23 +1185,26 @@ class RoboSAPiensKeywordsConnecttoserverResult(TypedDict):
 class RoboSAPiensKeywordsConnecttoserverArgs(TypedDict):
     server: RoboSAPiensKeywordsConnecttoserverArgsServer
 
-class RoboSAPiensKeywordsAttachtorunningsapDoc(TypedDict):
+class RoboSAPiensKeywordsConnecttorunningsapDoc(TypedDict):
     desc: str
     examples: str
 
-class RoboSAPiensKeywordsAttachtorunningsapResult(TypedDict):
+class RoboSAPiensKeywordsConnecttorunningsapResult(TypedDict):
     NoSapGui: str
     NoGuiScripting: str
     NoConnection: str
     NoServerScripting: str
     NoSession: str
-    InvalidSessionId: str
+    InvalidSession: str
+    SapError: str
+    InvalidConnection: str
     Json: str
     Pass: str
     Exception: str
 
-class RoboSAPiensKeywordsAttachtorunningsapArgs(TypedDict):
-    sessionNumber: RoboSAPiensKeywordsAttachtorunningsapArgsSessionnumber
+class RoboSAPiensKeywordsConnecttorunningsapArgs(TypedDict):
+    a1sessionNumber: RoboSAPiensKeywordsConnecttorunningsapArgsSessionnumber
+    a2connectionName: RoboSAPiensKeywordsConnecttorunningsapArgsConnectionname
 
 class RoboSAPiensKeywordsExporttreeDoc(TypedDict):
     desc: str
@@ -1233,9 +1247,6 @@ class RoboSAPiensKeywordsCloseconnectionDoc(TypedDict):
     examples: str
 
 class RoboSAPiensKeywordsCloseconnectionResult(TypedDict):
-    NoSapGui: str
-    NoGuiScripting: str
-    NoConnection: str
     NoSession: str
     Pass: str
     Exception: str
@@ -1545,11 +1556,11 @@ class RoboSAPiensKeywordsConnecttoserver(TypedDict):
     result: RoboSAPiensKeywordsConnecttoserverResult
     doc: RoboSAPiensKeywordsConnecttoserverDoc
 
-class RoboSAPiensKeywordsAttachtorunningsap(TypedDict):
+class RoboSAPiensKeywordsConnecttorunningsap(TypedDict):
     name: str
-    args: RoboSAPiensKeywordsAttachtorunningsapArgs
-    result: RoboSAPiensKeywordsAttachtorunningsapResult
-    doc: RoboSAPiensKeywordsAttachtorunningsapDoc
+    args: RoboSAPiensKeywordsConnecttorunningsapArgs
+    result: RoboSAPiensKeywordsConnecttorunningsapResult
+    doc: RoboSAPiensKeywordsConnecttorunningsapDoc
 
 class RoboSAPiensKeywordsExporttree(TypedDict):
     name: str
@@ -1635,7 +1646,7 @@ class RoboSAPiensKeywords(TypedDict):
     CloseSap: RoboSAPiensKeywordsClosesap
     CloseWindow: RoboSAPiensKeywordsClosewindow
     ExportTree: RoboSAPiensKeywordsExporttree
-    AttachToRunningSap: RoboSAPiensKeywordsAttachtorunningsap
+    ConnectToRunningSap: RoboSAPiensKeywordsConnecttorunningsap
     ConnectToServer: RoboSAPiensKeywordsConnecttoserver
     DoubleClickCell: RoboSAPiensKeywordsDoubleclickcell
     DoubleClickTextField: RoboSAPiensKeywordsDoubleclicktextfield
