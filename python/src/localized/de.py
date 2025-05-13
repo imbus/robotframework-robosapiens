@@ -412,9 +412,6 @@ lib: LocalizedRoboSAPiens = {
             "name": ("938374979", "Verbindung zum Server trennen"),
             "args": {},
             "result": {
-              "NoSapGui": ("2987622841", no_sap_gui),
-              "NoGuiScripting": ("3820273098", no_gui_scripting),
-              "NoConnection": ("509780556", no_connection),
               "NoSession": ("4138997384", no_session),
               "Pass": ("1657006605", "Die Verbindung zum Server wurde getrennt."),
               "Exception": ("2209141929", exception("Die Verbindung zum Server konnte nicht getrennt werden."))

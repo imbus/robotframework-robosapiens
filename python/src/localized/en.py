@@ -404,9 +404,6 @@ lib: RoboSAPiens = {
             "name": "Disconnect from Server",
             "args": {},
             "result": {
-                "NoSapGui": no_sap_gui,
-                "NoGuiScripting": no_gui_scripting,
-                "NoConnection": no_connection,
                 "NoSession": no_session,
                 "Pass": "Disconnected from the server.",
                 "Exception": exception("Could not disconnect from the server. {0}")

@@ -177,24 +177,6 @@ namespace RoboSAPiens
         [Keyword("Verbindung zum Server trennen"),
          Doc("Die Verbindung mit dem SAP Server wird beendet.")]
         public RobotResult CloseConnection() {
-            switch(getSapGui()) 
-            {
-                case EitherSapGui.Err(RobotResult.RobotFail.NoSapGui):
-                    return new Result.CloseConnection.NoSapGui();
-                
-                case EitherSapGui.Err(RobotResult.RobotFail.NoGuiScripting):
-                    return new Result.CloseConnection.NoGuiScripting();
-
-                case EitherSapGui.Err(RobotResult.ExceptionError(System.Exception e, string errorMessage)):
-                    return new Result.CloseConnection.Exception(e);
-
-                case EitherSapGui.Ok(GuiApplication guiApplication):
-                    if (guiApplication.Connections.Length == 0) {
-                        return new Result.CloseConnection.NoConnection();
-                    }
-                    break;
-            }
-
             return session switch {
                 SAPSession session when session.isActive => session.closeConnection(),
                 _ => new Result.CloseConnection.NoSession()

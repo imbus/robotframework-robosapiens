@@ -82,9 +82,6 @@ namespace RoboSAPiens {
         }
 
         public record CloseConnection {
-            public record NoSapGui(): RobotResult.NoSapGui();
-            public record NoGuiScripting(): RobotResult.NoGuiScripting();
-            public record NoConnection(): RobotResult.NoConnection();
             public record NoSession(): RobotResult.NoSession();
             public record Pass(string server): RobotResult.RobotPass($"Die Verbindung zum Server {server} wurde getrennt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Verbindung zum Server konnte nicht getrennt werden.");
