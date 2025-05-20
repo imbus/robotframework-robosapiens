@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.18.0"
+__version__ = "2.19.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -1573,5 +1573,26 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
+    @keyword('Fenster maximieren') # type: ignore
+    def maximize_window(self): # type: ignore
+        """
+        Das Fenster im Vordergrund wird maximiert.
+        
+        
+        Beispiele:
+        
+        | ``Fenster maximieren``
+        """
+
+        args = {
+        }
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "Pass": "Das Fenster im Vordergrund wurde maximiert.",
+            "Exception": "Das Fenster im Vordergrund konnte nicht maximiert werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('MaximizeWindow', args, result) # type: ignore
+    
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.18.0'
+    ROBOT_LIBRARY_VERSION = '2.19.0'

@@ -1209,6 +1209,19 @@
         "desc": "Der Text des Fensters im Fordergrund wird zurückgegeben.\n\n| ``${Text}    Fenstertext auslesen``",
         "examples": ""
       }
+    },
+    "MaximizeWindow": {
+      "name": "Fenster maximieren",
+      "args": {},
+      "result": {
+        "NoSession": "NoSession",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Das Fenster im Vordergrund wird maximiert.\n\n| ``Fenster maximieren``",
+        "examples": ""
+      }
     }
   },
   "specs": {}

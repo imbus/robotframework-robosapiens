@@ -640,6 +640,18 @@ class LocalizedRoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
     desc: Tuple[Literal['1037266374'], str]
     spec: LocalizedRoboSAPiensKeywordsActivatetabArgsTabSpec
 
+class LocalizedRoboSAPiensKeywordsMaximizewindowDoc(TypedDict):
+    desc: Tuple[Literal['3269397069'], str]
+    examples: Tuple[Literal['298229724'], str]
+
+class LocalizedRoboSAPiensKeywordsMaximizewindowResult(TypedDict):
+    NoSession: Tuple[Literal['4138997384'], str]
+    Pass: Tuple[Literal['3684348012'], str]
+    Exception: Tuple[Literal['3751877905'], str]
+
+class LocalizedRoboSAPiensKeywordsMaximizewindowArgs(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsGetwindowtextDoc(TypedDict):
     desc: Tuple[Literal['2795776118'], str]
     examples: Tuple[Literal['353358958'], str]
@@ -1335,6 +1347,12 @@ class LocalizedRoboSAPiensKeywordsActivatetabResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsActivatetabArgs(TypedDict):
     tab: LocalizedRoboSAPiensKeywordsActivatetabArgsTab
 
+class LocalizedRoboSAPiensKeywordsMaximizewindow(TypedDict):
+    name: Tuple[Literal['458747722'], str]
+    args: LocalizedRoboSAPiensKeywordsMaximizewindowArgs
+    result: LocalizedRoboSAPiensKeywordsMaximizewindowResult
+    doc: LocalizedRoboSAPiensKeywordsMaximizewindowDoc
+
 class LocalizedRoboSAPiensKeywordsGetwindowtext(TypedDict):
     name: Tuple[Literal['1085911504'], str]
     args: LocalizedRoboSAPiensKeywordsGetwindowtextArgs
@@ -1685,6 +1703,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     UntickCheckBoxCell: LocalizedRoboSAPiensKeywordsUntickcheckboxcell
     GetWindowTitle: LocalizedRoboSAPiensKeywordsGetwindowtitle
     GetWindowText: LocalizedRoboSAPiensKeywordsGetwindowtext
+    MaximizeWindow: LocalizedRoboSAPiensKeywordsMaximizewindow
 
 class LocalizedRoboSAPiensArgs(TypedDict):
     a1presenter_mode: LocalizedRoboSAPiensArgsPresenter_Mode

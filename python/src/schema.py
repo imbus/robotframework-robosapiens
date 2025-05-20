@@ -639,6 +639,18 @@ class RoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
     desc: str
     spec: RoboSAPiensKeywordsActivatetabArgsTabSpec
 
+class RoboSAPiensKeywordsMaximizewindowDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsMaximizewindowResult(TypedDict):
+    NoSession: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsMaximizewindowArgs(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsGetwindowtextDoc(TypedDict):
     desc: str
     examples: str
@@ -1334,6 +1346,12 @@ class RoboSAPiensKeywordsActivatetabResult(TypedDict):
 class RoboSAPiensKeywordsActivatetabArgs(TypedDict):
     tab: RoboSAPiensKeywordsActivatetabArgsTab
 
+class RoboSAPiensKeywordsMaximizewindow(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsMaximizewindowArgs
+    result: RoboSAPiensKeywordsMaximizewindowResult
+    doc: RoboSAPiensKeywordsMaximizewindowDoc
+
 class RoboSAPiensKeywordsGetwindowtext(TypedDict):
     name: str
     args: RoboSAPiensKeywordsGetwindowtextArgs
@@ -1684,6 +1702,7 @@ class RoboSAPiensKeywords(TypedDict):
     UntickCheckBoxCell: RoboSAPiensKeywordsUntickcheckboxcell
     GetWindowTitle: RoboSAPiensKeywordsGetwindowtitle
     GetWindowText: RoboSAPiensKeywordsGetwindowtext
+    MaximizeWindow: RoboSAPiensKeywordsMaximizewindow
 
 class RoboSAPiensArgs(TypedDict):
     a1presenter_mode: RoboSAPiensArgsPresenter_Mode

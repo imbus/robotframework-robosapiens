@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.18.0"
+__version__ = "2.19.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -1575,5 +1575,26 @@ class RoboSAPiens(RoboSAPiensClient):
         }
         return super()._run_keyword('GetWindowText', args, result) # type: ignore
     
+    @keyword('Maximize window') # type: ignore
+    def maximize_window(self): # type: ignore
+        """
+        Maximize the window in the foreground.
+        
+        
+        Examples:
+        
+        | ``Maximize window``
+        """
+
+        args = {
+        }
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "Pass": "The window in the foreground was maximized.",
+            "Exception": "The window in the foreground could not be maximized. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('MaximizeWindow', args, result) # type: ignore
+    
     ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.18.0'
+    ROBOT_LIBRARY_VERSION = '2.19.0'
