@@ -1408,5 +1408,19 @@ namespace RoboSAPiens {
 
             return new Result.GetWindowTitle.Pass(window.title);
         }
+
+        public RobotResult maximizeWindow()
+        {
+            try
+            {
+                window.maximize();
+                return new Result.MaximizeWindow.Pass();
+            }
+            catch (Exception e)
+            {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.MaximizeWindow.Exception(e);
+            }
+        }
     }
 }

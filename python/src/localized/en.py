@@ -1793,6 +1793,24 @@ lib: RoboSAPiens = {
                 | ``${text}    Get Window Text``
                 """
             }
+        },
+        "MaximizeWindow": {
+            "name": "Maximize window",
+            "args": {},
+            "result": {
+                "NoSession": no_session,
+                "Pass": "The window in the foreground was maximized.",
+                "Exception": exception("The window in the foreground could not be maximized. {0}")
+            },
+            "doc": {
+                "desc": "Maximize the window in the foreground.",
+                "examples":
+                """
+                Examples:
+
+                | ``Maximize window``
+                """
+            }
         }
     },
     "specs": {}

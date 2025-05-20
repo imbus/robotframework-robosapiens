@@ -1841,6 +1841,25 @@ lib: LocalizedRoboSAPiens = {
                 """
               )
             }
+        },
+        "MaximizeWindow": {
+            "name": ("458747722", "Fenster maximieren"),
+            "args": {},
+            "result": {
+                "NoSession": ("4138997384", no_session),
+                "Pass": ("3684348012", "Das Fenster im Vordergrund wurde maximiert."),
+                "Exception": ("3751877905", exception("Das Fenster im Vordergrund konnte nicht maximiert werden. {0}"))
+            },
+            "doc": {
+                "desc": ("3269397069", "Das Fenster im Vordergrund wird maximiert."),
+                "examples": ("298229724",
+                """
+                Beispiele:
+
+                | ``Fenster maximieren``
+                """
+                )
+            }
         }
     },
     "specs": {}

@@ -48,8 +48,14 @@ namespace RoboSAPiens
 
             return "";
         }
-        
-        public void pressKey(int key) {
+
+        public void maximize()
+        {
+            self.Maximize();
+        }
+
+        public void pressKey(int key)
+        {
             self.SendVKey(key);
         }
 

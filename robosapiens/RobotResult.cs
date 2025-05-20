@@ -445,5 +445,12 @@ namespace RoboSAPiens {
             public record Pass(string text): RobotResult.RobotPass("Der Text des Fensters wurde ausgelesen", returnValue: text);
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht angekreuzt werden.");
         }
+
+        public record MaximizeWindow
+        {
+            public record NoSession(): RobotResult.NoSession();
+            public record Pass(): RobotResult.RobotPass($"Das Fenster im Vordergrund wurde maximiert");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Das Fenster konnte nicht maximiert werden.");
+        }
     }
 }

@@ -820,5 +820,15 @@ namespace RoboSAPiens
                 _ => new Result.GetWindowText.NoSession()
             };
         }
+        
+        [Keyword("Fenster maximieren"),
+         Doc("Das Fenster im Vordergrund wird maximiert.\n\n" +
+             "| ``Fenster maximieren``")]
+        public RobotResult MaximizeWindow() {
+            return session switch {
+                SAPSession session when session.isActive => session.maximizeWindow(),
+                _ => new Result.MaximizeWindow.NoSession()
+            };
+        }
     }
 }
