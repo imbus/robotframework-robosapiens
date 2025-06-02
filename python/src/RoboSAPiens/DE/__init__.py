@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.19.0"
+__version__ = "2.19.1"
 
 class DE(RoboSAPiensClient):
     """
@@ -154,6 +154,13 @@ class DE(RoboSAPiensClient):
     Wenn eine Tabelle aufeinanderfolgende Spalten mit demselben Namen enthält, kann eine Spalte eindeutig identifiziert werden, indem dem Namen ein numerisches Suffix hinzugefügt wird.
     
     Enthält eine Tabelle beispielsweise die Spalten Variante, Variante, Variante, so können diese wie folgt eindeutig identifiziert werden: Variante__1, Variante__2, Variante__3.
+    
+    == Tabellen als Excel-Datei exportieren ==
+    
+    Einige Tabellen können durch Anklicken eines Knopfes mit einem Kontextmenü als Excel-Datei exportiert werden. Der entsprechende Menüpunkt kann durch Aufrufen zweier Schlüsselwörter ausgewählt werden:
+    
+    | Knopf drücken                  Exportieren
+    | Auswahlmenüeintrag auswählen   Exportieren   Tabellenkalkulation
     """
 
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
@@ -1594,5 +1601,5 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('MaximizeWindow', args, result) # type: ignore
     
-    ROBOT_LIBRARY_SCOPE = 'SUITE'
-    ROBOT_LIBRARY_VERSION = '2.19.0'
+    ROBOT_LIBRARY_SCOPE = 'GLOBAL'
+    ROBOT_LIBRARY_VERSION = '2.19.1'
