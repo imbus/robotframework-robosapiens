@@ -52,5 +52,5 @@ class {{ module_name }}(RoboSAPiensClient):
         }
         return super()._run_keyword('{{ api_function }}', args, result) # type: ignore
     {% endfor %}
-    ROBOT_LIBRARY_SCOPE = 'SUITE'
+    ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = '{{ version }}'
