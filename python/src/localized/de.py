@@ -32,7 +32,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("2019600799",
+        "intro": ("2061776583",
         """
         RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
@@ -183,6 +183,13 @@ lib: LocalizedRoboSAPiens = {
         Wenn eine Tabelle aufeinanderfolgende Spalten mit demselben Namen enthält, kann eine Spalte eindeutig identifiziert werden, indem dem Namen ein numerisches Suffix hinzugefügt wird.
 
         Enthält eine Tabelle beispielsweise die Spalten Variante, Variante, Variante, so können diese wie folgt eindeutig identifiziert werden: Variante__1, Variante__2, Variante__3.
+        
+        == Tabellen als Excel-Datei exportieren ==
+
+        Einige Tabellen können durch Anklicken eines Knopfes mit einem Kontextmenü als Excel-Datei exportiert werden. Der entsprechende Menüpunkt kann durch Aufrufen zweier Schlüsselwörter ausgewählt werden:
+
+        | Knopf drücken                  Exportieren
+        | Auswahlmenüeintrag auswählen   Exportieren   Tabellenkalkulation
         """
         ),
         "init": ("3784687869", 

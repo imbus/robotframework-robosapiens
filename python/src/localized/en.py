@@ -183,6 +183,13 @@ lib: RoboSAPiens = {
         If a table contains consecutive columns with the same name a given column can be specified by appending a numeric suffix.
         
         For example, if a table contains the columns Variant, Variant, Variant. They can be identified as Variant__1, Variant__2, Variant__3.
+
+        == Exporting a table as a spreadsheet ==
+
+        Some tables can be exported as a spreadsheet via a toolbar button with a context menu. In order to select the corresponding menu item two keyword calls are necessary:
+
+        | Push Button                  Export
+        | Select Dropdown Menu Entry   Export   Spreadsheet
         """,
         "init": """
         RoboSAPiens has the following initialization arguments:
