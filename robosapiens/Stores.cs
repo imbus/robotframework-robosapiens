@@ -59,7 +59,7 @@ namespace RoboSAPiens {
                 _ => (name, 0)
             };
 
-            return FindAll(label => label.contains(name))[labelIndex];
+            return FindAll(_ => _.contains(label))[labelIndex];
         }
     }
 
