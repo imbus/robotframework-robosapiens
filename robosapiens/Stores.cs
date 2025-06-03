@@ -36,6 +36,7 @@ namespace RoboSAPiens {
                     getByHLabel(label) ?? 
                     getByTooltip(label) ??
                     getHorizontalClosestToLabel(label, labels, textFieldLabels),
+                HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
                 _ => null
             };
         }
