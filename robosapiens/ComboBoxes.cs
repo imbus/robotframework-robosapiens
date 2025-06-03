@@ -92,6 +92,10 @@ namespace RoboSAPiens {
                 HLabel(var label) =>
                     isHorizontalAlignedWithLabel(labels.getByName(label)) ||
                     isHorizontalAlignedWithTextField(textFieldLabels.getByContent(label)),
+                HLabelVLabel(var hLabel, var vLabel) =>
+                    (isHorizontalAlignedWithLabel(labels.getByName(hLabel)) || 
+                    isHorizontalAlignedWithTextField(textFieldLabels.getByContent(hLabel))) &&
+                    isVerticalAlignedWithLabel(labels.getByName(vLabel)),
                 _ => false
             };
         }
@@ -106,6 +110,14 @@ namespace RoboSAPiens {
         public bool isHorizontalAlignedWithTextField(SAPTextField? textField) {
             return textField switch {
                 SAPTextField => textField.position.horizontalAlignedWith(position),
+                _ => false
+            };
+        }
+
+        // To Do: Factor out this common function
+        public bool isVerticalAlignedWithLabel(SAPLabel? label) {
+            return label switch {
+                SAPLabel => label.position.verticalAlignedWith(position),
                 _ => false
             };
         }
