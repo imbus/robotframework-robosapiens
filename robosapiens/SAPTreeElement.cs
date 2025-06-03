@@ -82,7 +82,7 @@ namespace RoboSAPiens
         public bool isHLabeled(string label)
         {
             var pathParts = textPath.Split("/");
-            var queryParts = label.Replace("//", "|").Split("/");
+            var queryParts = label.Replace("///", "/|").Replace("//", "|").Split("/");
 
             if (pathParts.Length != queryParts.Length) return false;
 
