@@ -51,8 +51,15 @@ namespace RoboSAPiens {
             };
         }
 
-        public SAPLabel? getByName(string name){
-            return Find(label => label.contains(name));
+        public SAPLabel? getByName(string name)
+        {
+            (string label, int labelIndex) = name.Split("__") switch 
+            {
+                [string text, string stringIndex] when int.TryParse(stringIndex, out int intIndex) => (text, intIndex - 1),
+                _ => (name, 0)
+            };
+
+            return FindAll(label => label.contains(name))[labelIndex];
         }
     }
 
