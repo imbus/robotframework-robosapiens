@@ -48,7 +48,7 @@ namespace RoboSAPiens
                                 [] => null,
                                 [var method, ..var args] => keywordLibrary.callKeyword(
                                     method, 
-                                    parseArgs(args, keywordLibrary.getKeywordArgumentTypes(method))
+                                    [.. parseArgs(args, keywordLibrary.getKeywordArgumentTypes(method)), .. keywordLibrary.getKeywordDefaultArguments(method)]
                                 ),
                             };
 

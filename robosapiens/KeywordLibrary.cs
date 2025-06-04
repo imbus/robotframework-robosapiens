@@ -53,6 +53,16 @@ namespace RoboSAPiens
                 .ToArray();
         }
 
+        public object[] getKeywordDefaultArguments(string methodName)
+        {
+            return typeof(IKeywordLibrary)
+                .GetMethod(methodName)!
+                .GetParameters()
+                .Where(p => p.Attributes.HasFlag(ParameterAttributes.Optional) && p.Attributes.HasFlag(ParameterAttributes.HasDefault))
+                .Select(param => param.DefaultValue!)
+                .ToArray();
+        }
+
         (GuiApplication?, RobotResult.RobotFail?) getGuiApplication()
         {
             var rot = new CSapROTWrapper();
