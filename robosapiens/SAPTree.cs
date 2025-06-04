@@ -216,7 +216,7 @@ namespace RoboSAPiens
                 return string.Join(" ", texts);
             }
 
-            return tree.GetNodeTextByKey(nodeKey);
+            return tree.GetNodeTextByKey(nodeKey).Replace("/", "|");
         }
 
         public static string getTextPath(GuiTree guiTree, string path, string textPath)
