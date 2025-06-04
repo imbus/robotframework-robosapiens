@@ -264,7 +264,17 @@ namespace RoboSAPiens
         public override void doubleClick(GuiSession session)
         {
             var tree = (GuiTree)session.FindById(treeId);
-            tree.DoubleClickItem(nodeKey, columnName);
+            switch (tree.GetSelectionMode()) 
+            {
+                // Single node
+                case 0:
+                    tree.DoubleClickNode(nodeKey);
+                    break;
+                // Single item
+                case 2:
+                    tree.DoubleClickItem(nodeKey, columnName);
+                    break;
+            }
         }
 
         public override string getValue(GuiSession session)
