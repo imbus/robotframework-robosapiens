@@ -133,13 +133,14 @@ namespace RoboSAPiens {
                         if (columnTitles[colIndex0] != column) return null;
                         if (rowIsBelow(session, rowIndex0) && scrollOnePage(session))
                         {
-                            // TODO: The row index is relative to the visible rows
-                            //  and must be adjusted
                             return findCell(locator, session);
                         }
                         
                         var table = (GuiTableControl)session.FindById(id);
-                        var tableCell = table.GetCell(rowIndex0, colIndex0);
+                        // The row index is relative to the visible rows and must be adjusted
+                        var firstRow = table.VerticalScrollbar?.Position ?? 0;
+                        var lastRow = firstRow + table.VisibleRowCount - 1;
+                        var tableCell = table.GetCell(rowIndex0 % lastRow + (lastRow - firstRow), colIndex0);
 
                         if (cellType.ContainsKey(tableCell.Type))
                         {
