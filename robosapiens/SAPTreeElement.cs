@@ -37,15 +37,22 @@ namespace RoboSAPiens
             var treeType = (TreeType)tree.GetTreeType();
             tree.SelectedNode = nodeKey;
 
-            if (treeType == TreeType.List) 
+            if (treeType == TreeType.List)
             {
-                var column = tree.GetListTreeNodeItemCount(nodeKey).ToString();
-                if (column == "1") {
-                    expandParentNodes(tree);
-                    tree.DoubleClickNode(nodeKey);    
-                }
-                else {
-                    tree.DoubleClickItem(nodeKey, column);
+                var numColumns = tree.GetListTreeNodeItemCount(nodeKey);
+
+                switch (tree.GetSelectionMode())
+                {
+                    // Single node
+                    case 0:
+                        expandParentNodes(tree);
+                        tree.DoubleClickNode(nodeKey);
+                        break;
+                    // Single item
+                    case 2:
+                        // Double-click the last column
+                        tree.DoubleClickItem(nodeKey, numColumns.ToString());
+                        break;
                 }
             }
             else
