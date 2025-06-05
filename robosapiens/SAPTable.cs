@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using sapfewse;
 
 namespace RoboSAPiens {
@@ -140,7 +141,9 @@ namespace RoboSAPiens {
                         // The row index is relative to the visible rows and must be adjusted
                         var firstRow = table.VerticalScrollbar?.Position ?? 0;
                         var lastRow = firstRow + table.VisibleRowCount - 1;
-                        var tableCell = table.GetCell(rowIndex0 % lastRow + (lastRow - firstRow), colIndex0);
+                        var visibleRows = lastRow - firstRow + 1;
+                        var rows = Enumerable.Range(firstRow, visibleRows).Zip(Enumerable.Range(0, visibleRows)).ToDictionary();
+                        var tableCell = table.GetCell(rows[rowIndex0], colIndex0);
 
                         if (cellType.ContainsKey(tableCell.Type))
                         {
