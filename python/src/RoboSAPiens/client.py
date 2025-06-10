@@ -104,7 +104,7 @@ class RoboSAPiensClient(object):
         if "Log" in result:
             sys.stdout.write(str(rf_result.return_))
         else:
-            sys.stdout.write(result["Pass"].format(*args) + '\n')
+            sys.stdout.write(result["Pass"].format(*args.values()) + '\n')
 
         if "Json" in result:
             return json.loads(str(rf_result.return_))
