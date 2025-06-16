@@ -202,9 +202,12 @@ namespace RoboSAPiens {
             for (int i = 0; i < toolbar.ButtonCount; i++) {
                 switch (toolbar.GetButtonType(i)) {
                     case "Button":
-                    case "ButtonAndMenu":
                     case "CheckBox":
                         toolbarButtons.Add(new SAPToolbarButton(toolbar, i));
+                        break;
+                    case "ButtonAndMenu":
+                        toolbarButtons.Add(new SAPToolbarButton(toolbar, i));
+                        comboBoxes.Add(new SAPToolbarMenu(toolbar, i));
                         break;
                     case "Menu":
                         comboBoxes.Add(new SAPToolbarMenu(toolbar, i));
