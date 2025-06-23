@@ -20,6 +20,7 @@ namespace RoboSAPiens
             {"CheckBox", CellType.CheckBox},
             {"Link", CellType.Link},
             {"Normal", CellType.Text},
+            {"RadioButton", CellType.RadioButton},
             {"ValueList", CellType.ComboBox},
         };
 
