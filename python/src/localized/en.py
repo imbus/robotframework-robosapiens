@@ -1407,7 +1407,7 @@ lib: RoboSAPiens = {
 
                 *Hints*: 
                 - If the entry name is not unique use the key shown when "Show keys within dropdown lists" is activated in the SAP GUI options.
-                - To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
+                - To select a value from a toolbar button with a dropdown menu use the button's label or tooltip as selector. 
                 """
             }
         },

@@ -1414,7 +1414,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("473069895", "Aus dem angegebenen Auswahlmenü wird der angegebene Eintrag ausgewählt."),
-                "examples": ("2785675877", 
+                "examples": ("947454329", 
                 """
                 Beispiele:
                 
@@ -1422,7 +1422,7 @@ lib: LocalizedRoboSAPiens = {
 
                 *Hinweise*: 
                 - Wenn der Eintrag nicht eindeutig ist, verwende den Schlüssel, der angezeigt wird, wenn "Schlüssel in Dropdown-Listen anzeigen" in den SAP GUI-Optionen aktiviert ist.
-                - Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, drücke zuerst den Knopf und verwende danach dieses Schlüsselwort.
+                - Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, verwende die Beschriftung bzw. die Kurzinfo (Tooltip) des Knopfes als Lokator.
                 """
               )
             }
