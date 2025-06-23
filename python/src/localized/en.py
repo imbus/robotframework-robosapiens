@@ -1271,7 +1271,7 @@ lib: RoboSAPiens = {
                 
                 | ``Select Cell     row_locator     column``
 
-                *Hint*: This keyword can be used to click a link (underlined text or icon) in a cell.
+                *Hint*: This keyword can be used to click a link (underlined text or icon) or a radio button in a cell.
                 """
             }
         },
