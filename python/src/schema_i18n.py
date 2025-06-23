@@ -826,7 +826,7 @@ class LocalizedRoboSAPiensKeywordsSelectmenuitemArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryDoc(TypedDict):
     desc: Tuple[Literal['473069895'], str]
-    examples: Tuple[Literal['2785675877'], str]
+    examples: Tuple[Literal['947454329'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcomboboxentryResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
@@ -885,7 +885,7 @@ class LocalizedRoboSAPiensKeywordsSelectcellvalueArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelectcellDoc(TypedDict):
     desc: Tuple[Literal['71460282'], str]
-    examples: Tuple[Literal['3988385147'], str]
+    examples: Tuple[Literal['791925930'], str]
 
 class LocalizedRoboSAPiensKeywordsSelectcellResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]

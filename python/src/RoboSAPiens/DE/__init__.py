@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.19.12"
+__version__ = "2.19.13"
 
 class DE(RoboSAPiensClient):
     """
@@ -1081,7 +1081,7 @@ class DE(RoboSAPiensClient):
         
         | ``Tabellenzelle markieren     Zeile     Spaltentitel``
         
-        *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text oder Symbol) in einer Zelle zu klicken.
+        *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text oder Symbol) oder auf ein Optionsfeld in einer Zelle zu klicken.
         """
 
         args = {
@@ -1201,7 +1201,7 @@ class DE(RoboSAPiensClient):
         
         *Hinweise*: 
         - Wenn der Eintrag nicht eindeutig ist, verwende den Schlüssel, der angezeigt wird, wenn "Schlüssel in Dropdown-Listen anzeigen" in den SAP GUI-Optionen aktiviert ist.
-        - Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, drücke zuerst den Knopf und verwende danach dieses Schlüsselwort.
+        - Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, verwende die Beschriftung bzw. die Kurzinfo (Tooltip) des Knopfes als Lokator.
         """
 
         args = {
@@ -1602,4 +1602,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.19.12'
+    ROBOT_LIBRARY_VERSION = '2.19.13'

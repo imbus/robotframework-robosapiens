@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.19.12"
+__version__ = "2.19.13"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -1106,7 +1106,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``Select Cell     row_locator     column``
         
-        *Hint*: This keyword can be used to click a link (underlined text or icon) in a cell.
+        *Hint*: This keyword can be used to click a link (underlined text or icon) or a radio button in a cell.
         """
 
         args = {
@@ -1226,7 +1226,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Hints*: 
         - If the entry name is not unique use the key shown when "Show keys within dropdown lists" is activated in the SAP GUI options.
-        - To select a value from a toolbar button with a dropdown menu, first push the button and then use this keyword. 
+        - To select a value from a toolbar button with a dropdown menu use the button's label or tooltip as selector. 
         """
 
         args = {
@@ -1604,4 +1604,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.19.12'
+    ROBOT_LIBRARY_VERSION = '2.19.13'
