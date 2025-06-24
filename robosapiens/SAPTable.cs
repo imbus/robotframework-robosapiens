@@ -15,10 +15,11 @@ namespace RoboSAPiens {
         {
             {"GuiButton", CellType.Button},
             {"GuiCheckBox", CellType.CheckBox},
-            {"GuiLabel", CellType.Label},
-            {"GuiTextField", CellType.Text},
-            {"GuiCTextField", CellType.Text},
             {"GuiComboBox", CellType.ComboBox},
+            {"GuiLabel", CellType.Label},
+            {"GuiRadioButton", CellType.RadioButton},
+            {"GuiCTextField", CellType.Text},
+            {"GuiTextField", CellType.Text},
         };
 
         public SAPTable(GuiTableControl table) {
