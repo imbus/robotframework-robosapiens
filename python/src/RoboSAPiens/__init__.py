@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.19.14"
+__version__ = "2.19.15"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -162,6 +162,26 @@ class RoboSAPiens(RoboSAPiensClient):
     
     | Push Button                  Export
     | Select Dropdown Menu Entry   Export   Spreadsheet
+    
+    == Automatically take a screenshot when a keyword fails ==
+    
+    Robot Framework 7 provides the listener method ``end_library_keyword``, which allows implementing error handling for library keywords.
+    In the case of RoboSAPiens whenever a keyword fails it can be useful to take a screenshot and embed it in the log. 
+    To achieve this create the file Listener.py with the following code:
+    
+    | from robot.api.interfaces import ListenerV3 
+    | from robot.libraries.BuiltIn import BuiltIn
+    | 
+    | class Listener(ListenerV3):
+    |     def end_library_keyword(self, data, implementation, result):
+    |         library = 'RoboSAPiens'
+    |         if result.failed and implementation.full_name.startswith(library):
+    |             robosapiens = BuiltIn().get_library_instance(library)
+    |             robosapiens.save_screenshot('LOG')
+    
+    Then execute ``robot`` with 
+    
+    | ``robot -P . --listener Listener test.robot``
     """
 
     def __init__(self, presenter_mode: bool=False, x64: bool=False):
@@ -1604,4 +1624,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.19.14'
+    ROBOT_LIBRARY_VERSION = '2.19.15'

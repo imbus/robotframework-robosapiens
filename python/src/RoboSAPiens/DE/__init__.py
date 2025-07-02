@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.19.14"
+__version__ = "2.19.15"
 
 class DE(RoboSAPiensClient):
     """
@@ -161,6 +161,26 @@ class DE(RoboSAPiensClient):
     
     | Knopf drücken                  Exportieren
     | Auswahlmenüeintrag auswählen   Exportieren   Tabellenkalkulation
+    
+    == Automatisch eine Aufnahme des Fensters machen, wenn ein Schlüsselwort fehlschlägt ==
+    
+    Robot Framework 7 bietet die Listener-Methode ``end_library_keyword``, welche die Implementierung einer Fehlerbehandlung für Bibliotheksschlüsselwörter ermöglicht.
+    Im Fall von RoboSAPiens kann es sinnvoll sein, jedes Mal, wenn ein Schlüsselwort fehlschlägt, eine Aufnahme des Fensters zu machen und das Bild ins Protokoll einzubetten. 
+    Um dies zu erreichen, muss die Datei Listener.py mit dem folgenden Inhalt erstellt werden:
+    
+    | from robot.api.interfaces import ListenerV3 
+    | from robot.libraries.BuiltIn import BuiltIn
+    | 
+    | class Listener(ListenerV3):
+    |     def end_library_keyword(self, data, implementation, result):
+    |         library = 'RoboSAPiens.DE'
+    |         if result.failed and implementation.full_name.startswith(library):
+    |             robosapiens = BuiltIn().get_library_instance(library)
+    |             robosapiens.save_screenshot('LOG')
+    
+    Danach muss ``robot`` wie folgt ausgeführt werden: 
+    
+    | ``robot -P . --listener Listener test.robot``
     """
 
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
@@ -1602,4 +1622,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.19.14'
+    ROBOT_LIBRARY_VERSION = '2.19.15'
