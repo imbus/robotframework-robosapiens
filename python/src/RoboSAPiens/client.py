@@ -7,6 +7,7 @@ from pathlib import Path
 from subprocess import Popen, PIPE
 from typing import Any, Dict, List, Tuple
 
+from robot.api import logger
 from robot.errors import RemoteError
 from robot.libraries.Remote import RemoteResult
 
@@ -102,7 +103,7 @@ class RoboSAPiensClient(object):
             )
 
         if "Log" in result:
-            sys.stdout.write(str(rf_result.return_))
+            logger.info(str(rf_result.return_), html=True)
         else:
             sys.stdout.write(result["Pass"].format(*args.values()) + '\n')
 
