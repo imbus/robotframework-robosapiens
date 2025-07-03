@@ -164,7 +164,13 @@ namespace RoboSAPiens
                     new SAPButton((GuiButton)cell).push(session);
                     break;
                 case CellType.CheckBox:
-                    new SAPCheckBox((GuiCheckBox)cell).select(session);
+                    var checkbox = new SAPCheckBox((GuiCheckBox)cell);
+                    if (checkbox.isSelected(session)) {
+                        checkbox.deselect(session);
+                    }
+                    else {
+                        checkbox.select(session);
+                    }
                     break;
                 case CellType.Label:
                     ((GuiVComponent)cell).SetFocus();
