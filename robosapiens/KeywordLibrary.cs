@@ -44,23 +44,21 @@ namespace RoboSAPiens
                 .ToList();
         }
 
-        public string[] getKeywordArgumentTypes(string methodName)
+        public Dictionary<string, string> getKeywordArgumentTypes(string methodName)
         {
             return typeof(IKeywordLibrary)
                 .GetMethod(methodName)!
                 .GetParameters()
-                .Select(param => param.ParameterType.FullName!)
-                .ToArray();
+                .ToDictionary(param => param.Name!, param => param.ParameterType.FullName!);
         }
 
-        public object[] getKeywordDefaultArguments(string methodName)
+        public Dictionary<string, object> getKeywordDefaultArguments(string methodName)
         {
             return typeof(IKeywordLibrary)
                 .GetMethod(methodName)!
                 .GetParameters()
                 .Where(p => p.Attributes.HasFlag(ParameterAttributes.Optional) && p.Attributes.HasFlag(ParameterAttributes.HasDefault))
-                .Select(param => param.DefaultValue!)
-                .ToArray();
+                .ToDictionary(param => param.Name!, param => param.DefaultValue!);
         }
 
         (GuiApplication?, RobotResult.RobotFail?) getGuiApplication()
