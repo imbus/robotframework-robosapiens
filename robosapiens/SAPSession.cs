@@ -19,6 +19,7 @@ namespace RoboSAPiens {
     public sealed class SAPSession : ISession {
         public bool isActive;
         GuiConnection connection;
+        string idMainWindow;
         ILogger logger;
         Options options;
         string sapClient;
@@ -26,7 +27,8 @@ namespace RoboSAPiens {
         string systemName;
         SAPWindow window;
 
-        public SAPSession(GuiSession session, GuiConnection connection, Options options, ILogger logger) {
+        public SAPSession(GuiSession session, GuiConnection connection, Options options, ILogger logger)
+        {
             this.connection = connection;
             this.logger = logger;
             this.session = session;
@@ -35,6 +37,18 @@ namespace RoboSAPiens {
             this.window = new SAPWindow(session.ActiveWindow, debug: options.debug);
             sapClient = session.Info.Client;
             isActive = true;
+            idMainWindow = "/app/con[0]/ses[0]/wnd[0]";
+
+            for (int i = 0; i < session.Children.Length; i++)
+            {
+                var element = session.Children.ElementAt(i);
+
+                if (element.Type == "GuiMainWindow")
+                {
+                    idMainWindow = element.Id;
+                    break;
+                }
+            }
         }
 
         public SessionInfo getSessionInfo()
@@ -831,7 +845,7 @@ namespace RoboSAPiens {
             }
 
             try {
-                var window = (GuiFrameWindow)session.FindById(this.window.id);
+                var window = (GuiFrameWindow)session.FindById(idMainWindow);
                 var screenshot = ScreenCapture.saveWindowImage(window.Handle);
 
                 if (path.Equals("LOG"))

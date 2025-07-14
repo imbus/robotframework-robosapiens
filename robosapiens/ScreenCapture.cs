@@ -17,20 +17,21 @@ namespace RoboSAPiens
             public int Bottom;
         }   
 
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr GetDC(IntPtr hWnd);
+
         [DllImport("user32.dll")]
         static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("gdi32.dll", EntryPoint = "BitBlt", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
+        static extern bool BitBlt([In] IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, [In] IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
 
-        // This is necessary when the SAP window contains an embedded Edge browser
-        // Without this flag the embedded browser is absent in the screenshot
-        const UInt32 PW_RENDERFULLCONTENT = 0x00000002;
 
         public static byte[] saveWindowImage(IntPtr windowHandle)
         {
             var rect = new Rect();
+            var src = GetDC(IntPtr.Zero);
             GetWindowRect(windowHandle, ref rect);
             var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
             var screenshot = new Bitmap(bounds.Width, bounds.Height);
@@ -38,7 +39,7 @@ namespace RoboSAPiens
             using (var stream = new MemoryStream())
             {
                 IntPtr deviceContext = graphics.GetHdc();
-                bool success = PrintWindow(windowHandle, deviceContext, PW_RENDERFULLCONTENT);
+                BitBlt(deviceContext, 0, 0, rect.Right - rect.Left, rect.Bottom - rect.Top, src, 0, 0, 0x00CC0020);
                 graphics.ReleaseHdc(deviceContext);
                 screenshot.Save(stream, ImageFormat.Png);
                 return stream.ToArray();
