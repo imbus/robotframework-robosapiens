@@ -115,7 +115,7 @@ namespace RoboSAPiens {
             public record InvalidSession(int sessionId): RobotResult.InvalidSession(sessionId);
             public record SapError(string message): RobotResult.SapError(message);
             public record InvalidConnection(string name): RobotResult.RobotFail("InvalidConnection", $"Es gibt keine Verbindung mit dem Namen '{name}'.");
-            public record InvalidClient(string name): RobotResult.RobotFail("InvalidClient", $"Es gibt keinen Mandanten mit dem Namen '{name}'.");
+            public record InvalidClient(string client): RobotResult.RobotFail("InvalidClient", $"Es besteht keine Verbindung beim Mandanten '{client}'.");
             public record Json(string json): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.", returnValue: json);
             public record Pass(): RobotResult.RobotPass("Die laufende SAP GUI wurde erfolgreich übernommen.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die laufende SAP GUI konnte nicht übernommen werden.");
