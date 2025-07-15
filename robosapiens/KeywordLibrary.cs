@@ -67,7 +67,7 @@ namespace RoboSAPiens
             var sapGui = rot.GetROTEntry("SAPGUI") ?? rot.GetROTEntry("SAPGUISERVER");
             
             if (sapGui == null)
-                return new (null, new RobotResult.NoSapGui());
+                return (null, new RobotResult.NoSapGui());
             
             var scriptingEngine = sapGui.GetType().InvokeMember(
                 "GetScriptingEngine",
@@ -78,9 +78,9 @@ namespace RoboSAPiens
             );
             
             if (scriptingEngine == null)
-                return new (null, new RobotResult.NoGuiScripting());
+                return (null, new RobotResult.NoGuiScripting());
 
-            return new ((GuiApplication)scriptingEngine, null);
+            return ((GuiApplication)scriptingEngine, null);
         }
 
         [Keyword("Reiter auswählen"),
