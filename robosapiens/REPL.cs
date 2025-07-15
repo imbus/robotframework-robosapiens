@@ -45,7 +45,7 @@ namespace RoboSAPiens
                         }
                         else
                         {
-                            string[] tokenize(string input) => Regex.Split(input, @"\s\s+");
+                            string[] tokenize(string input) => Regex.Split(input.Replace("\t", " "), @"\s\s+");
 
                             (List<string>, Dictionary<string, object>) classifyParams(string[] @params, Dictionary<string, string> paramTypes)
                             {
