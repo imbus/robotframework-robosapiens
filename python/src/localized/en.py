@@ -239,6 +239,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The tab '{0}' could not be found."),
@@ -264,6 +265,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The tree element '{0}' could not be found."),
@@ -291,6 +293,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The tree folder '{0}' could not be found."),
@@ -318,6 +321,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The tree element '{0}' could not be found."),
@@ -352,6 +356,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The tree element '{0}' could not be found."),
@@ -373,12 +378,14 @@ lib: RoboSAPiens = {
         "OpenSap": {
             "name": "Open SAP",
             "args": {
-                "a1path": {
+                "path": {
                     "name": "path",
                     "desc": "The path of the SAP executable",
                     "spec": {},
-                },
-                "a2sapArgs": {
+                }
+            },
+            "kwargs": {
+                "sapArgs": {
                      "name": "sap_args",
                      "desc": "Command line arguments for the SAP executable",
                      "default": None,
@@ -430,6 +437,7 @@ lib: RoboSAPiens = {
         "CloseConnection": {
             "name": "Disconnect from Server",
             "args": {},
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "Pass": "Disconnected from the server.",
@@ -448,6 +456,7 @@ lib: RoboSAPiens = {
         "CloseSap": {
             "name": "Close SAP",
             "args": {},
+            "kwargs": {},
             "result": {
                 "NoSapGui": no_sap_gui,
                 "Pass": "The SAP GUI was closed."
@@ -467,6 +476,7 @@ lib: RoboSAPiens = {
         "CloseWindow": {
             "name": "Close Window",
             "args": {},
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "Exception": exception("The window could not be closed. {0}"),
@@ -484,7 +494,8 @@ lib: RoboSAPiens = {
         },
         "CountTableRows": {
             "name": "Get Row Count",
-            "args": {
+            "args": {},
+            "kwargs": {
                 "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
@@ -519,6 +530,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": "The window contains no tree structure",
@@ -539,15 +551,16 @@ lib: RoboSAPiens = {
         },
         "ConnectToRunningSap": {
             "name": "Connect to Running SAP",
-            "args": {
-                "a1sessionNumber": {
+            "args": {},
+            "kwargs": {
+                "sessionNumber": {
                     "name": "session_number",
                     "desc": "The session number shown in the upper right or lower right corner of the window",
                     "default": 1,
                     "type": "int",
                     "spec": {}
                 },
-                "a2connectionName": {
+                "connectionName": {
                     "name": "connection",
                     "desc": "The name of the connection in SAP Logon",
                     "default": None,
@@ -561,9 +574,10 @@ lib: RoboSAPiens = {
                 "NoConnection": no_connection,
                 "NoSession": no_session,
                 "NoServerScripting": no_server_scripting,
-                "InvalidSession": "There is no session number {session_number} for the current connection.",
+                "InvalidSession": "There is no session number {sessionNumber} for the current connection.",
                 "SapError": sap_error,
-                "InvalidConnection": "There is no connection with the name '{connection}'",
+                "InvalidConnection": "There is no connection with the name '{connectionName}'",
+                "InvalidClient": "There is no connection with the name '{client}'",
                 "Json": "The return value is in JSON format",
                 "Pass": "Connected to a running SAP instance.",
                 "Exception": exception("Could not connect to a running SAP instance. Hint: In order to connect to a 64-bit SAP client import RoboSAPiens with x64=True. {0}")
@@ -597,6 +611,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSapGui": no_sap_gui,
                 "NoGuiScripting": no_gui_scripting,
@@ -628,8 +643,10 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-                },
-                "a3tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": None,
@@ -671,6 +688,7 @@ lib: RoboSAPiens = {
                     },
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The text field with the locator '{0}' could not be found"),
@@ -700,6 +718,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "Pass": "The transaction with T-Code {0} was executed.",
@@ -729,6 +748,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "Pass": "The window contents were exported to {0} and a screenshot was saved to {1}.",
@@ -765,8 +785,10 @@ lib: RoboSAPiens = {
                     "name": "content",
                     "desc": "The new contents of the cell",
                     "spec": {},
-                },
-                "a4tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": None,
@@ -804,6 +826,7 @@ lib: RoboSAPiens = {
                     "spec": {}
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The window contains no multiline text field."),
@@ -842,7 +865,9 @@ lib: RoboSAPiens = {
                     "desc": "The new contents of the text field",
                     "spec": {},
                 },
-                "a3exact": {
+            },
+            "kwargs": {
+                "exact": {
                     "name": "exact",
                     "desc": "Whether to perform an exact search",
                     "default": True,
@@ -894,12 +919,14 @@ lib: RoboSAPiens = {
         "HighlightButton": {
             "name": "Highlight Button",
             "args": {
-                "a1button": {
+                "button": {
                     "name": "locator",
                     "desc": "The name or tooltip of the button",
                     "spec": {},
-                },
-                "a2exact": {
+                }
+            },
+            "kwargs": {
+                "exact": {
                     "name": "exact",
                     "desc": "`True` if the locator matches exactly the tooltip, `False` otherwise.",
                     "default": False,
@@ -934,6 +961,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
@@ -958,12 +986,14 @@ lib: RoboSAPiens = {
         "PushButton": {
             "name": "Push Button",
             "args": {
-                "a1button": {
+                "button": {
                     "name": "locator",
                     "desc": "The name or tooltip of the button",
                     "spec": {},
-                },
-                "a2exact": {
+                }
+            },
+            "kwargs": {
+                "exact": {
                     "name": "exact",
                     "desc": "`True` if the locator matches exactly the tooltip, `False` otherwise.",
                     "default": False,
@@ -1008,8 +1038,10 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-                },
-               "a3tableNumber": {
+                }
+            },
+            "kwargs": {
+               "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": None,
@@ -1039,6 +1071,7 @@ lib: RoboSAPiens = {
         "ReadStatusbar": {
             "name": "Read Statusbar",
             "args": {},
+            "kwargs": {},
             "result": {
                 "Json": "The return value is in JSON format", 
                 "NoSession": no_session,
@@ -1071,6 +1104,7 @@ lib: RoboSAPiens = {
                     },
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The text field with the locator '{0}' could not be found."),
@@ -1100,6 +1134,7 @@ lib: RoboSAPiens = {
 
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("No text with the locator '{0}' was found."),
@@ -1132,8 +1167,10 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-                },
-                "a3tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": None,
@@ -1168,6 +1205,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "InvalidPath": "The path '{0}' is invalid.",
@@ -1192,12 +1230,14 @@ lib: RoboSAPiens = {
         "ScrollTextFieldContents": {
             "name": "Scroll Contents",
             "args": {
-                "a1direction": {
+                "direction": {
                     "name": "direction",
                     "desc": "UP, DOWN, BEGIN, END",
                     "spec": {}
-                },
-                "a2untilTextField": {
+                }
+            },
+            "kwargs": {
+                "untilTextField": {
                     "name": "until_textfield",
                     "desc": textfield_locator,
                     "default": None,
@@ -1236,6 +1276,7 @@ lib: RoboSAPiens = {
                     "spec": {}
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "Exception": exception("The window could not be scrolled horizontally. {0}"),
@@ -1266,8 +1307,10 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-                },
-                "a3tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": None,
@@ -1312,8 +1355,10 @@ lib: RoboSAPiens = {
                     "name": "value",
                     "desc": "An entry from the dropdown menu",
                     "spec": {},
-                },
-                "a4tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": None,
@@ -1348,6 +1393,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The checkbox with the locator '{0}' could not be found."),
@@ -1380,6 +1426,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 },
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The dropdown menu '{0}' could not be found."),
@@ -1410,6 +1457,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The dropdown menu '{0}' could not be found."),
@@ -1440,6 +1488,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The menu entry '{0}' could not be found."),
@@ -1469,6 +1518,7 @@ lib: RoboSAPiens = {
                     },
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The radio button with locator '{0}' could not be found."),
@@ -1496,12 +1546,14 @@ lib: RoboSAPiens = {
         "SelectTableColumn": {
             "name": "Select Table Column",
             "args": {
-                "a1column": {
+                "column": {
                     "name": "column",
                     "desc": "The title or tooltip of the column",
                     "spec": {},
-                },
-                "a2tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": 1,
@@ -1530,12 +1582,14 @@ lib: RoboSAPiens = {
         "SelectTableRow": {
             "name": "Select Table Row",
             "args": {
-                "a1row_locator": {
+                "row_locator": {
                     "name": "row_locator",
                     "desc": row_locator,
                     "spec": {},
-                },
-                "a2tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": 1,
@@ -1582,6 +1636,7 @@ lib: RoboSAPiens = {
 
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The text field with the locator '{0}' could not be found."),
@@ -1611,6 +1666,7 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The text with the locator '{0}' could not be found."),
@@ -1644,6 +1700,7 @@ lib: RoboSAPiens = {
                     },
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The checkbox with the locator '{0}' could not be found."),
@@ -1681,6 +1738,7 @@ lib: RoboSAPiens = {
                     },
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The checkbox with the locator '{0}' could not be found."),
@@ -1717,8 +1775,10 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-                },
-                "a3tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": None,
@@ -1758,8 +1818,10 @@ lib: RoboSAPiens = {
                     "name": "column",
                     "desc": column,
                     "spec": {},
-                },
-                "a3tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                     "name": "table_number",
                     "desc": "Specify which table: 1, 2, ...",
                     "default": None,
@@ -1788,6 +1850,7 @@ lib: RoboSAPiens = {
         "GetWindowTitle": {
             "name": "Get Window Title",
             "args": {},
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "Pass": "The title of the window was obtained.",
@@ -1806,6 +1869,7 @@ lib: RoboSAPiens = {
         "GetWindowText": {
             "name": "Get Window Text",
             "args": {},
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "Pass": "The text message of the window was obtained.",
@@ -1824,6 +1888,7 @@ lib: RoboSAPiens = {
         "MaximizeWindow": {
             "name": "Maximize window",
             "args": {},
+            "kwargs": {},
             "result": {
                 "NoSession": no_session,
                 "Pass": "The window in the foreground was maximized.",

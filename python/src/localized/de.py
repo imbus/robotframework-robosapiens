@@ -241,6 +241,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {}
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("1349204363", not_found("Der Reiter '{0}' wurde nicht gefunden.")),
@@ -267,6 +268,7 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("3295884259", not_found("Das Baumelement '{0}' wurde nicht gefunden.")),
@@ -295,6 +297,7 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("3001333208", not_found("Der Baumordner '{0}' wurde nicht gefunden.")),
@@ -323,6 +326,7 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("3295884259", not_found("Das Baumelement '{0}' wurde nicht gefunden.")),
@@ -358,6 +362,7 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {},
                 },
             },
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("3295884259", not_found("Das Baumelement '{0}' wurde nicht gefunden.")),
@@ -380,12 +385,14 @@ lib: LocalizedRoboSAPiens = {
         "OpenSap": {
             "name": ("1259182241", "SAP starten"),
             "args": {
-              "a1path": {
+              "path": {
                 "name": ("190089999", "Pfad"),
                 "desc": ("4080190508", "Der Pfad zu saplogon.exe oder NWBC.exe"),
                 "spec": {},
-              },
-              "a2sapArgs": {
+              }
+            },
+            "kwargs": {
+                "sapArgs": {
                   "name": ("3959597614", "SAP_Parameter"),
                   "desc": ("4215926071", "Kommandozeileparameter für den SAP Client"),
                   "default": None,
@@ -438,6 +445,7 @@ lib: LocalizedRoboSAPiens = {
         "CloseConnection": {
             "name": ("938374979", "Verbindung zum Server trennen"),
             "args": {},
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("1657006605", "Die Verbindung zum Server wurde getrennt."),
@@ -457,6 +465,7 @@ lib: LocalizedRoboSAPiens = {
         "CloseSap": {
             "name": ("1795765665", "SAP beenden"),
             "args": {},
+            "kwargs": {},
             "result": {
               "NoSapGui": ("2987622841", no_sap_gui),
               "Pass": ("2970606098", "Die SAP GUI wurde beendet")
@@ -477,6 +486,7 @@ lib: LocalizedRoboSAPiens = {
         "CloseWindow": {
             "name": ("3843607926", "Fenster schließen"),
             "args": {},
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("320353308", "Das Fenster im Vordergrund wurde geschlossen."),
@@ -495,7 +505,8 @@ lib: LocalizedRoboSAPiens = {
         },
         "CountTableRows": {
             "name": ("2280342727", "Tabellenzeilen zählen"),
-            "args": {
+            "args": {},
+            "kwargs": {
               "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
@@ -531,6 +542,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("492802637", "Die Maske enthält keine Baumstruktur"),
@@ -552,15 +564,16 @@ lib: LocalizedRoboSAPiens = {
         },
         "ConnectToRunningSap": {
             "name": ("4126309856", "Laufende SAP GUI übernehmen"),
-            "args": {
-                "a1sessionNumber": {
+            "args": {},
+            "kwargs": {
+                "sessionNumber": {
                     "name": ("4193981709", "session_nummer"),
                     "desc": ("1605605041", "Die Nummer der SAP-Session in der rechten oberen oder unteren Ecke des Fensters"),
                     "default": 1,
                     "type": "int",
                     "spec": {}
                 },
-                "a2connectionName": {
+                "connectionName": {
                     "name": ("704082790", "Verbindung"),
                     "desc": ("2063424522", "Der Name der Verbindung in SAP Logon (nicht der SID)"),
                     "default": None,
@@ -574,9 +587,10 @@ lib: LocalizedRoboSAPiens = {
               "NoConnection": ("509780556", no_connection),
               "NoSession": ("4138997384", no_session),
               "NoServerScripting": ("3495213352", no_server_scripting),
-              "InvalidConnection": ("3664622222", "Es gibt keine Verbindung mit dem Namen '{Verbindung}'"),
+              "InvalidConnection": ("2983941733", "Es gibt keine Verbindung mit dem Namen '{connectionName}'"),
+              "InvalidClient": ("3820238058", "Es gibt keinen Mandanten mit dem Namen '{client}'"),
               "SapError": ("3246364722", sap_error),
-              "InvalidSession": ("3727388681", "Die aktuelle Verbindung hat keine Session '{session_nummer}'"),
+              "InvalidSession": ("825227126", "Die aktuelle Verbindung hat keine Session '{sessionNumber}'"),
               "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
               "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
               "Exception": ("3410975181", exception("Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden."))
@@ -611,6 +625,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSapGui": ("2987622841", no_sap_gui),
               "NoGuiScripting": ("3820273098", no_gui_scripting),
@@ -644,7 +659,9 @@ lib: LocalizedRoboSAPiens = {
                 "desc": ("4138373630", column),
                 "spec": {},
               },
-              "a3tableNumber": {
+            },
+            "kwargs": {
+              "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": None,
@@ -688,6 +705,7 @@ lib: LocalizedRoboSAPiens = {
 
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("1367926790", not_found("Das Textfeld mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -718,6 +736,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("468573121", "Die Transaktion mit T-Code '{0}' wurde erfolgreich ausgeführt."),
@@ -748,6 +767,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("620190076", "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert"),
@@ -786,14 +806,16 @@ lib: LocalizedRoboSAPiens = {
                   "name": ("4274335913", "Inhalt"),
                   "desc": ("449567510", "Der neue Inhalt der Zelle"),
                   "spec": {},
-              },
-              "a4tableNumber": {
+              }
+            },
+            "kwargs": {
+              "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": None,
                   "type": "int",
                   "spec": {}
-              }
+              } 
             },
             "result": {
               "NoSession": ("4138997384", no_session),
@@ -826,6 +848,7 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {}
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("2220996720", not_found("Die Maske enthält kein mehrzeiliges Textfeld.")),
@@ -864,7 +887,9 @@ lib: LocalizedRoboSAPiens = {
                 "desc": ("3646718294", "Der neue Inhalt des Textfelds"),
                 "spec": {},
               },
-              "a3exact": {
+            },
+            "kwargs": {
+              "exact": {
                   "name": ("1775676165", "exakt"),
                   "desc": ("82873837", "Entweder eine genaue oder eine partielle Übereinstimmung mit dem Lokator."),
                   "default": True,
@@ -917,12 +942,15 @@ lib: LocalizedRoboSAPiens = {
         "HighlightButton": {
             "name": ("2180269929", "Knopf hervorheben"),
             "args": {
-              "a1button": {
+              "button": {
                 "name": ("2051440239", "Lokator"),
                 "desc": ("2400215713", "Name oder Kurzinfo (Tooltip) des Knopfes"),
                 "spec": {},
               },
-              "a2exact": {
+
+            },
+            "kwargs": {
+              "exact": {
                 "name": ("1775676165", "exakt"),
                 "desc": ("4137356431", "`True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False`"),
                 "default": False,
@@ -958,6 +986,7 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "Exception": ("3975296116", exception("Die Tastenkombination konnte nicht gedrückt werden.")),
@@ -983,12 +1012,15 @@ lib: LocalizedRoboSAPiens = {
         "PushButton": {
             "name": ("2326550334", "Knopf drücken"),
             "args": {
-              "a1button": {
+              "button": {
                 "name": ("2051440239", "Lokator"),
                 "desc": ("2400215713", "Name oder Kurzinfo (Tooltip) des Knopfes"),
                 "spec": {},
               },
-              "a2exact": {
+
+            },
+            "kwargs": {
+              "exact": {
                 "name": ("1775676165", "exakt"),
                 "desc": ("4137356431", "`True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False`."),
                 "default": False,
@@ -1034,14 +1066,16 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
-              },
-              "a3tableNumber": {
+              }
+            },
+            "kwargs": {
+               "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": None,
                   "type": "int",
                   "spec": {}
-              }
+              } 
             },
             "result": {
               "NoSession": ("4138997384", no_session),
@@ -1077,6 +1111,7 @@ lib: LocalizedRoboSAPiens = {
                 },
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("2917845132", not_found("Das Textfeld mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1106,6 +1141,7 @@ lib: LocalizedRoboSAPiens = {
                 },
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("837183792", not_found("Der Text mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1139,14 +1175,16 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
-              },
-              "a3tableNumber": {
+              }
+            },
+            "kwargs": {
+                "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": None,
                   "type": "int",
                   "spec": {}
-              }
+              } 
             },
             "result": {
               "NoSession": ("4138997384", no_session),
@@ -1176,6 +1214,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "InvalidPath": ("2844012395", "Der Pfad '{0}' ist ungültig"),
@@ -1201,12 +1240,14 @@ lib: LocalizedRoboSAPiens = {
         "ScrollTextFieldContents": {
             "name": ("61854466", "Inhalte scrollen"),
             "args": {
-                "a1direction": {
+                "direction": {
                     "name": ("1045090739", "Richtung"),
                     "desc": ("1053509555", "UP, DOWN, BEGIN, END"),
                     "spec": {}
-                },
-                "a2untilTextField": {
+                }
+            },
+            "kwargs": {
+                "untilTextField": {
                     "name": ("2676914944", "bis_Textfeld"),
                     "desc": ("1257056815", textfield_locator),
                     "default": None,
@@ -1246,6 +1287,7 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {}
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "Exception": ("3689319260", exception("Das Fenster konnte nicht horizontal gescrollt werden.")),
@@ -1277,14 +1319,16 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
-              },
-              "a3tableNumber": {
+              }
+            },
+            "kwargs": {
+               "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": None,
                   "type": "int",
                   "spec": {}
-              }
+              } 
             },
             "result": {
               "NoSession": ("4138997384", no_session),
@@ -1324,8 +1368,10 @@ lib: LocalizedRoboSAPiens = {
                     "name": ("494360628", "Wert"),
                     "desc": ("3335814071", "Ein Wert aus dem Auswahlmenü"),
                     "spec": {},
-                },
-                "a4tableNumber": {
+                }
+            },
+            "kwargs": {
+              "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": None,
@@ -1361,6 +1407,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3274358834", not_found("Das Formularfeld mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1394,6 +1441,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3185471891", not_found("Das Auswahlmenü mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1425,6 +1473,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3185471891", not_found("Das Auswahlmenü mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1456,6 +1505,7 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {},
                 }
             },
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("711462162", not_found("Der Menüeintrag '{0}' wurde nicht gefunden.")),
@@ -1486,6 +1536,7 @@ lib: LocalizedRoboSAPiens = {
                 },
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("2755548585", not_found("Das Optionsfeld mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1514,12 +1565,14 @@ lib: LocalizedRoboSAPiens = {
         "SelectTableColumn": {
             "name": ("3486989426", "Tabellenspalte markieren"),
             "args": {
-                "a1column": {
+                "column": {
                     "name": ("2102626174", "Spalte"),
                     "desc": ("2490445981", "Spaltentitel oder Kurzhilfe (Tooltip)"),
                     "spec": {},
-                },
-                "a2tableNumber": {
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": 1,
@@ -1549,12 +1602,14 @@ lib: LocalizedRoboSAPiens = {
         "SelectTableRow": {
             "name": ("1966160675", "Tabellenzeile markieren"),
             "args": {
-                "a1row_locator": {
+                "row_locator": {
                     "name": ("315353924", "Zeilenlokator"),
                     "desc": ("331065732", row_locator),
                     "spec": {},
                 },
-                "a2tableNumber": {
+            },
+            "kwargs": {
+               "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": 1,
@@ -1601,6 +1656,7 @@ lib: LocalizedRoboSAPiens = {
                 },
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("2917845132", not_found("Das Textfeld mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1631,6 +1687,7 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("460274007", not_found("Der Text mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1665,6 +1722,7 @@ lib: LocalizedRoboSAPiens = {
                 },
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3274358834", not_found("Das Formularfeld mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1693,6 +1751,7 @@ lib: LocalizedRoboSAPiens = {
         "ReadStatusbar": {
             "name": ("118752925", "Statusleiste auslesen"),
             "args": {},
+            "kwargs": {},
             "result": {
                 "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
                 "NoSession": ("4138997384", no_session),
@@ -1724,6 +1783,7 @@ lib: LocalizedRoboSAPiens = {
                 },
               }
             },
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "NotFound": ("3274358834", not_found("Das Formularfeld mit dem Lokator '{0}' wurde nicht gefunden.")),
@@ -1762,7 +1822,9 @@ lib: LocalizedRoboSAPiens = {
                 "desc": ("4138373630", column),
                 "spec": {},
               },
-              "a3tableNumber": {
+            },
+            "kwargs": {
+               "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": None,
@@ -1803,8 +1865,10 @@ lib: LocalizedRoboSAPiens = {
                 "name": ("2102626174", "Spaltentitel"),
                 "desc": ("4138373630", column),
                 "spec": {},
-              },
-              "a3tableNumber": {
+              }
+            },
+            "kwargs": {
+               "tableNumber": {
                   "name": ("3359775383", "tabelle_nummer"),
                   "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
                   "default": None,
@@ -1834,6 +1898,7 @@ lib: LocalizedRoboSAPiens = {
         "GetWindowTitle": {
             "name": ("2828980154", "Fenstertitel auslesen"),
             "args": {},
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("2852411998", "Der Fenstertitel wurde ausgelesen"),
@@ -1853,6 +1918,7 @@ lib: LocalizedRoboSAPiens = {
         "GetWindowText": {
             "name": ("1085911504", "Fenstertext auslesen"),
             "args": {},
+            "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("2562559050", "Der Text des Fensters wurde ausgelesen"),
@@ -1872,6 +1938,7 @@ lib: LocalizedRoboSAPiens = {
         "MaximizeWindow": {
             "name": ("458747722", "Fenster maximieren"),
             "args": {},
+            "kwargs": {},
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "Pass": ("3684348012", "Das Fenster im Vordergrund wurde maximiert."),

@@ -22,16 +22,19 @@ namespace RoboSAPiens
             session = new NoSAPSession();
         }
 
-        public RobotResult callKeyword(string methodName, object[] args) 
+        public RobotResult callKeyword(string methodName, object[] args, Dictionary<string, object> kwargs) 
         {
             try
             {
-                return (RobotResult)typeof(KeywordLibrary).GetMethod(methodName)!.Invoke(this, args)!;
+                var argumentNames = getKeywordArgumentNames(methodName);
+                var optionalParams = argumentNames.Select(name => kwargs[name]).ToArray();
+
+                return (RobotResult)typeof(KeywordLibrary).GetMethod(methodName)!.Invoke(this, [.. args, .. optionalParams])!;
             }
             catch (Exception e)
             {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
-                return new Result.KeywordLibrary.Exception(methodName, e);   
+                return new Result.KeywordLibrary.Exception(methodName, e);
             }
         }
 
@@ -41,6 +44,15 @@ namespace RoboSAPiens
                 .GetMethods()
                 .Select(m => m.Name)
                 .Order()
+                .ToList();
+        }
+
+        public List<string> getKeywordArgumentNames(string methodName)
+        {
+            return typeof(IKeywordLibrary)
+                .GetMethod(methodName)!
+                .GetParameters()
+                .Select(param => param.Name!)
                 .ToList();
         }
 

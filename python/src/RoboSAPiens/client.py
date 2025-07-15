@@ -60,11 +60,12 @@ class RoboSAPiensClient(object):
         self._server.terminate()
 
     # All methods have to be private so that they are not interpreted as keywords by RF
-    def _run_keyword(self, name: str, args: dict[str, object], result: Dict[str, str]): # type: ignore
+    def _run_keyword(self, name: str, args: list[object], kwargs: dict[str, object], result: Dict[str, str]): # type: ignore
         request = {
             "jsonrpc": "2.0",
             "method": name,
-            "args": list(args.values()),
+            "args": args,
+            "kwargs": kwargs,
             "id": next(self.counter)
         }
 
@@ -87,9 +88,9 @@ class RoboSAPiensClient(object):
                 message = result[error_type].format(error_message)
             else:
                 if '{0}' in result[error_type]:
-                    message = result[error_type].format(*args.values())
+                    message = result[error_type].format(*args)
                 else:
-                    message = result[error_type].format(**args)
+                    message = result[error_type].format(**kwargs)
 
             if error_type == 'NotFound':
                 raise NotFound(message, rf_result.traceback)
@@ -105,7 +106,7 @@ class RoboSAPiensClient(object):
         if "Log" in result:
             logger.info(str(rf_result.return_), html=True)
         else:
-            sys.stdout.write(result["Pass"].format(*args.values()) + '\n')
+            sys.stdout.write(result["Pass"].format(*args) + '\n')
 
         if "Json" in result:
             return json.loads(str(rf_result.return_))

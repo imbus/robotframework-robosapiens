@@ -91,7 +91,11 @@ public class _
                 method => new 
                     {
                         name = ((Keyword)method.GetCustomAttribute(typeof(Keyword))!).Name,
-                        args = method.GetParameters().ToDictionary(
+                        args = method.GetParameters().Where(param => !param.HasDefaultValue).ToDictionary(
+                            param => param.Name!,
+                            param => getParam(param)
+                        ),
+                        kwargs = method.GetParameters().Where(param => param.HasDefaultValue).ToDictionary(
                             param => param.Name!,
                             param => getParam(param)
                         ),

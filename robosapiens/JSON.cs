@@ -21,7 +21,7 @@ namespace RoboSAPiens
     internal partial class SerializerContext : JsonSerializerContext {}
     
     public record JSONError(int code, string message, RobotResult data);
-    public record JSONRequest(string method, object[] args, int id, string jsonrpc = "2.0");
+    public record JSONRequest(string method, object[] args, Dictionary<string, object> kwargs, int id, string jsonrpc = "2.0");
     public record JSONResponse(RobotResult? result, JSONError? error, int id, string jsonrpc = "2.0");
 
     public class ObjectToInferredTypesConverter: JsonConverter<object>

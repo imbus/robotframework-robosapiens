@@ -28,7 +28,7 @@ class {{ module_name }}(RoboSAPiensClient):
     
     {% for api_function, keyword in keywords.items() %}
     @keyword('{{ keyword.name|get_value }}') # type: ignore
-    def {{ api_function|snake_case }}({{ (["self"] + keyword.args.values()|map('format_arg')|list)|join(", ") }}): # type: ignore
+    def {{ api_function|snake_case }}({{ (["self"] + keyword.args.values()|map('format_arg')|list + keyword.kwargs.values()|map('format_arg')|list)|join(", ") }}): # type: ignore
         """
         {{ keyword.doc.desc|get_value }}
         {% for arg in keyword.args.values() %}
@@ -39,9 +39,15 @@ class {{ module_name }}(RoboSAPiensClient):
         {%- endfor -%}
         """
 
-        args = {
+        args: list = [
         {%- for name in keyword.args.values()|map(attribute='name')|map('get_value') %}
-            "{{ name }}": {{ name }}{{ "," if not loop.last else "" }}
+            {{ name }}{{ "," if not loop.last else "" }}
+        {%- endfor %}
+        ]
+        kwargs: dict = {
+        {%- for csharp_name, kwarg in keyword.kwargs.items() %}
+            {%- set python_name = kwarg.name|get_value %}
+            "{{ csharp_name }}": {{ python_name }}{{ "," if not loop.last else "" }}
         {%- endfor %}
         }
         
@@ -50,7 +56,7 @@ class {{ module_name }}(RoboSAPiensClient):
             "{{ name }}": "{{ message|get_value|escape_chars }}"{{ "," if not loop.last else "" }}
             {%- endfor %}
         }
-        return super()._run_keyword('{{ api_function }}', args, result) # type: ignore
+        return super()._run_keyword('{{ api_function }}', args, kwargs, result) # type: ignore
     {% endfor %}
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = '{{ version }}'

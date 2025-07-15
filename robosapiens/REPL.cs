@@ -115,7 +115,7 @@ namespace RoboSAPiens
                                 (var args, var kwargs) = @params;
                                 var callKwargs = merge(keywordLibrary.getKeywordDefaultArguments(method), kwargs);
 
-                                return keywordLibrary.callKeyword(method, [.. args.ToArray(), .. callKwargs.Values.ToArray()]);
+                                return keywordLibrary.callKeyword(method, args.ToArray(), callKwargs);
                             }
 
                             var result = tokenize(input.Trim()) switch
@@ -162,7 +162,7 @@ namespace RoboSAPiens
                 while ((input = readInput()) != null && input != "quit")
                 {
                     var request = JSON.deserialize(input) ?? throw new Exception("Received null");
-                    var result = keywordLibrary.callKeyword(request.method, request.args);
+                    var result = keywordLibrary.callKeyword(request.method, request.args, request.kwargs);
                     var response = result.status switch
                     {
                         Status.FAIL => JSON.Fail(new JSONError(-32000, "Keyword call failed.", result), id: request.id),
