@@ -579,6 +579,13 @@ lib: LocalizedRoboSAPiens = {
                     "default": None,
                     "type": "str",
                     "spec": {}
+                },
+                "client": {
+                    "name": ("3343123541", "Mandant"),
+                    "desc": ("575196918", "Der dreistellige Mandant"),
+                    "default": None,
+                    "type": "str",
+                    "spec": {}
                 }
             },
             "result": {

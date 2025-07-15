@@ -566,6 +566,13 @@ lib: RoboSAPiens = {
                     "default": None,
                     "type": "str",
                     "spec": {}
+                },
+                "client": {
+                    "name": "client",
+                    "desc": "The three-digit number of the client",
+                    "default": None,
+                    "type": "str",
+                    "spec": {}
                 }
             },
             "result": {

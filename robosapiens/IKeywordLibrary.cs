@@ -6,7 +6,7 @@ namespace RoboSAPiens
         public RobotResult CloseConnection();
         public RobotResult CloseSap();
         public RobotResult CloseWindow();
-        public RobotResult ConnectToRunningSap(int sessionNumber=1, string? connectionName=null);
+        public RobotResult ConnectToRunningSap(int sessionNumber=1, string? connectionName=null, string? client=null);
         public RobotResult ConnectToServer(string server);
         public RobotResult CountTableRows(int tableNumber=1);
         public RobotResult DoubleClickCell(string row_locator, string column, int? tableNumber=null);
