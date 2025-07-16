@@ -243,7 +243,7 @@ namespace RoboSAPiens
                 if (sessionError != null)
                     return sessionError;
 
-                var session = new SAPSession(guiSession!, connection!, options, logger);
+                session = new SAPSession(guiSession!, connection!, options, logger);
                 var sessionInfo = JSON.serialize(session.getSessionInfo(), typeof(SessionInfo));
                 
                 return new Result.ConnectToRunningSap.Json(sessionInfo);
