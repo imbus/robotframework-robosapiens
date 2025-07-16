@@ -594,10 +594,10 @@ lib: LocalizedRoboSAPiens = {
               "NoConnection": ("509780556", no_connection),
               "NoSession": ("4138997384", no_session),
               "NoServerScripting": ("3495213352", no_server_scripting),
-              "InvalidConnection": ("2983941733", "Es gibt keine Verbindung mit dem Namen '{connectionName}'"),
-              "InvalidClient": ("3820238058", "Es gibt keinen Mandanten mit dem Namen '{client}'"),
+              "InvalidClient": ("3820238058", "Es gibt keinen Mandanten mit dem Namen '{Mandant}'"),
+              "InvalidConnection": ("3664622222", "Es gibt keine Verbindung mit dem Namen '{Verbindung}'"),
+              "InvalidSession": ("3727388681", "Die aktuelle Verbindung hat keine Session '{session_nummer}'"),
               "SapError": ("3246364722", sap_error),
-              "InvalidSession": ("825227126", "Die aktuelle Verbindung hat keine Session '{sessionNumber}'"),
               "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
               "Pass": ("2481655346", "Die laufende SAP GUI wurde erfolgreich übernommen."),
               "Exception": ("3410975181", exception("Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden."))

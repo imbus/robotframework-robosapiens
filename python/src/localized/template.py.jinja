@@ -45,9 +45,8 @@ class {{ module_name }}(RoboSAPiensClient):
         {%- endfor %}
         ]
         kwargs: dict = {
-        {%- for csharp_name, kwarg in keyword.kwargs.items() %}
-            {%- set python_name = kwarg.name|get_value %}
-            "{{ csharp_name }}": {{ python_name }}{{ "," if not loop.last else "" }}
+        {%- for name in keyword.kwargs.values()|map(attribute='name')|map('get_value') %}
+            "{{ name }}": {{ name }}{{ "," if not loop.last else "" }}
         {%- endfor %}
         }
         

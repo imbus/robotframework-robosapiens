@@ -581,10 +581,10 @@ lib: RoboSAPiens = {
                 "NoConnection": no_connection,
                 "NoSession": no_session,
                 "NoServerScripting": no_server_scripting,
-                "InvalidSession": "There is no session number {sessionNumber} for the current connection.",
-                "SapError": sap_error,
-                "InvalidConnection": "There is no connection with the name '{connectionName}'",
                 "InvalidClient": "There is no connection with the name '{client}'",
+                "InvalidConnection": "There is no connection with the name '{connection}'",
+                "InvalidSession": "There is no session number {session_number} for the current connection.",
+                "SapError": sap_error,
                 "Json": "The return value is in JSON format",
                 "Pass": "Connected to a running SAP instance.",
                 "Exception": exception("Could not connect to a running SAP instance. Hint: In order to connect to a 64-bit SAP client import RoboSAPiens with x64=True. {0}")
