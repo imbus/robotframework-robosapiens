@@ -248,6 +248,28 @@ namespace RoboSAPiens
             if (connections.Length == 0)
                 return (null, new Result.ConnectToRunningSap.NoConnection());
 
+            if (client != null && connectionName != null)
+            {
+                var connectionFound = false;
+
+                for (int c = 0; c < connections.Length; c++)
+                {
+                    var connection = (GuiConnection)connections.ElementAt(c);
+                    if (connection.Description == connectionName)
+                    {
+                        connectionFound = true;
+                        var session = findSessionByClient(connection.Sessions, client);
+                        if (session != null)
+                            return (connection, null);
+                    }
+                }
+
+                if (!connectionFound)
+                    return (null, new Result.ConnectToRunningSap.InvalidConnection(connectionName));
+
+                return (null, new Result.ConnectToRunningSap.InvalidConnectionClient(connectionName, client));
+            }
+
             if (connectionName != null)
             {
                 var (connection, connectionError) = findConnectionByName(connections, connectionName);
@@ -286,17 +308,24 @@ namespace RoboSAPiens
             for (int c = 0; c < connections.Length; c++)
             {
                 var connection = (GuiConnection)connections.ElementAt(c);
-                var sessions = connection.Sessions;
-
-                for (int s = 0; s < sessions.Length; s++)
-                {
-                    var session = (GuiSession)sessions.ElementAt(s);
-                    if (session.Info.Client == client)
-                        return (connection, null);
-                }
+                var session = findSessionByClient(connection.Sessions, client);
+                if (session != null)
+                    return (connection, null);
             }
 
             return (null, new Result.ConnectToRunningSap.InvalidClient(client));
+        }
+
+        GuiSession? findSessionByClient(GuiComponentCollection sessions, string client)
+        {
+            for (int s = 0; s < sessions.Length; s++)
+            {
+                var session = (GuiSession)sessions.ElementAt(s);
+                if (session.Info.Client == client)
+                    return session;
+            }
+
+            return null;
         }
 
         (GuiConnection?, RobotResult.RobotFail?) openConnection(GuiApplication guiApplication, string serverName)
