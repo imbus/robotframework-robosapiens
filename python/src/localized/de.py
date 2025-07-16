@@ -605,7 +605,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("3032107536", "Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden."),
-                "examples": ("4070858693", 
+                "examples": ("1120000879", 
                 """
                 Beispiele:
                 
@@ -613,11 +613,15 @@ lib: LocalizedRoboSAPiens = {
 
                 Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
 
-                | ``Laufende SAP GUI übernehmen    session_nummer``
+                | ``Laufende SAP GUI übernehmen    session_nummer=N``
 
                 Eine Session bei einer bestimmten Verbindung kann auch spezifiert werden.
 
-                | ``Laufende SAP GUI übernehmen    session_nummer    Verbindung``
+                | ``Laufende SAP GUI übernehmen    Verbindung=Test Verbindung    session_nummer=N``
+
+                Ein Mandant bei einer bestimmten Verbindung kann auch spezifiert werden.
+
+                | ``Laufende SAP GUI übernehmen    Verbindung=Test Verbindung    Mandant=NNN``
 
                 Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID.
                 """

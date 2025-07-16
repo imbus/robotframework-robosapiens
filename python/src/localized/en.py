@@ -600,11 +600,15 @@ lib: RoboSAPiens = {
 
                 By default the session number 1 will be used. To use a different session specify the session number.
 
-                | ``Connect to Running SAP    session_number``
+                | ``Connect to Running SAP    session_number=N``
 
                 In order to connect to a session on a specific connection:
 
-                | ``Connect to Running SAP    session_number    connection``
+                | ``Connect to Running SAP    connection=Test Connection   session_number=N``
+
+                In order to connect to a client on a specific connection:
+
+                | ``Connect to Running SAP    connection=Test Connection   client=NNN``
 
                 The return value contains session information such as client number and system ID.
                 """
