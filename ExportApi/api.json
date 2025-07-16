@@ -25,6 +25,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -45,6 +46,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -65,6 +67,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -85,6 +88,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -105,6 +109,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -123,7 +128,9 @@
           "name": "path",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "sapArgs": {
           "name": "sapArgs",
           "desc": "",
@@ -147,6 +154,7 @@
     "CloseConnection": {
       "name": "Verbindung zum Server trennen",
       "args": {},
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",
@@ -160,6 +168,7 @@
     "CloseSap": {
       "name": "SAP beenden",
       "args": {},
+      "kwargs": {},
       "result": {
         "NoSapGui": "NoSapGui",
         "Pass": "Pass"
@@ -172,6 +181,7 @@
     "CloseWindow": {
       "name": "Fenster schließen",
       "args": {},
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",
@@ -191,6 +201,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -204,7 +215,8 @@
     },
     "ConnectToRunningSap": {
       "name": "Laufende SAP GUI übernehmen",
-      "args": {
+      "args": {},
+      "kwargs": {
         "sessionNumber": {
           "name": "sessionNumber",
           "desc": "",
@@ -214,6 +226,13 @@
         },
         "connectionName": {
           "name": "connectionName",
+          "desc": "",
+          "default": null,
+          "type": "String",
+          "spec": {}
+        },
+        "client": {
+          "name": "client",
           "desc": "",
           "default": null,
           "type": "String",
@@ -229,6 +248,8 @@
         "InvalidSession": "InvalidSession",
         "SapError": "SapError",
         "InvalidConnection": "InvalidConnection",
+        "InvalidClient": "InvalidClient",
+        "InvalidConnectionClient": "InvalidConnectionClient",
         "Json": "Json",
         "Pass": "Pass",
         "Exception": "Exception"
@@ -247,6 +268,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSapGui": "NoSapGui",
         "NoGuiScripting": "NoGuiScripting",
@@ -273,7 +295,9 @@
           "name": "column",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -311,6 +335,7 @@
           }
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -331,6 +356,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",
@@ -355,6 +381,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",
@@ -382,7 +409,9 @@
           "name": "content",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -424,7 +453,9 @@
           "name": "content",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "exact": {
           "name": "exact",
           "desc": "",
@@ -454,6 +485,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -475,6 +507,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -493,7 +526,9 @@
           "name": "button",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "exact": {
           "name": "exact",
           "desc": "",
@@ -521,7 +556,9 @@
           "name": "button",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "exact": {
           "name": "exact",
           "desc": "",
@@ -544,6 +581,7 @@
     "ReadStatusbar": {
       "name": "Statusleiste auslesen",
       "args": {},
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",
@@ -568,7 +606,9 @@
           "name": "column",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -598,7 +638,9 @@
           "name": "row_locator",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -623,7 +665,8 @@
     },
     "CountTableRows": {
       "name": "Tabellenzeilen zählen",
-      "args": {
+      "args": {},
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -653,6 +696,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -678,6 +722,7 @@
           }
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -701,6 +746,7 @@
           }
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -724,7 +770,9 @@
           "name": "column",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -755,6 +803,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "UNCPath": "UNCPath",
@@ -776,7 +825,9 @@
           "name": "direction",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "untilTextField": {
           "name": "untilTextField",
           "desc": "",
@@ -807,6 +858,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",
@@ -832,7 +884,9 @@
           "name": "column",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -871,7 +925,9 @@
           "name": "entry",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -907,6 +963,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -927,6 +984,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -952,6 +1010,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -977,6 +1036,7 @@
           }
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -996,7 +1056,9 @@
           "name": "column",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -1035,6 +1097,7 @@
           }
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -1055,6 +1118,7 @@
           "spec": {}
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -1079,6 +1143,7 @@
           }
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -1104,6 +1169,7 @@
           }
         }
       },
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
@@ -1128,7 +1194,9 @@
           "name": "column",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -1162,7 +1230,9 @@
           "name": "column",
           "desc": "",
           "spec": {}
-        },
+        }
+      },
+      "kwargs": {
         "tableNumber": {
           "name": "tableNumber",
           "desc": "",
@@ -1187,6 +1257,7 @@
     "GetWindowTitle": {
       "name": "Fenstertitel auslesen",
       "args": {},
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",
@@ -1200,6 +1271,7 @@
     "GetWindowText": {
       "name": "Fenstertext auslesen",
       "args": {},
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",
@@ -1213,6 +1285,7 @@
     "MaximizeWindow": {
       "name": "Fenster maximieren",
       "args": {},
+      "kwargs": {},
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",

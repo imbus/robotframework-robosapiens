@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.19.16"
+__version__ = "2.20.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -212,8 +212,10 @@ class DE(RoboSAPiensClient):
         | ``Reiter auswählen    Reitername``
         """
 
-        args = {
-            "Reitername": Reitername
+        args: list = [
+            Reitername
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -222,7 +224,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Reiter '{0}' wurde ausgewählt.",
             "Exception": "Der Reiter konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ActivateTab', args, result) # type: ignore
+        return super()._run_keyword('ActivateTab', args, kwargs, result) # type: ignore
     
     @keyword('Baumelement doppelklicken') # type: ignore
     def double_click_tree_element(self, Elementpfad: str): # type: ignore
@@ -238,8 +240,10 @@ class DE(RoboSAPiensClient):
         Für weitere Infos zum Elementpfad siehe [#Baumelement markieren|Baumelement markieren].
         """
 
-        args = {
-            "Elementpfad": Elementpfad
+        args: list = [
+            Elementpfad
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -248,7 +252,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Baumelement '{0}' wurde doppelgeklickt.",
             "Exception": "Das Baumelement konnte nicht doppelgeklickt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('DoubleClickTreeElement', args, result) # type: ignore
+        return super()._run_keyword('DoubleClickTreeElement', args, kwargs, result) # type: ignore
     
     @keyword('Baumordner aufklappen') # type: ignore
     def expand_tree_folder(self, Ordnerpfad: str): # type: ignore
@@ -264,8 +268,10 @@ class DE(RoboSAPiensClient):
         Für weitere Infos zum Ordnerpfad siehe [#Baumelement markieren|Baumelement markieren].
         """
 
-        args = {
-            "Ordnerpfad": Ordnerpfad
+        args: list = [
+            Ordnerpfad
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -274,7 +280,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Baumordner '{0}' wurde aufgeklappt.",
             "Exception": "Der Baumordner konnte nicht aufgeklappt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExpandTreeFolder', args, result) # type: ignore
+        return super()._run_keyword('ExpandTreeFolder', args, kwargs, result) # type: ignore
     
     @keyword('Baumelement markieren') # type: ignore
     def select_tree_element(self, Elementpfad: str): # type: ignore
@@ -292,8 +298,10 @@ class DE(RoboSAPiensClient):
         - Jedes Segment des Pfades kann teilweise angegeben werden. Zum Beispiel IDoc anstelle von IDoc 1234.
         """
 
-        args = {
-            "Elementpfad": Elementpfad
+        args: list = [
+            Elementpfad
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -302,7 +310,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Baumelement '{0}' wurde markiert.",
             "Exception": "Das Baumelement konnte nicht markiert werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectTreeElement', args, result) # type: ignore
+        return super()._run_keyword('SelectTreeElement', args, kwargs, result) # type: ignore
     
     @keyword('Menüeintrag in Baumelement auswählen') # type: ignore
     def select_tree_element_menu_entry(self, Elementpfad: str, Menüeintrag: str): # type: ignore
@@ -319,9 +327,11 @@ class DE(RoboSAPiensClient):
         Für weitere Infos zum Elementpfad siehe [#Baumelement markieren|Baumelement markieren].
         """
 
-        args = {
-            "Elementpfad": Elementpfad,
-            "Menüeintrag": Menüeintrag
+        args: list = [
+            Elementpfad,
+            Menüeintrag
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -330,7 +340,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Menüeintrag '{0}' wurde ausgewählt.",
             "Exception": "Der Menüeintrag konnte nicht ausgewählt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectTreeElementMenuEntry', args, result) # type: ignore
+        return super()._run_keyword('SelectTreeElementMenuEntry', args, kwargs, result) # type: ignore
     
     @keyword('SAP starten') # type: ignore
     def open_sap(self, Pfad: str, SAP_Parameter: str=None): # type: ignore
@@ -338,7 +348,6 @@ class DE(RoboSAPiensClient):
         SAP GUI bzw. SAP Business Client wird gestartet.
         
         | ``Pfad`` | Der Pfad zu saplogon.exe oder NWBC.exe |
-        | ``SAP_Parameter`` | Kommandozeileparameter für den SAP Client |
         
         Beispiele:
         
@@ -369,8 +378,10 @@ class DE(RoboSAPiensClient):
         - sysname ist der Name der Verbindung in SAP Logon. Wenn es Leerzeichen enthält, muss es in Anführungszeichen gesetzt werden.
         """
 
-        args = {
-            "Pfad": Pfad,
+        args: list = [
+            Pfad
+        ]
+        kwargs: dict = {
             "SAP_Parameter": SAP_Parameter
         }
         
@@ -381,7 +392,7 @@ class DE(RoboSAPiensClient):
             "SAPNotStarted": "SAP konnte nicht gestartet werden. Überprüfe den Pfad und ggf. die Parameter '{0}'.",
             "Exception": "SAP konnte nicht gestartet werden. Hinweis: Um einen 64-bit SAP Client zu starten, muss RoboSAPiens.DE mit x64=True importiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('OpenSap', args, result) # type: ignore
+        return super()._run_keyword('OpenSap', args, kwargs, result) # type: ignore
     
     @keyword('Verbindung zum Server trennen') # type: ignore
     def close_connection(self): # type: ignore
@@ -394,7 +405,9 @@ class DE(RoboSAPiensClient):
         | ``Verbindung zum Server trennen``
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -402,7 +415,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Verbindung zum Server wurde getrennt.",
             "Exception": "Die Verbindung zum Server konnte nicht getrennt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('CloseConnection', args, result) # type: ignore
+        return super()._run_keyword('CloseConnection', args, kwargs, result) # type: ignore
     
     @keyword('SAP beenden') # type: ignore
     def close_sap(self): # type: ignore
@@ -417,14 +430,16 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Dieses Schlüsselwort funktioniert nur, wenn die SAP GUI mit dem Schlüsselwort [#SAP starten|SAP starten] gestartet wurde.
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
         }
         
         result = {
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
             "Pass": "Die SAP GUI wurde beendet"
         }
-        return super()._run_keyword('CloseSap', args, result) # type: ignore
+        return super()._run_keyword('CloseSap', args, kwargs, result) # type: ignore
     
     @keyword('Fenster schließen') # type: ignore
     def close_window(self): # type: ignore
@@ -437,7 +452,9 @@ class DE(RoboSAPiensClient):
         | ``Fenster schließen``
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -445,21 +462,22 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Fenster im Vordergrund wurde geschlossen.",
             "Exception": "Das Fenster konnte nicht geschlossen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('CloseWindow', args, result) # type: ignore
+        return super()._run_keyword('CloseWindow', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzeilen zählen') # type: ignore
     def count_table_rows(self, tabelle_nummer: int=1): # type: ignore
         """
         Die Zeilen einer Tabelle werden gezählt.
         
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``${anzahl_zeilen}    Tabellenzeilen zählen``
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -470,7 +488,7 @@ class DE(RoboSAPiensClient):
             "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Tabellenzeillen wurden gezählt."
         }
-        return super()._run_keyword('CountTableRows', args, result) # type: ignore
+        return super()._run_keyword('CountTableRows', args, kwargs, result) # type: ignore
     
     @keyword('Baumstruktur exportieren') # type: ignore
     def export_tree(self, Dateipfad: str): # type: ignore
@@ -486,8 +504,10 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         """
 
-        args = {
-            "Dateipfad": Dateipfad
+        args: list = [
+            Dateipfad
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -496,15 +516,13 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Baumstruktur wurde in JSON Format in der Datei '{0}' gespeichert",
             "Exception": "Die Baumstruktur konnte nicht exportiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExportTree', args, result) # type: ignore
+        return super()._run_keyword('ExportTree', args, kwargs, result) # type: ignore
     
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
-    def connect_to_running_sap(self, session_nummer: int=1, Verbindung: str=None): # type: ignore
+    def connect_to_running_sap(self, session_nummer: int=1, Verbindung: str=None, Mandant: str=None): # type: ignore
         """
         Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden.
         
-        | ``session_nummer`` | Die Nummer der SAP-Session in der rechten oberen oder unteren Ecke des Fensters |
-        | ``Verbindung`` | Der Name der Verbindung in SAP Logon (nicht der SID) |
         
         Beispiele:
         
@@ -512,18 +530,25 @@ class DE(RoboSAPiensClient):
         
         Standardmäßig wird die Session Nummer 1 verwendet. Die gewünschte Session-Nummer kann als Parameter spezifiziert werden.
         
-        | ``Laufende SAP GUI übernehmen    session_nummer``
+        | ``Laufende SAP GUI übernehmen    session_nummer=N``
         
         Eine Session bei einer bestimmten Verbindung kann auch spezifiert werden.
         
-        | ``Laufende SAP GUI übernehmen    session_nummer    Verbindung``
+        | ``Laufende SAP GUI übernehmen    Verbindung=Test Verbindung    session_nummer=N``
+        
+        Ein Mandant bei einer bestimmten Verbindung kann auch spezifiert werden.
+        
+        | ``Laufende SAP GUI übernehmen    Verbindung=Test Verbindung    Mandant=NNN``
         
         Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID.
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
             "session_nummer": session_nummer,
-            "Verbindung": Verbindung
+            "Verbindung": Verbindung,
+            "Mandant": Mandant
         }
         
         result = {
@@ -532,14 +557,16 @@ class DE(RoboSAPiensClient):
             "NoConnection": "Es besteht keine Verbindung zu einem SAP Server. Versuche zuerst das Keyword \"Verbindung zum Server Herstellen\" aufzurufen.",
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
-            "InvalidConnection": "Es gibt keine Verbindung mit dem Namen '{Verbindung}'",
+            "InvalidClient": "Es gibt keinen Mandanten '{Mandant}' bei der aktuellen Verbindung.",
+            "InvalidConnection": "Es gibt keine Verbindung mit dem Namen '{Verbindung}'.",
+            "InvalidConnectionClient": "Es gibt keinen Mandanten '{Mandant}' bei der Verbindung '{Verbindung}'.",
+            "InvalidSession": "Die aktuelle Verbindung hat keine Session '{session_nummer}'.",
             "SapError": "SAP Fehlermeldung: {0}",
-            "InvalidSession": "Die aktuelle Verbindung hat keine Session '{session_nummer}'",
             "Json": "Der Rückgabewert ist im JSON-Format",
             "Pass": "Die laufende SAP GUI wurde erfolgreich übernommen.",
             "Exception": "Die laufende SAP GUI konnte nicht übernommen werden. Hinweis: Für die Verbindung mit einem 64-bit SAP Client muss RoboSAPiens.DE mit x64=True importiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ConnectToRunningSap', args, result) # type: ignore
+        return super()._run_keyword('ConnectToRunningSap', args, kwargs, result) # type: ignore
     
     @keyword('Verbindung zum Server herstellen') # type: ignore
     def connect_to_server(self, Servername: str): # type: ignore
@@ -553,8 +580,10 @@ class DE(RoboSAPiensClient):
         | ``Verbindung zum Server herstellen    Servername``
         """
 
-        args = {
-            "Servername": Servername
+        args: list = [
+            Servername
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -566,7 +595,7 @@ class DE(RoboSAPiensClient):
             "InvalidSession": "Die aktuelle Verbindung hat keine Session '{0}'.",
             "Exception": "Die Verbindung konnte nicht hergestellt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ConnectToServer', args, result) # type: ignore
+        return super()._run_keyword('ConnectToServer', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzelle doppelklicken') # type: ignore
     def double_click_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
@@ -575,16 +604,17 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle doppelklicken     Zeile     Spaltentitel``
         """
 
-        args = {
-            "Zeile": Zeile,
-            "Spaltentitel": Spaltentitel,
+        args: list = [
+            Zeile,
+            Spaltentitel
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -595,7 +625,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde doppelgeklickt.",
             "Exception": "Die Zelle konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('DoubleClickCell', args, result) # type: ignore
+        return super()._run_keyword('DoubleClickCell', args, kwargs, result) # type: ignore
     
     @keyword('Textfeld doppelklicken') # type: ignore
     def double_click_text_field(self, Lokator: str): # type: ignore
@@ -613,8 +643,10 @@ class DE(RoboSAPiensClient):
         | ``Textfeld doppelklicken     = Inhalt``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -623,7 +655,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde doppelgeklickt.",
             "Exception": "Das Textfeld konnte nicht doppelgeklickt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('DoubleClickTextField', args, result) # type: ignore
+        return super()._run_keyword('DoubleClickTextField', args, kwargs, result) # type: ignore
     
     @keyword('Transaktion ausführen') # type: ignore
     def execute_transaction(self, T_Code: str): # type: ignore
@@ -637,8 +669,10 @@ class DE(RoboSAPiensClient):
         | ``Transaktion ausführen    T-Code``
         """
 
-        args = {
-            "T_Code": T_Code
+        args: list = [
+            T_Code
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -646,7 +680,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Transaktion mit T-Code '{0}' wurde erfolgreich ausgeführt.",
             "Exception": "Die Transaktion konnte nicht ausgeführt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExecuteTransaction', args, result) # type: ignore
+        return super()._run_keyword('ExecuteTransaction', args, kwargs, result) # type: ignore
     
     @keyword('Maske exportieren') # type: ignore
     def export_window(self, Name: str, Verzeichnis: str): # type: ignore
@@ -665,9 +699,11 @@ class DE(RoboSAPiensClient):
         *Anmerkung*: Aktuell werden nicht alle GUI-Elemente exportiert.
         """
 
-        args = {
-            "Name": Name,
-            "Verzeichnis": Verzeichnis
+        args: list = [
+            Name,
+            Verzeichnis
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -675,7 +711,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Maske wurde in den Dateien '{0}' und '{1}' gespeichert",
             "Exception": "Die Maske konnte nicht exportiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ExportWindow', args, result) # type: ignore
+        return super()._run_keyword('ExportWindow', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzelle ausfüllen') # type: ignore
     def fill_cell(self, Zeile: str, Spaltentitel: str, Inhalt: str, tabelle_nummer: int=None): # type: ignore
@@ -685,7 +721,6 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Inhalt`` | Der neue Inhalt der Zelle |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -694,10 +729,12 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Für die Migration aus dem alten Schlüsselwort mit zwei Argumenten soll eine Suche und Ersetzung mit einem regulären Ausdruck durchgeführt werden.
         """
 
-        args = {
-            "Zeile": Zeile,
-            "Spaltentitel": Spaltentitel,
-            "Inhalt": Inhalt,
+        args: list = [
+            Zeile,
+            Spaltentitel,
+            Inhalt
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -710,7 +747,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgefüllt.",
             "Exception": "Die Zelle konnte nicht ausgefüllt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('FillCell', args, result) # type: ignore
+        return super()._run_keyword('FillCell', args, kwargs, result) # type: ignore
     
     @keyword('Mehrzeiliges Textfeld ausfüllen') # type: ignore
     def fill_text_edit(self, Inhalt: str): # type: ignore
@@ -724,8 +761,10 @@ class DE(RoboSAPiensClient):
         | ``Mehrzeiliges Textfeld ausfüllen    Ein langer Text. Mit zwei Sätzen.``
         """
 
-        args = {
-            "Inhalt": Inhalt
+        args: list = [
+            Inhalt
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -735,7 +774,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das mehrzeilige Textfeld wurde ausgefüllt.",
             "Exception": "Das mehrzeilige Textfeld konnte nicht ausgefüllt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('FillTextEdit', args, result) # type: ignore
+        return super()._run_keyword('FillTextEdit', args, kwargs, result) # type: ignore
     
     @keyword('Textfeld ausfüllen') # type: ignore
     def fill_text_field(self, Lokator: str, Inhalt: str, exakt: bool=True): # type: ignore
@@ -744,7 +783,6 @@ class DE(RoboSAPiensClient):
         
         | ``Lokator`` | Ein Lokator, um das Textfeld zu finden |
         | ``Inhalt`` | Der neue Inhalt des Textfelds |
-        | ``exakt`` | Entweder eine genaue oder eine partielle Übereinstimmung mit dem Lokator. |
         
         Beispiele:
         
@@ -775,9 +813,11 @@ class DE(RoboSAPiensClient):
         | ``Textfeld ausfüllen    Name    Inhalt``
         """
 
-        args = {
-            "Lokator": Lokator,
-            "Inhalt": Inhalt,
+        args: list = [
+            Lokator,
+            Inhalt
+        ]
+        kwargs: dict = {
             "exakt": exakt
         }
         
@@ -788,7 +828,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgefüllt.",
             "Exception": "Das Textfeld konnte nicht ausgefüllt werden. Möglicherweise, weil der Inhalt nicht dazu passt.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('FillTextField', args, result) # type: ignore
+        return super()._run_keyword('FillTextField', args, kwargs, result) # type: ignore
     
     @keyword('Knopf hervorheben') # type: ignore
     def highlight_button(self, Lokator: str, exakt: bool=False): # type: ignore
@@ -796,7 +836,6 @@ class DE(RoboSAPiensClient):
         Der Knopf mit dem angegebenen Lokator wird hervorgehoben.
         
         | ``Lokator`` | Name oder Kurzinfo (Tooltip) des Knopfes |
-        | ``exakt`` | `True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False` |
         
         Beispiele:
         
@@ -808,8 +847,10 @@ class DE(RoboSAPiensClient):
         
         """
 
-        args = {
-            "Lokator": Lokator,
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
             "exakt": exakt
         }
         
@@ -819,7 +860,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Knopf '{0}' wurde hervorgehoben.",
             "Exception": "Der Knopf konnte nicht hervorgehoben werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('HighlightButton', args, result) # type: ignore
+        return super()._run_keyword('HighlightButton', args, kwargs, result) # type: ignore
     
     @keyword('Tastenkombination drücken') # type: ignore
     def press_key_combination(self, Tastenkombination: str): # type: ignore
@@ -838,8 +879,10 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
         """
 
-        args = {
-            "Tastenkombination": Tastenkombination
+        args: list = [
+            Tastenkombination
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -848,7 +891,7 @@ class DE(RoboSAPiensClient):
             "NotFound": "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen.",
             "Pass": "Die Tastenkombination '{0}' wurde gedrückt."
         }
-        return super()._run_keyword('PressKeyCombination', args, result) # type: ignore
+        return super()._run_keyword('PressKeyCombination', args, kwargs, result) # type: ignore
     
     @keyword('Knopf drücken') # type: ignore
     def push_button(self, Lokator: str, exakt: bool=False): # type: ignore
@@ -856,7 +899,6 @@ class DE(RoboSAPiensClient):
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
         
         | ``Lokator`` | Name oder Kurzinfo (Tooltip) des Knopfes |
-        | ``exakt`` | `True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False`. |
         
         Beispiele:
         
@@ -874,8 +916,10 @@ class DE(RoboSAPiensClient):
         
         """
 
-        args = {
-            "Lokator": Lokator,
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
             "exakt": exakt
         }
         
@@ -886,7 +930,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Knopf '{0}' wurde gedrückt.",
             "Exception": "Der Knopf konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('PushButton', args, result) # type: ignore
+        return super()._run_keyword('PushButton', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzelle drücken') # type: ignore
     def push_button_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
@@ -895,16 +939,17 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle drücken     Zeile     Spaltentitel``
         """
 
-        args = {
-            "Zeile": Zeile,
-            "Spaltentitel": Spaltentitel,
+        args: list = [
+            Zeile,
+            Spaltentitel
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -917,7 +962,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde gedrückt.",
             "Exception": "Die Zelle konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('PushButtonCell', args, result) # type: ignore
+        return super()._run_keyword('PushButtonCell', args, kwargs, result) # type: ignore
     
     @keyword('Textfeld auslesen') # type: ignore
     def read_text_field(self, Lokator: str): # type: ignore
@@ -931,8 +976,10 @@ class DE(RoboSAPiensClient):
         | ${Inhalt}   ``Textfeld auslesen    Lokator``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -941,7 +988,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde ausgelesen.",
             "Exception": "Das Textfeld konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadTextField', args, result) # type: ignore
+        return super()._run_keyword('ReadTextField', args, kwargs, result) # type: ignore
     
     @keyword('Text auslesen') # type: ignore
     def read_text(self, Lokator: str): # type: ignore
@@ -959,8 +1006,10 @@ class DE(RoboSAPiensClient):
         | ``${Text}   Text auslesen    Beschriftung``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -969,7 +1018,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Text mit dem Lokator '{0}' wurde ausgelesen.",
             "Exception": "Der Text konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadText', args, result) # type: ignore
+        return super()._run_keyword('ReadText', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzelle auslesen') # type: ignore
     def read_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
@@ -978,16 +1027,17 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle auslesen     Zeile     Spaltentitel``
         """
 
-        args = {
-            "Zeile": Zeile,
-            "Spaltentitel": Spaltentitel,
+        args: list = [
+            Zeile,
+            Spaltentitel
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -999,7 +1049,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen.",
             "Exception": "Die Zelle konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadCell', args, result) # type: ignore
+        return super()._run_keyword('ReadCell', args, kwargs, result) # type: ignore
     
     @keyword('Fenster aufnehmen') # type: ignore
     def save_screenshot(self, Speicherort: str): # type: ignore
@@ -1015,8 +1065,10 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen.
         """
 
-        args = {
-            "Speicherort": Speicherort
+        args: list = [
+            Speicherort
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1028,7 +1080,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Eine Aufnahme des Fensters wurde in '{0}' gespeichert.",
             "Exception": "Eine Aufnahme des Fensters konnte nicht gespeichert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SaveScreenshot', args, result) # type: ignore
+        return super()._run_keyword('SaveScreenshot', args, kwargs, result) # type: ignore
     
     @keyword('Inhalte scrollen') # type: ignore
     def scroll_text_field_contents(self, Richtung: str, bis_Textfeld: str=None): # type: ignore
@@ -1036,7 +1088,6 @@ class DE(RoboSAPiensClient):
         Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.
         
         | ``Richtung`` | UP, DOWN, BEGIN, END |
-        | ``bis_Textfeld`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
         
         Beispiele:
         
@@ -1047,8 +1098,10 @@ class DE(RoboSAPiensClient):
         | ``Inhalte scrollen    Richtung   bis_Textfeld``
         """
 
-        args = {
-            "Richtung": Richtung,
+        args: list = [
+            Richtung
+        ]
+        kwargs: dict = {
             "bis_Textfeld": bis_Textfeld
         }
         
@@ -1060,7 +1113,7 @@ class DE(RoboSAPiensClient):
             "InvalidDirection": "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: UP, DOWN, BEGIN, END",
             "Pass": "Die Inahlte der Textfelder wurden in die Richtung '{0}' gescrollt."
         }
-        return super()._run_keyword('ScrollTextFieldContents', args, result) # type: ignore
+        return super()._run_keyword('ScrollTextFieldContents', args, kwargs, result) # type: ignore
     
     @keyword('Fenster horizontal scrollen') # type: ignore
     def scroll_window_horizontally(self, Richtung: str): # type: ignore
@@ -1074,8 +1127,10 @@ class DE(RoboSAPiensClient):
         | ``Fenster horizontal scrollen    Richtung``
         """
 
-        args = {
-            "Richtung": Richtung
+        args: list = [
+            Richtung
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1086,7 +1141,7 @@ class DE(RoboSAPiensClient):
             "InvalidDirection": "Die angegebene Richtung ist ungültig. Gültige Richtungen sind: LEFT, RIGHT, BEGIN, END",
             "Pass": "Das Fenster wurde in die Richtung '{0}' horizontal gescrollt."
         }
-        return super()._run_keyword('ScrollWindowHorizontally', args, result) # type: ignore
+        return super()._run_keyword('ScrollWindowHorizontally', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzelle markieren') # type: ignore
     def select_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
@@ -1095,7 +1150,6 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1104,9 +1158,11 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Dieses Schlüsselwort kann verwendet werden, um auf einen Link (unterstrichener Text oder Symbol) oder auf ein Optionsfeld in einer Zelle zu klicken.
         """
 
-        args = {
-            "Zeile": Zeile,
-            "Spaltentitel": Spaltentitel,
+        args: list = [
+            Zeile,
+            Spaltentitel
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -1118,7 +1174,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde markiert.",
             "Exception": "Die Zelle konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectCell', args, result) # type: ignore
+        return super()._run_keyword('SelectCell', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzellenwert auswählen') # type: ignore
     def select_cell_value(self, Zeile: str, Spaltentitel: str, Wert: str, tabelle_nummer: int=None): # type: ignore
@@ -1128,17 +1184,18 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Wert`` | Ein Wert aus dem Auswahlmenü |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzellenwert auswählen    Zeile    Spaltentitel    Wert``
         """
 
-        args = {
-            "Zeile": Zeile,
-            "Spaltentitel": Spaltentitel,
-            "Wert": Wert,
+        args: list = [
+            Zeile,
+            Spaltentitel,
+            Wert
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -1150,7 +1207,7 @@ class DE(RoboSAPiensClient):
             "Exception": "Der Wert konnte nicht ausgewählt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
             "Pass": "Der Wert '{2}' wurde ausgewählt."
         }
-        return super()._run_keyword('SelectCellValue', args, result) # type: ignore
+        return super()._run_keyword('SelectCellValue', args, kwargs, result) # type: ignore
     
     @keyword('Formularfeld-Status auslesen') # type: ignore
     def read_check_box(self, Lokator: str): # type: ignore
@@ -1171,8 +1228,10 @@ class DE(RoboSAPiensClient):
         | ``Formularfeld-Status auslesen    Beschriftung links @ Beschriftung oben``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1181,7 +1240,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Status des Formularfelds mit dem Lokator '{0}' wurde ausgelesen.",
             "Exception": "Der Status des Formularfelds konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadCheckBox', args, result) # type: ignore
+        return super()._run_keyword('ReadCheckBox', args, kwargs, result) # type: ignore
     
     @keyword('Auswahlmenüeintrag auslesen') # type: ignore
     def read_combo_box_entry(self, Lokator: str): # type: ignore
@@ -1195,8 +1254,10 @@ class DE(RoboSAPiensClient):
         | ``${Eintrag}   Auswahlmenüeintrag auslesen    Lokator``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1205,7 +1266,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der aktuelle Eintrag wurde ausgelesen.",
             "Exception": "Der Eintrag konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('ReadComboBoxEntry', args, result) # type: ignore
+        return super()._run_keyword('ReadComboBoxEntry', args, kwargs, result) # type: ignore
     
     @keyword('Auswahlmenüeintrag auswählen') # type: ignore
     def select_combo_box_entry(self, Lokator: str, Eintrag: str): # type: ignore
@@ -1224,9 +1285,11 @@ class DE(RoboSAPiensClient):
         - Um einen Eintrag aus einem Symbolleisten-Knopf mit Auswahlmenü auszuwählen, verwende die Beschriftung bzw. die Kurzinfo (Tooltip) des Knopfes als Lokator.
         """
 
-        args = {
-            "Lokator": Lokator,
-            "Eintrag": Eintrag
+        args: list = [
+            Lokator,
+            Eintrag
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1236,7 +1299,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Eintrag '{1}' wurde ausgewählt.",
             "Exception": "Der Eintrag konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectComboBoxEntry', args, result) # type: ignore
+        return super()._run_keyword('SelectComboBoxEntry', args, kwargs, result) # type: ignore
     
     @keyword('Menüeintrag auswählen') # type: ignore
     def select_menu_item(self, Eintragspfad: str): # type: ignore
@@ -1250,8 +1313,10 @@ class DE(RoboSAPiensClient):
         | ``Menüeintrag auswählen    Eintragspfad``
         """
 
-        args = {
-            "Eintragspfad": Eintragspfad
+        args: list = [
+            Eintragspfad
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1260,7 +1325,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Menüeintrag '{0}' wurde ausgewählt.",
             "Exception": "Der Menüeintrag konnte nicht ausgewählt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectMenuItem', args, result) # type: ignore
+        return super()._run_keyword('SelectMenuItem', args, kwargs, result) # type: ignore
     
     @keyword('Optionsfeld auswählen') # type: ignore
     def select_radio_button(self, Lokator: str): # type: ignore
@@ -1281,8 +1346,10 @@ class DE(RoboSAPiensClient):
         | ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1292,7 +1359,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Optionsfeld mit dem Lokator '{0}' wurde ausgewählt.",
             "Exception": "Das Optionsfeld konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectRadioButton', args, result) # type: ignore
+        return super()._run_keyword('SelectRadioButton', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenspalte markieren') # type: ignore
     def select_table_column(self, Spalte: str, tabelle_nummer: int=1): # type: ignore
@@ -1300,15 +1367,16 @@ class DE(RoboSAPiensClient):
         Die angegebene Tabellenspalte wird markiert.
         
         | ``Spalte`` | Spaltentitel oder Kurzhilfe (Tooltip) |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenspalte markieren    Spalte``
         """
 
-        args = {
-            "Spalte": Spalte,
+        args: list = [
+            Spalte
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -1320,7 +1388,7 @@ class DE(RoboSAPiensClient):
             "NotFound": "Die Tabelle enthält keine Spalte '{0}'",
             "Pass": "Die Spalte '{0}' wurde markiert"
         }
-        return super()._run_keyword('SelectTableColumn', args, result) # type: ignore
+        return super()._run_keyword('SelectTableColumn', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzeile markieren') # type: ignore
     def select_table_row(self, Zeilenlokator: str, tabelle_nummer: int=1): # type: ignore
@@ -1328,7 +1396,6 @@ class DE(RoboSAPiensClient):
         Die angegebene Tabellenzeile wird markiert.
         
         | ``Zeilenlokator`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1337,8 +1404,10 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
         """
 
-        args = {
-            "Zeilenlokator": Zeilenlokator,
+        args: list = [
+            Zeilenlokator
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -1351,7 +1420,7 @@ class DE(RoboSAPiensClient):
             "NotFound": "Die Tabelle enthält keine Zelle mit dem Inhalt '{0}'",
             "Pass": "Die Zeile mit dem Lokator '{0}' wurde markiert"
         }
-        return super()._run_keyword('SelectTableRow', args, result) # type: ignore
+        return super()._run_keyword('SelectTableRow', args, kwargs, result) # type: ignore
     
     @keyword('Textfeld markieren') # type: ignore
     def select_text_field(self, Lokator: str): # type: ignore
@@ -1369,8 +1438,10 @@ class DE(RoboSAPiensClient):
         | ``Textfeld markieren     = Inhalt``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1379,7 +1450,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Textfeld mit dem Lokator '{0}' wurde markiert.",
             "Exception": "Das Textfeld konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectTextField', args, result) # type: ignore
+        return super()._run_keyword('SelectTextField', args, kwargs, result) # type: ignore
     
     @keyword('Text markieren') # type: ignore
     def select_text(self, Lokator: str): # type: ignore
@@ -1397,8 +1468,10 @@ class DE(RoboSAPiensClient):
         | ``Text markieren    Beschriftung``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1407,7 +1480,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Text mit dem Lokator '{0}' wurde markiert.",
             "Exception": "Der Text konnte nicht markiert werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('SelectText', args, result) # type: ignore
+        return super()._run_keyword('SelectText', args, kwargs, result) # type: ignore
     
     @keyword('Formularfeld ankreuzen') # type: ignore
     def tick_check_box(self, Lokator: str): # type: ignore
@@ -1428,8 +1501,10 @@ class DE(RoboSAPiensClient):
         | ``Formularfeld ankreuzen    Beschriftung links @ Beschriftung oben``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1439,7 +1514,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Formularfeld mit dem Lokator '{0}' wurde angekreuzt.",
             "Exception": "Das Formularfeld konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('TickCheckBox', args, result) # type: ignore
+        return super()._run_keyword('TickCheckBox', args, kwargs, result) # type: ignore
     
     @keyword('Statusleiste auslesen') # type: ignore
     def read_statusbar(self): # type: ignore
@@ -1452,7 +1527,9 @@ class DE(RoboSAPiensClient):
         | ``${statusleiste}   Statusleiste auslesen``
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1462,7 +1539,7 @@ class DE(RoboSAPiensClient):
             "Exception": "Die Statusleiste konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
             "Pass": "Die Statusleiste wurde ausgelesen."
         }
-        return super()._run_keyword('ReadStatusbar', args, result) # type: ignore
+        return super()._run_keyword('ReadStatusbar', args, kwargs, result) # type: ignore
     
     @keyword('Formularfeld abwählen') # type: ignore
     def untick_check_box(self, Lokator: str): # type: ignore
@@ -1483,8 +1560,10 @@ class DE(RoboSAPiensClient):
         | ``Formularfeld abwählen    Beschriftung links @ Beschriftung oben``
         """
 
-        args = {
-            "Lokator": Lokator
+        args: list = [
+            Lokator
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1494,7 +1573,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Formularfeld mit dem Lokator '{0}' wurde abgewählt.",
             "Exception": "Das Formularfeld konnte nicht abgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('UntickCheckBox', args, result) # type: ignore
+        return super()._run_keyword('UntickCheckBox', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzelle ankreuzen') # type: ignore
     def tick_check_box_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
@@ -1503,7 +1582,6 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1512,9 +1590,11 @@ class DE(RoboSAPiensClient):
         *Hinweis*: Um das Formularfeld in der Spalte ganz links ohne Titel anzukreuzen, markiere die Zeile und drücke die "Enter"-Taste.
         """
 
-        args = {
-            "Zeile": Zeile,
-            "Spaltentitel": Spaltentitel,
+        args: list = [
+            Zeile,
+            Spaltentitel
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -1526,7 +1606,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde angekreuzt.",
             "Exception": "Die Zelle konnte nicht angekreuzt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('TickCheckBoxCell', args, result) # type: ignore
+        return super()._run_keyword('TickCheckBoxCell', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzelle abwählen') # type: ignore
     def untick_check_box_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
@@ -1535,16 +1615,17 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
-        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
         | ``Tabellenzelle abwählen     Zeile     Spaltentitel``
         """
 
-        args = {
-            "Zeile": Zeile,
-            "Spaltentitel": Spaltentitel,
+        args: list = [
+            Zeile,
+            Spaltentitel
+        ]
+        kwargs: dict = {
             "tabelle_nummer": tabelle_nummer
         }
         
@@ -1556,7 +1637,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Die Zelle mit dem Lokator '{0}, {1}' wurde abgewählt.",
             "Exception": "Die Zelle konnte nicht abgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('UntickCheckBoxCell', args, result) # type: ignore
+        return super()._run_keyword('UntickCheckBoxCell', args, kwargs, result) # type: ignore
     
     @keyword('Fenstertitel auslesen') # type: ignore
     def get_window_title(self): # type: ignore
@@ -1569,7 +1650,9 @@ class DE(RoboSAPiensClient):
         | ``${Titel}    Fenstertitel auslesen``
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1577,7 +1660,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Fenstertitel wurde ausgelesen",
             "Exception": "Der Titel des Fensters konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('GetWindowTitle', args, result) # type: ignore
+        return super()._run_keyword('GetWindowTitle', args, kwargs, result) # type: ignore
     
     @keyword('Fenstertext auslesen') # type: ignore
     def get_window_text(self): # type: ignore
@@ -1590,7 +1673,9 @@ class DE(RoboSAPiensClient):
         | ``${Text}    Fenstertext auslesen``
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1598,7 +1683,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Der Text des Fensters wurde ausgelesen",
             "Exception": "Der Text des Fensters konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('GetWindowText', args, result) # type: ignore
+        return super()._run_keyword('GetWindowText', args, kwargs, result) # type: ignore
     
     @keyword('Fenster maximieren') # type: ignore
     def maximize_window(self): # type: ignore
@@ -1611,7 +1696,9 @@ class DE(RoboSAPiensClient):
         | ``Fenster maximieren``
         """
 
-        args = {
+        args: list = [
+        ]
+        kwargs: dict = {
         }
         
         result = {
@@ -1619,7 +1706,7 @@ class DE(RoboSAPiensClient):
             "Pass": "Das Fenster im Vordergrund wurde maximiert.",
             "Exception": "Das Fenster im Vordergrund konnte nicht maximiert werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
-        return super()._run_keyword('MaximizeWindow', args, result) # type: ignore
+        return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.19.16'
+    ROBOT_LIBRARY_VERSION = '2.20.0'
