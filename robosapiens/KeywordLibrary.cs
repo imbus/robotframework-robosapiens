@@ -26,10 +26,7 @@ namespace RoboSAPiens
         {
             try
             {
-                var argumentNames = getKeywordArgumentNames(methodName);
-                var optionalParams = argumentNames.Select(name => kwargs[name]).ToArray();
-
-                return (RobotResult)typeof(KeywordLibrary).GetMethod(methodName)!.Invoke(this, [.. args, .. optionalParams])!;
+                return (RobotResult)typeof(KeywordLibrary).GetMethod(methodName)!.Invoke(this, [.. args, .. kwargs.Values.ToArray()])!;
             }
             catch (Exception e)
             {
@@ -44,15 +41,6 @@ namespace RoboSAPiens
                 .GetMethods()
                 .Select(m => m.Name)
                 .Order()
-                .ToList();
-        }
-
-        public List<string> getKeywordArgumentNames(string methodName)
-        {
-            return typeof(IKeywordLibrary)
-                .GetMethod(methodName)!
-                .GetParameters()
-                .Select(param => param.Name!)
                 .ToList();
         }
 
