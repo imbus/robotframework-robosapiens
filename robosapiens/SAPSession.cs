@@ -845,8 +845,8 @@ namespace RoboSAPiens {
             }
 
             try {
-                var window = (GuiFrameWindow)session.FindById(idMainWindow);
-                var screenshot = ScreenCapture.saveWindowImage(window.Handle);
+                var mainWindow = (GuiFrameWindow)session.FindById(idMainWindow);
+                var screenshot = ScreenCapture.saveWindowImage(mainWindow.Handle, idMainWindow != window.id);
 
                 if (path.Equals("LOG"))
                 {
