@@ -252,5 +252,11 @@ namespace RoboSAPiens
             gridView.CurrentCellRow = rowIdx0;
             gridView.SelectedRows = rowIdx0.ToString();
         }
+
+        public void selectRows(string rows, GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(id);
+            gridView.SelectedRows = rows;
+        }
     }
 }

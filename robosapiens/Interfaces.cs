@@ -55,5 +55,6 @@ namespace RoboSAPiens {
         public bool scrollOnePage(GuiSession session);
         public void selectColumn(string column, GuiSession session);
         public void selectRow(int rowNumber, GuiSession session);
+        public void selectRows(string rows, GuiSession session);
     }
 }

@@ -320,5 +320,7 @@ namespace RoboSAPiens
             var nodeKey = tree.FindNodeKeyByPath(path);
             tree.SelectedNode = nodeKey;
         }
+
+        public void selectRows(string rows, GuiSession session) {}
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace RoboSAPiens {
@@ -1154,22 +1155,32 @@ namespace RoboSAPiens {
 
             var table = tables[tableNumber-1];
 
-            int rowIndex;
-            if (Int32.TryParse(rowIndexOrLabel, out rowIndex)) {
-                if (rowIndex > table.getNumRows(session)) {
-                    return new Result.SelectTableRow.InvalidIndex(rowIndex);
+            try
+            {
+                if (new Regex(@"\d,").IsMatch(rowIndexOrLabel))
+                {
+                    table.selectRows(
+                        string.Join(",", rowIndexOrLabel.Split(",").Select(i => int.Parse(i) - 1)),
+                        session
+                    );
+                    return new Result.SelectTableRow.Pass(rowIndexOrLabel);
                 }
-                rowIndex--;
-            }
-            else {
-                var rowLocator = new RowLocator($"= {rowIndexOrLabel}");
-                var cell = table.findCell(rowLocator.locator, session);
 
-                if (cell == null) return new Result.SelectTableRow.NotFound(rowIndexOrLabel);
-                rowIndex = cell.rowIndex;
-            }
+                int rowIndex;
+                if (Int32.TryParse(rowIndexOrLabel, out rowIndex)) {
+                    if (rowIndex > table.getNumRows(session)) {
+                        return new Result.SelectTableRow.InvalidIndex(rowIndex);
+                    }
+                    rowIndex--;
+                }
+                else {
+                    var rowLocator = new RowLocator($"= {rowIndexOrLabel}");
+                    var cell = table.findCell(rowLocator.locator, session);
 
-            try {
+                    if (cell == null) return new Result.SelectTableRow.NotFound(rowIndexOrLabel);
+                    rowIndex = cell.rowIndex;
+                }
+
                 table.selectRow(rowIndex, session);
                 return new Result.SelectTableRow.Pass(rowIndexOrLabel);
             }

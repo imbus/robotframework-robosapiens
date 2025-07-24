@@ -1619,12 +1619,16 @@ lib: RoboSAPiens = {
                 "Pass": "The row with the locator '{0}' was selected"
             },
             "doc": {
-                "desc": "Select the specified table row.",
+                "desc": "Select the specified table row(s).",
                 "examples":
                 f"""
                 Examples:
                 
+                *Select a single row*
                 | ``Select Table Row    row_locator``
+
+                *Select multiple rows in an ALV grid (a table with a toolbar)*
+                | ``Select Table Row    1,2,3``
 
                 *Hint*: Use the row number 0 to select the whole table.
                 """

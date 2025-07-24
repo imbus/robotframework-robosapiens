@@ -1639,13 +1639,17 @@ lib: LocalizedRoboSAPiens = {
                 "Pass": ("2631747337", "Die Zeile mit dem Lokator '{0}' wurde markiert")
             },
             "doc": {
-                "desc": ("3315710663", "Die angegebene Tabellenzeile wird markiert."),
-                "examples": ("3449704562", 
+                "desc": ("1058445231", "Die angegebene(n) Tabellenzeile(n) soll(en) markiert werden."),
+                "examples": ("3116133145", 
                 f"""
                 Beispiele:
                 
+                *Eine einzelne Zeile markieren*
                 | ``Tabellenzeile markieren    Zeilenlokator``
                 
+                *Mehrere Zeilen in einem ALV-Grid (eine Tabelle mit einer Symbolleiste) markieren*
+                | ``Tabellenzeile markieren    1,2,3``
+
                 *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
                 """
               )

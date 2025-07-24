@@ -280,5 +280,7 @@ namespace RoboSAPiens {
             var row = table.GetAbsoluteRow(rowIndex0);
             row.Selected = true;
         }
+        
+        public void selectRows(string rows, GuiSession session) {}
     }
 }
