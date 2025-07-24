@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.20.0"
+__version__ = "2.20.1"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -1420,13 +1420,17 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Select Table Row') # type: ignore
     def select_table_row(self, row_locator: str, table_number: int=1): # type: ignore
         """
-        Select the specified table row.
+        Select the specified table row(s).
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         
         Examples:
         
+        *Select a single row*
         | ``Select Table Row    row_locator``
+        
+        *Select multiple rows in an ALV grid (a table with a toolbar)*
+        | ``Select Table Row    1,2,3``
         
         *Hint*: Use the row number 0 to select the whole table.
         """
@@ -1711,4 +1715,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.20.0'
+    ROBOT_LIBRARY_VERSION = '2.20.1'

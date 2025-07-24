@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.20.0"
+__version__ = "2.20.1"
 
 class DE(RoboSAPiensClient):
     """
@@ -1393,13 +1393,17 @@ class DE(RoboSAPiensClient):
     @keyword('Tabellenzeile markieren') # type: ignore
     def select_table_row(self, Zeilenlokator: str, tabelle_nummer: int=1): # type: ignore
         """
-        Die angegebene Tabellenzeile wird markiert.
+        Die angegebene(n) Tabellenzeile(n) soll(en) markiert werden.
         
         | ``Zeilenlokator`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         
         Beispiele:
         
+        *Eine einzelne Zeile markieren*
         | ``Tabellenzeile markieren    Zeilenlokator``
+        
+        *Mehrere Zeilen in einem ALV-Grid (eine Tabelle mit einer Symbolleiste) markieren*
+        | ``Tabellenzeile markieren    1,2,3``
         
         *Hinweis*: Mit der Zeilennummer 0 wird die gesamte Tabelle markiert.
         """
@@ -1709,4 +1713,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.20.0'
+    ROBOT_LIBRARY_VERSION = '2.20.1'

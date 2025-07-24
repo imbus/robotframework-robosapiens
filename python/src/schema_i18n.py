@@ -800,8 +800,8 @@ class LocalizedRoboSAPiensKeywordsSelecttextfieldArgs(TypedDict):
     locator: LocalizedRoboSAPiensKeywordsSelecttextfieldArgsLocator
 
 class LocalizedRoboSAPiensKeywordsSelecttablerowDoc(TypedDict):
-    desc: Tuple[Literal['3315710663'], str]
-    examples: Tuple[Literal['3449704562'], str]
+    desc: Tuple[Literal['1058445231'], str]
+    examples: Tuple[Literal['3116133145'], str]
 
 class LocalizedRoboSAPiensKeywordsSelecttablerowResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
