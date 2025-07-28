@@ -321,6 +321,6 @@ namespace RoboSAPiens
             tree.SelectedNode = nodeKey;
         }
 
-        public void selectRows(string rows, GuiSession session) {}
+        public void selectRows(List<int> rowIndices, GuiSession session) {}
     }
 }

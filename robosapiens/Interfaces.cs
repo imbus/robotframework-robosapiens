@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using sapfewse;
 
 namespace RoboSAPiens {
@@ -55,6 +56,6 @@ namespace RoboSAPiens {
         public bool scrollOnePage(GuiSession session);
         public void selectColumn(string column, GuiSession session);
         public void selectRow(int rowNumber, GuiSession session);
-        public void selectRows(string rows, GuiSession session);
+        public void selectRows(List<int> rowIndices, GuiSession session);
     }
 }

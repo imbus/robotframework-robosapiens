@@ -1159,11 +1159,9 @@ namespace RoboSAPiens {
             {
                 if (new Regex(@"\d,\d").IsMatch(rowIndexOrLabel))
                 {
-                    table.selectRows(
-                        string.Join(",", rowIndexOrLabel.Split(",").Select(i => int.Parse(i) - 1)),
-                        session
-                    );
-                    return new Result.SelectTableRow.Pass(rowIndexOrLabel);
+                    var rowIndices = rowIndexOrLabel.Split(",").Select(i => int.Parse(i) - 1).ToList();
+                    table.selectRows(rowIndices, session);
+                    return new Result.SelectTableRow.Pass(rowIndexOrLabel, rowIndices.Select(i => i + 1).ToList());
                 }
 
                 int rowIndex;
@@ -1184,7 +1182,7 @@ namespace RoboSAPiens {
                 }
 
                 table.selectRow(rowIndex, session);
-                return new Result.SelectTableRow.Pass(rowIndexOrLabel);
+                return new Result.SelectTableRow.Pass(rowIndexOrLabel, rowIndex+1);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");

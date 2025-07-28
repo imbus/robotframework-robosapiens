@@ -18,6 +18,7 @@ namespace RoboSAPiens
     [JsonSerializable(typeof(JSONResponse))]
     [JsonSerializable(typeof(JSONError))]
     [JsonSerializable(typeof(JSONRequest))]
+    [JsonSerializable(typeof(List<int>))]
     internal partial class SerializerContext : JsonSerializerContext {}
     
     public record JSONError(int code, string message, RobotResult data);

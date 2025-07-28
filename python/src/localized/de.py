@@ -1639,7 +1639,7 @@ lib: LocalizedRoboSAPiens = {
                 "Pass": ("2631747337", "Die Zeile mit dem Lokator '{0}' wurde markiert")
             },
             "doc": {
-                "desc": ("1058445231", "Die angegebene(n) Tabellenzeile(n) soll(en) markiert werden."),
+                "desc": ("839736602", "Die angegebene(n) Tabellenzeile(n) soll(en) markiert werden und die entsprechende(n) Zeilennummer zurückgegeben."),
                 "examples": ("3116133145", 
                 f"""
                 Beispiele:

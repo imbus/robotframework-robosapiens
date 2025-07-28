@@ -377,7 +377,7 @@ namespace RoboSAPiens {
             public record InvalidIndex(int rowIndex): RobotResult.RobotFail("InvalidIndex", $"Die Tabelle enthält keine Zeile mit Index {rowIndex}'.");
             public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record NotFound(string cellContents): RobotResult.NotFound($"Die Zelle mit dem Inhalt '{cellContents}' wurde nicht gefunden.");
-            public record Pass(string rowLocator): RobotResult.RobotPass($"Die Zeile mit dem Lokator '{rowLocator}' wurde markiert");
+            public record Pass(string rowLocator, object rowIndex): RobotResult.RobotPass($"Die Zeile mit dem Lokator '{rowLocator}' wurde markiert", returnValue: rowIndex);
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zeile konnte nicht markiert werden.");
         }
 

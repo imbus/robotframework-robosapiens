@@ -1619,7 +1619,7 @@ lib: RoboSAPiens = {
                 "Pass": "The row with the locator '{0}' was selected"
             },
             "doc": {
-                "desc": "Select the specified table row(s).",
+                "desc": "Select the specified table row(s) and return the corresponding row index(es).",
                 "examples":
                 f"""
                 Examples:

@@ -253,10 +253,10 @@ namespace RoboSAPiens
             gridView.SelectedRows = rowIdx0.ToString();
         }
 
-        public void selectRows(string rows, GuiSession session)
+        public void selectRows(List<int> rowIndices, GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(id);
-            gridView.SelectedRows = rows;
+            gridView.SelectedRows = string.Join(",", rowIndices);
         }
     }
 }
