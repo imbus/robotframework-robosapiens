@@ -1157,7 +1157,7 @@ namespace RoboSAPiens {
 
             try
             {
-                if (new Regex(@"\d,").IsMatch(rowIndexOrLabel))
+                if (new Regex(@"\d,\d").IsMatch(rowIndexOrLabel))
                 {
                     table.selectRows(
                         string.Join(",", rowIndexOrLabel.Split(",").Select(i => int.Parse(i) - 1)),
