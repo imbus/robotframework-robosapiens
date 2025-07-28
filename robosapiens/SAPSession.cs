@@ -1174,7 +1174,9 @@ namespace RoboSAPiens {
                     rowIndex--;
                 }
                 else {
-                    var rowLocator = new RowLocator($"= {rowIndexOrLabel}");
+                    // If the label is a number it must be quoted, so that it is not interpreted as a row number
+                    var label = rowIndexOrLabel.Trim('"');
+                    var rowLocator = new RowLocator($"= {label}");
                     var cell = table.findCell(rowLocator.locator, session);
 
                     if (cell == null) return new Result.SelectTableRow.NotFound(rowIndexOrLabel);
