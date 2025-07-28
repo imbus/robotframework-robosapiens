@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.20.1"
+__version__ = "2.20.2"
 
 class DE(RoboSAPiensClient):
     """
@@ -1713,4 +1713,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.20.1'
+    ROBOT_LIBRARY_VERSION = '2.20.2'
