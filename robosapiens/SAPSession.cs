@@ -7,13 +7,13 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace RoboSAPiens {
-    public record SessionInfo(string? server, string? client);
+    public record SessionInfo(string server, string client);
     
     public sealed class NoSAPSession : ISession
     {
-        public SessionInfo getSessionInfo()
+        public SessionInfo? getSessionInfo()
         {
-            return new SessionInfo(null, null);
+            return null;
         }
     }
 

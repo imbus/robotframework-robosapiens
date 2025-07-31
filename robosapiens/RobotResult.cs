@@ -126,6 +126,7 @@ namespace RoboSAPiens {
             public record NoSapGui(): RobotResult.NoSapGui();
             public record NoGuiScripting(): RobotResult.NoGuiScripting();
             public record InvalidSession(int sessionId): RobotResult.InvalidSession(sessionId);
+            public record Json(string json): RobotResult.RobotPass($"Die Verbindung mit dem Server wurde erfolgreich hergestellt.", returnValue: json);
             public record Pass(string server): RobotResult.RobotPass($"Die Verbindung mit dem Server '{server}' wurde erfolgreich hergestellt.");
             public record SapError(string message): RobotResult.SapError(message);
             public record NoServerScripting(): RobotResult.NoServerScripting();

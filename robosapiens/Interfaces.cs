@@ -32,7 +32,7 @@ namespace RoboSAPiens {
     }
 
     public interface ISession {
-        public SessionInfo getSessionInfo();
+        public SessionInfo? getSessionInfo();
     }
 
     public interface ITextElement: ISelectable {

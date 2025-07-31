@@ -628,6 +628,7 @@ lib: RoboSAPiens = {
                 "NoSapGui": no_sap_gui,
                 "NoGuiScripting": no_gui_scripting,
                 "Pass": "Connected to '{0}'",
+                "Json": "The return value is in JSON format",
                 "SapError": sap_error,
                 "NoServerScripting": no_server_scripting,
                 "InvalidSession": "There is no session number '{0}' for the current connection.",
@@ -640,6 +641,8 @@ lib: RoboSAPiens = {
                 Examples:
                 
                 | ``Connect to Server    server_name``
+
+                The return value contains session information such as client number and system ID.
                 """
             }
         },

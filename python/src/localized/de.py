@@ -642,6 +642,7 @@ lib: LocalizedRoboSAPiens = {
               "NoSapGui": ("2987622841", no_sap_gui),
               "NoGuiScripting": ("3820273098", no_gui_scripting),
               "Pass": ("1441526843", "Die Verbindung '{0}' wurde erfolgreich hergestellt."),
+              "Json": ("144359828", "Der Rückgabewert ist im JSON-Format"),
               "SapError": ("3246364722", sap_error),
               "NoServerScripting": ("3495213352", no_server_scripting),
               "InvalidSession": ("3314696332", "Die aktuelle Verbindung hat keine Session '{0}'."),
@@ -649,11 +650,13 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("1003283283", "Die angegebene Verbindung mit einem SAP Server wird hergestellt."),
-                "examples": ("1631655", 
+                "examples": ("2919365748", 
                 """
                 Beispiele:
                 
                 | ``Verbindung zum Server herstellen    Servername``
+
+                Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID.
                 """
               )
             }

@@ -232,7 +232,7 @@ namespace RoboSAPiens
                     return sessionError;
 
                 session = new SAPSession(guiSession!, connection!, options, logger);
-                var sessionInfo = JSON.serialize(session.getSessionInfo(), typeof(SessionInfo));
+                var sessionInfo = JSON.serialize(session.getSessionInfo()!, typeof(SessionInfo));
                 
                 return new Result.ConnectToRunningSap.Json(sessionInfo);
             }
@@ -375,8 +375,9 @@ namespace RoboSAPiens
                     return sessionError;
 
                 session = new SAPSession(guiSession!, connection!, options, logger);
+                var sessionInfo = JSON.serialize(session.getSessionInfo()!, typeof(SessionInfo));
 
-                return new Result.ConnectToServer.Pass(server);
+                return new Result.ConnectToServer.Json(sessionInfo);
             }
             catch (Exception e) 
             {
