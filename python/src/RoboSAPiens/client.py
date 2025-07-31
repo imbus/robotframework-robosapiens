@@ -10,6 +10,7 @@ from typing import Any, Dict, List, Tuple
 from robot.api import logger
 from robot.errors import RemoteError
 from robot.libraries.Remote import RemoteResult
+from robot.utils.dotdict import DotDict
 
 
 class NotChangeable(Exception):
@@ -109,7 +110,7 @@ class RoboSAPiensClient(object):
             sys.stdout.write(result["Pass"].format(*args) + '\n')
 
         if "Json" in result:
-            return json.loads(str(rf_result.return_))
+            return DotDict(json.loads(str(rf_result.return_)))
 
         return rf_result.return_
 
