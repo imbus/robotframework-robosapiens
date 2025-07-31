@@ -1157,7 +1157,7 @@ namespace RoboSAPiens {
 
             try
             {
-                if (new Regex(@"\d,\d").IsMatch(rowIndexOrLabel))
+                if (new Regex(@"\d,\s?\d").IsMatch(rowIndexOrLabel))
                 {
                     var rowIndices = rowIndexOrLabel.Split(",").Select(i => int.Parse(i) - 1).ToList();
                     table.selectRows(rowIndices, session);
