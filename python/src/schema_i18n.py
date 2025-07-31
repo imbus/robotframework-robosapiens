@@ -1273,12 +1273,13 @@ class LocalizedRoboSAPiensKeywordsDoubleclickcellArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverDoc(TypedDict):
     desc: Tuple[Literal['1003283283'], str]
-    examples: Tuple[Literal['1631655'], str]
+    examples: Tuple[Literal['2919365748'], str]
 
 class LocalizedRoboSAPiensKeywordsConnecttoserverResult(TypedDict):
     NoSapGui: Tuple[Literal['2987622841'], str]
     NoGuiScripting: Tuple[Literal['3820273098'], str]
     Pass: Tuple[Literal['1441526843'], str]
+    Json: Tuple[Literal['144359828'], str]
     SapError: Tuple[Literal['3246364722'], str]
     NoServerScripting: Tuple[Literal['3495213352'], str]
     InvalidSession: Tuple[Literal['3314696332'], str]

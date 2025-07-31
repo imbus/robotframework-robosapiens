@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.20.4"
+__version__ = "2.20.5"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -579,6 +579,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Examples:
         
         | ``Connect to Server    server_name``
+        
+        The return value contains session information such as client number and system ID.
         """
 
         args: list = [
@@ -591,6 +593,7 @@ class RoboSAPiens(RoboSAPiensClient):
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
             "NoGuiScripting": "The scripting support is not activated. It must be activated in the Settings of the SAP client.",
             "Pass": "Connected to '{0}'",
+            "Json": "The return value is in JSON format",
             "SapError": "SAP Error: {0}",
             "NoServerScripting": "Scripting is not activated on the server side. Please consult the documentation of RoboSAPiens.",
             "InvalidSession": "There is no session number '{0}' for the current connection.",
@@ -1715,4 +1718,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.20.4'
+    ROBOT_LIBRARY_VERSION = '2.20.5'

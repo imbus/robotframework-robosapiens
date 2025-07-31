@@ -273,6 +273,7 @@
         "NoSapGui": "NoSapGui",
         "NoGuiScripting": "NoGuiScripting",
         "InvalidSession": "InvalidSession",
+        "Json": "Json",
         "Pass": "Pass",
         "SapError": "SapError",
         "NoServerScripting": "NoServerScripting",

@@ -1296,6 +1296,7 @@ class RoboSAPiensKeywordsConnecttoserverResult(TypedDict):
     NoSapGui: str
     NoGuiScripting: str
     InvalidSession: str
+    Json: str
     Pass: str
     SapError: str
     NoServerScripting: str

@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.20.4"
+__version__ = "2.20.5"
 
 class DE(RoboSAPiensClient):
     """
@@ -578,6 +578,8 @@ class DE(RoboSAPiensClient):
         Beispiele:
         
         | ``Verbindung zum Server herstellen    Servername``
+        
+        Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID.
         """
 
         args: list = [
@@ -590,6 +592,7 @@ class DE(RoboSAPiensClient):
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
             "NoGuiScripting": "Die Skriptunterstützung ist nicht verfügbar. Sie muss in den Einstellungen vom SAP Client aktiviert werden.",
             "Pass": "Die Verbindung '{0}' wurde erfolgreich hergestellt.",
+            "Json": "Der Rückgabewert ist im JSON-Format",
             "SapError": "SAP Fehlermeldung: {0}",
             "NoServerScripting": "Das Scripting ist auf dem SAP Server nicht freigeschaltet. Siehe die Dokumentation von RoboSAPiens.",
             "InvalidSession": "Die aktuelle Verbindung hat keine Session '{0}'.",
@@ -1713,4 +1716,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.20.4'
+    ROBOT_LIBRARY_VERSION = '2.20.5'
