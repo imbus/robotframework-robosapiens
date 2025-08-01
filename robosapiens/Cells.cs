@@ -94,8 +94,15 @@ namespace RoboSAPiens
                     gridView.SetCurrentCell(rowIndex, columnId);
                     gridView.SelectedRows = rowIndex.ToString();
 
-                    var cellIcon = gridView.GetCellIcon(rowIndex, columnId);
-                    if (cellIcon != "") gridView.ClickCurrentCell();
+                    try
+                    {
+                        // It may fail in some cells
+                        gridView.ClickCurrentCell();
+                    }
+                    catch
+                    {
+                        
+                    }
                     break;
             }
         }
