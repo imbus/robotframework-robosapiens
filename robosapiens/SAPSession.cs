@@ -852,7 +852,7 @@ namespace RoboSAPiens {
                 if (path.Equals("LOG"))
                 {
                     var img_b64 = Convert.ToBase64String(screenshot);
-                    var log_image = $"<img src='data:image/png;base64, {img_b64}'>";
+                    var log_image = $"<img src='data:image/png;base64, {img_b64}' width='100%'>";
                     return new Result.SaveScreenshot.Log(log_image);
                 }
                 
