@@ -1262,6 +1262,18 @@ namespace RoboSAPiens {
                 if (radioButton.isEnabled(session))
                 {
                     radioButton.select(session);
+
+                    // Selecting a radio button may result in the window being rerendered,
+                    // and the properties of some components may change.
+                    if (!windowChanged())
+                    {
+                        switch (updateWindow())
+                        {
+                            case RobotResult.UIScanFail exceptionError:
+                                return exceptionError;
+                        }
+                    }
+
                     return new Result.SelectRadioButton.Pass(theRadioButton.atLocation);
                 }
                 return new Result.SelectRadioButton.NotChangeable(theRadioButton.atLocation);
