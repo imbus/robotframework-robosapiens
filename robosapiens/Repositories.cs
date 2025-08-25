@@ -166,7 +166,7 @@ namespace RoboSAPiens {
             return locator switch 
             {
                 HLabel (var label) => 
-                    getByHLabel(label) ??
+                    getByHLabel(exact? label : label + "~") ??
                     getByTooltip(exact? label : label + "~") ??
                     getHorizontalClosestToLabel(label, labels, nonChangeableTextFields) ??
                     getByName(label),

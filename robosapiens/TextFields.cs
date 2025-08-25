@@ -217,6 +217,10 @@ namespace RoboSAPiens {
         }
 
         public bool isHLabeled(string label) {
+            if (label.EndsWith("~")) {
+                return this.hLabel.StartsWith(label.TrimEnd('~'));
+            }
+
             return this.hLabel == label;
         }
 
