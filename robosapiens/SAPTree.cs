@@ -108,8 +108,8 @@ namespace RoboSAPiens
                             var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
                             var labels = new List<string>();
 
-                            if (itemText != null) labels.Add(itemText);
-                            if (itemTooltip != null) labels.Add(itemTooltip);
+                            if (itemText != "") labels.Add(itemText);
+                            if (itemTooltip != "") labels.Add(itemTooltip);
 
                             var cell = new TreeCell(
                                 nodeIndex,
