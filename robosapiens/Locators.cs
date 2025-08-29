@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RoboSAPiens {
     public abstract record CellLocator(string column, string location): ILocator
@@ -12,7 +13,7 @@ namespace RoboSAPiens {
                 _ => (column, 0)
             };
 
-            if (int.TryParse(rowIndexOrLabel, out int index)) {
+            if (!rowIndexOrLabel.StartsWith("0") && int.TryParse(rowIndexOrLabel, out int index)) {
                 return new RowColumnLocator(rowIndex: index, column: colTitle, colIndexOffset: colIndexOffset);
             } 
             else {
