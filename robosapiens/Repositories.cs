@@ -19,16 +19,18 @@ namespace RoboSAPiens {
 
         public Cell? findCellByLabelAndColumn(string label, string column)
         {
-            return Find(cell => cell.inColumn(column) && 
-                (cell.isLabeled(label) || cell.inRow(getRowIndex(label)))
-            );
+            var columnCells = this.Where(cell => cell.inColumn(column)).ToList();
+            
+            return columnCells.FirstOrDefault(cell => cell.isLabeled(label)) ?? 
+                   columnCells.FirstOrDefault(cell => rowContainsLabel(cell.rowIndex, label));
         }
 
         public Cell? findCellByLabelAndColumnIndex(string label, int colIndex0)
         {
-            return Find(cell => cell.colIndex == colIndex0 && 
-                (cell.isLabeled(label) || cell.inRow(getRowIndex(label)))
-            );
+            var columnCells = this.Where(cell => cell.colIndex == colIndex0).ToList();
+            
+            return columnCells.FirstOrDefault(cell => cell.isLabeled(label)) ?? 
+                   columnCells.FirstOrDefault(cell => rowContainsLabel(cell.rowIndex, label));
         }
 
         public Cell? findCellByRowAndColumn(int rowIndex0, string column)
@@ -36,13 +38,9 @@ namespace RoboSAPiens {
             return Find(cell => cell.inColumn(column) && cell.inRow(rowIndex0));
         }
 
-        int getRowIndex(string label)
+        bool rowContainsLabel(int rowIndex, string label)
         {
-            var cell = Find(cell => cell.isTextCell() && cell.isLabeled(label));
-
-            if (cell != null) return cell.rowIndex;
-
-            return -1;
+            return this.Where(cell => cell.inRow(rowIndex)).Any(cell => cell.isLabeled(label));
         }
     }
 
