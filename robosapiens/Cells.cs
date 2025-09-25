@@ -74,13 +74,13 @@ namespace RoboSAPiens
     {
         public override void click(GuiSession session)
         {
-            var cell = (GuiLabel)session.FindById(id);
+            var cell = (GuiVComponent)session.FindById(id);
             cell.SetFocus();
         }
 
         public override void doubleClick(GuiSession session)
         {
-            var cell = (GuiLabel)session.FindById(id);
+            var cell = (GuiVComponent)session.FindById(id);
             cell.SetFocus();
             session.ActiveWindow.SendVKey(2);
         }
@@ -94,13 +94,14 @@ namespace RoboSAPiens
         public override void highlight(GuiSession session)
         {
             focused = !focused;
-            var cell = (GuiLabel)session.FindById(id);
+            var cell = (GuiVComponent)session.FindById(id);
             cell.Visualize(focused);
         }
 
         public override bool isChangeable(GuiSession session)
         {
-            return false;
+            var cell = (GuiVComponent)session.FindById(id);
+            return cell.Changeable;
         }
 
         public override void setValue(string value, GuiSession session)
