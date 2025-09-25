@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.21.0"
+__version__ = "2.21.1"
 
 class DE(RoboSAPiensClient):
     """
@@ -181,6 +181,17 @@ class DE(RoboSAPiensClient):
     Danach muss ``robot`` wie folgt ausgeführt werden: 
     
     | ``robot -P . --listener Listener test.robot``
+    
+    == ABAP Listen ==
+    
+    Ab Version 2.21.0 funktionieren die Schlüsselwörter für den Umgang mit Tabellen auch mit dem [https://help.sap.com/docs/ABAP_PLATFORM_NEW/b1c834a22d05483b8a75710743b5ff26/4dd40b7ac2234be2e10000000a42189c.html|SAP List Viewer (Classic)].
+    Dafür muss zuerst der [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/38da185ebd1540bdbc919db7b9013c9a.html|Barrierefreiheitsmodus] in den Optionen von SAP GUI aktiviert werden.
+    
+    Im Fall von einer hierarchisch sequenziellen Liste lassen sich übergeordnete (tabelle_nummer=1) und untergeordnete (tabelle_nummer=2,3,...) Tabellen anhand ihrer Farben unterscheiden.
+    
+    Das Auf- oder Zuklappen einer untergeordneten Tabelle erfolgt durch den Aufruf des Schlüsselworts "Tabellenzeile markieren". 
+    
+    Eine Zelle in einer über- oder untergeordneten Tabelle wird durch den Aufruf des Schlüsselworts "Tabellenzelle doppelklicken" angeklickt.
     """
 
     def __init__(self, vortragsmodus: bool=False, x64: bool=False):
@@ -1716,4 +1727,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.21.0'
+    ROBOT_LIBRARY_VERSION = '2.21.1'

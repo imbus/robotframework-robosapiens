@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.21.0"
+__version__ = "2.21.1"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -182,6 +182,17 @@ class RoboSAPiens(RoboSAPiensClient):
     Then execute ``robot`` with 
     
     | ``robot -P . --listener Listener test.robot``
+    
+    == ABAP Lists ==
+    
+    Since version 2.21.0 the keywords for interacting with tables work with the [https://help.sap.com/docs/ABAP_PLATFORM_NEW/b1c834a22d05483b8a75710743b5ff26/4dd40b7ac2234be2e10000000a42189c.html?locale=en-US|SAP List Viewer (Classic)].
+    The only requirement is to enable the [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/38da185ebd1540bdbc919db7b9013c9a.html?locale=en-US|Accessibility Mode] in the SAP GUI options.
+    
+    In the case of a hierarchical-sequential list top-level (table_number=1) and second-level (table_number=2,3,...) tables have different colors.
+    
+    In order to collapse or expand a second-level table use the keyword "Select Table Row". 
+    
+    In order to click a cell in a top-level or second-level table use the keyword "Double-click Cell".
     """
 
     def __init__(self, presenter_mode: bool=False, x64: bool=False):
@@ -1718,4 +1729,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.21.0'
+    ROBOT_LIBRARY_VERSION = '2.21.1'
