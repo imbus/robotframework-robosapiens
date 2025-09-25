@@ -94,6 +94,35 @@ namespace RoboSAPiens {
                 case "GuiShell":
                     classifyGuiShell((GuiShell)container);
                     break;
+                case "GuiSimpleContainer":
+                    var guiSimpleContainer = (GuiSimpleContainer)container;
+                    var containerType = guiSimpleContainer.GetListProperty("ContainerType");
+
+                    if (debug) Console.WriteLine("");
+                    if (debug) Console.WriteLine($"ContainerType: {containerType}");
+
+                    if (containerType == "L")
+                    {
+                        var listTablesTotal = guiSimpleContainer.GetListProperty("ListTablesTotal");
+                        if (debug) Console.WriteLine($"ListTablesTotal: {listTablesTotal}");
+                    }
+
+                    if (containerType == "T" || containerType == "G")
+                    {
+                        var tableGroupsTotal = guiSimpleContainer.GetListProperty("TableGroupsTotal");
+                        if (debug && containerType == "T") Console.WriteLine($"TableGroupsTotal: {tableGroupsTotal}");
+
+                        var rowsTotal = guiSimpleContainer.GetListProperty("RowsTotal");
+                        if (debug && containerType == "T") Console.WriteLine($"RowsTotal: {rowsTotal}");
+
+                        var table = new AbapList(guiSimpleContainer);
+                        tables.Add(table);
+
+                        if (debug) Console.WriteLine("Columns: " + string.Join(" | ", table.columnTitles));
+                    }
+
+                    getWindowComponents(guiSimpleContainer.Children);
+                    break;
                 case "GuiStatusbar":
                     statusBar = new SAPStatusbar((GuiStatusbar)container);
                     break;
@@ -262,7 +291,6 @@ namespace RoboSAPiens {
                 "GuiGOSShell" => ((GuiGOSShell)container).Children,
                 "GuiMenu" => ((GuiMenu)container).Children,
                 "GuiScrollContainer" => ((GuiScrollContainer)container).Children,
-                "GuiSimpleContainer" => ((GuiSimpleContainer)container).Children,
                 "GuiSplitterContainer" => ((GuiSplitterContainer)container).Children,
                 "GuiSplitterShell" => ((GuiSplit)container).Children,
                 "GuiTab" => ((GuiTab)container).Children,

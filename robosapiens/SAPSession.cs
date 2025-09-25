@@ -1134,6 +1134,16 @@ namespace RoboSAPiens {
 
             try {
                 table.selectColumn(column, session);
+
+                // Selecting a column may result in the window being rerendered,
+                // and the properties of some components may change.
+                if (!windowChanged()) {
+                    switch (updateWindow()) {
+                        case RobotResult.UIScanFail exceptionError:
+                            return exceptionError;
+                    }
+                }
+
                 return new Result.SelectTableColumn.Pass(column);
             }
             catch (Exception e) {
@@ -1182,7 +1192,17 @@ namespace RoboSAPiens {
                 }
 
                 table.selectRow(rowIndex, session);
-                return new Result.SelectTableRow.Pass(rowIndexOrLabel, rowIndex+1);
+                
+                // Selecting a row may result in the window being rerendered,
+                // and the properties of some components may change.
+                if (!windowChanged()) {
+                    switch (updateWindow()) {
+                        case RobotResult.UIScanFail exceptionError:
+                            return exceptionError;
+                    }
+                }
+
+                return new Result.SelectTableRow.Pass(rowIndexOrLabel, rowIndex + 1);
             }
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");

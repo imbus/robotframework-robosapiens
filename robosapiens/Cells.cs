@@ -63,6 +63,51 @@ namespace RoboSAPiens
         }
     }
 
+    public record ListCell(
+        string id,
+        int rowIndex,
+        int colIndex,
+        List<string> columnTitles,
+        CellType type,
+        List<string> labels
+    ) : Cell(rowIndex, colIndex, columnTitles, type, labels)
+    {
+        public override void click(GuiSession session)
+        {
+            var cell = (GuiLabel)session.FindById(id);
+            cell.SetFocus();
+        }
+
+        public override void doubleClick(GuiSession session)
+        {
+            var cell = (GuiLabel)session.FindById(id);
+            cell.SetFocus();
+            session.ActiveWindow.SendVKey(2);
+        }
+
+        public override string getValue(GuiSession session)
+        {
+            var cell = (GuiLabel)session.FindById(id);
+            return cell.Text;
+        }
+
+        public override void highlight(GuiSession session)
+        {
+            focused = !focused;
+            var cell = (GuiLabel)session.FindById(id);
+            cell.Visualize(focused);
+        }
+
+        public override bool isChangeable(GuiSession session)
+        {
+            return false;
+        }
+
+        public override void setValue(string value, GuiSession session)
+        {
+        }
+    }
+
     public record GridViewCell(
         int rowIndex,
         int colIndex,
