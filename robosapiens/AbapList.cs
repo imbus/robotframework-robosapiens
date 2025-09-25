@@ -59,13 +59,13 @@ namespace RoboSAPiens
                     if (containerType == "G")
                     {
                         var groupNo = label.GetListProperty("GroupNo");
-                        rowNumber = int.Parse(groupNo);
+                        if (groupNo != "") rowNumber = int.Parse(groupNo);
                     }
 
                     if (containerType == "R")
                     {
                         var rowNo = label.GetListProperty("RowNo");
-                        rowNumber = int.Parse(rowNo);
+                        if (rowNo != "") rowNumber = int.Parse(rowNo);
                     }
 
                     if (colTitle != "")
