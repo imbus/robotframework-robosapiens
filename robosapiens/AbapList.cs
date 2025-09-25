@@ -42,6 +42,39 @@ namespace RoboSAPiens
             {
                 var element = container.Children.ElementAt(i);
 
+                if (element.Type == "GuiCheckBox")
+                {
+                    var checkbox = (GuiCheckBox)element;
+                    var colTitle = checkbox.GetListProperty("FieldHeader").Trim();
+
+                    if (colTitle == "")
+                    {
+                        colTitle = columnTitles[i];
+                    }
+
+                    int rowNumber = -1;
+
+                    if (containerType == "R")
+                    {
+                        var rowNo = checkbox.GetListProperty("RowNo");
+                        if (rowNo != "") rowNumber = int.Parse(rowNo);
+                    }
+
+                    if (colTitle != "")
+                    {
+                        var colIndex = columnTitles.IndexOf(colTitle);
+
+                        cells.Add(new ListCell(
+                            checkbox.Id,
+                            rowNumber,
+                            colIndex,
+                            new List<string> { colTitle },
+                            CellType.CheckBox,
+                            new List<string>()
+                        ));
+                    }
+                }
+
                 if (element.Type == "GuiLabel")
                 {
                     var label = (GuiLabel)element;

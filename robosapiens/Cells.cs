@@ -75,7 +75,16 @@ namespace RoboSAPiens
         public override void click(GuiSession session)
         {
             var cell = (GuiVComponent)session.FindById(id);
-            cell.SetFocus();
+
+            if (this.type == CellType.CheckBox)
+            {
+                var checkbox = (GuiCheckBox)cell;
+                checkbox.Selected = !checkbox.Selected;
+            }
+            else
+            {
+                cell.SetFocus();
+            }
         }
 
         public override void doubleClick(GuiSession session)
