@@ -129,7 +129,7 @@ namespace RoboSAPiens
                 LabelColumnLocator(string label, string column, int offset) =>
                     cells.findCellByLabelAndColumn(label, column),
                 RowColumnLocator(int row, string column, int offset) =>
-                    cells.findCellByRowAndColumn(row, column),
+                    cells.findCellByRowAndColumn(row - 1, column),
                 _ => null
             };
         }
