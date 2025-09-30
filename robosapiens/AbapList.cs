@@ -66,7 +66,7 @@ namespace RoboSAPiens
 
                         cells.Add(new ListCell(
                             checkbox.Id,
-                            rowNumber,
+                            rowNumber - 1,
                             colIndex,
                             new List<string> { colTitle },
                             CellType.CheckBox,
@@ -107,7 +107,7 @@ namespace RoboSAPiens
 
                         cells.Add(new ListCell(
                             label.Id,
-                            rowNumber,
+                            rowNumber - 1,
                             colIndex,
                             new List<string> { colTitle },
                             CellType.Text,
