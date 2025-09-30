@@ -124,6 +124,8 @@ namespace RoboSAPiens
 
             return locator switch
             {
+                Content(string content) =>
+                    cells.findCellByContent(content),
                 LabelColumnLocator(string label, string column, int offset) =>
                     cells.findCellByLabelAndColumn(label, column),
                 RowColumnLocator(int row, string column, int offset) =>
