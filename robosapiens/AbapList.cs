@@ -54,6 +54,12 @@ namespace RoboSAPiens
 
                     int rowNumber = -1;
 
+                    if (containerType == "G")
+                    {
+                        var groupNo = checkbox.GetListProperty("GroupNo");
+                        if (groupNo != "") rowNumber = int.Parse(groupNo);
+                    }
+
                     if (containerType == "R")
                     {
                         var rowNo = checkbox.GetListProperty("RowNo");
