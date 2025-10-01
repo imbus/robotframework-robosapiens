@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="SAPFEWSELib">
+      <HintPath>lib/sapfewse.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion> 
+    </Reference>
+    <Reference Include="SAPROTWR.NET">
+      <HintPath>lib/saprotwr.net.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mykeels.CSharpRepl" Version="0.0.8" />
+  </ItemGroup>
+
+</Project>
