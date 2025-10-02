@@ -1,12 +1,16 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using sapfewse;
 
 namespace RoboSAPiens
 {
+    public record ColumnTitle(string name, int left);
+
     public class AbapList : ITable
     {
         CellRepository cells;
-        public List<string> columnTitles;
+        public List<ColumnTitle> columnTitles;
         public string id { get; }
         public int rowCount;
 
@@ -30,7 +34,7 @@ namespace RoboSAPiens
                 {
                     var container = (GuiSimpleContainer)component;
                     classifyRow(container);
-                } 
+                }
             }
         }
 
@@ -45,7 +49,7 @@ namespace RoboSAPiens
                 if (element.Type == "GuiCheckBox")
                 {
                     var checkbox = (GuiCheckBox)element;
-                    var colTitle = columnTitles[i];
+                    var colTitle = columnTitles.Find(t => Math.Abs(t.left - checkbox.Left) <= 5)?.name ?? "";
 
                     int rowNumber = -1;
 
@@ -63,7 +67,7 @@ namespace RoboSAPiens
 
                     if (colTitle != "")
                     {
-                        var colIndex = columnTitles.IndexOf(colTitle);
+                        var colIndex = columnTitles.Select(t => t.name).ToList().IndexOf(colTitle);
 
                         cells.Add(new ListCell(
                             checkbox.Id,
@@ -79,7 +83,7 @@ namespace RoboSAPiens
                 if (element.Type == "GuiLabel")
                 {
                     var label = (GuiLabel)element;
-                    var colTitle = label.GetListProperty("FieldHeader").Trim();
+                    var colTitle = columnTitles.Find(t => Math.Abs(t.left - label.Left) <= 5)?.name ?? "";        
                     var labels = new List<string>();
 
                     if (label.Text != "")
@@ -104,7 +108,7 @@ namespace RoboSAPiens
 
                     if (colTitle != "")
                     {
-                        var colIndex = columnTitles.IndexOf(colTitle);
+                        var colIndex = columnTitles.Select(t => t.name).ToList().IndexOf(colTitle);
 
                         cells.Add(new ListCell(
                             label.Id,
@@ -135,9 +139,9 @@ namespace RoboSAPiens
             };
         }
         
-        List<string> getColumnTitles(GuiSimpleContainer container)
+        List<ColumnTitle> getColumnTitles(GuiSimpleContainer container)
         {
-            var columnTitles = new List<string>();
+            var columnTitles = new List<ColumnTitle>();
             var containerType = container.GetListProperty("ContainerType");
 
             if (containerType == "T")
@@ -168,11 +172,11 @@ namespace RoboSAPiens
 
                         if (tableGroupsTotal != "")
                         {
-                            if (labelType == "A") columnTitles.Add(columnTitle);
+                            if (labelType == "A") columnTitles.Add(new ColumnTitle(columnTitle, label.Left));
                         }
                         else
                         {
-                            if (labelType == "N") columnTitles.Add(columnTitle);
+                            if (labelType == "N") columnTitles.Add(new ColumnTitle(columnTitle, label.Left));
                         }
                     }
                 }
@@ -202,7 +206,7 @@ namespace RoboSAPiens
 
                                     if (colTitle != "")
                                     {
-                                        columnTitles.Add(colTitle);
+                                        columnTitles.Add(new ColumnTitle(colTitle, label.Left));
                                     }
                                 }
                             }
@@ -258,7 +262,7 @@ namespace RoboSAPiens
 
         public bool hasColumn(string column)
         {
-            return columnTitles.Contains(column);
+            return columnTitles.Select(t => t.name).Contains(column);
         }
 
         public bool rowIsAbove(GuiSession session, int rowIndex)

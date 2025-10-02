@@ -118,7 +118,7 @@ namespace RoboSAPiens {
                         var table = new AbapList(guiSimpleContainer);
                         tables.Add(table);
 
-                        if (debug) Console.WriteLine("Columns: " + string.Join(" | ", table.columnTitles));
+                        if (debug) Console.WriteLine("Columns: " + string.Join(" | ", table.columnTitles.Select(t => t.name)));
                     }
 
                     getWindowComponents(guiSimpleContainer.Children);
