@@ -11,6 +11,9 @@ await Repl.Run(
             var propertyInfo = result.GetType().GetProperty("Result");
             var value = propertyInfo!.GetValue(result, null);
             Console.WriteLine($">> {value}");
+        },
+        logError: (message, exception, _) => {
+            Console.WriteLine($">> {exception}");
         }
     ),
     commands: [
