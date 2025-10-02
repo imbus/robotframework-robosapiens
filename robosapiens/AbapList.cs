@@ -45,12 +45,7 @@ namespace RoboSAPiens
                 if (element.Type == "GuiCheckBox")
                 {
                     var checkbox = (GuiCheckBox)element;
-                    var colTitle = checkbox.GetListProperty("FieldHeader").Trim();
-
-                    if (colTitle == "")
-                    {
-                        colTitle = columnTitles[i];
-                    }
+                    var colTitle = columnTitles[i];
 
                     int rowNumber = -1;
 
