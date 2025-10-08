@@ -20,7 +20,6 @@ await Repl.Run(
         "using sapfewse;",
         "using saprotwr.net;",
         "using static Sapito.Sapito;",
-        "Console.WriteLine(\"Call ConnectToRunningSap to get started!\");",
-        "Console.WriteLine(\"\");"
+        "var session = ConnectToRunningSap();",
     ]
 );

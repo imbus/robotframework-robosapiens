@@ -35,7 +35,7 @@ namespace Sapito
             var connection = (GuiConnection)connections.ElementAt(0);
             var session = (GuiSession)connection!.Sessions.ElementAt(0);
 
-            Console.WriteLine("Connected to SAP");
+            Console.WriteLine("Connected to SAP. GuiSession stored in the variable 'session'.\n");
             return session;
         }
 
