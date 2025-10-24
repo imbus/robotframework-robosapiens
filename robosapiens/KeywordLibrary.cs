@@ -350,8 +350,7 @@ namespace RoboSAPiens
             }
 
             var session = (GuiSession)sessions.ElementAt(sessionNumber0);
-            session.TestToolMode = 1;
-
+            
             return (session, null);
         }
 
