@@ -83,7 +83,7 @@ namespace RoboSAPiens {
         }
 
     	public override bool contains(string content) {
-            return text.Equals(content);
+            return text.ToLower().Equals(content.ToLower());
         }
 
 
