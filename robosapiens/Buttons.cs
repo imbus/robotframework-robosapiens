@@ -64,6 +64,7 @@ namespace RoboSAPiens {
 
         public override void push(GuiSession session) {
             var guiButton = (GuiButton)session.FindById(id);
+            guiButton.SetFocus();
             guiButton.Press();
         }
 
