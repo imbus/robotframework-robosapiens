@@ -185,6 +185,7 @@ namespace RoboSAPiens {
 
         public override void insert(string content, GuiSession session) {
             var guiTextField = (GuiTextField)session.FindById(id);
+            guiTextField.SetFocus();
             guiTextField.Text = content;
             text = content;
         }
