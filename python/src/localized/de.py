@@ -1060,7 +1060,14 @@ lib: LocalizedRoboSAPiens = {
                 "default": False,
                 "type": "bool",
                 "spec": {},
-              }
+              },
+              "tableNumber": {
+                    "name": ("3359775383", "tabelle_nummer"),
+                    "desc": ("97624453", "Die Tabelle (1, 2, ...), in deren Symbolleiste sich der Knopf befindet."),
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
+                }
             },
             "result": {
               "NoSession": ("4138997384", no_session),

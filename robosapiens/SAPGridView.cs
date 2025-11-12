@@ -8,7 +8,8 @@ namespace RoboSAPiens
     public class SAPGridView: ITable
     {
         record Column(string columnId, List<string> columnTitles);
-
+        public ButtonStore buttons = new ButtonStore();
+        public ComboBoxStore comboBoxes = new ComboBoxStore();
         CellRepository cells;
         List<Column> columns;
         string id;
@@ -81,6 +82,26 @@ namespace RoboSAPiens
             }
         }
 
+        public void classifyToolbar(GuiGridView gridView)
+        {
+            for (int i = 0; i < gridView.ToolbarButtonCount; i++)
+            {
+                var type = gridView.GetToolbarButtonType(i);
+                switch (type)
+                {
+                    case "Button":
+                        buttons.Add(new SAPGridViewToolbarButton(gridView, i));
+                        break;
+                    case "ButtonAndMenu":
+                    case "Menu":
+                        buttons.Add(new SAPGridViewToolbarButtonMenu(gridView, i));
+                        comboBoxes.Add(new SAPGridViewToolbarButtonMenuComboBox(gridView, i));
+                        break;
+                        // case "CheckBox"
+                }
+            }
+        }
+        
         public Cell? findCell(ILocator locator, GuiSession session)
         {
             var currentRowCount = getNumRows(session);

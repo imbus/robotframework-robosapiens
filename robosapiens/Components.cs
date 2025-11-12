@@ -166,8 +166,8 @@ namespace RoboSAPiens {
                 case "GridView":
                     var gridView = (GuiGridView)guiShell;
                     var sapGridView = new SAPGridView(gridView);
-                    tables.Add(new SAPGridView(gridView));
-                    classifyGridViewToolbar(gridView);
+                    sapGridView.classifyToolbar(gridView);
+                    tables.Add(sapGridView);
                     if (debug) sapGridView.print();
                     break;
                 case "Toolbar":
@@ -245,25 +245,6 @@ namespace RoboSAPiens {
             }
         }
 
-        void classifyGridViewToolbar(GuiGridView gridView)
-        {
-            for (int i = 0; i < gridView.ToolbarButtonCount; i++) 
-            {
-                var type = gridView.GetToolbarButtonType(i);
-                switch (type) {
-                    case "Button":
-                        buttons.Add(new SAPGridViewToolbarButton(gridView, i));
-                        break;
-                    case "ButtonAndMenu":
-                    case "Menu":
-                        buttons.Add(new SAPGridViewToolbarButtonMenu(gridView, i));
-                        comboBoxes.Add(new SAPGridViewToolbarButtonMenuComboBox(gridView, i));
-                        break;
-                    // case "CheckBox"
-                }
-            }
-        }
-
         void classifyToolbar(GuiToolbar toolbar)
         {
             var toolbarComponents = toolbar.Children;
@@ -322,9 +303,25 @@ namespace RoboSAPiens {
             }
         }
 
-        public Button? findButton(ButtonLocator button, bool exact) {
-            return buttons.get(button.locator, labels, textFields.NonChangeable(), exact) ?? 
-                   toolbarButtons.get(button.locator,  labels, textFields.NonChangeable(), exact);
+        public Button? findButton(ButtonLocator buttonLocator, bool exact, int? tableNumber) {
+            var button = buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), exact) ??
+                         toolbarButtons.get(buttonLocator.locator, labels, textFields.NonChangeable(), exact);
+
+            if (button != null)
+                return button;
+
+            if (tableNumber != null)
+            {
+                if (tableNumber > getGridViews().Count)
+                    return null;
+
+                var gridView = getGridViews()[(int)tableNumber - 1];
+                return gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), exact);
+            }
+            else
+            {
+                return getGridViews().FirstOrDefault()?.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), exact);
+            }
         }
 
         public CheckBox? findCheckBox(CheckBoxLocator checkBox) {
@@ -332,7 +329,8 @@ namespace RoboSAPiens {
         }
 
         public ComboBox? findComboBox(ComboBoxLocator comboBox) {
-            return comboBoxes.get(comboBox.locator, labels, textFields.NonChangeable());
+            return comboBoxes.get(comboBox.locator, labels, textFields.NonChangeable()) ??
+            getGridViews().FirstOrDefault()?.comboBoxes.get(comboBox.locator, labels, textFields.NonChangeable());
         }
 
         public ITextElement? findLabel(LabelLocator labelLocator) {
