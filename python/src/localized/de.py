@@ -1029,14 +1029,14 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("4221864820", "Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt."),
-                "examples": ("1153360110",
+                "examples": ("2077449164",
                 """
                 Beispiele:
               
                 | ``Tastenkombination drücken    Tastenkombination``
 
                 Gültige Tastenkombinationen sind unter anderem die Tastenkürzel im Kontextmenü (angezeigt, wenn die rechte Maustaste gedrückt wird). 
-                Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation von SAP GUI].
+                Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?locale=de-DE|Dokumentation von SAP GUI].
 
                 *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
                 """
