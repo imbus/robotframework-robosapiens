@@ -536,6 +536,13 @@
           "default": false,
           "type": "Boolean",
           "spec": {}
+        },
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
         }
       },
       "result": {

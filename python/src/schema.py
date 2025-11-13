@@ -145,6 +145,9 @@ class RoboSAPiensKeywordsHighlightbuttonKwargsExactSpec(TypedDict):
 class RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsPushbuttonKwargsTablenumberSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsPushbuttonKwargsExactSpec(TypedDict):
     ...
 
@@ -482,6 +485,13 @@ class RoboSAPiensKeywordsHighlightbuttonArgsButton(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec
+
+class RoboSAPiensKeywordsPushbuttonKwargsTablenumber(TypedDict):
+    name: str
+    desc: str
+    default: Literal[None]
+    type: Literal[r'int']
+    spec: RoboSAPiensKeywordsPushbuttonKwargsTablenumberSpec
 
 class RoboSAPiensKeywordsPushbuttonKwargsExact(TypedDict):
     name: str
@@ -1147,6 +1157,7 @@ class RoboSAPiensKeywordsPushbuttonResult(TypedDict):
 
 class RoboSAPiensKeywordsPushbuttonKwargs(TypedDict):
     exact: RoboSAPiensKeywordsPushbuttonKwargsExact
+    tableNumber: RoboSAPiensKeywordsPushbuttonKwargsTablenumber
 
 class RoboSAPiensKeywordsPushbuttonArgs(TypedDict):
     button: RoboSAPiensKeywordsPushbuttonArgsButton

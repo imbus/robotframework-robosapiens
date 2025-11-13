@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.21.10"
+__version__ = "2.22.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -917,7 +917,7 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('PressKeyCombination', args, kwargs, result) # type: ignore
     
     @keyword('Push Button') # type: ignore
-    def push_button(self, locator: str, exact: bool=False): # type: ignore
+    def push_button(self, locator: str, exact: bool=False, table_number: int=None): # type: ignore
         """
         Push the button with the given locator.
         
@@ -943,7 +943,8 @@ class RoboSAPiens(RoboSAPiensClient):
             locator
         ]
         kwargs: dict = {
-            "exact": exact
+            "exact": exact,
+            "table_number": table_number
         }
         
         result = {
@@ -1737,4 +1738,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.21.10'
+    ROBOT_LIBRARY_VERSION = '2.22.0'

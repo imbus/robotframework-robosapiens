@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.21.10"
+__version__ = "2.22.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -916,7 +916,7 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('PressKeyCombination', args, kwargs, result) # type: ignore
     
     @keyword('Knopf drücken') # type: ignore
-    def push_button(self, Lokator: str, exakt: bool=False): # type: ignore
+    def push_button(self, Lokator: str, exakt: bool=False, tabelle_nummer: int=None): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
         
@@ -942,7 +942,8 @@ class DE(RoboSAPiensClient):
             Lokator
         ]
         kwargs: dict = {
-            "exakt": exakt
+            "exakt": exakt,
+            "tabelle_nummer": tabelle_nummer
         }
         
         result = {
@@ -1735,4 +1736,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.21.10'
+    ROBOT_LIBRARY_VERSION = '2.22.0'
