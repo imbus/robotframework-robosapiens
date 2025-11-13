@@ -34,6 +34,9 @@ class {{ module_name }}(RoboSAPiensClient):
         {% for arg in keyword.args.values() %}
         | ``{{ arg.name|get_value }}`` | {{ arg.desc|get_value }} |
         {%- endfor %}
+        {%- for kwarg in keyword.kwargs.values() %}
+        | ``{{ kwarg.name|get_value }}`` | {{ kwarg.desc|get_value }} |
+        {%- endfor %}
         {%- for line in keyword.doc.examples|get_value|splitlines %}
         {{ line }}
         {%- endfor -%}
