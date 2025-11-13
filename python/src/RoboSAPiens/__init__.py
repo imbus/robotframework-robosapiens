@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.22.0"
+__version__ = "2.22.1"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -368,6 +368,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Open SAP GUI or SAP Business Client.
         
         | ``path`` | The path of the SAP executable |
+        | ``sap_args`` | Command line arguments for the SAP executable |
         
         Examples:
         
@@ -489,6 +490,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Count the rows in a table.
         
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -543,6 +545,9 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Connect to an already running SAP instance and take control of it.
         
+        | ``session_number`` | The session number shown in the upper right or lower right corner of the window |
+        | ``connection`` | The name of the connection in SAP Logon |
+        | ``client`` | The three-digit number of the client |
         
         Examples:
         
@@ -627,6 +632,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -744,6 +750,7 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``content`` | The new contents of the cell |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -806,6 +813,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``locator`` | The locator used to find the text field. |
         | ``content`` | The new contents of the text field |
+        | ``exact`` | Whether to perform an exact search |
         
         Examples:
         
@@ -859,6 +867,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Highlight the button with the given locator.
         
         | ``locator`` | The name or tooltip of the button |
+        | ``exact`` | `True` if the locator matches exactly the tooltip, `False` otherwise. |
         
         Examples:
         
@@ -897,7 +906,7 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``Press Key Combination    key_combination``
         
         Among the valid key combinations are the keyboard shortcuts in the context menu (shown when the right mouse button is pressed). 
-        For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01&locale=en-US|documentation of SAP GUI].
+        For a full list of supported key combinations consult the [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?locale=en-US|documentation of SAP GUI].
         
         *Hint*: Pressing F2 is equivalent to a double-click.
         """
@@ -922,6 +931,8 @@ class RoboSAPiens(RoboSAPiensClient):
         Push the button with the given locator.
         
         | ``locator`` | The name or tooltip of the button |
+        | ``exact`` | `True` if the locator matches exactly the tooltip, `False` otherwise. |
+        | ``table_number`` | The table (1, 2, ...) that contains the button in its toolbar. |
         
         Examples:
         
@@ -963,6 +974,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``row_locator`` | Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1077,6 +1089,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1138,6 +1151,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Scroll the contents of the text fields within an area with a scrollbar.
         
         | ``direction`` | UP, DOWN, BEGIN, END |
+        | ``until_textfield`` | Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]. |
         
         Examples:
         
@@ -1200,6 +1214,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1234,6 +1249,7 @@ class RoboSAPiens(RoboSAPiensClient):
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``value`` | An entry from the dropdown menu |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1417,6 +1433,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the specified column in the given table.
         
         | ``column`` | The title or tooltip of the column |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1446,6 +1463,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the specified table row(s) and return the corresponding row index(es).
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1611,6 +1629,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1644,6 +1663,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
+        | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
         
@@ -1738,4 +1758,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.22.0'
+    ROBOT_LIBRARY_VERSION = '2.22.1'

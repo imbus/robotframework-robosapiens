@@ -1131,7 +1131,7 @@ class LocalizedRoboSAPiensKeywordsPushbuttonArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsPresskeycombinationDoc(TypedDict):
     desc: Tuple[Literal['4221864820'], str]
-    examples: Tuple[Literal['1153360110'], str]
+    examples: Tuple[Literal['2077449164'], str]
 
 class LocalizedRoboSAPiensKeywordsPresskeycombinationResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]

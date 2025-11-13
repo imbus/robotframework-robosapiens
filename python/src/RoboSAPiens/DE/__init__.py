@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.22.0"
+__version__ = "2.22.1"
 
 class DE(RoboSAPiensClient):
     """
@@ -367,6 +367,7 @@ class DE(RoboSAPiensClient):
         SAP GUI bzw. SAP Business Client wird gestartet.
         
         | ``Pfad`` | Der Pfad zu saplogon.exe oder NWBC.exe |
+        | ``SAP_Parameter`` | Kommandozeileparameter für den SAP Client |
         
         Beispiele:
         
@@ -488,6 +489,7 @@ class DE(RoboSAPiensClient):
         """
         Die Zeilen einer Tabelle werden gezählt.
         
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -542,6 +544,9 @@ class DE(RoboSAPiensClient):
         """
         Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden.
         
+        | ``session_nummer`` | Die Nummer der SAP-Session in der rechten oberen oder unteren Ecke des Fensters |
+        | ``Verbindung`` | Der Name der Verbindung in SAP Logon (nicht der SID) |
+        | ``Mandant`` | Der dreistellige Mandant |
         
         Beispiele:
         
@@ -626,6 +631,7 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -743,6 +749,7 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Inhalt`` | Der neue Inhalt der Zelle |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -805,6 +812,7 @@ class DE(RoboSAPiensClient):
         
         | ``Lokator`` | Ein Lokator, um das Textfeld zu finden |
         | ``Inhalt`` | Der neue Inhalt des Textfelds |
+        | ``exakt`` | Entweder eine genaue oder eine partielle Übereinstimmung mit dem Lokator. |
         
         Beispiele:
         
@@ -858,6 +866,7 @@ class DE(RoboSAPiensClient):
         Der Knopf mit dem angegebenen Lokator wird hervorgehoben.
         
         | ``Lokator`` | Name oder Kurzinfo (Tooltip) des Knopfes |
+        | ``exakt`` | `True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False` |
         
         Beispiele:
         
@@ -896,7 +905,7 @@ class DE(RoboSAPiensClient):
         | ``Tastenkombination drücken    Tastenkombination``
         
         Gültige Tastenkombinationen sind unter anderem die Tastenkürzel im Kontextmenü (angezeigt, wenn die rechte Maustaste gedrückt wird). 
-        Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?version=770.01|Dokumentation von SAP GUI].
+        Die vollständige Liste der zulässigen Tastenkombinationen ist in der [https://help.sap.com/docs/sap_gui_for_windows/b47d018c3b9b45e897faf66a6c0885a8/71d8c95e9c7947ffa197523a232d8143.html?locale=de-DE|Dokumentation von SAP GUI].
         
         *Hinweis*: Das Drücken der Taste F2 hat die gleiche Wirkung wie ein Doppelklick.
         """
@@ -921,6 +930,8 @@ class DE(RoboSAPiensClient):
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
         
         | ``Lokator`` | Name oder Kurzinfo (Tooltip) des Knopfes |
+        | ``exakt`` | `True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False`. |
+        | ``tabelle_nummer`` | Die Tabelle (1, 2, ...), in deren Symbolleiste sich der Knopf befindet. |
         
         Beispiele:
         
@@ -962,6 +973,7 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1050,6 +1062,7 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1111,6 +1124,7 @@ class DE(RoboSAPiensClient):
         Die Inhalte der Textfelder in einem Bereich mit einer Bildlaufleiste werden gescrollt.
         
         | ``Richtung`` | UP, DOWN, BEGIN, END |
+        | ``bis_Textfeld`` | Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert. |
         
         Beispiele:
         
@@ -1173,6 +1187,7 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1207,6 +1222,7 @@ class DE(RoboSAPiensClient):
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
         | ``Wert`` | Ein Wert aus dem Auswahlmenü |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1390,6 +1406,7 @@ class DE(RoboSAPiensClient):
         Die angegebene Tabellenspalte wird markiert.
         
         | ``Spalte`` | Spaltentitel oder Kurzhilfe (Tooltip) |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1419,6 +1436,7 @@ class DE(RoboSAPiensClient):
         Die angegebene(n) Tabellenzeile(n) soll(en) markiert werden und die entsprechende(n) Zeilennummer zurückgegeben.
         
         | ``Zeilenlokator`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1609,6 +1627,7 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1642,6 +1661,7 @@ class DE(RoboSAPiensClient):
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
         
@@ -1736,4 +1756,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.22.0'
+    ROBOT_LIBRARY_VERSION = '2.22.1'
