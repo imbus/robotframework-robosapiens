@@ -589,33 +589,25 @@ namespace RoboSAPiens {
                         window.pressPageDown();
                         break;
                     case "Enter":
+                        window.pressEnter();
+                        // Pressing the Enter key may result in the window being rerendered,
+                        // and the properties of some components may change.
+                        if (!windowChanged()) {
+                            switch (updateWindow()) {
+                                case RobotResult.UIScanFail exceptionError:
+                                    return exceptionError;
+                            }
+                        }
+                        break;
                     case "F1":
+                        window.pressF1();
+                        break;
                     case "F4":
-                        var gridView = window.components.getGridViews().FirstOrDefault();
-                        if (gridView != null && gridView.cellIsSelected(session))
-                        {
-                            gridView.pressKey(keyCombination, session);
-                        }
-                        else
-                        {
-                            window.pressKey((int)vkey!);
-                        }
+                        window.pressF4();
                         break;
                     default:
                         window.pressKey((int)vkey!);
                         break;
-                }
-
-                if (keyCombination == "Enter")
-                {
-                    // Pressing the Enter key may result in the window being rerendered,
-                    // and the properties of some components may change.
-                    if (!windowChanged()) {
-                        switch (updateWindow()) {
-                            case RobotResult.UIScanFail exceptionError:
-                                return exceptionError;
-                        }
-                    }
                 }
 
                 return new Result.PressKeyCombination.Pass(keyCombination);
