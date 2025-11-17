@@ -3,14 +3,17 @@ using System.Text.RegularExpressions;
 using sapfewse;
 
 namespace RoboSAPiens {
-    public abstract class Button: IHighlightable {
+    public abstract class Button: IHighlightable, ILabeled {
         protected bool focused;
+        public abstract bool hasTooltip(string tooltip);
         public abstract bool isEnabled(GuiSession session);
+        public abstract bool isHLabeled(string label);
+        public abstract bool isVLabeled(string label);
         public abstract void push(GuiSession session);
         public abstract void toggleHighlight(GuiSession session);
     }
 
-    public class SAPButton: Button, ILabeled, ILocatable {
+    public class SAPButton: Button, ILocatable {
         protected string defaultTooltip;
         public string id;
         public Position position {get;}
@@ -46,15 +49,15 @@ namespace RoboSAPiens {
             return button.Changeable;
         }
 
-        public bool isHLabeled(string label) {
+        public override bool isHLabeled(string label) {
             return this.text == label;
         }
 
-        public bool isVLabeled(string label) {
+        public override bool isVLabeled(string label) {
             return false;
         }
 
-        public bool hasTooltip(string tooltip) {
+        public override bool hasTooltip(string tooltip) {
             if (tooltip.EndsWith("~")) {
                 return this.tooltip.StartsWith(tooltip.TrimEnd('~'));
             }
@@ -107,7 +110,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPGridViewToolbarButton: Button, ILabeled {
+    public sealed class SAPGridViewToolbarButton: Button {
         string gridViewId;
         string id;
         int position;
@@ -129,15 +132,15 @@ namespace RoboSAPiens {
             return gridView.GetToolbarButtonEnabled(position);
         }
 
-        public bool isHLabeled(string label) {
+        public override bool isHLabeled(string label) {
             return this.label.Equals(label);
         }
 
-        public bool isVLabeled(string label) {
+        public override bool isVLabeled(string label) {
             return false;
         }
 
-        public bool hasTooltip(string tooltip) {
+        public override bool hasTooltip(string tooltip) {
             if (tooltip.EndsWith("~")) {
                 return this.tooltip.StartsWith(tooltip.TrimEnd('~'));
             }
@@ -165,7 +168,7 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class SAPGridViewToolbarButtonMenu: Button, ILabeled 
+    public sealed class SAPGridViewToolbarButtonMenu: Button 
     {
         string gridViewId;
         string id;
@@ -186,15 +189,15 @@ namespace RoboSAPiens {
             return gridView.GetToolbarButtonEnabled(position);
         }
 
-        public bool isHLabeled(string label) {
+        public override bool isHLabeled(string label) {
             return false;
         }
 
-        public bool isVLabeled(string label) {
+        public override bool isVLabeled(string label) {
             return false;
         }
 
-        public bool hasTooltip(string tooltip) {
+        public override bool hasTooltip(string tooltip) {
             if (tooltip.EndsWith("~")) {
                 return this.tooltip.StartsWith(tooltip.TrimEnd('~'));
             }
@@ -211,7 +214,7 @@ namespace RoboSAPiens {
         public override void toggleHighlight(GuiSession session) {}
     }
 
-    public sealed class SAPToolbarButton: Button, ILabeled {
+    public sealed class SAPToolbarButton: Button {
         string toolbarId;
         string id;
         int position;
@@ -226,15 +229,15 @@ namespace RoboSAPiens {
             this.tooltip = toolbar.GetButtonTooltip(position).Trim();
         }
 
-        public bool isHLabeled(string label) {
+        public override bool isHLabeled(string label) {
             return text == label;
         }
 
-        public bool isVLabeled(string label) {
+        public override bool isVLabeled(string label) {
             return false;
         }
 
-        public bool hasTooltip(string tooltip) {
+        public override bool hasTooltip(string tooltip) {
             if (tooltip.EndsWith("~")) {
                 return this.tooltip.StartsWith(tooltip.TrimEnd('~'));
             }
