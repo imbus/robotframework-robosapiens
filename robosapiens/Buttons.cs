@@ -5,6 +5,7 @@ using sapfewse;
 namespace RoboSAPiens {
     public abstract class Button: IHighlightable, ILabeled {
         protected bool focused;
+        public Position position = new Position(0, 0, 0, 0);
         public abstract bool hasTooltip(string tooltip);
         public abstract bool isEnabled(GuiSession session);
         public abstract bool isHLabeled(string label);
@@ -16,7 +17,6 @@ namespace RoboSAPiens {
     public class SAPButton: Button, ILocatable {
         protected string defaultTooltip;
         public string id;
-        public Position position {get;}
         public string text;
         protected string tooltip;
 
@@ -223,9 +223,16 @@ namespace RoboSAPiens {
 
         public SAPToolbarButton(GuiToolbarControl toolbar, int buttonPos) {
             this.buttonPos = buttonPos;
-            this.toolbarId = toolbar.Id;
+            this.focused = false;
             this.id = toolbar.GetButtonId(buttonPos);
+            this.position = new Position(
+                height: toolbar.Height, 
+                left: toolbar.ScreenLeft,
+                top: toolbar.ScreenTop, 
+                width: toolbar.Width
+            );
             this.text = toolbar.GetButtonText(buttonPos);
+            this.toolbarId = toolbar.Id;
             this.tooltip = toolbar.GetButtonTooltip(buttonPos).Trim();
         }
 

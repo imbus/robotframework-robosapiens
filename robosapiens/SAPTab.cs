@@ -6,11 +6,23 @@ namespace RoboSAPiens {
         string id;
         string label;
         private bool focused;
+        Position position;
 
         public SAPTab(GuiTab tab) {
-            this.tooltip = tab.Tooltip;
             this.id = tab.Id;
             this.label = tab.Text.Trim();
+            this.position = new Position(
+                height: tab.Height, 
+                left: tab.ScreenLeft,
+                top: tab.ScreenTop, 
+                width: tab.Width
+            );
+            this.tooltip = tab.Tooltip;
+        }
+
+        public bool contains(Position other) {
+            return other.left > position.left && 
+                   other.top > position.top;
         }
 
         public bool isHLabeled(string label) {

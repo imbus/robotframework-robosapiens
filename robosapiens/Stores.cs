@@ -1,12 +1,22 @@
 namespace RoboSAPiens {
     public sealed class ButtonStore: ComponentRepository<Button> {
-        public Button? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels, bool exact) {
+        Button? findInTab(string label, string tabTitle, TabStore tabs) {
+            var tab = tabs.get(tabTitle);
+
+            return Find(
+                button => (button.isHLabeled(label) || button.hasTooltip(label)) && 
+                          (tab?.contains(button.position) ?? false));
+        }
+
+        public Button? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels, TabStore tabs, bool exact) {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ??
                     getByTooltip(exact? label : label + "~"),
                 HLabelHLabel =>
                     getAlignedWithLabels((HLabelHLabel)locator, labels, textFieldLabels),
+                HLabelVLabel(var label, var tabTitle) => 
+                    findInTab(label, tabTitle, tabs),
                 _ => null
             };
         }

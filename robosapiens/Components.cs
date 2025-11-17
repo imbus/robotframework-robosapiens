@@ -304,8 +304,8 @@ namespace RoboSAPiens {
         }
 
         public Button? findButton(ButtonLocator buttonLocator, bool exact, int? tableNumber) {
-            var button = buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), exact) ??
-                         toolbarButtons.get(buttonLocator.locator, labels, textFields.NonChangeable(), exact);
+            var button = buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact) ??
+                         toolbarButtons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact);
 
             if (button != null)
                 return button;
@@ -316,11 +316,11 @@ namespace RoboSAPiens {
                     return null;
 
                 var gridView = getGridViews()[(int)tableNumber - 1];
-                return gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), exact);
+                return gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact);
             }
             else
             {
-                return getGridViews().FirstOrDefault()?.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), exact);
+                return getGridViews().FirstOrDefault()?.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact);
             }
         }
 
