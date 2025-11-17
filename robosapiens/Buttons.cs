@@ -255,6 +255,9 @@ namespace RoboSAPiens {
 
         public override void toggleHighlight(GuiSession session)
         {
+            focused = !focused;
+            var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
+            toolbar.Visualize(focused);
         }
     }
 }
