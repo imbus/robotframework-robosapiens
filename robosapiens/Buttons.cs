@@ -113,23 +113,23 @@ namespace RoboSAPiens {
     public sealed class SAPGridViewToolbarButton: Button {
         string gridViewId;
         string id;
-        int position;
+        int buttonPos;
         string label;
         string tooltip;
 
-        public SAPGridViewToolbarButton(GuiGridView gridView, int position) {
+        public SAPGridViewToolbarButton(GuiGridView gridView, int buttonPos) {
             this.focused = false;
             this.gridViewId = gridView.Id;
-            this.id = gridView.GetToolbarButtonId(position);
-            this.position = position;
-            this.tooltip = gridView.GetToolbarButtonTooltip(position);
-            this.label = gridView.GetToolbarButtonText(position);
+            this.id = gridView.GetToolbarButtonId(buttonPos);
+            this.buttonPos = buttonPos;
+            this.tooltip = gridView.GetToolbarButtonTooltip(buttonPos);
+            this.label = gridView.GetToolbarButtonText(buttonPos);
         }
 
         public override bool isEnabled(GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            return gridView.GetToolbarButtonEnabled(position);
+            return gridView.GetToolbarButtonEnabled(buttonPos);
         }
 
         public override bool isHLabeled(string label) {
@@ -172,21 +172,21 @@ namespace RoboSAPiens {
     {
         string gridViewId;
         string id;
-        int position;
+        int buttonPos;
         string tooltip;
 
-        public SAPGridViewToolbarButtonMenu(GuiGridView gridView, int position) 
+        public SAPGridViewToolbarButtonMenu(GuiGridView gridView, int buttonPos) 
         {
-            this.position = position;
+            this.buttonPos = buttonPos;
             this.gridViewId = gridView.Id;
-            this.id = gridView.GetToolbarButtonId(position);
-            this.tooltip = gridView.GetToolbarButtonTooltip(position);
+            this.id = gridView.GetToolbarButtonId(buttonPos);
+            this.tooltip = gridView.GetToolbarButtonTooltip(buttonPos);
         }
 
         public override bool isEnabled(GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            return gridView.GetToolbarButtonEnabled(position);
+            return gridView.GetToolbarButtonEnabled(buttonPos);
         }
 
         public override bool isHLabeled(string label) {
@@ -217,16 +217,16 @@ namespace RoboSAPiens {
     public sealed class SAPToolbarButton: Button {
         string toolbarId;
         string id;
-        int position;
+        int buttonPos;
         string text;
         string tooltip;
 
-        public SAPToolbarButton(GuiToolbarControl toolbar, int position) {
-            this.position = position;
+        public SAPToolbarButton(GuiToolbarControl toolbar, int buttonPos) {
+            this.buttonPos = buttonPos;
             this.toolbarId = toolbar.Id;
-            this.id = toolbar.GetButtonId(position);
-            this.text = toolbar.GetButtonText(position);
-            this.tooltip = toolbar.GetButtonTooltip(position).Trim();
+            this.id = toolbar.GetButtonId(buttonPos);
+            this.text = toolbar.GetButtonText(buttonPos);
+            this.tooltip = toolbar.GetButtonTooltip(buttonPos).Trim();
         }
 
         public override bool isHLabeled(string label) {
@@ -248,7 +248,7 @@ namespace RoboSAPiens {
         public override bool isEnabled(GuiSession session) 
         {
             var toolbar = (GuiToolbarControl)session.FindById(toolbarId);
-            return toolbar.GetButtonEnabled(position);
+            return toolbar.GetButtonEnabled(buttonPos);
         }
 
         public override void push(GuiSession session) {
