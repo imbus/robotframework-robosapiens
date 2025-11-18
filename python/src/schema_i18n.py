@@ -143,6 +143,9 @@ class LocalizedRoboSAPiensKeywordsPushbuttonKwargsExactSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsPushbuttonArgsButtonSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsPresskeycombinationKwargsTablenumberSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec(TypedDict):
     ...
 
@@ -481,6 +484,13 @@ class LocalizedRoboSAPiensKeywordsPushbuttonArgsButton(TypedDict):
     name: Tuple[Literal['2051440239'], str]
     desc: Tuple[Literal['2400215713'], str]
     spec: LocalizedRoboSAPiensKeywordsPushbuttonArgsButtonSpec
+
+class LocalizedRoboSAPiensKeywordsPresskeycombinationKwargsTablenumber(TypedDict):
+    name: Tuple[Literal['3359775383'], str]
+    desc: Tuple[Literal['4139410820'], str]
+    default: Literal[None]
+    type: Literal[r'int']
+    spec: LocalizedRoboSAPiensKeywordsPresskeycombinationKwargsTablenumberSpec
 
 class LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombination(TypedDict):
     name: Tuple[Literal['2238126572'], str]
@@ -1136,11 +1146,12 @@ class LocalizedRoboSAPiensKeywordsPresskeycombinationDoc(TypedDict):
 class LocalizedRoboSAPiensKeywordsPresskeycombinationResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
     NotFound: Tuple[Literal['2294374604'], str]
+    InvalidTable: Tuple[Literal['2205241003'], str]
     Pass: Tuple[Literal['3497306705'], str]
     Exception: Tuple[Literal['3975296116'], str]
 
 class LocalizedRoboSAPiensKeywordsPresskeycombinationKwargs(TypedDict):
-    ...
+    tableNumber: LocalizedRoboSAPiensKeywordsPresskeycombinationKwargsTablenumber
 
 class LocalizedRoboSAPiensKeywordsPresskeycombinationArgs(TypedDict):
     keyCombination: LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombination

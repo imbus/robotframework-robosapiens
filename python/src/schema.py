@@ -118,6 +118,9 @@ class RoboSAPiensKeywordsReadtextfieldArgsLocatorSpec(TypedDict):
     HLabelVLabel: str
     Content: str
 
+class RoboSAPiensKeywordsPresskeycombinationKwargsTablenumberSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec(TypedDict):
     ...
 
@@ -432,6 +435,13 @@ class RoboSAPiensKeywordsReadtextfieldArgsLocator(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsReadtextfieldArgsLocatorSpec
+
+class RoboSAPiensKeywordsPresskeycombinationKwargsTablenumber(TypedDict):
+    name: str
+    desc: str
+    default: Literal[None]
+    type: Literal[r'int']
+    spec: RoboSAPiensKeywordsPresskeycombinationKwargsTablenumberSpec
 
 class RoboSAPiensKeywordsPresskeycombinationArgsKeycombination(TypedDict):
     name: str
@@ -1046,11 +1056,12 @@ class RoboSAPiensKeywordsPresskeycombinationDoc(TypedDict):
 class RoboSAPiensKeywordsPresskeycombinationResult(TypedDict):
     NoSession: str
     NotFound: str
+    InvalidTable: str
     Pass: str
     Exception: str
 
 class RoboSAPiensKeywordsPresskeycombinationKwargs(TypedDict):
-    ...
+    tableNumber: RoboSAPiensKeywordsPresskeycombinationKwargsTablenumber
 
 class RoboSAPiensKeywordsPresskeycombinationArgs(TypedDict):
     keyCombination: RoboSAPiensKeywordsPresskeycombinationArgsKeycombination

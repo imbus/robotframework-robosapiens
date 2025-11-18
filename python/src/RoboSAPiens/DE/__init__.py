@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.22.4"
+__version__ = "2.23.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -894,11 +894,12 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('HighlightButton', args, kwargs, result) # type: ignore
     
     @keyword('Tastenkombination drücken') # type: ignore
-    def press_key_combination(self, Tastenkombination: str): # type: ignore
+    def press_key_combination(self, Tastenkombination: str, tabelle_nummer: int=None): # type: ignore
         """
         Die angegebene Tastenkombination (mit englischen Tastenbezeichnungen) wird gedrückt.
         
         | ``Tastenkombination`` | Entweder eine Taste oder mehrere Tasten mit '+' als Trennzeichen |
+        | ``tabelle_nummer`` | Welche Tabelle (1, 2, ...) den Tastendruck empfangen soll. |
         
         Beispiele:
         
@@ -914,12 +915,14 @@ class DE(RoboSAPiensClient):
             Tastenkombination
         ]
         kwargs: dict = {
+            "tabelle_nummer": tabelle_nummer
         }
         
         result = {
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "Exception": "Die Tastenkombination konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
             "NotFound": "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
             "Pass": "Die Tastenkombination '{0}' wurde gedrückt."
         }
         return super()._run_keyword('PressKeyCombination', args, kwargs, result) # type: ignore
@@ -1756,4 +1759,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.22.4'
+    ROBOT_LIBRARY_VERSION = '2.23.0'

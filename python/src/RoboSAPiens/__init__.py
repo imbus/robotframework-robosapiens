@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.22.4"
+__version__ = "2.23.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -895,11 +895,12 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('HighlightButton', args, kwargs, result) # type: ignore
     
     @keyword('Press Key Combination') # type: ignore
-    def press_key_combination(self, key_combination: str): # type: ignore
+    def press_key_combination(self, key_combination: str, table_number: int=None): # type: ignore
         """
         Press the given key combination.
         
         | ``key_combination`` | Either one key or several keys separated by a + sign. |
+        | ``table_number`` | The table (1, 2, ...) that should receive the key press. |
         
         Examples:
         
@@ -915,11 +916,13 @@ class RoboSAPiens(RoboSAPiensClient):
             key_combination
         ]
         kwargs: dict = {
+            "table_number": table_number
         }
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
+            "InvalidTable": "The window contains no table with index {0}.",
             "Pass": "The key combination '{0}' was pressed.",
             "Exception": "The key combination could not be pressed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -1758,4 +1761,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.22.4'
+    ROBOT_LIBRARY_VERSION = '2.23.0'

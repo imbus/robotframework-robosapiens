@@ -704,10 +704,19 @@
           "spec": {}
         }
       },
-      "kwargs": {},
+      "kwargs": {
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
+        }
+      },
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",
+        "InvalidTable": "InvalidTable",
         "Pass": "Pass",
         "Exception": "Exception"
       },
