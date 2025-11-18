@@ -562,9 +562,9 @@ namespace RoboSAPiens
         [Keyword("Tastenkombination drücken"),
          Doc("Die angegebene Tastenkombination wird gedrückt.\n\n" +
              "| ``Tastenkombination drücken    Tastenkombination``")]
-        public RobotResult PressKeyCombination(string keyCombination) {
+        public RobotResult PressKeyCombination(string keyCombination, int? tableNumber=null) {
             return session switch {
-                SAPSession session when session.isActive => session.pressKeyCombination(keyCombination),
+                SAPSession session when session.isActive => session.pressKeyCombination(keyCombination, tableNumber),
                 _ => new Result.PressKeyCombination.NoSession()
             };
         }

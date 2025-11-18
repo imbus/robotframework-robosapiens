@@ -1020,11 +1020,20 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {},
                 }
             },
-            "kwargs": {},
+            "kwargs": {
+                "tableNumber": {
+                    "name": ("3359775383", "tabelle_nummer"),
+                    "default": None,
+                    "type": "int",
+                    "desc": ("4139410820", "Welche Tabelle (1, 2, ...) den Tastendruck empfangen soll."),
+                    "spec": {}
+                }
+            },
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "Exception": ("3975296116", exception("Die Tastenkombination konnte nicht gedrückt werden.")),
                 "NotFound": ("2294374604", "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen."),
+                "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
                 "Pass": ("3497306705", "Die Tastenkombination '{0}' wurde gedrückt.")
             },
             "doc": {

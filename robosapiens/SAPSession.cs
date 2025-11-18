@@ -574,7 +574,7 @@ namespace RoboSAPiens {
             };
         }
 
-        public RobotResult pressKeyCombination(string keyCombination) {
+        public RobotResult pressKeyCombination(string keyCombination, int? tableNumber) {
             int? vkey = VKeys.getKeyCombination(keyCombination);
             
             if (vkey == null) {
@@ -583,20 +583,26 @@ namespace RoboSAPiens {
             
             try 
             {
-                switch(keyCombination)
+                if (tableNumber != null)
                 {
-                    case "PageDown":
-                        window.pressPageDown();
-                        break;
-                    case "F1":
-                    case "F4":
-                        var gridView = window.components.getGridViews().FirstOrDefault();
-                        if (gridView != null) gridView.pressKey(keyCombination, session);
-                        else window.pressKey((int)vkey!);
-                        break;
-                    default:
-                        window.pressKey((int)vkey!);
-                        break;
+                    var gridViews = window.components.getGridViews();
+
+                    if (tableNumber > gridViews.Count)
+                        return new Result.PressKeyCombination.InvalidTable((int)tableNumber);
+
+                    gridViews.ElementAt((int)tableNumber - 1).pressKey(keyCombination, session);
+                }
+                else
+                {
+                    switch(keyCombination)
+                    {
+                        case "PageDown":
+                            window.pressPageDown();
+                            break;
+                        default:
+                            window.pressKey((int)vkey!);
+                            break;
+                    }
                 }
 
                 if (keyCombination == "Enter")

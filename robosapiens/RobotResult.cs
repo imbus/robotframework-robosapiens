@@ -232,6 +232,7 @@ namespace RoboSAPiens {
         public record PressKeyCombination {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string keyCombination): RobotResult.NotFound($"Die Tastenkombination '{keyCombination}' ist nicht vorhanden.");
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
             public record Pass(string keyCombination): RobotResult.RobotPass($"Die Tastenkombination '{keyCombination}' wurde gedrückt.");
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Tastenkombination konnte nicht gedrückt werden.");
         }

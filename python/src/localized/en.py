@@ -995,10 +995,19 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
-            "kwargs": {},
+            "kwargs": {
+                "tableNumber": {
+                    "name": "table_number",
+                    "desc": "The table (1, 2, ...) that should receive the key press.",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
+                }
+            },
             "result": {
                 "NoSession": no_session,
                 "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
+                "InvalidTable": "The window contains no table with index {0}.",
                 "Pass": "The key combination '{0}' was pressed.",
                 "Exception": exception("The key combination could not be pressed. {0}")
             },
