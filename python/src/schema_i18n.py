@@ -1146,7 +1146,7 @@ class LocalizedRoboSAPiensKeywordsPresskeycombinationDoc(TypedDict):
 class LocalizedRoboSAPiensKeywordsPresskeycombinationResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
     NotFound: Tuple[Literal['2294374604'], str]
-    InvalidTable: Tuple[Literal['2205241003'], str]
+    InvalidTable: Tuple[Literal['2978869853'], str]
     Pass: Tuple[Literal['3497306705'], str]
     Exception: Tuple[Literal['3975296116'], str]
 

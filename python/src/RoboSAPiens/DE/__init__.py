@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.23.0"
+__version__ = "2.23.1"
 
 class DE(RoboSAPiensClient):
     """
@@ -922,7 +922,7 @@ class DE(RoboSAPiensClient):
             "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
             "Exception": "Die Tastenkombination konnte nicht gedrückt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
             "NotFound": "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen.",
-            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {tabelle_nummer}.",
             "Pass": "Die Tastenkombination '{0}' wurde gedrückt."
         }
         return super()._run_keyword('PressKeyCombination', args, kwargs, result) # type: ignore
@@ -1759,4 +1759,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.23.0'
+    ROBOT_LIBRARY_VERSION = '2.23.1'

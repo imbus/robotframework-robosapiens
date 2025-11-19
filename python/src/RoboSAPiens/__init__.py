@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.23.0"
+__version__ = "2.23.1"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -922,7 +922,7 @@ class RoboSAPiens(RoboSAPiensClient):
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
             "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
-            "InvalidTable": "The window contains no table with index {0}.",
+            "InvalidTable": "The window contains no table with index {table_number}.",
             "Pass": "The key combination '{0}' was pressed.",
             "Exception": "The key combination could not be pressed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
@@ -1761,4 +1761,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.23.0'
+    ROBOT_LIBRARY_VERSION = '2.23.1'
