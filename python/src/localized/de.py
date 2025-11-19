@@ -1033,7 +1033,7 @@ lib: LocalizedRoboSAPiens = {
                 "NoSession": ("4138997384", no_session),
                 "Exception": ("3975296116", exception("Die Tastenkombination konnte nicht gedrückt werden.")),
                 "NotFound": ("2294374604", "Die Tastenkombination '{0}' ist nicht vorhanden. Siehe die Dokumentation des Schlüsselworts für die Liste der zulässigen Tastenkombinationen."),
-                "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
+                "InvalidTable": ("2978869853", "Die Maske enthält keine Tabelle mit dem Index {tabelle_nummer}."),
                 "Pass": ("3497306705", "Die Tastenkombination '{0}' wurde gedrückt.")
             },
             "doc": {

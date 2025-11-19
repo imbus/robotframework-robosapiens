@@ -1007,7 +1007,7 @@ lib: RoboSAPiens = {
             "result": {
                 "NoSession": no_session,
                 "NotFound": "The key combination '{0}' is not supported. See the keyword documentation for valid key combinations.",
-                "InvalidTable": "The window contains no table with index {0}.",
+                "InvalidTable": "The window contains no table with index {table_number}.",
                 "Pass": "The key combination '{0}' was pressed.",
                 "Exception": exception("The key combination could not be pressed. {0}")
             },
