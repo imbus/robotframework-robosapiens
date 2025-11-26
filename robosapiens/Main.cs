@@ -4,6 +4,7 @@ namespace RoboSAPiens
 {
     class _ 
     {
+        [STAThread]
         public static void Main(string[] args) 
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
