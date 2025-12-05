@@ -130,7 +130,23 @@ namespace RoboSAPiens {
                         if (rowIsAbove(session, rowIndex0)) return null;
                         if (!hasColumn(column)) return null;
 
-                        var colIndex0 = columnTitles.IndexOf(column) + colIndexOffset;
+                        int getColumnIndex(string column, int offset0) {
+                            var columnIndexes = 
+                                columnTitles
+                                .Select((title, index) => new {title=title, index=index})
+                                .Where(x => x.title.Equals(column))
+                                .Select(x => x.index)
+                                .ToList();
+
+                            if (offset0 < columnIndexes.Count)
+                                return columnIndexes.ElementAt(offset0);
+
+                            return -1;         
+                        }
+
+                        var colIndex0 = getColumnIndex(column, colIndexOffset);
+
+                        if (colIndex0 < 0) return null;
                         if (colIndex0 > columnTitles.Count - 1) return null;
                         if (columnTitles[colIndex0] != column) return null;
                         if (rowIsBelow(session, rowIndex0) && scrollOnePage(session))
