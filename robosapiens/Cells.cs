@@ -31,6 +31,8 @@ namespace RoboSAPiens
         public abstract void highlight(GuiSession session);
         public abstract bool isChangeable(GuiSession session);
         public abstract void setValue(string value, GuiSession session);
+        public abstract void tickCheckbox(GuiSession session);
+        public abstract void untickCheckbox(GuiSession session);
 
         public bool inColumn(string column)
         {
@@ -75,16 +77,7 @@ namespace RoboSAPiens
         public override void click(GuiSession session)
         {
             var cell = (GuiVComponent)session.FindById(id);
-
-            if (this.type == CellType.CheckBox)
-            {
-                var checkbox = (GuiCheckBox)cell;
-                checkbox.Selected = !checkbox.Selected;
-            }
-            else
-            {
-                cell.SetFocus();
-            }
+            cell.SetFocus();
         }
 
         public override void doubleClick(GuiSession session)
@@ -116,6 +109,20 @@ namespace RoboSAPiens
         public override void setValue(string value, GuiSession session)
         {
         }
+
+        public override void tickCheckbox(GuiSession session)
+        {
+            var cell = (GuiVComponent)session.FindById(id);
+            var checkbox = (GuiCheckBox)cell;
+            checkbox.Selected = true;
+        }
+
+        public override void untickCheckbox(GuiSession session)
+        {
+            var cell = (GuiVComponent)session.FindById(id);
+            var checkbox = (GuiCheckBox)cell;
+            checkbox.Selected = false;
+        }
     }
 
     public record GridViewCell(
@@ -136,10 +143,6 @@ namespace RoboSAPiens
             {
                 case CellType.Button:
                     gridView.PressButton(rowIndex, columnId);
-                    break;
-                case CellType.CheckBox:
-                    var checkBoxState = gridView.GetCellCheckBoxChecked(rowIndex, columnId);
-                    gridView.ModifyCheckBox(rowIndex, columnId, !checkBoxState);
                     break;
                 case CellType.Link:
                 case CellType.RadioButton:
@@ -205,6 +208,18 @@ namespace RoboSAPiens
             var gridView = (GuiGridView)session.FindById(gridViewId);
             gridView.ModifyCell(rowIndex, columnId, value);
         }
+
+        public override void tickCheckbox(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.ModifyCheckBox(rowIndex, columnId, true);
+        }
+
+        public override void untickCheckbox(GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(gridViewId);
+            gridView.ModifyCheckBox(rowIndex, columnId, false);
+        }
     }
 
     public record TableCell(
@@ -224,15 +239,6 @@ namespace RoboSAPiens
             {
                 case CellType.Button:
                     new SAPButton((GuiButton)cell).push(session);
-                    break;
-                case CellType.CheckBox:
-                    var checkbox = new SAPCheckBox((GuiCheckBox)cell);
-                    if (checkbox.isSelected(session)) {
-                        checkbox.deselect(session);
-                    }
-                    else {
-                        checkbox.select(session);
-                    }
                     break;
                 case CellType.Label:
                     ((GuiVComponent)cell).SetFocus();
@@ -294,6 +300,20 @@ namespace RoboSAPiens
                     break;
             }
         }
+
+        public override void tickCheckbox(GuiSession session)
+        {
+            var cell = session.FindById(id);
+            var checkbox = new SAPCheckBox((GuiCheckBox)cell);
+            checkbox.select(session);
+        }
+
+        public override void untickCheckbox(GuiSession session)
+        {
+            var cell = session.FindById(id);
+            var checkbox = new SAPCheckBox((GuiCheckBox)cell);
+            checkbox.deselect(session);
+        }
     }
 
     public record TreeCell(
@@ -316,10 +336,6 @@ namespace RoboSAPiens
             {
                 case CellType.Button:
                     tree.PressButton(nodeKey, columnName);
-                    break;
-                case CellType.CheckBox:
-                    var checkBoxState = tree.GetCheckBoxState(nodeKey, columnName);
-                    tree.ChangeCheckbox(nodeKey, columnName, !checkBoxState);
                     break;
                 case CellType.Link:
                     tree.ClickLink(nodeKey, columnName);
@@ -371,6 +387,18 @@ namespace RoboSAPiens
 
         public override void setValue(string value, GuiSession session)
         {
+        }
+
+        public override void tickCheckbox(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            tree.ChangeCheckbox(nodeKey, columnName, true);
+        }
+
+        public override void untickCheckbox(GuiSession session)
+        {
+            var tree = (GuiTree)session.FindById(treeId);
+            tree.ChangeCheckbox(nodeKey, columnName, false);
         }
     }
 }

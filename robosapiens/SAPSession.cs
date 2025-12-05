@@ -1405,7 +1405,7 @@ namespace RoboSAPiens {
             try {
                 if (cell.isChangeable(session))
                 {
-                    cell.click(session);
+                    cell.tickCheckbox(session);
                     return new Result.TickCheckBoxCell.Pass(locator.location);
                 }
                 return new Result.TickCheckBoxCell.NotChangeable(locator.location);
@@ -1438,7 +1438,7 @@ namespace RoboSAPiens {
             try {
                 if (cell.isChangeable(session))
                 {
-                    cell.click(session);
+                    cell.untickCheckbox(session);
                     return new Result.UntickCheckBoxCell.Pass(locator.location);
                 }
                 return new Result.UntickCheckBoxCell.NotChangeable(locator.location);
