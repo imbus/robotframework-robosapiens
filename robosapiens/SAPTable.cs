@@ -8,6 +8,8 @@ namespace RoboSAPiens {
     public class SAPTable: ITable {
         CellRepository cells;
         List<string> columnTitles;
+        int screenLeft;
+        int screenTop;
         public string id {get;}
         public int rowCount;
 
@@ -27,6 +29,8 @@ namespace RoboSAPiens {
             // https://answers.sap.com/questions/11100660/how-to-get-a-correct-row-count-in-sap-table.html
             this.rowCount = table.RowCount;
             this.columnTitles = getColumnTitles(table);
+            this.screenLeft = table.ScreenLeft;
+            this.screenTop = table.ScreenTop;
             cells = new CellRepository();
         }
 
@@ -58,7 +62,7 @@ namespace RoboSAPiens {
 
         public void classifyCells(GuiSession session)
         {
-            var table = (GuiTableControl)session.FindById(id);
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
             var columns = table.Columns;
             var firstRow = table.VerticalScrollbar?.Position ?? 0;
             var lastRow = firstRow + table.VisibleRowCount - 1;
@@ -154,7 +158,7 @@ namespace RoboSAPiens {
                             return findCell(locator, session);
                         }
                         
-                        var table = (GuiTableControl)session.FindById(id);
+                        var table = (GuiTableControl)session.FindById(getCurrentId(session));
                         // The row index is relative to the visible rows and must be adjusted
                         var firstRow = table.VerticalScrollbar?.Position ?? 0;
                         var lastRow = firstRow + table.VisibleRowCount - 1;
@@ -220,9 +224,22 @@ namespace RoboSAPiens {
             return columnTitles;
         }
 
+        public string getCurrentId(GuiSession session)
+        {
+            try
+            {
+                session.FindById(id);
+                return id;
+            }
+            catch (Exception)
+            {
+                var coll = session.FindByPosition(screenLeft, screenTop, false);
+                return (string)coll.ElementAt(0);
+            }
+        }
 
         public int getNumRows(GuiSession session) {
-            var table = (GuiTableControl)session.FindById(id);
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
             return table.RowCount;
         }
 
@@ -240,21 +257,21 @@ namespace RoboSAPiens {
 
         public bool rowIsAbove(GuiSession session, int rowIndex0)
         {
-            var table = (GuiTableControl)session.FindById(id);
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
             var firstRow = table.VerticalScrollbar?.Position ?? 0;
             return rowIndex0 < firstRow;
         }
 
         public bool rowIsBelow(GuiSession session, int rowIndex0)
         {
-            var table = (GuiTableControl)session.FindById(id);
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
             var firstRow = table.VerticalScrollbar?.Position ?? 0;
             var lastRow = firstRow + table.VisibleRowCount - 1;
             return rowIndex0 > lastRow;
         }
 
         public bool scrollOnePage(GuiSession session) {
-            var table = (GuiTableControl)session.FindById(id);
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
 
             // When a GuiTableControl is scrolled a number of times 
             // the whole table becomes write-protected, but the next
@@ -271,7 +288,7 @@ namespace RoboSAPiens {
 
         public void selectColumn(string column, GuiSession session)
         {
-            var table = (GuiTableControl)session.FindById(id);
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
             var columnIndex = columnTitles.IndexOf(column);
             var tableColumn = (GuiTableColumn)table.Columns.ElementAt(columnIndex);
             tableColumn.Selected = true;
@@ -279,7 +296,7 @@ namespace RoboSAPiens {
 
         public void selectRow(int rowIndex0, GuiSession session)
         {
-            var table = (GuiTableControl)session.FindById(id);
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
 
             if (rowIndex0 == -1)
             {
@@ -292,7 +309,7 @@ namespace RoboSAPiens {
             while (rowIsBelow(session, rowIndex0)) {
                 scrollOnePage(session);
             }
-            table = (GuiTableControl)session.FindById(id);
+            table = (GuiTableControl)session.FindById(getCurrentId(session));
             var row = table.GetAbsoluteRow(rowIndex0);
             row.Selected = true;
         }
