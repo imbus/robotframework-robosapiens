@@ -34,6 +34,7 @@ namespace RoboSAPiens
         // This is necessary when the SAP window contains an embedded Edge browser
         // Without this flag the embedded browser is absent in the screenshot
         const UInt32 PW_RENDERFULLCONTENT = 0x00000002;
+        const UInt32 SRCCOPY = 0x00CC0020;
 
         public static byte[] saveWindowImage(IntPtr windowHandle, bool screenshot)
         {
@@ -47,7 +48,7 @@ namespace RoboSAPiens
             {
                 IntPtr deviceContext = graphics.GetHdc();
                 if (screenshot) {
-                    BitBlt(deviceContext, 0, 0, rect.Right - rect.Left, rect.Bottom - rect.Top, src, 0, 0, 0x00CC0020);
+                    BitBlt(deviceContext, 0, 0, rect.Right - rect.Left, rect.Bottom - rect.Top, src, rect.Left, rect.Top, SRCCOPY);
                 }
                 else {
                     PrintWindow(windowHandle, deviceContext, PW_RENDERFULLCONTENT);
