@@ -187,7 +187,7 @@ namespace RoboSAPiens
         {
             focused = !focused;
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            gridView.Visualize(focused, $"Cell({rowIndex},{columnId})");
+            gridView.Visualize(focused, $"Cell({rowIndex+1},{columnId})");
         }
 
         public override bool isChangeable(GuiSession session)
