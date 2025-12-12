@@ -12,7 +12,7 @@ no_server_scripting = 'Das Scripting ist auf dem SAP Server nicht freigeschaltet
 not_found: Fstr = lambda msg: f"{msg}\nHinweis: Prüfe die Rechtschreibung"
 button_or_cell_not_found: Fstr = lambda msg: f"{msg} Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster"
 exception: Fstr = lambda msg: f"{msg}" + "\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
-row_locator = 'Entweder die Zeilennummer oder der Inhalt einer Zelle in der Zeile. Wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.'
+row_locator = 'Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.'
 column = "Spaltentitel oder Kurzinfo"
 textfield_locator = "Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert."
 path = "Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen."
@@ -685,7 +685,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
               "a1row_locator": {
                 "name": ("315353924", "Zeile"),
-                "desc": ("331065732", row_locator),
+                "desc": ("2714474921", row_locator),
                 "spec": {},
               },
               "a2column": {
@@ -827,7 +827,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
               "a1row_locator": {
                 "name": ("315353924", "Zeile"),
-                "desc": ("331065732", row_locator),
+                "desc": ("2714474921", row_locator),
                 "spec": {},
               },
               "a2column": {
@@ -1218,7 +1218,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
               "a1row_locator": {
                 "name": ("315353924", "Zeile"),
-                "desc": ("331065732", row_locator),
+                "desc": ("2714474921", row_locator),
                 "spec": {},
               },
               "a2column": {
@@ -1362,7 +1362,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
               "a1row_locator": {
                 "name": ("315353924", "Zeile"),
-                "desc": ("331065732", row_locator),
+                "desc": ("2714474921", row_locator),
                 "spec": {},
               },
               "a2column": {
@@ -1406,7 +1406,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
                 "a1row_locator": {
                     "name": ("315353924", "Zeile"),
-                    "desc": ("331065732", row_locator),
+                    "desc": ("2714474921", row_locator),
                     "spec": {},
                 },
                 "a2column": {
@@ -1654,7 +1654,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
                 "row_locator": {
                     "name": ("315353924", "Zeilenlokator"),
-                    "desc": ("331065732", row_locator),
+                    "desc": ("2714474921", row_locator),
                     "spec": {},
                 },
             },
@@ -1868,7 +1868,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
               "a1row": {
                 "name": ("315353924", "Zeile"),
-                "desc": ("331065732", row_locator),
+                "desc": ("2714474921", row_locator),
                 "spec": {},
               },
               "a2column": {
@@ -1912,7 +1912,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {
               "a1row": {
                 "name": ("315353924", "Zeile"),
-                "desc": ("331065732", row_locator),
+                "desc": ("2714474921", row_locator),
                 "spec": {},
               },
               "a2column": {
