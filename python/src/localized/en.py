@@ -13,7 +13,7 @@ not_found: Fstr = lambda msg: f"{msg} Hint: Check the spelling"
 button_or_cell_not_found: Fstr = lambda msg: f"{msg} Hints: Check the spelling, maximize the SAP window"
 exception: Fstr = lambda msg: f"{msg}" + "\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
 row_locator = 'Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks.'
-column = "Column title or tooltip"
+column = "Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]."
 textfield_locator = "Text field locators are documented in the keyword [#Fill Text Field|Fill Text Field]."
 path = "Backslashes must be written twice. Otherwise use the RF built-in variable ${/} as path separator."
 tooltip_hint = """Tooltips ending with a keyboard shortcut are common.
@@ -179,10 +179,10 @@ lib: RoboSAPiens = {
         | 
         |     Element should be Found    Select Cell    ${row}    ${col}    message=The cell '${row}, ${col}' is not present.
 
-        == Consecutive columns with the same name ==
-        If a table contains consecutive columns with the same name a given column can be specified by appending a numeric suffix.
+        == Columns with the same name ==
+        If a table contains several columns with the same name, they can be identified by appending a numeric suffix.
         
-        For example, if a table contains the columns Variant, Variant, Variant. They can be identified as Variant__1, Variant__2, Variant__3.
+        For example, given the columns Variant, Product, Variant. The first "Variant" column can be identified as Variant__1 and the second as Variant__2.
 
         == Exporting a table as a spreadsheet ==
 

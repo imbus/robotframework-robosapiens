@@ -13,7 +13,7 @@ not_found: Fstr = lambda msg: f"{msg}\nHinweis: Prüfe die Rechtschreibung"
 button_or_cell_not_found: Fstr = lambda msg: f"{msg} Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster"
 exception: Fstr = lambda msg: f"{msg}" + "\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
 row_locator = 'Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden.'
-column = "Spaltentitel oder Kurzinfo"
+column = "Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]."
 textfield_locator = "Die Lokatoren für Textfelder sind im Schlüsselwort [#Textfeld ausfüllen|Textfeld ausfüllen] dokumentiert."
 path = "Rückwärtsschrägstriche müssen doppelt geschrieben werden. Ansonsten verwende die Standard RF Variable ${/} als Trennzeichen."
 tooltip_hint = """Tooltips mit einem Tastenkürzel am Ende kommen oft vor. 
@@ -32,7 +32,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("2203100878",
+        "intro": ("2360204110",
         """
         RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
@@ -179,10 +179,10 @@ lib: LocalizedRoboSAPiens = {
         | 
         |     Element should be Found    Tabellenzelle markieren    ${Zeile}    ${Spalte}    message=Die Zelle '${Zeile}, ${Spalte}' ist nicht vorhanden.
 
-        == Aufeinanderfolgende Spalten mit demselben Namen ==
-        Wenn eine Tabelle aufeinanderfolgende Spalten mit demselben Namen enthält, kann eine Spalte eindeutig identifiziert werden, indem dem Namen ein numerisches Suffix hinzugefügt wird.
+        == Spalten mit demselben Namen ==
+        Wenn eine Tabelle mehrere Spalten mit demselben Namen enthält, kann eine Spalte eindeutig identifiziert werden, indem dem Namen ein numerisches Suffix hinzugefügt wird.
 
-        Enthält eine Tabelle beispielsweise die Spalten Variante, Variante, Variante, so können diese wie folgt eindeutig identifiziert werden: Variante__1, Variante__2, Variante__3.
+        Enthält eine Tabelle beispielsweise die Spalten Variante, Produkt, Variante, so können die erste "Variante" Spalte mit Variante__1 und die zweite mit Variante__2 identifiziert werden.
         
         == Tabellen als Excel-Datei exportieren ==
 
@@ -690,7 +690,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2column": {
                 "name": ("2102626174", "Spaltentitel"),
-                "desc": ("4138373630", column),
+                "desc": ("245054585", column),
                 "spec": {},
               },
             },
@@ -832,7 +832,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2column": {
                 "name": ("2102626174", "Spaltentitel"),
-                "desc": ("4138373630", column),
+                "desc": ("245054585", column),
                 "spec": {
                 },
               },
@@ -1114,7 +1114,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2column": {
                 "name": ("2102626174", "Spaltentitel"),
-                "desc": ("4138373630", column),
+                "desc": ("245054585", column),
                 "spec": {},
               }
             },
@@ -1223,7 +1223,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2column": {
                 "name": ("2102626174", "Spaltentitel"),
-                "desc": ("4138373630", column),
+                "desc": ("245054585", column),
                 "spec": {},
               }
             },
@@ -1367,7 +1367,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2column": {
                 "name": ("2102626174", "Spaltentitel"),
-                "desc": ("4138373630", column),
+                "desc": ("245054585", column),
                 "spec": {},
               }
             },
@@ -1411,7 +1411,7 @@ lib: LocalizedRoboSAPiens = {
                 },
                 "a2column": {
                     "name": ("2102626174", "Spaltentitel"),
-                    "desc": ("4138373630", column),
+                    "desc": ("245054585", column),
                     "spec": {},
                 },
                 "a3entry": {
@@ -1873,7 +1873,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2column": {
                 "name": ("2102626174", "Spaltentitel"),
-                "desc": ("4138373630", column),
+                "desc": ("245054585", column),
                 "spec": {},
               },
             },
@@ -1917,7 +1917,7 @@ lib: LocalizedRoboSAPiens = {
               },
               "a2column": {
                 "name": ("2102626174", "Spaltentitel"),
-                "desc": ("4138373630", column),
+                "desc": ("245054585", column),
                 "spec": {},
               }
             },
