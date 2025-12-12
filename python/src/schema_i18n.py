@@ -262,7 +262,7 @@ class LocalizedRoboSAPiensKeywordsUntickcheckboxcellKwargsTablenumber(TypedDict)
 
 class LocalizedRoboSAPiensKeywordsUntickcheckboxcellArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
-    desc: Tuple[Literal['4138373630'], str]
+    desc: Tuple[Literal['245054585'], str]
     spec: LocalizedRoboSAPiensKeywordsUntickcheckboxcellArgsColumnSpec
 
 class LocalizedRoboSAPiensKeywordsUntickcheckboxcellArgsRow(TypedDict):
@@ -279,7 +279,7 @@ class LocalizedRoboSAPiensKeywordsTickcheckboxcellKwargsTablenumber(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
-    desc: Tuple[Literal['4138373630'], str]
+    desc: Tuple[Literal['245054585'], str]
     spec: LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsColumnSpec
 
 class LocalizedRoboSAPiensKeywordsTickcheckboxcellArgsRow(TypedDict):
@@ -375,7 +375,7 @@ class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsEntry(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
-    desc: Tuple[Literal['4138373630'], str]
+    desc: Tuple[Literal['245054585'], str]
     spec: LocalizedRoboSAPiensKeywordsSelectcellvalueArgsColumnSpec
 
 class LocalizedRoboSAPiensKeywordsSelectcellvalueArgsRow_Locator(TypedDict):
@@ -392,7 +392,7 @@ class LocalizedRoboSAPiensKeywordsSelectcellKwargsTablenumber(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelectcellArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
-    desc: Tuple[Literal['4138373630'], str]
+    desc: Tuple[Literal['245054585'], str]
     spec: LocalizedRoboSAPiensKeywordsSelectcellArgsColumnSpec
 
 class LocalizedRoboSAPiensKeywordsSelectcellArgsRow_Locator(TypedDict):
@@ -431,7 +431,7 @@ class LocalizedRoboSAPiensKeywordsReadcellKwargsTablenumber(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsReadcellArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
-    desc: Tuple[Literal['4138373630'], str]
+    desc: Tuple[Literal['245054585'], str]
     spec: LocalizedRoboSAPiensKeywordsReadcellArgsColumnSpec
 
 class LocalizedRoboSAPiensKeywordsReadcellArgsRow_Locator(TypedDict):
@@ -458,7 +458,7 @@ class LocalizedRoboSAPiensKeywordsPushbuttoncellKwargsTablenumber(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
-    desc: Tuple[Literal['4138373630'], str]
+    desc: Tuple[Literal['245054585'], str]
     spec: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsColumnSpec
 
 class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
@@ -545,7 +545,7 @@ class LocalizedRoboSAPiensKeywordsFillcellArgsContent(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsFillcellArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
-    desc: Tuple[Literal['4138373630'], str]
+    desc: Tuple[Literal['245054585'], str]
     spec: LocalizedRoboSAPiensKeywordsFillcellArgsColumnSpec
 
 class LocalizedRoboSAPiensKeywordsFillcellArgsRow_Locator(TypedDict):
@@ -582,7 +582,7 @@ class LocalizedRoboSAPiensKeywordsDoubleclickcellKwargsTablenumber(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
-    desc: Tuple[Literal['4138373630'], str]
+    desc: Tuple[Literal['245054585'], str]
     spec: LocalizedRoboSAPiensKeywordsDoubleclickcellArgsColumnSpec
 
 class LocalizedRoboSAPiensKeywordsDoubleclickcellArgsRow_Locator(TypedDict):
@@ -1927,7 +1927,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2x64: LocalizedRoboSAPiensArgsX64
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['2203100878'], str]
+    intro: Tuple[Literal['2360204110'], str]
     init: Tuple[Literal['3784687869'], str]
 
 class LocalizedRoboSAPiens(TypedDict):

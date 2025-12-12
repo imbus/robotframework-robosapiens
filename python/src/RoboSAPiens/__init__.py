@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.24.0"
+__version__ = "2.24.1"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -151,10 +151,10 @@ class RoboSAPiens(RoboSAPiensClient):
     | 
     |     Element should be Found    Select Cell    ${row}    ${col}    message=The cell '${row}, ${col}' is not present.
     
-    == Consecutive columns with the same name ==
-    If a table contains consecutive columns with the same name a given column can be specified by appending a numeric suffix.
+    == Columns with the same name ==
+    If a table contains several columns with the same name, they can be identified by appending a numeric suffix.
     
-    For example, if a table contains the columns Variant, Variant, Variant. They can be identified as Variant__1, Variant__2, Variant__3.
+    For example, given the columns Variant, Product, Variant. The first "Variant" column can be identified as Variant__1 and the second as Variant__2.
     
     == Exporting a table as a spreadsheet ==
     
@@ -631,7 +631,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Double-click the cell at the intersection of the provided row and column.
         
         | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
-        | ``column`` | Column title or tooltip |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
@@ -748,7 +748,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Fill the cell at the intersection of the row and column with the content provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
-        | ``column`` | Column title or tooltip |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``content`` | The new contents of the cell |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
@@ -976,7 +976,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Push the button cell located at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the button label, button tooltip, or the contents of a cell in the row. If the label, the tooltip or the contents of the cell is a number, it must be enclosed in double quotation marks. |
-        | ``column`` | Column title or tooltip |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
@@ -1091,7 +1091,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Read the contents of the cell at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
-        | ``column`` | Column title or tooltip |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
@@ -1216,7 +1216,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the cell at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
-        | ``column`` | Column title or tooltip |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
@@ -1250,7 +1250,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Select the specified value in the cell at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
-        | ``column`` | Column title or tooltip |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``value`` | An entry from the dropdown menu |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
@@ -1631,7 +1631,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Tick the checkbox cell at the intersection of the row and the column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
-        | ``column`` | Column title or tooltip |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
@@ -1665,7 +1665,7 @@ class RoboSAPiens(RoboSAPiensClient):
         Untick the checkbox cell at the intersection of the row and the column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
-        | ``column`` | Column title or tooltip |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
@@ -1761,4 +1761,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.24.0'
+    ROBOT_LIBRARY_VERSION = '2.24.1'

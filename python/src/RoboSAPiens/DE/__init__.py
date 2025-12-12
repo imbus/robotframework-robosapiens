@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.24.0"
+__version__ = "2.24.1"
 
 class DE(RoboSAPiensClient):
     """
@@ -150,10 +150,10 @@ class DE(RoboSAPiensClient):
     | 
     |     Element should be Found    Tabellenzelle markieren    ${Zeile}    ${Spalte}    message=Die Zelle '${Zeile}, ${Spalte}' ist nicht vorhanden.
     
-    == Aufeinanderfolgende Spalten mit demselben Namen ==
-    Wenn eine Tabelle aufeinanderfolgende Spalten mit demselben Namen enthält, kann eine Spalte eindeutig identifiziert werden, indem dem Namen ein numerisches Suffix hinzugefügt wird.
+    == Spalten mit demselben Namen ==
+    Wenn eine Tabelle mehrere Spalten mit demselben Namen enthält, kann eine Spalte eindeutig identifiziert werden, indem dem Namen ein numerisches Suffix hinzugefügt wird.
     
-    Enthält eine Tabelle beispielsweise die Spalten Variante, Variante, Variante, so können diese wie folgt eindeutig identifiziert werden: Variante__1, Variante__2, Variante__3.
+    Enthält eine Tabelle beispielsweise die Spalten Variante, Produkt, Variante, so können die erste "Variante" Spalte mit Variante__1 und die zweite mit Variante__2 identifiziert werden.
     
     == Tabellen als Excel-Datei exportieren ==
     
@@ -630,7 +630,7 @@ class DE(RoboSAPiensClient):
         Führt einen Doppelklick auf die Zelle aus, die an der Schnittstelle der gegebenen Zeile und Spalte liegt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
@@ -747,7 +747,7 @@ class DE(RoboSAPiensClient):
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird mit dem angegebenen Inhalt ausgefüllt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``Inhalt`` | Der neue Inhalt der Zelle |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
@@ -975,7 +975,7 @@ class DE(RoboSAPiensClient):
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird gedrückt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
@@ -1064,7 +1064,7 @@ class DE(RoboSAPiensClient):
         Der Inhalt der Zelle am Schnittpunkt der Zeile und der Spalte wird zurückgegeben.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
@@ -1189,7 +1189,7 @@ class DE(RoboSAPiensClient):
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird markiert.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
@@ -1223,7 +1223,7 @@ class DE(RoboSAPiensClient):
         In der Zelle am Schnittpunkt der Zeile und Spalte wird der angegebene Wert ausgewählt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``Wert`` | Ein Wert aus dem Auswahlmenü |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
@@ -1629,7 +1629,7 @@ class DE(RoboSAPiensClient):
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird angekreuzt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
@@ -1663,7 +1663,7 @@ class DE(RoboSAPiensClient):
         Die Zelle am Schnittpunkt der Zeile und der Spalte wird abgewählt.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
-        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
         
         Beispiele:
@@ -1759,4 +1759,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.24.0'
+    ROBOT_LIBRARY_VERSION = '2.24.1'
