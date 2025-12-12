@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.23.4"
+__version__ = "2.24.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -630,7 +630,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Double-click the cell at the intersection of the provided row and column.
         
-        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
@@ -747,7 +747,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Fill the cell at the intersection of the row and column with the content provided.
         
-        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``content`` | The new contents of the cell |
         | ``table_number`` | Specify which table: 1, 2, ... |
@@ -1090,7 +1090,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Read the contents of the cell at the intersection of the row and column provided.
         
-        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
@@ -1215,7 +1215,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Select the cell at the intersection of the row and column provided.
         
-        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
@@ -1249,7 +1249,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Select the specified value in the cell at the intersection of the row and column provided.
         
-        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``value`` | An entry from the dropdown menu |
         | ``table_number`` | Specify which table: 1, 2, ... |
@@ -1465,7 +1465,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Select the specified table row(s) and return the corresponding row index(es).
         
-        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
         Examples:
@@ -1630,7 +1630,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Tick the checkbox cell at the intersection of the row and the column provided.
         
-        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
@@ -1664,7 +1664,7 @@ class RoboSAPiens(RoboSAPiensClient):
         """
         Untick the checkbox cell at the intersection of the row and the column provided.
         
-        | ``row_locator`` | Either the row number or the contents of a cell in the row. If the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip |
         | ``table_number`` | Specify which table: 1, 2, ... |
         
@@ -1761,4 +1761,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.23.4'
+    ROBOT_LIBRARY_VERSION = '2.24.0'
