@@ -116,52 +116,75 @@ namespace RoboSAPiens
                     return cells.findCellByContent(content);
 
                 case RowColumnLocator(int rowIndex, string column, int colIndexOffset):
-                    int rowIndex0 = rowIndex - 1;
-                    if (rowIndex > rowCount) return null;
-                    if (rowIsAbove(session, rowIndex0)) return null;
-                    if (!hasColumn(column)) return null;
-                    if (rowIsBelow(session, rowIndex0))
                     {
+                        int rowIndex0 = rowIndex - 1;
+                        if (rowIndex > rowCount) return null;
+                        if (rowIsAbove(session, rowIndex0)) return null;
+                        if (!hasColumn(column)) return null;
+                        if (rowIsBelow(session, rowIndex0))
+                        {
+                            if (scrollOnePage(session))
+                            {
+                                cells = new CellRepository();
+                                return findCell(locator, session);
+                            }
+                        }
+                        
+                        var gridView = (GuiGridView)session.FindById(id);
+                        var col = columns.Find(col => col.columnTitles.Contains(column));
+                        var colIndex = columns.FindIndex(col => col.columnTitles.Contains(column));
+                        var columnId = col!.columnId;
+                        var type = gridView.GetCellType(rowIndex0, columnId);
+
+                        if (cellType.ContainsKey(type))
+                        {
+                            return new GridViewCell(
+                                rowIndex0, 
+                                colIndex,
+                                columnId, 
+                                col.columnTitles, 
+                                cellType[type], 
+                                new List<string>(),
+                                id
+                            );
+                        }
+                        else {
+                            return null;
+                        }
+                    }
+                    
+                case LabelColumnLocator(string label, string column, int colIndexOffset):
+                    {
+                        if (!hasColumn(column)) return null;
+
+                        (string content, string? atColumn) = label.Split("@") switch
+                        {
+                            [string _content, string _atColumn] => (_content.Trim(), _atColumn.Trim()),
+                            _ => (label, null)
+                        };
+
+                        if (atColumn != null)
+                        {
+                            if (!hasColumn(atColumn)) return null;
+
+                            var colIndex = columns.FindIndex(col => col.columnTitles.Contains(atColumn));
+                            var rowIndex = getRowIndex(colIndex, content, session);
+
+                            if (rowIndex < 0) return null;
+                            
+                            return findCell(new RowColumnLocator(rowIndex+1, column, colIndexOffset), session);
+                        }
+
+                        if (cells.Count == 0) classifyCells(session);
+                        var cell = cells.findCellByLabelAndColumn(label, column);
+                        if (cell != null) return cell;
                         if (scrollOnePage(session))
                         {
                             cells = new CellRepository();
                             return findCell(locator, session);
                         }
+                        return null;   
                     }
-                    
-                    var gridView = (GuiGridView)session.FindById(id);
-                    var col = columns.Find(col => col.columnTitles.Contains(column));
-                    var colIndex = columns.FindIndex(col => col.columnTitles.Contains(column));
-                    var columnId = col!.columnId;
-                    var type = gridView.GetCellType(rowIndex0, columnId);
-
-                    if (cellType.ContainsKey(type))
-                    {
-                        return new GridViewCell(
-                            rowIndex0, 
-                            colIndex,
-                            columnId, 
-                            col.columnTitles, 
-                            cellType[type], 
-                            new List<string>(),
-                            id
-                        );
-                    }
-                    else {
-                        return null;
-                    }
-                    
-                case LabelColumnLocator(string label, string column, int colIndexOffset):
-                    if (!hasColumn(column)) return null;
-                    if (cells.Count == 0) classifyCells(session);
-                    var cell = cells.findCellByLabelAndColumn(label, column);
-                    if (cell != null) return cell;
-                    if (scrollOnePage(session))
-                    {
-                        cells = new CellRepository();
-                        return findCell(locator, session);
-                    }
-                    return null;
 
                 default:
                     return null;
@@ -197,6 +220,30 @@ namespace RoboSAPiens
         {
             var gridView = (GuiGridView)session.FindById(id);
             return gridView.RowCount;
+        }
+
+        public int getRowIndex(int columnIndex, string content, GuiSession session)
+        {
+            var gridView = (GuiGridView)session.FindById(id);
+            var firstVisibleRow = gridView.FirstVisibleRow;
+            var visibleRowCount = gridView.VisibleRowCount;
+            var columnIds = (GuiCollection)gridView.ColumnOrder;
+            var columnId = (string)columnIds.ElementAt(columnIndex);
+
+            for (int rowIndex = firstVisibleRow; rowIndex < firstVisibleRow + visibleRowCount; rowIndex++) 
+            {
+                if (gridView.GetCellValue(rowIndex, columnId).Trim().Equals(content))
+                {
+                    return rowIndex;
+                }
+            }
+
+            if (scrollOnePage(session))
+            {
+                return getRowIndex(columnIndex, content, session);
+            }
+
+            return -1;
         }
 
         public bool hasColumn(string column)

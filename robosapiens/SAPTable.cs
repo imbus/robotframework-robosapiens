@@ -173,6 +173,23 @@ namespace RoboSAPiens {
                     {
                         if (!hasColumn(column)) return null;
 
+                        (string content, string? atColumn) = label.Split("@") switch
+                        {
+                            [string _content, string _atColumn] => (_content.Trim(), _atColumn.Trim()),
+                            _ => (label, null)
+                        };
+
+                        if (atColumn != null)
+                        {
+                            if (!hasColumn(atColumn)) return null;
+
+                            var rowIndex = getRowIndex(columnTitles.IndexOf(atColumn), content, session);
+
+                            if (rowIndex < 0) return null;
+                            
+                            return findCell(new RowColumnLocator(rowIndex+1, column, colIndexOffset), session);
+                        }
+
                         var colIndex0 = getColumnIndex(column, colIndexOffset);
                         if (colIndex0 < 0) return null;
                         if (colIndex0 > columnTitles.Count - 1) return null;
@@ -243,6 +260,39 @@ namespace RoboSAPiens {
         public int getNumRows(GuiSession session) {
             var table = (GuiTableControl)session.FindById(getCurrentId(session));
             return table.RowCount;
+        }
+
+        public int getRowIndex(int columnIndex, string content, GuiSession session)
+        {
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
+            var firstRow = table.VerticalScrollbar?.Position ?? 0;
+            var lastRow = firstRow + table.VisibleRowCount;
+
+            for (int rowIndex = 0; rowIndex < lastRow; rowIndex++)
+            {
+                // Tables are not necessarily rectangular grids
+                // A column may have a hole. Holes are skipped
+                try
+                {
+                    var tableCell = table.GetCell(rowIndex, columnIndex);
+                    
+                    if (tableCell.Text.Trim().Equals(content))
+                    {
+                        return firstRow + rowIndex;
+                    }
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+
+            if (scrollOnePage(session))
+            {
+                return getRowIndex(columnIndex, content, session);
+            }
+
+            return -1;
         }
 
         public bool hasColumn(string column)
