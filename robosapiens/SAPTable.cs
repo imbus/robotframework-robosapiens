@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using sapfewse;
 
 namespace RoboSAPiens {
     public class SAPTable: ITable {
+        record Column(List<string> titles);
         CellRepository cells;
-        List<string> columnTitles;
+        List<Column> columns;
         int screenLeft;
         int screenTop;
         public string id {get;}
@@ -28,7 +28,7 @@ namespace RoboSAPiens {
             this.id = table.Id;
             // https://answers.sap.com/questions/11100660/how-to-get-a-correct-row-count-in-sap-table.html
             this.rowCount = table.RowCount;
-            this.columnTitles = getColumnTitles(table);
+            this.columns = getColumns(table);
             this.screenLeft = table.ScreenLeft;
             this.screenTop = table.ScreenTop;
             cells = new CellRepository();
@@ -63,15 +63,14 @@ namespace RoboSAPiens {
         public void classifyCells(GuiSession session)
         {
             var table = (GuiTableControl)session.FindById(getCurrentId(session));
-            var columns = table.Columns;
             var firstRow = table.VerticalScrollbar?.Position ?? 0;
             var lastRow = firstRow + table.VisibleRowCount - 1;
 
             for (int relRowIndex = 0; relRowIndex <= lastRow; relRowIndex++)
             {
-                for (int colIdx = 0; colIdx < columns.Length; colIdx++) 
+                for (int colIdx = 0; colIdx < table.Columns.Length; colIdx++) 
                 {
-                    var columnTitle = columnTitles[colIdx];
+                    var columnTitles = columns[colIdx].titles;
                     int absRowIndex = firstRow + relRowIndex;
 
                     GuiVComponent tableCell;
@@ -102,7 +101,7 @@ namespace RoboSAPiens {
                             absRowIndex,
                             colIdx,
                             tableCell.Id,
-                            new List<string>{columnTitle},
+                            columnTitles,
                             type,
                             labels,
                             id
@@ -137,8 +136,9 @@ namespace RoboSAPiens {
                         var colIndex0 = getColumnIndex(column, colIndexOffset);
 
                         if (colIndex0 < 0) return null;
-                        if (colIndex0 > columnTitles.Count - 1) return null;
-                        if (columnTitles[colIndex0] != column) return null;
+                        if (colIndex0 > columns.Count - 1) return null;
+                        var columnTitles = columns[colIndex0].titles;
+                        if (!columnTitles.Contains(column)) return null;
                         if (rowIsBelow(session, rowIndex0) && scrollOnePage(session))
                         {
                             return findCell(locator, session);
@@ -158,7 +158,7 @@ namespace RoboSAPiens {
                                 rowIndex0,
                                 colIndex0,
                                 tableCell.Id,
-                                new List<string>{column},
+                                columnTitles,
                                 cellType[tableCell.Type],
                                 new List<string>(),
                                 id
@@ -183,7 +183,8 @@ namespace RoboSAPiens {
                         {
                             if (!hasColumn(atColumn)) return null;
 
-                            var rowIndex = getRowIndex(columnTitles.IndexOf(atColumn), content, session);
+                            var colIndex = columns.FindIndex(col => col.titles.Contains(atColumn));
+                            var rowIndex = getRowIndex(colIndex, content, session);
 
                             if (rowIndex < 0) return null;
                             
@@ -192,8 +193,8 @@ namespace RoboSAPiens {
 
                         var colIndex0 = getColumnIndex(column, colIndexOffset);
                         if (colIndex0 < 0) return null;
-                        if (colIndex0 > columnTitles.Count - 1) return null;
-                        if (columnTitles[colIndex0] != column) return null;
+                        if (colIndex0 > columns.Count - 1) return null;
+                        if (!columns[colIndex0].titles.Contains(column)) return null;
 
                         if (cells.Count == 0) classifyCells(session);
                         var cell = colIndexOffset switch {
@@ -217,10 +218,10 @@ namespace RoboSAPiens {
         int getColumnIndex(string column, int offset0)
         {
             var columnIndexes = 
-                columnTitles
-                .Select((title, index) => new {title=title, index=index})
-                .Where(x => x.title.Equals(column))
-                .Select(x => x.index)
+                columns
+                .Select((column, index) => new {column=column, index=index})
+                .Where(columnIndex => columnIndex.column.titles.Contains(column))
+                .Select(columnIndex => columnIndex.index)
                 .ToList();
 
             if (offset0 < columnIndexes.Count)
@@ -229,18 +230,27 @@ namespace RoboSAPiens {
             return -1;         
         }
 
-        List<string> getColumnTitles(GuiTableControl table)
+        List<Column> getColumns(GuiTableControl table)
         {
-            var columnTitles = new List<string>();
+            var allColumns = new List<Column>();
             var columns = table.Columns;
             
             for (int colIdx = 0; colIdx < columns.Length; colIdx++) 
             {
                 var column = (GuiTableColumn)columns.ElementAt(colIdx);
-                columnTitles.Add(column.Title);
+                var columnTitle = column.Title.Trim();
+                var defaultTooltip = column.DefaultTooltip.Trim();
+                var tooltip = column.Tooltip.Trim();
+
+                var titles = new HashSet<string>();
+                if (columnTitle != "") titles.Add(columnTitle);
+                if (defaultTooltip != "") titles.Add(defaultTooltip);
+                if (tooltip != "") titles.Add(tooltip);
+
+                allColumns.Add(new Column(titles.ToList()));
             }
 
-            return columnTitles;
+            return allColumns;
         }
 
         public string getCurrentId(GuiSession session)
@@ -297,14 +307,14 @@ namespace RoboSAPiens {
 
         public bool hasColumn(string column)
         {
-            return columnTitles.ToImmutableHashSet().Contains(column);
+            return columns.SelectMany(col => col.titles).ToHashSet().Contains(column);
         }
 
         public void print()
         {
             Console.WriteLine();
             Console.WriteLine($"Rows: {rowCount}");
-            Console.Write("Columns: " + string.Join(", ", columnTitles));
+            Console.Write("Columns: " + string.Join(", ", columns.Select(column => "[" + string.Join(", ", column.titles) + "]")));
         }
 
         public bool rowIsAbove(GuiSession session, int rowIndex0)
@@ -341,7 +351,7 @@ namespace RoboSAPiens {
         public void selectColumn(string column, GuiSession session)
         {
             var table = (GuiTableControl)session.FindById(getCurrentId(session));
-            var columnIndex = columnTitles.IndexOf(column);
+            var columnIndex = columns.FindIndex(col => col.titles.Contains(column));
             var tableColumn = (GuiTableColumn)table.Columns.ElementAt(columnIndex);
             tableColumn.Selected = true;
         }
