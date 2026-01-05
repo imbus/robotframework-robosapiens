@@ -334,9 +334,19 @@ namespace RoboSAPiens {
             return checkBoxes.get(checkBox.locator, labels, textFields.NonChangeable());
         }
 
-        public ComboBox? findComboBox(ComboBoxLocator comboBox) {
-            return comboBoxes.get(comboBox.locator, labels, textFields.NonChangeable()) ??
-            getGridViews().FirstOrDefault()?.comboBoxes.get(comboBox.locator, labels, textFields.NonChangeable());
+        public ComboBox? findComboBox(ComboBoxLocator comboBoxLocator) {
+            var comboBox = comboBoxes.get(comboBoxLocator.locator, labels, textFields.NonChangeable());
+
+            if (comboBox != null)
+                return comboBox;
+
+            foreach (var gridView in getGridViews())
+            {
+                var gridViewComboBox = gridView.comboBoxes.get(comboBoxLocator.locator, labels, textFields.NonChangeable());
+                if (gridViewComboBox != null) return gridViewComboBox;
+            }
+
+            return null;
         }
 
         public ITextElement? findLabel(LabelLocator labelLocator) {
