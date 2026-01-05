@@ -320,8 +320,14 @@ namespace RoboSAPiens {
             }
             else
             {
-                return getGridViews().FirstOrDefault()?.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact);
+                foreach (var gridView in getGridViews())
+                {
+                    var gridViewButton = gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact);
+                    if (gridViewButton != null) return gridViewButton;
+                }
             }
+
+            return null;
         }
 
         public CheckBox? findCheckBox(CheckBoxLocator checkBox) {
