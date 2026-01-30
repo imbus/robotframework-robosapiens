@@ -128,10 +128,7 @@ namespace RoboSAPiens
                 };
                 proc.Start();
 
-                if (proc.ProcessName == "saplogon")
-                {
-                    FindWindow.findWindow("SAP Logon");                    
-                }
+                FindWindow.findWindow(proc.Id);
 
                 return new Result.OpenSap.Pass();
             }

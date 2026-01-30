@@ -7,29 +7,18 @@ namespace RoboSAPiens
 {
     public class FindWindow
     {
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetDesktopWindow();
-
         public delegate bool EnumChildWindowsProc(IntPtr hWnd, IntPtr lParam);
         
         [DllImport("user32")]
         public static extern bool EnumChildWindows(IntPtr hWnd, EnumChildWindowsProc callback, IntPtr lParam);
 
-        [DllImport("user32.dll", CharSet=CharSet.Auto, SetLastError=true)]
-        public static extern int GetWindowText(IntPtr hwnd, StringBuilder lpString, int cch);
-        
-        [DllImport("user32.dll", CharSet=CharSet.Auto, SetLastError=true)]
-        public static extern Int32 GetWindowTextLength(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetDesktopWindow();
 
-        public static string GetTitle(IntPtr hWnd)
-        {
-            var len = GetWindowTextLength(hWnd);
-            StringBuilder title = new StringBuilder(len + 1);
-            GetWindowText(hWnd, title, title.Capacity);
-            return title.ToString();
-        }
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
 
-        public static bool findWindow(string windowTitle)
+        public static bool findWindow(int processId)
         {
             int elapsed = 0;
             const int timeout = 5000;
@@ -43,7 +32,10 @@ namespace RoboSAPiens
                     GetDesktopWindow(), 
                     (hWnd, lParam) =>
                     {
-                        if (GetTitle(hWnd).StartsWith(windowTitle))
+                        uint windowProcId;
+                        GetWindowThreadProcessId(hWnd, out windowProcId);
+
+                        if (windowProcId == processId)
                         {
                             windowFound = true;
                             return false;
@@ -57,7 +49,7 @@ namespace RoboSAPiens
                 if (!windowFound)
                 {
                     Thread.Sleep(wait);
-                    elapsed += wait;                    
+                    elapsed += wait;                  
                 }
                 else
                 {
