@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using sapfewse;
 using saprotwr.net;
 
@@ -128,7 +129,25 @@ namespace RoboSAPiens
                 };
                 proc.Start();
 
-                FindWindow.findWindow(proc.Id);
+                int elapsed = 0;
+                int timeout = 5000;
+                int wait = 500;
+
+                while (elapsed <= timeout)
+                {
+                    var rot = new CSapROTWrapper();
+                    var sapGui = rot.GetROTEntry("SAPGUI") ?? rot.GetROTEntry("SAPGUISERVER");
+
+                    if (sapGui != null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Thread.Sleep(wait);
+                        elapsed += wait;
+                    }
+                }
 
                 return new Result.OpenSap.Pass();
             }
