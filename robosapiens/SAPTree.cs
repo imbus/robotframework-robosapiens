@@ -26,11 +26,13 @@ namespace RoboSAPiens
     public class SAPTree: ITable
     {
         CellRepository cells;
-        Dictionary<string, string> columnTitles;
+        record Column(int index, string name, string title);
+        List<Column> columns;
         public string id;
         int rowCount;
         TreeType treeType;
         TreeElementStore treeElements;
+        int visibleRowCount = 20;
 
         Dictionary<TreeItem, CellType> cellType = new Dictionary<TreeItem, CellType>
         {
@@ -52,24 +54,23 @@ namespace RoboSAPiens
             else {
                 rowCount = 0;
             }
-            columnTitles = getColumnTitles(tree);
+            columns = getColumns(tree);
             cells = new CellRepository();
             treeElements = new TreeElementStore();
         }
 
         public void classifyCells(GuiSession session) 
         {
-            cells = new CellRepository();
             treeElements = new TreeElementStore();
             var tree = (GuiTree)session.FindById(id);
-            var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
             var columnNames = (GuiCollection)tree.GetColumnNames();
+            var firstVisibleRow = tree.GetNodeIndex(tree.TopNode);
+            var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+            var rows = Math.Min(rowCount, firstVisibleRow + visibleRowCount);
 
-            if (nodeKeys == null) return;
-            
-            for (int nodeIndex = 0; nodeIndex < nodeKeys.Count; nodeIndex++) 
+            for (int row = firstVisibleRow; row < rows; row++) 
             {
-                var nodeKey = (string)nodeKeys.ElementAt(nodeIndex);
+                var nodeKey = (string)nodeKeys.ElementAt(row-1);
                 var nodePath = tree.GetNodePathByKey(nodeKey);
                 var text = getText(tree, nodeKey);
                 var textPath = getTextPath(tree, nodePath, text);
@@ -91,7 +92,7 @@ namespace RoboSAPiens
 
                         string columnTitle;
                         try {
-                            columnTitle = tree.GetColumnTitleFromName(columnName);
+                            columnTitle = tree.GetColumnTitleFromName(columnName).Trim();
                         }
                         catch (Exception) {
                             continue;
@@ -104,15 +105,9 @@ namespace RoboSAPiens
 
                         if (cellType.ContainsKey(itemType))
                         {
-                            var itemText = tree.GetItemText(nodeKey, columnName);
-                            var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
-                            var labels = new List<string>();
-
-                            if (itemText != "") labels.Add(itemText);
-                            if (itemTooltip != "") labels.Add(itemTooltip);
-
+                            var labels = getLabels(tree, nodeKey, columnName);
                             var cell = new TreeCell(
-                                nodeIndex,
+                                row,
                                 colIndex0,
                                 textPath,
                                 nodeKey,
@@ -131,22 +126,60 @@ namespace RoboSAPiens
 
         public Cell? findCell(ILocator locator, GuiSession session)
         {
-            if (cells.Count == 0) classifyCells(session);
-
             switch(locator)
             {
                 case Content(string labelOrPath):
+                    if (cells.Count == 0) classifyCells(session);
                     return cells.filterBy<TreeCell>().Find(
                         cell => cell.isLabeled(labelOrPath)
                     );
 
-                case RowColumnLocator(int rowIndex, string column, int colIndexOffset):
-                    if (!hasColumn(column)) return null;
-                    return cells.findCellByRowAndColumn(rowIndex-1, column);
+                case RowColumnLocator(int rowIndex, string columnTitle, int colIndexOffset):
+                    {
+                        if (!hasColumn(columnTitle)) return null;
+                        if (rowIndex > rowCount) return null;
+
+                        var tree = (GuiTree)session.FindById(id);
+                        var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+                        var nodeKey = (string)nodeKeys.ElementAt(rowIndex - 1);
+                        var column = columns.Find(c => c.title == columnTitle);
+                        var columnName = column!.name;
+                        var itemType = (TreeItem)tree.GetItemType(nodeKey, columnName);
+                        var labels = getLabels(tree, nodeKey, columnName);
+
+                        var nodePath = tree.GetNodePathByKey(nodeKey);
+                        var text = getText(tree, nodeKey);
+                        var textPath = getTextPath(tree, nodePath, text);
+
+                        return new TreeCell(
+                            rowIndex,
+                            column!.index,
+                            textPath,
+                            nodeKey,
+                            columnName,
+                            new List<string> { columnTitle },
+                            cellType[itemType],
+                            labels,
+                            id
+                        );
+                    }
 
                 case LabelColumnLocator(string labelOrPath, string column, int colIndexOffset):
-                    if (!hasColumn(column)) return null;
-                    return cells.findCellByLabelAndColumn(labelOrPath, column);
+                    {
+                        if (!hasColumn(column)) return null;
+                        if (cells.Count == 0) classifyCells(session);
+
+                        var cell = cells.findCellByLabelAndColumn(labelOrPath, column, exact: true);
+                        if (cell != null) return cell;
+                        
+                        if (scrollOnePage(session))
+                        {
+                            cells = new CellRepository();
+                            return findCell(locator, session);
+                        }
+
+                        return null;
+                    }
             }
 
             return null;
@@ -157,15 +190,15 @@ namespace RoboSAPiens
             return treeElements.get(folderPath);
         }
 
-        Dictionary<string, string> getColumnTitles(GuiTree tree)
+        List<Column> getColumns(GuiTree tree)
         {
             var columnNames = (GuiCollection)tree.GetColumnNames();
 
             if (columnNames == null) {
-                return new Dictionary<string, string>();
+                return new List<Column>();
             }
 
-            var columnTitles = new Dictionary<string, string>();
+            var columns = new List<Column>();
 
             for (int i = 0; i < columnNames.Length; i++) 
             {
@@ -175,18 +208,30 @@ namespace RoboSAPiens
                 }
 
                 try {
-                    var columnTitle = tree.GetColumnTitleFromName(columnName);
-                    columnTitles.Add(columnName, columnTitle);
+                    var columnTitle = tree.GetColumnTitleFromName(columnName).Trim();
+                    columns.Add(new Column(i, columnName, columnTitle));
                 }
                 catch (Exception) {
                     continue;
                 }
             }
 
-            return columnTitles;
+            return columns;
         }
 
-        public static string getParentPath(string path) 
+        public static List<string> getLabels(GuiTree tree, string nodeKey, string columnName)
+        {
+            var labels = new List<string>();
+            var itemText = tree.GetItemText(nodeKey, columnName);
+            var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
+
+            if (itemText != "") labels.Add(itemText);
+            if (itemTooltip != "") labels.Add(itemTooltip);
+
+            return labels;
+        }
+
+        public static string getParentPath(string path)
         {
             var pathParts = path.Split("\\");
             var parent_path = string.Join("\\", pathParts[0..^1]);
@@ -278,7 +323,7 @@ namespace RoboSAPiens
 
         public bool hasColumn(string column)
         {
-            return columnTitles.ContainsValue(column);
+            return columns.Select(c => c.title).ToHashSet().Contains(column);
         }
 
         public void print()
@@ -286,28 +331,42 @@ namespace RoboSAPiens
             Console.Write($" ({treeType})");
             Console.WriteLine();
             Console.WriteLine($"Rows: {rowCount}");
-            Console.Write("Column titles: " + string.Join(", ", columnTitles));
+            Console.Write("Column titles: " + string.Join(", ", columns.Select(c => c.title).ToList()));
         }
 
         public bool rowIsAbove(GuiSession session, int rowIndex)
         {
-            return false;
+            var tree = (GuiTree)session.FindById(id);
+            return rowIndex < tree.GetNodeIndex(tree.TopNode);
         }
 
         public bool rowIsBelow(GuiSession session, int rowIndex)
         {
-            return false;
+            var tree = (GuiTree)session.FindById(id);
+            return rowIndex >= tree.GetNodeIndex(tree.TopNode) + visibleRowCount;
         }
 
         public bool scrollOnePage(GuiSession session)
         {
+            var tree = (GuiTree)session.FindById(id);
+            var currentIndex = tree.GetNodeIndex(tree.TopNode);
+            var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+
+            if (currentIndex + visibleRowCount > nodeKeys.Count) return false;
+
+            if (nodeKeys != null)
+            {
+                tree.TopNode = (string)nodeKeys.ElementAt(currentIndex + visibleRowCount - 1);
+                return true;
+            }
+
             return false;
         }
 
         public void selectColumn(string column, GuiSession session)
         {
             GuiTree tree = (GuiTree)session.FindById(id);
-            var columnName = columnTitles.Where(_ => _.Value == column).First().Key;
+            var columnName = columns.First(c => c.title == column).name;
             tree.SelectColumn(columnName);
         }
 

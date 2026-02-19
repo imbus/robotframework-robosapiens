@@ -46,7 +46,12 @@ namespace RoboSAPiens
 
         public bool isLabeled(string label)
         {
-            return labels.Any(l => l.Equals(label) || l.StartsWith(label));
+            if (label.EndsWith("~"))
+            {
+                return labels.Any(l => l.StartsWith(label.TrimEnd('~')));
+            }
+
+            return labels.Any(l => l.Equals(label));
         }
 
         public bool isButtonCell()

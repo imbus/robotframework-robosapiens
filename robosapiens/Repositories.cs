@@ -17,12 +17,13 @@ namespace RoboSAPiens {
             return Find(cell => cell.isLabeled(content));
         }
 
-        public Cell? findCellByLabelAndColumn(string label, string column)
+        public Cell? findCellByLabelAndColumn(string label, string column, bool exact=false)
         {
             var columnCells = this.Where(cell => cell.inColumn(column)).ToList();
+            var searchLabel = exact ? label : label + "~";
             
-            return columnCells.FirstOrDefault(cell => cell.isLabeled(label)) ?? 
-                   columnCells.FirstOrDefault(cell => rowContainsLabel(cell.rowIndex, label));
+            return columnCells.FirstOrDefault(cell => cell.isLabeled(searchLabel)) ??
+                   columnCells.FirstOrDefault(cell => rowContainsLabel(cell.rowIndex, searchLabel));
         }
 
         public Cell? findCellByLabelAndColumnIndex(string label, int colIndex0)
