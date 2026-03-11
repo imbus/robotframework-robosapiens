@@ -6,7 +6,6 @@ from setuptools import setup
 VERSION = Path("../VERSION").read_text(encoding="utf-8")
 
 CLASSIFIERS = """Development Status :: 5 - Production/Stable
-License :: OSI Approved :: Apache Software License
 Operating System :: Microsoft :: Windows :: Windows 10
 Programming Language :: Python
 Programming Language :: Python :: 3
@@ -28,7 +27,7 @@ setup(
     long_description=Path("./README.md").read_text(encoding="utf-8"),
     long_description_content_type='text/markdown',
     url='https://github.com/imbus/robotframework-robosapiens',
-    license='Apache 2',
+    license='Apache-2.0',
     keywords='robotframework testing test automation sap gui',
     platforms='windows',
     classifiers=CLASSIFIERS.splitlines(),
