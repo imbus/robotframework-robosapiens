@@ -1315,7 +1315,7 @@ class LocalizedRoboSAPiensKeywordsConnecttoserverArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsConnecttorunningsapDoc(TypedDict):
     desc: Tuple[Literal['3032107536'], str]
-    examples: Tuple[Literal['1120000879'], str]
+    examples: Tuple[Literal['3984986147'], str]
 
 class LocalizedRoboSAPiensKeywordsConnecttorunningsapResult(TypedDict):
     NoSapGui: Tuple[Literal['3729995647'], str]
@@ -1927,7 +1927,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2x64: LocalizedRoboSAPiensArgsX64
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['2360204110'], str]
+    intro: Tuple[Literal['3057133465'], str]
     init: Tuple[Literal['3784687869'], str]
 
 class LocalizedRoboSAPiens(TypedDict):
