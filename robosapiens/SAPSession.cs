@@ -605,9 +605,9 @@ namespace RoboSAPiens {
                     }
                 }
 
-                if (keyCombination == "Enter")
+                if (keyCombination == "Enter" || keyCombination == "F8")
                 {
-                    // Pressing the Enter key may result in the window being rerendered,
+                    // Pressing either of these keys may result in the window being rerendered,
                     // and the properties of some components may change.
                     if (!windowChanged()) {
                         switch (updateWindow()) {
