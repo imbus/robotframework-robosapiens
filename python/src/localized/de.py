@@ -32,7 +32,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("2360204110",
+        "intro": ("3057133465",
         """
         RoboSAPiens: SAP GUI-Automatisierung für Menschen
 
@@ -214,7 +214,7 @@ lib: LocalizedRoboSAPiens = {
         == ABAP Listen ==
 
         Ab Version 2.21.0 funktionieren die Schlüsselwörter für den Umgang mit Tabellen auch mit dem [https://help.sap.com/docs/ABAP_PLATFORM_NEW/b1c834a22d05483b8a75710743b5ff26/4dd40b7ac2234be2e10000000a42189c.html|SAP List Viewer (Classic)].
-        Dafür muss zuerst der [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/38da185ebd1540bdbc919db7b9013c9a.html|Barrierefreiheitsmodus] in den Optionen von SAP GUI aktiviert werden.
+        Dafür muss zuerst der [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/38da185ebd1540bdbc919db7b9013c9a.html|Barrierefreiheitsmodus] in den Optionen von SAP GUI aktiviert werden. Hinweis: Die SAP GUI muss anschließend neu gestartet werden.
         
         === Hierarchisch sequenzielle Listen ===
 
@@ -624,7 +624,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("3032107536", "Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden."),
-                "examples": ("1120000879", 
+                "examples": ("3984986147", 
                 """
                 Beispiele:
                 
@@ -642,7 +642,7 @@ lib: LocalizedRoboSAPiens = {
 
                 | ``Laufende SAP GUI übernehmen    Verbindung=Test Verbindung    Mandant=NNN``
 
-                Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant und System-ID.
+                Der Rückgabewert enthält Informationen über die Session wie z.B. Mandant, System-ID und Session-Nummer.
                 """
               )
             }

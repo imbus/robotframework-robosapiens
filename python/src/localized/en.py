@@ -214,7 +214,7 @@ lib: RoboSAPiens = {
         == ABAP Lists ==
 
         Since version 2.21.0 the keywords for interacting with tables work with the [https://help.sap.com/docs/ABAP_PLATFORM_NEW/b1c834a22d05483b8a75710743b5ff26/4dd40b7ac2234be2e10000000a42189c.html?locale=en-US|SAP List Viewer (Classic)].
-        The only requirement is to enable the [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/38da185ebd1540bdbc919db7b9013c9a.html?locale=en-US|Accessibility Mode] in the SAP GUI options.
+        The only requirement is to enable the [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/38da185ebd1540bdbc919db7b9013c9a.html?locale=en-US|Accessibility Mode] in the SAP GUI options. Note: The SAP GUI has to be restarted afterwards.
         
         === Hierarchical-sequential lists ===
 
@@ -629,7 +629,7 @@ lib: RoboSAPiens = {
 
                 | ``Connect to Running SAP    connection=Test Connection   client=NNN``
 
-                The return value contains session information such as client number and system ID.
+                The return value contains session information such as client number, system ID and session number.
                 """
             }
         },
