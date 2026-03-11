@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace RoboSAPiens {
-    public record SessionInfo(string server, string client);
+    public record SessionInfo(string server, string client, int sessionNumber);
     
     public sealed class NoSAPSession : ISession
     {
@@ -54,7 +54,7 @@ namespace RoboSAPiens {
 
         public SessionInfo getSessionInfo()
         {
-            return new SessionInfo(systemName, sapClient);
+            return new SessionInfo(systemName, sapClient, session.Info.SessionNumber);
         }
 
         bool windowChanged() {
