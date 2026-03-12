@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using sapfewse;
 using saprotwr.net;
@@ -232,24 +233,96 @@ namespace RoboSAPiens
             return ((GuiApplication)scriptingEngine, null);
         }
 
+        (GuiConnection?, GuiSession?) findActiveSession(GuiComponentCollection connections)
+        {
+            [DllImport("user32.dll", SetLastError = true)]
+            static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
+
+            static int GetWindowZOrder(IntPtr hWnd)
+            {
+                var zOrder = -1;
+                while ((hWnd = GetWindow(hWnd, 2 /* GW_HWNDNEXT */)) != IntPtr.Zero) zOrder++;
+                return zOrder;
+            }
+
+            GuiConnection? foremostConnection = null;
+            GuiSession? foremostSession = null;
+            int foremostWindow = 0;
+
+            for (int c = 0; c < connections.Length; c++)
+            {
+                var connection = (GuiConnection)connections.ElementAt(c);
+                var sessions = connection.Sessions;
+
+                for (int s = 0; s < sessions.Length; s++)
+                {
+                    var session = (GuiSession)sessions.ElementAt(s);
+                    var zOrder = GetWindowZOrder(session.ActiveWindow.Handle);
+
+                    if (zOrder > foremostWindow)
+                    {
+                        foremostWindow = zOrder;
+                        foremostSession = session;
+                        foremostConnection = connection;
+                    }
+                }
+            }
+
+            return (foremostConnection, foremostSession);
+        }
+
+        (GuiSession?, RobotResult.RobotFail?) findSession(GuiConnection connection, int? sessionNumber, string? client)
+        {
+            if (client != null) return findSessionByClient(connection!.Sessions, client);
+            if (sessionNumber != null) return findSessionByNumber(connection!.Sessions, (int)sessionNumber);
+            return ((GuiSession)connection!.Sessions.ElementAt(0), null);
+        }
+
+        (GuiConnection?, RobotResult.RobotFail?) findConnection(GuiComponentCollection connections, string? connectionName, string? client)
+        {
+            if (connectionName != null) return findConnectionByName(connections, connectionName);
+            if (client != null) return findConnectionByClient(connections, client);
+            return validateConnection((GuiConnection)connections.ElementAt(0));
+        }
+
+        (GuiConnection?, GuiSession?, RobotResult.RobotFail?) getConnectionAndSession(GuiComponentCollection connections, string? connectionName, int? sessionNumber, string? client)
+        {
+            if (connectionName == null && sessionNumber == null && client == null)
+            {
+                var (guiConnection, guiSession) = findActiveSession(connections);
+                if (guiConnection == null) return (null, null, new Result.ConnectToRunningSap.NoConnection());
+                if (guiSession == null) return (null, null, new Result.ConnectToRunningSap.NoSession());
+
+                var (_, connectionError) = validateConnection(guiConnection);
+                if (connectionError != null) return (null, null, connectionError);
+
+                return (guiConnection, guiSession, null);
+            }
+
+            {
+                var (guiConnection, connectionError) = findConnection(connections, connectionName, client);
+                if (connectionError != null) return (null, null, connectionError);
+
+                var (guiSession, sessionError) = findSession(guiConnection!, sessionNumber, client);
+                if (sessionError != null) return (null, null, sessionError);
+
+                return (guiConnection, guiSession, null);
+            }
+        }
+
         [Keyword("Laufende SAP GUI übernehmen"),
          Doc("Nach der Ausführung dieses Keywords, kann eine laufende SAP GUI mit RoboSAPiens gesteuert werden.")]
-        public RobotResult ConnectToRunningSap(int sessionNumber=1, string? connectionName=null, string? client=null)
+        public RobotResult ConnectToRunningSap(int? sessionNumber=null, string? connectionName=null, string? client=null)
         {
             try
             {
                 var (sapGui, guiError) = getGuiApplication();
                 if (guiError != null) return guiError;
 
-                var (connection, connectionError) = getConnection(sapGui!.Connections, connectionName, client);
-                if (connectionError != null)
-                    return connectionError;
+                var (guiConnection, guiSession, error) = getConnectionAndSession(sapGui!.Connections, connectionName, sessionNumber, client);
+                if (error != null) return error;
 
-                var (guiSession, sessionError) = findSession(connection!.Sessions, sessionNumber);
-                if (sessionError != null)
-                    return sessionError;
-
-                session = new SAPSession(guiSession!, connection!, options, logger);
+                session = new SAPSession(guiSession!, guiConnection!, options, logger);
                 var sessionInfo = JSON.serialize(session.getSessionInfo()!, typeof(SessionInfo));
                 
                 return new Result.ConnectToRunningSap.Json(sessionInfo);
@@ -261,52 +334,17 @@ namespace RoboSAPiens
             }
         }
 
-        (GuiConnection?, RobotResult.RobotFail?) getConnection(GuiComponentCollection connections, string? connectionName, string? client)
+        (GuiConnection?, RobotResult.RobotFail?) findConnectionByClient(GuiComponentCollection connections, string client)
         {
-            if (connections.Length == 0)
-                return (null, new Result.ConnectToRunningSap.NoConnection());
-
-            if (client != null && connectionName != null)
+            for (int c = 0; c < connections.Length; c++)
             {
-                var connectionFound = false;
-
-                for (int c = 0; c < connections.Length; c++)
-                {
-                    var connection = (GuiConnection)connections.ElementAt(c);
-                    if (connection.Description == connectionName)
-                    {
-                        connectionFound = true;
-                        var session = findSessionByClient(connection.Sessions, client);
-                        if (session != null)
-                            return (connection, null);
-                    }
-                }
-
-                if (!connectionFound)
-                    return (null, new Result.ConnectToRunningSap.InvalidConnection(connectionName));
-
-                return (null, new Result.ConnectToRunningSap.InvalidConnectionClient(connectionName, client));
+                var connection = (GuiConnection)connections.ElementAt(c);
+                var (session, error) = findSessionByClient(connection.Sessions, client);
+                if (error != null) return (null, error);
+                if (session != null) return (connection, null);
             }
 
-            if (connectionName != null)
-            {
-                var (connection, connectionError) = findConnectionByName(connections, connectionName);
-                if (connection != null)
-                    return validateConnection(connection);
-
-                return (null, connectionError);
-            }
-
-            if (client != null)
-            {
-                var (connection, connectionError) = findConnectionByClient(connections, client);
-                if (connection != null)
-                    return validateConnection(connection);
-
-                return (null, connectionError);
-            }
-
-            return validateConnection((GuiConnection)connections.ElementAt(0));
+            return (null, new Result.ConnectToRunningSap.InvalidClient(client));
         }
 
         (GuiConnection?, RobotResult.RobotFail?) findConnectionByName(GuiComponentCollection connections, string connectionName)
@@ -315,35 +353,22 @@ namespace RoboSAPiens
             {
                 var connection = (GuiConnection)connections.ElementAt(c);
                 if (connection.Description == connectionName)
-                    return (connection, null);
+                    return validateConnection(connection);
             }
 
             return (null, new Result.ConnectToRunningSap.InvalidConnection(connectionName));
         }
 
-        (GuiConnection?, RobotResult.RobotFail?) findConnectionByClient(GuiComponentCollection connections, string client)
-        {
-            for (int c = 0; c < connections.Length; c++)
-            {
-                var connection = (GuiConnection)connections.ElementAt(c);
-                var session = findSessionByClient(connection.Sessions, client);
-                if (session != null)
-                    return (connection, null);
-            }
-
-            return (null, new Result.ConnectToRunningSap.InvalidClient(client));
-        }
-
-        GuiSession? findSessionByClient(GuiComponentCollection sessions, string client)
+        (GuiSession?, RobotResult.RobotFail?) findSessionByClient(GuiComponentCollection sessions, string client)
         {
             for (int s = 0; s < sessions.Length; s++)
             {
                 var session = (GuiSession)sessions.ElementAt(s);
                 if (session.Info.Client == client)
-                    return session;
+                    return (session, null);
             }
 
-            return null;
+            return (null, new Result.ConnectToRunningSap.InvalidClient(client));
         }
 
         (GuiConnection?, RobotResult.RobotFail?) openConnection(GuiApplication guiApplication, string serverName)
@@ -360,16 +385,12 @@ namespace RoboSAPiens
             return (guiConnection, null);
         }
 
-        (GuiSession?, RobotResult.RobotFail?) findSession(GuiComponentCollection sessions, int sessionNumber) 
+        (GuiSession?, RobotResult.RobotFail?) findSessionByNumber(GuiComponentCollection sessions, int sessionNumber) 
         {
-            int sessionNumber0 = sessionNumber - 1;
-            if (sessionNumber0 >= sessions.Length) {
+            if (sessionNumber > sessions.Length)
                 return (null, new Result.ConnectToRunningSap.InvalidSession(sessionNumber));
-            }
 
-            var session = (GuiSession)sessions.ElementAt(sessionNumber0);
-            
-            return (session, null);
+            return ((GuiSession)sessions.ElementAt(sessionNumber - 1), null);
         }
 
         [Keyword("Verbindung zum Server herstellen"),
@@ -383,13 +404,11 @@ namespace RoboSAPiens
                 if (guiError != null) return guiError;
 
                 var (connection, connectionError) = openConnection(sapGui!, server);
-                if (connectionError != null)
-                    return connectionError;
+                if (connectionError != null) return connectionError;
 
                 var sessionNumber = 1;
-                var (guiSession, sessionError) = findSession(connection!.Sessions, sessionNumber);
-                if (sessionError != null)
-                    return sessionError;
+                var (guiSession, sessionError) = findSessionByNumber(connection!.Sessions, sessionNumber);
+                if (sessionError != null) return sessionError;
 
                 session = new SAPSession(guiSession!, connection!, options, logger);
                 var sessionInfo = JSON.serialize(session.getSessionInfo()!, typeof(SessionInfo));
