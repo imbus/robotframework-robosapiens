@@ -331,6 +331,36 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "ReadTreeElement": {
+            "name": "Read Tree Element",
+            "args": {
+                "elementPath": {
+                    "name": "element_path",
+                    "desc": "The path to the element using '/' as separator. e.g. Engineering/Civil Engineering",
+                    "spec": {},
+                }
+            },
+            "kwargs": {},
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The tree element '{0}' could not be found."),
+                "Pass": "The tree element '{0}' was read.",
+                "Exception": exception("The tree element could not be read. {0}")
+            },
+            "doc": {
+                "desc": "Read the text of the tree element located at the path provided.",
+                "examples": 
+                """
+                Examples:
+
+                | ``${elementText}     Read Tree Element    element_path``
+
+                *Hints*
+                - A slash that is not a path separator must be written twice.
+                - Each segment of the path may be partially specified. For example, IDoc instead of IDoc 1234.
+                """
+            }
+        },
         "SelectTreeElement": {
             "name": "Select Tree Element",
             "args": {

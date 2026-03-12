@@ -20,17 +20,6 @@ namespace RoboSAPiens
             this.textPath = textPath;
         }
 
-        void expandParentNodes(GuiTree guiTree)
-        {
-            var parentNodes = nodePath.Split("\\")[0..^1];
-            Enumerable.Range(1, parentNodes.Length)
-                .Select(i => string.Join("\\", parentNodes.Take(i)))
-                .ToList()
-                .ForEach(path =>
-                    guiTree.ExpandNode(guiTree.GetNodeKeyByPath(path))
-                );
-        }
-
         public void doubleClick(GuiSession session) 
         {
             var tree = (GuiTree)session.FindById(treeId);
@@ -70,20 +59,27 @@ namespace RoboSAPiens
             tree.classifyCells(session);
         }
 
-        public void select(GuiSession session)
+        void expandParentNodes(GuiTree guiTree)
+        {
+            var parentNodes = nodePath.Split("\\")[0..^1];
+            Enumerable.Range(1, parentNodes.Length)
+                .Select(i => string.Join("\\", parentNodes.Take(i)))
+                .ToList()
+                .ForEach(path =>
+                    guiTree.ExpandNode(guiTree.GetNodeKeyByPath(path))
+                );
+        }
+
+        public string getText(GuiSession session)
         {
             var guiTree = (GuiTree)session.FindById(treeId);
             expandParentNodes(guiTree);
-            guiTree.SelectedNode = nodeKey;
+            return guiTree.GetNodeTextByKey(nodeKey);
         }
 
-        // menuEntry: The pipe character '|' is the separator for sub-menus
-        public void selectMenuEntry(GuiSession session, string menuEntry)
+        public bool hasTooltip(string tooltip)
         {
-            var guiTree = (GuiTree)session.FindById(treeId);
-            select(session);
-            guiTree.NodeContextMenu(nodeKey);
-            guiTree.SelectContextMenuItemByText(menuEntry);
+            return false;
         }
 
         public bool isHLabeled(string label)
@@ -107,9 +103,20 @@ namespace RoboSAPiens
             return false;
         }
 
-        public bool hasTooltip(string tooltip)
+        public void select(GuiSession session)
         {
-            return false;
+            var guiTree = (GuiTree)session.FindById(treeId);
+            expandParentNodes(guiTree);
+            guiTree.SelectedNode = nodeKey;
+        }
+
+        // menuEntry: The pipe character '|' is the separator for sub-menus
+        public void selectMenuEntry(GuiSession session, string menuEntry)
+        {
+            var guiTree = (GuiTree)session.FindById(treeId);
+            select(session);
+            guiTree.NodeContextMenu(nodeKey);
+            guiTree.SelectContextMenuItemByText(menuEntry);
         }
     }
 }

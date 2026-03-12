@@ -336,6 +336,37 @@ lib: LocalizedRoboSAPiens = {
                 )
             }
         },
+        "ReadTreeElement": {
+            "name": ("2616738749", "Baumelement auslesen"),
+            "args": {
+                "elementPath": {
+                    "name": ("1214950134", "Elementpfad"),
+                    "desc": ("4061798646", "Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen)."),
+                    "spec": {},
+                }
+            },
+            "kwargs": {},
+            "result": {
+                "NoSession": ("4138997384", no_session),
+                "NotFound": ("3295884259", not_found("Das Baumelement '{0}' wurde nicht gefunden.")),
+                "Pass": ("787190938", "Das Baumelement '{0}' wurde ausgelesen."),
+                "Exception": ("3264640217", exception("Das Baumelement konnte nicht ausgelesen werden. {0}"))
+            },
+            "doc": {
+                "desc": ("3964494361", "Der Text des Baumelements mit dem angegebenen Pfad wird ausgelesen."),
+                "examples": ("41325508", 
+                """
+                Beispiele:
+              
+                | ``${Text}    Baumelement auslesen    Elementpfad``
+
+                *Hinweise*
+                - Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
+                - Jedes Segment des Pfades kann teilweise angegeben werden. Zum Beispiel IDoc anstelle von IDoc 1234.
+                """
+              )
+            }
+        },
         "SelectTreeElement": {
             "name": ("3234880959", "Baumelement markieren"),
             "args": {

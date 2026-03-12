@@ -33,6 +33,7 @@ namespace RoboSAPiens
         public RobotResult ReadStatusbar();
         public RobotResult ReadText(string locator);
         public RobotResult ReadTextField(string locator);
+        public RobotResult ReadTreeElement(string elementPath);
         public RobotResult SaveScreenshot(string filepath);
         public RobotResult ScrollTextFieldContents(string direction, string? untilTextField=null);
         public RobotResult ScrollWindowHorizontally(string direction);
