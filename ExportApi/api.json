@@ -220,7 +220,7 @@
         "sessionNumber": {
           "name": "sessionNumber",
           "desc": "",
-          "default": 1,
+          "default": null,
           "type": "Int32",
           "spec": {}
         },

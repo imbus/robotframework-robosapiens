@@ -623,7 +623,7 @@ class RoboSAPiensKeywordsConnecttorunningsapKwargsConnectionname(TypedDict):
 class RoboSAPiensKeywordsConnecttorunningsapKwargsSessionnumber(TypedDict):
     name: str
     desc: str
-    default: Literal[1]
+    default: Literal[None]
     type: Literal[r'int']
     spec: RoboSAPiensKeywordsConnecttorunningsapKwargsSessionnumberSpec
 

@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.24.7"
+__version__ = "2.24.8"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -541,7 +541,7 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ExportTree', args, kwargs, result) # type: ignore
     
     @keyword('Connect to Running SAP') # type: ignore
-    def connect_to_running_sap(self, session_number: int=1, connection: str=None, client: str=None): # type: ignore
+    def connect_to_running_sap(self, session_number: int=None, connection: str=None, client: str=None): # type: ignore
         """
         Connect to an already running SAP instance and take control of it.
         
@@ -1761,4 +1761,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.24.7'
+    ROBOT_LIBRARY_VERSION = '2.24.8'

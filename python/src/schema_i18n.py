@@ -612,7 +612,7 @@ class LocalizedRoboSAPiensKeywordsConnecttorunningsapKwargsConnectionname(TypedD
 class LocalizedRoboSAPiensKeywordsConnecttorunningsapKwargsSessionnumber(TypedDict):
     name: Tuple[Literal['4193981709'], str]
     desc: Tuple[Literal['1605605041'], str]
-    default: Literal[1]
+    default: Literal[None]
     type: Literal[r'int']
     spec: LocalizedRoboSAPiensKeywordsConnecttorunningsapKwargsSessionnumberSpec
 

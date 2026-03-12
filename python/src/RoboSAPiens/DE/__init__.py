@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.24.7"
+__version__ = "2.24.8"
 
 class DE(RoboSAPiensClient):
     """
@@ -540,7 +540,7 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ExportTree', args, kwargs, result) # type: ignore
     
     @keyword('Laufende SAP GUI übernehmen') # type: ignore
-    def connect_to_running_sap(self, session_nummer: int=1, Verbindung: str=None, Mandant: str=None): # type: ignore
+    def connect_to_running_sap(self, session_nummer: int=None, Verbindung: str=None, Mandant: str=None): # type: ignore
         """
         Nach der Ausführung dieses Schlüsselworts kann eine bereits laufende SAP GUI mit RoboSAPiens gesteuert werden.
         
@@ -1759,4 +1759,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.24.7'
+    ROBOT_LIBRARY_VERSION = '2.24.8'
