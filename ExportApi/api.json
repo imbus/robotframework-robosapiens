@@ -37,6 +37,27 @@
         "examples": ""
       }
     },
+    "ReadTreeElement": {
+      "name": "Baumelement auslesen",
+      "args": {
+        "elementPath": {
+          "name": "elementPath",
+          "desc": "",
+          "spec": {}
+        }
+      },
+      "kwargs": {},
+      "result": {
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Das Baumelement mit dem angegebenen Pfad wird ausgelesen.\n\n| ``Baumelement auslesen    Elementpfad``",
+        "examples": ""
+      }
+    },
     "SelectTreeElement": {
       "name": "Baumelement markieren",
       "args": {

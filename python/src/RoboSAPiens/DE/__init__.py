@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.24.8"
+__version__ = "2.25.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -300,6 +300,36 @@ class DE(RoboSAPiensClient):
             "Exception": "Der Baumordner konnte nicht aufgeklappt werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
         }
         return super()._run_keyword('ExpandTreeFolder', args, kwargs, result) # type: ignore
+    
+    @keyword('Baumelement auslesen') # type: ignore
+    def read_tree_element(self, Elementpfad: str): # type: ignore
+        """
+        Der Text des Baumelements mit dem angegebenen Pfad wird ausgelesen.
+        
+        | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
+        
+        Beispiele:
+        
+        | ``${Text}    Baumelement auslesen    Elementpfad``
+        
+        *Hinweise*
+        - Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
+        - Jedes Segment des Pfades kann teilweise angegeben werden. Zum Beispiel IDoc anstelle von IDoc 1234.
+        """
+
+        args: list = [
+            Elementpfad
+        ]
+        kwargs: dict = {
+        }
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "NotFound": "Das Baumelement '{0}' wurde nicht gefunden.\nHinweis: Prüfe die Rechtschreibung",
+            "Pass": "Das Baumelement '{0}' wurde ausgelesen.",
+            "Exception": "Das Baumelement konnte nicht ausgelesen werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('ReadTreeElement', args, kwargs, result) # type: ignore
     
     @keyword('Baumelement markieren') # type: ignore
     def select_tree_element(self, Elementpfad: str): # type: ignore
@@ -1759,4 +1789,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.24.8'
+    ROBOT_LIBRARY_VERSION = '2.25.0'

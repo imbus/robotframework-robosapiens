@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.24.8"
+__version__ = "2.25.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -301,6 +301,36 @@ class RoboSAPiens(RoboSAPiensClient):
             "Exception": "The tree folder could not be expanded. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('ExpandTreeFolder', args, kwargs, result) # type: ignore
+    
+    @keyword('Read Tree Element') # type: ignore
+    def read_tree_element(self, element_path: str): # type: ignore
+        """
+        Read the text of the tree element located at the path provided.
+        
+        | ``element_path`` | The path to the element using '/' as separator. e.g. Engineering/Civil Engineering |
+        
+        Examples:
+        
+        | ``${elementText}     Read Tree Element    element_path``
+        
+        *Hints*
+        - A slash that is not a path separator must be written twice.
+        - Each segment of the path may be partially specified. For example, IDoc instead of IDoc 1234.
+        """
+
+        args: list = [
+            element_path
+        ]
+        kwargs: dict = {
+        }
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The tree element '{0}' could not be found. Hint: Check the spelling",
+            "Pass": "The tree element '{0}' was read.",
+            "Exception": "The tree element could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('ReadTreeElement', args, kwargs, result) # type: ignore
     
     @keyword('Select Tree Element') # type: ignore
     def select_tree_element(self, element_path: str): # type: ignore
@@ -1761,4 +1791,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.24.8'
+    ROBOT_LIBRARY_VERSION = '2.25.0'

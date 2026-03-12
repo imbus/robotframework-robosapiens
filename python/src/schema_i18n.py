@@ -244,6 +244,9 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentryArgsElementpathSpec(
 class LocalizedRoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsReadtreeelementArgsElementpathSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsExpandtreefolderArgsFolderpathSpec(TypedDict):
     ...
 
@@ -654,6 +657,11 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementArgsElementpath(TypedDict):
     name: Tuple[Literal['1214950134'], str]
     desc: Tuple[Literal['4061798646'], str]
     spec: LocalizedRoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec
+
+class LocalizedRoboSAPiensKeywordsReadtreeelementArgsElementpath(TypedDict):
+    name: Tuple[Literal['1214950134'], str]
+    desc: Tuple[Literal['4061798646'], str]
+    spec: LocalizedRoboSAPiensKeywordsReadtreeelementArgsElementpathSpec
 
 class LocalizedRoboSAPiensKeywordsExpandtreefolderArgsFolderpath(TypedDict):
     name: Tuple[Literal['315338010'], str]
@@ -1467,6 +1475,22 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementKwargs(TypedDict):
 class LocalizedRoboSAPiensKeywordsSelecttreeelementArgs(TypedDict):
     elementPath: LocalizedRoboSAPiensKeywordsSelecttreeelementArgsElementpath
 
+class LocalizedRoboSAPiensKeywordsReadtreeelementDoc(TypedDict):
+    desc: Tuple[Literal['3964494361'], str]
+    examples: Tuple[Literal['41325508'], str]
+
+class LocalizedRoboSAPiensKeywordsReadtreeelementResult(TypedDict):
+    NoSession: Tuple[Literal['4138997384'], str]
+    NotFound: Tuple[Literal['3295884259'], str]
+    Pass: Tuple[Literal['787190938'], str]
+    Exception: Tuple[Literal['3264640217'], str]
+
+class LocalizedRoboSAPiensKeywordsReadtreeelementKwargs(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsReadtreeelementArgs(TypedDict):
+    elementPath: LocalizedRoboSAPiensKeywordsReadtreeelementArgsElementpath
+
 class LocalizedRoboSAPiensKeywordsExpandtreefolderDoc(TypedDict):
     desc: Tuple[Literal['3001885302'], str]
     examples: Tuple[Literal['3996641622'], str]
@@ -1837,6 +1861,13 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelement(TypedDict):
     result: LocalizedRoboSAPiensKeywordsSelecttreeelementResult
     doc: LocalizedRoboSAPiensKeywordsSelecttreeelementDoc
 
+class LocalizedRoboSAPiensKeywordsReadtreeelement(TypedDict):
+    name: Tuple[Literal['2616738749'], str]
+    args: LocalizedRoboSAPiensKeywordsReadtreeelementArgs
+    kwargs: LocalizedRoboSAPiensKeywordsReadtreeelementKwargs
+    result: LocalizedRoboSAPiensKeywordsReadtreeelementResult
+    doc: LocalizedRoboSAPiensKeywordsReadtreeelementDoc
+
 class LocalizedRoboSAPiensKeywordsExpandtreefolder(TypedDict):
     name: Tuple[Literal['788776543'], str]
     args: LocalizedRoboSAPiensKeywordsExpandtreefolderArgs
@@ -1875,6 +1906,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     ActivateTab: LocalizedRoboSAPiensKeywordsActivatetab
     DoubleClickTreeElement: LocalizedRoboSAPiensKeywordsDoubleclicktreeelement
     ExpandTreeFolder: LocalizedRoboSAPiensKeywordsExpandtreefolder
+    ReadTreeElement: LocalizedRoboSAPiensKeywordsReadtreeelement
     SelectTreeElement: LocalizedRoboSAPiensKeywordsSelecttreeelement
     SelectTreeElementMenuEntry: LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentry
     OpenSap: LocalizedRoboSAPiensKeywordsOpensap

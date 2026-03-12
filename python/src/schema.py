@@ -249,6 +249,9 @@ class RoboSAPiensKeywordsDoubleclicktreeelementArgsElementpathSpec(TypedDict):
 class RoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsReadtreeelementArgsElementpathSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsActivatetabArgsTabSpec(TypedDict):
     ...
 
@@ -663,6 +666,11 @@ class RoboSAPiensKeywordsSelecttreeelementArgsElementpath(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec
+
+class RoboSAPiensKeywordsReadtreeelementArgsElementpath(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsReadtreeelementArgsElementpathSpec
 
 class RoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
     name: str
@@ -1498,6 +1506,22 @@ class RoboSAPiensKeywordsSelecttreeelementKwargs(TypedDict):
 class RoboSAPiensKeywordsSelecttreeelementArgs(TypedDict):
     elementPath: RoboSAPiensKeywordsSelecttreeelementArgsElementpath
 
+class RoboSAPiensKeywordsReadtreeelementDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsReadtreeelementResult(TypedDict):
+    NoSession: str
+    NotFound: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsReadtreeelementKwargs(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsReadtreeelementArgs(TypedDict):
+    elementPath: RoboSAPiensKeywordsReadtreeelementArgsElementpath
+
 class RoboSAPiensKeywordsActivatetabDoc(TypedDict):
     desc: str
     examples: str
@@ -1850,6 +1874,13 @@ class RoboSAPiensKeywordsSelecttreeelement(TypedDict):
     result: RoboSAPiensKeywordsSelecttreeelementResult
     doc: RoboSAPiensKeywordsSelecttreeelementDoc
 
+class RoboSAPiensKeywordsReadtreeelement(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsReadtreeelementArgs
+    kwargs: RoboSAPiensKeywordsReadtreeelementKwargs
+    result: RoboSAPiensKeywordsReadtreeelementResult
+    doc: RoboSAPiensKeywordsReadtreeelementDoc
+
 class RoboSAPiensKeywordsActivatetab(TypedDict):
     name: str
     args: RoboSAPiensKeywordsActivatetabArgs
@@ -1872,6 +1903,7 @@ class RoboSAPiensSpecs(TypedDict):
 
 class RoboSAPiensKeywords(TypedDict):
     ActivateTab: RoboSAPiensKeywordsActivatetab
+    ReadTreeElement: RoboSAPiensKeywordsReadtreeelement
     SelectTreeElement: RoboSAPiensKeywordsSelecttreeelement
     DoubleClickTreeElement: RoboSAPiensKeywordsDoubleclicktreeelement
     ExpandTreeFolder: RoboSAPiensKeywordsExpandtreefolder
