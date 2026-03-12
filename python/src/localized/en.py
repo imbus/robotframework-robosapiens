@@ -575,7 +575,7 @@ lib: RoboSAPiens = {
                 "sessionNumber": {
                     "name": "session_number",
                     "desc": "The session number shown in the upper right or lower right corner of the window",
-                    "default": 1,
+                    "default": None,
                     "type": "int",
                     "spec": {}
                 },
