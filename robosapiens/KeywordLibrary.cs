@@ -336,7 +336,7 @@ namespace RoboSAPiens
             {
                 var (connections, connectionError) = filterConnectionsByName(guiConnections, connectionName);
                 if (connectionError != null) return (null, connectionError);
-            if (client != null) return findConnectionByClient(connections, client);
+                if (client != null) return findConnectionByClient(connections, client);
                 return validateConnection(connections[0]);
             }
             if (client != null) return findConnectionByClient(guiConnections, client);
@@ -388,7 +388,9 @@ namespace RoboSAPiens
 
                 session = new SAPSession(guiSession!, guiConnection!, options, logger);
                 var sessionInfo = JSON.serialize(session.getSessionInfo()!, typeof(SessionInfo));
-                
+
+                if (options.debug) logger.info($"\n{sessionInfo}");
+
                 return new Result.ConnectToRunningSap.Json(sessionInfo);
             }
             catch(Exception e) 
