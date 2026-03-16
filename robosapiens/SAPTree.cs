@@ -169,7 +169,7 @@ namespace RoboSAPiens
                         if (!hasColumn(column)) return null;
                         if (cells.Count == 0) classifyCells(session);
 
-                        var cell = cells.findCellByLabelAndColumn(labelOrPath, column, exact: true);
+                        var cell = cells.findCellByLabelAndColumn(labelOrPath, column, exact: true) ?? cells.findCellByLabelAndColumn(labelOrPath, column, exact: false);
                         if (cell != null) return cell;
                         
                         if (scrollOnePage(session))
