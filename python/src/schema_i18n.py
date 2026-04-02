@@ -106,6 +106,15 @@ class LocalizedRoboSAPiensKeywordsScrolltextfieldcontentsArgsDirectionSpec(Typed
 class LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepathSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellKwargsTablenumberSpec(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsColumnSpec(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsRow_LocatorSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsReadcellKwargsTablenumberSpec(TypedDict):
     ...
 
@@ -424,6 +433,23 @@ class LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepath(TypedDict):
     name: Tuple[Literal['1053179562'], str]
     desc: Tuple[Literal['1157352758'], str]
     spec: LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepathSpec
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellKwargsTablenumber(TypedDict):
+    name: Tuple[Literal['3359775383'], str]
+    desc: Tuple[Literal['4055958951'], str]
+    default: Literal[None]
+    type: Literal[r'int']
+    spec: LocalizedRoboSAPiensKeywordsReadcheckboxcellKwargsTablenumberSpec
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsColumn(TypedDict):
+    name: Tuple[Literal['2102626174'], str]
+    desc: Tuple[Literal['245054585'], str]
+    spec: LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsColumnSpec
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsRow_Locator(TypedDict):
+    name: Tuple[Literal['315353924'], str]
+    desc: Tuple[Literal['2714474921'], str]
+    spec: LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsRow_LocatorSpec
 
 class LocalizedRoboSAPiensKeywordsReadcellKwargsTablenumber(TypedDict):
     name: Tuple[Literal['3359775383'], str]
@@ -1040,6 +1066,25 @@ class LocalizedRoboSAPiensKeywordsSavescreenshotKwargs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSavescreenshotArgs(TypedDict):
     filepath: LocalizedRoboSAPiensKeywordsSavescreenshotArgsFilepath
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellDoc(TypedDict):
+    desc: Tuple[Literal['4207623626'], str]
+    examples: Tuple[Literal['3844296968'], str]
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellResult(TypedDict):
+    NoSession: Tuple[Literal['4138997384'], str]
+    NotFound: Tuple[Literal['3279676079'], str]
+    NoTable: Tuple[Literal['2399256699'], str]
+    InvalidTable: Tuple[Literal['2205241003'], str]
+    Pass: Tuple[Literal['681803888'], str]
+    Exception: Tuple[Literal['1272098876'], str]
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellKwargs(TypedDict):
+    tableNumber: LocalizedRoboSAPiensKeywordsReadcheckboxcellKwargsTablenumber
+
+class LocalizedRoboSAPiensKeywordsReadcheckboxcellArgs(TypedDict):
+    a1row_locator: LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsRow_Locator
+    a2column: LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsColumn
 
 class LocalizedRoboSAPiensKeywordsReadcellDoc(TypedDict):
     desc: Tuple[Literal['854195584'], str]
@@ -1686,6 +1731,13 @@ class LocalizedRoboSAPiensKeywordsSavescreenshot(TypedDict):
     result: LocalizedRoboSAPiensKeywordsSavescreenshotResult
     doc: LocalizedRoboSAPiensKeywordsSavescreenshotDoc
 
+class LocalizedRoboSAPiensKeywordsReadcheckboxcell(TypedDict):
+    name: Tuple[Literal['2343093819'], str]
+    args: LocalizedRoboSAPiensKeywordsReadcheckboxcellArgs
+    kwargs: LocalizedRoboSAPiensKeywordsReadcheckboxcellKwargs
+    result: LocalizedRoboSAPiensKeywordsReadcheckboxcellResult
+    doc: LocalizedRoboSAPiensKeywordsReadcheckboxcellDoc
+
 class LocalizedRoboSAPiensKeywordsReadcell(TypedDict):
     name: Tuple[Literal['389153112'], str]
     args: LocalizedRoboSAPiensKeywordsReadcellArgs
@@ -1932,6 +1984,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     ReadTextField: LocalizedRoboSAPiensKeywordsReadtextfield
     ReadText: LocalizedRoboSAPiensKeywordsReadtext
     ReadCell: LocalizedRoboSAPiensKeywordsReadcell
+    ReadCheckBoxCell: LocalizedRoboSAPiensKeywordsReadcheckboxcell
     SaveScreenshot: LocalizedRoboSAPiensKeywordsSavescreenshot
     ScrollTextFieldContents: LocalizedRoboSAPiensKeywordsScrolltextfieldcontents
     ScrollWindowHorizontally: LocalizedRoboSAPiensKeywordsScrollwindowhorizontally

@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.25.1"
+__version__ = "2.26.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -1147,6 +1147,38 @@ class RoboSAPiens(RoboSAPiensClient):
         }
         return super()._run_keyword('ReadCell', args, kwargs, result) # type: ignore
     
+    @keyword('Read Checkbox Cell') # type: ignore
+    def read_check_box_cell(self, row_locator: str, column: str, table_number: int=None): # type: ignore
+        """
+        Read the state of the checkbox cell at the intersection of the row and column provided.
+        
+        | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
+        | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
+        | ``table_number`` | Specify which table: 1, 2, ... |
+        
+        Examples:
+        
+        | ``Read Checkbox Cell     row_locator     column``
+        """
+
+        args: list = [
+            row_locator,
+            column
+        ]
+        kwargs: dict = {
+            "table_number": table_number
+        }
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The cell with the locator '{0}, {1}' could not be found. Hints: Check the spelling, maximize the SAP window",
+            "NoTable": "The window contains no table.",
+            "InvalidTable": "The window contains no table with index {0}.",
+            "Pass": "The checkbox cell with the locator '{0}, {1}' was read.",
+            "Exception": "The cell could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('ReadCheckBoxCell', args, kwargs, result) # type: ignore
+    
     @keyword('Save Screenshot') # type: ignore
     def save_screenshot(self, destination: str): # type: ignore
         """
@@ -1791,4 +1823,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.25.1'
+    ROBOT_LIBRARY_VERSION = '2.26.0'

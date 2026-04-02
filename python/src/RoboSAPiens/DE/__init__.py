@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.25.1"
+__version__ = "2.26.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -1120,6 +1120,38 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('ReadCell', args, kwargs, result) # type: ignore
     
+    @keyword('Tabellenzelle-Formularfeld auslesen') # type: ignore
+    def read_check_box_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
+        """
+        Der Status des Formularfelds in der Zelle am Schnittpunkt der Zeile und der Spalte wird zurückgegeben.
+        
+        | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
+        | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
+        | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
+        
+        Beispiele:
+        
+        | ``Tabellenzelle-Formularfeld auslesen     Zeile     Spaltentitel``
+        """
+
+        args: list = [
+            Zeile,
+            Spaltentitel
+        ]
+        kwargs: dict = {
+            "tabelle_nummer": tabelle_nummer
+        }
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "NotFound": "Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden. Hinweise: Prüfe die Rechtschreibung, maximiere das SAP Fenster",
+            "NoTable": "Die Maske enthält keine Tabelle.",
+            "InvalidTable": "Die Maske enthält keine Tabelle mit dem Index {0}.",
+            "Pass": "Das Formularfeld in der Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen.",
+            "Exception": "Die Zelle konnte nicht ausgelesen werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('ReadCheckBoxCell', args, kwargs, result) # type: ignore
+    
     @keyword('Fenster aufnehmen') # type: ignore
     def save_screenshot(self, Speicherort: str): # type: ignore
         """
@@ -1789,4 +1821,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.25.1'
+    ROBOT_LIBRARY_VERSION = '2.26.0'

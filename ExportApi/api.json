@@ -832,6 +832,42 @@
         "examples": ""
       }
     },
+    "ReadCheckBoxCell": {
+      "name": "Tabellenzelle-Formularfeld auslesen",
+      "args": {
+        "row_locator": {
+          "name": "row_locator",
+          "desc": "",
+          "spec": {}
+        },
+        "column": {
+          "name": "column",
+          "desc": "",
+          "spec": {}
+        }
+      },
+      "kwargs": {
+        "tableNumber": {
+          "name": "tableNumber",
+          "desc": "",
+          "default": null,
+          "type": "Int32",
+          "spec": {}
+        }
+      },
+      "result": {
+        "InvalidTable": "InvalidTable",
+        "NoSession": "NoSession",
+        "NotFound": "NotFound",
+        "NoTable": "NoTable",
+        "Pass": "Pass",
+        "Exception": "Exception"
+      },
+      "doc": {
+        "desc": "Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.",
+        "examples": ""
+      }
+    },
     "SaveScreenshot": {
       "name": "Fenster aufnehmen",
       "args": {

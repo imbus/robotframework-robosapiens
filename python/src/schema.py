@@ -99,6 +99,15 @@ class RoboSAPiensKeywordsScrolltextfieldcontentsArgsDirectionSpec(TypedDict):
 class RoboSAPiensKeywordsSavescreenshotArgsFilepathSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsReadcheckboxcellKwargsTablenumberSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsReadcheckboxcellArgsColumnSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsReadcheckboxcellArgsRow_LocatorSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsReadcellKwargsTablenumberSpec(TypedDict):
     ...
 
@@ -411,6 +420,23 @@ class RoboSAPiensKeywordsSavescreenshotArgsFilepath(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsSavescreenshotArgsFilepathSpec
+
+class RoboSAPiensKeywordsReadcheckboxcellKwargsTablenumber(TypedDict):
+    name: str
+    desc: str
+    default: Literal[None]
+    type: Literal[r'int']
+    spec: RoboSAPiensKeywordsReadcheckboxcellKwargsTablenumberSpec
+
+class RoboSAPiensKeywordsReadcheckboxcellArgsColumn(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsReadcheckboxcellArgsColumnSpec
+
+class RoboSAPiensKeywordsReadcheckboxcellArgsRow_Locator(TypedDict):
+    name: str
+    desc: str
+    spec: RoboSAPiensKeywordsReadcheckboxcellArgsRow_LocatorSpec
 
 class RoboSAPiensKeywordsReadcellKwargsTablenumber(TypedDict):
     name: str
@@ -1005,6 +1031,25 @@ class RoboSAPiensKeywordsSavescreenshotKwargs(TypedDict):
 
 class RoboSAPiensKeywordsSavescreenshotArgs(TypedDict):
     filepath: RoboSAPiensKeywordsSavescreenshotArgsFilepath
+
+class RoboSAPiensKeywordsReadcheckboxcellDoc(TypedDict):
+    desc: str
+    examples: str
+
+class RoboSAPiensKeywordsReadcheckboxcellResult(TypedDict):
+    InvalidTable: str
+    NoSession: str
+    NotFound: str
+    NoTable: str
+    Pass: str
+    Exception: str
+
+class RoboSAPiensKeywordsReadcheckboxcellKwargs(TypedDict):
+    tableNumber: RoboSAPiensKeywordsReadcheckboxcellKwargsTablenumber
+
+class RoboSAPiensKeywordsReadcheckboxcellArgs(TypedDict):
+    a1row_locator: RoboSAPiensKeywordsReadcheckboxcellArgsRow_Locator
+    a2column: RoboSAPiensKeywordsReadcheckboxcellArgsColumn
 
 class RoboSAPiensKeywordsReadcellDoc(TypedDict):
     desc: str
@@ -1671,6 +1716,13 @@ class RoboSAPiensKeywordsSavescreenshot(TypedDict):
     result: RoboSAPiensKeywordsSavescreenshotResult
     doc: RoboSAPiensKeywordsSavescreenshotDoc
 
+class RoboSAPiensKeywordsReadcheckboxcell(TypedDict):
+    name: str
+    args: RoboSAPiensKeywordsReadcheckboxcellArgs
+    kwargs: RoboSAPiensKeywordsReadcheckboxcellKwargs
+    result: RoboSAPiensKeywordsReadcheckboxcellResult
+    doc: RoboSAPiensKeywordsReadcheckboxcellDoc
+
 class RoboSAPiensKeywordsReadcell(TypedDict):
     name: str
     args: RoboSAPiensKeywordsReadcellArgs
@@ -1933,6 +1985,7 @@ class RoboSAPiensKeywords(TypedDict):
     ReadTextField: RoboSAPiensKeywordsReadtextfield
     ReadText: RoboSAPiensKeywordsReadtext
     ReadCell: RoboSAPiensKeywordsReadcell
+    ReadCheckBoxCell: RoboSAPiensKeywordsReadcheckboxcell
     SaveScreenshot: RoboSAPiensKeywordsSavescreenshot
     ScrollTextFieldContents: RoboSAPiensKeywordsScrolltextfieldcontents
     ScrollWindowHorizontally: RoboSAPiensKeywordsScrollwindowhorizontally
