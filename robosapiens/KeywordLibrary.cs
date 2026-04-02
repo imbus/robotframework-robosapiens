@@ -678,6 +678,17 @@ namespace RoboSAPiens
             };
         }
 
+        [Keyword("Tabellenzelle-Formularfeld auslesen"),
+         Doc("Der Status des Formularfelds in der angegebenen Tabellenzelle wird zurückgegeben.\n\n" +
+             "| ``Tabellenzelle-Formularfeld auslesen     Positionsgeber     Spaltentitel``\n" +
+             "Positionsgeber: Zeilennummer oder Zellinhalt.")]
+        public RobotResult ReadCheckBoxCell(string row_locator, string column, int? tableNumber=null) {
+            return session switch {
+                SAPSession session when session.isActive => session.readCheckBoxCell(row_locator, column, tableNumber),
+                _ => new Result.ReadCheckBoxCell.NoSession()
+            };
+        }
+
         [Keyword("Fenster aufnehmen"),
          Doc("Eine Bildschirmaufnahme des Fensters wird im eingegebenen Dateipfad gespeichert.\n\n" +
              "| ``Fenster aufnehmen     Dateipfad``\n" +

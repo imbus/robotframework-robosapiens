@@ -811,6 +811,34 @@ namespace RoboSAPiens {
             }
         }
 
+        public RobotResult readCheckBoxCell(string rowNumberOrButtonLabel, string column, int? tableNumber)
+        {
+            switch (updateComponentsIfWindowChanged()) {
+                case RobotResult.UIScanFail exceptionError: return exceptionError;
+            }
+
+            var tables = window.components.getTables();
+            if (tableNumber != null && tableNumber > tables.Count)
+                return new Result.ReadCheckBoxCell.InvalidTable((int)tableNumber);
+
+            var locator = CellLocator.of(rowNumberOrButtonLabel, column);
+            var cell = window.components.findCell(locator, session, tableNumber);
+
+            if (cell == null) {
+                return new Result.ReadCheckBoxCell.NotFound(locator.location);
+            }
+
+            if (options.presenterMode) highlightCell(cell);
+
+            try {
+                return new Result.ReadCheckBoxCell.Pass(cell.isChecked(session), locator.location);
+            }
+            catch (Exception e) {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.ReadCheckBoxCell.Exception(e);
+            }
+        }
+
         public RobotResult readTextField(string labels) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;

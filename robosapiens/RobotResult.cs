@@ -293,6 +293,15 @@ namespace RoboSAPiens {
             public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht ausgelesen werden.");
         }
 
+        public record ReadCheckBoxCell {
+            public record InvalidTable(int tableNumber): RobotResult.RobotFail("InvalidTable", $"Die Maske enthält keine Tabelle mit Index {tableNumber}'.");
+            public record NoSession(): RobotResult.NoSession();
+            public record NotFound(string locator): RobotResult.NotFound($"Die Zelle mit dem Lokator '{locator}' wurde nicht gefunden.");
+            public record NoTable(): RobotResult.NotFound("Die Maske enthält keine Tabelle.");
+            public record Pass(bool checkBoxChecked, string locator): RobotResult.RobotPass($"Die Zelle mit dem Lokator '{locator}' wurde ausgelesen.", returnValue: checkBoxChecked);
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die Zelle konnte nicht ausgelesen werden.");
+        }
+
         public record SaveScreenshot {
             public record NoSession(): RobotResult.NoSession();
             public record UNCPath(): RobotResult.RobotFail("UNCPath", "Ein UNC Pfad ist nicht erlaubt");

@@ -1286,6 +1286,48 @@ lib: LocalizedRoboSAPiens = {
               )
             }
         },
+        "ReadCheckBoxCell": {
+            "name": ("2343093819", "Tabellenzelle-Formularfeld auslesen"),
+            "args": {
+              "a1row_locator": {
+                "name": ("315353924", "Zeile"),
+                "desc": ("2714474921", row_locator),
+                "spec": {},
+              },
+              "a2column": {
+                "name": ("2102626174", "Spaltentitel"),
+                "desc": ("245054585", column),
+                "spec": {},
+              }
+            },
+            "kwargs": {
+                "tableNumber": {
+                  "name": ("3359775383", "tabelle_nummer"),
+                  "desc": ("4055958951", "Spezifiziert welche Tabelle: 1, 2, ..."),
+                  "default": None,
+                  "type": "int",
+                  "spec": {}
+              } 
+            },
+            "result": {
+              "NoSession": ("4138997384", no_session),
+              "NotFound": ("3279676079", button_or_cell_not_found("Die Zelle mit dem Lokator '{0}, {1}' wurde nicht gefunden.")),
+              "NoTable": ("2399256699", "Die Maske enthält keine Tabelle."),
+              "InvalidTable": ("2205241003", "Die Maske enthält keine Tabelle mit dem Index {0}."),
+              "Pass": ("681803888", "Das Formularfeld in der Zelle mit dem Lokator '{0}, {1}' wurde ausgelesen."),
+              "Exception": ("1272098876", exception("Die Zelle konnte nicht ausgelesen werden."))
+            },
+            "doc": {
+                "desc": ("4207623626", "Der Status des Formularfelds in der Zelle am Schnittpunkt der Zeile und der Spalte wird zurückgegeben."),
+                "examples": ("3844296968", 
+                """
+                Beispiele:
+                
+                | ``Tabellenzelle-Formularfeld auslesen     Zeile     Spaltentitel``
+                """
+              )
+            }
+        },
         "SaveScreenshot": {
             "name": ("2178392450", "Fenster aufnehmen"),
             "args": {

@@ -27,8 +27,9 @@ namespace RoboSAPiens
         public RobotResult PressKeyCombination(string keyCombination, int? tableNumber=null);
         public RobotResult PushButton(string button, bool exact=false, int? tableNumber=null);
         public RobotResult PushButtonCell(string row_locator, string column, int? tableNumber=null);
-        public RobotResult ReadCheckBox(string locator);
         public RobotResult ReadCell(string row_locator, string column, int? tableNumber=null);
+        public RobotResult ReadCheckBox(string locator);
+        public RobotResult ReadCheckBoxCell(string row_locator, string column, int? tableNumber=null);
         public RobotResult ReadComboBoxEntry(string comboBox);
         public RobotResult ReadStatusbar();
         public RobotResult ReadText(string locator);
@@ -39,10 +40,10 @@ namespace RoboSAPiens
         public RobotResult ScrollWindowHorizontally(string direction);
         public RobotResult SelectCell(string row_locator, string column, int? tableNumber=null);
         public RobotResult SelectCellValue(string row_locator, string column, string entry, int? tableNumber=null);
-        public RobotResult SelectTableColumn(string column, int tableNumber=1);
         public RobotResult SelectComboBoxEntry(string comboBox, string entry);
         public RobotResult SelectMenuItem(string itemPath);
         public RobotResult SelectRadioButton(string locator);
+        public RobotResult SelectTableColumn(string column, int tableNumber=1);
         public RobotResult SelectTableRow(string row_locator, int tableNumber=1);
         public RobotResult SelectText(string locator);
         public RobotResult SelectTextField(string locator);

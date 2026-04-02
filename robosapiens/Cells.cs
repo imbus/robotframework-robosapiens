@@ -30,6 +30,7 @@ namespace RoboSAPiens
         public abstract string getValue(GuiSession session);
         public abstract void highlight(GuiSession session);
         public abstract bool isChangeable(GuiSession session);
+        public abstract bool isChecked(GuiSession session);
         public abstract void setValue(string value, GuiSession session);
         public abstract void tickCheckbox(GuiSession session);
         public abstract void untickCheckbox(GuiSession session);
@@ -109,6 +110,17 @@ namespace RoboSAPiens
         {
             var cell = (GuiVComponent)session.FindById(id);
             return cell.Changeable;
+        }
+
+        public override bool isChecked(GuiSession session)
+        {
+            if (type == CellType.CheckBox)
+            {
+                var cell = (GuiCheckBox)session.FindById(id);
+                return cell.Selected;
+            }
+
+            throw new Exception("The cell does not contain a checkbox");
         }
 
         public override void setValue(string value, GuiSession session)
@@ -208,6 +220,17 @@ namespace RoboSAPiens
             };
         }
 
+        public override bool isChecked(GuiSession session)
+        {
+            if (type == CellType.CheckBox)
+            {
+                var gridView = (GuiGridView)session.FindById(gridViewId);
+                return gridView.GetCellCheckBoxChecked(rowIndex, columnId);
+            }
+
+            throw new Exception("The cell does not contain a checkbox");
+        }
+
         public override void setValue(string value, GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
@@ -292,6 +315,17 @@ namespace RoboSAPiens
             return ((GuiVComponent)session.FindById(id)).Changeable;
         }
 
+        public override bool isChecked(GuiSession session)
+        {
+            if (type == CellType.CheckBox)
+            {
+                var cell = (GuiCheckBox)session.FindById(id);
+                return cell.Selected;
+            }
+
+            throw new Exception("The cell does not contain a checkbox");
+        }
+
         public override void setValue(string value, GuiSession session)
         {
             var cell = session.FindById(id);
@@ -373,6 +407,17 @@ namespace RoboSAPiens
         {
             var tree = (GuiTree)session.FindById(treeId);
             return !tree.GetIsDisabled(nodeKey, columnName);
+        }
+
+        public override bool isChecked(GuiSession session)
+        {
+            if (type == CellType.CheckBox)
+            {
+                var tree = (GuiTree)session.FindById(treeId);
+                return tree.GetCheckBoxState(nodeKey, columnName);
+            }
+
+            throw new Exception("The cell does not contain a checkbox");
         }
 
         public void select(GuiTree tree)

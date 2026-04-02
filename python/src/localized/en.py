@@ -1276,6 +1276,47 @@ lib: RoboSAPiens = {
                 """
             }
         },
+        "ReadCheckBoxCell": {
+            "name": "Read Checkbox Cell",
+            "args": {
+                "a1row_locator": {
+                    "name": "row_locator",
+                    "desc": row_locator,
+                    "spec": {},
+                },
+                "a2column": {
+                    "name": "column",
+                    "desc": column,
+                    "spec": {},
+                }
+            },
+            "kwargs": {
+                "tableNumber": {
+                    "name": "table_number",
+                    "desc": "Specify which table: 1, 2, ...",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
+                }
+            },
+            "result": {
+                "NoSession": no_session,
+                "NotFound": button_or_cell_not_found("The cell with the locator '{0}, {1}' could not be found."),
+                "NoTable": "The window contains no table.",
+                "InvalidTable": "The window contains no table with index {0}.",
+                "Pass": "The checkbox cell with the locator '{0}, {1}' was read.",
+                "Exception": exception("The cell could not be read. {0}")
+            },
+            "doc": {
+                "desc": "Read the state of the checkbox cell at the intersection of the row and column provided.",
+                "examples":
+                """
+                Examples:
+                
+                | ``Read Checkbox Cell     row_locator     column``
+                """
+            }
+        },
         "SaveScreenshot": {
             "name": "Save Screenshot",
             "args": {
