@@ -9,11 +9,11 @@ CLASSIFIERS = """Development Status :: 5 - Production/Stable
 Operating System :: Microsoft :: Windows :: Windows 10
 Programming Language :: Python
 Programming Language :: Python :: 3
-Programming Language :: Python :: 3.8
-Programming Language :: Python :: 3.9
 Programming Language :: Python :: 3.10
 Programming Language :: Python :: 3.11
 Programming Language :: Python :: 3.12
+Programming Language :: Python :: 3.13
+Programming Language :: Python :: 3.14
 Topic :: Software Development :: Testing
 """
 
@@ -37,5 +37,5 @@ setup(
     install_requires=[
         'robotframework>=5.0.1',
     ],
-    python_requires='>=3.8.2'
+    python_requires='>=3.10'
 )
