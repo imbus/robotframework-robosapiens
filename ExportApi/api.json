@@ -864,7 +864,7 @@
         "Exception": "Exception"
       },
       "doc": {
-        "desc": "Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.",
+        "desc": "Der Status des Formularfelds in der angegebenen Tabellenzelle wird zurückgegeben.\n\n| ``Tabellenzelle-Formularfeld auslesen     Positionsgeber     Spaltentitel``\nPositionsgeber: Zeilennummer oder Zellinhalt.",
         "examples": ""
       }
     },
