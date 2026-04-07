@@ -61,7 +61,6 @@ namespace RoboSAPiens
 
         public void classifyCells(GuiSession session) 
         {
-            treeElements = new TreeElementStore();
             var tree = (GuiTree)session.FindById(id);
             var columnNames = (GuiCollection)tree.GetColumnNames();
             var firstVisibleRow = tree.GetNodeIndex(tree.TopNode);
@@ -75,18 +74,10 @@ namespace RoboSAPiens
                 var text = getText(tree, nodeKey);
                 var textPath = getTextPath(tree, nodePath, text);
         
-                if (columnNames == null)
-                {
-                    treeElements.Add(new SAPTreeElement(this, nodeKey, nodePath, textPath));
-                }
-                else
+                if (columnNames != null)
                 {
                     for (int colIndex0 = 0; colIndex0 < columnNames.Length; colIndex0++) 
                     {
-                        if (colIndex0 == 0) {
-                            treeElements.Add(new SAPTreeElement(this, nodeKey, nodePath, textPath));
-                        }
-
                         var columnName = (string)columnNames.ElementAt(colIndex0);
                         if (columnName == null) continue;
 
@@ -121,6 +112,23 @@ namespace RoboSAPiens
                         }
                     }
                 }
+            }
+        }
+
+        public void classifyTreeElements(GuiSession session)
+        {
+            treeElements = new TreeElementStore();
+            var tree = (GuiTree)session.FindById(id);
+            var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
+
+            for (int nodeIndex = 0; nodeIndex < nodeKeys.Count; nodeIndex++) 
+            {
+                var nodeKey = (string)nodeKeys.ElementAt(nodeIndex);
+                var nodePath = tree.GetNodePathByKey(nodeKey);
+                var text = getText(tree, nodeKey);
+                var textPath = getTextPath(tree, nodePath, text);
+        
+                treeElements.Add(new SAPTreeElement(this, nodeKey, nodePath, textPath));
             }
         }
 
@@ -186,7 +194,7 @@ namespace RoboSAPiens
         }
 
         public SAPTreeElement? findTreeElement(string folderPath, GuiSession session) {
-            if (treeElements.Count == 0) classifyCells(session);
+            if (treeElements.Count == 0) classifyTreeElements(session);
             return treeElements.get(folderPath);
         }
 
