@@ -31,6 +31,16 @@ namespace RoboSAPiens
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProcessDpiAwarenessContext(int dpi_awareness_cxt);
+
+        public const int DPI_AWARENESS_CONTEXT_UNAWARE = -1;
+        public const int DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = -2;
+        public const int DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE = -3;
+        public const int DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = -4;
+        public const int DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED = -5;
+
         // This is necessary when the SAP window contains an embedded Edge browser
         // Without this flag the embedded browser is absent in the screenshot
         const UInt32 PW_RENDERFULLCONTENT = 0x00000002;
@@ -38,6 +48,7 @@ namespace RoboSAPiens
 
         public static byte[] saveWindowImage(IntPtr windowHandle, bool screenshot)
         {
+            SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
             var rect = new Rect();
             var src = GetDC(IntPtr.Zero);
             GetWindowRect(windowHandle, ref rect);
