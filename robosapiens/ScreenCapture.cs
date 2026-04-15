@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace RoboSAPiens 
 {
@@ -31,6 +32,10 @@ namespace RoboSAPiens
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetForegroundWindow(IntPtr hwnd);
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetProcessDpiAwarenessContext(int dpi_awareness_cxt);
@@ -52,14 +57,18 @@ namespace RoboSAPiens
             var rect = new Rect();
             var src = GetDC(IntPtr.Zero);
             GetWindowRect(windowHandle, ref rect);
-            var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
+            var height = rect.Bottom - rect.Top;
+            var width = rect.Right - rect.Left;
+            var bounds = new Rectangle(rect.Left, rect.Top, width, height);
             var bitmap = new Bitmap(bounds.Width, bounds.Height);
             using (var graphics = Graphics.FromImage(bitmap))
             using (var stream = new MemoryStream())
             {
                 IntPtr deviceContext = graphics.GetHdc();
                 if (screenshot) {
-                    BitBlt(deviceContext, 0, 0, rect.Right - rect.Left, rect.Bottom - rect.Top, src, rect.Left, rect.Top, SRCCOPY);
+                    SetForegroundWindow(windowHandle);
+                    Thread.Sleep(100);
+                    BitBlt(deviceContext, 0, 0, width, height, src, rect.Left, rect.Top, SRCCOPY);
                 }
                 else {
                     PrintWindow(windowHandle, deviceContext, PW_RENDERFULLCONTENT);
