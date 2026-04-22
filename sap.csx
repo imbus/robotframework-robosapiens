@@ -68,7 +68,7 @@ var session = getSession();
 record Event(string componentId, string name, List<object> values, string type) {
     public override string ToString()
     {
-        return $" Name: {name} | Values: {string.Join(", ", values)} | Type: {type}";
+        return $"Name: {name} | Values: {string.Join(", ", values)} | Type: {type}";
     }
 }
 var eventLog = new List<Event>();
@@ -120,7 +120,10 @@ string getObjectTree(string componentId)
     ).Replace("\\", "");
 }
 
-var saveWindowTree = () => File.WriteAllText(
-    Path.Combine(Directory.GetCurrentDirectory(), "sap.json"),
-    getObjectTree(session.ActiveWindow.Id)
-);
+void saveWindowTree()
+{
+    File.WriteAllText(
+        Path.Combine(Directory.GetCurrentDirectory(), "sap.json"),
+        getObjectTree(session.ActiveWindow.Id)
+    );
+}
