@@ -1,4 +1,8 @@
+// VS Code: Disable C# Dev Kit, in the C# extension enable useOmniSharp
 // dotnet tool install -g csharprepl
+// csharprepl
+// #r "robosapiens/lib/saprotwr.net.dll"
+// #r "robosapiens/lib/sapfewse.dll"
 // #load "sap.csx"
 
 #r "robosapiens/lib/sapfewse.dll"
