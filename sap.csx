@@ -42,12 +42,15 @@ void refresh()
     session = getSession();
 }
 
-var getWindowTree = () => session.GetObjectTree(
-    session.ActiveWindow.Id,
-    new string[] { "Id", "Top", "Left", "Width", "Height", "Text", "Type" }
+string getObjectTree(string componentId)
+{
+    return session.GetObjectTree(
+        componentId,
+        new string[] { "Id", "Type", "SubType", "Top", "Left", "Width", "Height", "Text", "Tooltip"}
 ).Replace("\\", "");
+}
 
 var saveWindowTree = () => File.WriteAllText(
     Path.Combine(Directory.GetCurrentDirectory(), "sap.json"),
-    getWindowTree()
+    getObjectTree(session.ActiveWindow.Id)
 );
