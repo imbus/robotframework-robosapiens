@@ -16,13 +16,7 @@ using saprotwr.net;
 GuiSession getSession()
 {
     var rot = new CSapROTWrapper();
-    var sapGui = rot.GetROTEntry("SAPGUI");
-
-    if (sapGui == null)
-    {
-        throw new Exception("SAP Logon is not running.");
-    }
-
+    var sapGui = rot.GetROTEntry("SAPGUI") ?? throw new Exception("SAP Logon is not running.");
     var sap = (GuiApplication)sapGui.GetType().InvokeMember(
         "GetScriptingEngine",
         BindingFlags.InvokeMethod,
@@ -30,9 +24,15 @@ GuiSession getSession()
         sapGui,
         null
     );
-
+    try
+    {
     var connection = (GuiConnection)sap.Connections.ElementAt(0);
     return (GuiSession)connection.Sessions.ElementAt(0);
+    }
+    catch (Exception)
+    {
+        throw new Exception("Not connected to any SAP system.");
+    }
 }
 
 var session = getSession();
