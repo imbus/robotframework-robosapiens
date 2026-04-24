@@ -66,10 +66,10 @@ GuiSession getSession()
 var session = getSession();
 session.Destroy += handleDestroy;
 
-record Event(string componentId, string name, List<object> values, string type) {
+record Event(string componentId, string componentType, string type, string name, List<object> values) {
     public override string ToString()
     {
-        return $"Name: {name} | Values: {string.Join(", ", values)} | Type: {type}";
+        return $"Type: {type} | Name: {name} | Values: {string.Join(", ", values)}";
     }
 }
 var eventLog = new List<Event>();
@@ -79,18 +79,20 @@ void handleChange(GuiSession session, GuiComponent component, object commmandArr
 {
     var commands = (object[])commmandArray;
     var lastCommand = (object[])commands[^1];
+    var type = lastCommand[0].ToString() switch {
+        "M" => "Method",
+        "SP" => "Property",
+        _ => throw new Exception("Unknown type")
+    };
     var name = lastCommand[1].ToString();
     var values = lastCommand[2..].ToList();
-    var type = lastCommand[0].ToString();
-    var e = new Event(component.Id, name, values, type);
+    var e = new Event(component.Id, component.Type, type, name, values);
     eventLog.Add(e);
+    Console.WriteLine(component.Id);
+    Console.WriteLine(component.Type);
     Console.WriteLine(e);
 
-    if (component.Type.EndsWith("Window"))
-    {
-        Console.WriteLine(component.Id);
-    }
-    else
+    if (!component.Type.EndsWith("Window"))
     {
         Console.WriteLine(JsonToYaml(getObjectTree(component.Id)));
     }
