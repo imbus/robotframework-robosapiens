@@ -67,6 +67,25 @@ var session = getSession();
 session.Destroy += handleDestroy;
 
 record Event(string componentId, string componentType, string type, string name, List<object> values) {
+    public string serialize()
+    {
+        var capitalize = (string s) => char.ToUpper(s[0]) + s[1..];
+        var formatValue = (object val) => val switch
+        {
+            bool b => val.ToString().ToLower(),
+            string s => $"\"{s}\"",
+            _ => val.ToString()
+        };
+        var target = $"""(({componentType})session.FindById("{componentId}")).{capitalize(name)}""";
+
+        return type switch
+        {
+            "Method" => target + "(" + string.Join(", ", values.Select(formatValue)) + ")",
+            "Property" => target + " = " + formatValue(values[0]),
+            _ => throw new Exception("Unknown event type")
+        };
+    }
+
     public override string ToString()
     {
         return $"Type: {type} | Name: {name} | Values: {string.Join(", ", values)}";
@@ -126,6 +145,50 @@ string getObjectTree(string componentId)
         componentId,
         new string[] { "Id", "Type", "SubType", "Top", "Left", "Width", "Height", "Text", "Tooltip"}
     ).Replace("\\", "");
+}
+
+void saveRecording(string filename)
+{
+    var preamble = """
+    // dotnet tool install -g dotnet-script
+    // dotnet script script.csx
+    #r "robosapiens/lib/sapfewse.dll"
+    #r "robosapiens/lib/saprotwr.net.dll"
+
+    using System.Reflection;
+    using sapfewse;
+    using saprotwr.net;
+
+    GuiSession getSession()
+    {
+        var rot = new CSapROTWrapper();
+        var sapGui = rot.GetROTEntry("SAPGUI") ?? throw new Exception("SAP Logon is not running.");
+        var sap = (GuiApplication)sapGui.GetType().InvokeMember(
+            "GetScriptingEngine",
+            BindingFlags.InvokeMethod,
+            null,
+            sapGui,
+            null
+        );
+        try
+        {
+            var connection = (GuiConnection)sap.Connections.ElementAt(0);
+            return (GuiSession)connection.Sessions.ElementAt(0); 
+        }
+        catch (Exception)
+        {
+            throw new Exception("Not connected to any SAP system.");
+        }
+    }
+
+    var session = getSession();
+
+    """;
+
+    File.WriteAllText(
+        Path.Combine(Directory.GetCurrentDirectory(), filename),
+        preamble + string.Join(";" + Environment.NewLine, eventLog.Select(e => e.serialize()))
+    );
 }
 
 void saveWindowTree()
