@@ -64,6 +64,7 @@ GuiSession getSession()
 }
 
 var session = getSession();
+session.Destroy += handleDestroy;
 
 record Event(string componentId, string name, List<object> values, string type) {
     public override string ToString()
@@ -93,6 +94,11 @@ void handleChange(GuiSession session, GuiComponent component, object commmandArr
     {
         Console.WriteLine(JsonToYaml(getObjectTree(component.Id)));
     }
+}
+
+void handleDestroy(GuiSession session)
+{
+    recordStop();
 }
 
 void recordStart()
