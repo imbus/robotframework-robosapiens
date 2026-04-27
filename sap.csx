@@ -66,17 +66,21 @@ GuiSession getSession()
 var session = getSession();
 session.Destroy += handleDestroy;
 
+static string capitalize(string s)
+{
+    return char.ToUpper(s[0]) + s[1..];
+}
+
 record Event(string componentId, string componentType, string type, string name, List<object> values) {
     public string serialize()
     {
-        var capitalize = (string s) => char.ToUpper(s[0]) + s[1..];
         var formatValue = (object val) => val switch
         {
             bool b => val.ToString().ToLower(),
             string s => $"\"{s}\"",
             _ => val.ToString()
         };
-        var target = $"""(({componentType})session.FindById("{componentId}")).{capitalize(name)}""";
+        var target = $"""(({componentType})session.FindById("{componentId}")).{name}""";
 
         return type switch
         {
@@ -103,9 +107,14 @@ void handleChange(GuiSession session, GuiComponent component, object commmandArr
         "SP" => "Property",
         _ => throw new Exception("Unknown type")
     };
-    var name = lastCommand[1].ToString();
+    var name = capitalize(lastCommand[1].ToString());
     var values = lastCommand[2..].ToList();
-    var e = new Event(component.Id, component.Type, type, name, values);
+    var componentType = component.Type switch
+    {
+        "GuiShell" => "Gui" + ((GuiShell)component).SubType,
+        _ => component.Type
+    };
+    var e = new Event(component.Id, componentType, type, name, values);
     eventLog.Add(e);
     Console.WriteLine(component.Id);
     Console.WriteLine(component.Type);
