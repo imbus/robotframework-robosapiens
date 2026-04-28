@@ -2,9 +2,8 @@
 // dotnet tool install -g csharprepl
 // csharprepl
 // #r "nuget: YamlDotNet, 17.0.1"
-// #r "robosapiens/lib/saprotwr.net.dll"
-// #r "robosapiens/lib/sapfewse.dll"
 // #load "sap.csx"
+// using sapfewse;
 
 #r "robosapiens/lib/sapfewse.dll"
 #r "robosapiens/lib/saprotwr.net.dll"
