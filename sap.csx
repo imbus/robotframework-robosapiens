@@ -64,7 +64,6 @@ GuiSession getSession()
 }
 
 var session = getSession();
-session.Destroy += handleDestroy;
 
 static string capitalize(string s)
 {
@@ -135,6 +134,7 @@ void handleDestroy(GuiSession session)
 void recordStart()
 {
     session.Change += handleChange;
+    session.Destroy += handleDestroy;
     session.Record = true;
 }
 
@@ -142,6 +142,7 @@ void recordStop()
 {
     session.Record = false;
     session.Change -= handleChange;
+    session.Destroy -= handleDestroy;
 }
 
 void refresh()
