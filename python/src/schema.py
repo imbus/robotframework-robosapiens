@@ -1448,6 +1448,7 @@ class RoboSAPiensKeywordsClosesapDoc(TypedDict):
 class RoboSAPiensKeywordsClosesapResult(TypedDict):
     NoSapGui: str
     Pass: str
+    Exception: str
 
 class RoboSAPiensKeywordsClosesapKwargs(TypedDict):
     ...

@@ -192,7 +192,8 @@
       "kwargs": {},
       "result": {
         "NoSapGui": "NoSapGui",
-        "Pass": "Pass"
+        "Pass": "Pass",
+        "Exception": "Exception"
       },
       "doc": {
         "desc": "Die SAP GUI wird beendet.",

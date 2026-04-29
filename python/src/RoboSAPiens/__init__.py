@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.26.4"
+__version__ = "2.26.5"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -487,6 +487,7 @@ class RoboSAPiens(RoboSAPiensClient):
         }
         
         result = {
+            "Exception": "The SAP GUI could not be closed. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html",
             "NoSapGui": "No open SAP GUI found. Call the keyword \"Open SAP\" first.",
             "Pass": "The SAP GUI was closed."
         }
@@ -1823,4 +1824,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.26.4'
+    ROBOT_LIBRARY_VERSION = '2.26.5'

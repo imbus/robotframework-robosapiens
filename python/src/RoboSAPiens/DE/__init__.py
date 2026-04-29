@@ -1,7 +1,7 @@
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.26.4"
+__version__ = "2.26.5"
 
 class DE(RoboSAPiensClient):
     """
@@ -486,6 +486,7 @@ class DE(RoboSAPiensClient):
         }
         
         result = {
+            "Exception": "Die SAP GUI konnte nicht beendet werden. {0}\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen.",
             "NoSapGui": "Keine laufende SAP GUI gefunden. Das Keyword \"SAP starten\" muss zuerst aufgerufen werden.",
             "Pass": "Die SAP GUI wurde beendet"
         }
@@ -1821,4 +1822,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.26.4'
+    ROBOT_LIBRARY_VERSION = '2.26.5'

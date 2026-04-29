@@ -1446,6 +1446,7 @@ class LocalizedRoboSAPiensKeywordsClosesapDoc(TypedDict):
     examples: Tuple[Literal['1734451664'], str]
 
 class LocalizedRoboSAPiensKeywordsClosesapResult(TypedDict):
+    Exception: Tuple[Literal['1340372267'], str]
     NoSapGui: Tuple[Literal['2987622841'], str]
     Pass: Tuple[Literal['2970606098'], str]
 
