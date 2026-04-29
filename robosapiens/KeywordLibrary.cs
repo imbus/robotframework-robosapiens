@@ -189,15 +189,23 @@ namespace RoboSAPiens
          Doc("Die SAP GUI wird beendet.")]
         public RobotResult CloseSap()
         {
-            var saplogon = Process.GetProcessesByName("saplogon").FirstOrDefault();
-
-            if (saplogon != null)
+            try
             {
-                saplogon.Kill();
-                return new Result.CloseSap.Pass();
+                var saplogon = Process.GetProcessesByName("saplogon").FirstOrDefault();
+
+                if (saplogon != null)
+                {
+                    saplogon.Kill();
+                    return new Result.CloseSap.Pass();
+                }
+                else {
+                    return new Result.CloseSap.NoSapGui();
+                }  
             }
-            else {
-                return new Result.CloseSap.NoSapGui();
+            catch (Exception e)
+            {
+                if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
+                return new Result.CloseSap.Exception(e);
             }
         }
 

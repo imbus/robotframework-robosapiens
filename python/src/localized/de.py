@@ -517,6 +517,7 @@ lib: LocalizedRoboSAPiens = {
             "args": {},
             "kwargs": {},
             "result": {
+              "Exception": ("1340372267", exception("Die SAP GUI konnte nicht beendet werden. {0}")),
               "NoSapGui": ("2987622841", no_sap_gui),
               "Pass": ("2970606098", "Die SAP GUI wurde beendet")
             },

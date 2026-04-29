@@ -507,6 +507,7 @@ lib: RoboSAPiens = {
             "args": {},
             "kwargs": {},
             "result": {
+                "Exception": exception("The SAP GUI could not be closed. {0}"),
                 "NoSapGui": no_sap_gui,
                 "Pass": "The SAP GUI was closed."
             },

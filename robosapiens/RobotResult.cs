@@ -91,6 +91,7 @@ namespace RoboSAPiens {
         public record CloseSap {
             public record NoSapGui(): RobotResult.NoSapGui();
             public record Pass(): RobotResult.RobotPass("Die SAP GUI wurde beendet");
+            public record Exception(System.Exception e): RobotResult.ExceptionError(e, "Die SAP GUI konnte nicht geschlossen werden.");
         }
 
         public record CloseWindow {
