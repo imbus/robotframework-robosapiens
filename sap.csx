@@ -10,6 +10,7 @@
 #r "nuget: YamlDotNet, 17.0.1"
 
 using System.Reflection;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using sapfewse;
 using saprotwr.net;
@@ -154,6 +155,16 @@ string getObjectTree(string componentId)
         componentId,
         new string[] { "Id", "Type", "SubType", "Top", "Left", "Width", "Height", "Text", "Tooltip"}
     ).Replace("\\", "");
+}
+
+void saveEventLog(string filename)
+{
+    var json = JsonSerializer.Serialize(eventLog);
+
+    File.WriteAllText(
+        Path.Combine(Directory.GetCurrentDirectory(), filename),
+        JsonToYaml(json)    
+    );
 }
 
 void saveRecording(string filename)
