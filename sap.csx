@@ -110,11 +110,8 @@ void handleChange(GuiSession session, GuiComponent component, object commmandArr
     var values = lastCommand[2..].ToList();
     var componentType = component.Type switch
     {
-        "GuiShell" => "Gui" + ((GuiShell)component).SubType switch
-        {
-            "DockShell" => "ContainerShell",
-            string subtype => subtype
-        },
+        "GuiDockShell" => "GuiContainerShell",
+        "GuiShell" => "Gui" + ((GuiShell)component).SubType,
         _ => component.Type
     };
     var e = new Event(component.Id, componentType, type, name, values);
