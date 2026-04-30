@@ -17,6 +17,13 @@ using saprotwr.net;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
+/// <summary>
+/// Convert an empty string to null
+/// </summary>
+public static string NullIfEmpty(this string s)
+{
+    return string.IsNullOrEmpty(s) ? null : s;
+}
 
 object? ConvertJsonNode(JsonNode? node)
 {
@@ -104,12 +111,15 @@ void handleChange(GuiSession session, GuiComponent component, object commmandArr
     Console.WriteLine($"Type: {component.Type}");
     
     try
-{
-    var commands = (object[])commmandArray;
+    {
+        var commands = (object[])commmandArray;
         var events = commands.Select(command => toEvent((object[])command, component)).ToList();
         eventLog.AddRange(events);
         Console.WriteLine("~~ Events ~~");
         events.ForEach(Console.WriteLine);
+
+        var keyGuiEvent = toKeyGuiEvent(events);
+        if (keyGuiEvent != null) keyGuiEventLog.Add(keyGuiEvent);
     }
     catch (System.Exception ex)
     {
@@ -120,71 +130,99 @@ void handleChange(GuiSession session, GuiComponent component, object commmandArr
 }
 
 
-record Locator(string hLabel, string? vLabel=null, string? contents=null)
+record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, string? col=null, string? row=null)
 {
     public override string ToString()
     {
-        return $"{{ hLabel = {hLabel}, vlabel = {vLabel}, contents = {contents} }}";
-    }
-}
-
-record CellLocator(string row, string col)
-{
-    public override string ToString()
-    {
-        return $"{{ row = {row}, col = {col} }}";
+        return $"{{ hLabel = {hLabel}, vlabel = {vLabel}, contents = {contents}, col = {col}, row = {row} }}";
     }
 }
 
 string getTooltip(GuiVComponent component)
 {
-    if (component.DefaultTooltip != "")
-    {
-        return component.DefaultTooltip.Trim();
-    }
-
-    if (component.Tooltip != "")
-    {
-        return component.Tooltip.Trim();
-    }
-
-    return $"Component has no tooltip: {component.Id}";
+    return component.DefaultTooltip.Trim().NullIfEmpty() ??
+           component.Tooltip.Trim();
 }
 
 string getButtonLabel(GuiButton button)
 {
-    if (button.Text != "")
-    {
-        return button.Text.Trim();
-    }
+    return button.Text.Trim().NullIfEmpty() ??
+           button.Tooltip.Trim();
+}
 
-    return button.Tooltip.Trim();
+string getCheckBoxLabel(GuiCheckBox checkBox)
+{
+    return checkBox.Text.Trim().NullIfEmpty() ??
+           checkBox.Tooltip.Trim().NullIfEmpty() ??
+           checkBox.DefaultTooltip.Trim().NullIfEmpty() ??
+           checkBox?.LeftLabel.Text.Trim() ??
+           checkBox?.RightLabel.Text.Trim();
+}
+
+string getComboBoxLabel(GuiComboBox comboBox)
+{
+    return comboBox.AccTooltip.Trim().NullIfEmpty() ??
+           comboBox.DefaultTooltip.Trim().NullIfEmpty() ??
+           comboBox.Tooltip.Trim().NullIfEmpty() ??
+           comboBox?.LeftLabel.Text.Trim() ??
+           comboBox?.RightLabel.Text.Trim();
+}
+
+string getRadioButtonLabel(GuiRadioButton radioButton)
+{
+    return radioButton.Text.Trim().NullIfEmpty() ??
+           radioButton.Tooltip.Trim().NullIfEmpty() ??
+           radioButton.DefaultTooltip.Trim().NullIfEmpty() ??
+           radioButton.LeftLabel?.Text.Trim()??
+           radioButton.RightLabel?.Text.Trim();
 }
 
 string getTabLabel(GuiTab tab)
 {
-    if (tab.Text != "")
-    {
-        return tab.Text.Trim();
-    }
-
-    return getTooltip((GuiVComponent)tab);
+    return tab.Text.Trim().NullIfEmpty() ??
+           getTooltip((GuiVComponent)tab);
 }
 
 string getTextFieldLabel(GuiTextField textField)
 {
-    if (textField.LeftLabel != null)
+    return textField.LeftLabel?.Text.Trim() ??
+            getTooltip((GuiVComponent)textField);
+}
+
+Locator? getTableCellLocator(GuiTableControl table, string componentId)
+{
+    for (int rowIndex = 0; rowIndex <= table.RowCount; rowIndex++)
     {
-        return textField.LeftLabel.Text.Trim();
+        for (int colIdx = 0; colIdx < table.Columns.Length; colIdx++) 
+        {
+            try
+            {
+                var cell = table.GetCell(rowIndex, colIdx);
+                if (cell.Id == componentId)
+                {
+                    var column = (GuiTableColumn)table.Columns.ElementAt(colIdx);
+                    var columnTitle = column.Title.Trim();
+
+                    return new Locator(
+                        row: (rowIndex + 1).ToString(),
+                        col: columnTitle
+                    );
+                }
+            }
+            catch (System.Exception) {}
+        }
     }
 
-    return getTooltip((GuiVComponent)textField);
+    return null;
 }
 
 Locator? getLocator(GuiVComponent component)
 {
     return component switch
     {
+        GuiCheckBox checkbox => new Locator(getCheckBoxLabel(checkbox)),
+        GuiComboBox comboBox => new Locator(getComboBoxLabel(comboBox)),
+        GuiRadioButton radioButton => new Locator(getRadioButtonLabel(radioButton)),
         GuiButton button => new Locator(getButtonLabel(button)),
         GuiTab tab => new Locator(getTabLabel(tab)),
         GuiTextField textField => new Locator(getTextFieldLabel(textField)),
@@ -255,29 +293,36 @@ Event toEvent(object[] command, GuiComponent component)
     var type = command[0].ToString() switch {
         "M" => "Method",
         "SP" => "Property",
-        _ => throw new Exception("Unknown type")
+        _ => throw new Exception("Unknown command type")
     };
     var name = capitalize(command[1].ToString());
-    var values = command[2..].ToList();
     var componentType = component.Type switch
     {
         "GuiDockShell" => "GuiContainerShell",
         "GuiShell" => "Gui" + ((GuiShell)component).SubType,
         _ => component.Type
     };
+    var values = componentType switch
+    {   "GuiComboBox" => [((GuiComboBox)component).Value],
+        _ => command[2..].ToList()
+    };
     var window = session.ActiveWindow.Text;
     var locator = componentType switch
     {
         "GuiTree" => name switch
         {
-            "DoubleClickItem" => new Locator(getTreeElementPath((GuiTree)component, values[0].ToString())),
+            "DoubleClickItem" or "DoubleClickNode" => new Locator(getTreeElementPath((GuiTree)component, values[0].ToString())),
             _ => null
         },
-        _ => getLocator((GuiVComponent)component)
+        _ => component.Parent switch
+            {
+                GuiComponent parent when parent.Type == "GuiTableControl" => getTableCellLocator((GuiTableControl)parent, component.Id),
+                _ => getLocator((GuiVComponent)component),
+            }
     };
 
     return new Event(window, component.Id, componentType, locator, type, name, values);
-    }
+}
 
 
 void handleDestroy(GuiSession session)
@@ -306,10 +351,227 @@ void refresh()
 
 string getObjectTree(string componentId)
 {
-    return session.GetObjectTree(
+    var objectTreeJson = session.GetObjectTree(
         componentId,
-        new string[] { "Id", "Type", "SubType", "Top", "Left", "Width", "Height", "Text", "Tooltip"}
-    ).Replace("\\", "");
+        new string[] { "Id", "Type", "Top", "Left", "Width", "Height", "Text", "Tooltip", "DefaultTooltip", "AccTooltip"}
+    );
+    var objectTree = JsonObject.Parse(objectTreeJson).AsObject();
+
+    return JsonSerializer.Serialize(objectTree["children"][0]);
+}
+
+
+record KeyGuiEvent(string window, string action, string? role, Locator? locator, string? value)
+{
+    public override string ToString()
+    {
+        return $"Action: {action} | Role: {role} | Locator: {locator} | Value: {value}";
+    }
+}
+var keyGuiEventLog = new List<KeyGuiEvent>();
+
+static class KeyGuiActions
+{
+    public const string Check = "check";
+    public const string Click = "click";
+    public const string DoubleClick = "double_click";
+    public const string Execute = "execute";
+    public const string Fill = "fill";
+    public const string PressKey = "press_key";
+    public const string Push = "push";
+    public const string SelectOption = "select_option";
+    public const string SelectRow = "select_row";
+    public const string Uncheck = "uncheck";
+}
+
+static class KeyGuiLocators
+{
+    public const string HLabel = "hlabel";
+    public const string VLabel = "vlabel";
+}
+
+static class KeyGuiRoles
+{
+    public const string Button = "button";
+    public const string Cell = "cell";
+    public const string Checkbox = "checkbox";
+    public const string Combobox = "combobox";
+    public const string MultiLineTextField = "multiline_textfield";
+    public const string Radio = "radio";
+    public const string Tab = "tab";
+    public const string TextField = "textfield";
+    public const string TreeElement = "tree_element";
+}
+
+KeyGuiEvent? toKeyGuiEvent(List<Event> events)
+{
+    if (events.Count == 0) return null;
+    
+    var componentType = events[0].componentType;
+    var locator = events[0].locator;
+
+    return componentType switch
+    {
+        "GuiButton" => events switch
+        {
+            [{window: string window, type: "Method", name: "Press"}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.Push,
+                locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.Button,
+                locator,
+                null
+            ),
+            _ => null
+        },
+        "GuiCheckBox" => events switch
+        {
+            [{window: string window, type: "Property", name: "Selected", values: [bool selected]}] => new KeyGuiEvent(
+                window,
+                selected ? KeyGuiActions.Check: KeyGuiActions.Uncheck,
+                locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.Checkbox,
+                locator,
+                null
+            ),
+            _ => null
+        },
+        "GuiComboBox" => events switch
+        {
+            [{window: string window, type: "Property", name: "Key", values: [string value]}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.SelectOption,
+                KeyGuiRoles.Combobox,
+                locator,
+                value
+            ),
+            _ => null
+        },
+        "GuiMainWindow" or "GuiModalWindow" => events switch
+        {
+            [{window: string window, type: "Method", name: "SendVKey", values: [int vkey]}] => 
+                new KeyGuiEvent(
+                    window,
+                    KeyGuiActions.PressKey,
+                    null,
+                    null,
+                    vkey switch
+                    {
+                        0 => "Enter",
+                        1 => "F1",
+                        2 => "F2",
+                        3 => "F3",
+                        4 => "F4",
+                        5 => "F5",
+                        6 => "F6",
+                        7 => "F7",
+                        8 => "F8",
+                        9 => "F9",
+                        10  => "F10",
+                        12 => "F12",
+                        _ => vkey.ToString()
+                    }
+                ),
+            _ => null
+        },
+        "GuiCTextField" or "GuiTextField" or "GuiPasswordField" => events.Select(
+            e => e switch
+            {
+                {type: "Method", name: "SetFocus"} => new KeyGuiEvent(
+                    e.window,
+                    KeyGuiActions.Click,
+                    locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
+                    locator,
+                    null
+                ),
+                {type: "Property", name: "Text", values: [string value]} => new KeyGuiEvent(
+                    e.window,
+                    KeyGuiActions.Fill,
+                    locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
+                    locator,
+                    value
+                ),
+                _ => null
+            }
+        ).Where(e => e != null).FirstOrDefault(),
+        "GuiOkCodeField" => events switch
+        {
+            [{window: string window, type: "Property", name: "Text", values: [string t_code]}] =>
+                new KeyGuiEvent(
+                    window,
+                    KeyGuiActions.Execute,
+                    null,
+                    null,
+                    t_code
+                ),
+             _ => null
+        },
+        "GuiRadioButton" => events switch
+        {
+            [{window: string window, type: "Method", name: "Select"}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.Click,
+                KeyGuiRoles.Radio,
+                locator,
+                null
+            ),
+            _ => null
+        },
+        "GuiTab" => events switch
+        {
+            [{window: string window, type: "Method", name: "Select"}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.Click,
+                KeyGuiRoles.Tab,
+                locator,
+                null
+            ),
+             _ => null
+        },
+        "GuiTableControl" => events switch
+        {
+            [{window: string window, type: "Method", name: "GetAbsoluteRow", values: [int row]},
+            {type: "Property", name: "Selected"}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.SelectRow,
+                null,
+                null,
+                (row + 1).ToString()
+            ),
+             _ => null
+        },
+        "GuiTextEdit" => events switch
+        {
+            [{window: string window, type: "Property", name: "Text", values: [string text]}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.Fill,
+                KeyGuiRoles.MultiLineTextField,
+                locator,
+                text
+            ),
+            _ => null
+        },
+        "GuiTree" => events switch
+        {
+            [{window: string window, type: "Method", name: "DoubleClickItem" or "DoubleClickNode"}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.DoubleClick,
+                KeyGuiRoles.TreeElement,
+                locator,
+                null
+            ),
+             _ => null
+        },
+        _ => null
+    };
+}
+
+void saveKeyGui(string filename)
+{
+    var json = JsonSerializer.Serialize(keyGuiEventLog);
+
+    File.WriteAllText(
+        Path.Combine(Directory.GetCurrentDirectory(), filename),
+        JsonToYaml(json)    
+    );
 }
 
 void saveEventLog(string filename)
@@ -366,10 +628,10 @@ void saveRecording(string filename)
     );
 }
 
-void saveWindowTree()
+void saveObjectTree(string componentId, string filename)
 {
     File.WriteAllText(
-        Path.Combine(Directory.GetCurrentDirectory(), "sap.json"),
-        getObjectTree(session.ActiveWindow.Id)
+        Path.Combine(Directory.GetCurrentDirectory(), filename),
+        JsonToYaml(getObjectTree(componentId))
     );
 }
