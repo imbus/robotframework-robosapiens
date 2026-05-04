@@ -130,11 +130,19 @@ void handleChange(GuiSession session, GuiComponent component, object commmandArr
 }
 
 
-record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, string? col=null, string? row=null)
+record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, string? row=null, string? col=null)
 {
     public override string ToString()
     {
-        return $"{{ hLabel = {hLabel}, vlabel = {vLabel}, contents = {contents}, col = {col}, row = {row} }}";
+        return (hLabel, vLabel, contents, row, col) switch
+        {
+            (string hLabel, null, null, null, null) => hLabel,
+            (string hLabel, string vLabel, null, null, null) => $"{hLabel} @ {vLabel}",
+            (null, string vLabel, null, null, null) => $"@ {vLabel}",
+            (null, null, string contents, null, null) => $"= {contents}",
+            (null, null, null, string row, string col) => $"{row}    {col}",
+            _ => throw new Exception("Invalid locator")
+        };
     }
 }
 
@@ -367,6 +375,92 @@ record KeyGuiEvent(string window, string action, string? role, Locator? locator,
     {
         return $"Action: {action} | Role: {role} | Locator: {locator} | Value: {value}";
     }
+
+    public string serialize(string lang)
+    {
+        var keywords = new {
+            ClickTab = new Dictionary<string, string> {
+                ["DE"] = "Reiter auswählen",
+                ["EN"] = "Select Tab"
+            },
+            ClickTextField = new Dictionary<string, string> {
+                ["DE"] = "Textfeld markieren",
+                ["EN"] = "Select Text Field"
+            },
+            DoubleClickTreeElement = new Dictionary<string, string> {
+                ["DE"] = "Baumelement doppelklicken",
+                ["EN"] = "Double-click Tree Element"
+            },
+            ExecuteTransaction = new Dictionary<string, string> {
+                ["DE"] = "Transaktion ausführen",
+                ["EN"] = "Execute Transaction"
+            },
+            FillCell = new Dictionary<string, string> {
+                ["DE"] = "Tabellenzelle ausfüllen",
+                ["EN"] = "Fill Cell"
+            },
+            FillTextField = new Dictionary<string, string> {
+                ["DE"] = "Textfeld ausfüllen",
+                ["EN"] = "Fill Text Field"
+            },
+            PressKey = new Dictionary<string, string> {
+                ["DE"] = "Tastenkombination drücken",
+                ["EN"] = "Press Key Combination"
+            },
+            PushButton = new Dictionary<string, string> {
+                ["DE"] = "Knopf drücken",
+                ["EN"] = "Push Button"
+            },
+            PushButtonCell = new Dictionary<string, string> {
+                ["DE"] = "Tabellenzelle drücken",
+                ["EN"] = "Push Button Cell"
+            },
+            SelectComboBox = new Dictionary<string, string> {
+                ["DE"] = "Auswahlmenüeintrag auswählen",
+                ["EN"] = "Select Dropdown Menu Entry"
+            },
+            SelectRadio = new Dictionary<string, string> {
+                ["DE"] = "Optionsfehld auswählen",
+                ["EN"] = "Select Radio Button"
+            },
+            TickCheckbox = new Dictionary<string, string> {
+                ["DE"] = "Formularfeld ankreuzen",
+                ["EN"] = "Tick Checkbox"
+            },
+            TickCheckboxCell = new Dictionary<string, string> {
+                ["DE"] = "Tabellenzelle ankreuzen",
+                ["EN"] = "Tick Checkbox Cell"
+            },
+            UntickCheckbox = new Dictionary<string, string> {
+                ["DE"] = "Formularfeld abwählen",
+                ["EN"] = "Untick Checkbox"
+            },
+            UntickCheckboxCell = new Dictionary<string, string> {
+                ["DE"] = "Tabellenzelle abwählen",
+                ["EN"] = "Untick Checkbox Cell"
+            }
+        };
+
+        return (action, role) switch
+        {
+            (KeyGuiActions.Check, KeyGuiRoles.Cell) => $"{keywords.TickCheckboxCell[lang]}    {locator}",
+            (KeyGuiActions.Check, KeyGuiRoles.Checkbox) => $"{keywords.TickCheckbox[lang]}    {locator}",
+            (KeyGuiActions.Click, KeyGuiRoles.Tab) => $"{keywords.ClickTab[lang]}   {locator}",
+            (KeyGuiActions.Click, KeyGuiRoles.TextField) => $"{keywords.ClickTextField[lang]}    {locator}",
+            (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement) => $"{keywords.DoubleClickTreeElement[lang]}    {locator}",
+            (KeyGuiActions.Execute, _) => $"{keywords.ExecuteTransaction[lang]}    {locator}",
+            (KeyGuiActions.Fill, KeyGuiRoles.Cell) => $"{keywords.FillCell[lang]}    {locator}    {value}",
+            (KeyGuiActions.Fill, KeyGuiRoles.TextField) => $"{keywords.FillTextField[lang]}    {locator}    {value}",
+            (KeyGuiActions.PressKey, _) => $"{keywords.PressKey[lang]}   {value}",
+            (KeyGuiActions.Push, KeyGuiRoles.Button) => $"{keywords.PushButton[lang]}   {locator}",
+            (KeyGuiActions.Push, KeyGuiRoles.Cell) => $"{keywords.PushButtonCell[lang]}   {locator}",
+            (KeyGuiActions.Select, KeyGuiRoles.Combobox) => $"{keywords.SelectComboBox[lang]}   {locator}   {value}",
+            (KeyGuiActions.Select, KeyGuiRoles.Radio) => $"{keywords.SelectRadio[lang]}   {locator}",
+            (KeyGuiActions.Uncheck, KeyGuiRoles.Cell) => $"{keywords.UntickCheckboxCell[lang]}   {locator}",
+            (KeyGuiActions.Uncheck, KeyGuiRoles.Checkbox) => $"{keywords.UntickCheckbox[lang]}   {locator}",
+            _ => "Fail    Unknown Keyword"
+        };
+    }
 }
 var keyGuiEventLog = new List<KeyGuiEvent>();
 
@@ -379,7 +473,7 @@ static class KeyGuiActions
     public const string Fill = "fill";
     public const string PressKey = "press_key";
     public const string Push = "push";
-    public const string SelectOption = "select_option";
+    public const string Select = "select";
     public const string SelectRow = "select_row";
     public const string Uncheck = "uncheck";
 }
@@ -438,7 +532,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         {
             [{window: string window, type: "Property", name: "Key", values: [string value]}] => new KeyGuiEvent(
                 window,
-                KeyGuiActions.SelectOption,
+                KeyGuiActions.Select,
                 KeyGuiRoles.Combobox,
                 locator,
                 value
@@ -571,6 +665,36 @@ void saveKeyGui(string filename)
     File.WriteAllText(
         Path.Combine(Directory.GetCurrentDirectory(), filename),
         JsonToYaml(json)    
+    );
+}
+
+void saveRobotFile(string testcase, string lang)
+{
+    var library = lang switch
+    {
+        "DE" => "RoboSAPiens.DE",
+        _ => "RoboSAPiens",
+    };
+
+    var test_setup = lang switch
+    {
+        "DE" => "Laufende SAP GUI übernehmen",
+        _ => "Connect to running SAP",
+    };
+
+    var template = $"""
+    *** Settings ***
+    Library     {library}    x64=True
+    Test Setup   {test_setup}
+
+    *** Test Cases ***
+    {testcase}
+
+    """;
+
+    File.WriteAllText(
+        Path.Combine(Directory.GetCurrentDirectory(), testcase + ".robot"),
+        template + string.Join(Environment.NewLine, keyGuiEventLog.Select(e => "    " + e.serialize(lang)))
     );
 }
 
