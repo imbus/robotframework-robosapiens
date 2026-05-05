@@ -341,6 +341,18 @@ Locator getGridViewCellLocator(GuiGridView gridView, int rowIndex0, string colum
     return new Locator(row: rowIndex.ToString(), col: gridView.GetColumnTooltip(columnId).Trim());
 }
 
+Locator getTreeCellLocator(GuiTree tree, string nodeKey, string columnName)
+{
+    var columnTitle = tree.GetColumnTitleFromName(columnName).Trim();
+    var itemText = tree.GetItemText(nodeKey, columnName);
+    var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
+
+    return new Locator(
+        row: itemText.NullIfEmpty() ?? itemTooltip,
+        col: columnTitle
+    );
+}
+
 Event toEvent(object[] command, GuiComponent component)
 {
     var type = command[0].ToString() switch {
@@ -380,6 +392,7 @@ Event toEvent(object[] command, GuiComponent component)
             (name, values) switch
             {
                 ("DoubleClickItem" or "DoubleClickNode", [string nodeKey]) => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
+                ("PressButton", [string nodeKey, string column]) => getTreeCellLocator((GuiTree)component, nodeKey, column),
                 _ => null
             },
         _ => 
@@ -761,6 +774,13 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
                 window,
                 KeyGuiActions.DoubleClick,
                 KeyGuiRoles.TreeElement,
+                locator,
+                null
+            ),
+            [{window: string window, type: "Method", name: "PressButton"}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.Push,
+                KeyGuiRoles.Cell,
                 locator,
                 null
             ),
