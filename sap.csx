@@ -12,6 +12,7 @@
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using sapfewse;
 using saprotwr.net;
@@ -203,8 +204,8 @@ string getTabLabel(GuiTab tab)
 
 string getTextFieldLabel(GuiTextField textField)
 {
-    return textField.LeftLabel?.Text.Trim() ??
-            getTooltip((GuiVComponent)textField);
+    // TODO: the closest label ?? tooltip
+    return getTooltip((GuiVComponent)textField).NullIfEmpty() ?? textField.LeftLabel?.Text.Trim();
 }
 
 Locator? getTableCellLocator(GuiTableControl table, string componentId)
@@ -226,7 +227,6 @@ Locator? getTableCellLocator(GuiTableControl table, string componentId)
                         row: cell.Type switch
                         {
                             "GuiButton" => getButtonLabel((GuiButton)cell),
-                            "GuiTextField" => ((GuiTextField)cell).Text.Trim().NullIfEmpty() ?? rowIndex.ToString(),
                             _ => rowIndex.ToString()
                         },
                         col: columnTitle
@@ -312,6 +312,35 @@ string getTreeElementPath(GuiTree tree, string nodeKey)
     return getTextPath(tree, nodePath, text);
 }
 
+string? getGridViewToolbarButtonLabel(GuiGridView gridView, string buttonId)
+{
+    for (int i = 0; i < gridView.ToolbarButtonCount; i++)
+    {
+        var id = gridView.GetToolbarButtonId(i);
+        if (id == buttonId)
+        {
+            return gridView.GetToolbarButtonText(i).Trim().NullIfEmpty() ?? 
+                   gridView.GetToolbarButtonTooltip(i).Trim();
+        }
+    }
+
+    return null;
+}
+
+Locator getGridViewCellLocator(GuiGridView gridView, int rowIndex0, string columnId)
+{
+    var columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
+    var rowIndex = rowIndex0 + 1;
+
+    if (columnTitles.Count > 0)
+    {
+        var columnTitle = (string)columnTitles.ElementAt(0);
+        return new Locator(row: rowIndex.ToString(), col: columnTitle.Trim());
+    }
+
+    return new Locator(row: rowIndex.ToString(), col: gridView.GetColumnTooltip(columnId).Trim());
+}
+
 Event toEvent(object[] command, GuiComponent component)
 {
     var type = command[0].ToString() switch {
@@ -333,22 +362,32 @@ Event toEvent(object[] command, GuiComponent component)
     var window = session.ActiveWindow.Text;
     var locator = componentType switch
     {
+        "GuiGridView" => 
+            (name, values) switch
+            {
+                ("PressToolbarButton", [string buttonId]) => new Locator(getGridViewToolbarButtonLabel((GuiGridView)component, buttonId)),
+                ("ModifyCell", [int rowIndex0, string columnId, string value]) => getGridViewCellLocator((GuiGridView)component, rowIndex0, columnId),
+                _ => null
+            },
         "GuiTextField" when name == "SetFocus" =>
             component.Parent switch
             {
-                GuiComponent parent when parent.Type == "GuiTableControl" => getTableCellLocator((GuiTableControl)parent, component.Id),
+                GuiComponent parent when parent.Type == "GuiTableControl" => 
+                    getTableCellLocator((GuiTableControl)parent, component.Id) with {row = ((GuiTextField)component).Text.Trim()},
                 _ => new Locator(contents: ((GuiTextField)component).Text.Trim())
             },
-        "GuiTree" => name switch
-        {
-            "DoubleClickItem" or "DoubleClickNode" => new Locator(getTreeElementPath((GuiTree)component, values[0].ToString())),
-            _ => null
-        },
-        _ => component.Parent switch
-        {
-            GuiComponent parent when parent.Type == "GuiTableControl" => getTableCellLocator((GuiTableControl)parent, component.Id),
-            _ => getLocator((GuiVComponent)component),
-        }
+        "GuiTree" =>
+            (name, values) switch
+            {
+                ("DoubleClickItem" or "DoubleClickNode", [string nodeKey]) => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
+                _ => null
+            },
+        _ => 
+            component.Parent switch
+            {
+                GuiComponent parent when parent.Type == "GuiTableControl" => getTableCellLocator((GuiTableControl)parent, component.Id),
+                _ => getLocator((GuiVComponent)component),
+            }
     };
 
     return new Event(window, component.Id, componentType, locator, type, name, values);
@@ -402,13 +441,17 @@ record KeyGuiEvent(string window, string action, string? role, Locator? locator,
     {
         public override string ToString()
         {
-            return string.Join("    ", [name, locator, ..args]);
+            return string.Join("    ", [name, locator, ..args.Select(arg => arg.NullIfEmpty() ?? "${EMPTY}")]);
         }
     }
 
     public string serialize(string lang)
     {
         var keywords = new {
+            DoubleClickCell = new Dictionary<string, string> {
+                ["DE"] = "Tabellenzelle doppelklicken",
+                ["EN"] = "Double-click Cell"
+            },
             DoubleClickTreeElement = new Dictionary<string, string> {
                 ["DE"] = "Baumelement doppelklicken",
                 ["EN"] = "Double-click Tree Element"
@@ -440,6 +483,10 @@ record KeyGuiEvent(string window, string action, string? role, Locator? locator,
             SelectCell = new Dictionary<string, string> {
                 ["DE"] = "Tabellenzelle markieren",
                 ["EN"] = "Select Cell"
+            },
+            SelectCellValue = new Dictionary<string, string> {
+                ["DE"] = "Tabellenzellenwert auswählen",
+                ["EN"] = "Select Cell Value"
             },
             SelectComboBox = new Dictionary<string, string> {
                 ["DE"] = "Auswahlmenüeintrag auswählen",
@@ -480,17 +527,19 @@ record KeyGuiEvent(string window, string action, string? role, Locator? locator,
             (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.TickCheckboxCell[lang], locator),
             (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => new KeywordCall(keywords.TickCheckbox[lang], locator),
             (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.SelectCell[lang], locator),
+            (KeyGuiActions.Click, KeyGuiRoles.Radio, _) => new KeywordCall(keywords.SelectRadio[lang], locator),
             (KeyGuiActions.Click, KeyGuiRoles.Tab, _) => new KeywordCall(keywords.SelectTab[lang], locator),
             (KeyGuiActions.Click, KeyGuiRoles.TextField, _) => new KeywordCall(keywords.SelectTextField[lang], locator),
             (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.DoubleClickTreeElement[lang], locator),
+            (KeyGuiActions.DoubleClick, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.DoubleClickCell[lang], locator),
             (KeyGuiActions.Execute, _, string tCode) => new KeywordCall(keywords.ExecuteTransaction[lang], null, tCode),
             (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => new KeywordCall(keywords.FillCell[lang], locator, contents),
             (KeyGuiActions.Fill, KeyGuiRoles.TextField, string contents) => new KeywordCall(keywords.FillTextField[lang], locator, contents),
             (KeyGuiActions.PressKey, _, string key) => new KeywordCall(keywords.PressKey[lang], null, key),
             (KeyGuiActions.Push, KeyGuiRoles.Button, _) => new KeywordCall(keywords.PushButton[lang], locator),
             (KeyGuiActions.Push, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.PushButtonCell[lang], locator),
+            (KeyGuiActions.Select, KeyGuiRoles.Cell, string value) => new KeywordCall(keywords.SelectCellValue[lang], locator, value),
             (KeyGuiActions.Select, KeyGuiRoles.Combobox, string option) => new KeywordCall(keywords.SelectComboBox[lang], locator, option),
-            (KeyGuiActions.Select, KeyGuiRoles.Radio, _) => new KeywordCall(keywords.SelectRadio[lang], locator),
             (KeyGuiActions.Uncheck, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.UntickCheckboxCell[lang], locator),
             (KeyGuiActions.Uncheck, KeyGuiRoles.Checkbox, _) => new KeywordCall(keywords.UntickCheckbox[lang], locator),
             _ => new KeywordCall("Fail", null, $"Unknown Keyword: {action} {role}")
@@ -537,7 +586,8 @@ static class KeyGuiRoles
 KeyGuiEvent? toKeyGuiEvent(List<Event> events)
 {
     if (events.Count == 0) return null;
-    
+
+    var component = session.FindById(events[0].componentId);
     var componentType = events[0].componentType;
     var locator = events[0].locator;
 
@@ -576,6 +626,29 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
             ),
             _ => null
         },
+        "GuiGridView" => events switch
+        {
+            [{window: string window, type: "Method", name: "PressToolbarButton", values: [string name]}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.Push,
+                KeyGuiRoles.Button,
+                locator,
+                null
+            ),
+            [{window: string window, type: "Method", name: "ModifyCell", values: [int rowIndex, string colId, string value]}] => new KeyGuiEvent(
+                window,
+                ((GuiGridView)component).GetCellType(rowIndex, colId) switch
+                {
+                    "Normal" => KeyGuiActions.Fill,
+                    "ValueList" => KeyGuiActions.Select,
+                    _ => null
+                },
+                KeyGuiRoles.Cell,
+                locator,
+                value
+            ),
+            _ => null
+        },
         "GuiMainWindow" or "GuiModalWindow" => events switch
         {
             [{name: "SendVKey"}] when keyGuiEventLog.Last().action == KeyGuiActions.Execute => null,
@@ -604,27 +677,6 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
                 ),
             _ => null
         },
-        "GuiCTextField" or "GuiTextField" or "GuiPasswordField" => events.Select(
-            e => e switch
-            {
-                {name: "SetFocus"} when keyGuiEventLog.Last().action == KeyGuiActions.Fill && (keyGuiEventLog.Last().locator == locator || keyGuiEventLog.Last().locator.contents == locator.row) => null,
-                {type: "Method", name: "SetFocus"} => new KeyGuiEvent(
-                    e.window,
-                    KeyGuiActions.Click,
-                    locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
-                    locator,
-                    null
-                ),
-                {type: "Property", name: "Text", values: [string value]} => new KeyGuiEvent(
-                    e.window,
-                    KeyGuiActions.Fill,
-                    locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
-                    locator,
-                    value
-                ),
-                _ => null
-            }
-        ).Where(e => e != null).FirstOrDefault(),
         "GuiOkCodeField" => events switch
         {
             [{window: string window, type: "Property", name: "Text", values: [string t_code]}] =>
@@ -682,6 +734,27 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
             ),
             _ => null
         },
+        "GuiCTextField" or "GuiTextField" or "GuiPasswordField" => events.Select(
+            e => e switch
+            {
+                {name: "SetFocus"} when keyGuiEventLog.Last().action == KeyGuiActions.Fill && (keyGuiEventLog.Last().locator == locator || keyGuiEventLog.Last().locator.contents == locator.row) => null,
+                {type: "Method", name: "SetFocus"} => new KeyGuiEvent(
+                    e.window,
+                    KeyGuiActions.Click,
+                    locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
+                    locator,
+                    null
+                ),
+                {type: "Property", name: "Text", values: [string value]} => new KeyGuiEvent(
+                    e.window,
+                    KeyGuiActions.Fill,
+                    locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
+                    locator,
+                    value
+                ),
+                _ => null
+            }
+        ).Where(e => e != null).FirstOrDefault(),
         "GuiTree" => events switch
         {
             [{window: string window, type: "Method", name: "DoubleClickItem" or "DoubleClickNode"}] => new KeyGuiEvent(
