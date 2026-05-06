@@ -27,6 +27,22 @@ public static string NullIfEmpty(this string s)
     return string.IsNullOrEmpty(s) ? null : s;
 }
 
+record SapProperties(
+    string Id, 
+    string Type, 
+    string Changeable,
+    string Top, 
+    string Left, 
+    string Width, 
+    string Height, 
+    string Text, 
+    string Tooltip, 
+    string DefaultTooltip, 
+    string AccTooltip
+);
+
+record SapObject(SapProperties properties, List<SapObject> children);
+
 object? ConvertJsonNode(JsonNode? node)
 {
     return node switch
@@ -431,11 +447,17 @@ void refresh()
     session = getSession();
 }
 
+SapObject getSapObject(string componentId)
+{
+    // TODO: When deserializing convert the numeric properties to int and the boolean properties to bool
+    return JsonSerializer.Deserialize<SapObject>(getObjectTree(componentId));
+}
+
 string getObjectTree(string componentId)
 {
     var objectTreeJson = session.GetObjectTree(
         componentId,
-        new string[] { "Id", "Type", "Top", "Left", "Width", "Height", "Text", "Tooltip", "DefaultTooltip", "AccTooltip"}
+        typeof(SapProperties).GetProperties().Select(p => p.Name).ToArray()
     );
     var objectTree = JsonObject.Parse(objectTreeJson).AsObject();
 
