@@ -185,43 +185,28 @@ string getButtonLabel(GuiButton button)
     return label;
 }
 
-string getCheckBoxLabel(GuiCheckBox checkBox)
-{
-    return checkBox.Text.Trim().NullIfEmpty() ??
-           checkBox.Tooltip.Trim().NullIfEmpty() ??
-           checkBox.DefaultTooltip.Trim().NullIfEmpty() ??
-           checkBox?.LeftLabel.Text.Trim() ??
-           checkBox?.RightLabel.Text.Trim();
-}
-
-string getComboBoxLabel(GuiComboBox comboBox)
-{
-    return comboBox.AccTooltip.Trim().NullIfEmpty() ??
-           comboBox.DefaultTooltip.Trim().NullIfEmpty() ??
-           comboBox.Tooltip.Trim().NullIfEmpty() ??
-           comboBox?.LeftLabel.Text.Trim() ??
-           comboBox?.RightLabel.Text.Trim();
-}
-
-string getRadioButtonLabel(GuiRadioButton radioButton)
-{
-    return radioButton.Text.Trim().NullIfEmpty() ??
-           radioButton.Tooltip.Trim().NullIfEmpty() ??
-           radioButton.DefaultTooltip.Trim().NullIfEmpty() ??
-           radioButton.LeftLabel?.Text.Trim()??
-           radioButton.RightLabel?.Text.Trim();
-}
-
 string getTabLabel(GuiTab tab)
 {
     return tab.Text.Trim().NullIfEmpty() ??
            getTooltip((GuiVComponent)tab);
 }
 
-string getTextFieldLabel(GuiTextField textField)
+string getLabel(GuiVComponent component)
 {
-    // TODO: the closest label ?? tooltip
-    return getTooltip((GuiVComponent)textField).NullIfEmpty() ?? textField.LeftLabel?.Text.Trim();
+    var parentObject = getSapObject(component.Parent.Id);
+    var closestLabel =
+        parentObject.children
+        .Select(e => e.properties)
+        .Select(e => new { e.Changeable, Left = int.Parse(e.Left), Top = int.Parse(e.Top), e.Text, e.Type, Width = int.Parse(e.Width) })
+        .Where(e =>
+            (e.Type == "GuiLabel" || (e.Type == "GuiTextField" && e.Changeable == "false")) &&
+            e.Left < component.Left &&
+            Math.Abs(e.Top - component.Top) < 5 &&
+            Math.Abs(e.Left + e.Width - component.Left) < 30
+        )
+        .MinBy(e => Math.Abs(e.Left - component.Left));
+
+    return closestLabel?.Text.Trim() ?? getTooltip(component);
 }
 
 Locator? getTableCellLocator(GuiTableControl table, string componentId)
@@ -260,13 +245,12 @@ Locator? getLocator(GuiVComponent component)
 {
     return component switch
     {
-        GuiCheckBox checkbox => new Locator(getCheckBoxLabel(checkbox)),
-        GuiComboBox comboBox => new Locator(getComboBoxLabel(comboBox)),
-        GuiRadioButton radioButton => new Locator(getRadioButtonLabel(radioButton)),
         GuiButton button => new Locator(getButtonLabel(button)),
+        GuiCheckBox checkBox => new Locator(checkBox.Text.Trim().NullIfEmpty() ?? getLabel(component)),
+        GuiOkCodeField => null,
         GuiTab tab => new Locator(getTabLabel(tab)),
-        GuiTextField textField => new Locator(getTextFieldLabel(textField)),
-        _ => null
+        GuiTextField textField when !textField.Changeable => new Locator(contents: textField.Text.Trim()),
+        _ => new Locator(getLabel(component))
     };
 }
 
