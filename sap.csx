@@ -166,7 +166,8 @@ record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, 
 
 string getTooltip(GuiVComponent component)
 {
-    return component.DefaultTooltip.Trim().NullIfEmpty() ??
+    return component.AccTooltip.Trim().NullIfEmpty() ??
+           component.DefaultTooltip.Trim().NullIfEmpty() ??
            component.Tooltip.Trim();
 }
 
@@ -211,6 +212,7 @@ string getLabel(GuiVComponent component)
 
 Locator? getTableCellLocator(GuiTableControl table, string componentId)
 {
+    // TODO: Use the contents of the first non-empty cell in the row as the row field of the locator
     for (int rowIndex0 = 0; rowIndex0 <= table.RowCount; rowIndex0++)
     {
         for (int colIdx = 0; colIdx < table.Columns.Length; colIdx++) 
@@ -464,6 +466,11 @@ record KeyGuiEvent(string window, string action, string? role, Locator? locator,
         }
     }
 
+    // TODO: Define the method serializeKeyTA
+    // - For each KeywordCall create an Action
+    // - Group the Actions by Window. For each group create a Sequence
+    // - Write the Test Case in terms of Sequence calls
+    
     public string serialize(string lang)
     {
         var keywords = new {
@@ -606,7 +613,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
 {
     if (events.Count == 0) return null;
 
-    var component = session.FindById(events[0].componentId);
+    var component = (GuiVComponent)session.FindById(events[0].componentId);
     var componentType = events[0].componentType;
     var locator = events[0].locator;
 
@@ -756,8 +763,15 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         "GuiCTextField" or "GuiTextField" or "GuiPasswordField" => events.Select(
             e => e switch
             {
-                {name: "SetFocus"} when keyGuiEventLog.Last().action == KeyGuiActions.Fill && (keyGuiEventLog.Last().locator == locator || keyGuiEventLog.Last().locator.contents == locator.row) => null,
-                {type: "Method", name: "SetFocus"} => new KeyGuiEvent(
+                {name: "SetFocus"} when keyGuiEventLog.Last().action == KeyGuiActions.Fill && (keyGuiEventLog.Last().locator == locator || keyGuiEventLog.Last().locator.row != null) => null,
+                {name: "SetFocus"} => new KeyGuiEvent(
+                    e.window,
+                    KeyGuiActions.Click,
+                    locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
+                    locator,
+                    null
+                ),
+                {type: "Property", name: "CaretPosition"} when !component.Changeable => new KeyGuiEvent(
                     e.window,
                     KeyGuiActions.Click,
                     locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
