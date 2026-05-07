@@ -219,7 +219,7 @@ Locator? getTableCellLocator(GuiTableControl table, string componentId)
             try
             {
                 var cell = table.GetCell(rowIndex0, colIdx);
-                if (cell.Text != "")
+                if (!cell.Changeable && cell.Text != "")
                 {
                     texts.Add(cell.Text.Trim());
                 }
