@@ -770,7 +770,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         "GuiCTextField" or "GuiTextField" or "GuiPasswordField" => events.Select(
             e => e switch
             {
-                {name: "SetFocus"} when keyGuiEventLog.Last().action == KeyGuiActions.Fill && (keyGuiEventLog.Last().locator == locator || keyGuiEventLog.Last().locator.row != null) => null,
+                {name: "SetFocus"} when eventLog.Last().componentId == component.Id => null,
                 {name: "SetFocus"} => new KeyGuiEvent(
                     e.window,
                     KeyGuiActions.Click,
@@ -778,7 +778,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
                     locator,
                     null
                 ),
-                {type: "Property", name: "CaretPosition"} when !component.Changeable => new KeyGuiEvent(
+                {type: "Property", name: "CaretPosition"} when !component.Changeable && keyGuiEventLog.Last().action != KeyGuiActions.Click => new KeyGuiEvent(
                     e.window,
                     KeyGuiActions.Click,
                     locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
