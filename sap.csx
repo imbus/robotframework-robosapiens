@@ -31,10 +31,10 @@ record SapProperties(
     string Id, 
     string Type, 
     string Changeable,
-    string Top, 
-    string Left, 
-    string Width, 
-    string Height, 
+    int Top, 
+    int Left, 
+    int Width, 
+    int Height, 
     string Text, 
     string Tooltip, 
     string DefaultTooltip, 
@@ -198,7 +198,6 @@ string getLabel(GuiVComponent component)
     var closestLabel =
         parentObject.children
         .Select(e => e.properties)
-        .Select(e => new { e.Changeable, Left = int.Parse(e.Left), Top = int.Parse(e.Top), e.Text, e.Type, Width = int.Parse(e.Width) })
         .Where(e =>
             (e.Type == "GuiLabel" || (e.Type == "GuiTextField" && e.Changeable == "false")) &&
             e.Left < component.Left &&
@@ -435,8 +434,9 @@ void refresh()
 
 SapObject getSapObject(string componentId)
 {
-    // TODO: When deserializing convert the numeric properties to int and the boolean properties to bool
-    return JsonSerializer.Deserialize<SapObject>(getObjectTree(componentId));
+    var options = new JsonSerializerOptions();
+    options.NumberHandling = JsonNumberHandling.AllowReadingFromString;
+    return JsonSerializer.Deserialize<SapObject>(getObjectTree(componentId), options);
 }
 
 string getObjectTree(string componentId)
