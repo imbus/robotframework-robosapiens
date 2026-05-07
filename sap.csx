@@ -375,6 +375,7 @@ Event toEvent(object[] command, GuiComponent component)
     var window = session.ActiveWindow.Text;
     var locator = componentType switch
     {
+        "GuiDialogShell" => null,
         "GuiGridView" => 
             (name, values) switch
             {
@@ -382,6 +383,8 @@ Event toEvent(object[] command, GuiComponent component)
                 ("ModifyCell", [int rowIndex0, string columnId, string value]) => getGridViewCellLocator((GuiGridView)component, rowIndex0, columnId),
                 _ => null
             },
+        "GuiMainWindow" => null,
+        "GuiModalWindow" => null,
         "GuiTextField" when name == "SetFocus" =>
             component.Parent switch
             {
