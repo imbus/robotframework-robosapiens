@@ -211,14 +211,18 @@ string getLabel(GuiVComponent component)
 
 Locator? getTableCellLocator(GuiTableControl table, string componentId)
 {
-    // TODO: Use the contents of the first non-empty cell in the row as the row field of the locator
     for (int rowIndex0 = 0; rowIndex0 <= table.RowCount; rowIndex0++)
     {
+        List<string> texts = [];
         for (int colIdx = 0; colIdx < table.Columns.Length; colIdx++) 
         {
             try
             {
                 var cell = table.GetCell(rowIndex0, colIdx);
+                if (cell.Text != "")
+                {
+                    texts.Add(cell.Text.Trim());
+                }
                 if (cell.Id == componentId)
                 {
                     var column = (GuiTableColumn)table.Columns.ElementAt(colIdx);
@@ -229,7 +233,7 @@ Locator? getTableCellLocator(GuiTableControl table, string componentId)
                         row: cell.Type switch
                         {
                             "GuiButton" => getButtonLabel((GuiButton)cell),
-                            _ => rowIndex.ToString()
+                            _ => texts.MaxBy(t => t.Length) ?? rowIndex.ToString()
                         },
                         col: columnTitle
                     );
