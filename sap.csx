@@ -109,7 +109,7 @@ record Event(string window, string componentId, string componentType, Locator? l
         return type switch
         {
             "Method" => target + "(" + string.Join(", ", values.Select(formatValue)) + ")",
-            "Property" => target + " = " + formatValue(values[0]),
+            "Set Property" => target + " = " + formatValue(values[0]),
             _ => throw new Exception("Unknown event type")
         };
     }
@@ -362,7 +362,8 @@ Event toEvent(object[] command, GuiComponent component)
 {
     var type = command[0].ToString() switch {
         "M" => "Method",
-        "SP" => "Property",
+        "GP" => "Get Property",
+        "SP" => "Set Property",
         _ => throw new Exception("Unknown command type")
     };
     var name = capitalize(command[1].ToString());
@@ -639,7 +640,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         },
         "GuiCheckBox" => events switch
         {
-            [{window: string window, type: "Property", name: "Selected", values: [bool selected]}] => new KeyGuiEvent(
+            [{window: string window, type: "Set Property", name: "Selected", values: [bool selected]}] => new KeyGuiEvent(
                 window,
                 selected ? KeyGuiActions.Check: KeyGuiActions.Uncheck,
                 locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.Checkbox,
@@ -650,7 +651,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         },
         "GuiComboBox" => events switch
         {
-            [{window: string window, type: "Property", name: "Key", values: [string value]}] => new KeyGuiEvent(
+            [{window: string window, type: "Set Property", name: "Key", values: [string value]}] => new KeyGuiEvent(
                 window,
                 KeyGuiActions.Select,
                 KeyGuiRoles.Combobox,
@@ -712,7 +713,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         },
         "GuiOkCodeField" => events switch
         {
-            [{window: string window, type: "Property", name: "Text", values: [string t_code]}] =>
+            [{window: string window, type: "Set Property", name: "Text", values: [string t_code]}] =>
                 new KeyGuiEvent(
                     window,
                     KeyGuiActions.Execute,
@@ -747,7 +748,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         "GuiTableControl" => events switch
         {
             [{window: string window, type: "Method", name: "GetAbsoluteRow", values: [int row]},
-            {type: "Property", name: "Selected"}] => new KeyGuiEvent(
+            {type: "Set Property", name: "Selected"}] => new KeyGuiEvent(
                 window,
                 KeyGuiActions.SelectRow,
                 null,
@@ -758,7 +759,7 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         },
         "GuiTextEdit" => events switch
         {
-            [{window: string window, type: "Property", name: "Text", values: [string text]}] => new KeyGuiEvent(
+            [{window: string window, type: "Set Property", name: "Text", values: [string text]}] => new KeyGuiEvent(
                 window,
                 KeyGuiActions.Fill,
                 KeyGuiRoles.MultiLineTextField,
@@ -778,14 +779,14 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
                     locator,
                     null
                 ),
-                {type: "Property", name: "CaretPosition"} when !component.Changeable && keyGuiEventLog.Last().action != KeyGuiActions.Click => new KeyGuiEvent(
+                {type: "Set Property", name: "CaretPosition"} when !component.Changeable && keyGuiEventLog.Last().action != KeyGuiActions.Click => new KeyGuiEvent(
                     e.window,
                     KeyGuiActions.Click,
                     locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
                     locator,
                     null
                 ),
-                {type: "Property", name: "Text", values: [string value]} => new KeyGuiEvent(
+                {type: "Set Property", name: "Text", values: [string value]} => new KeyGuiEvent(
                     e.window,
                     KeyGuiActions.Fill,
                     locator.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
