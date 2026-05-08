@@ -252,6 +252,7 @@ Locator? getLocator(GuiVComponent component)
     {
         GuiButton button => new Locator(getButtonLabel(button)),
         GuiCheckBox checkBox => new Locator(checkBox.Text.Trim().NullIfEmpty() ?? getLabel(component)),
+        GuiLabel label => new Locator(contents: label.Text.Trim()),
         GuiOkCodeField => null,
         GuiTab tab => new Locator(getTabLabel(tab)),
         GuiTextField textField when !textField.Changeable => new Locator(contents: textField.Text.Trim()),
@@ -534,6 +535,10 @@ record KeyGuiEvent(string window, string action, string? role, Locator? locator,
                 ["DE"] = "Reiter auswählen",
                 ["EN"] = "Select Tab"
             },
+            SelectText = new Dictionary<string, string> {
+                ["DE"] = "Text markieren",
+                ["EN"] = "Select Text"
+            },
             SelectTextField = new Dictionary<string, string> {
                 ["DE"] = "Textfeld markieren",
                 ["EN"] = "Select Text Field"
@@ -561,6 +566,7 @@ record KeyGuiEvent(string window, string action, string? role, Locator? locator,
             (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.TickCheckboxCell[lang], locator),
             (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => new KeywordCall(keywords.TickCheckbox[lang], locator),
             (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.SelectCell[lang], locator),
+            (KeyGuiActions.Click, KeyGuiRoles.Label, _) => new KeywordCall(keywords.SelectText[lang], locator),
             (KeyGuiActions.Click, KeyGuiRoles.Radio, _) => new KeywordCall(keywords.SelectRadio[lang], locator),
             (KeyGuiActions.Click, KeyGuiRoles.Tab, _) => new KeywordCall(keywords.SelectTab[lang], locator),
             (KeyGuiActions.Click, KeyGuiRoles.TextField, _) => new KeywordCall(keywords.SelectTextField[lang], locator),
@@ -610,6 +616,7 @@ static class KeyGuiRoles
     public const string Cell = "cell";
     public const string Checkbox = "checkbox";
     public const string Combobox = "combobox";
+    public const string Label = "label";
     public const string MultiLineTextField = "multiline_textfield";
     public const string Radio = "radio";
     public const string Tab = "tab";
@@ -680,6 +687,17 @@ KeyGuiEvent? toKeyGuiEvent(List<Event> events)
                 KeyGuiRoles.Cell,
                 locator,
                 value
+            ),
+            _ => null
+        },
+        "GuiLabel" => events switch
+        {
+            [{window: string window, name:"SetFocus"}] => new KeyGuiEvent(
+                window,
+                KeyGuiActions.Click,
+                KeyGuiRoles.Label,
+                locator,
+                null
             ),
             _ => null
         },
