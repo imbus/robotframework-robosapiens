@@ -139,7 +139,7 @@ namespace RoboSAPiens {
                         if (colIndex0 > columns.Count - 1) return null;
                         var columnTitles = columns[colIndex0].titles;
                         if (!columnTitles.Contains(column)) return null;
-                        if (rowIsBelow(session, rowIndex0) && scrollOnePage(session))
+                        if (rowIsBelow(session, rowIndex0) && scrollOnePageDown(session))
                         {
                             return findCell(locator, session);
                         }
@@ -202,7 +202,7 @@ namespace RoboSAPiens {
                             _ => cells.findCellByLabelAndColumn(label, column)
                         };
                         if (cell != null) return cell;
-                        if (scrollOnePage(session))
+                        if (scrollOnePageDown(session))
                         {
                             cells = new CellRepository();
                             return findCell(locator, session);
@@ -297,7 +297,7 @@ namespace RoboSAPiens {
                 }
             }
 
-            if (scrollOnePage(session))
+            if (scrollOnePageDown(session))
             {
                 return getRowIndex(columnIndex, content, session);
             }
@@ -332,7 +332,7 @@ namespace RoboSAPiens {
             return rowIndex0 > lastRow;
         }
 
-        public bool scrollOnePage(GuiSession session) {
+        public bool scrollOnePageDown(GuiSession session) {
             var table = (GuiTableControl)session.FindById(getCurrentId(session));
 
             // When a GuiTableControl is scrolled a number of times 
@@ -369,7 +369,7 @@ namespace RoboSAPiens {
             if (rowIsAbove(session, rowIndex0)) return;
 
             while (rowIsBelow(session, rowIndex0)) {
-                scrollOnePage(session);
+                scrollOnePageDown(session);
             }
             table = (GuiTableControl)session.FindById(getCurrentId(session));
             var row = table.GetAbsoluteRow(rowIndex0);

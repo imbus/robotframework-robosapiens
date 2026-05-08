@@ -275,7 +275,7 @@ namespace RoboSAPiens
             return false;
         }
 
-        public bool scrollOnePage(GuiSession session)
+        public bool scrollOnePageDown(GuiSession session)
         {
             return false;
         }

@@ -180,7 +180,7 @@ namespace RoboSAPiens
                         var cell = cells.findCellByLabelAndColumn(labelOrPath, column, exact: true) ?? cells.findCellByLabelAndColumn(labelOrPath, column, exact: false);
                         if (cell != null) return cell;
                         
-                        if (scrollOnePage(session))
+                        if (scrollOnePageDown(session))
                         {
                             cells = new CellRepository();
                             return findCell(locator, session);
@@ -354,7 +354,7 @@ namespace RoboSAPiens
             return rowIndex >= tree.GetNodeIndex(tree.TopNode) + visibleRowCount;
         }
 
-        public bool scrollOnePage(GuiSession session)
+        public bool scrollOnePageDown(GuiSession session)
         {
             var tree = (GuiTree)session.FindById(id);
             var currentIndex = tree.GetNodeIndex(tree.TopNode);

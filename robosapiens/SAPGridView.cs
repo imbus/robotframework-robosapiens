@@ -130,7 +130,7 @@ namespace RoboSAPiens
                         var column = columns[colIndex0];
                         var columnTitles = columns[colIndex0].columnTitles;
                         if (!columnTitles.Contains(columnTitle)) return null;
-                        if (rowIsBelow(session, rowIndex0) && scrollOnePage(session))
+                        if (rowIsBelow(session, rowIndex0) && scrollOnePageDown(session))
                         {
                             return findCell(locator, session);
                         }
@@ -188,7 +188,7 @@ namespace RoboSAPiens
                             _ => cells.findCellByLabelAndColumn(label, column)
                         };
                         if (cell != null) return cell;
-                        if (scrollOnePage(session))
+                        if (scrollOnePageDown(session))
                         {
                             cells = new CellRepository();
                             return findCell(locator, session);
@@ -263,7 +263,7 @@ namespace RoboSAPiens
                 }
             }
 
-            if (scrollOnePage(session))
+            if (scrollOnePageDown(session))
             {
                 return getRowIndex(columnIndex, content, session);
             }
@@ -312,7 +312,7 @@ namespace RoboSAPiens
             return rowIndex > lastRow;
         }
 
-        public bool scrollOnePage(GuiSession session)
+        public bool scrollOnePageDown(GuiSession session)
         {
             GuiGridView guiGridView = (GuiGridView)session.FindById(id);
 
