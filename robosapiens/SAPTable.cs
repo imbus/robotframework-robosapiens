@@ -130,7 +130,6 @@ namespace RoboSAPiens {
                         int rowIndex0 = rowIndex - 1;
 
                         if (rowIndex > rowCount) return null;
-                        if (rowIsAbove(session, rowIndex0)) return null;
                         if (!hasColumn(column)) return null;
 
                         var colIndex0 = getColumnIndex(column, colIndexOffset);
@@ -144,6 +143,10 @@ namespace RoboSAPiens {
                             return findCell(locator, session);
                         }
                         
+                        if (rowIsAbove(session, rowIndex0) && scrollOnePageUp(session))
+                        {
+                            return findCell(locator, session);
+                        }
                         var table = (GuiTableControl)session.FindById(getCurrentId(session));
                         // The row index is relative to the visible rows and must be adjusted
                         var firstRow = table.VerticalScrollbar?.Position ?? 0;
@@ -342,6 +345,22 @@ namespace RoboSAPiens {
             if (table.VerticalScrollbar.Position + 1 < table.VerticalScrollbar.Maximum) 
             {
                 table.VerticalScrollbar.Position += 1;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool scrollOnePageUp(GuiSession session) {
+            var table = (GuiTableControl)session.FindById(getCurrentId(session));
+
+            // When a GuiTableControl is scrolled a number of times 
+            // the whole table becomes write-protected, but the next
+            // time it is scrolled it becomes writeable. Therefore,
+            // scroll it in steps of 1.
+            if (table.VerticalScrollbar.Position - 1 >= table.VerticalScrollbar.Minimum) 
+            {
+                table.VerticalScrollbar.Position -= 1;
                 return true;
             }
 
