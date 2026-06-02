@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -15,18 +14,6 @@ namespace RoboSAPiens
                 Console.InputEncoding = Encoding.Unicode;
                 Console.Write("> ");
                 return Console.ReadLine();
-            }
-
-            static object[] parseArgs(string[] args, string[] types)
-            {
-                return args.Zip(types)
-                    .Select<(string, string), object>(argType => 
-                        argType switch {
-                            (var arg, var type) when type.Contains("System.Int32") => int.Parse(arg),
-                            (var arg, _) => arg
-                        }
-                    )
-                    .ToArray();
             }
 
             public static void start(KeywordLibrary keywordLibrary)
