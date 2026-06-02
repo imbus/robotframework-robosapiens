@@ -205,11 +205,18 @@ namespace RoboSAPiens {
                             false => cells.findCellByLabelAndColumn(label, column)
                         };
                         if (cell != null) return cell;
-                        if (scrollOnePageDown(session))
+
+                        while (scrollOnePageDown(session))
                         {
                             cells = new CellRepository();
-                            return findCell(locator, session);
+                            classifyCells(session);
+                            cell = (colIndexOffset > 0) switch {
+                                true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
+                                false => cells.findCellByLabelAndColumn(label, column)
+                            };
+                            if (cell != null) return cell;
                         }
+                        
                         return null;
                     }
 
