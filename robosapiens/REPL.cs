@@ -56,7 +56,7 @@ namespace RoboSAPiens
 
                                 foreach (var param in @params)
                                 {
-                                    if (!param.Contains("="))
+                                    if (!param.Contains("=") || param.StartsWith("="))
                                     {
                                         args.Add(param);
                                     }
