@@ -182,7 +182,7 @@ namespace RoboSAPiens {
                 IIndexLocator indexLocator => 
                     getByIndex(indexLocator, labels),
                 Content (var content) => 
-                    getByContent(content),
+                    getByContent(exact? content : content + "~"),
                 _ => null
             };
         }

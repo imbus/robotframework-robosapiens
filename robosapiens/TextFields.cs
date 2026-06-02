@@ -83,6 +83,10 @@ namespace RoboSAPiens {
         }
 
     	public override bool contains(string content) {
+            if (content.EndsWith('~')) {
+                return text.Contains(content.TrimEnd('~'));
+            }
+
             return text.ToLower().Equals(content.ToLower());
         }
 

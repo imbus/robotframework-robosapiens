@@ -870,7 +870,7 @@ namespace RoboSAPiens {
             }
 
             var text = window.components.findLabel(new LabelLocator(content)) ?? 
-                       window.components.findTextField(new TextFieldLocator(content), exact: true);
+                       window.components.findTextField(new TextFieldLocator(content), exact: false);
 
             if (text == null) {
                 return new Result.ReadText.NotFound(content);
@@ -1291,7 +1291,7 @@ namespace RoboSAPiens {
             }
 
             var text = window.components.findLabel(new LabelLocator(content)) ?? 
-                       window.components.findTextField(new TextFieldLocator(content), exact: true);
+                       window.components.findTextField(new TextFieldLocator(content), exact: false);
 
             if (text == null) {
                 return new Result.SelectText.NotFound(content);
