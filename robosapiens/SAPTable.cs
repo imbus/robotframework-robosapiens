@@ -199,12 +199,6 @@ namespace RoboSAPiens {
                         if (colIndex0 > columns.Count - 1) return null;
                         if (!columns[colIndex0].titles.Contains(column)) return null;
 
-                        var table = (GuiTableControl)session.FindById(getCurrentId(session));
-                        if (table.VerticalScrollbar.Position > 0)
-                        {
-                            table.VerticalScrollbar.Position = 0;
-                        }
-
                         if (cells.Count == 0) classifyCells(session);
                         var cell = (colIndexOffset > 0) switch {
                             true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
@@ -212,7 +206,23 @@ namespace RoboSAPiens {
                         };
                         if (cell != null) return cell;
 
+                        var table = (GuiTableControl)session.FindById(getCurrentId(session));
+                        var scrollbarPosition = table.VerticalScrollbar.Position;
+
                         while (scrollOnePageDown(session))
+                        {
+                            cells = new CellRepository();
+                            classifyCells(session);
+                            cell = (colIndexOffset > 0) switch {
+                                true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
+                                false => cells.findCellByLabelAndColumn(label, column)
+                            };
+                            if (cell != null) return cell;
+                        }
+
+                        table.VerticalScrollbar.Position = scrollbarPosition;
+
+                        while (scrollOnePageUp(session))
                         {
                             cells = new CellRepository();
                             classifyCells(session);
