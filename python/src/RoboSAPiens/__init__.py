@@ -1,7 +1,9 @@
+import os
+
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.26.6"
+__version__ = "2.26.7"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -217,6 +219,8 @@ class RoboSAPiens(RoboSAPiensClient):
             'x64': x64
         }
         
+        os.environ['RoboSAPiens'] = __version__
+
         super().__init__(args)
     
     
@@ -1824,4 +1828,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.26.6'
+    ROBOT_LIBRARY_VERSION = '2.26.7'
