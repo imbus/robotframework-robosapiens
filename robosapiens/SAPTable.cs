@@ -200,9 +200,9 @@ namespace RoboSAPiens {
                         if (!columns[colIndex0].titles.Contains(column)) return null;
 
                         if (cells.Count == 0) classifyCells(session);
-                        var cell = colIndexOffset switch {
-                            _ when colIndexOffset > 0 => cells.findCellByLabelAndColumnIndex(label, colIndex0),
-                            _ => cells.findCellByLabelAndColumn(label, column)
+                        var cell = (colIndexOffset > 0) switch {
+                            true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
+                            false => cells.findCellByLabelAndColumn(label, column)
                         };
                         if (cell != null) return cell;
                         if (scrollOnePageDown(session))
