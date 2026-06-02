@@ -220,6 +220,7 @@ namespace RoboSAPiens {
                             if (cell != null) return cell;
                         }
 
+                        table = (GuiTableControl)session.FindById(getCurrentId(session));
                         table.VerticalScrollbar.Position = scrollbarPosition;
 
                         while (scrollOnePageUp(session))
