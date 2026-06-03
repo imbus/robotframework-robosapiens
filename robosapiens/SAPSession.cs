@@ -1055,6 +1055,11 @@ namespace RoboSAPiens {
 
             try {
                 cell.click(session);
+                // After selecting a cell the window contents may change
+                switch (updateWindow()) {
+                    case RobotResult.UIScanFail exceptionError:
+                        return exceptionError;
+                }
                 return new Result.SelectCell.Pass(locator.location);
             }
             catch (Exception e) {
