@@ -188,53 +188,78 @@ namespace RoboSAPiens {
 
                             var colIndex = columns.FindIndex(col => col.titles.Contains(atColumn));
                             var rowIndex = getRowIndex(colIndex, content, session);
+                            var table = (GuiTableControl)session.FindById(getCurrentId(session));
+                            var scrollbarPosition = table.VerticalScrollbar.Position;
 
-                            if (rowIndex < 0) return null;
-                            
-                            return findCell(new RowColumnLocator(rowIndex+1, column, colIndexOffset), session);
+                            while (rowIndex == -1 && scrollOnePageDown(session))
+                            {
+                                rowIndex = getRowIndex(colIndex, content, session);
+                            }
+
+                            if (rowIndex >= 0)
+                            {
+                                return findCell(new RowColumnLocator(rowIndex+1, column, colIndexOffset), session);
+                            }
+
+                            table = (GuiTableControl)session.FindById(getCurrentId(session));
+                            table.VerticalScrollbar.Position = scrollbarPosition;
+
+                            while (rowIndex == -1 && scrollOnePageUp(session))
+                            {
+                                rowIndex = getRowIndex(colIndex, content, session);
+                            }
+
+                            if (rowIndex >= 0)
+                            {
+                                return findCell(new RowColumnLocator(rowIndex+1, column, colIndexOffset), session);
+                            }
+
+                            return null;
                         }
-
-                        var colIndex0 = getColumnIndex(column, colIndexOffset);
-                        if (colIndex0 < 0) return null;
-                        if (colIndex0 > columns.Count - 1) return null;
-                        if (!columns[colIndex0].titles.Contains(column)) return null;
-
-                        if (cells.Count == 0) classifyCells(session);
-                        var cell = (colIndexOffset > 0) switch {
-                            true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
-                            false => cells.findCellByLabelAndColumn(label, column)
-                        };
-                        if (cell != null) return cell;
-
-                        var table = (GuiTableControl)session.FindById(getCurrentId(session));
-                        var scrollbarPosition = table.VerticalScrollbar.Position;
-
-                        while (scrollOnePageDown(session))
+                        else
                         {
-                            cells = new CellRepository();
-                            classifyCells(session);
-                            cell = (colIndexOffset > 0) switch {
+                            var colIndex0 = getColumnIndex(column, colIndexOffset);
+                            if (colIndex0 < 0) return null;
+                            if (colIndex0 > columns.Count - 1) return null;
+                            if (!columns[colIndex0].titles.Contains(column)) return null;
+
+                            if (cells.Count == 0) classifyCells(session);
+                            var cell = (colIndexOffset > 0) switch {
                                 true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
                                 false => cells.findCellByLabelAndColumn(label, column)
                             };
                             if (cell != null) return cell;
-                        }
 
-                        table = (GuiTableControl)session.FindById(getCurrentId(session));
-                        table.VerticalScrollbar.Position = scrollbarPosition;
+                            var table = (GuiTableControl)session.FindById(getCurrentId(session));
+                            var scrollbarPosition = table.VerticalScrollbar.Position;
 
-                        while (scrollOnePageUp(session))
-                        {
-                            cells = new CellRepository();
-                            classifyCells(session);
-                            cell = (colIndexOffset > 0) switch {
-                                true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
-                                false => cells.findCellByLabelAndColumn(label, column)
-                            };
-                            if (cell != null) return cell;
-                        }
+                            while (scrollOnePageDown(session))
+                            {
+                                cells = new CellRepository();
+                                classifyCells(session);
+                                cell = (colIndexOffset > 0) switch {
+                                    true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
+                                    false => cells.findCellByLabelAndColumn(label, column)
+                                };
+                                if (cell != null) return cell;
+                            }
+
+                            table = (GuiTableControl)session.FindById(getCurrentId(session));
+                            table.VerticalScrollbar.Position = scrollbarPosition;
+
+                            while (scrollOnePageUp(session))
+                            {
+                                cells = new CellRepository();
+                                classifyCells(session);
+                                cell = (colIndexOffset > 0) switch {
+                                    true => cells.findCellByLabelAndColumnIndex(label, colIndex0),
+                                    false => cells.findCellByLabelAndColumn(label, column)
+                                };
+                                if (cell != null) return cell;
+                            }
                         
-                        return null;
+                            return null;
+                        }
                     }
 
                 default:
@@ -322,11 +347,6 @@ namespace RoboSAPiens {
                 {
                     continue;
                 }
-            }
-
-            if (scrollOnePageDown(session))
-            {
-                return getRowIndex(columnIndex, content, session);
             }
 
             return -1;
