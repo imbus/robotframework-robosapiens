@@ -67,7 +67,7 @@ namespace RoboSAPiens
             var nodeKeys = (GuiCollection)tree.GetAllNodeKeys();
             var rows = Math.Min(rowCount, firstVisibleRow + visibleRowCount);
 
-            for (int row = firstVisibleRow; row < rows; row++) 
+            for (int row = firstVisibleRow; row <= rows; row++) 
             {
                 var nodeKey = (string)nodeKeys.ElementAt(row-1);
                 var nodePath = tree.GetNodePathByKey(nodeKey);
