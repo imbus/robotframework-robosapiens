@@ -3,11 +3,9 @@ __pycache__
 bin
 build
 dist
-**/lib32/*
-**/lib64/*
+**/win-x86/*
+**/win-x64/*
 *.dll
-!robosapiens/lib/*.dll
-!sapito/lib/*.dll
 obj
 proxy
 results

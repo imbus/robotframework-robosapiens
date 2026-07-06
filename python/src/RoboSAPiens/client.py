@@ -36,9 +36,9 @@ class NotFound(Exception):
 class RoboSAPiensClient(object):
     def __init__(self, args: Dict[str, Any]):
         if args.pop("x64"):
-            self.server_cmd = Path(realpath(__file__)).parent / "lib64" / "RoboSAPiens.exe"
+            self.server_cmd = Path(realpath(__file__)).parent / "win-x64" / "RoboSAPiens.exe"
         else:
-            self.server_cmd = Path(realpath(__file__)).parent / "lib32" / "RoboSAPiens.exe"
+            self.server_cmd = Path(realpath(__file__)).parent / "win-x86" / "RoboSAPiens.exe"
         self.args = list(args.items())
         self._server = self.server
         self.counter = count(1)

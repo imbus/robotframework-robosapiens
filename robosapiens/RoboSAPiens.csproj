@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp8.0-windows</TargetFramework>
+    <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <SelfContained>true</SelfContained>
     <PublishTrimmed>true</PublishTrimmed>
@@ -17,14 +17,14 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugSymbols>False</DebugSymbols>
     <DebugType>None</DebugType>
-    <PublishDir>..\python\src\RoboSAPiens\lib32</PublishDir>
+    <PublishDir>..\python\src\RoboSAPiens\$(RuntimeIdentifier)</PublishDir>
   </PropertyGroup>
 
   <Target Name="RemoveDir" BeforeTargets="BeforeBuild">
       <RemoveDir Directories="$(BaseIntermediateOutputPath)"/><!-- obj -->
       <RemoveDir Directories="$(BaseOutputPath)"/><!-- bin -->
       <RemoveDir Directories="$(PublishDir)"/>
-      <Exec Command="dotnet restore RoboSAPiensx86.csproj"/>
+      <Exec Command="dotnet restore RoboSAPiens.csproj"/>
   </Target>
 
   <ItemGroup>
