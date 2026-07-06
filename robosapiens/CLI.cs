@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace RoboSAPiens
 {
-    public record struct Options(bool debug, bool presenterMode);
+    public record struct Options(bool debug, bool presenterMode, bool record);
 
     public class CLI
     {
@@ -50,7 +50,7 @@ namespace RoboSAPiens
 
         public CLI() {
             // must be initialized before the arguments
-            this.options = new Options(debug: false, presenterMode: false);
+            this.options = new Options(debug: false, presenterMode: false, record: false);
             this.arguments = new Arguments(new List<Arg>
             {
                 new Arg("debug",
@@ -69,6 +69,12 @@ namespace RoboSAPiens
                     options.presenterMode,
                     "Highlight each GUI element acted upon",
                     () => options = options with {presenterMode = true}
+                ),
+                new Arg("record",
+                    false,
+                    "Record the actions performed in the SAP GUI and save them to a .robot file",
+                    () => options = options with {record = true},
+                    false
                 )
             });
             this.logger = new Logger();

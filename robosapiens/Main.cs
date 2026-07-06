@@ -13,7 +13,10 @@ namespace RoboSAPiens
             var options = cli.parseArgs(args);
             var keywordLibrary = new KeywordLibrary(options, cli.logger);
 
-            if (options.debug) {
+            if (options.record) {
+                REPL.Recorder.Start(options.debug);
+            }
+            else if (options.debug) {
                 REPL.Debug.start(keywordLibrary);
             }
             else {

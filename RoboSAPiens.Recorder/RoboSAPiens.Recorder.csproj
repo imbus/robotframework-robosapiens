@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="SAPFEWSELib">
+      <HintPath>lib/sapfewse.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion> 
+    </Reference>
+    <Reference Include="SAPROTWR.NET">
+      <HintPath>lib/saprotwr.net.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+</Project>
