@@ -552,8 +552,10 @@ namespace RoboSAPiens.Recorder
                 "GuiGridView" => 
                     (name, values) switch
                     {
-                        ("PressToolbarButton", [string buttonId]) => new Locator(getGridViewToolbarButtonLabel((GuiGridView)component, buttonId)),
+                        ("DoubleClickCurrentCell", _) => getGridViewCellLocator((GuiGridView)component, ((GuiGridView)component).CurrentCellRow, ((GuiGridView)component).CurrentCellColumn),
                         ("ModifyCell", [int rowIndex0, string columnId, _]) => getGridViewCellLocator((GuiGridView)component, rowIndex0, columnId),
+                        ("PressToolbarButton", [string buttonId]) => new Locator(getGridViewToolbarButtonLabel((GuiGridView)component, buttonId)),
+                        ("SetCurrentCell", [int rowIndex0, string columnId]) => getGridViewCellLocator((GuiGridView)component, rowIndex0, columnId),
                         _ => null
                     },
                 "GuiMainWindow" => null,
@@ -697,6 +699,25 @@ namespace RoboSAPiens.Recorder
                         KeyGuiRoles.Cell,
                         locator,
                         value
+                    ),
+                    [{ window: string window, type: "Method", name: "DoubleClickCurrentCell" }] => new KeyGuiEvent(
+                        window,
+                        KeyGuiActions.DoubleClick,
+                        KeyGuiRoles.Cell,
+                        locator,
+                        null
+                    ),
+                    [{ window: string window, type: "Method", name: "SetCurrentCell", values: [int rowIndex, string colId] }] => new KeyGuiEvent(
+                        window,
+                        ((GuiGridView)component).GetCellType(rowIndex, colId) switch
+                        {
+                            "Normal" => KeyGuiActions.Select,
+                            "ValueList" => KeyGuiActions.Select,
+                            _ => throw new Exception("Invalid cell type")
+                        },
+                        KeyGuiRoles.Cell,
+                        locator,
+                        null
                     ),
                     _ => null
                 },
