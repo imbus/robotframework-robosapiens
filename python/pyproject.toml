@@ -1,0 +1,41 @@
+[project]
+name = 'robotframework-robosapiens'
+description = "Fully localized Robot Framework library for automating the SAP GUI using text selectors."
+authors = [
+    {name = "Marduk Bolaños, imbus", email = "marduk.bolanos@imbus.de"},
+]
+readme = "README.md"
+license = "Apache-2.0"
+dynamic = ["version"]
+
+dependencies = [
+  'robotframework>=5.0.1'
+]
+requires-python = ">=3.10"
+
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Operating System :: Microsoft :: Windows :: Windows 10",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development :: Testing"
+]
+
+[project.urls]
+Homepage = "https://pypi.org/project/robotframework-robosapiens/"
+Repository = "https://github.com/imbus/robotframework-robosapiens.git"
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+RoboSAPiens = ["win-x64/*", "win-x86/*"]

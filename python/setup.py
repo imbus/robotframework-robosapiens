@@ -1,41 +1,8 @@
-#!/usr/bin/env python
-
 from pathlib import Path
 from setuptools import setup
 
 VERSION = Path("../VERSION").read_text(encoding="utf-8")
 
-CLASSIFIERS = """Development Status :: 5 - Production/Stable
-Operating System :: Microsoft :: Windows :: Windows 10
-Programming Language :: Python
-Programming Language :: Python :: 3
-Programming Language :: Python :: 3.10
-Programming Language :: Python :: 3.11
-Programming Language :: Python :: 3.12
-Programming Language :: Python :: 3.13
-Programming Language :: Python :: 3.14
-Topic :: Software Development :: Testing
-"""
-
 setup(
-    name='robotframework-robosapiens',
-    version=VERSION,
-    author='imbus Rheinland GmbH',
-    maintainer='Marduk Bolaños',
-    maintainer_email='marduk.bolanos@imbus.de',
-    description='Fully localized Robot Framework library for automating the SAP GUI using text selectors.',
-    long_description=Path("./README.md").read_text(encoding="utf-8"),
-    long_description_content_type='text/markdown',
-    url='https://github.com/imbus/robotframework-robosapiens',
-    license='Apache-2.0',
-    keywords='robotframework testing test automation sap gui',
-    platforms='windows',
-    classifiers=CLASSIFIERS.splitlines(),
-    package_data={'': ['win-x86/*', 'win-x64/*', 'DE/*']},
-    package_dir={'': 'src'},
-    packages=['RoboSAPiens'],
-    install_requires=[
-        'robotframework>=5.0.1',
-    ],
-    python_requires='>=3.10'
+    version=VERSION
 )
