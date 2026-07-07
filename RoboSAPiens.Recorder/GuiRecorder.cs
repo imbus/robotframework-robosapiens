@@ -503,12 +503,11 @@ namespace RoboSAPiens.Recorder
 
         Locator getGridViewCellLocator(GuiGridView gridView, int rowIndex0, string columnId)
         {
-            var columnTitles = (GuiCollection)gridView.GetColumnTitles(columnId);
+            var columnTitle = gridView.GetDisplayedColumnTitle(columnId).Trim();
             var rowIndex = rowIndex0 + 1;
 
-            if (columnTitles.Count > 0)
+            if (columnTitle != "")
             {
-                var columnTitle = (string)columnTitles.ElementAt(0);
                 return new Locator(row: rowIndex.ToString(), col: columnTitle.Trim());
             }
 
