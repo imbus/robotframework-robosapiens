@@ -864,16 +864,16 @@ namespace RoboSAPiens.Recorder
                 _ => "RoboSAPiens",
             };
 
-            var test_setup = lang switch
+            var open_sap = lang switch
             {
-                "DE" => "Laufende SAP GUI übernehmen",
-                _ => "Connect to running SAP",
+                "DE" => "SAP starten",
+                _ => "Open SAP",
             };
 
             var template = $"""
             *** Settings ***
             Library     {library}    x64=True
-            Test Setup   {test_setup}
+            Test Setup   {open_sap}    C:\\Program Files\\SAP\\FrontEnd\\SAPGUI\\saplogon.exe
 
             *** Test Cases ***
             {testcase}
