@@ -77,6 +77,7 @@ namespace RoboSAPiens.Recorder
     {
         public const string Check = "check";
         public const string Click = "click";
+        public const string Connect = "connect";
         public const string DoubleClick = "double_click";
         public const string Execute = "execute";
         public const string Fill = "fill";
@@ -124,6 +125,10 @@ namespace RoboSAPiens.Recorder
         public string serialize(string lang)
         {
             var keywords = new {
+                ConnectToServer = new Dictionary<string, string> {
+                    ["DE"] = "Verbindung zum Server herstellen",
+                    ["EN"] = "Connect To Server"
+                },
                 DoubleClickCell = new Dictionary<string, string> {
                     ["DE"] = "Tabellenzelle doppelklicken",
                     ["EN"] = "Double-click Cell"
@@ -204,6 +209,7 @@ namespace RoboSAPiens.Recorder
 
             var keywordCall = (action, role, value) switch
             {
+                (KeyGuiActions.Connect, _, string connection) => new KeywordCall(keywords.ConnectToServer[lang], null, connection),
                 (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.TickCheckboxCell[lang], locator),
                 (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => new KeywordCall(keywords.TickCheckbox[lang], locator),
                 (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.SelectCell[lang], locator),
@@ -286,6 +292,7 @@ namespace RoboSAPiens.Recorder
             try
             {
                 var connection = (GuiConnection)sap.Connections.ElementAt(0);
+                keyGuiEventLog.Add(new KeyGuiEvent("SAP Logon", KeyGuiActions.Connect, null, null, connection.Description));
                 return (GuiSession)connection.Sessions.ElementAt(0); 
             }
             catch (Exception)
