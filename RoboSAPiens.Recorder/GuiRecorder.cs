@@ -8,9 +8,10 @@ using saprotwr.net;
 
 namespace RoboSAPiens.Recorder
 {
+    [JsonSerializable(typeof(bool))]
+    [JsonSerializable(typeof(JsonObject))]
     [JsonSerializable(typeof(List<Event>))]
     [JsonSerializable(typeof(List<KeyGuiEvent>))]
-    [JsonSerializable(typeof(JsonObject))]
     [JsonSerializable(typeof(SapObject))]
     internal partial class SerializerContext : JsonSerializerContext {}
 
@@ -886,12 +887,12 @@ namespace RoboSAPiens.Recorder
             );
         }
 
-        void saveEventLog(string filename)
+        public void saveEventLog(string filename)
         {
             var json = JsonSerializer.Serialize(eventLog, typeof(List<Event>), new SerializerContext());
 
             File.WriteAllText(
-                Path.Combine(Directory.GetCurrentDirectory(), filename),
+                Path.Combine(Directory.GetCurrentDirectory(), filename + ".json"),
                 json
             );
         }

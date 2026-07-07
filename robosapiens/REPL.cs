@@ -201,7 +201,9 @@ namespace RoboSAPiens
                                 {
                                     if (debug)
                                     {
-                                        recorder.saveKeyGui(readInput("Filename: ")!);
+                                        string filename = readInput("Filename: ")!;
+                                        recorder.saveEventLog(filename + "-events");
+                                        recorder.saveKeyGui(filename + "-keygui");
                                     }
                                     else
                                     {
