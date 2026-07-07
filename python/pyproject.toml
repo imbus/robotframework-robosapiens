@@ -30,6 +30,10 @@ classifiers = [
 Homepage = "https://pypi.org/project/robotframework-robosapiens/"
 Repository = "https://github.com/imbus/robotframework-robosapiens.git"
 
+[project.scripts]
+robosapiens = "RoboSAPiens.app:x86"
+robosapiens-x64 = "RoboSAPiens.app:x64"
+
 [build-system]
 requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
