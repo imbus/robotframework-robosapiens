@@ -867,14 +867,23 @@ namespace RoboSAPiens.Recorder
             };
         }
 
-        public void saveKeyGui(string filename)
+        void saveAsJson(object? value, Type type, string filename)
         {
-            var json = JsonSerializer.Serialize(keyGuiEventLog, typeof(List<KeyGuiEvent>), new SerializerContext());
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            var json = JsonSerializer.Serialize(value, type, new SerializerContext(options));
 
             File.WriteAllText(
                 Path.Combine(Directory.GetCurrentDirectory(), filename + ".json"),
                 json
             );
+        }
+
+        public void saveKeyGui(string filename)
+        {
+            saveAsJson(keyGuiEventLog, typeof(List<KeyGuiEvent>), filename);
         }
 
         public void saveRobotFile(string testcase, string lang)
@@ -909,12 +918,7 @@ namespace RoboSAPiens.Recorder
 
         public void saveEventLog(string filename)
         {
-            var json = JsonSerializer.Serialize(eventLog, typeof(List<Event>), new SerializerContext());
-
-            File.WriteAllText(
-                Path.Combine(Directory.GetCurrentDirectory(), filename + ".json"),
-                json
-            );
+            saveAsJson(eventLog, typeof(List<Event>), filename);
         }
 
         void saveRecording(string filename)
