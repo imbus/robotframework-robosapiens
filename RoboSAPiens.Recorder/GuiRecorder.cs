@@ -643,6 +643,7 @@ namespace RoboSAPiens.Recorder
             var component = (GuiVComponent)session.FindById(events[0].componentId);
             var componentType = events[0].componentType;
             var locator = events[0].locator;
+            var lastKeyGuiEvent = keyGuiEventLog.Last();
 
             return componentType switch
             {
@@ -820,7 +821,7 @@ namespace RoboSAPiens.Recorder
                 "GuiCTextField" or "GuiTextField" or "GuiPasswordField" => events.Select(
                     e => e switch
                     {
-                        {name: "SetFocus"} when eventLog.Last().componentId == component.Id => null,
+                        {name: "SetFocus"} when lastKeyGuiEvent.action == KeyGuiActions.Fill && eventLog.Last().componentId == component.Id => null,
                         {name: "SetFocus"} => new KeyGuiEvent(
                             e.window,
                             KeyGuiActions.Click,
