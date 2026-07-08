@@ -33,7 +33,7 @@ namespace RoboSAPiens.Recorder
         public override void Write(Utf8JsonWriter writer, object objectToWrite, JsonSerializerOptions options) {}  
     }
     
-    record Recording(Dictionary<string, string> windows, List<KeyGuiEvent> keyGuiEvents);
+    public record Recording(Dictionary<string, string> windows, List<KeyGuiEvent> keyGuiEvents);
 
     record Event(Window window, string componentId, string componentType, Locator? locator, string type, string name, List<object> values)
     {
