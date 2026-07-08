@@ -564,7 +564,11 @@ namespace RoboSAPiens.Recorder
                     component.Parent switch
                     {
                         GuiComponent parent when parent.Type == "GuiTableControl" => 
-                            getTableCellLocator((GuiTableControl)parent, component.Id) with {row = ((GuiTextField)component).Text.Trim()},
+                            ((GuiTableControl)parent).Columns switch
+                            {
+                                GuiCollection columns when columns.Count == 1 && ((GuiTableColumn)columns.ElementAt(0)).Title == "" => new Locator(contents: ((GuiTextField)component).Text.Trim()),
+                                _ => getTableCellLocator((GuiTableControl)parent, component.Id) with {row = ((GuiTextField)component).Text.Trim()},
+                            },
                         _ => new Locator(contents: ((GuiTextField)component).Text.Trim())
                     },
                 "GuiTree" =>
