@@ -5,9 +5,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputType>Exe</OutputType>
     <SelfContained>true</SelfContained>
-    <PublishTrimmed>true</PublishTrimmed>
-    <TrimMode>CopyUsed</TrimMode>
-    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <NoWarn>NU1701</NoWarn>
@@ -18,9 +15,12 @@
     <DebugSymbols>False</DebugSymbols>
     <DebugType>None</DebugType>
     <PublishDir>..\python\src\RoboSAPiens\$(RuntimeIdentifier)</PublishDir>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>CopyUsed</TrimMode>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
   </PropertyGroup>
 
-  <Target Name="RemoveDir" BeforeTargets="BeforeBuild">
+  <Target Name="RemoveDir" BeforeTargets="BeforeBuild" Condition="'$(Configuration)'=='Release'">
       <RemoveDir Directories="$(BaseIntermediateOutputPath)"/><!-- obj -->
       <RemoveDir Directories="$(BaseOutputPath)"/><!-- bin -->
       <RemoveDir Directories="$(PublishDir)"/>
