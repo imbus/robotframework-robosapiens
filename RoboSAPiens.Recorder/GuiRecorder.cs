@@ -910,7 +910,7 @@ namespace RoboSAPiens.Recorder
             saveAsJson(keyGuiEventLog, typeof(List<KeyGuiEvent>), filename);
         }
 
-        public void saveRobotFile(string testcase, string lang)
+        public static string toRobotFile(List<KeyGuiEvent> keyGuiEventLog, string testcase, string lang)
         {
             var library = lang switch
             {
@@ -934,9 +934,14 @@ namespace RoboSAPiens.Recorder
 
             """;
 
+            return template + string.Join(Environment.NewLine, keyGuiEventLog.Select(e => "    " + e.serialize(lang)));
+        }
+
+        public void saveRobotFile(string testcase, string lang)
+        {
             File.WriteAllText(
                 Path.Combine(Directory.GetCurrentDirectory(), testcase + ".robot"),
-                template + string.Join(Environment.NewLine, keyGuiEventLog.Select(e => "    " + e.serialize(lang)))
+                toRobotFile(keyGuiEventLog, testcase, lang)
             );
         }
 
