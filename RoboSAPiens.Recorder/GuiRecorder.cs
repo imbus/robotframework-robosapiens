@@ -58,7 +58,7 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, string? row=null, string? col=null)
+    public record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, string? row=null, string? col=null)
     {
         public override string ToString()
         {
@@ -103,19 +103,19 @@ namespace RoboSAPiens.Recorder
         public const string TreeElement = "tree_element";
     }
 
-    record KeyGuiEvent(string window, string action, string? role, Locator? locator, string? value)
+    public record KeywordCall(string name, Locator? locator, params string[] args)
     {
         public override string ToString()
         {
-            return $"Action: {action} | Role: {role} | Locator: {locator} | Value: {value}";
+            return string.Join("    ", [name, locator, ..args.Select(arg => arg.NullIfEmpty() ?? "${EMPTY}")]);
+        }
         }
 
-        record KeywordCall(string name, Locator? locator, params string[] args)
+    public record KeyGuiEvent(string window, string action, string? role, Locator? locator, string? value)
         {
             public override string ToString()
             {
-                return string.Join("    ", [name, locator, ..args.Select(arg => arg.NullIfEmpty() ?? "${EMPTY}")]);
-            }
+            return $"Action: {action} | Role: {role} | Locator: {locator} | Value: {value}";
         }
 
         // TODO: Define the method serializeKeyTA
@@ -124,6 +124,11 @@ namespace RoboSAPiens.Recorder
         // - Write the Test Case in terms of Sequence calls
         
         public string serialize(string lang)
+        {
+            return toKeywordCall(lang).ToString();
+        }
+
+        public KeywordCall toKeywordCall(string lang)
         {
             var keywords = new {
                 ConnectToSap = new Dictionary<string, string> {
@@ -238,7 +243,7 @@ namespace RoboSAPiens.Recorder
                 _ => new KeywordCall("Fail", null, $"Unknown Keyword: {action} {role}")
             };
 
-            return keywordCall.ToString();
+            return keywordCall;
         }
     }
     
