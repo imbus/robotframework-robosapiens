@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/robosapiens/">
+    <Project Path="robosapiens/RoboSAPiens.csproj" />
+  </Folder>
+  <Project Path="ExportApi/ExportApi.csproj" />
+  <Project Path="RoboSAPiens.Recorder/RoboSAPiens.Recorder.csproj" />
+</Solution>
