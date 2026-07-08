@@ -126,6 +126,10 @@ namespace RoboSAPiens.Recorder
         public string serialize(string lang)
         {
             var keywords = new {
+                ConnectToSap = new Dictionary<string, string> {
+                    ["DE"] = "Laufende SAP GUI übernehmen",
+                    ["EN"] = "Connect To Running SAP"
+                },
                 ConnectToServer = new Dictionary<string, string> {
                     ["DE"] = "Verbindung zum Server herstellen",
                     ["EN"] = "Connect To Server"
@@ -211,6 +215,7 @@ namespace RoboSAPiens.Recorder
             var keywordCall = (action, role, value) switch
             {
                 (KeyGuiActions.Connect, _, string connection) => new KeywordCall(keywords.ConnectToServer[lang], null, connection),
+                (KeyGuiActions.Connect, _, null) => new KeywordCall(keywords.ConnectToSap[lang], null, []),
                 (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.TickCheckboxCell[lang], locator),
                 (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => new KeywordCall(keywords.TickCheckbox[lang], locator),
                 (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.SelectCell[lang], locator),
@@ -293,8 +298,17 @@ namespace RoboSAPiens.Recorder
             try
             {
                 var connection = (GuiConnection)sap.Connections.ElementAt(0);
-                keyGuiEventLog.Add(new KeyGuiEvent("SAP Logon", KeyGuiActions.Connect, null, null, connection.Description));
-                return (GuiSession)connection.Sessions.ElementAt(0); 
+                var session = (GuiSession)connection.Sessions.ElementAt(0);
+                var window = session.ActiveWindow.Text;
+                var connectionDescription = session.Info.Client switch
+                {
+                    "000" => connection.Description,
+                    _ => null
+                };
+
+                keyGuiEventLog.Add(new KeyGuiEvent(window, KeyGuiActions.Connect, null, null, connectionDescription));
+
+                return session;
             }
             catch (Exception)
             {
@@ -563,7 +577,7 @@ namespace RoboSAPiens.Recorder
                 "GuiTextField" when name == "SetFocus" =>
                     component.Parent switch
                     {
-                        GuiComponent parent when parent.Type == "GuiTableControl" => 
+                        GuiComponent parent when parent.Type == "GuiTableControl" =>
                             ((GuiTableControl)parent).Columns switch
                             {
                                 GuiCollection columns when columns.Count == 1 && ((GuiTableColumn)columns.ElementAt(0)).Title == "" => new Locator(contents: ((GuiTextField)component).Text.Trim()),
