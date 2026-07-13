@@ -448,6 +448,7 @@ namespace RoboSAPiens.Recorder
                 GuiCheckBox checkBox => new Locator(checkBox.Text.Trim().NullIfEmpty() ?? getLabel(component)),
                 GuiLabel label => new Locator(contents: label.Text.Trim()),
                 GuiOkCodeField => null,
+                GuiRadioButton radioButton => new Locator(radioButton.Text.Trim().NullIfEmpty() ?? getLabel(component)),
                 GuiTab tab => new Locator(getTabLabel(tab)),
                 GuiTextField textField when !textField.Changeable => new Locator(contents: textField.Text.Trim()),
                 _ => new Locator(getLabel(component))
