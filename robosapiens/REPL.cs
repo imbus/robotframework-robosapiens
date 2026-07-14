@@ -199,17 +199,15 @@ namespace RoboSAPiens
                             case "save":
                                 if (recorder != null)
                                 {
+                                    string testcase = readInput("Test Case: ")!;
+                                    string language = readInput("Language [en, de]: ")!;
+                                    recorder.saveRobotFile(testcase, language.ToUpper());
+                                    
                                     if (debug)
                                     {
-                                        string filename = readInput("Filename: ")!;
+                                        string filename = testcase.ToLower().Replace(" ", "-");
                                         recorder.saveEventLog(filename + "-events");
                                         recorder.saveKeyGui(filename + "-keygui");
-                                    }
-                                    else
-                                    {
-                                        string testcase = readInput("Test Case: ")!;
-                                        string language = readInput("Language [en, de]: ")!;
-                                        recorder.saveRobotFile(testcase, language.ToUpper());
                                     }
                                 }
                                 break;
