@@ -869,6 +869,13 @@ namespace RoboSAPiens.Recorder
                         locator,
                         null
                     ),
+                    [{ window: Window window, type: "Set Property", name: "SelectedRows", values: [string rowIndex0] }] when eventLog.SkipLast(1).Last().componentId == component.Id && eventLog.SkipLast(1).Last().name == "CurrentCellColumn" => new KeyGuiEvent(
+                        window,
+                        KeyGuiActions.Click,
+                        KeyGuiRoles.Cell,
+                        getGridViewCellLocator((GuiGridView)component, int.Parse(rowIndex0), (string)eventLog.SkipLast(1).Last().values[0]),
+                        null
+                    ),
                     _ => null
                 },
                 "GuiLabel" => events switch
