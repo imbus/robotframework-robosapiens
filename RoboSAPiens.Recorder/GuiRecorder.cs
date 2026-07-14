@@ -147,15 +147,23 @@ namespace RoboSAPiens.Recorder
 
     public record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, string? row=null, string? col=null)
     {
+        string escapeSpaces(string s)
+        {
+            return 
+                Regex.Matches(s, @"\s\s+")
+                .Select(m => m.ToString())
+                .Aggregate(s, (acc, m) => acc.Replace(m, " " + m[1..].Replace(" ", @"\ ")));
+        }
+
         public override string ToString()
         {
             return (hLabel, vLabel, contents, row, col) switch
             {
-                (string hLabel, null, null, null, null) => hLabel,
-                (string hLabel, string vLabel, null, null, null) => $"{hLabel} @ {vLabel}",
-                (null, string vLabel, null, null, null) => $"@ {vLabel}",
-                (null, null, string contents, null, null) => $"= {contents}",
-                (null, null, null, string row, string col) => $"{row}    {col}",
+                (string hLabel, null, null, null, null) => escapeSpaces(hLabel),
+                (string hLabel, string vLabel, null, null, null) => $"{escapeSpaces(hLabel)} @ {escapeSpaces(vLabel)}",
+                (null, string vLabel, null, null, null) => $"@ {escapeSpaces(vLabel)}",
+                (null, null, string contents, null, null) => $"= {escapeSpaces(contents)}",
+                (null, null, null, string row, string col) => $"{escapeSpaces(row)}    {escapeSpaces(col)}",
                 _ => throw new Exception("Invalid locator")
             };
         }
