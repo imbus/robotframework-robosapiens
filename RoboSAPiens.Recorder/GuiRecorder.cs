@@ -1,4 +1,6 @@
+using System.IO.Hashing;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -206,7 +208,7 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    public record Window(string id, string title);
+    public record Window(string hash, string title);
 
     public record KeyGuiEvent(Window window, string action, string? role, Locator? locator, string? value)
     {
@@ -391,6 +393,11 @@ namespace RoboSAPiens.Recorder
             session = getSession();
         }
 
+        string crc32(string text)
+        {
+            return BitConverter.ToString(Crc32.Hash(Encoding.UTF8.GetBytes(text)));
+        }
+
         GuiSession getSession()
         {
             var rot = new CSapROTWrapper();
@@ -406,15 +413,15 @@ namespace RoboSAPiens.Recorder
             {
                 var connection = (GuiConnection)sap.Connections.ElementAt(0);
                 var session = (GuiSession)connection.Sessions.ElementAt(0);
-                var windowId = session.ActiveWindow.Id;
                 var windowTitle = session.ActiveWindow.Text;
+                var windowHash = crc32(windowTitle);
                 var connectionDescription = session.Info.Client switch
                 {
                     "000" => connection.Description,
                     _ => null
                 };
 
-                keyGuiEventLog.Add(new KeyGuiEvent(new Window(windowId, windowTitle), KeyGuiActions.Connect, null, null, connectionDescription));
+                keyGuiEventLog.Add(new KeyGuiEvent(new Window(windowHash, windowTitle), KeyGuiActions.Connect, null, null, connectionDescription));
 
                 return session;
             }
@@ -667,10 +674,10 @@ namespace RoboSAPiens.Recorder
             {   "GuiComboBox" => [((GuiComboBox)component).Value],
                 _ => command[2..].ToList()
             };
-            var windowId = session.ActiveWindow.Id;
             var windowTitle = session.ActiveWindow.Text;
+            var windowHash = crc32(windowTitle);
             var screenshot = Convert.ToBase64String((byte[])session.ActiveWindow.HardCopyToMemory(1));
-            windows.TryAdd(windowId, screenshot);
+            windows.TryAdd(windowHash, screenshot);
             var locator = componentType switch
             {
                 "GuiDialogShell" => null,
@@ -711,7 +718,7 @@ namespace RoboSAPiens.Recorder
                     }
             };
 
-            return new Event(new Window(windowId, windowTitle), component.Id, componentType, locator, type, name, values);
+            return new Event(new Window(windowHash, windowTitle), component.Id, componentType, locator, type, name, values);
         }
 
         void handleDestroy(GuiSession session)
