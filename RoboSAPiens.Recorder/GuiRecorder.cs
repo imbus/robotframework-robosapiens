@@ -491,18 +491,31 @@ namespace RoboSAPiens.Recorder
         string getLabel(GuiVComponent component)
         {
             var parentObject = getSapObject(component.Parent.Id);
-            var closestLabel =
+            var verticalAlignedLabels =
                 parentObject.children
-                .Select(e => e.properties)
-                .Where(e =>
-                    (e.Type == "GuiLabel" || (e.Type == "GuiTextField" && e.Changeable == "false")) &&
-                    e.Left < component.Left &&
-                    Math.Abs(e.Top - component.Top) < 5 &&
-                    Math.Abs(e.Left + e.Width - component.Left) < 30
+                .Select(obj => obj.properties)
+                .Where(obj =>
+                    (obj.Type == "GuiLabel" || (obj.Type == "GuiTextField" && obj.Changeable == "false")) &&
+                    Math.Abs(obj.Top - component.Top) < 5
+                );
+            var closestLeftLabel = 
+                verticalAlignedLabels
+                .Where(label =>
+                    label.Left < component.Left && 
+                    Math.Abs(label.Left + label.Width - component.Left) < 30
                 )
-                .MinBy(e => Math.Abs(e.Left - component.Left));
+                .MinBy(label => Math.Abs(label.Left + label.Width - component.Left))
+                ?.Text.Trim();
+            var closestRightLabel = 
+                verticalAlignedLabels
+                .Where(label =>
+                    label.Left > component.Left + component.Width && 
+                    Math.Abs(label.Left - (component.Left + component.Width)) < 30
+                )
+                .MinBy(label => Math.Abs(label.Left - (component.Left + component.Width)))
+                ?.Text.Trim();
 
-            return closestLabel?.Text.Trim() ?? getTooltip(component);
+            return closestLeftLabel ?? closestRightLabel ?? getTooltip(component);
         }
 
         Locator? getTableCellLocator(GuiTableControl table, string componentId)
