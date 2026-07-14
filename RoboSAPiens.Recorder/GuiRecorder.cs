@@ -227,6 +227,10 @@ namespace RoboSAPiens.Recorder
 
         public KeywordCall toKeywordCall(string lang)
         {
+            var exact = new Dictionary<string, string> {
+                ["DE"] = "exakt",
+                ["EN"] = "exact"
+            };
             var keywords = new {
                 ConnectToSap = new Dictionary<string, string> {
                     ["DE"] = "Laufende SAP GUI übernehmen",
@@ -331,7 +335,7 @@ namespace RoboSAPiens.Recorder
                 (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => new KeywordCall(keywords.FillCell[lang], locator, contents),
                 (KeyGuiActions.Fill, KeyGuiRoles.TextField, string contents) => new KeywordCall(keywords.FillTextField[lang], locator, contents),
                 (KeyGuiActions.PressKey, _, string key) => new KeywordCall(keywords.PressKey[lang], null, key),
-                (KeyGuiActions.Push, KeyGuiRoles.Button, _) => new KeywordCall(keywords.PushButton[lang], locator),
+                (KeyGuiActions.Push, KeyGuiRoles.Button, _) => new KeywordCall(keywords.PushButton[lang], locator, [$"{exact[lang]}=True"]),
                 (KeyGuiActions.Push, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.PushButtonCell[lang], locator),
                 (KeyGuiActions.Select, KeyGuiRoles.Cell, string value) => new KeywordCall(keywords.SelectCellValue[lang], locator, value),
                 (KeyGuiActions.Select, KeyGuiRoles.Combobox, string option) => new KeywordCall(keywords.SelectComboBox[lang], locator, option),
