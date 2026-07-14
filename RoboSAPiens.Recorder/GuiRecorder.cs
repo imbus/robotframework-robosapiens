@@ -492,7 +492,7 @@ namespace RoboSAPiens.Recorder
         {
             var parentObject = getSapObject(component.Parent.Id);
             var closestLabel =
-                parentObject?.children
+                parentObject.children
                 .Select(e => e.properties)
                 .Where(e =>
                     (e.Type == "GuiLabel" || (e.Type == "GuiTextField" && e.Changeable == "false")) &&
@@ -745,14 +745,14 @@ namespace RoboSAPiens.Recorder
             session = getSession();
         }
 
-        SapObject? getSapObject(string componentId)
+        SapObject getSapObject(string componentId)
         {
             var options = new JsonSerializerOptions
             {
                 NumberHandling = JsonNumberHandling.AllowReadingFromString,
                 ReferenceHandler = ReferenceHandler.Preserve
             };
-            return JsonSerializer.Deserialize(getObjectTree(componentId), typeof(SapObject), new SerializerContext(options)) as SapObject;
+            return (JsonSerializer.Deserialize(getObjectTree(componentId), typeof(SapObject), new SerializerContext(options)) as SapObject)!;
         }
 
         string getObjectTree(string componentId)
