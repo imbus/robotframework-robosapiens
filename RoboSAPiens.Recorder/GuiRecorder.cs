@@ -287,7 +287,7 @@ namespace RoboSAPiens.Recorder
                     ["EN"] = "Select Dropdown Menu Entry"
                 },
                 SelectRadio = new Dictionary<string, string> {
-                    ["DE"] = "Optionsfehld auswählen",
+                    ["DE"] = "Optionsfeld auswählen",
                     ["EN"] = "Select Radio Button"
                 },
                 SelectTab = new Dictionary<string, string> {
