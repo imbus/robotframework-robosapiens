@@ -463,10 +463,9 @@ namespace RoboSAPiens.Recorder
 
         string getButtonLabel(GuiButton button)
         {
-            var label = Regex.Replace(
-                button.Text.Trim().NullIfEmpty() ?? button.Tooltip.Trim(), 
-                @"\s\s+.*", ""
-            );
+            var label = 
+                button.Text.Trim().NullIfEmpty() ?? 
+                button.Tooltip.Trim();
 
             if (int.TryParse(label, out int _))
             {
