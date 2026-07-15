@@ -587,13 +587,13 @@ namespace RoboSAPiens.Recorder
                 {
                     var itemText = tree.GetItemText(nodeKey, i.ToString());
                     if (itemText != null && itemText.Trim() != "") {
-                        texts.Add(itemText.Replace("/", "|"));
+                        texts.Add(itemText.Replace("/", "//"));
                     }
                 }
                 return string.Join(" ", texts);
             }
 
-            return tree.GetNodeTextByKey(nodeKey).Replace("/", "|");
+            return tree.GetNodeTextByKey(nodeKey).Replace("/", "//");
         }
 
         string getParentPath(string path)
