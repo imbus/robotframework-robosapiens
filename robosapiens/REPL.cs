@@ -192,6 +192,7 @@ namespace RoboSAPiens
                             case "help":
                                 Console.WriteLine("Available commands:");
                                 Console.WriteLine("  start - Start recording");
+                                Console.WriteLine("  stop  - Stop recording");
                                 Console.WriteLine("  save  - Save the recorded steps to a .robot file");
                                 Console.WriteLine("  quit  - Exit the program");
                                 break;
@@ -225,6 +226,13 @@ namespace RoboSAPiens
                                 recorder = new GuiRecorder(debug);
                                 Console.WriteLine("Recording...");
                                 recorder.recordStart();
+                                break;
+                            case "stop":
+                                if (recorder != null)
+                                {
+                                    recorder.recordStop();
+                                    Console.WriteLine("Recording stopped.");
+                                }
                                 break;
                             default:
                                 Console.WriteLine($"Unknown command: {input}");
