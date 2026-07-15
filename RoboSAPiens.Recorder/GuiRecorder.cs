@@ -18,23 +18,6 @@ namespace RoboSAPiens.Recorder
     [JsonSerializable(typeof(SapObject))]
     internal partial class SerializerContext : JsonSerializerContext {}
 
-    public class ObjectToInferredTypesConverter: JsonConverter<object>
-    {
-        public override object Read(
-            ref Utf8JsonReader reader,
-            Type typeToConvert,
-            JsonSerializerOptions options) => reader.TokenType switch
-            {
-                JsonTokenType.True => true,
-                JsonTokenType.False => false,
-                JsonTokenType.Number when reader.TryGetInt32(out int l) => l,
-                JsonTokenType.String => reader.GetString()!,
-                _ => JsonDocument.ParseValue(ref reader).RootElement.Clone()
-            };
-
-        public override void Write(Utf8JsonWriter writer, object objectToWrite, JsonSerializerOptions options) {}  
-    }
-
     class VKeys
     {
         static string[] keyBindings =
@@ -178,6 +161,7 @@ namespace RoboSAPiens.Recorder
         public const string Connect = "connect";
         public const string DoubleClick = "double_click";
         public const string Execute = "execute";
+        public const string Expand = "expand";
         public const string Fill = "fill";
         public const string PressKey = "press_key";
         public const string Push = "push";
@@ -253,6 +237,10 @@ namespace RoboSAPiens.Recorder
                 ExecuteTransaction = new Dictionary<string, string> {
                     ["DE"] = "Transaktion ausführen",
                     ["EN"] = "Execute Transaction"
+                },
+                ExpandTreeFolder = new Dictionary<string, string> {
+                    ["DE"] = "Baumordner aufklappen",
+                    ["EN"] = "Expand Tree Folder"
                 },
                 FillCell = new Dictionary<string, string> {
                     ["DE"] = "Tabellenzelle ausfüllen",
@@ -334,6 +322,7 @@ namespace RoboSAPiens.Recorder
                 (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.DoubleClickTreeElement[lang], locator),
                 (KeyGuiActions.DoubleClick, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.DoubleClickCell[lang], locator),
                 (KeyGuiActions.Execute, _, string tCode) => new KeywordCall(keywords.ExecuteTransaction[lang], null, tCode),
+                (KeyGuiActions.Expand, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.ExpandTreeFolder[lang], locator),
                 (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => new KeywordCall(keywords.FillCell[lang], locator, contents),
                 (KeyGuiActions.Fill, KeyGuiRoles.TextField, string contents) => new KeywordCall(keywords.FillTextField[lang], locator, contents),
                 (KeyGuiActions.PressKey, _, string key) => new KeywordCall(keywords.PressKey[lang], null, key),
@@ -570,6 +559,16 @@ namespace RoboSAPiens.Recorder
             };
         }
 
+        enum TreeItemType 
+        {
+            Hierarchy,
+            Image,
+            Text,
+            Bool,
+            Button,
+            Link
+        }
+
         enum TreeType 
         {
             Simple,
@@ -587,13 +586,13 @@ namespace RoboSAPiens.Recorder
                 {
                     var itemText = tree.GetItemText(nodeKey, i.ToString());
                     if (itemText != null && itemText.Trim() != "") {
-                        texts.Add(itemText.Replace("/", "|"));
+                        texts.Add(itemText.Replace("/", "//"));
                     }
                 }
                 return string.Join(" ", texts);
             }
 
-            return tree.GetNodeTextByKey(nodeKey).Replace("/", "|");
+            return tree.GetNodeTextByKey(nodeKey).Replace("/", "//");
         }
 
         string getParentPath(string path)
@@ -661,11 +660,13 @@ namespace RoboSAPiens.Recorder
             var columnTitle = tree.GetColumnTitleFromName(columnName).Trim();
             var itemText = tree.GetItemText(nodeKey, columnName);
             var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
+            var itemType = (TreeItemType)tree.GetItemType(nodeKey, columnName);
 
-            return new Locator(
-                row: itemText.NullIfEmpty() ?? itemTooltip,
-                col: columnTitle
-            );
+            return itemType switch
+            {
+                TreeItemType.Text => new Locator(row: getText(tree, nodeKey), col: columnTitle),
+                _ =>  new Locator(row: itemText.NullIfEmpty() ?? itemTooltip, col: columnTitle)
+            };
         }
 
         Event toEvent(object[] command, GuiComponent component)
@@ -719,7 +720,12 @@ namespace RoboSAPiens.Recorder
                 "GuiTree" =>
                     (name, values) switch
                     {
-                        ("DoubleClickItem" or "DoubleClickNode", [string nodeKey]) => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
+                        ("DoubleClickItem", [string nodeKey, string column]) => ((GuiTree)component).GetColumnIndexFromName(column) switch
+                        {
+                            1 => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
+                            _ => getTreeCellLocator((GuiTree)component, nodeKey, column),
+                        },
+                        ("DoubleClickItem" or "DoubleClickNode" or "ExpandNode", [string nodeKey]) => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
                         ("PressButton", [string nodeKey, string column]) => getTreeCellLocator((GuiTree)component, nodeKey, column),
                         _ => null
                     },
@@ -989,9 +995,27 @@ namespace RoboSAPiens.Recorder
                 ).FirstOrDefault(e => e != null),
                 "GuiTree" => events switch
                 {
-                    [{window: Window window, type: "Method", name: "DoubleClickItem" or "DoubleClickNode"}] => new KeyGuiEvent(
+                    [{window: Window window, type: "Method", name: "DoubleClickItem"}] => new KeyGuiEvent(
                         window,
                         KeyGuiActions.DoubleClick,
+                        locator!.col switch
+                        {
+                            string column => KeyGuiRoles.Cell,
+                            null => KeyGuiRoles.TreeElement
+                        },
+                        locator,
+                        null
+                    ),
+                    [{window: Window window, type: "Method", name: "DoubleClickNode"}] => new KeyGuiEvent(
+                        window,
+                        KeyGuiActions.DoubleClick,
+                        KeyGuiRoles.TreeElement,
+                        locator,
+                        null
+                    ),
+                    [{window: Window window, type: "Method", name: "ExpandNode"}] => new KeyGuiEvent(
+                        window,
+                        KeyGuiActions.Expand,
                         KeyGuiRoles.TreeElement,
                         locator,
                         null
