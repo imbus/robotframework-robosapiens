@@ -995,7 +995,18 @@ namespace RoboSAPiens.Recorder
                 ).FirstOrDefault(e => e != null),
                 "GuiTree" => events switch
                 {
-                    [{window: Window window, type: "Method", name: "DoubleClickItem" or "DoubleClickNode"}] => new KeyGuiEvent(
+                    [{window: Window window, type: "Method", name: "DoubleClickItem"}] => new KeyGuiEvent(
+                        window,
+                        KeyGuiActions.DoubleClick,
+                        locator!.col switch
+                        {
+                            string column => KeyGuiRoles.Cell,
+                            null => KeyGuiRoles.TreeElement
+                        },
+                        locator,
+                        null
+                    ),
+                    [{window: Window window, type: "Method", name: "DoubleClickNode"}] => new KeyGuiEvent(
                         window,
                         KeyGuiActions.DoubleClick,
                         KeyGuiRoles.TreeElement,
