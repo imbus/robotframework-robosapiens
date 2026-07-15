@@ -178,6 +178,7 @@ namespace RoboSAPiens.Recorder
         public const string Connect = "connect";
         public const string DoubleClick = "double_click";
         public const string Execute = "execute";
+        public const string Expand = "expand";
         public const string Fill = "fill";
         public const string PressKey = "press_key";
         public const string Push = "push";
@@ -253,6 +254,10 @@ namespace RoboSAPiens.Recorder
                 ExecuteTransaction = new Dictionary<string, string> {
                     ["DE"] = "Transaktion ausführen",
                     ["EN"] = "Execute Transaction"
+                },
+                ExpandTreeFolder = new Dictionary<string, string> {
+                    ["DE"] = "Baumordner aufklappen",
+                    ["EN"] = "Expand Tree Folder"
                 },
                 FillCell = new Dictionary<string, string> {
                     ["DE"] = "Tabellenzelle ausfüllen",
@@ -334,6 +339,7 @@ namespace RoboSAPiens.Recorder
                 (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.DoubleClickTreeElement[lang], locator),
                 (KeyGuiActions.DoubleClick, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.DoubleClickCell[lang], locator),
                 (KeyGuiActions.Execute, _, string tCode) => new KeywordCall(keywords.ExecuteTransaction[lang], null, tCode),
+                (KeyGuiActions.Expand, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.ExpandTreeFolder[lang], locator),
                 (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => new KeywordCall(keywords.FillCell[lang], locator, contents),
                 (KeyGuiActions.Fill, KeyGuiRoles.TextField, string contents) => new KeywordCall(keywords.FillTextField[lang], locator, contents),
                 (KeyGuiActions.PressKey, _, string key) => new KeywordCall(keywords.PressKey[lang], null, key),
@@ -719,7 +725,7 @@ namespace RoboSAPiens.Recorder
                 "GuiTree" =>
                     (name, values) switch
                     {
-                        ("DoubleClickItem" or "DoubleClickNode", [string nodeKey]) => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
+                        ("DoubleClickItem" or "DoubleClickNode" or "ExpandNode", [string nodeKey]) => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
                         ("PressButton", [string nodeKey, string column]) => getTreeCellLocator((GuiTree)component, nodeKey, column),
                         _ => null
                     },
@@ -992,6 +998,13 @@ namespace RoboSAPiens.Recorder
                     [{window: Window window, type: "Method", name: "DoubleClickItem" or "DoubleClickNode"}] => new KeyGuiEvent(
                         window,
                         KeyGuiActions.DoubleClick,
+                        KeyGuiRoles.TreeElement,
+                        locator,
+                        null
+                    ),
+                    [{window: Window window, type: "Method", name: "ExpandNode"}] => new KeyGuiEvent(
+                        window,
+                        KeyGuiActions.Expand,
                         KeyGuiRoles.TreeElement,
                         locator,
                         null
