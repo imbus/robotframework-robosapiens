@@ -221,7 +221,7 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult readTreeElement(string elementPath) 
+        public RobotResult readTreeElement(string elementPath, bool tooltip) 
         {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
@@ -234,7 +234,11 @@ namespace RoboSAPiens {
             }
 
             try {
-                var elementText = treeElement.getText(session);
+                var elementText = tooltip switch
+                {
+                    true => treeElement.getTooltip(session),
+                    false => treeElement.getText(session)
+                };
                 return new Result.ReadTreeElement.Pass(elementPath, elementText);
             } 
             catch (Exception e) {

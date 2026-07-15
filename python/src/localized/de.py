@@ -345,7 +345,15 @@ lib: LocalizedRoboSAPiens = {
                     "spec": {},
                 }
             },
-            "kwargs": {},
+            "kwargs": {
+              "tooltip": {
+                  "name": ("2713280432", "Kurzinfo"),
+                  "desc": ("78475947", "Wenn True wird die Kurzinfo (Tooltip) des Baumelements ausgelesen."),
+                  "default": False,
+                  "type": "bool",
+                  "spec": {}
+              }
+            },
             "result": {
                 "NoSession": ("4138997384", no_session),
                 "NotFound": ("3295884259", not_found("Das Baumelement '{0}' wurde nicht gefunden.")),

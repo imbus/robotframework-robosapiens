@@ -340,7 +340,15 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
-            "kwargs": {},
+            "kwargs": {
+                "tooltip": {
+                    "name": "tooltip",
+                    "desc": "If True read the element's tooltip.",
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
+                }
+            },
             "result": {
                 "NoSession": no_session,
                 "NotFound": not_found("The tree element '{0}' could not be found."),

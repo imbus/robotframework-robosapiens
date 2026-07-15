@@ -77,6 +77,13 @@ namespace RoboSAPiens
             return guiTree.GetNodeTextByKey(nodeKey);
         }
 
+        public string getTooltip(GuiSession session)
+        {
+            var guiTree = (GuiTree)session.FindById(treeId);
+            expandParentNodes(guiTree);
+            return guiTree.GetNodeToolTip(nodeKey);
+        }
+
         public bool hasTooltip(string tooltip)
         {
             return false;
