@@ -1,0 +1,82 @@
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Threading;
+
+namespace RoboSAPiens.Recorder 
+{
+    public class ScreenCapture 
+    {
+        [StructLayout(LayoutKind.Sequential)]
+        struct Rect 
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }   
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
+
+        [DllImport("gdi32.dll", EntryPoint = "BitBlt", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool BitBlt([In] IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, [In] IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetForegroundWindow(IntPtr hwnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetProcessDpiAwarenessContext(int dpi_awareness_cxt);
+
+        public const int DPI_AWARENESS_CONTEXT_UNAWARE = -1;
+        public const int DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = -2;
+        public const int DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE = -3;
+        public const int DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = -4;
+        public const int DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED = -5;
+
+        // This is necessary when the SAP window contains an embedded Edge browser
+        // Without this flag the embedded browser is absent in the screenshot
+        const UInt32 PW_RENDERFULLCONTENT = 0x00000002;
+        const UInt32 SRCCOPY = 0x00CC0020;
+
+        public static byte[] saveWindowImage(IntPtr windowHandle, bool screenshot)
+        {
+            SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+            var rect = new Rect();
+            var src = GetDC(IntPtr.Zero);
+            GetWindowRect(windowHandle, ref rect);
+            var height = rect.Bottom - rect.Top;
+            var width = rect.Right - rect.Left;
+            var bounds = new Rectangle(rect.Left, rect.Top, width, height);
+            var bitmap = new Bitmap(bounds.Width, bounds.Height);
+            using (var graphics = Graphics.FromImage(bitmap))
+            using (var stream = new MemoryStream())
+            {
+                IntPtr deviceContext = graphics.GetHdc();
+                if (screenshot) {
+                    SetForegroundWindow(windowHandle);
+                    Thread.Sleep(100);
+                    BitBlt(deviceContext, 0, 0, width, height, src, rect.Left, rect.Top, SRCCOPY);
+                }
+                else {
+                    PrintWindow(windowHandle, deviceContext, PW_RENDERFULLCONTENT);
+                }
+                graphics.ReleaseHdc(deviceContext);
+                bitmap.Save(stream, ImageFormat.Png);
+                return stream.ToArray();
+            }
+        }
+    }
+}
