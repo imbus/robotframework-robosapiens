@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.27.1"
+__version__ = "2.28.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -307,11 +307,12 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ExpandTreeFolder', args, kwargs, result) # type: ignore
     
     @keyword('Read Tree Element') # type: ignore
-    def read_tree_element(self, element_path: str): # type: ignore
+    def read_tree_element(self, element_path: str, tooltip: bool=False): # type: ignore
         """
         Read the text of the tree element located at the path provided.
         
         | ``element_path`` | The path to the element using '/' as separator. e.g. Engineering/Civil Engineering |
+        | ``tooltip`` | If True read the element's tooltip. |
         
         Examples:
         
@@ -326,6 +327,7 @@ class RoboSAPiens(RoboSAPiensClient):
             element_path
         ]
         kwargs: dict = {
+            "tooltip": tooltip
         }
         
         result = {
@@ -1828,4 +1830,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.27.1'
+    ROBOT_LIBRARY_VERSION = '2.28.0'

@@ -46,7 +46,15 @@
           "spec": {}
         }
       },
-      "kwargs": {},
+      "kwargs": {
+        "tooltip": {
+          "name": "tooltip",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
+          "spec": {}
+        }
+      },
       "result": {
         "NoSession": "NoSession",
         "NotFound": "NotFound",

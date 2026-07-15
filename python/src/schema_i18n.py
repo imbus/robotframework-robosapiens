@@ -253,6 +253,9 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementmenuentryArgsElementpathSpec(
 class LocalizedRoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsReadtreeelementKwargsTooltipSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsReadtreeelementArgsElementpathSpec(TypedDict):
     ...
 
@@ -683,6 +686,13 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementArgsElementpath(TypedDict):
     name: Tuple[Literal['1214950134'], str]
     desc: Tuple[Literal['4061798646'], str]
     spec: LocalizedRoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec
+
+class LocalizedRoboSAPiensKeywordsReadtreeelementKwargsTooltip(TypedDict):
+    name: Tuple[Literal['2713280432'], str]
+    desc: Tuple[Literal['78475947'], str]
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: LocalizedRoboSAPiensKeywordsReadtreeelementKwargsTooltipSpec
 
 class LocalizedRoboSAPiensKeywordsReadtreeelementArgsElementpath(TypedDict):
     name: Tuple[Literal['1214950134'], str]
@@ -1532,7 +1542,7 @@ class LocalizedRoboSAPiensKeywordsReadtreeelementResult(TypedDict):
     Exception: Tuple[Literal['3264640217'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtreeelementKwargs(TypedDict):
-    ...
+    tooltip: LocalizedRoboSAPiensKeywordsReadtreeelementKwargsTooltip
 
 class LocalizedRoboSAPiensKeywordsReadtreeelementArgs(TypedDict):
     elementPath: LocalizedRoboSAPiensKeywordsReadtreeelementArgsElementpath

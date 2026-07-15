@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.27.1"
+__version__ = "2.28.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -306,11 +306,12 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ExpandTreeFolder', args, kwargs, result) # type: ignore
     
     @keyword('Baumelement auslesen') # type: ignore
-    def read_tree_element(self, Elementpfad: str): # type: ignore
+    def read_tree_element(self, Elementpfad: str, Kurzinfo: bool=False): # type: ignore
         """
         Der Text des Baumelements mit dem angegebenen Pfad wird ausgelesen.
         
         | ``Elementpfad`` | Der Pfad zum Element, mit '/' als Trennzeichen (z.B. Engineering/Bauwesen). |
+        | ``Kurzinfo`` | Wenn True wird die Kurzinfo (Tooltip) des Baumelements ausgelesen. |
         
         Beispiele:
         
@@ -325,6 +326,7 @@ class DE(RoboSAPiensClient):
             Elementpfad
         ]
         kwargs: dict = {
+            "Kurzinfo": Kurzinfo
         }
         
         result = {
@@ -1826,4 +1828,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.27.1'
+    ROBOT_LIBRARY_VERSION = '2.28.0'
