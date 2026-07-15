@@ -725,6 +725,11 @@ namespace RoboSAPiens.Recorder
                 "GuiTree" =>
                     (name, values) switch
                     {
+                        ("DoubleClickItem", [string nodeKey, string column]) => ((GuiTree)component).GetColumnIndexFromName(column) switch
+                        {
+                            1 => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
+                            _ => getTreeCellLocator((GuiTree)component, nodeKey, column),
+                        },
                         ("DoubleClickItem" or "DoubleClickNode" or "ExpandNode", [string nodeKey]) => new Locator(getTreeElementPath((GuiTree)component, nodeKey)),
                         ("PressButton", [string nodeKey, string column]) => getTreeCellLocator((GuiTree)component, nodeKey, column),
                         _ => null
