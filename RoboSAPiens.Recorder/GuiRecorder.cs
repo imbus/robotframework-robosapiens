@@ -1101,6 +1101,12 @@ namespace RoboSAPiens.Recorder
             );
             saveAsJson(recording, typeof(Recording), filename);
 
+            var screenshots = Path.Combine(Directory.GetCurrentDirectory(), $"{filename}-screenshots");
+            Directory.CreateDirectory(screenshots);
+            keyGuiEventLog.ForEach(e => File.WriteAllBytes(
+                Path.Combine(screenshots, e.timestamp + ".png"),
+                windows[e.timestamp]
+            ));
         }
 
         public static string toRobotFile(List<KeyGuiEvent> keyGuiEventLog, string testcase, string lang)
