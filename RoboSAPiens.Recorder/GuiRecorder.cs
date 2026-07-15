@@ -576,6 +576,16 @@ namespace RoboSAPiens.Recorder
             };
         }
 
+        enum TreeItemType 
+        {
+            Hierarchy,
+            Image,
+            Text,
+            Bool,
+            Button,
+            Link
+        }
+
         enum TreeType 
         {
             Simple,
@@ -667,11 +677,13 @@ namespace RoboSAPiens.Recorder
             var columnTitle = tree.GetColumnTitleFromName(columnName).Trim();
             var itemText = tree.GetItemText(nodeKey, columnName);
             var itemTooltip = tree.GetItemToolTip(nodeKey, columnName);
+            var itemType = (TreeItemType)tree.GetItemType(nodeKey, columnName);
 
-            return new Locator(
-                row: itemText.NullIfEmpty() ?? itemTooltip,
-                col: columnTitle
-            );
+            return itemType switch
+            {
+                TreeItemType.Text => new Locator(row: getText(tree, nodeKey), col: columnTitle),
+                _ =>  new Locator(row: itemText.NullIfEmpty() ?? itemTooltip, col: columnTitle)
+            };
         }
 
         Event toEvent(object[] command, GuiComponent component)
