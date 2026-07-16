@@ -388,7 +388,7 @@ namespace RoboSAPiens.Recorder
 
                 var last2 = keyGuiEventLog.TakeLast(2).ToList() switch
                 {
-                    [{action: KeyGuiActions.Click, role: KeyGuiRoles.TextField} e, 
+                    [{action: KeyGuiActions.Click, role: KeyGuiRoles.TextField or KeyGuiRoles.Cell} e, 
                      {action: KeyGuiActions.PressKey, value: "F2"}] 
                      => [e with {action = KeyGuiActions.DoubleClick}],
                     _ => new List<KeyGuiEvent>()
