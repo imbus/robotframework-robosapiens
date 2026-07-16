@@ -407,7 +407,7 @@ namespace RoboSAPiens.Recorder
                 return $"\"{label}\"";
             }
 
-            return label;
+            return Regex.Replace(label, @"\s\s+", " ");
         }
 
         string getTabLabel(GuiTab tab)
