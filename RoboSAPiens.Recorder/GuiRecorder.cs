@@ -17,90 +17,6 @@ namespace RoboSAPiens.Recorder
     [JsonSerializable(typeof(SapObject))]
     internal partial class SerializerContext : JsonSerializerContext {}
 
-    class VKeys
-    {
-        static string[] keyBindings =
-        {
-            "Enter",
-            "F1",
-            "F2",
-            "F3",
-            "F4",
-            "F5",
-            "F6",
-            "F7",
-            "F8",
-            "F9",
-            "F10",
-            "Ctrl+S",
-            "F12",
-            "Shift+F1",
-            "Shift+F2",
-            "Shift+F3",
-            "Shift+F4",
-            "Shift+F5",
-            "Shift+F6",
-            "Shift+F7",
-            "Shift+F8",
-            "Shift+F9",
-            "Shift+Ctrl+0",
-            "Shift+F11",
-            "Shift+F12",
-            "Ctrl+F1",
-            "Ctrl+F2",
-            "Ctrl+F3",
-            "Ctrl+F4",
-            "Ctrl+F5",
-            "Ctrl+F6",
-            "Ctrl+F7",
-            "Ctrl+F8",
-            "Ctrl+F9",
-            "Ctrl+F10",
-            "Ctrl+F11",
-            "Ctrl+F12",
-            "Ctrl+Shift+F1",
-            "Ctrl+Shift+F2",
-            "Ctrl+Shift+F3",
-            "Ctrl+Shift+F4",
-            "Ctrl+Shift+F5",
-            "Ctrl+Shift+F6",
-            "Ctrl+Shift+F7",
-            "Ctrl+Shift+F8",
-            "Ctrl+Shift+F9",
-            "Ctrl+Shift+F10",
-            "Ctrl+Shift+F11",
-            "Ctrl+Shift+F12",
-            "VKEY-49",
-            "Ctrl+E",
-            "Ctrl+F",
-            "Ctrl+/",
-            "Ctrl+\\",
-            "Ctrl+N",
-            "Ctrl+O",
-            "Ctrl+X",
-            "Ctrl+C",
-            "Ctrl+V",
-            "Ctrl+Z",
-            "Ctrl+PageUp",
-            "PageUp",
-            "PageDown",
-            "Ctrl+PageDown",
-            "Ctrl+G",
-            "Ctrl+R",
-            "Ctrl+P"
-        };
-
-        public static string getKeyBinding(int vkey)
-        {
-            return vkey switch
-            {
-                int when vkey < 49 => keyBindings[vkey],
-                int when vkey >= 70 => keyBindings[vkey-20],
-                _ => throw new Exception("Invalid VKey.")
-            };
-        }
-    }
-    
     public record Recording(Dictionary<long, string> windows, List<KeyGuiEvent> keyGuiEvents);
 
     record Event(long timestamp, string windowTitle, string componentId, string componentType, Locator? locator, string type, string name, List<object> values)
@@ -931,7 +847,7 @@ namespace RoboSAPiens.Recorder
                             KeyGuiActions.PressKey,
                             null,
                             null,
-                            VKeys.getKeyBinding(vkey)
+                            session.GetVKeyDescription(vkey)
                         ),
                     _ => null
                 },
