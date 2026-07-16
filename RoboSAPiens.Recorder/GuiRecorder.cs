@@ -14,16 +14,24 @@ namespace RoboSAPiens.Recorder
     [JsonSerializable(typeof(List<Event>))]
     [JsonSerializable(typeof(List<KeyGuiEvent>))]
     [JsonSerializable(typeof(List<KeywordCall>))]
-    [JsonSerializable(typeof(KeyGuiRecording))]
     [JsonSerializable(typeof(KeywordRecording))]
     [JsonSerializable(typeof(SapObject))]
     internal partial class SerializerContext : JsonSerializerContext {}
 
-    public record KeyGuiRecording(Dictionary<long, string> windows, List<KeyGuiEvent> keyGuiEvents);
+    public record KeywordRecording(List<KeywordCall> keywordCalls, Dictionary<long, Window> windows);
 
-    public record KeywordRecording(Dictionary<long, string> windows, List<KeywordCall> keywordCalls);
+    public record Window(long id, string title, byte[] screenshot)
+    {
+        public void saveScreenshot(string directory)
+        {
+            File.WriteAllBytes(
+                Path.Combine(directory, id + ".png"),
+                screenshot
+            );
+        }
+    }
 
-    record Event(long timestamp, string windowTitle, string componentId, string componentType, Locator? locator, string type, string name, List<object> values)
+    public record Event(long window, string componentId, string componentType, Locator? locator, string type, string name, List<object> values)
     {
         public string serialize()
         {
@@ -103,7 +111,7 @@ namespace RoboSAPiens.Recorder
         public const string TreeElement = "tree_element";
     }
     
-    public record KeywordCall(string name, Locator? locator, params string[] args)
+    public record KeywordCall(long window, string name, Locator? locator, params string[] args)
     {
         public override string ToString()
         {
@@ -111,7 +119,7 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    public record KeyGuiEvent(long timestamp, string windowTitle, string action, string? role, Locator? locator, string? value)
+    public record KeyGuiEvent(long window, string action, string? role, Locator? locator, string? value)
     {
         public override string ToString()
         {
@@ -231,30 +239,30 @@ namespace RoboSAPiens.Recorder
 
             var keywordCall = (action, role, value) switch
             {
-                (KeyGuiActions.Connect, _, string connection) => new KeywordCall(keywords.ConnectToServer[lang], null, connection),
-                (KeyGuiActions.Connect, _, null) => new KeywordCall(keywords.ConnectToSap[lang], null, []),
-                (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.TickCheckboxCell[lang], locator),
-                (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => new KeywordCall(keywords.TickCheckbox[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.SelectCell[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.Label, _) => new KeywordCall(keywords.SelectText[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.Radio, _) => new KeywordCall(keywords.SelectRadio[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.Tab, _) => new KeywordCall(keywords.SelectTab[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.TextField, _) => new KeywordCall(keywords.SelectTextField[lang], locator),
-                (KeyGuiActions.DoubleClick, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.DoubleClickCell[lang], locator),
-                (KeyGuiActions.DoubleClick, KeyGuiRoles.TextField, _) => new KeywordCall(keywords.DoubleClickTextField[lang], locator),
-                (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.DoubleClickTreeElement[lang], locator),
-                (KeyGuiActions.Execute, _, string tCode) => new KeywordCall(keywords.ExecuteTransaction[lang], null, tCode),
-                (KeyGuiActions.Expand, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.ExpandTreeFolder[lang], locator),
-                (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => new KeywordCall(keywords.FillCell[lang], locator, contents),
-                (KeyGuiActions.Fill, KeyGuiRoles.TextField, string contents) => new KeywordCall(keywords.FillTextField[lang], locator, contents),
-                (KeyGuiActions.PressKey, _, string key) => new KeywordCall(keywords.PressKey[lang], null, key),
-                (KeyGuiActions.Push, KeyGuiRoles.Button, _) => new KeywordCall(keywords.PushButton[lang], locator, [$"{exact[lang]}=True"]),
-                (KeyGuiActions.Push, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.PushButtonCell[lang], locator),
-                (KeyGuiActions.Select, KeyGuiRoles.Cell, string value) => new KeywordCall(keywords.SelectCellValue[lang], locator, value),
-                (KeyGuiActions.Select, KeyGuiRoles.Combobox, string option) => new KeywordCall(keywords.SelectComboBox[lang], locator, option),
-                (KeyGuiActions.Uncheck, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.UntickCheckboxCell[lang], locator),
-                (KeyGuiActions.Uncheck, KeyGuiRoles.Checkbox, _) => new KeywordCall(keywords.UntickCheckbox[lang], locator),
-                _ => new KeywordCall("Fail", null, $"Unknown Keyword: {action} {role}")
+                (KeyGuiActions.Connect, _, string connection) => new KeywordCall(window, keywords.ConnectToServer[lang], null, connection),
+                (KeyGuiActions.Connect, _, null) => new KeywordCall(window, keywords.ConnectToSap[lang], null, []),
+                (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.TickCheckboxCell[lang], locator),
+                (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => new KeywordCall(window, keywords.TickCheckbox[lang], locator),
+                (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.SelectCell[lang], locator),
+                (KeyGuiActions.Click, KeyGuiRoles.Label, _) => new KeywordCall(window, keywords.SelectText[lang], locator),
+                (KeyGuiActions.Click, KeyGuiRoles.Radio, _) => new KeywordCall(window, keywords.SelectRadio[lang], locator),
+                (KeyGuiActions.Click, KeyGuiRoles.Tab, _) => new KeywordCall(window, keywords.SelectTab[lang], locator),
+                (KeyGuiActions.Click, KeyGuiRoles.TextField, _) => new KeywordCall(window, keywords.SelectTextField[lang], locator),
+                (KeyGuiActions.DoubleClick, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.DoubleClickCell[lang], locator),
+                (KeyGuiActions.DoubleClick, KeyGuiRoles.TextField, _) => new KeywordCall(window, keywords.DoubleClickTextField[lang], locator),
+                (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => new KeywordCall(window, keywords.DoubleClickTreeElement[lang], locator),
+                (KeyGuiActions.Execute, _, string tCode) => new KeywordCall(window, keywords.ExecuteTransaction[lang], null, tCode),
+                (KeyGuiActions.Expand, KeyGuiRoles.TreeElement, _) => new KeywordCall(window, keywords.ExpandTreeFolder[lang], locator),
+                (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => new KeywordCall(window, keywords.FillCell[lang], locator, contents),
+                (KeyGuiActions.Fill, KeyGuiRoles.TextField, string contents) => new KeywordCall(window, keywords.FillTextField[lang], locator, contents),
+                (KeyGuiActions.PressKey, _, string key) => new KeywordCall(window, keywords.PressKey[lang], null, key),
+                (KeyGuiActions.Push, KeyGuiRoles.Button, _) => new KeywordCall(window, keywords.PushButton[lang], locator, [$"{exact[lang]}=True"]),
+                (KeyGuiActions.Push, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.PushButtonCell[lang], locator),
+                (KeyGuiActions.Select, KeyGuiRoles.Cell, string value) => new KeywordCall(window, keywords.SelectCellValue[lang], locator, value),
+                (KeyGuiActions.Select, KeyGuiRoles.Combobox, string option) => new KeywordCall(window, keywords.SelectComboBox[lang], locator, option),
+                (KeyGuiActions.Uncheck, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.UntickCheckboxCell[lang], locator),
+                (KeyGuiActions.Uncheck, KeyGuiRoles.Checkbox, _) => new KeywordCall(window, keywords.UntickCheckbox[lang], locator),
+                _ => new KeywordCall(window, "Fail", null, $"Unknown Keyword: {action} {role}")
             };
 
             return keywordCall;
@@ -295,7 +303,7 @@ namespace RoboSAPiens.Recorder
         bool debug;
         List<Event> eventLog = [];
         List<KeyGuiEvent> keyGuiEventLog = [];
-        Dictionary<long, byte[]> windows = [];
+        List<Window> windows = [];
         GuiSession session;
 
         public GuiRecorder(bool debug)
@@ -345,16 +353,16 @@ namespace RoboSAPiens.Recorder
             {
                 var connection = (GuiConnection)sap.Connections.ElementAt(0);
                 var session = (GuiSession)connection.Sessions.ElementAt(0);
-                var timestamp = getTimestamp();
-                var windowTitle = session.ActiveWindow.Text;
                 var connectionDescription = session.Info.Client switch
                 {
                     "000" => connection.Description,
                     _ => null
                 };
+                var windowId = getTimestamp();
+                var window = session.ActiveWindow;
 
-                keyGuiEventLog.Add(new KeyGuiEvent(timestamp, windowTitle, KeyGuiActions.Connect, null, null, connectionDescription));
-                windows.TryAdd(timestamp, getScreenshot(session.ActiveWindow, id: null));
+                keyGuiEventLog.Add(new KeyGuiEvent(windowId, KeyGuiActions.Connect, null, null, connectionDescription));
+                windows.Add(new Window(windowId, window.Text, getScreenshot(window, id: null)));
 
                 return session;
             }
@@ -689,10 +697,9 @@ namespace RoboSAPiens.Recorder
                         _ => getLocator((GuiVComponent)component),
                     }
             };
-            var timestamp = getTimestamp();
-            var windowTitle = session.ActiveWindow.Text;
+            var windowId = getTimestamp();
 
-            return new Event(timestamp, windowTitle, component.Id, componentType, locator, type, name, values);
+            return new Event(windowId, component.Id, componentType, locator, type, name, values);
         }
 
         void handleDestroy(GuiSession session)
@@ -753,9 +760,8 @@ namespace RoboSAPiens.Recorder
             {
                 "GuiButton" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "Press"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "Press"}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Push,
                         locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.Button,
                         locator,
@@ -765,9 +771,8 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiCheckBox" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Set Property", name: "Selected", values: [bool selected]}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Set Property", name: "Selected", values: [bool selected]}] => new KeyGuiEvent(
+                        window,
                         selected ? KeyGuiActions.Check: KeyGuiActions.Uncheck,
                         locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.Checkbox,
                         locator,
@@ -777,9 +782,8 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiComboBox" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Set Property", name: "Key", values: [string value]}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Set Property", name: "Key", values: [string value]}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Select,
                         KeyGuiRoles.Combobox,
                         locator,
@@ -789,17 +793,15 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiGridView" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "PressToolbarButton", values: [string name]}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "PressToolbarButton", values: [string name]}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Push,
                         KeyGuiRoles.Button,
                         locator,
                         null
                     ),
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "ModifyCell", values: [int rowIndex, string colId, string value]}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "ModifyCell", values: [int rowIndex, string colId, string value]}] => new KeyGuiEvent(
+                        window,
                         ((GuiGridView)component).GetCellType(rowIndex, colId) switch
                         {
                             "Normal" => KeyGuiActions.Fill,
@@ -810,17 +812,15 @@ namespace RoboSAPiens.Recorder
                         locator,
                         value
                     ),
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "DoubleClickCurrentCell" }] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "DoubleClickCurrentCell" }] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.DoubleClick,
                         KeyGuiRoles.Cell,
                         locator,
                         null
                     ),
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "SetCurrentCell", values: [int rowIndex, string colId] }] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "SetCurrentCell", values: [int rowIndex, string colId] }] => new KeyGuiEvent(
+                        window,
                         ((GuiGridView)component).GetCellType(rowIndex, colId) switch
                         {
                             "Normal" => KeyGuiActions.Select,
@@ -831,9 +831,8 @@ namespace RoboSAPiens.Recorder
                         locator,
                         null
                     ),
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Set Property", name: "SelectedRows", values: [string rowIndex0] }] when eventLog.SkipLast(1).Last().componentId == component.Id && eventLog.SkipLast(1).Last().name == "CurrentCellColumn" => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Set Property", name: "SelectedRows", values: [string rowIndex0] }] when eventLog.SkipLast(1).Last().componentId == component.Id && eventLog.SkipLast(1).Last().name == "CurrentCellColumn" => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Click,
                         KeyGuiRoles.Cell,
                         getGridViewCellLocator((GuiGridView)component, int.Parse(rowIndex0), (string)eventLog.SkipLast(1).Last().values[0]),
@@ -843,9 +842,8 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiLabel" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, name:"SetFocus"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, name:"SetFocus"}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Click,
                         KeyGuiRoles.Label,
                         locator,
@@ -856,10 +854,9 @@ namespace RoboSAPiens.Recorder
                 "GuiMainWindow" or "GuiModalWindow" => events switch
                 {
                     [{name: "SendVKey"}] when keyGuiEventLog.Last().action == KeyGuiActions.Execute => null,
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "SendVKey", values: [int vkey]}] => 
+                    [{window: long window, type: "Method", name: "SendVKey", values: [int vkey]}] => 
                         new KeyGuiEvent(
-                            timestamp,
-                            windowTitle,
+                            window,
                             KeyGuiActions.PressKey,
                             null,
                             null,
@@ -869,10 +866,9 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiOkCodeField" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Set Property", name: "Text", values: [string t_code]}] =>
+                    [{window: long window, type: "Set Property", name: "Text", values: [string t_code]}] =>
                         new KeyGuiEvent(
-                            timestamp,
-                            windowTitle,
+                            window,
                             KeyGuiActions.Execute,
                             null,
                             null,
@@ -882,9 +878,8 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiRadioButton" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "Select"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "Select"}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Click,
                         KeyGuiRoles.Radio,
                         locator,
@@ -894,9 +889,8 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiTab" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "Select"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "Select"}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Click,
                         KeyGuiRoles.Tab,
                         locator,
@@ -906,10 +900,9 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiTableControl" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "GetAbsoluteRow", values: [int row]},
+                    [{window: long window, type: "Method", name: "GetAbsoluteRow", values: [int row]},
                     {type: "Set Property", name: "Selected"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                        window,
                         KeyGuiActions.SelectRow,
                         null,
                         null,
@@ -919,9 +912,8 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiTextEdit" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Set Property", name: "Text", values: [string text]}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Set Property", name: "Text", values: [string text]}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Fill,
                         KeyGuiRoles.MultiLineTextField,
                         locator,
@@ -934,24 +926,21 @@ namespace RoboSAPiens.Recorder
                     {
                         {name: "SetFocus"} when lastKeyGuiEvent.action == KeyGuiActions.Fill && eventLog.Last().componentId == component.Id => null,
                         {name: "SetFocus"} => new KeyGuiEvent(
-                            e.timestamp,
-                            e.windowTitle,
+                            e.window,
                             KeyGuiActions.Click,
                             locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
                             locator,
                             null
                         ),
                         {type: "Set Property", name: "CaretPosition"} when !component.Changeable && keyGuiEventLog.Last().action != KeyGuiActions.Click => new KeyGuiEvent(
-                            e.timestamp,
-                            e.windowTitle,
+                            e.window,
                             KeyGuiActions.Click,
                             locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
                             locator,
                             null
                         ),
                         {type: "Set Property", name: "Text", values: [string value]} => new KeyGuiEvent(
-                            e.timestamp,
-                            e.windowTitle,
+                            e.window,
                             KeyGuiActions.Fill,
                             locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
                             locator,
@@ -962,9 +951,8 @@ namespace RoboSAPiens.Recorder
                 ).FirstOrDefault(e => e != null),
                 "GuiTree" => events switch
                 {
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "DoubleClickItem"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "DoubleClickItem"}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.DoubleClick,
                         locator!.col switch
                         {
@@ -974,25 +962,22 @@ namespace RoboSAPiens.Recorder
                         locator,
                         null
                     ),
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "DoubleClickNode"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "DoubleClickNode"}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.DoubleClick,
                         KeyGuiRoles.TreeElement,
                         locator,
                         null
                     ),
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "ExpandNode"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "ExpandNode"}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Expand,
                         KeyGuiRoles.TreeElement,
                         locator,
                         null
                     ),
-                    [{timestamp: long timestamp, windowTitle: string windowTitle, type: "Method", name: "PressButton"}] => new KeyGuiEvent(
-                        timestamp,
-                        windowTitle,
+                    [{window: long window, type: "Method", name: "PressButton"}] => new KeyGuiEvent(
+                        window,
                         KeyGuiActions.Push,
                         KeyGuiRoles.Cell,
                         locator,
@@ -1005,7 +990,8 @@ namespace RoboSAPiens.Recorder
 
             if (keyGuiEvent != null)
             {
-                windows.TryAdd(keyGuiEvent.timestamp, getScreenshot(session.ActiveWindow, component.Id));
+                var window = session.ActiveWindow;
+                windows.Add(new Window(keyGuiEvent.window, window.Text, getScreenshot(window, component.Id)));
             }
 
             return keyGuiEvent;
@@ -1027,25 +1013,18 @@ namespace RoboSAPiens.Recorder
 
         public void saveKeyGuiLog(string filename)
         {
-            var recording = new KeyGuiRecording(
-                windows.ToDictionary(p => p.Key, p => Convert.ToBase64String(p.Value)), 
-                keyGuiEventLog
-            );
-            saveAsJson(recording, typeof(KeyGuiRecording), filename + "-keygui");
+            saveAsJson(keyGuiEventLog, typeof(List<KeyGuiEvent>), filename + "-keygui");
 
             var screenshots = Path.Combine(Directory.GetCurrentDirectory(), $"{filename}-screenshots");
             Directory.CreateDirectory(screenshots);
-            keyGuiEventLog.ForEach(e => File.WriteAllBytes(
-                Path.Combine(screenshots, e.timestamp + ".png"),
-                windows[e.timestamp]
-            ));
+            windows.ForEach(window => window.saveScreenshot(screenshots));
         }
 
         public void saveKeywordLog(string filename, string lang)
         {
             var recording = new KeywordRecording(
-                windows.ToDictionary(p => p.Key, p => Convert.ToBase64String(p.Value)), 
-                keyGuiEventLog.Select(e => e.toKeywordCall(lang)).ToList()
+                keyGuiEventLog.Select(e => e.toKeywordCall(lang)).ToList(),
+                windows.ToDictionary(w => w.id, w => w)
             );
             saveAsJson(recording, typeof(KeywordRecording), filename + "-keywords"); 
         }
