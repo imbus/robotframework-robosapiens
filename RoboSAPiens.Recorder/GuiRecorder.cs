@@ -13,11 +13,15 @@ namespace RoboSAPiens.Recorder
     [JsonSerializable(typeof(JsonObject))]
     [JsonSerializable(typeof(List<Event>))]
     [JsonSerializable(typeof(List<KeyGuiEvent>))]
-    [JsonSerializable(typeof(Recording))]
+    [JsonSerializable(typeof(List<KeywordCall>))]
+    [JsonSerializable(typeof(KeyGuiRecording))]
+    [JsonSerializable(typeof(KeywordRecording))]
     [JsonSerializable(typeof(SapObject))]
     internal partial class SerializerContext : JsonSerializerContext {}
 
-    public record Recording(Dictionary<long, string> windows, List<KeyGuiEvent> keyGuiEvents);
+    public record KeyGuiRecording(Dictionary<long, string> windows, List<KeyGuiEvent> keyGuiEvents);
+
+    public record KeywordRecording(Dictionary<long, string> windows, List<KeywordCall> keywordCalls);
 
     record Event(long timestamp, string windowTitle, string componentId, string componentType, Locator? locator, string type, string name, List<object> values)
     {
@@ -1003,13 +1007,13 @@ namespace RoboSAPiens.Recorder
             );
         }
 
-        public void saveKeyGui(string filename)
+        public void saveKeyGuiLog(string filename)
         {
-            var recording = new Recording(
+            var recording = new KeyGuiRecording(
                 windows.ToDictionary(p => p.Key, p => Convert.ToBase64String(p.Value)), 
                 keyGuiEventLog
             );
-            saveAsJson(recording, typeof(Recording), filename);
+            saveAsJson(recording, typeof(KeyGuiRecording), filename + "-keygui");
 
             var screenshots = Path.Combine(Directory.GetCurrentDirectory(), $"{filename}-screenshots");
             Directory.CreateDirectory(screenshots);
@@ -1017,6 +1021,15 @@ namespace RoboSAPiens.Recorder
                 Path.Combine(screenshots, e.timestamp + ".png"),
                 windows[e.timestamp]
             ));
+        }
+
+        public void saveKeywordLog(string filename, string lang)
+        {
+            var recording = new KeywordRecording(
+                windows.ToDictionary(p => p.Key, p => Convert.ToBase64String(p.Value)), 
+                keyGuiEventLog.Select(e => e.toKeywordCall(lang)).ToList()
+            );
+            saveAsJson(recording, typeof(KeywordRecording), filename + "-keywords"); 
         }
 
         public static string toRobotFile(List<KeyGuiEvent> keyGuiEventLog, string testcase, string lang)
@@ -1056,7 +1069,7 @@ namespace RoboSAPiens.Recorder
 
         public void saveEventLog(string filename)
         {
-            saveAsJson(eventLog, typeof(List<Event>), filename);
+            saveAsJson(eventLog, typeof(List<Event>), filename + "-events");
         }
 
         void saveRecording(string filename)

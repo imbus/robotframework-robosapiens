@@ -213,8 +213,9 @@ namespace RoboSAPiens
                                     if (debug)
                                     {
                                         string filename = testcase.ToLower().Replace(" ", "-");
-                                        recorder.saveEventLog(filename + "-events");
-                                        recorder.saveKeyGui(filename + "-keygui");
+                                        recorder.saveEventLog(filename);
+                                        recorder.saveKeyGuiLog(filename);
+                                        recorder.saveKeywordLog(filename, language.ToUpper());
                                     }
                                 }
                                 break;
