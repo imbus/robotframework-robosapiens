@@ -147,6 +147,10 @@ namespace RoboSAPiens.Recorder
                     ["DE"] = "Tabellenzelle doppelklicken",
                     ["EN"] = "Double-click Cell"
                 },
+                DoubleClickTextField = new Dictionary<string, string> {
+                    ["DE"] = "Textfeld doppelklicken",
+                    ["EN"] = "Double-click Text Field"
+                },
                 DoubleClickTreeElement = new Dictionary<string, string> {
                     ["DE"] = "Baumelement doppelklicken",
                     ["EN"] = "Double-click Tree Element"
@@ -236,8 +240,9 @@ namespace RoboSAPiens.Recorder
                 (KeyGuiActions.Click, KeyGuiRoles.Radio, _) => new KeywordCall(keywords.SelectRadio[lang], locator),
                 (KeyGuiActions.Click, KeyGuiRoles.Tab, _) => new KeywordCall(keywords.SelectTab[lang], locator),
                 (KeyGuiActions.Click, KeyGuiRoles.TextField, _) => new KeywordCall(keywords.SelectTextField[lang], locator),
-                (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.DoubleClickTreeElement[lang], locator),
                 (KeyGuiActions.DoubleClick, KeyGuiRoles.Cell, _) => new KeywordCall(keywords.DoubleClickCell[lang], locator),
+                (KeyGuiActions.DoubleClick, KeyGuiRoles.TextField, _) => new KeywordCall(keywords.DoubleClickTextField[lang], locator),
+                (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.DoubleClickTreeElement[lang], locator),
                 (KeyGuiActions.Execute, _, string tCode) => new KeywordCall(keywords.ExecuteTransaction[lang], null, tCode),
                 (KeyGuiActions.Expand, KeyGuiRoles.TreeElement, _) => new KeywordCall(keywords.ExpandTreeFolder[lang], locator),
                 (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => new KeywordCall(keywords.FillCell[lang], locator, contents),
@@ -380,6 +385,19 @@ namespace RoboSAPiens.Recorder
 
                 var keyGuiEvent = toKeyGuiEvent(events);
                 if (keyGuiEvent != null) keyGuiEventLog.Add(keyGuiEvent);
+
+                var last2 = keyGuiEventLog.TakeLast(2).ToList() switch
+                {
+                    [{action: KeyGuiActions.Click, role: KeyGuiRoles.TextField} e, 
+                     {action: KeyGuiActions.PressKey, value: "F2"}] 
+                     => [e with {action = KeyGuiActions.DoubleClick}],
+                    _ => new List<KeyGuiEvent>()
+                };
+
+                if (last2.Count > 0)
+                {
+                    keyGuiEventLog = [..keyGuiEventLog.SkipLast(2), ..last2]; 
+                }
             }
             catch (Exception ex)
             {
