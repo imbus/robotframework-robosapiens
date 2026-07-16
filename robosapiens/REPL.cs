@@ -197,10 +197,6 @@ namespace RoboSAPiens
                                 Console.WriteLine("  quit  - Exit the program");
                                 break;
                             case "quit":
-                                if (recorder != null)
-                                {
-                                    recorder.recordStop();
-                                }
                                 Environment.Exit(0);
                                 break;
                             case "save":
