@@ -718,12 +718,6 @@ namespace RoboSAPiens.Recorder
             return JsonSerializer.Serialize(objectTree["children"]![0], typeof(JsonObject), new SerializerContext());
         }
 
-        static class KeyGuiLocators
-        {
-            public const string HLabel = "hlabel";
-            public const string VLabel = "vlabel";
-        }
-
         KeyGuiEvent? toKeyGuiEvent(List<Event> events)
         {
             if (events.Count == 0) return null;
