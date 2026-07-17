@@ -1,21 +1,17 @@
 // VS Code: Disable C# Dev Kit, in the C# extension enable useOmniSharp
 // dotnet tool install -g csharprepl
 // csharprepl
-// #r "nuget: YamlDotNet, 17.0.1"
 // #load "sap.csx"
 // using sapfewse;
 
 #r "robosapiens/lib/sapfewse.dll"
 #r "robosapiens/lib/saprotwr.net.dll"
-#r "nuget: YamlDotNet, 17.0.1"
 
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using sapfewse;
 using saprotwr.net;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 
 object? ConvertJsonNode(JsonNode? node)
@@ -27,18 +23,6 @@ object? ConvertJsonNode(JsonNode? node)
         JsonObject obj => obj.ToDictionary(pair => pair.Key, pair => ConvertJsonNode(pair.Value)),
         _ => null
     };
-}
-
-string JsonToYaml(string json)
-{
-    var jsonNode = JsonNode.Parse(json) ?? throw new InvalidOperationException("Invalid JSON");
-    var obj = ConvertJsonNode(jsonNode);
-
-    var serializer = new SerializerBuilder()
-        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-        .Build();
-
-    return serializer.Serialize(obj);
 }
 
 GuiSession getSession()
@@ -318,7 +302,7 @@ void saveEventLog(string filename)
 
     File.WriteAllText(
         Path.Combine(Directory.GetCurrentDirectory(), filename),
-        JsonToYaml(json)    
+        json
     );
 }
 
