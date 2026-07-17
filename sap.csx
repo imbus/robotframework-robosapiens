@@ -308,7 +308,7 @@ string getObjectTree(string componentId)
 {
     return session.GetObjectTree(
         componentId,
-        new string[] { "Id", "Type", "SubType", "Top", "Left", "Width", "Height", "Text", "Tooltip"}
+        new string[] { "Id", "Type", "SubType", "ScreenTop", "ScreenLeft", "Width", "Height", "Text", "Tooltip"}
     ).Replace("\\", "");
 }
 
