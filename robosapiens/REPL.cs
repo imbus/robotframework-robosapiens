@@ -178,7 +178,6 @@ namespace RoboSAPiens
             {
                 Console.WriteLine($"=============== RoboSAPiens Recorder CLI ===============");
                 Console.WriteLine("Type `help` to get the list of available commands.");
-                Console.WriteLine("Type `quit` to exit.");
 
                 GuiRecorder? recorder = null;
 
@@ -189,15 +188,15 @@ namespace RoboSAPiens
                     {
                         switch (input)
                         {
+                            case "exit":
+                                Environment.Exit(0);
+                                break;
                             case "help":
                                 Console.WriteLine("Available commands:");
                                 Console.WriteLine("  start - Start recording");
                                 Console.WriteLine("  stop  - Stop recording");
                                 Console.WriteLine("  save  - Save the recorded steps to a .robot file");
-                                Console.WriteLine("  quit  - Exit the program");
-                                break;
-                            case "quit":
-                                Environment.Exit(0);
+                                Console.WriteLine("  exit  - Exit the program");
                                 break;
                             case "save":
                                 if (recorder != null)
