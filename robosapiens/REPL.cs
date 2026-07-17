@@ -227,7 +227,6 @@ namespace RoboSAPiens
                                 if (recorder != null)
                                 {
                                     recorder.recordStop();
-                                    Console.WriteLine("Recording stopped.");
                                 }
                                 break;
                             default:

@@ -716,9 +716,12 @@ namespace RoboSAPiens.Recorder
 
         public void recordStop()
         {
-            session.Record = false;
-            session.Change -= handleChange;
-            session.Destroy -= handleDestroy;
+            try
+            {
+                session.Record = false;
+                Console.WriteLine("Recording stopped.");
+            }
+            catch (Exception) {}
         }
 
         void refresh()
