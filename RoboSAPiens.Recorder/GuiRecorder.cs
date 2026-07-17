@@ -273,8 +273,8 @@ namespace RoboSAPiens.Recorder
         string Id, 
         string Type, 
         string Changeable,
-        int Top, 
-        int Left, 
+        int ScreenTop, 
+        int ScreenLeft, 
         int Width, 
         int Height, 
         string Text, 
@@ -450,23 +450,23 @@ namespace RoboSAPiens.Recorder
                 .Select(obj => obj.properties)
                 .Where(obj =>
                     (obj.Type == "GuiLabel" || (obj.Type == "GuiTextField" && obj.Changeable == "false")) &&
-                    Math.Abs(obj.Top - component.Top) < 5
+                    Math.Abs(obj.ScreenTop - component.ScreenTop) < 5
                 );
             var closestLeftLabel = 
                 verticalAlignedLabels
                 .Where(label =>
-                    label.Left < component.Left && 
-                    Math.Abs(label.Left + label.Width - component.Left) < 30
+                    label.ScreenLeft < component.Left && 
+                    Math.Abs(label.ScreenLeft + label.Width - component.Left) < 30
                 )
-                .MinBy(label => Math.Abs(label.Left + label.Width - component.Left))
+                .MinBy(label => Math.Abs(label.ScreenLeft + label.Width - component.Left))
                 ?.Text.Trim();
             var closestRightLabel = 
                 verticalAlignedLabels
                 .Where(label =>
-                    label.Left > component.Left + component.Width && 
-                    Math.Abs(label.Left - (component.Left + component.Width)) < 30
+                    label.ScreenLeft > component.Left + component.Width && 
+                    Math.Abs(label.ScreenLeft - (component.Left + component.Width)) < 30
                 )
-                .MinBy(label => Math.Abs(label.Left - (component.Left + component.Width)))
+                .MinBy(label => Math.Abs(label.ScreenLeft - (component.Left + component.Width)))
                 ?.Text.Trim();
 
             return closestLeftLabel ?? closestRightLabel ?? getTooltip(component);
