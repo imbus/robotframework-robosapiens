@@ -10,6 +10,7 @@
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using sapfewse;
 using saprotwr.net;
 
@@ -287,6 +288,32 @@ void refresh()
 {
     session = getSession();
 }
+
+record SapProperties( 
+    string Id,  
+    string Type,  
+    string Changeable, 
+    int ScreenTop,  
+    int ScreenLeft,  
+    int Width,  
+    int Height,  
+    string Text,  
+    string Tooltip,  
+    string DefaultTooltip,  
+    string AccTooltip 
+);
+ 
+record SapObject(SapProperties properties, List<SapObject> children);
+
+SapObject getSapObject(string json) 
+{                                                                                                               
+    var options = new JsonSerializerOptions                                                                     
+    {                                                                                                           
+        NumberHandling = JsonNumberHandling.AllowReadingFromString,    
+        ReferenceHandler = ReferenceHandler.Preserve                   
+    };                                                                 
+    return JsonSerializer.Deserialize<SapObject>(json, options);                                                    
+} 
 
 string getObjectTree(string componentId)
 {
