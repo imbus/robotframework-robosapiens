@@ -519,28 +519,54 @@ namespace RoboSAPiens.Recorder
                     var parentObject = getSapObject(component.Parent.Id);
                     var grid = 
                         parentObject.children
-                        .GroupBy(c => new { c.properties.Width, c.properties.ScreenLeft })
-                        .ToDictionary(g => g.Key.ScreenLeft, g => g.ToList().OrderBy(obj => obj.properties.ScreenTop));
+                        // Each group might be divided into two sets with different widths,
+                        // corresponding to the primary table and the secondary table.
+                        // TODO: Add support for the secondary table using the locator
+                        // rowIndex @@ vLabel
+                        // where vLabel is the second element of the group
+                        .GroupBy(obj => new { obj.properties.ScreenLeft })
+                        .ToDictionary(
+                            g => g.Key.ScreenLeft, 
+                            g => g.ToList()
+                                  .GroupBy(obj => new {obj.properties.Width})
+                                  .First()
+                                  .OrderBy(obj => obj.properties.ScreenTop)
+                        );
                     var columns = grid.Keys.ToHashSet();
                     var grandParentObject = getSapObject(((GuiVComponent)component.Parent).Parent.Id);
+                    var guiBox = grandParentObject.children.Find(obj => obj.properties.Type == "GuiBox");
                     var columnTitles = 
                         grandParentObject.children
                         .Where(obj => obj.properties.Type == "GuiLabel")
+                        .Where(label => label.properties.ScreenTop > guiBox!.properties.ScreenTop)
                         .Select(label => new {label, col=columns.MinBy(col => Math.Abs(col - label.properties.ScreenLeft))})
+                        // Each group might consist of two elements with different values for ScreenTop,
+                        // corresponding to the primary table and the secondary table.
+                        // TODO: Add support for the secondary table using the locator
+                        // rowIndex @@ vLabel
+                        // where vLabel is the second element of the group
+                        .GroupBy(_ => _.col)
+                        .Select(group => group.ToList().First())
                         .Where(_ => { 
                             var labelBottom = _.label.properties.ScreenTop + _.label.properties.Height; 
-                            return Math.Abs(labelBottom - grid[_.col].First().properties.ScreenTop) < 10;
+                            return Math.Abs(labelBottom - grid[_.col].First().properties.ScreenTop) < 50;
                         })
                         .Select(_ => (_.col, _.label.properties.Text))
                         .ToDictionary();
                     
                     adhocGrid = 
                         grid
-                        .SelectMany(col => col.Value.Select((cell, rowIndex) => (cell.properties.Id, new Locator(hLabel: (rowIndex + 1).ToString(), vLabel: columnTitles[cell.properties.ScreenLeft]))))
+                        .SelectMany(col => col.Value.Select((cell, rowIndex) =>
+                        {
+                            var id = cell.properties.Id;
+                            var hLabel = (rowIndex + 1).ToString();
+                            var vLabel = columnTitles.GetValueOrDefault(cell.properties.ScreenLeft);
+                            return (id, new Locator(hLabel: hLabel, vLabel: vLabel));
+                        }))
                         .ToDictionary();
                 }
                 
-                return adhocGrid[component.Id];
+                return adhocGrid.GetValueOrDefault(component.Id);
             }
 
             return component switch
