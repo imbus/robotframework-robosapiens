@@ -300,11 +300,12 @@ namespace RoboSAPiens.Recorder
 
     public class GuiRecorder
     {
+        Dictionary<string, Locator> adhocGrid = [];
         bool debug;
         List<Event> eventLog = [];
         List<KeyGuiEvent> keyGuiEventLog = [];
-        List<Window> windows = [];
         GuiSession session;
+        List<Window> windows = [];
 
         public GuiRecorder(bool debug)
         {
@@ -511,6 +512,37 @@ namespace RoboSAPiens.Recorder
 
         Locator? getLocator(GuiVComponent component)
         {
+            if (Regex.IsMatch(component.Id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
+            {
+                if (adhocGrid.Count() == 0)
+                {
+                    var parentObject = getSapObject(component.Parent.Id);
+                    var grid = 
+                        parentObject.children
+                        .GroupBy(c => new { c.properties.Width, c.properties.ScreenLeft })
+                        .ToDictionary(g => g.Key.ScreenLeft, g => g.ToList().OrderBy(obj => obj.properties.ScreenTop));
+                    var columns = grid.Keys.ToHashSet();
+                    var grandParentObject = getSapObject(((GuiVComponent)component.Parent).Parent.Id);
+                    var columnTitles = 
+                        grandParentObject.children
+                        .Where(obj => obj.properties.Type == "GuiLabel")
+                        .Select(label => new {label, col=columns.MinBy(col => Math.Abs(col - label.properties.ScreenLeft))})
+                        .Where(_ => { 
+                            var labelBottom = _.label.properties.ScreenTop + _.label.properties.Height; 
+                            return Math.Abs(labelBottom - grid[_.col].First().properties.ScreenTop) < 10;
+                        })
+                        .Select(_ => (_.col, _.label.properties.Text))
+                        .ToDictionary();
+                    
+                    adhocGrid = 
+                        grid
+                        .SelectMany(col => col.Value.Select((cell, rowIndex) => (cell.properties.Id, new Locator(hLabel: (rowIndex + 1).ToString(), vLabel: columnTitles[cell.properties.ScreenLeft]))))
+                        .ToDictionary();
+                }
+                
+                return adhocGrid[component.Id];
+            }
+
             return component switch
             {
                 GuiButton button => new Locator(getButtonLabel(button)),
