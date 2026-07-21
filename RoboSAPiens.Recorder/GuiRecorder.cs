@@ -300,7 +300,7 @@ namespace RoboSAPiens.Recorder
 
     public class GuiRecorder
     {
-        Dictionary<string, Locator> adhocGrid = [];
+        Dictionary<string, Dictionary<string, Locator>> adhocGrids = [];
         bool debug;
         List<Event> eventLog = [];
         List<KeyGuiEvent> keyGuiEventLog = [];
@@ -514,9 +514,11 @@ namespace RoboSAPiens.Recorder
         {
             if (Regex.IsMatch(component.Id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
             {
-                if (adhocGrid.Count() == 0)
+                var adhocGridId = component.Parent.Id;
+
+                if (!adhocGrids.ContainsKey(adhocGridId))
                 {
-                    var parentObject = getSapObject(component.Parent.Id);
+                    var parentObject = getSapObject(adhocGridId);
                     var grid = 
                         parentObject.children
                         // Each group might be divided into two sets with different widths,
@@ -554,7 +556,7 @@ namespace RoboSAPiens.Recorder
                         .Select(_ => (_.col, _.label.properties.Text))
                         .ToDictionary();
                     
-                    adhocGrid = 
+                    adhocGrids[adhocGridId] = 
                         grid
                         .SelectMany(col => col.Value.Select((cell, rowIndex) =>
                         {
@@ -566,7 +568,7 @@ namespace RoboSAPiens.Recorder
                         .ToDictionary();
                 }
                 
-                return adhocGrid.GetValueOrDefault(component.Id);
+                return adhocGrids[adhocGridId].GetValueOrDefault(component.Id);
             }
 
             return component switch
