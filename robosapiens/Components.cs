@@ -39,8 +39,9 @@ namespace RoboSAPiens {
             for (int i = 0; i < components.Length; i++) 
             {
                 var component = components.ElementAt(i);
+                var idLast = component.Id.Split("/").Last();
                 if (debug) Console.WriteLine();
-                if (debug) Console.Write(localIndentation + component.Type);
+                if (debug) Console.Write(localIndentation + $"{component.Type}            {idLast}");
 
                 if (component.ContainerType) {
                     classifyContainer(component);
