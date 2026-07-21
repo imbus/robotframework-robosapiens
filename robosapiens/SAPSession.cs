@@ -385,7 +385,10 @@ namespace RoboSAPiens {
             }
             
             try {
-                session.SendCommand(tCode);
+                var windowId = session.ActiveWindow.Id;
+                var okcd = (GuiOkCodeField)session.FindById($"{windowId}/tbar[0]/okcd");
+                okcd.Text = tCode;
+                pressKeyCombination("Enter", null);
                 return new Result.ExecuteTransaction.Pass(tCode);
             }
             catch (Exception e) {
