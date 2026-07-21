@@ -22,10 +22,10 @@ namespace RoboSAPiens
                 Console.WriteLine($"=============== DEBUG-Mode active ===============");
                 Console.WriteLine("Type `help` to get the list of available keywords.");
                 Console.WriteLine("Type `KeywordName  Args...` to call a keyword.");
-                Console.WriteLine("Type `quit` to exit.");
+                Console.WriteLine("Type `exit` to exit.");
 
                 string? input;
-                while ((input = readInput()) != null && input != "quit")
+                while ((input = readInput()) != null && input != "exit")
                 {
                     try
                     {
