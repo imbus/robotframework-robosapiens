@@ -57,7 +57,7 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    public record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, string? row=null, string? col=null)
+    public record Locator(string? hLabel=null, string? vLabel=null, string? contents=null, string? row=null, string? col=null, int gridIndex=0)
     {
         string escapeSpaces(string s)
         {
@@ -69,13 +69,14 @@ namespace RoboSAPiens.Recorder
 
         public override string ToString()
         {
-            return (hLabel, vLabel, contents, row, col) switch
+            return (hLabel, vLabel, contents, row, col, gridIndex) switch
             {
-                (string hLabel, null, null, null, null) => escapeSpaces(hLabel),
-                (string hLabel, string vLabel, null, null, null) => $"{escapeSpaces(hLabel)} @ {escapeSpaces(vLabel)}",
-                (null, string vLabel, null, null, null) => $"@ {escapeSpaces(vLabel)}",
-                (null, null, string contents, null, null) => $"= {escapeSpaces(contents)}",
-                (null, null, null, string row, string col) => $"{escapeSpaces(row)}    {escapeSpaces(col)}",
+                (string hLabel, null, null, null, null, 0) => escapeSpaces(hLabel),
+                (string hLabel, string vLabel, null, null, null, 0) => $"{escapeSpaces(hLabel)} @ {escapeSpaces(vLabel)}",
+                (string hLabel, string vLabel, null, null, null, 1) => $"{escapeSpaces(hLabel)} @@ {escapeSpaces(vLabel)}",
+                (null, string vLabel, null, null, null, 0) => $"@ {escapeSpaces(vLabel)}",
+                (null, null, string contents, null, null, 0) => $"= {escapeSpaces(contents)}",
+                (null, null, null, string row, string col, 0) => $"{escapeSpaces(row)}    {escapeSpaces(col)}",
                 _ => throw new Exception("Invalid locator")
             };
         }
@@ -522,49 +523,45 @@ namespace RoboSAPiens.Recorder
                     var grid = 
                         parentObject.children
                         // Each group might be divided into two sets with different widths,
-                        // corresponding to the primary table and the secondary table.
-                        // TODO: Add support for the secondary table using the locator
-                        // rowIndex @@ vLabel
-                        // where vLabel is the second element of the group
+                        // corresponding to the primary grid and the secondary grid.
                         .GroupBy(obj => new { obj.properties.ScreenLeft })
                         .ToDictionary(
                             g => g.Key.ScreenLeft, 
                             g => g.ToList()
                                   .GroupBy(obj => new {obj.properties.Width})
-                                  .First()
-                                  .OrderBy(obj => obj.properties.ScreenTop)
+                                  .Select(g => g.OrderBy(obj => obj.properties.ScreenTop).ToList())
+                                  .ToList()
                         );
                     var columns = grid.Keys.ToHashSet();
                     var grandParentObject = getSapObject(((GuiVComponent)component.Parent).Parent.Id);
                     var guiBox = grandParentObject.children.Find(obj => obj.properties.Type == "GuiBox");
+                    var firstElement = parentObject.children.First();
                     var columnTitles = 
                         grandParentObject.children
                         .Where(obj => obj.properties.Type == "GuiLabel")
                         .Where(label => label.properties.ScreenTop > guiBox!.properties.ScreenTop)
+                        .Where(label => label.properties.ScreenTop < firstElement.properties.ScreenTop)
                         .Select(label => new {label, col=columns.MinBy(col => Math.Abs(col - label.properties.ScreenLeft))})
-                        // Each group might consist of two elements with different values for ScreenTop,
-                        // corresponding to the primary table and the secondary table.
-                        // TODO: Add support for the secondary table using the locator
-                        // rowIndex @@ vLabel
-                        // where vLabel is the second element of the group
                         .GroupBy(_ => _.col)
-                        .Select(group => group.ToList().First())
-                        .Where(_ => { 
-                            var labelBottom = _.label.properties.ScreenTop + _.label.properties.Height; 
-                            return Math.Abs(labelBottom - grid[_.col].First().properties.ScreenTop) < 50;
-                        })
-                        .Select(_ => (_.col, _.label.properties.Text))
-                        .ToDictionary();
-                    
+                        .ToDictionary(
+                            g => g.Key,
+                            g => g.Select(_ => _.label.properties.Text).ToList()
+                        );
+
                     adhocGrids[adhocGridId] = 
                         grid
-                        .SelectMany(col => col.Value.Select((cell, rowIndex) =>
-                        {
-                            var id = cell.properties.Id;
-                            var hLabel = (rowIndex + 1).ToString();
-                            var vLabel = columnTitles.GetValueOrDefault(cell.properties.ScreenLeft);
-                            return (id, new Locator(hLabel: hLabel, vLabel: vLabel));
-                        }))
+                        .SelectMany(col => 
+                            col.Value.SelectMany((g, gridIndex) =>
+                                g.Select((cell, rowIndex) =>
+                                    {
+                                        var id = cell.properties.Id;
+                                        var hLabel = (rowIndex + 1).ToString();
+                                        var vLabel = columnTitles.GetValueOrDefault(cell.properties.ScreenLeft)?[gridIndex];
+                                        return (id, new Locator(hLabel: hLabel, vLabel: vLabel, gridIndex: gridIndex));
+                                    }
+                                )
+                            )
+                        )
                         .ToDictionary();
                 }
                 
