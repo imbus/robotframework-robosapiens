@@ -130,11 +130,11 @@ namespace RoboSAPiens {
 
     public record Content(string text): ILocator;
     public record HLabel(string name): ILocator;
-    public record HIndexVLabel (int hIndex, string verticalLabel): IIndexLocator;
+    public record HIndexVLabel (int hIndex, string verticalLabel): ILocator;
     public record HLabelVLabel(string label, string verticalLabel): ILabelsLocator;
     public record HLabelHLabel(string leftLabel, string rightLabel): ILabelsLocator;
     public record VLabel(string name): ILocator;
-    public record HLabelVIndex(string label, int vIndex): IIndexLocator;
+    public record HLabelVIndex(string label, int vIndex): ILocator;
 
     public static class Loc {
         public const string HLabel = "HLabel";

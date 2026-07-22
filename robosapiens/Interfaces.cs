@@ -10,8 +10,6 @@ namespace RoboSAPiens {
         public void toggleHighlight(GuiSession session);
     }
 
-    public interface IIndexLocator: ILocator{}
-
     public interface ILabelsLocator: ILocator{}
 
     public interface ILabeled {

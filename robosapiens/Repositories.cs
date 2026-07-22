@@ -108,17 +108,6 @@ namespace RoboSAPiens {
             return Find(textElement => textElement.contains(text));
         }
 
-        SAPTextField? getByIndex(IIndexLocator locator, LabelStore labels) 
-        {
-            return locator switch {
-                HIndexVLabel(int rowIndex, string label) => 
-                    getFromVerticalGrid(rowIndex, label, labels),
-                HLabelVIndex(string label, int columnIndex) =>
-                    getFromHorizontalGrid(columnIndex, label),
-                _ => null
-            };
-        }
-
         public SAPTextField? getByName(string name) {
             return Find(textElement => textElement.isNamed(name));
         }
@@ -179,8 +168,10 @@ namespace RoboSAPiens {
                 HLabelVLabel => 
                     getAlignedWithLabels((HLabelVLabel)locator, labels, nonChangeableTextFields) ??
                     findInBox(locator, boxes),
-                IIndexLocator indexLocator => 
-                    getByIndex(indexLocator, labels),
+                HIndexVLabel(int rowIndex, string label) => 
+                    getFromVerticalGrid(rowIndex, label, labels),
+                HLabelVIndex(string label, int columnIndex) =>
+                    getFromHorizontalGrid(columnIndex, label),
                 Content (var content) => 
                     getByContent(exact? content : content + "~"),
                 _ => null
