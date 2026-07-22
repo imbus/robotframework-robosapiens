@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System;
 
 namespace RoboSAPiens {
     public abstract class Repository<T>: List<T> {
@@ -112,26 +114,48 @@ namespace RoboSAPiens {
             return Find(textElement => textElement.isNamed(name));
         }
 
-        SAPTextField? getFromVerticalGrid(int index, string label, LabelStore labels) 
+        SAPTextField? getFromVerticalGrid(int rowIndex, string label, int gridIndex, LabelStore labels) 
         {
-            var textField = Find(field => 
-                field.isHLabeled(label) || 
-                field.contains(label) ||
-                field.isNamed(label)
-            ) ?? getVerticalClosestToLabel(label, labels, this);
+            var textFields = this
+                .Where(_ => Regex.IsMatch(_.id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
+                .ToList();
+            var firstTextField = textFields.First();
+            var grid = 
+                textFields
+                .GroupBy(_ => _.position.left)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.ToList()
+                          .GroupBy(_ => _.position.right - _.position.left)
+                          .Select(_ => _.OrderBy(_ => _.position.top).ToList())
+                          .ToList()
+                );
+            var columns = grid.Keys.ToHashSet();
+            var columnTitles = 
+                labels
+                .Where(_ => _.position.top > firstTextField.position.top - 70)
+                .Where(_ => _.position.top < firstTextField.position.top)
+                .Select(label => new {label, col=columns.MinBy(col => Math.Abs(col - label.position.left))})
+                .GroupBy(_ => _.col)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.Select(_ => _.label.text).ToList()
+                );
+            var adhocGrid = 
+                grid
+                .SelectMany(col => 
+                    col.Value.SelectMany((g, gridIndex0) =>
+                        g.Select((textField, rowIndex0) =>
+                            {
+                                var vLabel = columnTitles.GetValueOrDefault(textField.position.left)?[gridIndex0] ?? textField.id;
+                                return ((rowIndex0, gridIndex0, vLabel), textField);
+                            }
+                        )
+                    )
+                )
+                .ToDictionary();
 
-            if (textField == null) return null;
-
-            var verticalGrid = textField.contains(label) switch {
-                true => textField.getVerticalGrid(this.Where(item => !item.Equals(textField)).ToList()),
-                false => textField.getVerticalGrid(this)
-            };
-
-            if (index <= verticalGrid.Count) {
-                return verticalGrid.ElementAt(index - 1);
-            }
-
-            return null;
+            return adhocGrid.GetValueOrDefault((rowIndex-1, gridIndex, label));
         }
 
         SAPTextField? getFromHorizontalGrid(int index, string label) 
@@ -168,8 +192,8 @@ namespace RoboSAPiens {
                 HLabelVLabel => 
                     getAlignedWithLabels((HLabelVLabel)locator, labels, nonChangeableTextFields) ??
                     findInBox(locator, boxes),
-                HIndexVLabel(int rowIndex, string label) => 
-                    getFromVerticalGrid(rowIndex, label, labels),
+                HIndexVLabel(int rowIndex, string label, int gridIndex) => 
+                    getFromVerticalGrid(rowIndex, label, gridIndex, labels),
                 HLabelVIndex(string label, int columnIndex) =>
                     getFromHorizontalGrid(columnIndex, label),
                 Content (var content) => 

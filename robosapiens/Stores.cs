@@ -36,7 +36,7 @@ namespace RoboSAPiens {
                     getVerticalClosestToLabel(label, labels, textFieldLabels) ??
                     getNearLabel(label, labels, textFieldLabels),
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
-                HIndexVLabel(int rowIndex, string label) => getFromVerticalGrid(rowIndex, label, labels, textFieldLabels),
+                HIndexVLabel(int rowIndex, string label, _) => getFromVerticalGrid(rowIndex, label, labels, textFieldLabels),
                 _ => null
             };
         }

@@ -52,6 +52,19 @@ namespace RoboSAPiens {
                 return new HLabelHLabel(tokens[0], tokens[1]);
             }
 
+            if (locator.Contains("@@")) {
+                var tokens = locator.Split("@@").Select(token => token.Trim()).ToArray();
+                int index;
+
+                if (Int32.TryParse(tokens[0], out index)) {
+                    var verticalLabel = tokens[1];
+
+                    atLocation += $"{index} @@ {verticalLabel}";
+
+                    return new HIndexVLabel(hIndex: index, verticalLabel: verticalLabel, gridIndex: 1);
+                }
+            }
+
             if (locator.Contains('@')) {
                 var tokens = locator.Split("@").Select(token => token.Trim()).ToArray();
 
@@ -130,7 +143,7 @@ namespace RoboSAPiens {
 
     public record Content(string text): ILocator;
     public record HLabel(string name): ILocator;
-    public record HIndexVLabel (int hIndex, string verticalLabel): ILocator;
+    public record HIndexVLabel (int hIndex, string verticalLabel, int gridIndex=0): ILocator;
     public record HLabelVLabel(string label, string verticalLabel): ILabelsLocator;
     public record HLabelHLabel(string leftLabel, string rightLabel): ILabelsLocator;
     public record VLabel(string name): ILocator;
