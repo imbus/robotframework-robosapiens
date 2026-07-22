@@ -975,6 +975,9 @@ lib: RoboSAPiens = {
                 *Text field in a vertical grid below a label*
                 | ``Fill Text Field    position (1,2,..) @ label    content``
 
+                *Text field in the second grid of two interleaved vertical grids below a label*
+                | ``Fill Text Field    position (1,2,..) @@ label    content``
+                
                 *Text field in a horizontal grid following a label*
                 | ``Fill Text Field    label @ position (1,2,..)    content``
                 

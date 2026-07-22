@@ -980,7 +980,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("3165034876", "Das angegebene Textfeld wird mit dem angegebenen Inhalt ausgefüllt."),
-                "examples": ("1211580635", 
+                "examples": ("1925000201", 
                 """
                 Beispiele:
                 
@@ -998,6 +998,9 @@ lib: LocalizedRoboSAPiens = {
                 *Textfeld in einem vertikalen Raster unter einer Beschriftung*
                 | ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``
                 
+                *Textfeld im zweiten Raster von zwei unter einer Beschriftung verschachtelten Rastern*
+                | ``Textfeld ausfüllen    Position (1,2,..) @@ Beschriftung    Inhalt``
+
                 *Textfeld in einem horizontalen Raster nach einer Beschriftung*
                 | ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``
                 
