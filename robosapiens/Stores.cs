@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace RoboSAPiens {
     public sealed class ButtonStore: ComponentRepository<Button> {
         Button? findInTab(string label, string tabTitle, TabStore tabs) {
@@ -34,8 +36,24 @@ namespace RoboSAPiens {
                     getVerticalClosestToLabel(label, labels, textFieldLabels) ??
                     getNearLabel(label, labels, textFieldLabels),
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
+                HIndexVLabel(int rowIndex, string label) => getFromVerticalGrid(rowIndex, label, labels, textFieldLabels),
                 _ => null
             };
+        }
+
+        CheckBox? getFromVerticalGrid(int index, string label, LabelStore labels, TextFieldRepository textFieldLabels) 
+        {
+            var checkBox = getVerticalClosestToLabel(label, labels, textFieldLabels);
+
+            if (checkBox == null) return null;
+
+            var verticalGrid = checkBox.getVerticalGrid(this.filterBy<SAPCheckBox>());
+
+            if (index <= verticalGrid.Count) {
+                return verticalGrid.ElementAt(index - 1);
+            }
+
+            return null;
         }
     }
 

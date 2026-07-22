@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using sapfewse;
 
 namespace RoboSAPiens {
     public abstract class CheckBox: IHighlightable {
         protected bool focused;
+        public abstract List<SAPCheckBox> getVerticalGrid(List<SAPCheckBox> checkBoxes);
         public abstract bool isEnabled(GuiSession session);
         public abstract bool isSelected(GuiSession session);
         public abstract void select(GuiSession session);
@@ -13,12 +15,14 @@ namespace RoboSAPiens {
 
     public class SAPCheckBox: CheckBox, ILabeled, ILocatable, ISelectable {
         string defaultTooltip;
+        List<SAPCheckBox> grid;
         string id;
         Position position;
         string text;
 
         public SAPCheckBox(GuiCheckBox checkBox) {
             this.defaultTooltip = checkBox.DefaultTooltip.Trim();
+            this.grid = new List<SAPCheckBox>();
             this.id = checkBox.Id;
             this.position = new Position(height: checkBox.Height, 
                                 left: checkBox.ScreenLeft,
@@ -37,6 +41,15 @@ namespace RoboSAPiens {
 
         public Position getPosition() {
             return position;
+        }
+
+        public override List<SAPCheckBox> getVerticalGrid(List<SAPCheckBox> checkBoxes) {
+            if (grid.Count == 0) {
+                grid = checkBoxes
+                    .Where(checkBox => checkBox.position.left == position.left)
+                    .ToList();
+            }
+            return grid;
         }
 
         public override bool isEnabled(GuiSession session)
