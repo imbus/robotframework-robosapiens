@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.28.7"
+__version__ = "2.29.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -867,6 +867,9 @@ class RoboSAPiens(RoboSAPiensClient):
         
         *Text field in a vertical grid below a label*
         | ``Fill Text Field    position (1,2,..) @ label    content``
+        
+        *Text field in the second grid of two interleaved vertical grids below a label*
+        | ``Fill Text Field    position (1,2,..) @@ label    content``
         
         *Text field in a horizontal grid following a label*
         | ``Fill Text Field    label @ position (1,2,..)    content``
@@ -1830,4 +1833,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.28.7'
+    ROBOT_LIBRARY_VERSION = '2.29.0'

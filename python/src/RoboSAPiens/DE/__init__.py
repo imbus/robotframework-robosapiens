@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.28.7"
+__version__ = "2.29.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -866,6 +866,9 @@ class DE(RoboSAPiensClient):
         
         *Textfeld in einem vertikalen Raster unter einer Beschriftung*
         | ``Textfeld ausfüllen    Position (1,2,..) @ Beschriftung    Inhalt``
+        
+        *Textfeld im zweiten Raster von zwei unter einer Beschriftung verschachtelten Rastern*
+        | ``Textfeld ausfüllen    Position (1,2,..) @@ Beschriftung    Inhalt``
         
         *Textfeld in einem horizontalen Raster nach einer Beschriftung*
         | ``Textfeld ausfüllen    Beschriftung @ Position (1,2,..)    Inhalt``
@@ -1828,4 +1831,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.28.7'
+    ROBOT_LIBRARY_VERSION = '2.29.0'
