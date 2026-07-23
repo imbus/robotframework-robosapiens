@@ -77,7 +77,7 @@ namespace RoboSAPiens.Recorder
                 (null, string vLabel, null, null, null, 0) => $"@ {escapeSpaces(vLabel)}",
                 (null, null, string contents, null, null, 0) => $"= {escapeSpaces(contents)}",
                 (null, null, null, string row, string col, 0) => $"{escapeSpaces(row)}    {escapeSpaces(col)}",
-                _ => throw new Exception("Invalid locator")
+                _ => $"hLabel: {hLabel}, vLabel: {vLabel}, contents: {contents}, row: {row}, col: {col}, gridIndex: {gridIndex}"
             };
         }
     }
@@ -731,7 +731,7 @@ namespace RoboSAPiens.Recorder
                             ((GuiTableControl)parent).Columns switch
                             {
                                 GuiCollection columns when columns.Count == 1 && ((GuiTableColumn)columns.ElementAt(0)).Title == "" => new Locator(contents: ((GuiTextField)component).Text.Trim()),
-                                _ => getTableCellLocator((GuiTableControl)parent, component.Id) with {row = ((GuiTextField)component).Text.Trim()},
+                                _ => getTableCellLocator((GuiTableControl)parent, component.Id)! with {row = ((GuiTextField)component).Text.Trim()},
                             },
                         _ => new Locator(contents: ((GuiTextField)component).Text.Trim())
                     },
