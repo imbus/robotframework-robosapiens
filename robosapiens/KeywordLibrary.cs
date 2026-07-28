@@ -587,9 +587,9 @@ namespace RoboSAPiens
         [Keyword("Knopf hervorheben"),
          Doc("Der Knopf mit dem angegebenen Namen oder Kurzinfo (Tooltip) wird hervorgehoben.\n\n" +
              "| ``Knopf hervorheben    Name oder Kurzinfo (Tooltip)``")]
-        public RobotResult HighlightButton(string button, bool exact=false) {
+        public RobotResult HighlightButton(string button, bool exact=false, int? tableNumber=null) {
             return session switch {
-                SAPSession session when session.isActive => session.highlightButton(button, exact),
+                SAPSession session when session.isActive => session.highlightButton(button, exact, tableNumber),
                 _ => new Result.HighlightButton.NoSession()
             };
         }

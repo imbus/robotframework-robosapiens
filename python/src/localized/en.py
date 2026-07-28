@@ -1008,6 +1008,13 @@ lib: RoboSAPiens = {
                     "default": False,
                     "type": "bool",
                     "spec": {}
+                },
+                "tableNumber": {
+                    "name": "table_number",
+                    "desc": "The table (1, 2, ...) that contains the button in its toolbar.",
+                    "default": None,
+                    "type": "int",
+                    "spec": {}
                 }
             },
             "result": {

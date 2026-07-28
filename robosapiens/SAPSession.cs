@@ -584,13 +584,13 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult highlightButton(string label, bool exact) {
+        public RobotResult highlightButton(string label, bool exact, int? tableNumber) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
             
             var theButton = new ButtonLocator(label);
-            var button = window.components.findButton(theButton, exact, tableNumber: null);
+            var button = window.components.findButton(theButton, exact, tableNumber);
 
             if (button == null) {
                 return new Result.HighlightButton.NotFound(theButton.atLocation);

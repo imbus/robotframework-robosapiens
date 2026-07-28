@@ -21,7 +21,7 @@ namespace RoboSAPiens
         public RobotResult FillTextField(string locator, string content, bool exact=true);
         public RobotResult GetWindowText();
         public RobotResult GetWindowTitle();
-        public RobotResult HighlightButton(string button, bool exact=false);
+        public RobotResult HighlightButton(string button, bool exact=false, int? tableNumber=null);
         public RobotResult MaximizeWindow();
         public RobotResult OpenSap(string path, string? sapArgs = null);
         public RobotResult PressKeyCombination(string keyCombination, int? tableNumber=null);
