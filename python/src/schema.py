@@ -151,6 +151,9 @@ class RoboSAPiensKeywordsPushbuttoncellArgsColumnSpec(TypedDict):
 class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsHighlightbuttonKwargsTablenumberSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsHighlightbuttonKwargsExactSpec(TypedDict):
     ...
 
@@ -515,6 +518,13 @@ class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec
+
+class RoboSAPiensKeywordsHighlightbuttonKwargsTablenumber(TypedDict):
+    name: str
+    desc: str
+    default: Literal[None]
+    type: Literal[r'int']
+    spec: RoboSAPiensKeywordsHighlightbuttonKwargsTablenumberSpec
 
 class RoboSAPiensKeywordsHighlightbuttonKwargsExact(TypedDict):
     name: str
@@ -1214,6 +1224,7 @@ class RoboSAPiensKeywordsHighlightbuttonResult(TypedDict):
 
 class RoboSAPiensKeywordsHighlightbuttonKwargs(TypedDict):
     exact: RoboSAPiensKeywordsHighlightbuttonKwargsExact
+    tableNumber: RoboSAPiensKeywordsHighlightbuttonKwargsTablenumber
 
 class RoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
     button: RoboSAPiensKeywordsHighlightbuttonArgsButton

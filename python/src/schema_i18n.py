@@ -158,6 +158,9 @@ class LocalizedRoboSAPiensKeywordsPresskeycombinationKwargsTablenumberSpec(Typed
 class LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTablenumberSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsExactSpec(TypedDict):
     ...
 
@@ -528,6 +531,13 @@ class LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombination(TypedDic
     name: Tuple[Literal['2238126572'], str]
     desc: Tuple[Literal['3473771241'], str]
     spec: LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec
+
+class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTablenumber(TypedDict):
+    name: Tuple[Literal['3359775383'], str]
+    desc: Tuple[Literal['97624453'], str]
+    default: Literal[None]
+    type: Literal[r'int']
+    spec: LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTablenumberSpec
 
 class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsExact(TypedDict):
     name: Tuple[Literal['1775676165'], str]
@@ -1231,6 +1241,7 @@ class LocalizedRoboSAPiensKeywordsHighlightbuttonResult(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargs(TypedDict):
     exact: LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsExact
+    tableNumber: LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTablenumber
 
 class LocalizedRoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
     button: LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButton

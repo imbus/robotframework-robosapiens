@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.29.1"
+__version__ = "2.30.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -902,12 +902,13 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('FillTextField', args, kwargs, result) # type: ignore
     
     @keyword('Highlight Button') # type: ignore
-    def highlight_button(self, locator: str, exact: bool=False): # type: ignore
+    def highlight_button(self, locator: str, exact: bool=False, table_number: int=None): # type: ignore
         """
         Highlight the button with the given locator.
         
         | ``locator`` | The name or tooltip of the button |
         | ``exact`` | `True` if the locator matches exactly the tooltip, `False` otherwise. |
+        | ``table_number`` | The table (1, 2, ...) that contains the button in its toolbar. |
         
         Examples:
         
@@ -923,7 +924,8 @@ class RoboSAPiens(RoboSAPiensClient):
             locator
         ]
         kwargs: dict = {
-            "exact": exact
+            "exact": exact,
+            "table_number": table_number
         }
         
         result = {
@@ -1833,4 +1835,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.29.1'
+    ROBOT_LIBRARY_VERSION = '2.30.0'
