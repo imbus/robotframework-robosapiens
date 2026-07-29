@@ -6,6 +6,8 @@ using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using sapfewse;
 using saprotwr.net;
+using Serilog;
+using Serilog.Templates;
 
 namespace RoboSAPiens.Recorder
 {
@@ -292,6 +294,12 @@ namespace RoboSAPiens.Recorder
         {
             return string.IsNullOrEmpty(s) ? null : s;
         }
+
+        public static IEnumerable<T> LogLINQ<T>(this IEnumerable<T> enumerable, string logName, bool debug)
+        {
+            if (debug) Log.Debug(logName + ": {@" + logName + "}", enumerable);
+            return enumerable;
+        }
     }
 
     public class NoSapException : Exception
@@ -314,6 +322,23 @@ namespace RoboSAPiens.Recorder
         {
             this.debug = debug;
             session = getSession();
+
+            if (debug)
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.Console(
+                        outputTemplate: "{Message:lj}{NewLine}"
+                    )
+                    .WriteTo.PersistentFile(
+                        formatter: new ExpressionTemplate("{ {@x, ..@p} }\n"),
+                        path: "serilog.ndjson",
+                        persistentFileRollingInterval: PersistentFileRollingInterval.Minute,
+                        preserveLogFilename: true,
+                        retainedFileCountLimit: 1
+                    )
+                    .CreateLogger();
+            }
         }
 
         byte[] getScreenshot(GuiFrameWindow window, string? id)
@@ -515,6 +540,8 @@ namespace RoboSAPiens.Recorder
 
         Locator? getLocator(GuiVComponent component)
         {
+            if (debug) Log.Debug("component: {@component}", getSapObject(component.Id));
+
             if (Regex.IsMatch(component.Id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
             {
                 var adhocGridId = component.Parent.Id;
@@ -534,6 +561,7 @@ namespace RoboSAPiens.Recorder
                                   .Select(g => g.OrderBy(obj => obj.properties.ScreenTop).ToList())
                                   .ToList()
                         );
+                    if (debug) Log.Debug("columns: {@columns}, grids: {@grids}, rows: {@rows}", columns.Values.Count, columns.Values.Select(col => col.Count), columns.Values.Select(col => col.Select(grid => grid.Count)));
                     var grandParentObject = getSapObject(((GuiVComponent)component.Parent).Parent.Id);
                     var guiBox = grandParentObject.children.Find(obj => obj.properties.Type == "GuiBox");
                     var firstElement = parentObject.children.First();
@@ -555,12 +583,15 @@ namespace RoboSAPiens.Recorder
                     adHocGrid.columns[component.ScreenLeft]
                     .SelectMany((grid, gridIndex) => grid.Select((obj, rowIndex) => new {obj, rowIndex, gridIndex}))
                     .First(_ => _.obj.properties.Id == component.Id);
+                if (debug) Log.Debug("cell: {@cell}", cell);
                 var columnTitle = 
                     adHocGrid.columnTitles
                     .SelectMany((grid, gridIndex) => grid.Select(colTitle => new {colTitle, gridIndex}))
+                    .LogLINQ("columnTitles", debug)
                     .FirstOrDefault(_ => _.gridIndex == cell.gridIndex && Math.Abs(_.colTitle.properties.ScreenLeft - component.ScreenLeft) < 4)
                     ?.colTitle.properties.Text;
                 var locator = new Locator(row: (cell.rowIndex + 1).ToString(), col: columnTitle, gridIndex: cell.gridIndex);
+                if (debug) Log.Debug("locator: {@locator}", locator);
                 return locator;
             }
 
@@ -772,6 +803,7 @@ namespace RoboSAPiens.Recorder
             try
             {
                 session.Record = false;
+                Log.CloseAndFlush();
                 Console.WriteLine("Recording stopped.");
             }
             catch (Exception) {}
