@@ -16,8 +16,8 @@ namespace RoboSAPiens {
     public class SAPCheckBox: CheckBox, ILabeled, ILocatable, ISelectable {
         string defaultTooltip;
         List<SAPCheckBox> grid;
-        string id;
-        Position position;
+        public string id;
+        public Position position;
         string text;
 
         public SAPCheckBox(GuiCheckBox checkBox) {

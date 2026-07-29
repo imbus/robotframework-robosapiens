@@ -331,8 +331,8 @@ namespace RoboSAPiens {
             return null;
         }
 
-        public CheckBox? findCheckBox(CheckBoxLocator checkBox) {
-            return checkBoxes.get(checkBox.locator, labels, textFields.NonChangeable());
+        public SAPCheckBox? findCheckBox(CheckBoxLocator checkBox) {
+            return checkBoxes.get(checkBox.locator, labels, textFields.NonChangeable(), boxes);
         }
 
         public ComboBox? findComboBox(ComboBoxLocator comboBoxLocator) {

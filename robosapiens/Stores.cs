@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RoboSAPiens {
     public sealed class ButtonStore: ComponentRepository<Button> {
@@ -24,8 +26,8 @@ namespace RoboSAPiens {
         }
     }
 
-    public sealed class CheckBoxStore: ComponentRepository<CheckBox> {
-        public CheckBox? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
+    public sealed class CheckBoxStore: ComponentRepository<SAPCheckBox> {
+        public SAPCheckBox? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels, BoxStore boxes) {
             return locator switch {
                 HLabel(var label) => 
                     getByHLabel(label) ?? 
@@ -36,24 +38,47 @@ namespace RoboSAPiens {
                     getVerticalClosestToLabel(label, labels, textFieldLabels) ??
                     getNearLabel(label, labels, textFieldLabels),
                 HLabelVLabel => getAlignedWithLabels((HLabelVLabel)locator, labels, textFieldLabels),
-                HIndexVLabel(int rowIndex, string label, _) => getFromVerticalGrid(rowIndex, label, labels, textFieldLabels),
+                HIndexVLabel(int rowIndex, string label, int gridIndex) => getFromVerticalGrid(rowIndex, gridIndex, label, labels, boxes),
                 _ => null
             };
         }
 
-        CheckBox? getFromVerticalGrid(int index, string label, LabelStore labels, TextFieldRepository textFieldLabels) 
+        SAPCheckBox? getFromVerticalGrid(int rowIndex, int gridIndex, string label, LabelStore labels, BoxStore boxes) 
         {
-            var checkBox = getVerticalClosestToLabel(label, labels, textFieldLabels);
+            var checkBoxes = 
+                this
+                .Where(_ => Regex.IsMatch(_.id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
+                .ToList();
+            var firstCheckBox = checkBoxes.First();
+            var columnTitles = 
+                labels
+                .Where(label => label.text != "")
+                .Where(label => label.position.top > boxes.First().position.top)
+                .Where(label => label.position.top < firstCheckBox.position.top)
+                .GroupBy(label => label.position.top)
+                .Select(group => group.ToList())
+                .ToList();
+            var columnTitle = 
+                columnTitles
+                .SelectMany((grid, gridIndex) => grid.Select(colTitle => new {colTitle, gridIndex}))
+                .FirstOrDefault(_ => _.gridIndex == gridIndex && _.colTitle.text == label)
+                ?.colTitle;
 
-            if (checkBox == null) return null;
+            if (columnTitle == null) return null;
 
-            var verticalGrid = checkBox.getVerticalGrid(this.filterBy<SAPCheckBox>());
-
-            if (index <= verticalGrid.Count) {
-                return verticalGrid.ElementAt(index - 1);
-            }
-
-            return null;
+            var column = 
+                checkBoxes
+                .Where(_ => Math.Abs(_.position.left - columnTitle.position.left) < 4)
+                .GroupBy(_ => new {width=_.position.right - _.position.left})
+                .Select(g => g.OrderBy(_ => _.position.top).ToList())
+                .ToList();
+            var checkBox = 
+                column
+                .SelectMany((grid, gridIndex) => grid.Select((checkBox, rowIndex) => new {checkBox, rowIndex, gridIndex}))
+                .FirstOrDefault(_ => _.rowIndex == rowIndex-1 && _.gridIndex == gridIndex)
+                ?.checkBox;
+            
+            return checkBox;
         }
     }
 

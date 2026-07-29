@@ -3,7 +3,7 @@ using sapfewse;
 namespace RoboSAPiens {
     public sealed class SAPBox: ILabeled {
         string title;
-        Position position;
+        public Position position;
 
         public SAPBox(GuiBox box) {
             this.position = new Position(height: box.Height, 
