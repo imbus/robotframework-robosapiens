@@ -215,10 +215,6 @@ namespace RoboSAPiens
                                 }
                                 break;
                             case "start":
-                                if (recorder != null)
-                                {
-                                    recorder.recordStop();
-                                }
                                 recorder = new GuiRecorder(debug);
                                 Console.WriteLine("Recording...");
                                 recorder.recordStart();
