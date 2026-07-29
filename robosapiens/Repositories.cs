@@ -116,46 +116,40 @@ namespace RoboSAPiens {
 
         SAPTextField? getFromVerticalGrid(int rowIndex, string label, int gridIndex, LabelStore labels) 
         {
-            var textFields = this
+            var textFields = 
+                this
                 .Where(_ => Regex.IsMatch(_.id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
                 .ToList();
             var firstTextField = textFields.First();
-            var grid = 
-                textFields
-                .GroupBy(_ => _.position.left)
-                .ToDictionary(
-                    g => g.Key,
-                    g => g.ToList()
-                          .GroupBy(_ => _.position.right - _.position.left)
-                          .Select(_ => _.OrderBy(_ => _.position.top).ToList())
-                          .ToList()
-                );
-            var columns = grid.Keys.ToHashSet();
             var columnTitles = 
                 labels
-                .Where(_ => _.position.top > firstTextField.position.top - 70)
-                .Where(_ => _.position.top < firstTextField.position.top)
-                .Select(label => new {label, col=columns.MinBy(col => Math.Abs(col - label.position.left))})
-                .GroupBy(_ => _.col)
-                .ToDictionary(
-                    g => g.Key,
-                    g => g.Select(_ => _.label.text).ToList()
-                );
-            var adhocGrid = 
-                grid
-                .SelectMany(col => 
-                    col.Value.SelectMany((g, gridIndex0) =>
-                        g.Select((textField, rowIndex0) =>
-                            {
-                                var vLabel = columnTitles.GetValueOrDefault(textField.position.left)?[gridIndex0] ?? textField.id;
-                                return ((rowIndex0, gridIndex0, vLabel), textField);
-                            }
-                        )
-                    )
-                )
-                .ToDictionary();
+                .Where(label => label.text != "")
+                .Where(label => label.position.top > firstTextField.position.top - 70)
+                .Where(label => label.position.top < firstTextField.position.top)
+                .GroupBy(label => label.position.top)
+                .Select(group => group.ToList())
+                .ToList();
+            var columnTitle = 
+                columnTitles
+                .SelectMany((grid, gridIndex) => grid.Select(colTitle => new {colTitle, gridIndex}))
+                .FirstOrDefault(_ => _.gridIndex == gridIndex && _.colTitle.text == label)
+                ?.colTitle;
 
-            return adhocGrid.GetValueOrDefault((rowIndex-1, gridIndex, label));
+            if (columnTitle == null) return null;
+
+            var column = 
+                textFields
+                .Where(_ => Math.Abs(_.position.left - columnTitle.position.left) < 4)
+                .GroupBy(_ => new {width=_.position.right - _.position.left})
+                .Select(g => g.OrderBy(_ => _.position.top).ToList())
+                .ToList();
+            var textField = 
+                column
+                .SelectMany((grid, gridIndex) => grid.Select((textField, rowIndex) => new {textField, rowIndex, gridIndex}))
+                .FirstOrDefault(_ => _.rowIndex == rowIndex-1 && _.gridIndex == gridIndex)
+                ?.textField;
+            
+            return textField;
         }
 
         SAPTextField? getFromHorizontalGrid(int index, string label) 
