@@ -66,16 +66,15 @@ namespace RoboSAPiens {
 
         public T? getHorizontalClosestToLabel(string label, LabelStore labels, TextFieldRepository textFieldLabels) 
         {
-            return labels
-                        .Where(l => l.contains(label))
-                        .Select(l => l.findClosestHorizontalComponent(filterBy<ILocatable>()))
-                        .Where(l => l != null)
-                        .FirstOrDefault() as T ??
-                   textFieldLabels
-                         .Where(l => l.contains(label))
-                         .Select(l => l.findClosestHorizontalComponent(filterBy<ILocatable>()))
-                         .Where(l => l != null)
-                         .FirstOrDefault() as T;
+            return 
+                labels
+                    .Where(l => l.contains(label))
+                    .Select(l => l.findClosestHorizontalComponent(filterBy<ILocatable>()))
+                    .FirstOrDefault(l => l != null) as T ??
+                textFieldLabels
+                    .Where(l => l.contains(label))
+                    .Select(l => l.findClosestHorizontalComponent(filterBy<ILocatable>()))
+                    .FirstOrDefault(l => l != null) as T;
         }
 
         public T? getVerticalClosestToLabel(string label, LabelStore labels, TextFieldRepository textFieldLabels) {
@@ -114,7 +113,7 @@ namespace RoboSAPiens {
             return Find(textElement => textElement.isNamed(name));
         }
 
-        SAPTextField? getFromVerticalGrid(int rowIndex, string label, int gridIndex, LabelStore labels) 
+        SAPTextField? getFromVerticalGrid(int rowIndex, string label, int gridIndex, LabelStore labels, BoxStore boxes) 
         {
             var textFields = 
                 this
@@ -124,7 +123,7 @@ namespace RoboSAPiens {
             var columnTitles = 
                 labels
                 .Where(label => label.text != "")
-                .Where(label => label.position.top > firstTextField.position.top - 70)
+                .Where(label => label.position.top > boxes.First().position.top)
                 .Where(label => label.position.top < firstTextField.position.top)
                 .GroupBy(label => label.position.top)
                 .Select(group => group.ToList())
@@ -187,7 +186,7 @@ namespace RoboSAPiens {
                     getAlignedWithLabels((HLabelVLabel)locator, labels, nonChangeableTextFields) ??
                     findInBox(locator, boxes),
                 HIndexVLabel(int rowIndex, string label, int gridIndex) => 
-                    getFromVerticalGrid(rowIndex, label, gridIndex, labels),
+                    getFromVerticalGrid(rowIndex, label, gridIndex, labels, boxes),
                 HLabelVIndex(string label, int columnIndex) =>
                     getFromHorizontalGrid(columnIndex, label),
                 Content (var content) => 
