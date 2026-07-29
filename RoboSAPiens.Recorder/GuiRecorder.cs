@@ -590,7 +590,7 @@ namespace RoboSAPiens.Recorder
                     .LogLINQ("columnTitles", debug)
                     .FirstOrDefault(_ => _.gridIndex == cell.gridIndex && Math.Abs(_.colTitle.properties.ScreenLeft - component.ScreenLeft) < 4)
                     ?.colTitle.properties.Text;
-                var locator = new Locator(row: (cell.rowIndex + 1).ToString(), col: columnTitle, gridIndex: cell.gridIndex);
+                var locator = new Locator(hLabel: (cell.rowIndex + 1).ToString(), vLabel: columnTitle, gridIndex: cell.gridIndex);
                 if (debug) Log.Debug("locator: {@locator}", locator);
                 return locator;
             }
