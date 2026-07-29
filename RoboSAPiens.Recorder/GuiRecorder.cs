@@ -299,9 +299,11 @@ namespace RoboSAPiens.Recorder
         public NoSapException(string message) : base(message) {}
     }
 
+    record AdHocGrid(string id, List<List<SapObject>> columnTitles, Dictionary<int, List<List<SapObject>>> columns);
+
     public class GuiRecorder
     {
-        Dictionary<string, Dictionary<string, Locator>> adhocGrids = [];
+        Dictionary<string, AdHocGrid> adhocGrids = [];
         bool debug;
         List<Event> eventLog = [];
         List<KeyGuiEvent> keyGuiEventLog = [];
@@ -520,7 +522,7 @@ namespace RoboSAPiens.Recorder
                 if (!adhocGrids.ContainsKey(adhocGridId))
                 {
                     var parentObject = getSapObject(adhocGridId);
-                    var grid = 
+                    var columns = 
                         parentObject.children
                         // Each group might be divided into two sets with different widths,
                         // corresponding to the primary grid and the secondary grid.
@@ -532,40 +534,34 @@ namespace RoboSAPiens.Recorder
                                   .Select(g => g.OrderBy(obj => obj.properties.ScreenTop).ToList())
                                   .ToList()
                         );
-                    var columns = grid.Keys.ToHashSet();
                     var grandParentObject = getSapObject(((GuiVComponent)component.Parent).Parent.Id);
                     var guiBox = grandParentObject.children.Find(obj => obj.properties.Type == "GuiBox");
                     var firstElement = parentObject.children.First();
                     var columnTitles = 
                         grandParentObject.children
                         .Where(obj => obj.properties.Type == "GuiLabel")
+                        .Where(label => label.properties.Text != "")
                         .Where(label => label.properties.ScreenTop > guiBox!.properties.ScreenTop)
                         .Where(label => label.properties.ScreenTop < firstElement.properties.ScreenTop)
-                        .Select(label => new {label, col=columns.MinBy(col => Math.Abs(col - label.properties.ScreenLeft))})
-                        .GroupBy(_ => _.col)
-                        .ToDictionary(
-                            g => g.Key,
-                            g => g.Select(_ => _.label.properties.Text).ToList()
-                        );
+                        .GroupBy(label => label.properties.ScreenTop)
+                        .Select(group => group.ToList())
+                        .ToList();
 
-                    adhocGrids[adhocGridId] = 
-                        grid
-                        .SelectMany(col => 
-                            col.Value.SelectMany((g, gridIndex) =>
-                                g.Select((cell, rowIndex) =>
-                                    {
-                                        var id = cell.properties.Id;
-                                        var hLabel = (rowIndex + 1).ToString();
-                                        var vLabel = columnTitles.GetValueOrDefault(cell.properties.ScreenLeft)?[gridIndex];
-                                        return (id, new Locator(hLabel: hLabel, vLabel: vLabel, gridIndex: gridIndex));
-                                    }
-                                )
-                            )
-                        )
-                        .ToDictionary();
+                    adhocGrids[adhocGridId] = new AdHocGrid(adhocGridId, columnTitles, columns);
                 }
-                
-                return adhocGrids[adhocGridId].GetValueOrDefault(component.Id);
+
+                var adHocGrid = adhocGrids[adhocGridId];
+                var cell = 
+                    adHocGrid.columns[component.ScreenLeft]
+                    .SelectMany((grid, gridIndex) => grid.Select((obj, rowIndex) => new {obj, rowIndex, gridIndex}))
+                    .First(_ => _.obj.properties.Id == component.Id);
+                var columnTitle = 
+                    adHocGrid.columnTitles
+                    .SelectMany((grid, gridIndex) => grid.Select(colTitle => new {colTitle, gridIndex}))
+                    .FirstOrDefault(_ => _.gridIndex == cell.gridIndex && Math.Abs(_.colTitle.properties.ScreenLeft - component.ScreenLeft) < 4)
+                    ?.colTitle.properties.Text;
+                var locator = new Locator(row: (cell.rowIndex + 1).ToString(), col: columnTitle, gridIndex: cell.gridIndex);
+                return locator;
             }
 
             return component switch
