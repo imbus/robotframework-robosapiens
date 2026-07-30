@@ -35,6 +35,7 @@ namespace RoboSAPiens {
             this.session = session;
             this.systemName = session.Info.SystemName;
             this.options = options;
+            focusOkCode();
             this.window = new SAPWindow(session.ActiveWindow, debug: options.debug);
             sapClient = session.Info.Client;
             isActive = true;
@@ -49,6 +50,20 @@ namespace RoboSAPiens {
                     idMainWindow = element.Id;
                     break;
                 }
+            }
+        }
+
+        public void focusOkCode()
+        {
+            try
+            {
+                // Focus the OkCode field in order to prevent a GuiCTextField from getting the focus,
+                // which changes its width due to the addition of the combo box button
+                var okcd = (GuiOkCodeField)session.ActiveWindow.FindByName("okcd", "GuiOkCodeField");
+                okcd.SetFocus();
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -68,6 +83,7 @@ namespace RoboSAPiens {
             try {
                 var currentStatusbarId = window.components.getStatusBar()?.id;
                 var activeWindow = session.ActiveWindow;
+                focusOkCode();
                 window = new SAPWindow(activeWindow);
 
                 if (currentStatusbarId != null && activeWindow.Type == "GuiModalWindow") {
