@@ -50,10 +50,11 @@ namespace RoboSAPiens {
                 .Where(_ => Regex.IsMatch(_.id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
                 .ToList();
             var firstCheckBox = checkBoxes.First();
+            var closestBox = boxes.MinBy(box => box.position.top - firstCheckBox.position.top);
             var columnTitles = 
                 labels
                 .Where(label => label.text != "")
-                .Where(label => label.position.top > boxes.First().position.top)
+                .Where(label => label.position.top > (closestBox?.position.top ?? (firstCheckBox.position.top - 50)))
                 .Where(label => label.position.top < firstCheckBox.position.top)
                 .GroupBy(label => label.position.top)
                 .Select(group => group.ToList())

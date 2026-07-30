@@ -120,10 +120,11 @@ namespace RoboSAPiens {
                 .Where(_ => Regex.IsMatch(_.id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
                 .ToList();
             var firstTextField = textFields.First();
+            var closestBox = boxes.MinBy(box => box.position.top - firstTextField.position.top);
             var columnTitles = 
                 labels
                 .Where(label => label.text != "")
-                .Where(label => label.position.top > boxes.First().position.top)
+                .Where(label => label.position.top > (closestBox?.position.top ?? (firstTextField.position.top - 50)))
                 .Where(label => label.position.top < firstTextField.position.top)
                 .GroupBy(label => label.position.top)
                 .Select(group => group.ToList())
