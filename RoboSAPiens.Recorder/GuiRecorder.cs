@@ -538,12 +538,27 @@ namespace RoboSAPiens.Recorder
             return null;
         }
 
+        public void focusOkCode()
+        {
+            try
+            {
+                // Focus the OkCode field in order to prevent a GuiCTextField from getting the focus,
+                // which changes its width due to the addition of the combo box button
+                var okcd = (GuiOkCodeField)session.ActiveWindow.FindByName("okcd", "GuiOkCodeField");
+                okcd.SetFocus();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         Locator? getLocator(GuiVComponent component)
         {
-            if (debug) Log.Debug("component: {@component}", getSapObject(component.Id));
-
             if (Regex.IsMatch(component.Id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
             {
+                focusOkCode();
+                if (debug) Log.Debug("component: {@component}", getSapObject(component.Id));
+
                 var adhocGridId = component.Parent.Id;
 
                 if (!adhocGrids.ContainsKey(adhocGridId))
