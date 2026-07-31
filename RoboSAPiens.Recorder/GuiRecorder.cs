@@ -143,7 +143,15 @@ namespace RoboSAPiens.Recorder
     {
         public override string ToString()
         {
-            return string.Join("    ", [name, ..args.Select(arg => arg.value.NullIfEmpty() ?? "${EMPTY}")]);
+            return string.Join("    ", [name, ..args.Select(arg => {
+                var value = arg.value.NullIfEmpty() ?? "${EMPTY}";
+                
+                return arg.type switch
+                {
+                    KeywordCallArgType.KWARG => $"{arg.name}={value}",
+                    _ => value
+                };
+            })]);
         }
     }
 
