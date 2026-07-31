@@ -770,6 +770,7 @@ namespace RoboSAPiens.Recorder
 
         string getLabel(GuiVComponent component)
         {
+            if (debug) Log.Debug("component: {@component}", getSapObject(component.Id));
             var parentObject = getSapObject(component.Parent.Id);
             var verticalAlignedLabels =
                 parentObject.children
@@ -777,22 +778,25 @@ namespace RoboSAPiens.Recorder
                 .Where(obj =>
                     (obj.Type == "GuiLabel" || (obj.Type == "GuiTextField" && obj.Changeable == "false")) &&
                     Math.Abs(obj.ScreenTop - component.ScreenTop) < 5
-                );
+                )
+                .Where(obj => obj.Text != "");
+            if (debug) Log.Debug("Vertical-aligned labels: {@verticalAlignedLabels}", verticalAlignedLabels);
             var closestLeftLabel = 
                 verticalAlignedLabels
                 .Where(label =>
-                    label.ScreenLeft < component.Left && 
-                    Math.Abs(label.ScreenLeft + label.Width - component.Left) < 30
+                    label.ScreenLeft < component.ScreenLeft && 
+                    Math.Abs(label.ScreenLeft + label.Width - component.ScreenLeft) < 30
                 )
-                .MinBy(label => Math.Abs(label.ScreenLeft + label.Width - component.Left))
+                .LogLINQ("LeftLabels", debug)
+                .MinBy(label => Math.Abs(label.ScreenLeft + label.Width - component.ScreenLeft))
                 ?.Text.Trim();
             var closestRightLabel = 
                 verticalAlignedLabels
                 .Where(label =>
-                    label.ScreenLeft > component.Left + component.Width && 
-                    Math.Abs(label.ScreenLeft - (component.Left + component.Width)) < 30
+                    label.ScreenLeft > component.ScreenLeft + component.Width && 
+                    Math.Abs(label.ScreenLeft - (component.ScreenLeft + component.Width)) < 30
                 )
-                .MinBy(label => Math.Abs(label.ScreenLeft - (component.Left + component.Width)))
+                .MinBy(label => Math.Abs(label.ScreenLeft - (component.ScreenLeft + component.Width)))
                 ?.Text.Trim();
 
             return closestLeftLabel ?? closestRightLabel ?? getTooltip(component);
