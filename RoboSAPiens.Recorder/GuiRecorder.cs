@@ -71,6 +71,19 @@ namespace RoboSAPiens.Recorder
                 .Aggregate(s, (acc, m) => acc.Replace(m, " " + m[1..].Replace(" ", @"\ ")));
         }
 
+        public KeywordCallArg toKeywordCallArg(string lang)
+        {
+            return new KeywordCallArg(
+                name: lang switch
+                {
+                    "DE" => "Lokator",
+                    _ => "locator"
+                },
+                value: ToString(),
+                type: KeywordCallArgType.LOCATOR
+            );
+        }
+
         public override string ToString()
         {
             return (hLabel, vLabel, contents, row, col, gridIndex) switch
@@ -116,11 +129,397 @@ namespace RoboSAPiens.Recorder
         public const string TreeElement = "tree_element";
     }
     
-    public record KeywordCall(long window, string name, Locator? locator, params string[] args)
+    public static class KeywordCallArgType
+    {
+        public const string ARG = "ARG";
+        public const string KWARG = "KWARG";
+        public const string LOCATOR = "LOCATOR";
+    }
+
+    public record KeywordCallArg(string name, string value, string type);
+
+    public record KeywordCall(string name, List<KeywordCallArg> args)
     {
         public override string ToString()
         {
-            return string.Join("    ", [name, locator, ..args.Select(arg => arg.NullIfEmpty() ?? "${EMPTY}")]);
+            return string.Join("    ", [name, ..args.Select(arg => arg.value.NullIfEmpty() ?? "${EMPTY}")]);
+        }
+    }
+
+    record Robosapiens(string lang)
+    {
+        public KeywordCall ConnectToSap()
+        {
+            string name = lang switch
+            {
+                "DE" => "Laufende SAP GUI übernehmen",
+                _ => "Connect to running SAP"
+            };
+
+            return new KeywordCall(name, args: []);
+        }
+
+        public KeywordCall ConnectToServer(string server)
+        {
+            string name = lang switch
+            {
+                "DE" => "Verbindung zum Server herstellen",
+                _ => "Connect to Server"
+            };
+            List<KeywordCallArg> args =
+            [
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Servername",
+                        _ => "server_name"
+                },
+                    value: server,
+                    type: "ARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall DoubleClickCell(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Tabellenzelle doppelklicken",
+                _ => "Double-click Cell"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall DoubleClickTextField(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Textfeld doppelklicken",
+                _ => "Double-click Text Field"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall DoubleClickTreeElement(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Baumelement doppelklicken",
+                _ => "Double-click Tree Element"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall ExecuteTransaction(string tCode)
+        {
+            string name = lang switch
+            {
+                "DE" => "Transaktion ausführen",
+                _ => "Execute Transaction"
+            };
+            List<KeywordCallArg> args =
+            [
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Transaktion",
+                        _ => "transaction"
+                    },
+                    value: tCode,
+                    type: "ARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall ExpandTreeFolder(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Baumelement aufklappen",
+                _ => "Expand Tree Folder"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall FillCell(Locator locator, string contents)
+        {
+            string name = lang switch
+            {
+                "DE" => "Tabellenzelle ausfüllen",
+                _ => "Fill Cell"
+            };
+            List<KeywordCallArg> args =
+            [
+                locator.toKeywordCallArg(lang),
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Inhalt",
+                        _ => "contents"
+                    },
+                    value: contents,
+                    type: "ARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall FillTextField(Locator locator, string contents)
+        {
+            string name = lang switch
+            {
+                "DE" => "Textfeld ausfüllen",
+                _ => "Fill Text Field"
+            };
+            List<KeywordCallArg> args =
+            [
+                locator.toKeywordCallArg(lang),
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Inhalt",
+                        _ => "contents"
+                    },
+                    value: contents,
+                    type: "ARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall PressKeyCombination(string keyCombination)
+        {
+            string name = lang switch
+            {
+                "DE" => "Tastenkombination drücken",
+                _ => "Press Key Combination"
+            };
+            List<KeywordCallArg> args =
+            [
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Tastenkombination",
+                        _ => "key_combination"
+                    },
+                    value: keyCombination,
+                    type: "ARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall PushButton(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Knopf drücken",
+                _ => "Push Button"
+            };
+            List<KeywordCallArg> args =
+            [
+                locator.toKeywordCallArg(lang),
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "exakt",
+                        _ => "exact"
+                    },
+                    value: "True",
+                    type: "KWARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall PushButtonCell(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Tabellenzelle drücken",
+                _ => "Push Button Cell"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall SelectCell(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Tabellenzelle markieren",
+                _ => "Select Cell"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall SelectCellValue(Locator locator, string value)
+        {
+            string name = lang switch
+            {
+                "DE" => "Tabellenzellenwert auswählen",
+                _ => "Select Cell Value"
+            };
+            List<KeywordCallArg> args =
+            [
+                locator.toKeywordCallArg(lang),
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Wert",
+                        _ => "value"
+                    },
+                    value: value,
+                    type: "ARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall SelectComboBox(Locator locator, string value)
+        {
+            string name = lang switch
+            {
+                "DE" => "Auswahlmenüeintrag auswählen",
+                _ => "Select Dropdown Menu Entry"
+            };
+            List<KeywordCallArg> args =
+            [
+                locator.toKeywordCallArg(lang),
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Wert",
+                        _ => "value"
+                    },
+                    value: value,
+                    type: "ARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall SelectRadio(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Optionsfeld auswählen",
+                _ => "Select Radio Button"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall SelectTab(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Reiter auswählen",
+                _ => "Select Tab"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall SelectText(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Text markieren",
+                _ => "Select Text"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall SelectTextField(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Textfeld markieren",
+                _ => "Select Text Field"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall TickCheckBox(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Formularfeld ankreuzen",
+                _ => "Tick Checkbox"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall TickCheckBoxCell(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Tabellenzelle ankreuzen",
+                _ => "Tick Checkbox Cell"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall UntickCheckBox(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Formularfeld abwählen",
+                _ => "Untick Checkbox"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall UntickCheckBoxCell(Locator locator)
+        {
+            string name = lang switch
+            {
+                "DE" => "Tabellenzelle abwählen",
+                _ => "Untick Checkbox Cell"
+            };
+            List<KeywordCallArg> args = [
+                locator.toKeywordCallArg(lang)
+            ];
+            return new KeywordCall(name, args);
         }
     }
 
@@ -131,11 +530,6 @@ namespace RoboSAPiens.Recorder
             return $"Action: {action} | Role: {role} | Locator: {locator} | Value: {value}";
         }
 
-        // TODO: Define the method serializeKeyTA
-        // - For each KeywordCall create an Action
-        // - Group the Actions by Window. For each group create a Sequence
-        // - Write the Test Case in terms of Sequence calls
-        
         public string serialize(string lang)
         {
             return toKeywordCall(lang).ToString();
@@ -143,134 +537,34 @@ namespace RoboSAPiens.Recorder
 
         public KeywordCall toKeywordCall(string lang)
         {
-            var exact = new Dictionary<string, string> {
-                ["DE"] = "exakt",
-                ["EN"] = "exact"
-            };
-            var keywords = new {
-                ConnectToSap = new Dictionary<string, string> {
-                    ["DE"] = "Laufende SAP GUI übernehmen",
-                    ["EN"] = "Connect To Running SAP"
-                },
-                ConnectToServer = new Dictionary<string, string> {
-                    ["DE"] = "Verbindung zum Server herstellen",
-                    ["EN"] = "Connect To Server"
-                },
-                DoubleClickCell = new Dictionary<string, string> {
-                    ["DE"] = "Tabellenzelle doppelklicken",
-                    ["EN"] = "Double-click Cell"
-                },
-                DoubleClickTextField = new Dictionary<string, string> {
-                    ["DE"] = "Textfeld doppelklicken",
-                    ["EN"] = "Double-click Text Field"
-                },
-                DoubleClickTreeElement = new Dictionary<string, string> {
-                    ["DE"] = "Baumelement doppelklicken",
-                    ["EN"] = "Double-click Tree Element"
-                },
-                ExecuteTransaction = new Dictionary<string, string> {
-                    ["DE"] = "Transaktion ausführen",
-                    ["EN"] = "Execute Transaction"
-                },
-                ExpandTreeFolder = new Dictionary<string, string> {
-                    ["DE"] = "Baumordner aufklappen",
-                    ["EN"] = "Expand Tree Folder"
-                },
-                FillCell = new Dictionary<string, string> {
-                    ["DE"] = "Tabellenzelle ausfüllen",
-                    ["EN"] = "Fill Cell"
-                },
-                FillTextField = new Dictionary<string, string> {
-                    ["DE"] = "Textfeld ausfüllen",
-                    ["EN"] = "Fill Text Field"
-                },
-                PressKey = new Dictionary<string, string> {
-                    ["DE"] = "Tastenkombination drücken",
-                    ["EN"] = "Press Key Combination"
-                },
-                PushButton = new Dictionary<string, string> {
-                    ["DE"] = "Knopf drücken",
-                    ["EN"] = "Push Button"
-                },
-                PushButtonCell = new Dictionary<string, string> {
-                    ["DE"] = "Tabellenzelle drücken",
-                    ["EN"] = "Push Button Cell"
-                },
-                SelectCell = new Dictionary<string, string> {
-                    ["DE"] = "Tabellenzelle markieren",
-                    ["EN"] = "Select Cell"
-                },
-                SelectCellValue = new Dictionary<string, string> {
-                    ["DE"] = "Tabellenzellenwert auswählen",
-                    ["EN"] = "Select Cell Value"
-                },
-                SelectComboBox = new Dictionary<string, string> {
-                    ["DE"] = "Auswahlmenüeintrag auswählen",
-                    ["EN"] = "Select Dropdown Menu Entry"
-                },
-                SelectRadio = new Dictionary<string, string> {
-                    ["DE"] = "Optionsfeld auswählen",
-                    ["EN"] = "Select Radio Button"
-                },
-                SelectTab = new Dictionary<string, string> {
-                    ["DE"] = "Reiter auswählen",
-                    ["EN"] = "Select Tab"
-                },
-                SelectText = new Dictionary<string, string> {
-                    ["DE"] = "Text markieren",
-                    ["EN"] = "Select Text"
-                },
-                SelectTextField = new Dictionary<string, string> {
-                    ["DE"] = "Textfeld markieren",
-                    ["EN"] = "Select Text Field"
-                },
-                TickCheckbox = new Dictionary<string, string> {
-                    ["DE"] = "Formularfeld ankreuzen",
-                    ["EN"] = "Tick Checkbox"
-                },
-                TickCheckboxCell = new Dictionary<string, string> {
-                    ["DE"] = "Tabellenzelle ankreuzen",
-                    ["EN"] = "Tick Checkbox Cell"
-                },
-                UntickCheckbox = new Dictionary<string, string> {
-                    ["DE"] = "Formularfeld abwählen",
-                    ["EN"] = "Untick Checkbox"
-                },
-                UntickCheckboxCell = new Dictionary<string, string> {
-                    ["DE"] = "Tabellenzelle abwählen",
-                    ["EN"] = "Untick Checkbox Cell"
-                }
-            };
-
-            var keywordCall = (action, role, value) switch
+            var robosapiens = new Robosapiens(lang);
+            return (action, role, value) switch
             {
-                (KeyGuiActions.Connect, _, string connection) => new KeywordCall(window, keywords.ConnectToServer[lang], null, connection),
-                (KeyGuiActions.Connect, _, null) => new KeywordCall(window, keywords.ConnectToSap[lang], null, []),
-                (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.TickCheckboxCell[lang], locator),
-                (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => new KeywordCall(window, keywords.TickCheckbox[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.SelectCell[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.Label, _) => new KeywordCall(window, keywords.SelectText[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.Radio, _) => new KeywordCall(window, keywords.SelectRadio[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.Tab, _) => new KeywordCall(window, keywords.SelectTab[lang], locator),
-                (KeyGuiActions.Click, KeyGuiRoles.TextField, _) => new KeywordCall(window, keywords.SelectTextField[lang], locator),
-                (KeyGuiActions.DoubleClick, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.DoubleClickCell[lang], locator),
-                (KeyGuiActions.DoubleClick, KeyGuiRoles.TextField, _) => new KeywordCall(window, keywords.DoubleClickTextField[lang], locator),
-                (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => new KeywordCall(window, keywords.DoubleClickTreeElement[lang], locator),
-                (KeyGuiActions.Execute, _, string tCode) => new KeywordCall(window, keywords.ExecuteTransaction[lang], null, tCode),
-                (KeyGuiActions.Expand, KeyGuiRoles.TreeElement, _) => new KeywordCall(window, keywords.ExpandTreeFolder[lang], locator),
-                (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => new KeywordCall(window, keywords.FillCell[lang], locator, contents),
-                (KeyGuiActions.Fill, KeyGuiRoles.TextField, string contents) => new KeywordCall(window, keywords.FillTextField[lang], locator, contents),
-                (KeyGuiActions.PressKey, _, string key) => new KeywordCall(window, keywords.PressKey[lang], null, key),
-                (KeyGuiActions.Push, KeyGuiRoles.Button, _) => new KeywordCall(window, keywords.PushButton[lang], locator, [$"{exact[lang]}=True"]),
-                (KeyGuiActions.Push, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.PushButtonCell[lang], locator),
-                (KeyGuiActions.Select, KeyGuiRoles.Cell, string value) => new KeywordCall(window, keywords.SelectCellValue[lang], locator, value),
-                (KeyGuiActions.Select, KeyGuiRoles.Combobox, string option) => new KeywordCall(window, keywords.SelectComboBox[lang], locator, option),
-                (KeyGuiActions.Uncheck, KeyGuiRoles.Cell, _) => new KeywordCall(window, keywords.UntickCheckboxCell[lang], locator),
-                (KeyGuiActions.Uncheck, KeyGuiRoles.Checkbox, _) => new KeywordCall(window, keywords.UntickCheckbox[lang], locator),
-                _ => new KeywordCall(window, "Fail", null, $"Unknown Keyword: {action} {role}")
+                (KeyGuiActions.Connect, _, string connection) => robosapiens.ConnectToServer(connection),
+                (KeyGuiActions.Connect, _, null) => robosapiens.ConnectToSap(),
+                (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => robosapiens.TickCheckBoxCell(locator!),
+                (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => robosapiens.TickCheckBox(locator!),
+                (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => robosapiens.SelectCell(locator!),
+                (KeyGuiActions.Click, KeyGuiRoles.Label, _) => robosapiens.SelectText(locator!),
+                (KeyGuiActions.Click, KeyGuiRoles.Radio, _) => robosapiens.SelectRadio(locator!),
+                (KeyGuiActions.Click, KeyGuiRoles.Tab, _) => robosapiens.SelectTab(locator!),
+                (KeyGuiActions.Click, KeyGuiRoles.TextField, _) => robosapiens.SelectTextField(locator!),
+                (KeyGuiActions.DoubleClick, KeyGuiRoles.Cell, _) => robosapiens.DoubleClickCell(locator!),
+                (KeyGuiActions.DoubleClick, KeyGuiRoles.TextField, _) => robosapiens.DoubleClickTextField(locator!),
+                (KeyGuiActions.DoubleClick, KeyGuiRoles.TreeElement, _) => robosapiens.DoubleClickTreeElement(locator!),
+                (KeyGuiActions.Execute, _, string tCode) => robosapiens.ExecuteTransaction(tCode),
+                (KeyGuiActions.Expand, KeyGuiRoles.TreeElement, _) => robosapiens.ExpandTreeFolder(locator!),
+                (KeyGuiActions.Fill, KeyGuiRoles.Cell, string contents) => robosapiens.FillCell(locator!, contents),
+                (KeyGuiActions.Fill, KeyGuiRoles.TextField, string contents) => robosapiens.FillTextField(locator!, contents),
+                (KeyGuiActions.PressKey, _, string keyCombination) => robosapiens.PressKeyCombination(keyCombination),
+                (KeyGuiActions.Push, KeyGuiRoles.Button, _) => robosapiens.PushButton(locator!),
+                (KeyGuiActions.Push, KeyGuiRoles.Cell, _) => robosapiens.PushButtonCell(locator!),
+                (KeyGuiActions.Select, KeyGuiRoles.Cell, string value) => robosapiens.SelectCellValue(locator!, value),
+                (KeyGuiActions.Select, KeyGuiRoles.Combobox, string option) => robosapiens.SelectComboBox(locator!, option),
+                (KeyGuiActions.Uncheck, KeyGuiRoles.Cell, _) => robosapiens.UntickCheckBoxCell(locator!),
+                (KeyGuiActions.Uncheck, KeyGuiRoles.Checkbox, _) => robosapiens.UntickCheckBox(locator!),
+                _ => new KeywordCall("Fail", [new KeywordCallArg("message", $"Unknown Keyword: {action} {role}", type: "ARG")])
             };
-
-            return keywordCall;
         }
     }
     
