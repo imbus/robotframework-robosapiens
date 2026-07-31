@@ -1432,6 +1432,11 @@ namespace RoboSAPiens.Recorder
                 {"js", File.ReadAllText(Path.Combine(curdir!, "bootstrap.bundle.min.js"))}
             };
             var recording = getKeywordRecording(name, lang);
+            var title = lang switch
+            {
+                "DE" => "RoboSAPiens Aufzeichnung",
+                _ => "RoboSAPiens Recording"
+            };
             var data = new Dictionary<string, object?>{
                 {"bootstrap", bootstrap},
                 {"name", recording.name},
@@ -1441,6 +1446,7 @@ namespace RoboSAPiens.Recorder
                     {"name", step.keywordCall.name},
                     {"args", step.keywordCall.args}
                 })},
+                {"title", title},
                 {"windows", recording.windows.Values.ToDictionary(
                     window => window.id,
                     window => new Dictionary<string, object>
