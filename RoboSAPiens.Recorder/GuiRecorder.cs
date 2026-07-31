@@ -554,7 +554,7 @@ namespace RoboSAPiens.Recorder
             }
         }
 
-        Locator? getLocator(GuiVComponent component)
+        Locator getLocator(GuiVComponent component)
         {
             if (Regex.IsMatch(component.Id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
             {
@@ -617,7 +617,6 @@ namespace RoboSAPiens.Recorder
                 GuiButton button => new Locator(getButtonLabel(button)),
                 GuiCheckBox checkBox => new Locator(checkBox.Text.Trim().NullIfEmpty() ?? getLabel(component)),
                 GuiLabel label => new Locator(contents: label.Text.Trim()),
-                GuiOkCodeField => null,
                 GuiRadioButton radioButton => new Locator(radioButton.Text.Trim().NullIfEmpty() ?? getLabel(component)),
                 GuiTab tab => new Locator(getTabLabel(tab)),
                 GuiTextField textField when !textField.Changeable => new Locator(contents: textField.Text.Trim()),
@@ -757,6 +756,9 @@ namespace RoboSAPiens.Recorder
             var locator = componentType switch
             {
                 "GuiDialogShell" => null,
+                "GuiOkCodeField" => null,
+                "GuiMainWindow" => null,
+                "GuiModalWindow" => null,
                 "GuiGridView" => 
                     (name, values) switch
                     {
@@ -766,8 +768,6 @@ namespace RoboSAPiens.Recorder
                         ("SetCurrentCell", [int rowIndex0, string columnId]) => getGridViewCellLocator((GuiGridView)component, rowIndex0, columnId),
                         _ => null
                     },
-                "GuiMainWindow" => null,
-                "GuiModalWindow" => null,
                 "GuiTextField" when name == "SetFocus" =>
                     component.Parent switch
                     {
