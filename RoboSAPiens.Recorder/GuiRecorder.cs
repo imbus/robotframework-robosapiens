@@ -20,7 +20,9 @@ namespace RoboSAPiens.Recorder
     [JsonSerializable(typeof(SapObject))]
     internal partial class SerializerContext : JsonSerializerContext {}
 
-    public record KeywordRecording(List<KeywordCall> keywordCalls, Dictionary<long, Window> windows);
+    public record RecordingStep(long window, KeywordCall keywordCall);
+
+    public record KeywordRecording(string name, List<RecordingStep> steps, Dictionary<long, Window> windows);
 
     public record Window(long id, string title, byte[] screenshot)
     {
@@ -1123,13 +1125,32 @@ namespace RoboSAPiens.Recorder
             windows.ForEach(window => window.saveScreenshot(screenshots));
         }
 
-        public void saveKeywordLog(string filename, string lang)
+        public string toFileName(string str)
         {
-            var recording = new KeywordRecording(
-                keyGuiEventLog.Select(e => e.toKeywordCall(lang)).ToList(),
+            var invalidChars = Path.GetInvalidFileNameChars();
+            return 
+                invalidChars.Aggregate(str.Replace(" ", "_"), (acc, c) => acc.Replace(c.ToString(), ""))
+                .TrimEnd('.');
+        }
+
+        public KeywordRecording getKeywordRecording(string name, string lang)
+        {
+            return new KeywordRecording(
+                name,
+                keyGuiEventLog.Select(e =>
+                    new RecordingStep(
+                        e.window,
+                        e.toKeywordCall(lang)
+                    )
+                ).ToList(),
                 windows.ToDictionary(w => w.id, w => w)
             );
-            saveAsJson(recording, typeof(KeywordRecording), filename + "-keywords"); 
+        }
+
+        public void saveKeywordLog(string name, string lang)
+        {
+            var recording = getKeywordRecording(name, lang);
+            saveAsJson(recording, typeof(KeywordRecording), toFileName(name) + "-keywords"); 
         }
 
         public static string toRobotFile(List<KeyGuiEvent> keyGuiEventLog, string testcase, string lang)
