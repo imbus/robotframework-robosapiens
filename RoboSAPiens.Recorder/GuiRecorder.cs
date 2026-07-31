@@ -1116,8 +1116,10 @@ namespace RoboSAPiens.Recorder
             );
         }
 
-        public void saveKeyGuiLog(string filename)
+
+        public void saveKeyGuiLog(string name)
         {
+            var filename = toFileName(name);
             saveAsJson(keyGuiEventLog, typeof(List<KeyGuiEvent>), filename + "-keygui");
 
             var screenshots = Path.Combine(Directory.GetCurrentDirectory(), $"{filename}-screenshots");
@@ -1182,14 +1184,16 @@ namespace RoboSAPiens.Recorder
 
         public void saveRobotFile(string testcase, string lang)
         {
+            var filename = toFileName(testcase);
             File.WriteAllText(
-                Path.Combine(Directory.GetCurrentDirectory(), testcase + ".robot"),
+                Path.Combine(Directory.GetCurrentDirectory(), filename + ".robot"),
                 toRobotFile(keyGuiEventLog, testcase, lang)
             );
         }
 
-        public void saveEventLog(string filename)
+        public void saveEventLog(string name)
         {
+            var filename = toFileName(name);
             saveAsJson(eventLog, typeof(List<Event>), filename + "-events");
         }
 
