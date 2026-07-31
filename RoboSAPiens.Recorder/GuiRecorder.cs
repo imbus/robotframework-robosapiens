@@ -8,6 +8,7 @@ using sapfewse;
 using saprotwr.net;
 using Serilog;
 using Serilog.Templates;
+using NetJinja;
 
 namespace RoboSAPiens.Recorder
 {
@@ -173,7 +174,7 @@ namespace RoboSAPiens.Recorder
                     {
                         "DE" => "Servername",
                         _ => "server_name"
-                },
+                    },
                     value: server,
                     type: "ARG"
                 )
@@ -1410,6 +1411,42 @@ namespace RoboSAPiens.Recorder
             );
         }
 
+        public void saveHtmlReport(string name, string lang)
+        {
+            var curdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var bootstrap = new Dictionary<string, string>
+            {
+                {"css", File.ReadAllText(Path.Combine(curdir!, "bootstrap.min.css"))},
+                {"js", File.ReadAllText(Path.Combine(curdir!, "bootstrap.bundle.min.js"))}
+            };
+            var recording = getKeywordRecording(name, lang);
+            var data = new Dictionary<string, object?>{
+                {"bootstrap", bootstrap},
+                {"name", recording.name},
+                {"steps", recording.steps.Select(step => new Dictionary<string, object?>
+                {
+                    {"window", step.window},
+                    {"name", step.keywordCall.name},
+                    {"args", step.keywordCall.args}
+                })},
+                {"windows", recording.windows.Values.ToDictionary(
+                    window => window.id,
+                    window => new Dictionary<string, object>
+                    {
+                        {"id", window.id},
+                        {"title", window.title},
+                        {"screenshot", Convert.ToBase64String(window.screenshot)}
+                    }
+                )}
+            };
+            var filename = toFileName(name);
+            var template = File.ReadAllText(Path.Combine(curdir!, "recording.jinja.html"));
+            
+            File.WriteAllText(
+                Path.Combine(Directory.GetCurrentDirectory(), filename + ".html"),
+                Jinja.Render(template, data)
+            );
+        }
 
         public void saveKeyGuiLog(string name)
         {

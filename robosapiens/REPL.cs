@@ -204,6 +204,7 @@ namespace RoboSAPiens
                                     string testcase = readInput("Test Case: ")!;
                                     string language = readInput("Language [en, de]: ")!;
                                     recorder.saveRobotFile(testcase, language.ToUpper());
+                                    recorder.saveHtmlReport(testcase, language.ToUpper());
                                     
                                     if (debug)
                                     {

@@ -43,6 +43,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\RoboSAPiens.Recorder\recording.jinja.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\RoboSAPiens.Recorder\bootstrap\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RoboSAPiens.Recorder\RoboSAPiens.Recorder.csproj" />
   </ItemGroup>
 </Project>

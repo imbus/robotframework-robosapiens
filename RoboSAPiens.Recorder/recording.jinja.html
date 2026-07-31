@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <title>Recording</title>
+        {# <title>{{ "Recording" | translate }}</title> #}
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <style>{{ bootstrap.css }}</style>
+        <script>{{ bootstrap.js }}</script>
+    </head>
+    <body>
+        <div>
+            <div class="container p-3">
+                <h3>
+                    <div class="d-flex justify-content-between">
+                        <div>{{ name }}</div>
+                    </div>
+                </h3>
+                {%- for step in steps %}
+                <div class="row p-2 mt-3 rounded-top" style="background-color: steelblue;">
+                    <div class="col-1">
+                        <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#{{windows[step.window].id}}">
+                            🖼️
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <span class="text-light">{{ windows[step.window].title }}</span>
+                    </div>
+                </div>
+                <div class="row p-3 mb-3 bg-light">
+                    <div class="col-4">
+                        <p>{{ step.name }}</p>
+                    </div>
+                    {%- for arg in step.args %}
+                    <div class="col">
+                        <span>{{ arg.value }}</span>
+                        <br>
+                        <i style="color: gray">{{ arg.name }}</i>
+                    </div>
+                    {%- endfor %}
+                </div>
+                {%- endfor %}
+            </div>
+        </div>
+        {% for window in windows | values %}
+        <div class="modal modal-xl fade" id="{{window.id}}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="width: fit-content; max-width: fit-content">
+                <div class="modal-content" >
+                    <div class="modal-header" style="display:block">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img width="100%" src="data:image/jpeg;base64,{{window.screenshot}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </body>
+</html>
