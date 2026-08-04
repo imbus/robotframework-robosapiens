@@ -347,6 +347,13 @@ lib: RoboSAPiens = {
                     "default": False,
                     "type": "bool",
                     "spec": {}
+                },
+                "icon": {
+                    "name": "icon",
+                    "desc": "If True read the element's icon.",
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
                 }
             },
             "result": {

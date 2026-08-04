@@ -75,9 +75,9 @@ namespace RoboSAPiens
         [Keyword("Baumelement auslesen"),
          Doc("Das Baumelement mit dem angegebenen Pfad wird ausgelesen.\n\n" +
              "| ``Baumelement auslesen    Elementpfad``")]
-        public RobotResult ReadTreeElement(string elementPath, bool tooltip=false) {
+        public RobotResult ReadTreeElement(string elementPath, bool tooltip=false, bool icon=false) {
             return session switch {
-                SAPSession session when session.isActive => session.readTreeElement(elementPath, tooltip),
+                SAPSession session when session.isActive => session.readTreeElement(elementPath, tooltip, icon),
                 _ => new Result.ReadTreeElement.NoSession()
             };
         }

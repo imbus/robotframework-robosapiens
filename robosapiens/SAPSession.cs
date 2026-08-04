@@ -237,7 +237,7 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult readTreeElement(string elementPath, bool tooltip) 
+        public RobotResult readTreeElement(string elementPath, bool tooltip, bool icon) 
         {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
@@ -250,10 +250,12 @@ namespace RoboSAPiens {
             }
 
             try {
-                var elementText = tooltip switch
+                var elementText = (tooltip, icon) switch
                 {
-                    true => treeElement.getTooltip(session),
-                    false => treeElement.getText(session)
+                    (true, false) => treeElement.getTooltip(session),
+                    (false, true) => treeElement.getIcon(session),
+                    (false, false) => treeElement.getText(session),
+                    _ => throw new Exception("tooltip and icon cannot be specified simultaneously")
                 };
                 return new Result.ReadTreeElement.Pass(elementPath, elementText);
             } 

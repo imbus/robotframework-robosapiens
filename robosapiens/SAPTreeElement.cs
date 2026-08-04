@@ -70,6 +70,13 @@ namespace RoboSAPiens
                 );
         }
 
+        public string getIcon(GuiSession session)
+        {
+            var guiTree = (GuiTree)session.FindById(treeId);
+            expandParentNodes(guiTree);
+            return guiTree.GetNodeAbapImage(nodeKey);
+        }
+
         public string getText(GuiSession session)
         {
             var guiTree = (GuiTree)session.FindById(treeId);

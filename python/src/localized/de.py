@@ -352,6 +352,13 @@ lib: LocalizedRoboSAPiens = {
                   "default": False,
                   "type": "bool",
                   "spec": {}
+              },
+              "icon": {
+                  "name": ("1704208859", "Icon"),
+                  "desc": ("3231529260", "Wenn True wird das Icon des Baumelements ausgelesen."),
+                  "default": False,
+                  "type": "bool",
+                  "spec": {}
               }
             },
             "result": {
