@@ -53,6 +53,13 @@
           "default": false,
           "type": "Boolean",
           "spec": {}
+        },
+        "icon": {
+          "name": "icon",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
+          "spec": {}
         }
       },
       "result": {

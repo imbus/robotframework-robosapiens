@@ -261,6 +261,9 @@ class RoboSAPiensKeywordsDoubleclicktreeelementArgsElementpathSpec(TypedDict):
 class RoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsReadtreeelementKwargsIconSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsReadtreeelementKwargsTooltipSpec(TypedDict):
     ...
 
@@ -705,6 +708,13 @@ class RoboSAPiensKeywordsSelecttreeelementArgsElementpath(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsSelecttreeelementArgsElementpathSpec
+
+class RoboSAPiensKeywordsReadtreeelementKwargsIcon(TypedDict):
+    name: str
+    desc: str
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsReadtreeelementKwargsIconSpec
 
 class RoboSAPiensKeywordsReadtreeelementKwargsTooltip(TypedDict):
     name: str
@@ -1585,6 +1595,7 @@ class RoboSAPiensKeywordsReadtreeelementResult(TypedDict):
 
 class RoboSAPiensKeywordsReadtreeelementKwargs(TypedDict):
     tooltip: RoboSAPiensKeywordsReadtreeelementKwargsTooltip
+    icon: RoboSAPiensKeywordsReadtreeelementKwargsIcon
 
 class RoboSAPiensKeywordsReadtreeelementArgs(TypedDict):
     elementPath: RoboSAPiensKeywordsReadtreeelementArgsElementpath
