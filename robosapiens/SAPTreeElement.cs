@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Text.RegularExpressions;
 using sapfewse;
 
 namespace RoboSAPiens
@@ -74,7 +75,8 @@ namespace RoboSAPiens
         {
             var guiTree = (GuiTree)session.FindById(treeId);
             expandParentNodes(guiTree);
-            return guiTree.GetNodeAbapImage(nodeKey);
+            var icon = guiTree.GetNodeAbapImage(nodeKey) ?? "";
+            return Regex.Replace(icon, @"\\Q[^@]*", "");
         }
 
         public string getText(GuiSession session)

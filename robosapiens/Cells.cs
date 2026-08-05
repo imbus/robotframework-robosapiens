@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using sapfewse;
 
 namespace RoboSAPiens
@@ -191,7 +192,8 @@ namespace RoboSAPiens
         public override string getValue(GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            return gridView.GetCellValue(rowIndex, columnId);
+            var value = gridView.GetCellValue(rowIndex, columnId) ?? "";
+            return Regex.Replace(value, @"\\Q[^@]*", "");
         }
 
         // The innerObject parameter of the Visualize method of GuiGridView
