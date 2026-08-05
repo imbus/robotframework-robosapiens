@@ -1554,7 +1554,7 @@ class LocalizedRoboSAPiensKeywordsSelecttreeelementArgs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsReadtreeelementDoc(TypedDict):
     desc: Tuple[Literal['3964494361'], str]
-    examples: Tuple[Literal['41325508'], str]
+    examples: Tuple[Literal['2964700442'], str]
 
 class LocalizedRoboSAPiensKeywordsReadtreeelementResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]

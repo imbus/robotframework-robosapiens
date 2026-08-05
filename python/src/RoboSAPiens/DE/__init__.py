@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.32.0"
+__version__ = "2.32.1"
 
 class DE(RoboSAPiensClient):
     """
@@ -321,6 +321,7 @@ class DE(RoboSAPiensClient):
         *Hinweise*
         - Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
         - Jedes Segment des Pfades kann teilweise angegeben werden. Zum Beispiel IDoc anstelle von IDoc 1234.
+        - Die Icons haben die Kodierung @ID@. Die Namen können dem Bericht SHOWICON über die Transaktion SE38 entnommen werden.
         """
 
         args: list = [
@@ -1835,4 +1836,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.32.0'
+    ROBOT_LIBRARY_VERSION = '2.32.1'

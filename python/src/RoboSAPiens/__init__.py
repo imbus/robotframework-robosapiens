@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.32.0"
+__version__ = "2.32.1"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -322,6 +322,7 @@ class RoboSAPiens(RoboSAPiensClient):
         *Hints*
         - A slash that is not a path separator must be written twice.
         - Each segment of the path may be partially specified. For example, IDoc instead of IDoc 1234.
+        - The icons are encoded as @ID@. To get the icon names use the report SHOWICON via the transaction SE38.
         """
 
         args: list = [
@@ -1837,4 +1838,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.32.0'
+    ROBOT_LIBRARY_VERSION = '2.32.1'
