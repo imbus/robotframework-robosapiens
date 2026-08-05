@@ -252,10 +252,9 @@ namespace RoboSAPiens {
             try {
                 var elementText = (tooltip, icon) switch
                 {
-                    (true, false) => treeElement.getTooltip(session),
-                    (false, true) => treeElement.getIcon(session),
-                    (false, false) => treeElement.getText(session),
-                    _ => throw new Exception("tooltip and icon cannot be specified simultaneously")
+                    (true, _) => treeElement.getTooltip(session),
+                    (_, true) => treeElement.getIcon(session),
+                    _ => treeElement.getText(session)
                 };
                 return new Result.ReadTreeElement.Pass(elementPath, elementText);
             } 
