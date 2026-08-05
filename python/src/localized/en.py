@@ -373,6 +373,7 @@ lib: RoboSAPiens = {
                 *Hints*
                 - A slash that is not a path separator must be written twice.
                 - Each segment of the path may be partially specified. For example, IDoc instead of IDoc 1234.
+                - The icons are encoded as @ID@. To get the icon names use the report SHOWICON via the transaction SE38.
                 """
             }
         },

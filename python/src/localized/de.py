@@ -369,7 +369,7 @@ lib: LocalizedRoboSAPiens = {
             },
             "doc": {
                 "desc": ("3964494361", "Der Text des Baumelements mit dem angegebenen Pfad wird ausgelesen."),
-                "examples": ("41325508", 
+                "examples": ("2964700442", 
                 """
                 Beispiele:
               
@@ -378,6 +378,7 @@ lib: LocalizedRoboSAPiens = {
                 *Hinweise*
                 - Ein Schrägstrich, der nicht als Trennzeichen verwendet wird, muss doppelt geschrieben werden.
                 - Jedes Segment des Pfades kann teilweise angegeben werden. Zum Beispiel IDoc anstelle von IDoc 1234.
+                - Die Icons haben die Kodierung @ID@. Die Namen können dem Bericht SHOWICON über die Transaktion SE38 entnommen werden.
                 """
               )
             }
