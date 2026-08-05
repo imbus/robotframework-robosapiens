@@ -122,11 +122,10 @@ namespace RoboSAPiens
                             var response = result!.status switch
                             {
                                 Status.FAIL => result.error + Environment.NewLine + result.traceback,
-                                Status.PASS => result.output,
+                                Status.PASS => result.@return + Environment.NewLine + Environment.NewLine + result.output,
                                 _ => throw new NotImplementedException()
                             };
                             
-                            Console.WriteLine();
                             Console.WriteLine(response);
                         }
                     }
