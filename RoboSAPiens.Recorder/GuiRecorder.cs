@@ -1559,42 +1559,6 @@ namespace RoboSAPiens.Recorder
             saveAsJson(recording, typeof(KeywordRecording), toFileName(name) + "-keywords"); 
         }
 
-        public static string toRobotFile(List<KeyGuiEvent> keyGuiEventLog, string testcase, string lang)
-        {
-            var library = lang switch
-            {
-                "DE" => "RoboSAPiens.DE",
-                _ => "RoboSAPiens",
-            };
-
-            var open_sap = lang switch
-            {
-                "DE" => "SAP starten",
-                _ => "Open SAP",
-            };
-
-            var template = $"""
-            *** Settings ***
-            Library     {library}    x64=True
-            Test Setup   {open_sap}    C:\\Program Files\\SAP\\FrontEnd\\SAPGUI\\saplogon.exe
-
-            *** Test Cases ***
-            {testcase}
-
-            """;
-
-            return template + string.Join(Environment.NewLine, keyGuiEventLog.Select(e => "    " + e.serialize(lang)));
-        }
-
-        public void saveRobotFile(string testcase, string lang)
-        {
-            var filename = toFileName(testcase);
-            File.WriteAllText(
-                Path.Combine(Directory.GetCurrentDirectory(), filename + ".robot"),
-                toRobotFile(keyGuiEventLog, testcase, lang)
-            );
-        }
-
         public void saveEventLog(string name)
         {
             var filename = toFileName(name);
