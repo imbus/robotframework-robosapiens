@@ -22,80 +22,44 @@ namespace RoboSAPiens
             }
         }
 
-        public record Arg(string name, bool default_value, string doc, Action enable, bool export=true);
-
-        public class Arguments {
-            List<Arg> args;
-
-            public Arguments(List<Arg> arguments) {
-                this.args = arguments;
-            }
-
-            public Dictionary<string, Arg> asDict() {
-                return args.ToDictionary(arg => arg.name, arg => arg);
-            }
-
-            public List<Arg> get() {
-                return args.Where(arg => arg.export).ToList();
-            }
-
-            public override string ToString() 
+        public record Arg(string name, string doc)
+        {
+            public string cliDocumentation()
             {
-                return String.Join("\n",
-                    args.Select(arg => $"--{arg.name}\n  {arg.doc}")
-                        .ToList()
-                    );
+                return $"--{name}\n  {doc}";
             }
         }
 
-        public Arguments arguments;
-        public ILogger logger;
-        private Options options;
-
-        public CLI() {
-            // must be initialized before the arguments
-            this.options = new Options(debug: false, presenterMode: false, record: false);
-            this.arguments = new Arguments(new List<Arg>
-            {
-                new Arg("debug",
-                    options.debug,
-                    "Print detailed information to stdout when classifying and searching GUI elements",
-                    () => options = options with {debug = true},
-                    false
+        public List<Arg> arguments =
+        [
+            new Arg(
+                "debug",
+                "Start the debugging REPL (development only)."
                 ),
-                new Arg("help",
-                    false,
-                    "Print the available options",
-                    () => help(),
-                    false
+            new Arg(
+                "json-repl",
+                "Start the JSON REPL (used by the Robot Framework libraries)."
                 ),
-                new Arg("presenter-mode",
-                    options.presenterMode,
-                    "Highlight each GUI element acted upon",
-                    () => options = options with {presenterMode = true}
+            new Arg(
+                "presenter-mode",
+                "Highlight each GUI element acted upon."
                 ),
-                new Arg("record",
-                    false,
-                    "Record the actions performed in the SAP GUI and save them to a .robot file",
-                    () => options = options with {record = true},
-                    false
-                )
-            });
-            this.logger = new Logger();
-        }
-
-        public void exitWithError(string message) {
-            logger.error(message);
-            Environment.Exit(1);
-        }
-
-        public void help() {
-            const string banner = "RoboSAPiens :: SAP GUI automation for humans";
-            logger.info(banner);
+            new Arg(
+                "record",
+                "Record the actions performed in the SAP GUI and save them to a .robot file."
+            ),
+            new Arg(
+                "record-keywords",
+                "Record keywords and save them to a .robot file."
+            )
+        ];
+        public ILogger logger = new Logger();
+        public void help()
+        {
+            logger.info("RoboSAPiens :: SAP GUI automation for humans");
             logger.info("Usage: RoboSAPiens.exe --OPTION ...");
             logger.info("The following options are available:");
-            logger.info(arguments.ToString());
-            Environment.Exit(0);
+            logger.info(string.Join("\n", arguments.Select(arg => arg.cliDocumentation())));
         }
 
         public Options parseArgs(string[] args) 
