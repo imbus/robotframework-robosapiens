@@ -42,4 +42,4 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [tool.setuptools.package-data]
-RoboSAPiens = ["win-x64/*", "win-x86/*"]
+RoboSAPiens = ["win-x64/**", "win-x86/**"]
