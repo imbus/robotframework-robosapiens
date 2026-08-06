@@ -8,6 +8,9 @@
 {%- for keyword in keywords %}
 {{keyword.name}}
     {%- for step in keyword.steps %}
+    {%- if step.comment %}
+    # {{step.comment}}
+    {%- endif %}
     {{step}}
     {%- endfor %}
 {% endfor %}
