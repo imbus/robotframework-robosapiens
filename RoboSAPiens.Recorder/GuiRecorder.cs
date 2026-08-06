@@ -1512,8 +1512,8 @@ namespace RoboSAPiens.Recorder
                     }
                 )}
             };
-            var filename = toFileName(name);
-            var template = File.ReadAllText(Path.Combine(curdir!, "recording.jinja.html"));
+            var filename = name.toFileName();
+            var template = File.ReadAllText(Path.Combine(curdir!, "templates", "recording.jinja.html"));
             
             File.WriteAllText(
                 Path.Combine(Directory.GetCurrentDirectory(), filename + ".html"),

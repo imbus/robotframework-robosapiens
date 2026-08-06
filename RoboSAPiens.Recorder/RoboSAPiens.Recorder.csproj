@@ -16,6 +16,14 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="templates\*">
+      <TargetPath>templates\%(Filename)%(Extension)</TargetPath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <ItemGroup>
     <None Include="bootstrap\*">
       <TargetPath>bootstrap\%(Filename)%(Extension)</TargetPath>
