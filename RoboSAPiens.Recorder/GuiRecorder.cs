@@ -650,6 +650,11 @@ namespace RoboSAPiens.Recorder
             }
         }
 
+        public List<KeyGuiEvent> getKeyGuiEvents()
+        {
+            return keyGuiEventLog;
+        }
+
         byte[] getScreenshot(GuiFrameWindow window, string? id)
         {
             GuiVComponent? component = null;
