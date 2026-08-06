@@ -597,13 +597,8 @@ namespace RoboSAPiens.Recorder
 
     record SapObject(SapProperties properties, List<SapObject> children);
     
-    static class Extensions
+    static class LINQExtensions
     {
-        public static string? NullIfEmpty(this string s)
-        {
-            return string.IsNullOrEmpty(s) ? null : s;
-        }
-
         public static IEnumerable<T> LogLINQ<T>(this IEnumerable<T> enumerable, string logName, bool debug)
         {
             if (debug) Log.Debug(logName + ": {@" + logName + "}", enumerable);
