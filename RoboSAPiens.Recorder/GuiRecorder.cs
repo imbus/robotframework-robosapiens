@@ -737,10 +737,15 @@ namespace RoboSAPiens.Recorder
             }
         }
 
-        GuiSession getSession()
+        object getSapGui()
         {
             var rot = new CSapROTWrapper();
-            var sapGui = rot.GetROTEntry("SAPGUI") ?? throw new NoSapException("SAP Logon is not running.");
+            return rot.GetROTEntry("SAPGUI") ?? throw new NoSapException("SAP Logon is not running.");
+        }
+
+        GuiSession getSession()
+        {
+            var sapGui = getSapGui();
             var sap = (GuiApplication)sapGui.GetType().InvokeMember(
                 "GetScriptingEngine",
                 BindingFlags.InvokeMethod,
