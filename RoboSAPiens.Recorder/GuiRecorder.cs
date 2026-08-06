@@ -130,35 +130,6 @@ namespace RoboSAPiens.Recorder
         public const string TreeElement = "tree_element";
     }
     
-    public static class KeywordCallArgType
-    {
-        public const string ARG = "ARG";
-        public const string KWARG = "KWARG";
-        public const string LOCATOR = "LOCATOR";
-    }
-
-    public record KeywordCallArg(string name, string value, string type)
-    {
-        public override string ToString()
-        {
-            var rfValue = value.NullIfEmpty() ?? "${EMPTY}";
-
-            return type switch
-            {
-                KeywordCallArgType.KWARG => $"{name}={rfValue}",
-                _ => rfValue
-            };
-        }
-    }
-
-    public record KeywordCall(string name, List<KeywordCallArg> args)
-    {
-        public override string ToString()
-        {
-            return string.Join("    ", [name, ..args]);
-        }
-    }
-
     public record KeyGuiEvent(long window, string action, string? role, Locator? locator, string? value)
     {
         public override string ToString()

@@ -1,34 +1,5 @@
-using System.Reflection;
-using NetJinja;
-
 namespace RoboSAPiens.Recorder
 {
-    public record RobotKeyword(string name, List<KeywordCall> steps);
-    public record RobotTestCase(string name, List<KeywordCall> steps);
-    public record RobotFile(string filename, Dictionary<string, string> settings, List<RobotKeyword> keywords, List<RobotTestCase> testCases)
-    {
-        public override string ToString()
-        {
-            Dictionary<string, object?> data = new()
-            {
-                ["settings"] = settings,
-                ["keywords"] = keywords,
-                ["testCases"] = testCases
-            };
-            var curdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var template = File.ReadAllText(Path.Combine(curdir!, "templates", "recording.jinja.robot"));
-
-            return Jinja.Render(template, data);
-        }
-
-        public void save()
-        {
-            var filepath = Path.Combine(Directory.GetCurrentDirectory(), filename + ".robot");
-            File.WriteAllText(filepath, ToString());
-            Console.WriteLine($"Test Case saved to: {filepath}");
-        }
-    }
-
     public interface IRobotBuilder
     {
         RobotFile build(string lang, string testCaseName);
