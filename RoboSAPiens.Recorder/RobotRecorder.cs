@@ -21,11 +21,29 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    public record RecordedKeyword(string name, List<KeyGuiEvent> events)
+    public record RecordedKeyword(string name, List<KeyGuiEvent> events, Dictionary<long, string> windows)
     {
         public RobotKeyword toRobotKeyword(string language)
         {
-            var steps = events.Select(e => e.toKeywordCall(language)).ToList();
+            List<KeywordCall> steps = new ();
+            HashSet<string> windowTitles = new ();
+
+            foreach (var e in events)
+            {
+                var keywordCall = e.toKeywordCall(language);
+                var windowTitle = windows[e.window];
+
+                if (!windowTitles.Contains(windowTitle))
+                {
+                    windowTitles.Add(windowTitle);
+                    steps.Add(keywordCall with {comment=$"Window: {windowTitle}"});
+                }
+                else
+                {
+                    steps.Add(keywordCall);
+                }
+            }
+
             return new RobotKeyword(name, steps);
         }
     }
@@ -82,7 +100,7 @@ namespace RoboSAPiens.Recorder
 
             public void saveKeyword(string keywordName)
             {
-                var keyword = new RecordedKeyword(keywordName, recorder.getKeyGuiEvents());
+                var keyword = new RecordedKeyword(keywordName, recorder.getKeyGuiEvents(), recorder.getWindowTitles());
                 robotBuilder.addKeyword(keyword);
                 Console.WriteLine($"Keyword '{keywordName}' saved.");
             }
