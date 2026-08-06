@@ -71,7 +71,19 @@ namespace RoboSAPiens.Recorder
 
             while (true)
             {
-                handleCommand(readInput("> ")!);
+                try
+                {
+                    handleCommand(readInput("> ")!);
+                }
+                catch (NoSapException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (Exception e) 
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
+                }
             }
         }
 
