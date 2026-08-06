@@ -39,7 +39,7 @@ class RoboSAPiensClient(object):
             self.server_cmd = Path(realpath(__file__)).parent / "win-x64" / "RoboSAPiens.exe"
         else:
             self.server_cmd = Path(realpath(__file__)).parent / "win-x86" / "RoboSAPiens.exe"
-        self.args = list(args.items())
+        self.args = {**args, 'json-repl': True}
         self._server = self.server
         self.counter = count(1)
 
