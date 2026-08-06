@@ -38,18 +38,16 @@ namespace RoboSAPiens.Recorder
         public void stop();
     }
 
-    public abstract class BaseRecorder<B>: IRecorder where B: IRobotBuilder
+    public abstract class BaseRecorder: IRecorder
     {
         protected bool debug;
         protected GuiRecorder recorder;
         public abstract IRecordingMode recordingMode { get; }
-        protected B robotBuilder;
 
-        public BaseRecorder(bool debug, B robotBuilder)
+        public BaseRecorder(bool debug)
         {
             this.debug = debug;
             recorder = new GuiRecorder(debug);
-            this.robotBuilder = robotBuilder;
         }
 
         public abstract void save(string lang, string testCaseName);
@@ -67,11 +65,11 @@ namespace RoboSAPiens.Recorder
 
     public static class RobotRecorder
     {
-        public class Keyword: BaseRecorder<RobotBuilder.Keyword>
+        public class Keyword: BaseRecorder
         {
             public override IRecordingMode recordingMode => new RecordingMode.Keyword();
 
-            public Keyword(bool debug): base(debug, new RobotBuilder.Keyword()) {}
+            public Keyword(bool debug): base(debug) {}
 
             public void saveKeyword(string keywordName)
             {
@@ -82,10 +80,11 @@ namespace RoboSAPiens.Recorder
             }
         }
 
-        public class RoboSAPiens: BaseRecorder<RobotBuilder.RoboSAPiens>
+        public class RoboSAPiens: BaseRecorder
         {
             public override IRecordingMode recordingMode => new RecordingMode.RoboSAPiens();
-            public RoboSAPiens(bool debug): base(debug, new RobotBuilder.RoboSAPiens()) {}
+
+            public RoboSAPiens(bool debug): base(debug) {}
 
             public override void save(string lang, string testCaseName)
             {
