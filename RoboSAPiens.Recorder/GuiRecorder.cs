@@ -692,7 +692,8 @@ namespace RoboSAPiens.Recorder
 
         public List<KeyGuiEvent> getKeyGuiEvents()
         {
-            return keyGuiEventLog;
+            // Create a copy of the keyGuiEventLog
+            return [..keyGuiEventLog];
         }
 
         byte[] getScreenshot(GuiFrameWindow window, string? id)
