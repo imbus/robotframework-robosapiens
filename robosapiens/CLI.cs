@@ -9,13 +9,16 @@ namespace RoboSAPiens
 
     public class CLI
     {
-        public class Logger: RoboSAPiens.ILogger {
-            public void error(params string[] messages) {
-                Console.Error.WriteLine(String.Join(Environment.NewLine, messages));
+        public class Logger: ILogger
+        {
+            public void error(params string[] messages)
+            {
+                Console.Error.WriteLine(string.Join(Environment.NewLine, messages));
             }
 
-            public void info(params string[] messages) {
-                Console.WriteLine(String.Join(Environment.NewLine, messages));
+            public void info(params string[] messages)
+            {
+                Console.WriteLine(string.Join(Environment.NewLine, messages));
             }
         }
 
