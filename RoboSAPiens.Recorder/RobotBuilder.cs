@@ -100,9 +100,9 @@ namespace RoboSAPiens.Recorder
         {
             List<KeyGuiEvent> keyGuiEventLog = [];
 
-            public void addKeyGuiEvents(List<KeyGuiEvent> events)
+            public RoboSAPiens(List<KeyGuiEvent> keyGuiEventLog)
             {
-                keyGuiEventLog.AddRange(events);
+                this.keyGuiEventLog = keyGuiEventLog;
             }
 
             protected override List<RobotKeyword> keywords(string lang)

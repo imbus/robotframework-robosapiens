@@ -92,8 +92,10 @@ namespace RoboSAPiens.Recorder
 
             public override void save(string lang, string testCaseName)
             {
-                robotBuilder.addKeyGuiEvents(recorder.getKeyGuiEvents());
-                base.save(lang, testCaseName);
+                new RobotBuilder.RoboSAPiens(recorder.getKeyGuiEvents())
+                .build(lang, testCaseName)
+                .save();
+                
                 recorder.saveHtmlReport(testCaseName, lang);
 
                 if (debug)
