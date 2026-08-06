@@ -43,6 +43,10 @@ namespace RoboSAPiens.Recorder
                     break;
                 case "save":
                     string testcase = readInput("Test Case: ")!;
+                    if (testcase == "")
+                    {
+                        break;
+                    }
                     string language = readInput("Language [en, de]: ")!;
                     while (language != "en" && language != "de")
                     {
