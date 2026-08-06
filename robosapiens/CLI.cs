@@ -35,15 +35,15 @@ namespace RoboSAPiens
             new Arg(
                 "debug",
                 "Start the debugging REPL (development only)."
-                ),
+            ),
             new Arg(
                 "json-repl",
                 "Start the JSON REPL (used by the Robot Framework libraries)."
-                ),
+            ),
             new Arg(
                 "presenter-mode",
                 "Highlight each GUI element acted upon."
-                ),
+            ),
             new Arg(
                 "record",
                 "Record the actions performed in the SAP GUI and save them to a .robot file."
@@ -64,24 +64,34 @@ namespace RoboSAPiens
 
         public Options parseArgs(string[] args) 
         {
-            var argsQueue = new Queue<string>(args);
-            var argsDict = arguments.asDict();
-
-            while (argsQueue.Count > 0) 
+            if (args.Length == 0)
             {
-                string option = argsQueue.Dequeue();
-                var argName = option.Replace("--", "");
-
-                if (!argsDict.ContainsKey(argName)) 
-                    exitWithError(
-                        $"The option `{option}` is invalid. " +
-                        "Run RoboSAPiens.exe --help to see the list of valid options."
-                    );
-
-                argsDict[argName].enable();
+                help();
+                Environment.Exit(0);
             }
 
-            return options;
+            var argNames = arguments.Select(arg => arg.name).ToHashSet();
+            var flags = 
+                args
+                .Where(arg => arg.StartsWith("--"))
+                .Select(arg => (arg.Replace("--", ""), true))
+                .ToDictionary();
+
+            var invalidFlag = flags.Keys.FirstOrDefault(flag => !argNames.Contains(flag));
+            if (invalidFlag != null)
+            {
+                logger.error($"The option `--{invalidFlag}` is invalid.");
+                Environment.Exit(1);
+            }
+
+            return new Options(
+                debug         : flags.GetValueOrDefault("debug"),
+                jsonRepl      : flags.GetValueOrDefault("json-repl"),
+                presenterMode : flags.GetValueOrDefault("presenter-mode"),
+                recordingMode : flags.GetValueOrDefault("record")? new RecordingMode.RoboSAPiens() : 
+                                flags.GetValueOrDefault("record-keywords")? new RecordingMode.Keyword() : 
+                                null
+            );
         }
     }
 }
