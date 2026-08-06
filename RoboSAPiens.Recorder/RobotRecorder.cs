@@ -52,10 +52,7 @@ namespace RoboSAPiens.Recorder
             this.robotBuilder = robotBuilder;
         }
 
-        public virtual void save(string lang, string testCaseName)
-        {
-            robotBuilder.build(lang, testCaseName).save();
-        }
+        public abstract void save(string lang, string testCaseName);
 
         public void start()
         {
