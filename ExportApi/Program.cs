@@ -8,20 +8,19 @@ public class _
     public static void Main(string[] args) 
     {
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "api.json");
-        var libArgs = new CLI().arguments.get()
-                .ToDictionary(
-                    arg => arg.name, 
-                    arg => new {
-                        name = arg.name,
-                        @default = arg.default_value, 
-                        desc = arg.doc
-                    }
-                );
-        libArgs.Add("x64", new {
-            name = "64bit",
-            @default = false,
-            desc = "Execute RoboSAPiens 64-bit"
-        });
+        Dictionary<string, object> libArgs = new()
+        {
+            ["presenter-mode"] = new {
+                name = "presenter-mode",
+                @default = false,
+                desc = "Highlight each GUI element acted upon"
+            },
+            ["x64"] = new {
+                name = "64bit",
+                @default = false,
+                desc = "Execute RoboSAPiens 64-bit"
+            },
+        };
         var api = new 
         {
             doc = new 
