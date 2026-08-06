@@ -664,13 +664,12 @@ namespace RoboSAPiens.Recorder
         bool debug;
         List<Event> eventLog = [];
         List<KeyGuiEvent> keyGuiEventLog = [];
-        GuiSession session;
+        GuiSession? session;
         List<Window> windows = [];
 
         public GuiRecorder(bool debug)
         {
             this.debug = debug;
-            session = getSession();
 
             if (debug)
             {
@@ -702,7 +701,7 @@ namespace RoboSAPiens.Recorder
 
             if (id != null)
             {
-                component = (GuiVComponent)session.FindById(id);
+                component = (GuiVComponent)session!.FindById(id);
                 component.Visualize(true);
             }
             
@@ -902,7 +901,7 @@ namespace RoboSAPiens.Recorder
             {
                 // Focus the OkCode field in order to prevent a GuiCTextField from getting the focus,
                 // which changes its width due to the addition of the combo box button
-                var okcd = (GuiOkCodeField)session.ActiveWindow.FindByName("okcd", "GuiOkCodeField");
+                var okcd = (GuiOkCodeField)session!.ActiveWindow.FindByName("okcd", "GuiOkCodeField");
                 okcd.SetFocus();
             }
             catch (Exception)
@@ -1166,6 +1165,7 @@ namespace RoboSAPiens.Recorder
 
         public void recordStart()
         {
+            session = getSession();
             session.Change += handleChange;
             session.Destroy += handleDestroy;
             session.Record = true;
@@ -1176,9 +1176,12 @@ namespace RoboSAPiens.Recorder
         {
             try
             {
-                session.Record = false;
-                Log.CloseAndFlush();
-                Console.WriteLine("Recording stopped.");
+                if (session != null)
+                {
+                    session.Record = false;
+                    Log.CloseAndFlush();
+                    Console.WriteLine("Recording stopped.");
+                }
             }
             catch (Exception) {}
         }
@@ -1200,7 +1203,7 @@ namespace RoboSAPiens.Recorder
 
         string getObjectTree(string componentId)
         {
-            var objectTreeJson = session.GetObjectTree(
+            var objectTreeJson = session!.GetObjectTree(
                 componentId,
                 typeof(SapProperties).GetProperties().Select(p => p.Name).ToArray()
             );
@@ -1213,7 +1216,7 @@ namespace RoboSAPiens.Recorder
         {
             if (events.Count == 0) return null;
 
-            var component = (GuiVComponent)session.FindById(events[0].componentId);
+            var component = (GuiVComponent)session!.FindById(events[0].componentId);
             var componentType = events[0].componentType;
             var locator = events[0].locator;
             var lastKeyGuiEvent = keyGuiEventLog.Last();
