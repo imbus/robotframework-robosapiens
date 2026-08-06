@@ -10,9 +10,8 @@
     {%- for step in keyword.steps %}
     {{step}}
     {%- endfor %}
-{%- endfor %}
+{% endfor %}
 {% endif %}
-
 *** Test Cases ***
 {%- for testCase in testCases %}
 {{testCase.name}}
