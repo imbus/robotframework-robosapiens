@@ -137,21 +137,25 @@ namespace RoboSAPiens.Recorder
         public const string LOCATOR = "LOCATOR";
     }
 
-    public record KeywordCallArg(string name, string value, string type);
+    public record KeywordCallArg(string name, string value, string type)
+    {
+        public override string ToString()
+        {
+            var rfValue = value.NullIfEmpty() ?? "${EMPTY}";
+
+            return type switch
+            {
+                KeywordCallArgType.KWARG => $"{name}={rfValue}",
+                _ => rfValue
+            };
+        }
+    }
 
     public record KeywordCall(string name, List<KeywordCallArg> args)
     {
         public override string ToString()
         {
-            return string.Join("    ", [name, ..args.Select(arg => {
-                var value = arg.value.NullIfEmpty() ?? "${EMPTY}";
-                
-                return arg.type switch
-                {
-                    KeywordCallArgType.KWARG => $"{arg.name}={value}",
-                    _ => value
-                };
-            })]);
+            return string.Join("    ", [name, ..args]);
         }
     }
 
