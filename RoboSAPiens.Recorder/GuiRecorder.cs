@@ -234,6 +234,11 @@ namespace RoboSAPiens.Recorder
             }
         }
 
+        public Dictionary<long, string> getWindowTitles()
+        {
+            return windows.Select(w => (w.id, w.title)).ToDictionary();
+        }
+
         public List<KeyGuiEvent> getKeyGuiEvents()
         {
             // Create a copy of the keyGuiEventLog
