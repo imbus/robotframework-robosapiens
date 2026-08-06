@@ -110,6 +110,12 @@ namespace RoboSAPiens.Recorder
                     recorder.saveKeyGuiLog(filename);
                 }
             }
+
+            public override void start()
+            {
+                base.start();
+                recorder.addConnectEvent();
+            }
         }
     }
 }

@@ -661,6 +661,7 @@ namespace RoboSAPiens.Recorder
     public class GuiRecorder
     {
         Dictionary<string, AdHocGrid> adhocGrids = [];
+        string? connectionDescription;
         bool debug;
         List<Event> eventLog = [];
         List<KeyGuiEvent> keyGuiEventLog = [];
@@ -719,7 +720,23 @@ namespace RoboSAPiens.Recorder
         {
             return Stopwatch.GetTimestamp();
         }
-    
+
+        public void addConnectEvent()
+        {
+            var windowId = getTimestamp();
+            var window = session!.ActiveWindow;
+
+            if (keyGuiEventLog.Count == 0)
+            {
+                keyGuiEventLog.Add(new KeyGuiEvent(windowId, KeyGuiActions.Connect, null, null, connectionDescription));
+            }
+
+            if (windows.Count == 0)
+            {
+                windows.Add(new Window(windowId, window.Text, getScreenshot(window, id: null)));
+            }
+        }
+
         GuiSession getSession()
         {
             var rot = new CSapROTWrapper();
@@ -731,21 +748,15 @@ namespace RoboSAPiens.Recorder
                 sapGui,
                 null
             )!;
+
             try
             {
                 var connection = (GuiConnection)sap.Connections.ElementAt(0);
                 var session = (GuiSession)connection.Sessions.ElementAt(0);
-                var connectionDescription = session.Info.Client switch
+                if (session.Info.Client == "000")
                 {
-                    "000" => connection.Description,
-                    _ => null
-                };
-                var windowId = getTimestamp();
-                var window = session.ActiveWindow;
-
-                keyGuiEventLog.Add(new KeyGuiEvent(windowId, KeyGuiActions.Connect, null, null, connectionDescription));
-                windows.Add(new Window(windowId, window.Text, getScreenshot(window, id: null)));
-
+                    connectionDescription = connection.Description;
+                }
                 return session;
             }
             catch (Exception)
@@ -1219,7 +1230,7 @@ namespace RoboSAPiens.Recorder
             var component = (GuiVComponent)session!.FindById(events[0].componentId);
             var componentType = events[0].componentType;
             var locator = events[0].locator;
-            var lastKeyGuiEvent = keyGuiEventLog.Last();
+            var lastKeyGuiEvent = keyGuiEventLog.LastOrDefault();
 
             var keyGuiEvent = componentType switch
             {
@@ -1389,7 +1400,7 @@ namespace RoboSAPiens.Recorder
                 "GuiCTextField" or "GuiTextField" or "GuiPasswordField" => events.Select(
                     e => e switch
                     {
-                        {name: "SetFocus"} when lastKeyGuiEvent.action == KeyGuiActions.Fill && eventLog.Last().componentId == component.Id => null,
+                        {name: "SetFocus"} when lastKeyGuiEvent?.action == KeyGuiActions.Fill && eventLog.Last().componentId == component.Id => null,
                         {name: "SetFocus"} => new KeyGuiEvent(
                             e.window,
                             KeyGuiActions.Click,
