@@ -9,17 +9,21 @@ namespace RoboSAPiens
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            CLI cli = new CLI();
+            CLI cli = new();
             var options = cli.parseArgs(args);
             var keywordLibrary = new KeywordLibrary(options, cli.logger);
 
             if (options.record) {
                 REPL.Recorder.Start(options.debug);
             }
-            else if (options.debug) {
+
+            if (options.debug)
+            {
                 REPL.Debug.start(keywordLibrary);
             }
-            else {
+
+            if (options.jsonRepl)
+            {
                 REPL.Json.start(keywordLibrary);
             }
         }
