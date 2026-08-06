@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using RoboSAPiens.Recorder;
 
 namespace RoboSAPiens
 {
@@ -162,85 +161,6 @@ namespace RoboSAPiens
                     Console.WriteLine();
                 }
             }
-        }
-
-        public static class Recorder
-        {
-            static string? readInput(string prompt)
-            {
-                Console.InputEncoding = Encoding.Unicode;
-                Console.Write(prompt);
-                return Console.ReadLine();
-            }
-
-            public static void Start(bool debug)
-            {
-                Console.WriteLine($"=============== RoboSAPiens Recorder CLI ===============");
-                Console.WriteLine("Type `help` to get the list of available commands.");
-
-                GuiRecorder? recorder = null;
-
-                string? input;
-                while ((input = readInput("> ")) != null)
-                {
-                    try
-                    {
-                        switch (input)
-                        {
-                            case "exit":
-                                Environment.Exit(0);
-                                break;
-                            case "help":
-                                Console.WriteLine("Available commands:");
-                                Console.WriteLine("  start - Start recording");
-                                Console.WriteLine("  stop  - Stop recording");
-                                Console.WriteLine("  save  - Save the recorded steps to a .robot file");
-                                Console.WriteLine("  exit  - Exit the program");
-                                break;
-                            case "save":
-                                if (recorder != null)
-                                {
-                                    string testcase = readInput("Test Case: ")!;
-                                    string language = readInput("Language [en, de]: ")!;
-                                    recorder.saveRobotFile(testcase, language.ToUpper());
-                                    recorder.saveHtmlReport(testcase, language.ToUpper());
-                                    
-                                    if (debug)
-                                    {
-                                        string filename = testcase.ToLower().Replace(" ", "-");
-                                        recorder.saveEventLog(filename);
-                                        recorder.saveKeyGuiLog(filename);
-                                        recorder.saveKeywordLog(filename, language.ToUpper());
-                                    }
-                                }
-                                break;
-                            case "start":
-                                recorder = new GuiRecorder(debug);
-                                Console.WriteLine("Recording...");
-                                recorder.recordStart();
-                                break;
-                            case "stop":
-                                if (recorder != null)
-                                {
-                                    recorder.recordStop();
-                                }
-                                break;
-                            default:
-                                Console.WriteLine($"Unknown command: {input}");
-                                break;
-                        }
-                    }
-                    catch (NoSapException e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                    catch (Exception e) 
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
-                    }
-                }
-            }   
         }
     }
 }
