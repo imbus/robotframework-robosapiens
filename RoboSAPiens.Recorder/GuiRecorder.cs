@@ -1518,20 +1518,12 @@ namespace RoboSAPiens.Recorder
 
         public void saveKeyGuiLog(string name)
         {
-            var filename = toFileName(name);
+            var filename = name.toFileName();
             saveAsJson(keyGuiEventLog, typeof(List<KeyGuiEvent>), filename + "-keygui");
 
             var screenshots = Path.Combine(Directory.GetCurrentDirectory(), $"{filename}-screenshots");
             Directory.CreateDirectory(screenshots);
             windows.ForEach(window => window.saveScreenshot(screenshots));
-        }
-
-        public string toFileName(string str)
-        {
-            var invalidChars = Path.GetInvalidFileNameChars();
-            return 
-                invalidChars.Aggregate(str.Replace(" ", "_"), (acc, c) => acc.Replace(c.ToString(), ""))
-                .TrimEnd('.');
         }
 
         public KeywordRecording getKeywordRecording(string name, string lang)
@@ -1551,13 +1543,12 @@ namespace RoboSAPiens.Recorder
         public void saveKeywordLog(string name, string lang)
         {
             var recording = getKeywordRecording(name, lang);
-            saveAsJson(recording, typeof(KeywordRecording), toFileName(name) + "-keywords"); 
+            saveAsJson(recording, typeof(KeywordRecording), name.toFileName() + "-keywords");
         }
 
         public void saveEventLog(string name)
         {
-            var filename = toFileName(name);
-            saveAsJson(eventLog, typeof(List<Event>), filename + "-events");
+            saveAsJson(eventLog, typeof(List<Event>), name.toFileName() + "-events");
         }
 
         void saveRecording(string filename)
