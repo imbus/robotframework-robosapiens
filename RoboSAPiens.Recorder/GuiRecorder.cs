@@ -159,8 +159,36 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    record Robosapiens(string lang)
+    record Robosapiens(string language)
     {
+        string lang = language.ToUpper();
+
+        public KeywordCall libraryImport(bool x64=false)
+        {
+            string library = lang switch
+            {
+                "DE" => "RoboSAPiens.DE",
+                _ => "RoboSAPiens",
+            };
+
+            List<KeywordCallArg> args = [
+                new ("x64", x64.ToString().Capitalize(), KeywordCallArgType.KWARG)
+            ];
+
+            return new KeywordCall(library, args);
+        }
+
+        public KeywordCall CloseSap()
+        {
+            string name = lang switch
+            {
+                "DE" => "SAP beenden",
+                _ => "Close SAP"
+            };
+           
+            return new KeywordCall(name, args: []);
+        }
+
         public KeywordCall ConnectToSap()
         {
             string name = lang switch
@@ -308,6 +336,28 @@ namespace RoboSAPiens.Recorder
                         _ => "contents"
                     },
                     value: contents,
+                    type: "ARG"
+                )
+            ];
+            return new KeywordCall(name, args);
+        }
+
+        public KeywordCall OpenSap(string path)
+        {
+            string name = lang switch
+            {
+                "DE" => "SAP starten",
+                _ => "Open SAP"
+            };
+            List<KeywordCallArg> args =
+            [
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Pfad",
+                        _ => "path"
+                    },
+                    value: path.Replace("\\", "\\\\"),
                     type: "ARG"
                 )
             ];
