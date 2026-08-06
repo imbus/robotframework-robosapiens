@@ -1124,6 +1124,7 @@ namespace RoboSAPiens.Recorder
             session.Change += handleChange;
             session.Destroy += handleDestroy;
             session.Record = true;
+            Console.WriteLine("Recording started.");
         }
 
         public void recordStop()
