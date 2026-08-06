@@ -69,8 +69,16 @@ namespace RoboSAPiens.Recorder
         public class Keyword: BaseRecorder
         {
             public override IRecordingMode recordingMode => new RecordingMode.Keyword();
+            RobotBuilder.Keyword robotBuilder = new RobotBuilder.Keyword();
 
             public Keyword(bool debug): base(debug) {}
+
+            public override void save(string lang, string testCaseName)
+            {
+                robotBuilder
+                .build(lang, testCaseName)
+                .save();
+            }
 
             public void saveKeyword(string keywordName)
             {
