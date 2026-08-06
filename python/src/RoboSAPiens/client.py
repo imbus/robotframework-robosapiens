@@ -115,18 +115,9 @@ class RoboSAPiensClient(object):
         return rf_result.return_
 
 
-def _cli_args(args: List[Tuple[str, Any]]) -> List[str]:
-    if len(args) == 0:
-        return []
-
-    (name, value), *rest = args
-
-    name = '--' + name.replace("_", "-")
-
-    if isinstance(value, bool):
-        if value:
-            return [name] + _cli_args(rest)
-
-        return _cli_args(rest)
-
-    return [name, str(value)] + _cli_args(rest)
+def _cli_args(args: Dict[str, bool]) -> List[str]:
+    return [
+        '--' + arg.replace('_', '-')
+        for arg, value in args.items()
+        if value
+    ]
