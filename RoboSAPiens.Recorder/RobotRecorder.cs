@@ -82,7 +82,6 @@ namespace RoboSAPiens.Recorder
 
             public void saveKeyword(string keywordName)
             {
-                recorder.recordStop();
                 var keyword = new RecordedKeyword(keywordName, recorder.getKeyGuiEvents());
                 robotBuilder.addKeyword(keyword);
                 Console.WriteLine($"Keyword '{keywordName}' saved.");

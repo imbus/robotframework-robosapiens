@@ -89,6 +89,7 @@ namespace RoboSAPiens.Recorder
 
             protected override void stop()
             {
+                recorder.stop();
                 var keywordName = readInput("Keyword name: ")!;
                 recorder.saveKeyword(keywordName);
             }
