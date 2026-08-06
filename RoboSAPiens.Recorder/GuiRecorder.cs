@@ -706,7 +706,7 @@ namespace RoboSAPiens.Recorder
             }
             catch (Exception)
             {
-                throw new NoSapException("Not connected to any SAP system.");
+                throw new NoSapException("Not connected to any SAP server.");
             }
         }
 
