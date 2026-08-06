@@ -5,7 +5,7 @@ from itertools import count
 from os.path import realpath
 from pathlib import Path
 from subprocess import Popen, PIPE
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List
 
 from robot.api import logger
 from robot.errors import RemoteError
@@ -34,7 +34,7 @@ class NotFound(Exception):
 
 
 class RoboSAPiensClient(object):
-    def __init__(self, args: Dict[str, Any]):
+    def __init__(self, args: Dict[str, bool]):
         if args.pop("x64"):
             self.server_cmd = Path(realpath(__file__)).parent / "win-x64" / "RoboSAPiens.exe"
         else:
@@ -61,7 +61,7 @@ class RoboSAPiensClient(object):
         self._server.terminate()
 
     # All methods have to be private so that they are not interpreted as keywords by RF
-    def _run_keyword(self, name: str, args: list[object], kwargs: dict[str, object], result: Dict[str, str]): # type: ignore
+    def _run_keyword(self, name: str, args: List[object], kwargs: Dict[str, object], result: Dict[str, str]): # type: ignore
         request = {
             "jsonrpc": "2.0",
             "method": name,
