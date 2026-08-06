@@ -23,10 +23,9 @@ namespace RoboSAPiens.Recorder
 
         public void save()
         {
-            File.WriteAllText(
-                Path.Combine(Directory.GetCurrentDirectory(), filename + ".robot"),
-                ToString()
-            );
+            var filepath = Path.Combine(Directory.GetCurrentDirectory(), filename + ".robot");
+            File.WriteAllText(filepath, ToString());
+            Console.WriteLine($"Test Case saved to: {filepath}");
         }
     }
 
