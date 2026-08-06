@@ -52,8 +52,9 @@ namespace RoboSAPiens.Recorder
 
         public abstract void save(string lang, string testCaseName);
 
-        public void start()
+        public virtual void start()
         {
+            recorder = new GuiRecorder(debug);
             recorder.recordStart();
         }
 
