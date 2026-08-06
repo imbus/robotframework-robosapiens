@@ -593,11 +593,6 @@ namespace RoboSAPiens.Recorder
             return $"Action: {action} | Role: {role} | Locator: {locator} | Value: {value}";
         }
 
-        public string serialize(string lang)
-        {
-            return toKeywordCall(lang).ToString();
-        }
-
         public KeywordCall toKeywordCall(string lang)
         {
             var robosapiens = new Robosapiens(lang);
