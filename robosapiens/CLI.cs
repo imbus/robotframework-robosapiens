@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RoboSAPiens.Recorder;
 
 namespace RoboSAPiens
 {
-    public record struct Options(bool debug, bool presenterMode, bool record);
+    public record struct Options(bool debug, bool jsonRepl, bool presenterMode, IRecordingMode? recordingMode);
 
     public class CLI
     {
