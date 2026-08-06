@@ -1438,8 +1438,8 @@ namespace RoboSAPiens.Recorder
             var curdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var bootstrap = new Dictionary<string, string>
             {
-                {"css", File.ReadAllText(Path.Combine(curdir!, "bootstrap.min.css"))},
-                {"js", File.ReadAllText(Path.Combine(curdir!, "bootstrap.bundle.min.js"))}
+                {"css", File.ReadAllText(Path.Combine(curdir!, "bootstrap", "bootstrap.min.css"))},
+                {"js",  File.ReadAllText(Path.Combine(curdir!, "bootstrap", "bootstrap.bundle.min.js"))}
             };
             var recording = getKeywordRecording(name, lang);
             var title = lang switch
