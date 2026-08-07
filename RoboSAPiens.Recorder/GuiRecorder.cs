@@ -30,7 +30,7 @@ namespace RoboSAPiens.Recorder
         public void saveScreenshot(string directory)
         {
             File.WriteAllBytes(
-                Path.Combine(directory, id + ".png"),
+                Path.Combine(directory, timestamp + ".png"),
                 screenshot
             );
         }
