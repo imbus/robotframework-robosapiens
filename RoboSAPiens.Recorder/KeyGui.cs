@@ -30,7 +30,7 @@ namespace RoboSAPiens.Recorder
         public const string TreeElement = "tree_element";
     }
     
-    public record KeyGuiEvent(long window, string action, string? role, Locator? locator, string? value)
+    public record KeyGuiEvent(string componentId, long window, string action, string? role, Locator? locator, string? value)
     {
         public override string ToString()
         {

@@ -208,7 +208,7 @@ namespace RoboSAPiens.Recorder
 
             if (keyGuiEventLog.Count == 0)
             {
-                keyGuiEventLog.Add(new KeyGuiEvent(timestamp, KeyGuiActions.Connect, null, null, connectionDescription));
+                keyGuiEventLog.Add(new KeyGuiEvent("None", timestamp, KeyGuiActions.Connect, null, null, connectionDescription));
             }
 
             if (windows.Count == 0)
@@ -718,8 +718,9 @@ namespace RoboSAPiens.Recorder
             {
                 "GuiButton" => events switch
                 {
-                    [{window: long window, type: "Method", name: "Press"}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "Press"} e]  => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Push,
                         locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.Button,
                         locator,
@@ -729,8 +730,9 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiCheckBox" => events switch
                 {
-                    [{window: long window, type: "Set Property", name: "Selected", values: [bool selected]}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Set Property", name: "Selected", values: [bool selected]} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         selected ? KeyGuiActions.Check: KeyGuiActions.Uncheck,
                         locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.Checkbox,
                         locator,
@@ -740,8 +742,9 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiComboBox" => events switch
                 {
-                    [{window: long window, type: "Set Property", name: "Key", values: [string value]}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Set Property", name: "Key", values: [string value]} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Select,
                         KeyGuiRoles.Combobox,
                         locator,
@@ -751,15 +754,17 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiGridView" => events switch
                 {
-                    [{window: long window, type: "Method", name: "PressToolbarButton", values: [string name]}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "PressToolbarButton", values: [string name]} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Push,
                         KeyGuiRoles.Button,
                         locator,
                         null
                     ),
-                    [{window: long window, type: "Method", name: "ModifyCell", values: [int rowIndex, string colId, string value]}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "ModifyCell", values: [int rowIndex, string colId, string value]} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         ((GuiGridView)component).GetCellType(rowIndex, colId) switch
                         {
                             "Normal" => KeyGuiActions.Fill,
@@ -770,15 +775,17 @@ namespace RoboSAPiens.Recorder
                         locator,
                         value
                     ),
-                    [{window: long window, type: "Method", name: "DoubleClickCurrentCell" }] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "DoubleClickCurrentCell" } e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.DoubleClick,
                         KeyGuiRoles.Cell,
                         locator,
                         null
                     ),
-                    [{window: long window, type: "Method", name: "SetCurrentCell", values: [int rowIndex, string colId] }] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "SetCurrentCell", values: [int rowIndex, string colId] } e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         ((GuiGridView)component).GetCellType(rowIndex, colId) switch
                         {
                             "Normal" => KeyGuiActions.Select,
@@ -789,8 +796,9 @@ namespace RoboSAPiens.Recorder
                         locator,
                         null
                     ),
-                    [{window: long window, type: "Set Property", name: "SelectedRows", values: [string rowIndex0] }] when eventLog.SkipLast(1).Last().componentId == component.Id && eventLog.SkipLast(1).Last().name == "CurrentCellColumn" => new KeyGuiEvent(
-                        window,
+                    [{type: "Set Property", name: "SelectedRows", values: [string rowIndex0] } e ] when eventLog.SkipLast(1).Last().componentId == component.Id && eventLog.SkipLast(1).Last().name == "CurrentCellColumn" => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Click,
                         KeyGuiRoles.Cell,
                         getGridViewCellLocator((GuiGridView)component, int.Parse(rowIndex0), (string)eventLog.SkipLast(1).Last().values[0]),
@@ -800,8 +808,9 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiLabel" => events switch
                 {
-                    [{window: long window, name:"SetFocus"}] => new KeyGuiEvent(
-                        window,
+                    [{name:"SetFocus"} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Click,
                         KeyGuiRoles.Label,
                         locator,
@@ -812,9 +821,10 @@ namespace RoboSAPiens.Recorder
                 "GuiMainWindow" or "GuiModalWindow" => events switch
                 {
                     [{name: "SendVKey"}] when keyGuiEventLog.Last().action == KeyGuiActions.Execute => null,
-                    [{window: long window, type: "Method", name: "SendVKey", values: [int vkey]}] => 
+                    [{type: "Method", name: "SendVKey", values: [int vkey]} e] => 
                         new KeyGuiEvent(
-                            window,
+                            e.componentId,
+                            e.window,
                             KeyGuiActions.PressKey,
                             null,
                             null,
@@ -824,9 +834,10 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiOkCodeField" => events switch
                 {
-                    [{window: long window, type: "Set Property", name: "Text", values: [string t_code]}] =>
+                    [{type: "Set Property", name: "Text", values: [string t_code]} e] =>
                         new KeyGuiEvent(
-                            window,
+                            e.componentId,
+                            e.window,
                             KeyGuiActions.Execute,
                             null,
                             null,
@@ -836,8 +847,9 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiRadioButton" => events switch
                 {
-                    [{window: long window, type: "Method", name: "Select"}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "Select"} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Click,
                         KeyGuiRoles.Radio,
                         locator,
@@ -847,8 +859,9 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiTab" => events switch
                 {
-                    [{window: long window, type: "Method", name: "Select"}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "Select"} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Click,
                         KeyGuiRoles.Tab,
                         locator,
@@ -858,9 +871,10 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiTableControl" => events switch
                 {
-                    [{window: long window, type: "Method", name: "GetAbsoluteRow", values: [int row]},
-                    {type: "Set Property", name: "Selected"}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "GetAbsoluteRow", values: [int row]},
+                    {type: "Set Property", name: "Selected"} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.SelectRow,
                         null,
                         null,
@@ -870,8 +884,9 @@ namespace RoboSAPiens.Recorder
                 },
                 "GuiTextEdit" => events switch
                 {
-                    [{window: long window, type: "Set Property", name: "Text", values: [string text]}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Set Property", name: "Text", values: [string text]} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Fill,
                         KeyGuiRoles.MultiLineTextField,
                         locator,
@@ -884,6 +899,7 @@ namespace RoboSAPiens.Recorder
                     {
                         {name: "SetFocus"} when lastKeyGuiEvent?.action == KeyGuiActions.Fill && eventLog.Last().componentId == component.Id => null,
                         {name: "SetFocus"} => new KeyGuiEvent(
+                            e.componentId,
                             e.window,
                             KeyGuiActions.Click,
                             locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
@@ -891,6 +907,7 @@ namespace RoboSAPiens.Recorder
                             null
                         ),
                         {type: "Set Property", name: "CaretPosition"} when !component.Changeable && keyGuiEventLog.Last().action != KeyGuiActions.Click => new KeyGuiEvent(
+                            e.componentId,
                             e.window,
                             KeyGuiActions.Click,
                             locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
@@ -898,6 +915,7 @@ namespace RoboSAPiens.Recorder
                             null
                         ),
                         {type: "Set Property", name: "Text", values: [string value]} => new KeyGuiEvent(
+                            e.componentId,
                             e.window,
                             KeyGuiActions.Fill,
                             locator?.col != null ? KeyGuiRoles.Cell : KeyGuiRoles.TextField,
@@ -909,8 +927,9 @@ namespace RoboSAPiens.Recorder
                 ).FirstOrDefault(e => e != null),
                 "GuiTree" => events switch
                 {
-                    [{window: long window, type: "Method", name: "DoubleClickItem"}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "DoubleClickItem"} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.DoubleClick,
                         locator!.col switch
                         {
@@ -920,22 +939,25 @@ namespace RoboSAPiens.Recorder
                         locator,
                         null
                     ),
-                    [{window: long window, type: "Method", name: "DoubleClickNode"}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "DoubleClickNode"} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.DoubleClick,
                         KeyGuiRoles.TreeElement,
                         locator,
                         null
                     ),
-                    [{window: long window, type: "Method", name: "ExpandNode"}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "ExpandNode"} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Expand,
                         KeyGuiRoles.TreeElement,
                         locator,
                         null
                     ),
-                    [{window: long window, type: "Method", name: "PressButton"}] => new KeyGuiEvent(
-                        window,
+                    [{type: "Method", name: "PressButton"} e] => new KeyGuiEvent(
+                        e.componentId,
+                        e.window,
                         KeyGuiActions.Push,
                         KeyGuiRoles.Cell,
                         locator,
