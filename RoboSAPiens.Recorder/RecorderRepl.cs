@@ -9,12 +9,10 @@ namespace RoboSAPiens.Recorder
 
     public abstract class BaseRecorderRepl<R>: IRecorderRepl where R: IRecorder
     {
-        protected bool debug;
         protected R recorder;
         
-        public BaseRecorderRepl(bool debug, R recorder) 
+        public BaseRecorderRepl(R recorder) 
         {
-            this.debug = debug;
             this.recorder = recorder;
         }
 
@@ -101,7 +99,7 @@ namespace RoboSAPiens.Recorder
     {
         public class Keyword: BaseRecorderRepl<RobotRecorder.Keyword>
         {
-            public Keyword(bool debug) : base(debug, new RobotRecorder.Keyword(debug)) {}
+            public Keyword(bool debug) : base(new RobotRecorder.Keyword(debug)) {}
 
             protected override void stop()
             {
@@ -113,7 +111,7 @@ namespace RoboSAPiens.Recorder
 
         public class RoboSAPiens: BaseRecorderRepl<RobotRecorder.RoboSAPiens>
         {
-            public RoboSAPiens(bool debug) : base(debug, new RobotRecorder.RoboSAPiens(debug)) {}
+            public RoboSAPiens(bool debug) : base(new RobotRecorder.RoboSAPiens(debug)) {}
         }
     }
 }
