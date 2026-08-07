@@ -52,11 +52,7 @@ namespace RoboSAPiens.Recorder
 
         public abstract void save(string lang, string testCaseName);
 
-        public virtual void start()
-        {
-            recorder = new GuiRecorder(debug);
-            recorder.recordStart();
-        }
+        public abstract void start();
 
         public void stop()
         {
@@ -87,6 +83,12 @@ namespace RoboSAPiens.Recorder
                 robotBuilder.addWindows(recorder.getWindows());
                 Console.WriteLine($"Keyword '{keywordName}' saved.");
             }
+
+            public override void start()
+            {
+                recorder = new GuiRecorder(debug);
+                recorder.recordStart();
+            }
         }
 
         public class RoboSAPiens: BaseRecorder
@@ -114,7 +116,7 @@ namespace RoboSAPiens.Recorder
 
             public override void start()
             {
-                base.start();
+                recorder.recordStart();
                 recorder.addConnectEvent();
             }
         }
