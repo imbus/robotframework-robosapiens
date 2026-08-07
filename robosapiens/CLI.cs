@@ -70,26 +70,26 @@ namespace RoboSAPiens
                 Environment.Exit(0);
             }
 
-            var argNames = arguments.Select(arg => arg.name).ToHashSet();
-            var flags = 
+            var flags = arguments.Select(arg => "--" + arg.name).ToHashSet();
+            var invalidFlag = args.FirstOrDefault(arg => !flags.Contains(arg));
+            if (invalidFlag != null)
+            {
+                logger.error($"The option `{invalidFlag}` is invalid.");
+                Environment.Exit(1);
+            }
+
+            var options = 
                 args
                 .Where(arg => arg.StartsWith("--"))
                 .Select(arg => (arg.Replace("--", ""), true))
                 .ToDictionary();
 
-            var invalidFlag = flags.Keys.FirstOrDefault(flag => !argNames.Contains(flag));
-            if (invalidFlag != null)
-            {
-                logger.error($"The option `--{invalidFlag}` is invalid.");
-                Environment.Exit(1);
-            }
-
             return new Options(
-                debug         : flags.GetValueOrDefault("debug"),
-                jsonRepl      : flags.GetValueOrDefault("json-repl"),
-                presenterMode : flags.GetValueOrDefault("presenter-mode"),
-                recordingMode : flags.GetValueOrDefault("record")? new RecordingMode.RoboSAPiens() : 
-                                flags.GetValueOrDefault("record-keywords")? new RecordingMode.Keyword() : 
+                debug         : options.GetValueOrDefault("debug"),
+                jsonRepl      : options.GetValueOrDefault("json-repl"),
+                presenterMode : options.GetValueOrDefault("presenter-mode"),
+                recordingMode : options.GetValueOrDefault("record")? new RecordingMode.RoboSAPiens() : 
+                                options.GetValueOrDefault("record-keywords")? new RecordingMode.Keyword() : 
                                 null
             );
         }
