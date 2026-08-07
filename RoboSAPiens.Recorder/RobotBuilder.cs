@@ -7,6 +7,7 @@ namespace RoboSAPiens.Recorder
 
     public record WindowCommenter(Dictionary<long, Window> windows)
     {
+        string currentWindowId = "";
         string currentWindowTitle = "";
 
         bool similar(string title1, string title2)
@@ -21,6 +22,13 @@ namespace RoboSAPiens.Recorder
         public KeywordCall addWindowComment(KeywordCall step, long timestamp)
         {
             var window = windows[timestamp];
+
+            if (currentWindowId != window.id)
+            {
+                currentWindowId = window.id;
+                currentWindowTitle = window.title;
+                return step with {comment=$"Window: {window.title}"};
+            }
 
             if (!similar(currentWindowTitle, window.title))
             {
