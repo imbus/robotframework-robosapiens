@@ -25,7 +25,7 @@ namespace RoboSAPiens.Recorder
 
     public record KeywordRecording(string name, List<RecordingStep> steps, Dictionary<long, Window> windows);
 
-    public record Window(long id, string title, byte[] screenshot)
+    public record Window(long timestamp, string id, string title, byte[] screenshot)
     {
         public void saveScreenshot(string directory)
         {
@@ -166,7 +166,7 @@ namespace RoboSAPiens.Recorder
 
         public Dictionary<long, Window> getWindows()
         {
-            return windows.Select(w => (w.id, w)).ToDictionary();
+            return windows.Select(w => (w.timestamp, w)).ToDictionary();
         }
 
         public List<KeyGuiEvent> getKeyGuiEvents()
@@ -203,17 +203,17 @@ namespace RoboSAPiens.Recorder
 
         public void addConnectEvent()
         {
-            var windowId = getTimestamp();
+            var timestamp = getTimestamp();
             var window = session!.ActiveWindow;
 
             if (keyGuiEventLog.Count == 0)
             {
-                keyGuiEventLog.Add(new KeyGuiEvent(windowId, KeyGuiActions.Connect, null, null, connectionDescription));
+                keyGuiEventLog.Add(new KeyGuiEvent(timestamp, KeyGuiActions.Connect, null, null, connectionDescription));
             }
 
             if (windows.Count == 0)
             {
-                windows.Add(new Window(windowId, window.Text, getScreenshot(window, id: null)));
+                windows.Add(new Window(timestamp, window.Id, window.Text, getScreenshot(window, id: null)));
             }
         }
 
@@ -952,7 +952,7 @@ namespace RoboSAPiens.Recorder
             if (keyGuiEvent != null)
             {
                 var window = session.ActiveWindow;
-                windows.Add(new Window(keyGuiEvent.window, window.Text, getScreenshot(window, component.Id)));
+                windows.Add(new Window(keyGuiEvent.window, window.Id, window.Text, getScreenshot(window, component.Id)));
             }
 
             return keyGuiEvent;
@@ -997,10 +997,10 @@ namespace RoboSAPiens.Recorder
                 })},
                 {"title", title},
                 {"windows", recording.windows.Values.ToDictionary(
-                    window => window.id,
+                    window => window.timestamp,
                     window => new Dictionary<string, object>
                     {
-                        {"id", window.id},
+                        {"id", window.timestamp},
                         {"title", window.title},
                         {"screenshot", Convert.ToBase64String(window.screenshot)}
                     }
