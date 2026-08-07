@@ -1032,7 +1032,7 @@ namespace RoboSAPiens.Recorder
                         e.toKeywordCall(lang)
                     )
                 ).ToList(),
-                windows.ToDictionary(w => w.id, w => w)
+                getWindows()
             );
         }
 
