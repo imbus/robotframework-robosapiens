@@ -164,9 +164,9 @@ namespace RoboSAPiens.Recorder
             }
         }
 
-        public Dictionary<long, string> getWindowTitles()
+        public Dictionary<long, Window> getWindows()
         {
-            return windows.Select(w => (w.id, w.title)).ToDictionary();
+            return windows.Select(w => (w.id, w)).ToDictionary();
         }
 
         public List<KeyGuiEvent> getKeyGuiEvents()

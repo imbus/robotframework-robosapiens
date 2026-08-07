@@ -21,29 +21,11 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    public record RecordedKeyword(string name, List<KeyGuiEvent> events, Dictionary<long, string> windows)
+    public record RecordedKeyword(string name, List<KeyGuiEvent> events)
     {
-        public RobotKeyword toRobotKeyword(string language)
+        public RobotKeyword toRobotKeyword(string lang, WindowCommenter windowCommenter)
         {
-            List<KeywordCall> steps = new ();
-            HashSet<string> windowTitles = new ();
-
-            foreach (var e in events)
-            {
-                var keywordCall = e.toKeywordCall(language);
-                var windowTitle = windows[e.window];
-
-                if (!windowTitles.Contains(windowTitle))
-                {
-                    windowTitles.Add(windowTitle);
-                    steps.Add(keywordCall with {comment=$"Window: {windowTitle}"});
-                }
-                else
-                {
-                    steps.Add(keywordCall);
-                }
-            }
-
+            var steps = events.Select(e => windowCommenter.addWindowComment(e.toKeywordCall(lang), e.window)).ToList();
             return new RobotKeyword(name, steps);
         }
     }
@@ -100,8 +82,9 @@ namespace RoboSAPiens.Recorder
 
             public void saveKeyword(string keywordName)
             {
-                var keyword = new RecordedKeyword(keywordName, recorder.getKeyGuiEvents(), recorder.getWindowTitles());
+                var keyword = new RecordedKeyword(keywordName, recorder.getKeyGuiEvents());
                 robotBuilder.addKeyword(keyword);
+                robotBuilder.addWindows(recorder.getWindows());
                 Console.WriteLine($"Keyword '{keywordName}' saved.");
             }
         }
@@ -114,7 +97,7 @@ namespace RoboSAPiens.Recorder
 
             public override void save(string lang, string testCaseName)
             {
-                new RobotBuilder.RoboSAPiens(recorder.getKeyGuiEvents())
+                new RobotBuilder.RoboSAPiens(recorder.getKeyGuiEvents(), recorder.getWindows())
                 .build(lang, testCaseName)
                 .save();
                 

@@ -19,6 +19,9 @@
 {%- for testCase in testCases %}
 {{testCase.name}}
     {%- for step in testCase.steps %}
+    {%- if step.comment %}
+    # {{step.comment}}
+    {%- endif %}
     {{step}}
     {%- endfor %}
 {%- endfor %}

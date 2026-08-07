@@ -5,6 +5,33 @@ namespace RoboSAPiens.Recorder
         RobotFile build(string lang, string testCaseName);
     }
 
+    public record WindowCommenter(Dictionary<long, Window> windows)
+    {
+        string currentWindowTitle = "";
+
+        bool similar(string title1, string title2)
+        {
+            var words1 = title1.Split(" ").ToHashSet();
+            var words2 = title2.Split(" ").ToHashSet();
+            var commonWords = words1.Intersect(words2);
+
+            return words1.Except(commonWords).Union(words2.Except(commonWords)).Count() <= 1;
+        }
+
+        public KeywordCall addWindowComment(KeywordCall step, long timestamp)
+        {
+            var window = windows[timestamp];
+
+            if (!similar(currentWindowTitle, window.title))
+            {
+                currentWindowTitle = window.title;
+                return step with {comment=$"Window: {window.title}"};
+            }
+            
+            return step;
+        }
+    }
+
     public abstract class BaseRobotBuilder: IRobotBuilder
     {
         public RobotFile build(string lang, string testCaseName)
@@ -49,31 +76,39 @@ namespace RoboSAPiens.Recorder
     {
         public class Keyword: BaseRobotBuilder
         {
-            List<RecordedKeyword> keywords_ = [];
+            List<RecordedKeyword> recordedKeywords = [];
+            Dictionary<long, Window> windows = [];
 
             public void addKeyword(RecordedKeyword keyword)
             {
-                keywords_.Add(keyword);
+                recordedKeywords.Add(keyword);
+            }
+
+            public void addWindows(Dictionary<long, Window> windows)
+            {
+                windows.ToList().ForEach(kv => this.windows[kv.Key] = kv.Value);
             }
 
             protected override List<RobotKeyword> keywords(string lang)
             {
-                return [.. keywords_.Select(k => k.toRobotKeyword(lang))];
+                return [.. recordedKeywords.Select(k => k.toRobotKeyword(lang, new WindowCommenter(windows)))];
             }
 
             protected override List<KeywordCall> testSteps(string lang)
             {
-                return [.. keywords_.Select(k => new KeywordCall(k.name, []))];
+                return [.. recordedKeywords.Select(k => new KeywordCall(k.name, []))];
             }
         }
 
         public class RoboSAPiens: BaseRobotBuilder
         {
             List<KeyGuiEvent> keyGuiEventLog = [];
+            Dictionary<long, Window> windows = [];
 
-            public RoboSAPiens(List<KeyGuiEvent> keyGuiEventLog)
+            public RoboSAPiens(List<KeyGuiEvent> keyGuiEventLog, Dictionary<long, Window> windows)
             {
                 this.keyGuiEventLog = keyGuiEventLog;
+                this.windows = windows;
             }
 
             protected override List<RobotKeyword> keywords(string lang)
@@ -83,7 +118,12 @@ namespace RoboSAPiens.Recorder
             
             protected override List<KeywordCall> testSteps(string lang)
             {
-                return [.. keyGuiEventLog.Select(e => e.toKeywordCall(lang))];
+                var windowCommenter = new WindowCommenter(windows);
+                var connectEvent = keyGuiEventLog.First();
+                return [
+                    connectEvent.toKeywordCall(lang), 
+                    .. keyGuiEventLog.Skip(1).Select(e => windowCommenter.addWindowComment(e.toKeywordCall(lang), e.window))
+                ];
             }
         }
     }
