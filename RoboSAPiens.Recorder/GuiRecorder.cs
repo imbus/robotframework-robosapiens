@@ -682,11 +682,6 @@ namespace RoboSAPiens.Recorder
             catch (Exception) {}
         }
 
-        void refresh()
-        {
-            session = getSession();
-        }
-
         SapObject getSapObject(string componentId)
         {
             var options = new JsonSerializerOptions
