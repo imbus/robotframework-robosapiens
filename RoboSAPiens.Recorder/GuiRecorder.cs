@@ -674,6 +674,8 @@ namespace RoboSAPiens.Recorder
             {
                 if (session != null)
                 {
+                    session.Change -= handleChange;
+                    session.Destroy -= handleDestroy;
                     session.Record = false;
                     Log.CloseAndFlush();
                     Console.WriteLine("Recording stopped.");
