@@ -276,7 +276,7 @@ namespace RoboSAPiens.Recorder
                 {
                     [{action: KeyGuiActions.Click, role: KeyGuiRoles.TextField or KeyGuiRoles.Cell} e, 
                      {action: KeyGuiActions.PressKey, value: "F2"}] 
-                     => [e with {action = KeyGuiActions.DoubleClick}],
+                     => [e with {action = KeyGuiActions.DoubleClick, locator=new Locator(contents: ((GuiVComponent)session.FindById(e.componentId)).Text.Trim())}],
                     _ => new List<KeyGuiEvent>()
                 };
 
