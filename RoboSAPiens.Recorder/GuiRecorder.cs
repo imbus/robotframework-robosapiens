@@ -274,9 +274,18 @@ namespace RoboSAPiens.Recorder
 
                 var last2 = keyGuiEventLog.TakeLast(2).ToList() switch
                 {
-                    [{action: KeyGuiActions.Click, role: KeyGuiRoles.TextField or KeyGuiRoles.Cell} e, 
-                     {action: KeyGuiActions.PressKey, value: "F2"}] 
-                     => [e with {action = KeyGuiActions.DoubleClick, locator=new Locator(contents: ((GuiVComponent)session.FindById(e.componentId)).Text.Trim())}],
+                    [{action: KeyGuiActions.Click} e1, {action: KeyGuiActions.PressKey, value: "F2"} e2] => e1.role switch
+                    {
+                        KeyGuiRoles.Cell => [e1 with {action = KeyGuiActions.DoubleClick, locator=e1.locator}],
+                        KeyGuiRoles.Label => [e1 with {locator=new Locator(contents: ((GuiVComponent)session.FindById(e1.componentId)).Text.Trim())}, e2],
+                        KeyGuiRoles.TextField => [e1 with {action = KeyGuiActions.DoubleClick, locator=((GuiVComponent)session.FindById(e1.componentId)).Changeable switch
+                            {
+                                false => new Locator(contents: ((GuiVComponent)session.FindById(e1.componentId)).Text.Trim()),
+                                true => new Locator(getLabel((GuiVComponent)session.FindById(e1.componentId)))
+                            }
+                        }],
+                        _ => []
+                    },
                     _ => new List<KeyGuiEvent>()
                 };
 
