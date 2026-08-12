@@ -88,7 +88,7 @@ namespace RoboSAPiens
                 debug         : options.GetValueOrDefault("debug"),
                 jsonRepl      : options.GetValueOrDefault("json-repl"),
                 presenterMode : options.GetValueOrDefault("presenter-mode"),
-                recordingMode : options.GetValueOrDefault("record")? new RecordingMode.RoboSAPiens() : 
+                recordingMode : options.GetValueOrDefault("record")? new RecordingMode.Robosapiens() : 
                                 options.GetValueOrDefault("record-keywords")? new RecordingMode.Keyword() : 
                                 null
             );

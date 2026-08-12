@@ -4,7 +4,7 @@ namespace RoboSAPiens.Recorder
 
     public static class RecordingMode
     {
-        public record RoboSAPiens: IRecordingMode
+        public record Robosapiens: IRecordingMode
         {
             public override string ToString()
             {
@@ -21,103 +21,135 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    public record RecordedKeyword(string name, List<KeyGuiEvent> events)
+    public static class Recorder
     {
-        public RobotKeyword toRobotKeyword(string lang, WindowCommenter windowCommenter)
+        static class Api
         {
-            var steps = events.Select(e => windowCommenter.addWindowComment(e.toKeywordCall(lang), e.window)).ToList();
-            return new RobotKeyword(name, steps);
-        }
-    }
-
-    public interface IRecorder
-    {
-        public IRecordingMode recordingMode { get; }
-        public void save(string lang, string testCaseName);
-        public void start();
-        public void stop();
-    }
-
-    public abstract class BaseRecorder: IRecorder
-    {
-        protected bool debug;
-        protected GuiRecorder recorder;
-        public abstract IRecordingMode recordingMode { get; }
-
-        public BaseRecorder(bool debug)
-        {
-            this.debug = debug;
-            recorder = new GuiRecorder(debug);
-        }
-
-        public abstract void save(string lang, string testCaseName);
-
-        public abstract void start();
-
-        public void stop()
-        {
-            recorder.recordStop();
-        }
-    }
-
-    public static class RobotRecorder
-    {
-        public class Keyword: BaseRecorder
-        {
-            public override IRecordingMode recordingMode => new RecordingMode.Keyword();
-            RobotBuilder.Keyword robotBuilder = new RobotBuilder.Keyword();
-
-            public Keyword(bool debug): base(debug) {}
-
-            public override void save(string lang, string testCaseName)
+            public interface Initialized
             {
-                robotBuilder
-                .build(lang, testCaseName)
-                .save();
+                public IRecordingMode recordingMode { get; }
+                public State.Recording record(string lang, string testCaseName);
             }
 
-            public void saveKeyword(string keywordName)
+            public interface Recording
             {
-                var keyword = new RecordedKeyword(keywordName, recorder.getKeyGuiEvents());
-                robotBuilder.addKeyword(keyword);
-                robotBuilder.addWindows(recorder.getWindows());
-                Console.WriteLine($"Keyword '{keywordName}' saved.");
-            }
-
-            public override void start()
-            {
-                recorder = new GuiRecorder(debug);
-                recorder.recordStart();
+                public void addKeywordCall(long timestamp, string[] keywordCall);
+                public void save();
+                public void start();
+                public void stop();
             }
         }
 
-        public class RoboSAPiens: BaseRecorder
+        public static class State
         {
-            public override IRecordingMode recordingMode => new RecordingMode.RoboSAPiens();
-
-            public RoboSAPiens(bool debug): base(debug) {}
-
-            public override void save(string lang, string testCaseName)
+            public abstract record Initialized(bool debug): Api.Initialized
             {
-                new RobotBuilder.RoboSAPiens(recorder.getKeyGuiEvents(), recorder.getWindows())
-                .build(lang, testCaseName)
-                .save();
-                
-                recorder.saveHtmlReport(testCaseName, lang);
+                public abstract IRecordingMode recordingMode { get; }
 
-                if (debug)
+                public abstract Recording record(string lang, string testCaseName);
+            }
+
+            public abstract record Recording(bool debug): Api.Recording
+            {
+                protected GuiRecorder recorder = new(debug);
+
+                protected Dictionary<long, string[]> keywordCalls = [];
+
+                public void addKeywordCall(long timestamp, string[] keywordCall)
                 {
-                    var filename = testCaseName.toFileName();
-                    recorder.saveEventLog(filename);
-                    recorder.saveKeywordLog(filename, lang);
-                    recorder.saveKeyGuiLog(filename);
+                    keywordCalls[timestamp] = keywordCall;
+                }
+
+                public abstract void save();
+
+                public virtual void start()
+                {
+                    recorder.recordStart();
+                }
+
+                public void stop()
+                {
+                    recorder.recordStop();
+                }
+            }
+        }
+    
+        public static class Keyword
+        {
+            public record Initialized(bool debug): State.Initialized(debug)
+            {
+                public override IRecordingMode recordingMode => new RecordingMode.Keyword();
+
+                public override State.Recording record(string lang, string testCaseName)
+                {
+                    return new Recording(debug, lang, testCaseName);
                 }
             }
 
-            public override void start()
+            public record Recording(bool debug, string lang, string testCaseName): State.Recording(debug)
             {
-                recorder.recordStart();
-                recorder.addConnectEvent();
+                RobotBuilder.Keyword robotBuilder = new(lang, testCaseName);
+
+                public bool hasEvents()
+                {
+                    return recorder.getKeyGuiEvents().Count > 0;
+                }
+
+                public override void save()
+                {
+                    robotBuilder.build().save();
+                }
+
+                public void saveKeyword(string keywordName)
+                {
+                    var keywordBuilder = new KeywordBuilder(keywordName, recorder.getKeyGuiEvents(), keywordCalls);
+                    robotBuilder.addKeywordBuilder(keywordBuilder);
+                    robotBuilder.addWindows(recorder.getWindows());
+                }
+
+                public override void start()
+                {
+                    recorder = new GuiRecorder(debug);
+                    recorder.recordStart();
+                }
+            }
+        }
+
+        public static class Robosapiens
+        {
+            public record Initialized(bool debug): State.Initialized(debug)
+            {
+                public override IRecordingMode recordingMode => new RecordingMode.Robosapiens();
+
+                public override State.Recording record(string lang, string testCaseName)
+                {
+                    return new Recording(debug, lang, testCaseName);
+                }
+            }
+
+            public record Recording(bool debug, string lang, string testCaseName): State.Recording(debug)
+            {
+                public override void save()
+                {
+                    var robosapiensBuilder = new RobotBuilder.RoboSAPiens(lang, testCaseName, recorder.getKeyGuiEvents(), keywordCalls);
+                    robosapiensBuilder.addWindows(recorder.getWindows());
+                    robosapiensBuilder.build().save();
+                    recorder.saveHtmlReport(testCaseName, lang);
+
+                    if (debug)
+                    {
+                        var filename = testCaseName.toFileName();
+                        recorder.saveEventLog(filename);
+                        recorder.saveKeywordLog(filename, lang);
+                        recorder.saveKeyGuiLog(filename);
+                    }
+                }
+
+                public override void start()
+                {
+                    recorder.recordStart();
+                    recorder.addConnectEvent();
+                }
             }
         }
     }

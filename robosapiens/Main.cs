@@ -14,16 +14,15 @@ namespace RoboSAPiens
             var options = cli.parseArgs(args);
             var keywordLibrary = new KeywordLibrary(options, cli.logger);
 
-            if (options.recordingMode != null)
+            switch(options.recordingMode)
             {
-                IRecorderRepl repl = options.recordingMode switch 
-                {
-                    RecordingMode.Keyword => new RecorderRepl.Keyword(options.debug),
-                    RecordingMode.RoboSAPiens => new RecorderRepl.RoboSAPiens(options.debug),
-                    _ => throw new NotImplementedException($"The recording mode {options.recordingMode} is not supported.")
-                };
-                repl.start();
-            }
+                case RecordingMode.Keyword:
+                    Repl.Keyword.start(options.debug);
+                    break;
+                case RecordingMode.Robosapiens:
+                    Repl.Robosapiens.start(options.debug);
+                    break;
+            };
 
             if (options.debug)
             {

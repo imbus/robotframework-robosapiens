@@ -1,117 +1,306 @@
+using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace RoboSAPiens.Recorder
 {
-    public interface IRecorderRepl
+    public static class Repl
     {
-        void start();
-    }
-
-    public abstract class BaseRecorderRepl<R>: IRecorderRepl where R: IRecorder
-    {
-        protected R recorder;
-        
-        public BaseRecorderRepl(R recorder) 
+        public static string validatedReadInput(string prompt, Func<string, bool> isValid, string validationError)
         {
-            this.recorder = recorder;
-        }
-
-        protected static string? readInput(string prompt)
-        {
-            Console.InputEncoding = Encoding.Unicode;
-            Console.Write(prompt);
-            return Console.ReadLine();
-        }
-        
-        protected virtual void handleCommand(string command)
-        {
-            switch (command)
+            string readInput(string prompt)
             {
-                case "":
-                    break;
-                case "exit":
-                    Environment.Exit(0);
-                    break;
-                case "help":
-                    Console.WriteLine("Available commands:");
-                    Console.WriteLine("  start - Start recording");
-                    Console.WriteLine("  stop  - Stop recording");
-                    Console.WriteLine("  save  - Save the recorded test case to a .robot file");
-                    Console.WriteLine("  exit  - Exit the program");
-                    break;
-                case "save":
-                    string testcase = readInput("Test Case: ")!;
-                    if (testcase == "")
+                Console.InputEncoding = Encoding.Unicode;
+                Console.Write(prompt);
+                return Console.ReadLine()!.Trim();
+            }
+
+            string input = readInput(prompt);
+            while (!isValid(input))
+            {
+                Console.WriteLine(validationError);
+                input = readInput(prompt);
+            }
+            return input;
+        }
+
+        public record Command(string name, string description, Action action);
+
+        public abstract record BaseRepl
+        {
+            protected virtual string prompt()
+            {
+                return "> ";
+            }
+
+            Dictionary<string, Command> commandDict()
+            {
+                return getCommands().ToDictionary(c => c.name, c => c);
+            }
+
+            bool isValidCommand(string command)
+            {
+                return commandDict().ContainsKey(command) || command.StartsWith('$');
+            }
+
+            protected virtual List<string> getBanner()
+            {
+                return
+                [
+                    "Type `help` to get the list of available commands."
+                ];
+            }
+
+            protected virtual List<Command> getCommands()
+            {
+                return
+                [   
+                    new Command("exit", "Exit the program", () => Environment.Exit(0)),
+                    new Command("help", "Show this help message", help)
+                ];
+            }
+
+            protected virtual void handleCommand(string command)
+            {
+                commandDict().GetValueOrDefault(command)?.action();
+            }
+
+            protected void help()
+            {
+                Console.WriteLine("Available commands:");
+                foreach (var command in getCommands())
+                {
+                    Console.WriteLine($"  {command.name}  - {command.description}");
+                }
+            }
+
+            public void repl()
+            {
+                getBanner().ForEach(Console.WriteLine);
+
+                while (true)
+                {
+                    try
                     {
-                        break;
+                        handleCommand(validatedReadInput(prompt(), isValidCommand, "Invalid command."));
                     }
-                    string language = readInput("Language [en, de]: ")!;
-                    while (language != "en" && language != "de")
+                    catch (NoSapException e)
                     {
-                        Console.WriteLine($"Invalid language: {language}");
-                        language = readInput("Language [en, de]: ")!;
+                        Console.WriteLine(e.Message);
                     }
-                    recorder.save(language, testcase);
-                    break;
-                case "start":
+                    catch (Exception e) 
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
+                    }
+                }
+            }
+        }
+
+        public static class State
+        {
+            public abstract record Idle(Recorder.State.Initialized recorder): BaseRepl
+            {
+                void newTestCase()
+                {
+                    string testcaseName = validatedReadInput(
+                        "Test Case: ", 
+                        testcase => !string.IsNullOrWhiteSpace(testcase), 
+                        "Test case name cannot be empty."
+                    );
+                    string lang = validatedReadInput(
+                        "Language [en, de]: ", 
+                        lang => lang == "en" || lang == "de",
+                        "Invalid language."
+                    );
+                    record(lang, testcaseName).repl();
+                }
+
+                protected override List<string> getBanner()
+                {
+                    return 
+                    [
+                        "=============== RoboSAPiens Recorder CLI ===============",
+                        recorder.recordingMode.ToString()!,
+                        ..base.getBanner()
+                    ];
+                }
+
+                protected override List<Command> getCommands()
+                {
+                    return
+                    [
+                        ..base.getCommands(),
+                        new Command("new", "Record a new Test Case", newTestCase)
+                    ];
+                }
+
+                protected abstract Recording record(string lang, string testCaseName);
+            }
+
+            public abstract record Recording(Recorder.State.Recording recorder): BaseRepl
+            {
+                protected override string prompt()
+                {
+                    if (recording)
+                    {
+                        return "[REC]> ";
+                    }
+                    else
+                    {
+                        return base.prompt();
+                    }
+                }
+                
+                protected bool recording = false;
+
+                void callKeyword(string input)
+                {
+                    if (!recording)
+                    {
+                        Console.WriteLine("No recording in progress. Call `start` to start recording.");
+                        return;
+                    }
+
+                    var keywordCall = Regex.Split(input, @"\s\s+");
+                    if (keywordCall.Length < 2)
+                    {
+                        Console.WriteLine("Invalid keyword call. Please provide at least a return value and a keyword name.");
+                        return;
+                    }
+
+                    var timestamp = Stopwatch.GetTimestamp();
+                    recorder.addKeywordCall(timestamp, keywordCall);
+                }
+
+                void save()
+                {
+                    if (recording)
+                    {
+                        Console.WriteLine("Recording in progress. Call `stop` to stop recording before saving.");
+                        return;
+                    }
+
+                    recorder.save();
+                }
+
+                protected override List<string> getBanner()
+                {
+                    return [
+                        "Call `start` to start (or resume) recording and `stop` to stop recording.",
+                    ]; 
+                }
+                
+                protected override List<Command> getCommands()
+                {
+                    return
+                    [
+                        ..base.getCommands(),
+                        new Command("save", "Save the recording to the current .robot file", save),
+                        new Command("start", "Start recording", start),
+                        new Command("stop", "Stop recording", stop)
+                    ];
+                }
+
+                protected override void handleCommand(string command)
+                {
+                    if (command.StartsWith('$'))
+                    {
+                        callKeyword(command);
+                    }
+                    else
+                    {
+                        base.handleCommand(command);
+                    }
+                }
+
+                protected virtual void start()
+                {
                     recorder.start();
-                    break;
-                case "stop":
-                    stop();
-                    break;
-                default:
-                    Console.WriteLine($"Unknown command: {command}");
-                    break;
+                    recording = true;
+                    Console.WriteLine("Recording started.");
+                    Console.WriteLine("To manually call a keyword: ${return_value}   <keyword_name>   [<arg1>   <arg2> ...]");
+                }
+
+                protected virtual void stop()
+                {
+                    recorder.stop();
+                    recording = false;
+                    Console.WriteLine("Recording stopped.");
+                }
             }
         }
 
-        public void start()
+        public static class Keyword
         {
-            Console.WriteLine("=============== RoboSAPiens Recorder CLI ===============");
-            Console.WriteLine(recorder.recordingMode.ToString());
-            Console.WriteLine("Type `help` to get the list of available commands.");
-
-            while (true)
+            public static void start(bool debug)
             {
-                try
-                {
-                    handleCommand(readInput("> ")!);
-                }
-                catch (NoSapException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-                catch (Exception e) 
-                {
-                    Console.WriteLine();
-                    Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
-                }
+                new Idle(debug).repl();
             }
-        }
 
-        protected virtual void stop()
-        {
-            recorder.stop();
-        }
-    }
-
-    public static class RecorderRepl
-    {
-        public class Keyword: BaseRecorderRepl<RobotRecorder.Keyword>
-        {
-            public Keyword(bool debug) : base(new RobotRecorder.Keyword(debug)) {}
-
-            protected override void stop()
+            public record Idle(bool debug) : State.Idle(new Recorder.Keyword.Initialized(debug))
             {
-                recorder.stop();
-                var keywordName = readInput("Keyword name: ")!;
-                recorder.saveKeyword(keywordName);
+                protected override State.Recording record(string lang, string testCaseName)
+                {
+                    return new Recording(new Recorder.Keyword.Recording(debug, lang, testCaseName));
+                }
+            }
+
+            public record Recording(Recorder.Keyword.Recording keywordRecorder): State.Recording(keywordRecorder)
+            {
+                protected override List<string> getBanner()
+                {
+                    return [
+                        "Call `start` to start recording a keyword and `stop` to stop recording."
+                    ]; 
+                }
+
+                protected override void start()
+                {
+                    keywordRecorder.start();
+                    recording = true;
+                    Console.WriteLine("Recording started.");
+                    Console.WriteLine("To manually call a keyword: ${return_value}   <keyword_name>   [<arg1>   <arg2> ...]");
+                }
+
+                protected override void stop()
+                {
+                    keywordRecorder.stop();
+                    recording = false;
+                    Console.WriteLine("Recording stopped.");
+
+                    if (keywordRecorder.hasEvents())
+                    {
+                        var keywordName = validatedReadInput(
+                            "Keyword name: ", 
+                            keywordName => !string.IsNullOrWhiteSpace(keywordName), 
+                            "Keyword name cannot be empty."
+                        );
+                        keywordRecorder.saveKeyword(keywordName);   
+                        Console.WriteLine($"Keyword '{keywordName}' saved.");
+                    }
+                }
             }
         }
 
-        public class RoboSAPiens: BaseRecorderRepl<RobotRecorder.RoboSAPiens>
+        public static class Robosapiens
         {
-            public RoboSAPiens(bool debug) : base(new RobotRecorder.RoboSAPiens(debug)) {}
+            public static void start(bool debug)
+            {
+                new Idle(debug).repl();
+            }
+
+            public record Idle(bool debug) : State.Idle(new Recorder.Robosapiens.Initialized(debug))
+            {
+                protected override State.Recording record(string lang, string testCaseName)
+                {
+                    return new Recording(new Recorder.Robosapiens.Recording(debug, lang, testCaseName));
+                }
+            }
+
+            public record Recording(Recorder.Robosapiens.Recording robosapiensRecorder): State.Recording(robosapiensRecorder)
+            {
+            }
         }
     }
 }
