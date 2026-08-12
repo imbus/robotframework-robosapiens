@@ -569,15 +569,20 @@ namespace RoboSAPiens.Recorder
 
         Locator getGridViewCellLocator(GuiGridView gridView, int rowIndex0, string columnId)
         {
-            var columnTitle = gridView.GetDisplayedColumnTitle(columnId).Trim();
-            var rowIndex = rowIndex0 + 1;
+            var column = 
+                gridView.GetDisplayedColumnTitle(columnId).Trim().NullIfEmpty() ?? 
+                gridView.GetColumnTooltip(columnId).Trim();
 
-            if (columnTitle != "")
+            if (!gridView.GetCellChangeable(rowIndex0, columnId))
             {
-                return new Locator(row: rowIndex.ToString(), col: columnTitle.Trim());
+                var cellContents = gridView.GetCellValue(rowIndex0, columnId).NullIfEmpty();
+                return new Locator(row: cellContents, col: column);
             }
-
-            return new Locator(row: rowIndex.ToString(), col: gridView.GetColumnTooltip(columnId).Trim());
+            else
+            {
+                var rowIndex = rowIndex0 + 1;
+                return new Locator(row: rowIndex.ToString(), col: column);
+            };
         }
 
         Locator getTreeCellLocator(GuiTree tree, string nodeKey, string columnName)
