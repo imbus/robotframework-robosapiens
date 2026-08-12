@@ -665,7 +665,6 @@ namespace RoboSAPiens.Recorder
             session.Change += handleChange;
             session.Destroy += handleDestroy;
             session.Record = true;
-            Console.WriteLine("Recording started.");
         }
 
         public void recordStop()
@@ -674,11 +673,10 @@ namespace RoboSAPiens.Recorder
             {
                 if (session != null)
                 {
+                    session.Record = false;
                     session.Change -= handleChange;
                     session.Destroy -= handleDestroy;
-                    session.Record = false;
                     Log.CloseAndFlush();
-                    Console.WriteLine("Recording stopped.");
                 }
             }
             catch (Exception) {}
