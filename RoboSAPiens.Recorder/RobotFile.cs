@@ -24,11 +24,18 @@ namespace RoboSAPiens.Recorder
         }
     }
 
-    public record KeywordCall(string name, List<KeywordCallArg> args, string? comment=null)
+    public record KeywordCall(string name, List<KeywordCallArg> args, string? returnValue=null, string? comment=null)
     {
         public override string ToString()
         {
-            return string.Join("    ", [name, ..args]);
+            if (returnValue != null)
+            {
+                return string.Join("    ", [returnValue, name, ..args]);
+            }
+            else
+            {
+                return string.Join("    ", [name, ..args]);
+            }
         }
     }
 
