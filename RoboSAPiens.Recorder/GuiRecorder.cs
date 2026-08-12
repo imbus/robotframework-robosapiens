@@ -795,7 +795,7 @@ namespace RoboSAPiens.Recorder
                         e.window,
                         ((GuiGridView)component).GetCellType(rowIndex, colId) switch
                         {
-                            "Normal" => KeyGuiActions.Select,
+                            "Normal" => KeyGuiActions.Click,
                             "ValueList" => KeyGuiActions.Select,
                             _ => throw new Exception("Invalid cell type")
                         },
