@@ -1,11 +1,24 @@
-from pathlib import Path
 import re
 import sys
+from functools import reduce
+from pathlib import Path
 
 
-def open_link_in_new_window(line: str):
+replacements = {
+    r'<a (href=\\"http[^>]*)>': r'<a \1 target=\"_blank\">',
+    '"name": "RoboSAPiens"': '"name": "robosapiens"',
+    r'"name": "RoboSAPiens\.DE"': '"name": "robosapiens.de"',
+}
+
+
+def replace(replacements: dict, line: str) -> str:
     if line.startswith("libdoc"):
-        return re.sub(r'<a (href=\\"http[^>]*)>', r'<a \1 target=\"_blank\">', line)
+        return reduce(
+            lambda acc, pattern: re.sub(pattern, replacements[pattern], acc), 
+            replacements, 
+            line
+        )
+
     return line
 
 
@@ -17,7 +30,7 @@ if __name__ == "__main__":
 
         with open(html_file, "r", encoding="utf-8") as file:
             html = "".join([
-                open_link_in_new_window(line)
+                replace(replacements, line)
                 for line in file
             ])
 
