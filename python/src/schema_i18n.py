@@ -1977,7 +1977,7 @@ class LocalizedRoboSAPiensKeywordsActivatetab(TypedDict):
 class LocalizedRoboSAPiensArgsX64(TypedDict):
     name: Tuple[Literal['218858810'], str]
     default: Literal[False]
-    desc: Tuple[Literal['2623383622'], str]
+    desc: Tuple[Literal['2038453370'], str]
 
 class LocalizedRoboSAPiensArgsPresenter_Mode(TypedDict):
     name: Tuple[Literal['781265386'], str]
@@ -2045,7 +2045,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2x64: LocalizedRoboSAPiensArgsX64
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['3057133465'], str]
+    intro: Tuple[Literal['3389935126'], str]
     init: Tuple[Literal['3784687869'], str]
 
 class LocalizedRoboSAPiens(TypedDict):

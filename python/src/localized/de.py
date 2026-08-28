@@ -32,9 +32,9 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("3057133465",
+        "intro": ("3389935126",
         """
-        RoboSAPiens: SAP GUI-Automatisierung für Menschen
+        robosapiens: SAP GUI-Automatisierung für Menschen
 
         Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
 
@@ -74,7 +74,7 @@ lib: LocalizedRoboSAPiens = {
         | Textfeld ausfüllen                  Kennwort           TESTPASSWORD
         | Knopf drücken                       Weiter
 
-        Der Vortrag [https://www.youtube.com/watch?v=H7fYngdY7NI|RoboSAPiens: SAP GUI Automation for Humans] aus der Online RoboCon 2024 dient als praktisches Tutorial.
+        Der Vortrag [https://www.youtube.com/watch?v=H7fYngdY7NI|robosapiens: SAP GUI Automation for Humans] aus der Online RoboCon 2024 dient als praktisches Tutorial.
 
         == Umgang mit spontanen Pop-up-Fenstern ==
 
@@ -247,7 +247,7 @@ lib: LocalizedRoboSAPiens = {
         "a2x64": {
             "name": ("218858810", "x64"),
             "default": False,
-            "desc": ("2623383622", "RoboSAPiens 64-bit ausführen, um SAP GUI 8 64-bit bzw. SAP Business Client zu automatisieren.")
+            "desc": ("2038453370", "robosapiens 64-bit ausführen, um SAP GUI 8 64-bit bzw. SAP Business Client zu automatisieren.")
         }
     },
     "keywords": {

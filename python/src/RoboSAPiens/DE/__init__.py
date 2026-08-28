@@ -7,7 +7,7 @@ __version__ = "2.34.0"
 
 class DE(RoboSAPiensClient):
     """
-    RoboSAPiens: SAP GUI-Automatisierung für Menschen
+    robosapiens: SAP GUI-Automatisierung für Menschen
     
     Um diese Bibliothek zu verwenden, müssen die folgenden Bedingungen erfüllt werden:
     
@@ -47,7 +47,7 @@ class DE(RoboSAPiensClient):
     | Textfeld ausfüllen                  Kennwort           TESTPASSWORD
     | Knopf drücken                       Weiter
     
-    Der Vortrag [https://www.youtube.com/watch?v=H7fYngdY7NI|RoboSAPiens: SAP GUI Automation for Humans] aus der Online RoboCon 2024 dient als praktisches Tutorial.
+    Der Vortrag [https://www.youtube.com/watch?v=H7fYngdY7NI|robosapiens: SAP GUI Automation for Humans] aus der Online RoboCon 2024 dient als praktisches Tutorial.
     
     == Umgang mit spontanen Pop-up-Fenstern ==
     
@@ -210,7 +210,7 @@ class DE(RoboSAPiensClient):
         
         | =Parameter= | =Beschreibung= |
         | ``vortragsmodus`` | Nach dem Aufruf eines Schlüsselworts eine halbe Sekunde warten und das betroffene GUI Element hervorheben (falls zutreffend). |
-        | ``x64`` | RoboSAPiens 64-bit ausführen, um SAP GUI 8 64-bit bzw. SAP Business Client zu automatisieren. |
+        | ``x64`` | robosapiens 64-bit ausführen, um SAP GUI 8 64-bit bzw. SAP Business Client zu automatisieren. |
         """
         
         args = {

@@ -7,7 +7,7 @@ __version__ = "2.34.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
-    RoboSAPiens: SAP GUI-Automation for Humans
+    robosapiens: SAP GUI-Automation for Humans
     
     In order to use this library the following requirements must be satisfied:
     
@@ -48,7 +48,7 @@ class RoboSAPiens(RoboSAPiensClient):
     | Fill Text Field      Password          TESTPASSWORD
     | Push Button          Enter
     
-    For a hands-on tutorial watch the talk [https://www.youtube.com/watch?v=H7fYngdY7NI|RoboSAPiens: SAP GUI Automation for Humans] presented at the Online RoboCon 2024.
+    For a hands-on tutorial watch the talk [https://www.youtube.com/watch?v=H7fYngdY7NI|robosapiens: SAP GUI Automation for Humans] presented at the Online RoboCon 2024.
     
     == Dealing with spontaneous pop-up windows ==
     
@@ -211,7 +211,7 @@ class RoboSAPiens(RoboSAPiensClient):
         
         | =Argument= | =Description= |
         | ``presenter_mode`` | Wait half a second after executing a keyword and highlight the GUI element acted upon (if applicable) |
-        | ``x64`` | Execute RoboSAPiens 64-bit in order to automate SAP GUI 8 64-bit or SAP Business Client |
+        | ``x64`` | Execute robosapiens 64-bit in order to automate SAP GUI 8 64-bit or SAP Business Client |
         """
         
         args = {

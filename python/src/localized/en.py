@@ -33,7 +33,7 @@ Column = "column"
 lib: RoboSAPiens = {
     "doc": {
         "intro": """
-        RoboSAPiens: SAP GUI-Automation for Humans
+        robosapiens: SAP GUI-Automation for Humans
 
         In order to use this library the following requirements must be satisfied:
 
@@ -74,7 +74,7 @@ lib: RoboSAPiens = {
         | Fill Text Field      Password          TESTPASSWORD
         | Push Button          Enter
 
-        For a hands-on tutorial watch the talk [https://www.youtube.com/watch?v=H7fYngdY7NI|RoboSAPiens: SAP GUI Automation for Humans] presented at the Online RoboCon 2024.
+        For a hands-on tutorial watch the talk [https://www.youtube.com/watch?v=H7fYngdY7NI|robosapiens: SAP GUI Automation for Humans] presented at the Online RoboCon 2024.
 
         == Dealing with spontaneous pop-up windows ==
 
@@ -245,7 +245,7 @@ lib: RoboSAPiens = {
         "a2x64": {
             "name": "x64",
             "default": False,
-            "desc": "Execute RoboSAPiens 64-bit in order to automate SAP GUI 8 64-bit or SAP Business Client"
+            "desc": "Execute robosapiens 64-bit in order to automate SAP GUI 8 64-bit or SAP Business Client"
         }
     },
     "keywords": {
