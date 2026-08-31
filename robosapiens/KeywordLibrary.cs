@@ -499,9 +499,9 @@ namespace RoboSAPiens
         [Keyword("Transaktion ausführen"),
          Doc("Die Transaktion mit dem angegebenen T-Code wird ausgeführt.\n\n" +
               "| ``Transaktion ausführen    T-Code``")]
-        public RobotResult ExecuteTransaction(string T_Code) {
+        public RobotResult ExecuteTransaction(string T_Code, bool withCommandField=false) {
             return session switch {
-                SAPSession session when session.isActive => session.executeTransaction(T_Code),
+                SAPSession session when session.isActive => session.executeTransaction(T_Code, withCommandField),
                 _ => new Result.ExecuteTransaction.NoSession()
             };
         }

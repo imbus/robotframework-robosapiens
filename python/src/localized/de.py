@@ -818,7 +818,15 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {},
               }
             },
-            "kwargs": {},
+            "kwargs": {
+              "withCommandField": {
+                  "name": ("1834540490", "mit_Kommandofeld"),
+                  "desc": ("2727346538", "Wenn True, wird die Transaktion über das Kommandofeld ausgeführt, andernfalls erfolgt die Ausführung über die Scripting API."),
+                  "default": False,
+                  "type": "bool",
+                  "spec": {}
+              }
+            },
             "result": {
               "NoSession": ("4138997384", no_session),
               "Pass": ("468573121", "Die Transaktion mit T-Code '{0}' wurde erfolgreich ausgeführt."),

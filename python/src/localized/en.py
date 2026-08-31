@@ -799,7 +799,15 @@ lib: RoboSAPiens = {
                     "spec": {},
                 }
             },
-            "kwargs": {},
+            "kwargs": {
+                "withCommandField": {
+                    "name": "with_command_field",
+                    "desc": "If True the transaction is executed using the command field, otherwise it is executed via the Scripting API.",
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
+                }
+            },
             "result": {
                 "NoSession": no_session,
                 "Pass": "The transaction with T-Code {0} was executed.",

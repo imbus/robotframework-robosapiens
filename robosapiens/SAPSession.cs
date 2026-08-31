@@ -396,16 +396,31 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult executeTransaction(string tCode) {
+        public RobotResult executeTransaction(string tCode, bool withCommandField) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
             
-            try {
-                var windowId = session.ActiveWindow.Id;
-                var okcd = (GuiOkCodeField)session.FindById($"{windowId}/tbar[0]/okcd");
-                okcd.Text = tCode;
-                pressKeyCombination("Enter", null);
+            try 
+            {
+                if (withCommandField)
+                {
+                    var windowId = session.ActiveWindow.Id;
+                    var okcd = (GuiOkCodeField)session.FindById($"{windowId}/tbar[0]/okcd");
+                    okcd.Text = tCode;
+                    if (options.presenterMode)
+                    {
+                        okcd.Visualize(true);
+                        Thread.Sleep(500);
+                        okcd.Visualize(false);
+                    }
+                    pressKeyCombination("Enter", null);
+                }
+                else
+                {
+                    session.SendCommand(tCode);
+                }
+
                 return new Result.ExecuteTransaction.Pass(tCode);
             }
             catch (Exception e) {
