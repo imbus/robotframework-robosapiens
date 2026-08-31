@@ -202,6 +202,9 @@ class LocalizedRoboSAPiensKeywordsExportwindowArgsDirectorySpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsExportwindowArgsNameSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsExecutetransactionKwargsWithcommandfieldSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec(TypedDict):
     ...
 
@@ -607,6 +610,13 @@ class LocalizedRoboSAPiensKeywordsExportwindowArgsName(TypedDict):
     name: Tuple[Literal['1579384326'], str]
     desc: Tuple[Literal['216390163'], str]
     spec: LocalizedRoboSAPiensKeywordsExportwindowArgsNameSpec
+
+class LocalizedRoboSAPiensKeywordsExecutetransactionKwargsWithcommandfield(TypedDict):
+    name: Tuple[Literal['1834540490'], str]
+    desc: Tuple[Literal['2727346538'], str]
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: LocalizedRoboSAPiensKeywordsExecutetransactionKwargsWithcommandfieldSpec
 
 class LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_Code(TypedDict):
     name: Tuple[Literal['1795027938'], str]
@@ -1338,7 +1348,7 @@ class LocalizedRoboSAPiensKeywordsExecutetransactionResult(TypedDict):
     Exception: Tuple[Literal['3958687903'], str]
 
 class LocalizedRoboSAPiensKeywordsExecutetransactionKwargs(TypedDict):
-    ...
+    withCommandField: LocalizedRoboSAPiensKeywordsExecutetransactionKwargsWithcommandfield
 
 class LocalizedRoboSAPiensKeywordsExecutetransactionArgs(TypedDict):
     T_Code: LocalizedRoboSAPiensKeywordsExecutetransactionArgsT_Code

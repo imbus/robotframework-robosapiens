@@ -394,7 +394,15 @@
           "spec": {}
         }
       },
-      "kwargs": {},
+      "kwargs": {
+        "withCommandField": {
+          "name": "withCommandField",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
+          "spec": {}
+        }
+      },
       "result": {
         "NoSession": "NoSession",
         "Pass": "Pass",

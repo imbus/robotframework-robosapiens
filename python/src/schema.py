@@ -207,6 +207,9 @@ class RoboSAPiensKeywordsExportwindowArgsDirectorySpec(TypedDict):
 class RoboSAPiensKeywordsExportwindowArgsNameSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsExecutetransactionKwargsWithcommandfieldSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsExecutetransactionArgsT_CodeSpec(TypedDict):
     ...
 
@@ -618,6 +621,13 @@ class RoboSAPiensKeywordsExportwindowArgsName(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsExportwindowArgsNameSpec
+
+class RoboSAPiensKeywordsExecutetransactionKwargsWithcommandfield(TypedDict):
+    name: str
+    desc: str
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsExecutetransactionKwargsWithcommandfieldSpec
 
 class RoboSAPiensKeywordsExecutetransactionArgsT_Code(TypedDict):
     name: str
@@ -1355,7 +1365,7 @@ class RoboSAPiensKeywordsExecutetransactionResult(TypedDict):
     Exception: str
 
 class RoboSAPiensKeywordsExecutetransactionKwargs(TypedDict):
-    ...
+    withCommandField: RoboSAPiensKeywordsExecutetransactionKwargsWithcommandfield
 
 class RoboSAPiensKeywordsExecutetransactionArgs(TypedDict):
     T_Code: RoboSAPiensKeywordsExecutetransactionArgsT_Code

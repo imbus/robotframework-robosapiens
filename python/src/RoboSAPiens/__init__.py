@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.34.0"
+__version__ = "2.35.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -727,11 +727,12 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('DoubleClickTextField', args, kwargs, result) # type: ignore
     
     @keyword('Execute Transaction') # type: ignore
-    def execute_transaction(self, T_Code: str): # type: ignore
+    def execute_transaction(self, T_Code: str, with_command_field: bool=False): # type: ignore
         """
         Execute the transaction with the given T-Code.
         
         | ``T_Code`` | The transaction code |
+        | ``with_command_field`` | If True the transaction is executed using the command field, otherwise it is executed via the Scripting API. |
         
         Examples:
         
@@ -742,6 +743,7 @@ class RoboSAPiens(RoboSAPiensClient):
             T_Code
         ]
         kwargs: dict = {
+            "with_command_field": with_command_field
         }
         
         result = {
@@ -1838,4 +1840,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.34.0'
+    ROBOT_LIBRARY_VERSION = '2.35.0'
