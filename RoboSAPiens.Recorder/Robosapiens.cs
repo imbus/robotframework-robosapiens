@@ -96,7 +96,7 @@ namespace RoboSAPiens.Recorder
                         _ => "server_name"
                     },
                     value: server,
-                    type: "ARG"
+                    type: KeywordCallArgType.ARG
                 )
             ];
             return new KeywordCall(name, args);
@@ -157,7 +157,16 @@ namespace RoboSAPiens.Recorder
                         _ => "transaction"
                     },
                     value: tCode,
-                    type: "ARG"
+                    type: KeywordCallArgType.ARG
+                ),
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "mit_Kommandofeld",
+                        _ => "with_command_field"
+                    },
+                    value: true.ToString().Capitalize(),
+                    type: KeywordCallArgType.KWARG
                 )
             ];
             return new KeywordCall(name, args);
@@ -193,7 +202,7 @@ namespace RoboSAPiens.Recorder
                         _ => "contents"
                     },
                     value: contents,
-                    type: "ARG"
+                    type: KeywordCallArgType.ARG
                 )
             ];
             return new KeywordCall(name, args);
@@ -216,7 +225,7 @@ namespace RoboSAPiens.Recorder
                         _ => "contents"
                     },
                     value: contents,
-                    type: "ARG"
+                    type: KeywordCallArgType.ARG
                 )
             ];
             return new KeywordCall(name, args);
@@ -258,7 +267,7 @@ namespace RoboSAPiens.Recorder
                         _ => "path"
                     },
                     value: path.Replace("\\", "\\\\"),
-                    type: "ARG"
+                    type: KeywordCallArgType.ARG
                 )
             ];
             return new KeywordCall(name, args);
@@ -280,7 +289,7 @@ namespace RoboSAPiens.Recorder
                         _ => "key_combination"
                     },
                     value: keyCombination,
-                    type: "ARG"
+                    type: KeywordCallArgType.ARG
                 )
             ];
             return new KeywordCall(name, args);
@@ -303,7 +312,7 @@ namespace RoboSAPiens.Recorder
                         _ => "exact"
                     },
                     value: "True",
-                    type: "KWARG"
+                    type: KeywordCallArgType.KWARG
                 )
             ];
             return new KeywordCall(name, args);
@@ -388,7 +397,7 @@ namespace RoboSAPiens.Recorder
                         _ => "tooltip"
                     },
                     value: tooltip.ToString().Capitalize(),
-                    type: "KWARG"
+                    type: KeywordCallArgType.KWARG
                 ),
                 new KeywordCallArg(
                     name: lang switch
@@ -397,7 +406,7 @@ namespace RoboSAPiens.Recorder
                         _ => "icon"
                     },
                     value: icon.ToString().Capitalize(),
-                    type: "KWARG"
+                    type: KeywordCallArgType.KWARG
                 )
             ];
             return new KeywordCall(name, args, returnValue: returnValue);
@@ -433,7 +442,7 @@ namespace RoboSAPiens.Recorder
                         _ => "value"
                     },
                     value: value,
-                    type: "ARG"
+                    type: KeywordCallArgType.ARG
                 )
             ];
             return new KeywordCall(name, args);
@@ -456,7 +465,7 @@ namespace RoboSAPiens.Recorder
                         _ => "value"
                     },
                     value: value,
-                    type: "ARG"
+                    type: KeywordCallArgType.ARG
                 )
             ];
             return new KeywordCall(name, args);
