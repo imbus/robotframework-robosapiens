@@ -192,8 +192,7 @@ namespace RoboSAPiens
         public override string getValue(GuiSession session)
         {
             var gridView = (GuiGridView)session.FindById(gridViewId);
-            var value = gridView.GetCellValue(rowIndex, columnId) ?? "";
-            return Regex.Replace(value, @"\\Q[^@]*", "");
+            return gridView.GetCellValue(rowIndex, columnId) ?? "";
         }
 
         // The innerObject parameter of the Visualize method of GuiGridView
