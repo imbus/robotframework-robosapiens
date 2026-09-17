@@ -407,8 +407,6 @@ namespace RoboSAPiens
                 session = new SAPSession(guiSession!, guiConnection!, options, logger);
                 var sessionInfo = JSON.serialize(session.getSessionInfo()!, typeof(SessionInfo));
 
-                if (options.debug) logger.info($"\n{sessionInfo}");
-
                 return new Result.ConnectToRunningSap.Json(sessionInfo);
             }
             catch(Exception e) 
