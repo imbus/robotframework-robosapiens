@@ -29,6 +29,7 @@ namespace RoboSAPiens {
             this.debug = debug;
 
             getWindowComponents(components);
+            if (debug) Console.WriteLine();
         }
 
         void getWindowComponents(GuiComponentCollection components)
