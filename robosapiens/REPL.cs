@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -34,7 +35,7 @@ namespace RoboSAPiens
                         }
                         else
                         {
-                            string[] tokenize(string input) => Regex.Split(input.Replace("\t", "  "), @"\s\s+");
+                            string[] tokenize(string input) => [.. Regex.Split(input.Replace("\t", "  "), @"\s\s+").Select(t => t.Replace(@"\ ", " "))];
 
                             (List<string>, Dictionary<string, object>) classifyParams(string[] @params, Dictionary<string, string> paramTypes)
                             {
