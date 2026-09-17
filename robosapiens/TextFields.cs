@@ -71,11 +71,11 @@ namespace RoboSAPiens {
             if (leftLabel != null) 
             {
                 if (leftLabel.ScreenLeft < textField.ScreenLeft) {
-                    return new Tuple<string, string>(leftLabel.Text, "");
+                    return new Tuple<string, string>(leftLabel.Text.Trim(), "");
                 }
             
                 if (leftLabel.ScreenTop < textField.ScreenTop) {
-                    return new Tuple<string, string>("", leftLabel.Text);
+                    return new Tuple<string, string>("", leftLabel.Text.Trim());
                 }    
             }
             
