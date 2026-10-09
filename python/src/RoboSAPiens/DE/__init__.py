@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.35.2"
+__version__ = "2.36.0"
 
 class DE(RoboSAPiensClient):
     """
@@ -906,13 +906,14 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('FillTextField', args, kwargs, result) # type: ignore
     
     @keyword('Knopf hervorheben') # type: ignore
-    def highlight_button(self, Lokator: str, exakt: bool=False, tabelle_nummer: int=None): # type: ignore
+    def highlight_button(self, Lokator: str, exakt: bool=False, tabelle_nummer: int=None, Kurzinfo: bool=False): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird hervorgehoben.
         
         | ``Lokator`` | Name oder Kurzinfo (Tooltip) des Knopfes |
         | ``exakt`` | `True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False` |
         | ``tabelle_nummer`` | Die Tabelle (1, 2, ...), in deren Symbolleiste sich der Knopf befindet. |
+        | ``Kurzinfo`` | Wenn `True` wird der Lokator nur als Kurzinfo (Tooltip) betrachtet. |
         
         Beispiele:
         
@@ -929,7 +930,8 @@ class DE(RoboSAPiensClient):
         ]
         kwargs: dict = {
             "exakt": exakt,
-            "tabelle_nummer": tabelle_nummer
+            "tabelle_nummer": tabelle_nummer,
+            "Kurzinfo": Kurzinfo
         }
         
         result = {
@@ -975,13 +977,14 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('PressKeyCombination', args, kwargs, result) # type: ignore
     
     @keyword('Knopf drücken') # type: ignore
-    def push_button(self, Lokator: str, exakt: bool=False, tabelle_nummer: int=None): # type: ignore
+    def push_button(self, Lokator: str, exakt: bool=False, tabelle_nummer: int=None, Kurzinfo: bool=False): # type: ignore
         """
         Der Knopf mit dem angegebenen Lokator wird gedrückt.
         
         | ``Lokator`` | Name oder Kurzinfo (Tooltip) des Knopfes |
         | ``exakt`` | `True` wenn der Lokator und die Kurzinfo genau übereinstimmen, sonst `False`. |
         | ``tabelle_nummer`` | Die Tabelle (1, 2, ...), in deren Symbolleiste sich der Knopf befindet. |
+        | ``Kurzinfo`` | Wenn `True` wird der Lokator nur als Kurzinfo (Tooltip) betrachtet. |
         
         Beispiele:
         
@@ -1004,7 +1007,8 @@ class DE(RoboSAPiensClient):
         ]
         kwargs: dict = {
             "exakt": exakt,
-            "tabelle_nummer": tabelle_nummer
+            "tabelle_nummer": tabelle_nummer,
+            "Kurzinfo": Kurzinfo
         }
         
         result = {
@@ -1106,13 +1110,15 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('ReadText', args, kwargs, result) # type: ignore
     
     @keyword('Tabellenzelle auslesen') # type: ignore
-    def read_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None): # type: ignore
+    def read_cell(self, Zeile: str, Spaltentitel: str, tabelle_nummer: int=None, Kurzinfo: bool=False, Icon: bool=False): # type: ignore
         """
         Der Inhalt der Zelle am Schnittpunkt der Zeile und der Spalte wird zurückgegeben.
         
         | ``Zeile`` | Entweder die Zeilennummer oder der Inhalt einer Zelle in einer bestimmten Spalte im Format: Inhalt @ Spalte. Aus Gründen der Abwärtskompatibilität ist es auch möglich nur den Inhalt anzugeben und wenn die Zelle nur eine Zahl enthält, muss diese in Anführungszeichen gesetzt werden. |
         | ``Spaltentitel`` | Spaltentitel oder Kurzinfo. Falls die Spaltentitel nicht eindeutig sind, siehe [#Spalten mit demselben Namen|Spalten mit demselben Namen]. |
         | ``tabelle_nummer`` | Spezifiziert welche Tabelle: 1, 2, ... |
+        | ``Kurzinfo`` | Wenn True und die Zelle ein Icon enthält, wird die Kurzinfo (Tooltip) des Icons ausgelesen. |
+        | ``Icon`` | Wenn True und die Zelle ein Icon enthält, wird das Icon ausgelesen |
         
         Beispiele:
         
@@ -1124,7 +1130,9 @@ class DE(RoboSAPiensClient):
             Spaltentitel
         ]
         kwargs: dict = {
-            "tabelle_nummer": tabelle_nummer
+            "tabelle_nummer": tabelle_nummer,
+            "Kurzinfo": Kurzinfo,
+            "Icon": Icon
         }
         
         result = {
@@ -1838,4 +1846,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.35.2'
+    ROBOT_LIBRARY_VERSION = '2.36.0'

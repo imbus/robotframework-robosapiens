@@ -108,6 +108,12 @@ class RoboSAPiensKeywordsReadcheckboxcellArgsColumnSpec(TypedDict):
 class RoboSAPiensKeywordsReadcheckboxcellArgsRow_LocatorSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsReadcellKwargsIconSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsReadcellKwargsTooltipSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsReadcellKwargsTablenumberSpec(TypedDict):
     ...
 
@@ -151,6 +157,9 @@ class RoboSAPiensKeywordsPushbuttoncellArgsColumnSpec(TypedDict):
 class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec(TypedDict):
     ...
 
+class RoboSAPiensKeywordsHighlightbuttonKwargsTooltipSpec(TypedDict):
+    ...
+
 class RoboSAPiensKeywordsHighlightbuttonKwargsTablenumberSpec(TypedDict):
     ...
 
@@ -158,6 +167,9 @@ class RoboSAPiensKeywordsHighlightbuttonKwargsExactSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec(TypedDict):
+    ...
+
+class RoboSAPiensKeywordsPushbuttonKwargsTooltipSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsPushbuttonKwargsTablenumberSpec(TypedDict):
@@ -450,6 +462,20 @@ class RoboSAPiensKeywordsReadcheckboxcellArgsRow_Locator(TypedDict):
     desc: str
     spec: RoboSAPiensKeywordsReadcheckboxcellArgsRow_LocatorSpec
 
+class RoboSAPiensKeywordsReadcellKwargsIcon(TypedDict):
+    name: str
+    desc: str
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsReadcellKwargsIconSpec
+
+class RoboSAPiensKeywordsReadcellKwargsTooltip(TypedDict):
+    name: str
+    desc: str
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsReadcellKwargsTooltipSpec
+
 class RoboSAPiensKeywordsReadcellKwargsTablenumber(TypedDict):
     name: str
     desc: str
@@ -525,6 +551,13 @@ class RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
     desc: str
     spec: RoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec
 
+class RoboSAPiensKeywordsHighlightbuttonKwargsTooltip(TypedDict):
+    name: str
+    desc: str
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsHighlightbuttonKwargsTooltipSpec
+
 class RoboSAPiensKeywordsHighlightbuttonKwargsTablenumber(TypedDict):
     name: str
     desc: str
@@ -543,6 +576,13 @@ class RoboSAPiensKeywordsHighlightbuttonArgsButton(TypedDict):
     name: str
     desc: str
     spec: RoboSAPiensKeywordsHighlightbuttonArgsButtonSpec
+
+class RoboSAPiensKeywordsPushbuttonKwargsTooltip(TypedDict):
+    name: str
+    desc: str
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: RoboSAPiensKeywordsPushbuttonKwargsTooltipSpec
 
 class RoboSAPiensKeywordsPushbuttonKwargsTablenumber(TypedDict):
     name: str
@@ -1105,6 +1145,8 @@ class RoboSAPiensKeywordsReadcellResult(TypedDict):
 
 class RoboSAPiensKeywordsReadcellKwargs(TypedDict):
     tableNumber: RoboSAPiensKeywordsReadcellKwargsTablenumber
+    tooltip: RoboSAPiensKeywordsReadcellKwargsTooltip
+    icon: RoboSAPiensKeywordsReadcellKwargsIcon
 
 class RoboSAPiensKeywordsReadcellArgs(TypedDict):
     a1row_locator: RoboSAPiensKeywordsReadcellArgsRow_Locator
@@ -1245,6 +1287,7 @@ class RoboSAPiensKeywordsHighlightbuttonResult(TypedDict):
 class RoboSAPiensKeywordsHighlightbuttonKwargs(TypedDict):
     exact: RoboSAPiensKeywordsHighlightbuttonKwargsExact
     tableNumber: RoboSAPiensKeywordsHighlightbuttonKwargsTablenumber
+    tooltip: RoboSAPiensKeywordsHighlightbuttonKwargsTooltip
 
 class RoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
     button: RoboSAPiensKeywordsHighlightbuttonArgsButton
@@ -1263,6 +1306,7 @@ class RoboSAPiensKeywordsPushbuttonResult(TypedDict):
 class RoboSAPiensKeywordsPushbuttonKwargs(TypedDict):
     exact: RoboSAPiensKeywordsPushbuttonKwargsExact
     tableNumber: RoboSAPiensKeywordsPushbuttonKwargsTablenumber
+    tooltip: RoboSAPiensKeywordsPushbuttonKwargsTooltip
 
 class RoboSAPiensKeywordsPushbuttonArgs(TypedDict):
     button: RoboSAPiensKeywordsPushbuttonArgsButton

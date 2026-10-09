@@ -588,6 +588,13 @@
           "default": null,
           "type": "Int32",
           "spec": {}
+        },
+        "tooltip": {
+          "name": "tooltip",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
+          "spec": {}
         }
       },
       "result": {
@@ -624,6 +631,13 @@
           "desc": "",
           "default": null,
           "type": "Int32",
+          "spec": {}
+        },
+        "tooltip": {
+          "name": "tooltip",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
           "spec": {}
         }
       },
@@ -847,6 +861,20 @@
           "desc": "",
           "default": null,
           "type": "Int32",
+          "spec": {}
+        },
+        "tooltip": {
+          "name": "tooltip",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
+          "spec": {}
+        },
+        "icon": {
+          "name": "icon",
+          "desc": "",
+          "default": false,
+          "type": "Boolean",
           "spec": {}
         }
       },

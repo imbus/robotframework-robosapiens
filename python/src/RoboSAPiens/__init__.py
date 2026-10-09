@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.35.2"
+__version__ = "2.36.0"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -907,13 +907,14 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('FillTextField', args, kwargs, result) # type: ignore
     
     @keyword('Highlight Button') # type: ignore
-    def highlight_button(self, locator: str, exact: bool=False, table_number: int=None): # type: ignore
+    def highlight_button(self, locator: str, exact: bool=False, table_number: int=None, tooltip: bool=False): # type: ignore
         """
         Highlight the button with the given locator.
         
         | ``locator`` | The name or tooltip of the button |
         | ``exact`` | `True` if the locator matches exactly the tooltip, `False` otherwise. |
         | ``table_number`` | The table (1, 2, ...) that contains the button in its toolbar. |
+        | ``tooltip`` | If `True` only the tooltip is matched. |
         
         Examples:
         
@@ -930,7 +931,8 @@ class RoboSAPiens(RoboSAPiensClient):
         ]
         kwargs: dict = {
             "exact": exact,
-            "table_number": table_number
+            "table_number": table_number,
+            "tooltip": tooltip
         }
         
         result = {
@@ -976,13 +978,14 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('PressKeyCombination', args, kwargs, result) # type: ignore
     
     @keyword('Push Button') # type: ignore
-    def push_button(self, locator: str, exact: bool=False, table_number: int=None): # type: ignore
+    def push_button(self, locator: str, exact: bool=False, table_number: int=None, tooltip: bool=False): # type: ignore
         """
         Push the button with the given locator.
         
         | ``locator`` | The name or tooltip of the button |
         | ``exact`` | `True` if the locator matches exactly the tooltip, `False` otherwise. |
         | ``table_number`` | The table (1, 2, ...) that contains the button in its toolbar. |
+        | ``tooltip`` | If `True` only the tooltip is matched. |
         
         Examples:
         
@@ -1005,7 +1008,8 @@ class RoboSAPiens(RoboSAPiensClient):
         ]
         kwargs: dict = {
             "exact": exact,
-            "table_number": table_number
+            "table_number": table_number,
+            "tooltip": tooltip
         }
         
         result = {
@@ -1133,13 +1137,15 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('ReadText', args, kwargs, result) # type: ignore
     
     @keyword('Read Cell') # type: ignore
-    def read_cell(self, row_locator: str, column: str, table_number: int=None): # type: ignore
+    def read_cell(self, row_locator: str, column: str, table_number: int=None, tooltip: bool=False, icon: bool=False): # type: ignore
         """
         Read the contents of the cell at the intersection of the row and column provided.
         
         | ``row_locator`` | Either the row number or the contents of a cell in a given column in the format: contents @ column. For backwards compatibility, only the contents may be specified and if the cell only contains a number, it must be enclosed in double quotation marks. |
         | ``column`` | Column title or tooltip. If the column title is not unique see the section [#Columns with the same name|Columns with the same name]. |
         | ``table_number`` | Specify which table: 1, 2, ... |
+        | ``tooltip`` | If True and the cell contains an icon read the icon's tooltip. |
+        | ``icon`` | If True and the cell contains an icon read the icon. |
         
         Examples:
         
@@ -1151,7 +1157,9 @@ class RoboSAPiens(RoboSAPiensClient):
             column
         ]
         kwargs: dict = {
-            "table_number": table_number
+            "table_number": table_number,
+            "tooltip": tooltip,
+            "icon": icon
         }
         
         result = {
@@ -1840,4 +1848,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.35.2'
+    ROBOT_LIBRARY_VERSION = '2.36.0'

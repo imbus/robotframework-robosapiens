@@ -115,6 +115,12 @@ class LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsColumnSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsRow_LocatorSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsReadcellKwargsIconSpec(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsReadcellKwargsTooltipSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsReadcellKwargsTablenumberSpec(TypedDict):
     ...
 
@@ -143,6 +149,9 @@ class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsColumnSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsPushbuttonKwargsTooltipSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsPushbuttonKwargsTablenumberSpec(TypedDict):
     ...
 
@@ -156,6 +165,9 @@ class LocalizedRoboSAPiensKeywordsPresskeycombinationKwargsTablenumberSpec(Typed
     ...
 
 class LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTooltipSpec(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTablenumberSpec(TypedDict):
@@ -463,6 +475,20 @@ class LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsRow_Locator(TypedDict):
     desc: Tuple[Literal['2714474921'], str]
     spec: LocalizedRoboSAPiensKeywordsReadcheckboxcellArgsRow_LocatorSpec
 
+class LocalizedRoboSAPiensKeywordsReadcellKwargsIcon(TypedDict):
+    name: Tuple[Literal['1704208859'], str]
+    desc: Tuple[Literal['2198104091'], str]
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: LocalizedRoboSAPiensKeywordsReadcellKwargsIconSpec
+
+class LocalizedRoboSAPiensKeywordsReadcellKwargsTooltip(TypedDict):
+    name: Tuple[Literal['2713280432'], str]
+    desc: Tuple[Literal['2722068997'], str]
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: LocalizedRoboSAPiensKeywordsReadcellKwargsTooltipSpec
+
 class LocalizedRoboSAPiensKeywordsReadcellKwargsTablenumber(TypedDict):
     name: Tuple[Literal['3359775383'], str]
     desc: Tuple[Literal['4055958951'], str]
@@ -507,6 +533,13 @@ class LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_Label(TypedDict):
     desc: Tuple[Literal['2347022671'], str]
     spec: LocalizedRoboSAPiensKeywordsPushbuttoncellArgsRow_Or_LabelSpec
 
+class LocalizedRoboSAPiensKeywordsPushbuttonKwargsTooltip(TypedDict):
+    name: Tuple[Literal['2713280432'], str]
+    desc: Tuple[Literal['3381524198'], str]
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: LocalizedRoboSAPiensKeywordsPushbuttonKwargsTooltipSpec
+
 class LocalizedRoboSAPiensKeywordsPushbuttonKwargsTablenumber(TypedDict):
     name: Tuple[Literal['3359775383'], str]
     desc: Tuple[Literal['97624453'], str]
@@ -537,6 +570,13 @@ class LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombination(TypedDic
     name: Tuple[Literal['2238126572'], str]
     desc: Tuple[Literal['3473771241'], str]
     spec: LocalizedRoboSAPiensKeywordsPresskeycombinationArgsKeycombinationSpec
+
+class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTooltip(TypedDict):
+    name: Tuple[Literal['2713280432'], str]
+    desc: Tuple[Literal['3381524198'], str]
+    default: Literal[False]
+    type: Literal[r'bool']
+    spec: LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTooltipSpec
 
 class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTablenumber(TypedDict):
     name: Tuple[Literal['3359775383'], str]
@@ -1140,6 +1180,8 @@ class LocalizedRoboSAPiensKeywordsReadcellResult(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsReadcellKwargs(TypedDict):
     tableNumber: LocalizedRoboSAPiensKeywordsReadcellKwargsTablenumber
+    tooltip: LocalizedRoboSAPiensKeywordsReadcellKwargsTooltip
+    icon: LocalizedRoboSAPiensKeywordsReadcellKwargsIcon
 
 class LocalizedRoboSAPiensKeywordsReadcellArgs(TypedDict):
     a1row_locator: LocalizedRoboSAPiensKeywordsReadcellArgsRow_Locator
@@ -1228,6 +1270,7 @@ class LocalizedRoboSAPiensKeywordsPushbuttonResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsPushbuttonKwargs(TypedDict):
     exact: LocalizedRoboSAPiensKeywordsPushbuttonKwargsExact
     tableNumber: LocalizedRoboSAPiensKeywordsPushbuttonKwargsTablenumber
+    tooltip: LocalizedRoboSAPiensKeywordsPushbuttonKwargsTooltip
 
 class LocalizedRoboSAPiensKeywordsPushbuttonArgs(TypedDict):
     button: LocalizedRoboSAPiensKeywordsPushbuttonArgsButton
@@ -1262,6 +1305,7 @@ class LocalizedRoboSAPiensKeywordsHighlightbuttonResult(TypedDict):
 class LocalizedRoboSAPiensKeywordsHighlightbuttonKwargs(TypedDict):
     exact: LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsExact
     tableNumber: LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTablenumber
+    tooltip: LocalizedRoboSAPiensKeywordsHighlightbuttonKwargsTooltip
 
 class LocalizedRoboSAPiensKeywordsHighlightbuttonArgs(TypedDict):
     button: LocalizedRoboSAPiensKeywordsHighlightbuttonArgsButton
