@@ -1056,7 +1056,14 @@ lib: LocalizedRoboSAPiens = {
                 "default": None,
                 "type": "int",
                 "spec": {}
-              }
+              },
+              "tooltip": {
+                "name": ("2713280432", "Tooltip"),
+                "desc": ("3381524198", "Wenn `True` wird der Lokator nur als Tooltip betrachtet."),
+                "default": False,
+                "type": "bool",
+                "spec": {},
+              },
             },
             "result": {
               "NoSession": ("4138997384", no_session),
@@ -1141,7 +1148,14 @@ lib: LocalizedRoboSAPiens = {
                 "default": None,
                 "type": "int",
                 "spec": {}
-              }
+              },
+              "tooltip": {
+                "name": ("2713280432", "Tooltip"),
+                "desc": ("3381524198", "Wenn `True` wird der Lokator nur als Tooltip betrachtet."),
+                "default": False,
+                "type": "bool",
+                "spec": {},
+              },
             },
             "result": {
               "NoSession": ("4138997384", no_session),

@@ -305,26 +305,26 @@ namespace RoboSAPiens {
             }
         }
 
-        public Button? findButton(ButtonLocator buttonLocator, bool exact, int? tableNumber) {
+        public Button? findButton(ButtonLocator buttonLocator, bool exact, int? tableNumber, bool tooltip) {
             if (tableNumber != null)
             {
                 if (tableNumber > getGridViews().Count)
                     return null;
 
                 var gridView = getGridViews()[(int)tableNumber - 1];
-                return gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact);
+                return gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip);
             }
             else
             {
-                var button = buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact) ??
-                             toolbarButtons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact);
+                var button = buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip) ??
+                             toolbarButtons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip);
 
                 if (button != null)
                     return button;
 
                 foreach (var gridView in getGridViews())
                 {
-                    var gridViewButton = gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact);
+                    var gridViewButton = gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip);
                     if (gridViewButton != null) return gridViewButton;
                 }
             }

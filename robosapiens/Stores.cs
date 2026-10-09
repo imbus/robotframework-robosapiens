@@ -12,11 +12,9 @@ namespace RoboSAPiens {
                           (tab?.contains(button.position) ?? false));
         }
 
-        public Button? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels, TabStore tabs, bool exact) {
+        public Button? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels, TabStore tabs, bool exact, bool tooltip) {
             return locator switch {
-                HLabel(var label) => 
-                    getByHLabel(label) ??
-                    getByTooltip(exact? label : label + "~"),
+                HLabel(var label) => tooltip? getByTooltip(exact? label : label + "~") : getByHLabel(label) ?? getByTooltip(exact? label : label + "~"),
                 HLabelHLabel =>
                     getAlignedWithLabels((HLabelHLabel)locator, labels, textFieldLabels),
                 HLabelVLabel(var label, var tabTitle) => 

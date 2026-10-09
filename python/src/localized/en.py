@@ -1031,7 +1031,14 @@ lib: RoboSAPiens = {
                     "default": None,
                     "type": "int",
                     "spec": {}
-                }
+                },
+                "tooltip": {
+                    "name": "tooltip",
+                    "desc": "If `True` only the tooltip is matched.",
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
+                },
             },
             "result": {
                 "NoSession": no_session,
@@ -1114,7 +1121,14 @@ lib: RoboSAPiens = {
                     "default": None,
                     "type": "int",
                     "spec": {}
-                }
+                },
+                "tooltip": {
+                    "name": "tooltip",
+                    "desc": "If `True` only the tooltip is matched.",
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
+                },
             },
             "result": {
                 "NoSession": no_session,
