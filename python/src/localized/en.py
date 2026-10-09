@@ -1305,6 +1305,20 @@ lib: RoboSAPiens = {
                     "default": None,
                     "type": "int",
                     "spec": {}
+                },
+                "tooltip": {
+                    "name": "tooltip",
+                    "desc": "If True and the cell contains an icon read the icon's tooltip.",
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
+                },
+                "icon": {
+                    "name": "icon",
+                    "desc": "If True and the cell contains an icon read the icon.",
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
                 }
             },
             "result": {

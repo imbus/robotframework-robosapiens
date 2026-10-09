@@ -677,9 +677,9 @@ namespace RoboSAPiens
          Doc("Der Inhalt der angegebenen Tabellenzelle wird zurückgegeben.\n\n" +
              "| ``Tabellenzelle ablesen     Positionsgeber     Spaltentitel``\n" +
              "Positionsgeber: Zeilennummer oder Zellinhalt.")]
-        public RobotResult ReadCell(string row_locator, string column, int? tableNumber=null) {
+        public RobotResult ReadCell(string row_locator, string column, int? tableNumber=null, bool tooltip=false, bool icon=false) {
             return session switch {
-                SAPSession session when session.isActive => session.readCell(row_locator, column, tableNumber),
+                SAPSession session when session.isActive => session.readCell(row_locator, column, tableNumber, tooltip, icon),
                 _ => new Result.ReadCell.NoSession()
             };
         }

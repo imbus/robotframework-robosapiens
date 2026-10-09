@@ -821,7 +821,7 @@ namespace RoboSAPiens {
             }
         }
 
-        public RobotResult readCell(string rowNumberOrButtonLabel, string column, int? tableNumber)
+        public RobotResult readCell(string rowNumberOrButtonLabel, string column, int? tableNumber, bool tooltip, bool icon)
         {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
@@ -841,7 +841,21 @@ namespace RoboSAPiens {
             if (options.presenterMode) highlightCell(cell);
 
             try {
-                var text = cell.getValue(session);
+                var iconTooltip = (string value) =>
+                    {
+                        var match = Regex.Match(value, @"@(?<icon>.*?)\\Q(?<tooltip>.*?)@");
+                        return new {
+                            icon = "@" + match.Groups["icon"].Value + "@", 
+                            tooltip = match.Groups["tooltip"].Value
+                        };
+                    };
+                var value = cell.getValue(session);
+                var text = value.Contains("\\Q") switch
+                {
+                    true when icon => iconTooltip(value).icon,
+                    true when tooltip => iconTooltip(value).tooltip,
+                    _ => value,
+                };
                 return new Result.ReadCell.Pass(text, locator.location);
             }
             catch (Exception e) {

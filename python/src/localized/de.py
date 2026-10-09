@@ -1058,8 +1058,8 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {}
               },
               "tooltip": {
-                "name": ("2713280432", "Tooltip"),
-                "desc": ("3381524198", "Wenn `True` wird der Lokator nur als Tooltip betrachtet."),
+                "name": ("2713280432", "Kurzinfo"),
+                "desc": ("3381524198", "Wenn `True` wird der Lokator nur als Kurzinfo (Tooltip) betrachtet."),
                 "default": False,
                 "type": "bool",
                 "spec": {},
@@ -1150,8 +1150,8 @@ lib: LocalizedRoboSAPiens = {
                 "spec": {}
               },
               "tooltip": {
-                "name": ("2713280432", "Tooltip"),
-                "desc": ("3381524198", "Wenn `True` wird der Lokator nur als Tooltip betrachtet."),
+                "name": ("2713280432", "Kurzinfo"),
+                "desc": ("3381524198", "Wenn `True` wird der Lokator nur als Kurzinfo (Tooltip) betrachtet."),
                 "default": False,
                 "type": "bool",
                 "spec": {},
@@ -1313,7 +1313,21 @@ lib: LocalizedRoboSAPiens = {
                   "default": None,
                   "type": "int",
                   "spec": {}
-              } 
+                },
+                "tooltip": {
+                    "name": ("2713280432", "Kurzinfo"),
+                    "desc": ("2722068997", "Wenn True und die Zelle ein Icon enthält, wird die Kurzinfo (Tooltip) des Icons ausgelesen."),
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
+                },
+                "icon": {
+                    "name": ("1704208859", "Icon"),
+                    "desc": ("2198104091", "Wenn True und die Zelle ein Icon enthält, wird das Icon ausgelesen"),
+                    "default": False,
+                    "type": "bool",
+                    "spec": {}
+                }
             },
             "result": {
               "NoSession": ("4138997384", no_session),

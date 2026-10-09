@@ -27,7 +27,7 @@ namespace RoboSAPiens
         public RobotResult PressKeyCombination(string keyCombination, int? tableNumber=null);
         public RobotResult PushButton(string button, bool exact=false, int? tableNumber=null, bool tooltip=false);
         public RobotResult PushButtonCell(string row_locator, string column, int? tableNumber=null);
-        public RobotResult ReadCell(string row_locator, string column, int? tableNumber=null);
+        public RobotResult ReadCell(string row_locator, string column, int? tableNumber=null, bool tooltip=false, bool icon=false);
         public RobotResult ReadCheckBox(string locator);
         public RobotResult ReadCheckBoxCell(string row_locator, string column, int? tableNumber=null);
         public RobotResult ReadComboBoxEntry(string comboBox);
