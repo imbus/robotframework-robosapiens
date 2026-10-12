@@ -1,24 +1,25 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using sapfewse;
 
 namespace RoboSAPiens {
     public sealed class ButtonStore: ComponentRepository<Button> {
-        Button? findInTab(string label, string tabTitle, TabStore tabs) {
+        Button? findInTab(string label, string tabTitle, TabStore tabs, GuiSession session) {
             var tab = tabs.get(tabTitle);
 
             return Find(
                 button => (button.isHLabeled(label) || button.hasTooltip(label)) && 
-                          (tab?.contains(button.position) ?? false));
+                          (tab?.contains(button.position, button.parentId, session) ?? false));
         }
 
-        public Button? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels, TabStore tabs, bool exact, bool tooltip) {
+        public Button? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels, TabStore tabs, bool exact, bool tooltip, GuiSession session) {
             return locator switch {
                 HLabel(var label) => tooltip? getByTooltip(exact? label : label + "~") : getByHLabel(label) ?? getByTooltip(exact? label : label + "~"),
                 HLabelHLabel =>
                     getAlignedWithLabels((HLabelHLabel)locator, labels, textFieldLabels),
                 HLabelVLabel(var label, var tabTitle) => 
-                    findInTab(label, tabTitle, tabs),
+                    findInTab(label, tabTitle, tabs, session),
                 _ => null
             };
         }

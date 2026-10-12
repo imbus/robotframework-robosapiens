@@ -305,26 +305,26 @@ namespace RoboSAPiens {
             }
         }
 
-        public Button? findButton(ButtonLocator buttonLocator, bool exact, int? tableNumber, bool tooltip) {
+        public Button? findButton(ButtonLocator buttonLocator, bool exact, int? tableNumber, bool tooltip, GuiSession session) {
             if (tableNumber != null)
             {
                 if (tableNumber > getGridViews().Count)
                     return null;
 
                 var gridView = getGridViews()[(int)tableNumber - 1];
-                return gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip);
+                return gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip, session);
             }
             else
             {
-                var button = buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip) ??
-                             toolbarButtons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip);
+                var button = buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip, session) ??
+                             toolbarButtons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip, session);
 
                 if (button != null)
                     return button;
 
                 foreach (var gridView in getGridViews())
                 {
-                    var gridViewButton = gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip);
+                    var gridViewButton = gridView.buttons.get(buttonLocator.locator, labels, textFields.NonChangeable(), tabs, exact, tooltip, session);
                     if (gridViewButton != null) return gridViewButton;
                 }
             }

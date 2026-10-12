@@ -6,6 +6,7 @@ namespace RoboSAPiens {
     public abstract class Button: IHighlightable, ILabeled {
         protected bool focused;
         public Position position = new Position(0, 0, 0, 0);
+        public string parentId = "";
         public abstract bool hasTooltip(string tooltip);
         public abstract bool isEnabled(GuiSession session);
         public abstract bool isHLabeled(string label);
@@ -24,6 +25,7 @@ namespace RoboSAPiens {
             this.defaultTooltip = Regex.Replace(button.DefaultTooltip, @"\s\s+", " ").Trim();
             this.focused = false;
             this.id = button.Id;
+            this.parentId = button.Parent.Id;
             this.position = new Position(height: button.Height, 
                                 left: button.ScreenLeft,
                                 top: button.ScreenTop, 
@@ -121,6 +123,7 @@ namespace RoboSAPiens {
             this.focused = false;
             this.gridViewId = gridView.Id;
             this.id = gridView.GetToolbarButtonId(buttonPos);
+            this.parentId = gridView.Id;
             this.buttonPos = buttonPos;
             this.tooltip = gridView.GetToolbarButtonTooltip(buttonPos);
             this.label = gridView.GetToolbarButtonText(buttonPos);
@@ -180,6 +183,7 @@ namespace RoboSAPiens {
             this.buttonPos = buttonPos;
             this.gridViewId = gridView.Id;
             this.id = gridView.GetToolbarButtonId(buttonPos);
+            this.parentId = gridView.Id;
             this.tooltip = gridView.GetToolbarButtonTooltip(buttonPos);
         }
 
@@ -225,6 +229,7 @@ namespace RoboSAPiens {
             this.buttonPos = buttonPos;
             this.focused = false;
             this.id = toolbar.GetButtonId(buttonPos);
+            this.parentId = toolbar.Id;
             this.position = new Position(
                 height: toolbar.Height, 
                 left: toolbar.ScreenLeft,

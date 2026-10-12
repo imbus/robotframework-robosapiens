@@ -20,9 +20,22 @@ namespace RoboSAPiens {
             this.tooltip = tab.Tooltip;
         }
 
-        public bool contains(Position other) {
-            return other.left > position.left && 
-                   other.top > position.top;
+        
+        public bool contains(Position other, string otherId, GuiSession session) {
+            return other.top > position.top && containsId(otherId, session);
+        }
+        
+        bool containsId(string otherId, GuiSession session) {
+            try
+            {
+                var tab = (GuiTab)session.FindById(id);
+                tab.FindById(otherId);
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
 
         public bool isHLabeled(string label) {
