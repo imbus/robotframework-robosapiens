@@ -147,8 +147,7 @@ namespace RoboSAPiens.Recorder
 
                 public override void start()
                 {
-                    recorder.recordStart();
-                    recorder.addConnectEvent();
+                    _ = recorder.SearchSessionAsync();
                 }
             }
         }
