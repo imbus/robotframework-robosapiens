@@ -201,20 +201,13 @@ namespace RoboSAPiens.Recorder
             return Stopwatch.GetTimestamp();
         }
 
-        public void addConnectEvent()
+        void addConnectEvent(GuiSession session, string? connectionDescription)
         {
             var timestamp = getTimestamp();
-            var window = session!.ActiveWindow;
+            var window = session.ActiveWindow;
 
-            if (keyGuiEventLog.Count == 0)
-            {
                 keyGuiEventLog.Add(new KeyGuiEvent("None", timestamp, KeyGuiActions.Connect, null, null, connectionDescription));
-            }
-
-            if (windows.Count == 0)
-            {
                 windows.Add(new Window(timestamp, window.Id, window.Text, getScreenshot(window, id: null)));
-            }
         }
 
         object getSapGui()
