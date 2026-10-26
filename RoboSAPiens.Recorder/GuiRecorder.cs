@@ -205,8 +205,17 @@ namespace RoboSAPiens.Recorder
             var timestamp = getTimestamp();
             var window = session.ActiveWindow;
 
-                keyGuiEventLog.Add(new KeyGuiEvent("None", timestamp, KeyGuiActions.Connect, null, null, connectionDescription));
-                windows.Add(new Window(timestamp, window.Id, window.Text, getScreenshot(window, id: null)));
+            keyGuiEventLog.Add(new KeyGuiEvent("None", timestamp, KeyGuiActions.Connect, null, null, connectionDescription));
+            windows.Add(new Window(timestamp, window.Id, window.Text, getScreenshot(window, id: null)));
+        }
+
+        void addDisconnectEvent(GuiSession session)
+        {
+            var timestamp = getTimestamp();
+            var window = session.ActiveWindow;
+
+            keyGuiEventLog.Add(new KeyGuiEvent("None", timestamp, KeyGuiActions.Disconnect, null, null, null));
+            windows.Add(new Window(timestamp, window.Id, window.Text, getScreenshot(window, id: null)));
         }
 
         object getSapGui()
@@ -670,7 +679,44 @@ namespace RoboSAPiens.Recorder
 
         void handleDestroy(GuiSession session)
         {
-            recordStop();
+            addDisconnectEvent(session);
+            this.session = null;
+             _ = SearchSessionAsync(yield: true);
+        }
+
+        public async Task SearchSessionAsync(bool yield=false)
+        {
+            // Return the control to SAP GUI immediately and execute 
+            // the search for an active session on the thread pool
+            if (yield)
+            {
+                await Task.Yield();
+            }
+            
+            // Wait for SAP GUI to terminate the current session
+            await Task.Delay(300);
+
+            Stopwatch watch = Stopwatch.StartNew();
+            while (watch.Elapsed.TotalSeconds < 10)
+            {
+                if (session == null)
+                {
+                    Console.WriteLine("No active session. Searching for an active session...");
+                }
+
+                try
+                {
+                    recordStart();
+                    Console.WriteLine("Connected to the current session.");
+                    return;
+                }
+                catch
+                {
+                    // Ignore exceptions thrown because no session was found
+                }
+                await Task.Delay(500);
+            }
+            Console.WriteLine("No active session found. Connect to a server and try again.");
         }
 
         public void recordStart()
@@ -678,9 +724,9 @@ namespace RoboSAPiens.Recorder
             setSession();
             if (session != null)
             {
-            session.Change += handleChange;
-            session.Destroy += handleDestroy;
-            session.Record = true;
+                session.Change += handleChange;
+                session.Destroy += handleDestroy;
+                session.Record = true;
             }
         }
 
