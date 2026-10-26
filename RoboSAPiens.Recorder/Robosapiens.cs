@@ -102,6 +102,16 @@ namespace RoboSAPiens.Recorder
             return new KeywordCall(name, args);
         }
 
+        public KeywordCall DisconnectFromServer()
+        {
+            string name = lang switch
+            {
+                "DE" => "Verbindung zum Server trennen",
+                _ => "Disconnect from Server"
+            };
+            return new KeywordCall(name, []);
+        }
+
         public KeywordCall DoubleClickCell(Locator locator)
         {
             string name = lang switch

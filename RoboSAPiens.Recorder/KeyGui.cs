@@ -5,6 +5,7 @@ namespace RoboSAPiens.Recorder
         public const string Check = "check";
         public const string Click = "click";
         public const string Connect = "connect";
+        public const string Disconnect = "disconnect";
         public const string DoubleClick = "double_click";
         public const string Execute = "execute";
         public const string Expand = "expand";
@@ -44,6 +45,7 @@ namespace RoboSAPiens.Recorder
             {
                 (KeyGuiActions.Connect, _, string connection) => robosapiens.ConnectToServer(connection),
                 (KeyGuiActions.Connect, _, null) => robosapiens.ConnectToSap(),
+                (KeyGuiActions.Disconnect, _, null) => robosapiens.DisconnectFromServer(),
                 (KeyGuiActions.Check, KeyGuiRoles.Cell, _) => robosapiens.TickCheckBoxCell(locator!),
                 (KeyGuiActions.Check, KeyGuiRoles.Checkbox, _) => robosapiens.TickCheckBox(locator!),
                 (KeyGuiActions.Click, KeyGuiRoles.Cell, _) => robosapiens.SelectCell(locator!),
