@@ -135,7 +135,6 @@ namespace RoboSAPiens.Recorder
     public class GuiRecorder
     {
         Dictionary<string, AdHocGrid> adhocGrids = [];
-        string? connectionDescription;
         bool debug;
         List<Event> eventLog = [];
         List<KeyGuiEvent> keyGuiEventLog = [];
@@ -216,7 +215,7 @@ namespace RoboSAPiens.Recorder
             return rot.GetROTEntry("SAPGUI") ?? throw new NoSapException("SAP Logon is not running.");
         }
 
-        GuiSession getSession()
+        void setSession()
         {
             var sapGui = getSapGui();
             var sap = (GuiApplication)sapGui.GetType().InvokeMember(
@@ -229,13 +228,21 @@ namespace RoboSAPiens.Recorder
 
             try
             {
+                var newSession = session == null;
                 var connection = (GuiConnection)sap.Connections.ElementAt(0);
-                var session = (GuiSession)connection.Sessions.ElementAt(0);
-                if (session.Info.Client == "000")
+                session = (GuiSession)connection.Sessions.ElementAt(0);
+                
+                if (newSession)
                 {
-                    connectionDescription = connection.Description;
+                    var connectionDescription = session.Info.Client switch
+                    {
+                        "000" => connection.Description,
+                        _ => null
+
+                    };
+
+                    addConnectEvent(session, connectionDescription);
                 }
-                return session;
             }
             catch (Exception)
             {
@@ -668,10 +675,13 @@ namespace RoboSAPiens.Recorder
 
         public void recordStart()
         {
-            session = getSession();
+            setSession();
+            if (session != null)
+            {
             session.Change += handleChange;
             session.Destroy += handleDestroy;
             session.Record = true;
+            }
         }
 
         public void recordStop()
