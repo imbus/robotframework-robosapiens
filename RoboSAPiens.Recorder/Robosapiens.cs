@@ -119,9 +119,8 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Tabellenzelle doppelklicken",
                 _ => "Double-click Cell"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
+            
             return new KeywordCall(name, args);
         }
 
@@ -132,9 +131,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Textfeld doppelklicken",
                 _ => "Double-click Text Field"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -145,9 +142,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Baumelement doppelklicken",
                 _ => "Double-click Tree Element"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -189,9 +184,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Baumelement aufklappen",
                 _ => "Expand Tree Folder"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -204,7 +197,7 @@ namespace RoboSAPiens.Recorder
             };
             List<KeywordCallArg> args =
             [
-                locator.toKeywordCallArg(lang),
+                ..locator.toKeywordCallArgs(lang),
                 new KeywordCallArg(
                     name: lang switch
                     {
@@ -227,7 +220,7 @@ namespace RoboSAPiens.Recorder
             };
             List<KeywordCallArg> args =
             [
-                locator.toKeywordCallArg(lang),
+                ..locator.toKeywordCallArgs(lang),
                 new KeywordCallArg(
                     name: lang switch
                     {
@@ -314,7 +307,7 @@ namespace RoboSAPiens.Recorder
             };
             List<KeywordCallArg> args =
             [
-                locator.toKeywordCallArg(lang),
+                ..locator.toKeywordCallArgs(lang),
                 new KeywordCallArg(
                     name: lang switch
                     {
@@ -335,9 +328,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Tabellenzelle drücken",
                 _ => "Push Button Cell"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -348,9 +339,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Tabellenzelle auslesen",
                 _ => "Read Cell"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args, returnValue: returnValue);
         }
 
@@ -371,9 +360,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Text auslesen",
                 _ => "Read Text"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args, returnValue: returnValue);
         }
 
@@ -384,9 +371,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Textfeld auslesen",
                 _ => "Read Text Field"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args, returnValue: returnValue);
         }
 
@@ -399,7 +384,7 @@ namespace RoboSAPiens.Recorder
             };
             List<KeywordCallArg> args =
             [
-                locator.toKeywordCallArg(lang),
+                ..locator.toKeywordCallArgs(lang),
                 new KeywordCallArg(
                     name: lang switch
                     {
@@ -429,9 +414,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Tabellenzelle markieren",
                 _ => "Select Cell"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -444,7 +427,7 @@ namespace RoboSAPiens.Recorder
             };
             List<KeywordCallArg> args =
             [
-                locator.toKeywordCallArg(lang),
+                ..locator.toKeywordCallArgs(lang),
                 new KeywordCallArg(
                     name: lang switch
                     {
@@ -467,7 +450,7 @@ namespace RoboSAPiens.Recorder
             };
             List<KeywordCallArg> args =
             [
-                locator.toKeywordCallArg(lang),
+                ..locator.toKeywordCallArgs(lang),
                 new KeywordCallArg(
                     name: lang switch
                     {
@@ -488,9 +471,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Optionsfeld auswählen",
                 _ => "Select Radio Button"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -501,9 +482,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Reiter auswählen",
                 _ => "Select Tab"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -514,9 +493,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Text markieren",
                 _ => "Select Text"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -527,9 +504,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Textfeld markieren",
                 _ => "Select Text Field"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -540,9 +515,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Formularfeld ankreuzen",
                 _ => "Tick Checkbox"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -553,9 +526,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Tabellenzelle ankreuzen",
                 _ => "Tick Checkbox Cell"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -566,9 +537,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Formularfeld abwählen",
                 _ => "Untick Checkbox"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
 
@@ -579,9 +548,7 @@ namespace RoboSAPiens.Recorder
                 "DE" => "Tabellenzelle abwählen",
                 _ => "Untick Checkbox Cell"
             };
-            List<KeywordCallArg> args = [
-                locator.toKeywordCallArg(lang)
-            ];
+            var args = locator.toKeywordCallArgs(lang);
             return new KeywordCall(name, args);
         }
     }

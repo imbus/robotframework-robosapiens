@@ -72,17 +72,43 @@ namespace RoboSAPiens.Recorder
                 .Aggregate(s, (acc, m) => acc.Replace(m, " " + m[1..].Replace(" ", @"\ ")));
         }
 
-        public KeywordCallArg toKeywordCallArg(string lang)
+        public List<KeywordCallArg> toKeywordCallArgs(string lang)
         {
-            return new KeywordCallArg(
-                name: lang switch
-                {
-                    "DE" => "Lokator",
-                    _ => "locator"
-                },
-                value: ToString(),
-                type: KeywordCallArgType.LOCATOR
-            );
+            if (row != null && col != null)
+            {
+                return [
+                    new KeywordCallArg(
+                        name: lang switch
+                        {
+                            "DE" => "Zeile",
+                            _ => "row"
+                        },
+                        value: row,
+                        type: KeywordCallArgType.ARG
+                    ),
+                    new KeywordCallArg(
+                        name: lang switch
+                        {
+                            "DE" => "Spalte",
+                            _ => "column"
+                        },
+                        value: col,
+                        type: KeywordCallArgType.ARG
+                    )
+                ];
+            }
+
+            return [
+                new KeywordCallArg(
+                    name: lang switch
+                    {
+                        "DE" => "Lokator",
+                        _ => "locator"
+                    },
+                    value: ToString(),
+                    type: KeywordCallArgType.LOCATOR
+                )
+            ];
         }
 
         public override string ToString()
