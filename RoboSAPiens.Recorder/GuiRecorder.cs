@@ -163,6 +163,14 @@ namespace RoboSAPiens.Recorder
             }
         }
 
+        public void reset()
+        {
+            adhocGrids = [];
+            eventLog = [];
+            keyGuiEventLog = [];
+            windows = [];
+        }
+
         public Dictionary<long, Window> getWindows()
         {
             return windows.Select(w => (w.timestamp, w)).ToDictionary();

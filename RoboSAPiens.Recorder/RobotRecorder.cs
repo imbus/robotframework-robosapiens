@@ -109,8 +109,8 @@ namespace RoboSAPiens.Recorder
 
                 public override void start()
                 {
-                    recorder = new GuiRecorder(debug);
-                    recorder.recordStart();
+                    recorder.reset();
+                    _ = recorder.SearchSessionAsync();
                 }
             }
         }
