@@ -67,7 +67,7 @@ namespace RoboSAPiens {
             public record InvalidArgumentType(string arg, string rfType, string kwType): RobotResult.RobotFail("InvalidArgumentType", $"The argument '{arg}' has type '{rfType}'. It must have type '{kwType}'");
         }
 
-        public record ActivateTab {
+        public record SelectTab {
             public record NoSession(): RobotResult.NoSession();
             public record NotFound(string theTab): RobotResult.NotFound($"Der Reiter {theTab} wurde nicht gefunden.");
             public record Pass(string theTab): RobotResult.RobotPass($"Der Reiter {theTab} wurde ausgewählt.");

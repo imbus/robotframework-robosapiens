@@ -130,7 +130,7 @@ namespace RoboSAPiens {
             cell.highlight(session);
         }
 
-        public RobotResult activateTab(string tabLabel) {
+        public RobotResult selectTab(string tabLabel) {
             switch (updateComponentsIfWindowChanged()) {
                 case RobotResult.UIScanFail exceptionError: return exceptionError;
             }
@@ -138,7 +138,7 @@ namespace RoboSAPiens {
             var tab = window.components.findTab(tabLabel);
             
             if (tab == null) {
-                return new Result.ActivateTab.NotFound(tabLabel);
+                return new Result.SelectTab.NotFound(tabLabel);
             }
 
             if (options.presenterMode) switch(highlightElement(session, tab)) {
@@ -153,11 +153,11 @@ namespace RoboSAPiens {
                         return exceptionError;
                 }
 
-                return new Result.ActivateTab.Pass(tabLabel);
+                return new Result.SelectTab.Pass(tabLabel);
             } 
             catch (Exception e) {
                 if (options.debug) logger.error(e.Message, e.StackTrace ?? "");
-                return new Result.ActivateTab.Exception(e);
+                return new Result.SelectTab.Exception(e);
             }
         }
 

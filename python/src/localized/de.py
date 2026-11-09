@@ -251,33 +251,6 @@ lib: LocalizedRoboSAPiens = {
         }
     },
     "keywords": {
-        "ActivateTab": {
-            "name": ("1870139227", "Reiter auswählen"),
-            "args": {
-              "tab": {
-                "name": ("3772862467", "Reitername"),
-                "desc": ("1037266374", "Name oder Kurzinfo des Reiters"),
-                "spec": {}
-              }
-            },
-            "kwargs": {},
-            "result": {
-              "NoSession": ("4138997384", no_session),
-              "NotFound": ("1349204363", not_found("Der Reiter '{0}' wurde nicht gefunden.")),
-              "Pass": ("633926115", "Der Reiter '{0}' wurde ausgewählt."),
-              "Exception": ("2577256712", exception("Der Reiter konnte nicht ausgewählt werden."))
-            },
-            "doc": {
-                "desc": ("1953544584", "Der Reiter mit dem angegebenen Namen wird ausgewählt."),
-                "examples": ("439306833", 
-                """
-                Beispiele:
-
-                | ``Reiter auswählen    Reitername``
-                """
-              )
-            }
-        },
         "DoubleClickTreeElement": {
             "name": ("1544352237", "Baumelement doppelklicken"),
             "args": {
@@ -1743,6 +1716,33 @@ lib: LocalizedRoboSAPiens = {
                 
                 *Optionsfeld am Schnittpunkt einer Beschriftung links (oder rechts) und einer oben*
                 | ``Optionsfeld auswählen    Beschriftung links @ Beschriftung oben``
+                """
+              )
+            }
+        },
+        "SelectTab": {
+            "name": ("1870139227", "Reiter auswählen"),
+            "args": {
+              "tab": {
+                "name": ("3772862467", "Reitername"),
+                "desc": ("1037266374", "Name oder Kurzinfo des Reiters"),
+                "spec": {}
+              }
+            },
+            "kwargs": {},
+            "result": {
+              "NoSession": ("4138997384", no_session),
+              "NotFound": ("1349204363", not_found("Der Reiter '{0}' wurde nicht gefunden.")),
+              "Pass": ("633926115", "Der Reiter '{0}' wurde ausgewählt."),
+              "Exception": ("2577256712", exception("Der Reiter konnte nicht ausgewählt werden."))
+            },
+            "doc": {
+                "desc": ("1953544584", "Der Reiter mit dem angegebenen Namen wird ausgewählt."),
+                "examples": ("439306833", 
+                """
+                Beispiele:
+
+                | ``Reiter auswählen    Reitername``
                 """
               )
             }

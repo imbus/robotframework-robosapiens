@@ -2,7 +2,6 @@ namespace RoboSAPiens
 {
     public interface IKeywordLibrary
     {
-        public RobotResult ActivateTab(string tab);
         public RobotResult CloseConnection();
         public RobotResult CloseSap();
         public RobotResult CloseWindow();
@@ -43,6 +42,7 @@ namespace RoboSAPiens
         public RobotResult SelectComboBoxEntry(string comboBox, string entry);
         public RobotResult SelectMenuItem(string itemPath);
         public RobotResult SelectRadioButton(string locator);
+        public RobotResult SelectTab(string tab);
         public RobotResult SelectTableColumn(string column, int tableNumber=1);
         public RobotResult SelectTableRow(string row_locator, int tableNumber=1);
         public RobotResult SelectText(string locator);

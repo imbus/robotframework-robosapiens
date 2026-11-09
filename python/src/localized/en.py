@@ -249,32 +249,6 @@ lib: RoboSAPiens = {
         }
     },
     "keywords": {
-        "ActivateTab": {
-            "name": "Select Tab",
-            "args": {
-                "tab": {
-                    "name": "tab_name",
-                    "desc": "Name or tooltip of the tab",
-                    "spec": {},
-                }
-            },
-            "kwargs": {},
-            "result": {
-                "NoSession": no_session,
-                "NotFound": not_found("The tab '{0}' could not be found."),
-                "Pass": "The tab '{0}' was selected.",
-                "Exception": exception("The tab could not be selected. {0}")
-            },
-            "doc": {
-                "desc": "Select the tab with the name provided.",
-                "examples":  
-                """
-                Examples:
-
-                | ``Select Tab    tab_name``
-                """
-            }
-        },
         "DoubleClickTreeElement": {
             "name": "Double-click Tree Element",
             "args": {
@@ -1724,6 +1698,32 @@ lib: RoboSAPiens = {
                 
                 *Radio button at the intersection of a label to its left or its right and a label above it*
                 | ``Select Radio Button    left or right label @ label above``
+                """
+            }
+        },
+        "SelectTab": {
+            "name": "Select Tab",
+            "args": {
+                "tab": {
+                    "name": "tab_name",
+                    "desc": "Name or tooltip of the tab",
+                    "spec": {},
+                }
+            },
+            "kwargs": {},
+            "result": {
+                "NoSession": no_session,
+                "NotFound": not_found("The tab '{0}' could not be found."),
+                "Pass": "The tab '{0}' was selected.",
+                "Exception": exception("The tab could not be selected. {0}")
+            },
+            "doc": {
+                "desc": "Select the tab with the name provided.",
+                "examples":  
+                """
+                Examples:
+
+                | ``Select Tab    tab_name``
                 """
             }
         },

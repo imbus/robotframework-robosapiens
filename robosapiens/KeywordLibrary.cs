@@ -65,10 +65,10 @@ namespace RoboSAPiens
         [Keyword("Reiter auswählen"),
          Doc("Der Reiter mit dem angegebenen Name wird ausgewählt.\n\n" +
              "| ``Reiter auswählen    Name``")]
-        public RobotResult ActivateTab(string tab) {
+        public RobotResult SelectTab(string tab) {
             return session switch {
-                SAPSession session when session.isActive => session.activateTab(tab),
-                _ => new Result.ActivateTab.NoSession()
+                SAPSession session when session.isActive => session.selectTab(tab),
+                _ => new Result.SelectTab.NoSession()
             };
         }
 
