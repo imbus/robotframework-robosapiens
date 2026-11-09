@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.36.2"
+__version__ = "2.36.3"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -223,32 +223,6 @@ class RoboSAPiens(RoboSAPiensClient):
 
         super().__init__(args)
     
-    
-    @keyword('Select Tab') # type: ignore
-    def activate_tab(self, tab_name: str): # type: ignore
-        """
-        Select the tab with the name provided.
-        
-        | ``tab_name`` | Name or tooltip of the tab |
-        
-        Examples:
-        
-        | ``Select Tab    tab_name``
-        """
-
-        args: list = [
-            tab_name
-        ]
-        kwargs: dict = {
-        }
-        
-        result = {
-            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
-            "NotFound": "The tab '{0}' could not be found. Hint: Check the spelling",
-            "Pass": "The tab '{0}' was selected.",
-            "Exception": "The tab could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
-        }
-        return super()._run_keyword('ActivateTab', args, kwargs, result) # type: ignore
     
     @keyword('Double-click Tree Element') # type: ignore
     def double_click_tree_element(self, element_path: str): # type: ignore
@@ -1517,6 +1491,32 @@ class RoboSAPiens(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectRadioButton', args, kwargs, result) # type: ignore
     
+    @keyword('Select Tab') # type: ignore
+    def select_tab(self, tab_name: str): # type: ignore
+        """
+        Select the tab with the name provided.
+        
+        | ``tab_name`` | Name or tooltip of the tab |
+        
+        Examples:
+        
+        | ``Select Tab    tab_name``
+        """
+
+        args: list = [
+            tab_name
+        ]
+        kwargs: dict = {
+        }
+        
+        result = {
+            "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
+            "NotFound": "The tab '{0}' could not be found. Hint: Check the spelling",
+            "Pass": "The tab '{0}' was selected.",
+            "Exception": "The tab could not be selected. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+        }
+        return super()._run_keyword('SelectTab', args, kwargs, result) # type: ignore
+    
     @keyword('Select Table Column') # type: ignore
     def select_table_column(self, column: str, table_number: int=1): # type: ignore
         """
@@ -1848,4 +1848,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.36.2'
+    ROBOT_LIBRARY_VERSION = '2.36.3'

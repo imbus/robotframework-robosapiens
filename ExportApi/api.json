@@ -16,7 +16,7 @@
     }
   },
   "keywords": {
-    "ActivateTab": {
+    "SelectTab": {
       "name": "Reiter auswählen",
       "args": {
         "tab": {

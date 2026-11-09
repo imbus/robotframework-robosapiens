@@ -53,6 +53,9 @@ class LocalizedRoboSAPiensKeywordsSelecttablecolumnKwargsTablenumberSpec(TypedDi
 class LocalizedRoboSAPiensKeywordsSelecttablecolumnArgsColumnSpec(TypedDict):
     ...
 
+class LocalizedRoboSAPiensKeywordsSelecttabArgsTabSpec(TypedDict):
+    ...
+
 class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsLocatorSpec(TypedDict):
     HLabel: Tuple[Literal['4229670492'], str]
     VLabel: Tuple[Literal['474824962'], str]
@@ -286,9 +289,6 @@ class LocalizedRoboSAPiensKeywordsExpandtreefolderArgsFolderpathSpec(TypedDict):
 class LocalizedRoboSAPiensKeywordsDoubleclicktreeelementArgsElementpathSpec(TypedDict):
     ...
 
-class LocalizedRoboSAPiensKeywordsActivatetabArgsTabSpec(TypedDict):
-    ...
-
 class LocalizedRoboSAPiensKeywordsUntickcheckboxcellKwargsTablenumber(TypedDict):
     name: Tuple[Literal['3359775383'], str]
     desc: Tuple[Literal['4055958951'], str]
@@ -366,6 +366,11 @@ class LocalizedRoboSAPiensKeywordsSelecttablecolumnArgsColumn(TypedDict):
     name: Tuple[Literal['2102626174'], str]
     desc: Tuple[Literal['2490445981'], str]
     spec: LocalizedRoboSAPiensKeywordsSelecttablecolumnArgsColumnSpec
+
+class LocalizedRoboSAPiensKeywordsSelecttabArgsTab(TypedDict):
+    name: Tuple[Literal['3772862467'], str]
+    desc: Tuple[Literal['1037266374'], str]
+    spec: LocalizedRoboSAPiensKeywordsSelecttabArgsTabSpec
 
 class LocalizedRoboSAPiensKeywordsSelectradiobuttonArgsLocator(TypedDict):
     name: Tuple[Literal['2051440239'], str]
@@ -779,11 +784,6 @@ class LocalizedRoboSAPiensKeywordsDoubleclicktreeelementArgsElementpath(TypedDic
     desc: Tuple[Literal['4061798646'], str]
     spec: LocalizedRoboSAPiensKeywordsDoubleclicktreeelementArgsElementpathSpec
 
-class LocalizedRoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
-    name: Tuple[Literal['3772862467'], str]
-    desc: Tuple[Literal['1037266374'], str]
-    spec: LocalizedRoboSAPiensKeywordsActivatetabArgsTabSpec
-
 class LocalizedRoboSAPiensKeywordsMaximizewindowDoc(TypedDict):
     desc: Tuple[Literal['3269397069'], str]
     examples: Tuple[Literal['298229724'], str]
@@ -969,6 +969,22 @@ class LocalizedRoboSAPiensKeywordsSelecttablecolumnKwargs(TypedDict):
 
 class LocalizedRoboSAPiensKeywordsSelecttablecolumnArgs(TypedDict):
     column: LocalizedRoboSAPiensKeywordsSelecttablecolumnArgsColumn
+
+class LocalizedRoboSAPiensKeywordsSelecttabDoc(TypedDict):
+    desc: Tuple[Literal['1953544584'], str]
+    examples: Tuple[Literal['439306833'], str]
+
+class LocalizedRoboSAPiensKeywordsSelecttabResult(TypedDict):
+    NoSession: Tuple[Literal['4138997384'], str]
+    NotFound: Tuple[Literal['1349204363'], str]
+    Pass: Tuple[Literal['633926115'], str]
+    Exception: Tuple[Literal['2577256712'], str]
+
+class LocalizedRoboSAPiensKeywordsSelecttabKwargs(TypedDict):
+    ...
+
+class LocalizedRoboSAPiensKeywordsSelecttabArgs(TypedDict):
+    tab: LocalizedRoboSAPiensKeywordsSelecttabArgsTab
 
 class LocalizedRoboSAPiensKeywordsSelectradiobuttonDoc(TypedDict):
     desc: Tuple[Literal['3238721707'], str]
@@ -1655,22 +1671,6 @@ class LocalizedRoboSAPiensKeywordsDoubleclicktreeelementKwargs(TypedDict):
 class LocalizedRoboSAPiensKeywordsDoubleclicktreeelementArgs(TypedDict):
     elementPath: LocalizedRoboSAPiensKeywordsDoubleclicktreeelementArgsElementpath
 
-class LocalizedRoboSAPiensKeywordsActivatetabDoc(TypedDict):
-    desc: Tuple[Literal['1953544584'], str]
-    examples: Tuple[Literal['439306833'], str]
-
-class LocalizedRoboSAPiensKeywordsActivatetabResult(TypedDict):
-    NoSession: Tuple[Literal['4138997384'], str]
-    NotFound: Tuple[Literal['1349204363'], str]
-    Pass: Tuple[Literal['633926115'], str]
-    Exception: Tuple[Literal['2577256712'], str]
-
-class LocalizedRoboSAPiensKeywordsActivatetabKwargs(TypedDict):
-    ...
-
-class LocalizedRoboSAPiensKeywordsActivatetabArgs(TypedDict):
-    tab: LocalizedRoboSAPiensKeywordsActivatetabArgsTab
-
 class LocalizedRoboSAPiensKeywordsMaximizewindow(TypedDict):
     name: Tuple[Literal['458747722'], str]
     args: LocalizedRoboSAPiensKeywordsMaximizewindowArgs
@@ -1747,6 +1747,13 @@ class LocalizedRoboSAPiensKeywordsSelecttablecolumn(TypedDict):
     kwargs: LocalizedRoboSAPiensKeywordsSelecttablecolumnKwargs
     result: LocalizedRoboSAPiensKeywordsSelecttablecolumnResult
     doc: LocalizedRoboSAPiensKeywordsSelecttablecolumnDoc
+
+class LocalizedRoboSAPiensKeywordsSelecttab(TypedDict):
+    name: Tuple[Literal['1870139227'], str]
+    args: LocalizedRoboSAPiensKeywordsSelecttabArgs
+    kwargs: LocalizedRoboSAPiensKeywordsSelecttabKwargs
+    result: LocalizedRoboSAPiensKeywordsSelecttabResult
+    doc: LocalizedRoboSAPiensKeywordsSelecttabDoc
 
 class LocalizedRoboSAPiensKeywordsSelectradiobutton(TypedDict):
     name: Tuple[Literal['2985728785'], str]
@@ -2021,13 +2028,6 @@ class LocalizedRoboSAPiensKeywordsDoubleclicktreeelement(TypedDict):
     result: LocalizedRoboSAPiensKeywordsDoubleclicktreeelementResult
     doc: LocalizedRoboSAPiensKeywordsDoubleclicktreeelementDoc
 
-class LocalizedRoboSAPiensKeywordsActivatetab(TypedDict):
-    name: Tuple[Literal['1870139227'], str]
-    args: LocalizedRoboSAPiensKeywordsActivatetabArgs
-    kwargs: LocalizedRoboSAPiensKeywordsActivatetabKwargs
-    result: LocalizedRoboSAPiensKeywordsActivatetabResult
-    doc: LocalizedRoboSAPiensKeywordsActivatetabDoc
-
 class LocalizedRoboSAPiensArgsX64(TypedDict):
     name: Tuple[Literal['218858810'], str]
     default: Literal[False]
@@ -2042,7 +2042,6 @@ class LocalizedRoboSAPiensSpecs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywords(TypedDict):
-    ActivateTab: LocalizedRoboSAPiensKeywordsActivatetab
     DoubleClickTreeElement: LocalizedRoboSAPiensKeywordsDoubleclicktreeelement
     ExpandTreeFolder: LocalizedRoboSAPiensKeywordsExpandtreefolder
     ReadTreeElement: LocalizedRoboSAPiensKeywordsReadtreeelement
@@ -2082,6 +2081,7 @@ class LocalizedRoboSAPiensKeywords(TypedDict):
     SelectComboBoxEntry: LocalizedRoboSAPiensKeywordsSelectcomboboxentry
     SelectMenuItem: LocalizedRoboSAPiensKeywordsSelectmenuitem
     SelectRadioButton: LocalizedRoboSAPiensKeywordsSelectradiobutton
+    SelectTab: LocalizedRoboSAPiensKeywordsSelecttab
     SelectTableColumn: LocalizedRoboSAPiensKeywordsSelecttablecolumn
     SelectTableRow: LocalizedRoboSAPiensKeywordsSelecttablerow
     SelectTextField: LocalizedRoboSAPiensKeywordsSelecttextfield

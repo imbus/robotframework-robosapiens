@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.36.2"
+__version__ = "2.36.3"
 
 class DE(RoboSAPiensClient):
     """
@@ -222,32 +222,6 @@ class DE(RoboSAPiensClient):
 
         super().__init__(args)
     
-    
-    @keyword('Reiter auswählen') # type: ignore
-    def activate_tab(self, Reitername: str): # type: ignore
-        """
-        Der Reiter mit dem angegebenen Namen wird ausgewählt.
-        
-        | ``Reitername`` | Name oder Kurzinfo des Reiters |
-        
-        Beispiele:
-        
-        | ``Reiter auswählen    Reitername``
-        """
-
-        args: list = [
-            Reitername
-        ]
-        kwargs: dict = {
-        }
-        
-        result = {
-            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
-            "NotFound": "Der Reiter '{0}' wurde nicht gefunden.\nHinweis: Prüfe die Rechtschreibung",
-            "Pass": "Der Reiter '{0}' wurde ausgewählt.",
-            "Exception": "Der Reiter konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
-        }
-        return super()._run_keyword('ActivateTab', args, kwargs, result) # type: ignore
     
     @keyword('Baumelement doppelklicken') # type: ignore
     def double_click_tree_element(self, Elementpfad: str): # type: ignore
@@ -1490,6 +1464,32 @@ class DE(RoboSAPiensClient):
         }
         return super()._run_keyword('SelectRadioButton', args, kwargs, result) # type: ignore
     
+    @keyword('Reiter auswählen') # type: ignore
+    def select_tab(self, Reitername: str): # type: ignore
+        """
+        Der Reiter mit dem angegebenen Namen wird ausgewählt.
+        
+        | ``Reitername`` | Name oder Kurzinfo des Reiters |
+        
+        Beispiele:
+        
+        | ``Reiter auswählen    Reitername``
+        """
+
+        args: list = [
+            Reitername
+        ]
+        kwargs: dict = {
+        }
+        
+        result = {
+            "NoSession": "Keine aktive SAP-Session gefunden. Das Keyword \"Verbindung zum Server Herstellen\" oder \"Laufende SAP GUI Übernehmen\" muss zuerst aufgerufen werden.",
+            "NotFound": "Der Reiter '{0}' wurde nicht gefunden.\nHinweis: Prüfe die Rechtschreibung",
+            "Pass": "Der Reiter '{0}' wurde ausgewählt.",
+            "Exception": "Der Reiter konnte nicht ausgewählt werden.\n{0}\nFür mehr Infos robot --loglevel DEBUG datei.robot ausführen und die log.html Datei durchsuchen."
+        }
+        return super()._run_keyword('SelectTab', args, kwargs, result) # type: ignore
+    
     @keyword('Tabellenspalte markieren') # type: ignore
     def select_table_column(self, Spalte: str, tabelle_nummer: int=1): # type: ignore
         """
@@ -1846,4 +1846,4 @@ class DE(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.36.2'
+    ROBOT_LIBRARY_VERSION = '2.36.3'

@@ -285,7 +285,7 @@ class RoboSAPiensKeywordsReadtreeelementKwargsTooltipSpec(TypedDict):
 class RoboSAPiensKeywordsReadtreeelementArgsElementpathSpec(TypedDict):
     ...
 
-class RoboSAPiensKeywordsActivatetabArgsTabSpec(TypedDict):
+class RoboSAPiensKeywordsSelecttabArgsTabSpec(TypedDict):
     ...
 
 class RoboSAPiensKeywordsUntickcheckboxcellKwargsTablenumber(TypedDict):
@@ -778,10 +778,10 @@ class RoboSAPiensKeywordsReadtreeelementArgsElementpath(TypedDict):
     desc: str
     spec: RoboSAPiensKeywordsReadtreeelementArgsElementpathSpec
 
-class RoboSAPiensKeywordsActivatetabArgsTab(TypedDict):
+class RoboSAPiensKeywordsSelecttabArgsTab(TypedDict):
     name: str
     desc: str
-    spec: RoboSAPiensKeywordsActivatetabArgsTabSpec
+    spec: RoboSAPiensKeywordsSelecttabArgsTabSpec
 
 class RoboSAPiensKeywordsMaximizewindowDoc(TypedDict):
     desc: str
@@ -1654,21 +1654,21 @@ class RoboSAPiensKeywordsReadtreeelementKwargs(TypedDict):
 class RoboSAPiensKeywordsReadtreeelementArgs(TypedDict):
     elementPath: RoboSAPiensKeywordsReadtreeelementArgsElementpath
 
-class RoboSAPiensKeywordsActivatetabDoc(TypedDict):
+class RoboSAPiensKeywordsSelecttabDoc(TypedDict):
     desc: str
     examples: str
 
-class RoboSAPiensKeywordsActivatetabResult(TypedDict):
+class RoboSAPiensKeywordsSelecttabResult(TypedDict):
     NoSession: str
     NotFound: str
     Pass: str
     Exception: str
 
-class RoboSAPiensKeywordsActivatetabKwargs(TypedDict):
+class RoboSAPiensKeywordsSelecttabKwargs(TypedDict):
     ...
 
-class RoboSAPiensKeywordsActivatetabArgs(TypedDict):
-    tab: RoboSAPiensKeywordsActivatetabArgsTab
+class RoboSAPiensKeywordsSelecttabArgs(TypedDict):
+    tab: RoboSAPiensKeywordsSelecttabArgsTab
 
 class RoboSAPiensKeywordsMaximizewindow(TypedDict):
     name: str
@@ -2020,12 +2020,12 @@ class RoboSAPiensKeywordsReadtreeelement(TypedDict):
     result: RoboSAPiensKeywordsReadtreeelementResult
     doc: RoboSAPiensKeywordsReadtreeelementDoc
 
-class RoboSAPiensKeywordsActivatetab(TypedDict):
+class RoboSAPiensKeywordsSelecttab(TypedDict):
     name: str
-    args: RoboSAPiensKeywordsActivatetabArgs
-    kwargs: RoboSAPiensKeywordsActivatetabKwargs
-    result: RoboSAPiensKeywordsActivatetabResult
-    doc: RoboSAPiensKeywordsActivatetabDoc
+    args: RoboSAPiensKeywordsSelecttabArgs
+    kwargs: RoboSAPiensKeywordsSelecttabKwargs
+    result: RoboSAPiensKeywordsSelecttabResult
+    doc: RoboSAPiensKeywordsSelecttabDoc
 
 class RoboSAPiensArgsX64(TypedDict):
     name: str
@@ -2041,7 +2041,7 @@ class RoboSAPiensSpecs(TypedDict):
     ...
 
 class RoboSAPiensKeywords(TypedDict):
-    ActivateTab: RoboSAPiensKeywordsActivatetab
+    SelectTab: RoboSAPiensKeywordsSelecttab
     ReadTreeElement: RoboSAPiensKeywordsReadtreeelement
     SelectTreeElement: RoboSAPiensKeywordsSelecttreeelement
     DoubleClickTreeElement: RoboSAPiensKeywordsDoubleclicktreeelement
