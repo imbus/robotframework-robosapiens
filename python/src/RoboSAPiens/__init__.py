@@ -3,7 +3,7 @@ import os
 from robot.api.deco import keyword
 from RoboSAPiens.client import RoboSAPiensClient
 
-__version__ = "2.36.3"
+__version__ = "2.36.4"
 
 class RoboSAPiens(RoboSAPiensClient):
     """
@@ -189,6 +189,10 @@ class RoboSAPiens(RoboSAPiensClient):
     
     Since version 2.21.0 the keywords for interacting with tables work with the [https://help.sap.com/docs/ABAP_PLATFORM_NEW/b1c834a22d05483b8a75710743b5ff26/4dd40b7ac2234be2e10000000a42189c.html?locale=en-US|SAP List Viewer (Classic)].
     The only requirement is to enable the [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/38da185ebd1540bdbc919db7b9013c9a.html?locale=en-US|Accessibility Mode] in the SAP GUI options. Note: The SAP GUI has to be restarted afterwards.
+    
+    === Simple lists ===
+    
+    A simple list looks like a table. If the keywords for interacting with tables can be used, it is indeed a table. Otherwise, try calling the keyword [#Get Window Text|Get Window Text]. If the result contains an ASCII table you will have to parse it into a data structure using Python.
     
     === Hierarchical-sequential lists ===
     
@@ -1804,7 +1808,7 @@ class RoboSAPiens(RoboSAPiensClient):
     @keyword('Get Window Text') # type: ignore
     def get_window_text(self): # type: ignore
         """
-        Get the text message of the currently active window.
+        Get the text of the currently active window.
         
         
         Examples:
@@ -1819,8 +1823,8 @@ class RoboSAPiens(RoboSAPiensClient):
         
         result = {
             "NoSession": "No active SAP-Session. Call the keyword \"Connect To Server\" or \"Connect To Running SAP\" first.",
-            "Pass": "The text message of the window was obtained.",
-            "Exception": "The text message of the window could not be read. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
+            "Pass": "The text of the window was obtained.",
+            "Exception": "The text of the window could not be obtained. {0}\nFor more details run 'robot --loglevel DEBUG test.robot' and consult the file log.html"
         }
         return super()._run_keyword('GetWindowText', args, kwargs, result) # type: ignore
     
@@ -1848,4 +1852,4 @@ class RoboSAPiens(RoboSAPiensClient):
         return super()._run_keyword('MaximizeWindow', args, kwargs, result) # type: ignore
     
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
-    ROBOT_LIBRARY_VERSION = '2.36.3'
+    ROBOT_LIBRARY_VERSION = '2.36.4'

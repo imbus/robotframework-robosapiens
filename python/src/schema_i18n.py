@@ -800,13 +800,13 @@ class LocalizedRoboSAPiensKeywordsMaximizewindowArgs(TypedDict):
     ...
 
 class LocalizedRoboSAPiensKeywordsGetwindowtextDoc(TypedDict):
-    desc: Tuple[Literal['2795776118'], str]
+    desc: Tuple[Literal['1849150595'], str]
     examples: Tuple[Literal['353358958'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtextResult(TypedDict):
     NoSession: Tuple[Literal['4138997384'], str]
-    Pass: Tuple[Literal['2562559050'], str]
-    Exception: Tuple[Literal['293173089'], str]
+    Pass: Tuple[Literal['2402791554'], str]
+    Exception: Tuple[Literal['2400983598'], str]
 
 class LocalizedRoboSAPiensKeywordsGetwindowtextKwargs(TypedDict):
     ...
@@ -2099,7 +2099,7 @@ class LocalizedRoboSAPiensArgs(TypedDict):
     a2x64: LocalizedRoboSAPiensArgsX64
 
 class LocalizedRoboSAPiensDoc(TypedDict):
-    intro: Tuple[Literal['3389935126'], str]
+    intro: Tuple[Literal['2089687760'], str]
     init: Tuple[Literal['3784687869'], str]
 
 class LocalizedRoboSAPiens(TypedDict):
