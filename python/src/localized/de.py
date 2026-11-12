@@ -2110,11 +2110,11 @@ lib: LocalizedRoboSAPiens = {
             "kwargs": {},
             "result": {
               "NoSession": ("4138997384", no_session),
-              "Pass": ("2562559050", "Der Text des Fensters wurde ausgelesen"),
-              "Exception": ("293173089", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
+              "Pass": ("2402791554", "Der Text des Fensters wurde ausgelesen"),
+              "Exception": ("2400983598", exception("Der Text des Fensters konnte nicht ausgelesen werden."))
             },
             "doc": {
-                "desc": ("2795776118", "Der Text des gerade aktiven Fensters wird zurückgegeben."),
+                "desc": ("1849150595", "Der Text des gerade aktiven Fensters wird zurückgegeben."),
                 "examples": ("353358958", 
                 """
                 Beispiele:

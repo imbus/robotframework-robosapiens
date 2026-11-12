@@ -2060,11 +2060,11 @@ lib: RoboSAPiens = {
             "kwargs": {},
             "result": {
                 "NoSession": no_session,
-                "Pass": "The text message of the window was obtained.",
-                "Exception": exception("The text message of the window could not be read. {0}")
+                "Pass": "The text of the window was obtained.",
+                "Exception": exception("The text of the window could not be obtained. {0}")
             },
             "doc": {
-                "desc": "Get the text message of the currently active window.",
+                "desc": "Get the text of the currently active window.",
                 "examples":
                 """
                 Examples:
