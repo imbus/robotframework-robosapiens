@@ -216,6 +216,10 @@ lib: RoboSAPiens = {
         Since version 2.21.0 the keywords for interacting with tables work with the [https://help.sap.com/docs/ABAP_PLATFORM_NEW/b1c834a22d05483b8a75710743b5ff26/4dd40b7ac2234be2e10000000a42189c.html?locale=en-US|SAP List Viewer (Classic)].
         The only requirement is to enable the [https://help.sap.com/docs/sap_gui_for_windows/63bd20104af84112973ad59590645513/38da185ebd1540bdbc919db7b9013c9a.html?locale=en-US|Accessibility Mode] in the SAP GUI options. Note: The SAP GUI has to be restarted afterwards.
         
+        === Simple lists ===
+
+        A simple list looks like a table. If the keywords for interacting with tables can be used, it is indeed a table. Otherwise, try calling the keyword [#Get Window Text|Get Window Text]. If the result contains an ASCII table you will have to parse it into a data structure using Python.
+
         === Hierarchical-sequential lists ===
 
         In the case of a hierarchical-sequential list top-level (table_number=1) and second-level (table_number=2,3,...) tables have different colors.
