@@ -96,10 +96,11 @@ namespace RoboSAPiens {
     }
 
     public sealed class LabelStore: ComponentRepository<SAPLabel> {
-        public SAPLabel? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels) {
+        public SAPLabel? get(ILocator locator, LabelStore labels, TextFieldRepository textFieldLabels, BoxStore boxes) {
             return locator switch {
                 HLabel(var label) => getHorizontalClosestToLabel(label, labels, textFieldLabels),
                 VLabel(var label) => getVerticalClosestToLabel(label, labels, textFieldLabels),
+                HIndexVLabel(int rowIndex, string columnTitle, int gridIndex) => getFromVerticalGrid(rowIndex, columnTitle, gridIndex, boxes),
                 Content(var name) => getByName(name),
                 _ => null
             };
@@ -118,6 +119,46 @@ namespace RoboSAPiens {
             if (labels.Count > labelIndex) return labels[labelIndex];
 
             return null;
+        }
+
+        SAPLabel? getFromVerticalGrid(int rowIndex, string columnTitle, int gridIndex, BoxStore boxes) 
+        {
+            var labels = 
+                this
+                .Where(_ => Regex.IsMatch(_.id, @"\[\d+,\d+\]$", RegexOptions.Compiled))
+                .ToList();
+            var firstLabel = labels.First();
+            var closestBox = boxes.MinBy(box => box.position.top - firstLabel.position.top);
+            var columnTitles = 
+                labels
+                .Where(label => label.text != "")
+                .Where(label => label.position.top > (closestBox?.position.top ?? (firstLabel.position.top - 50)))
+                .Where(label => label.position.top <= firstLabel.position.top)
+                .GroupBy(label => label.position.top)
+                .Select(group => group.ToList())
+                .ToList();
+            var columnLabel = 
+                columnTitles
+                .SelectMany((grid, gridIndex) => grid.Select(colTitle => new {colTitle, gridIndex}))
+                .FirstOrDefault(_ => _.gridIndex == gridIndex && _.colTitle.text == columnTitle)
+                ?.colTitle;
+
+            if (columnLabel == null) return null;
+
+            var column = 
+                labels
+                .Where(_ => Math.Abs(_.position.left - columnLabel.position.left) < 4)
+                .Where(_ => _.position.top > columnLabel.position.top)
+                .GroupBy(_ => new {width=_.position.right - _.position.left})
+                .Select(g => g.OrderBy(_ => _.position.top).ToList())
+                .ToList();
+            var label = 
+                column
+                .SelectMany((grid, gridIndex) => grid.Select((lbl, rowIndex) => new {lbl, rowIndex, gridIndex}))
+                .FirstOrDefault(_ => _.rowIndex == rowIndex-1 && _.gridIndex == gridIndex)
+                ?.lbl;
+            
+            return label;
         }
     }
 

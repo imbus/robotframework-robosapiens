@@ -352,7 +352,7 @@ namespace RoboSAPiens {
         }
 
         public ITextElement? findLabel(LabelLocator labelLocator) {
-            return labels.get(labelLocator.locator, labels, textFields.NonChangeable());
+            return labels.get(labelLocator.locator, labels, textFields.NonChangeable(), boxes);
         }
 
         public SAPMenu? findMenuItem(String itemPath) {
