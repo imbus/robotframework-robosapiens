@@ -32,7 +32,7 @@ ColumnContent = "Spaltentitel:=:Inhalt"
 
 lib: LocalizedRoboSAPiens = {
     "doc": {
-        "intro": ("2089687760",
+        "intro": ("1520004348",
         """
         robosapiens: SAP GUI-Automatisierung für Menschen
 
@@ -218,7 +218,7 @@ lib: LocalizedRoboSAPiens = {
         
         === Einfache Listen ===
 
-        Eine einfache Liste sieht ähnlich wie eine Tabelle aus. Wenn die Schlüsselwörter für den Umgang mit Tabellen verwendet werden können, handelt es sich tatsächlich um eine Tabelle. Andernfalls kann das Schlüsselwort [#Fenstertext auslesen|Fenstertext auslesen] hilfreich sein. Wenn das Ergebnis eine ASCII-Tabelle enthält, muss es mit Python in eine Datenstruktur umgewandelt werden.
+        Eine einfache Liste sieht ähnlich wie eine Tabelle aus. Wenn die Schlüsselwörter für den Umgang mit Tabellen verwendet werden können, handelt es sich tatsächlich um eine Tabelle. Andernfalls kann das Schlüsselwort [#Fenstertext auslesen|Fenstertext auslesen] hilfreich sein. Wenn das Ergebnis eine ASCII-Tabelle enthält, muss es mit Python in eine Datenstruktur umgewandelt werden. Hinweis: Das Fenster muss maximiert sein (siehe [#Fenster maximieren|Fenster maximieren]), um die gesamte Tabelle auszulesen. Wenn ein horizontaler Scrollbalken vorhanden ist, wird nur der sichtbare Text ausgelesen.
 
         === Hierarchisch sequenzielle Listen ===
 

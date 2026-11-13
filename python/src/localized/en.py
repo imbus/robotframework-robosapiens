@@ -218,7 +218,7 @@ lib: RoboSAPiens = {
         
         === Simple lists ===
 
-        A simple list looks like a table. If the keywords for interacting with tables can be used, it is indeed a table. Otherwise, try calling the keyword [#Get Window Text|Get Window Text]. If the result contains an ASCII table you will have to parse it into a data structure using Python.
+        A simple list looks like a table. If the keywords for interacting with tables can be used, it is indeed a table. Otherwise, try calling the keyword [#Get Window Text|Get Window Text]. If the result contains an ASCII table you will have to parse it into a data structure using Python. Note: The window must be maximized (see [#Maximize window|Maximize Window]) in order to extract the whole table. If there is a horizontal scrollbar only the visible text will be extracted.
 
         === Hierarchical-sequential lists ===
 
