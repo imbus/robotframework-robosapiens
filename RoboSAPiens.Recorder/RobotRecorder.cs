@@ -36,6 +36,8 @@ namespace RoboSAPiens.Recorder
                 public void addKeywordCall(long timestamp, string[] keywordCall);
                 public void save();
                 public void start();
+                public void pause();
+                public void resume();
                 public void stop();
             }
         }
@@ -65,6 +67,16 @@ namespace RoboSAPiens.Recorder
                 public virtual void start()
                 {
                     recorder.recordStart();
+                }
+
+                public void pause()
+                {
+                    recorder.recordPause();
+                }
+
+                public void resume()
+                {
+                    recorder.recordResume();
                 }
 
                 public void stop()
