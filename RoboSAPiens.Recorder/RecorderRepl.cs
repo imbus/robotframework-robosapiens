@@ -28,6 +28,8 @@ namespace RoboSAPiens.Recorder
 
         public abstract record BaseRepl
         {
+            bool exitRequested;
+
             protected virtual string prompt()
             {
                 return "> ";
@@ -74,11 +76,17 @@ namespace RoboSAPiens.Recorder
                 }
             }
 
+            protected void exitRepl()
+            {
+                exitRequested = true;
+            }
+
             public void repl()
             {
+                exitRequested = false;
                 getBanner().ForEach(Console.WriteLine);
 
-                while (true)
+                while (!exitRequested)
                 {
                     try
                     {
@@ -184,12 +192,26 @@ namespace RoboSAPiens.Recorder
                     }
 
                     recorder.save();
+                    Console.WriteLine("Recording saved. Returning to the main menu.");
+                    exitRepl();
+                }
+
+                void cancel()
+                {
+                    if (captureState != CaptureState.Stopped)
+                    {
+                        recorder.stop();
+                        captureState = CaptureState.Stopped;
+                    }
+
+                    Console.WriteLine("Recording cancelled. Returning to the main menu without saving.");
+                    exitRepl();
                 }
 
                 protected override List<string> getBanner()
                 {
                     return [
-                        "Call `start` to start recording, `pause` and `resume` to suspend and continue, and `stop` to finish recording.",
+                        "Call `start` to start recording, `pause` and `resume` to suspend and continue, `stop` to finish recording, `save` to save and return to the main menu, or `cancel` to discard and return.",
                     ]; 
                 }
                 
@@ -199,6 +221,7 @@ namespace RoboSAPiens.Recorder
                     [
                         ..base.getCommands(),
                         new Command("save", "Save the recording to the current .robot file", save),
+                        new Command("cancel", "Discard the current recording and return to the main menu", cancel),
                         new Command("start", "Start recording", start),
                         new Command("pause", "Pause recording", pause),
                         new Command("resume", "Resume a paused recording", resume),
@@ -298,7 +321,7 @@ namespace RoboSAPiens.Recorder
                 protected override List<string> getBanner()
                 {
                     return [
-                        "Call `start` to start recording a keyword, `pause` and `resume` to suspend and continue, and `stop` to finish the keyword."
+                        "Call `start` to start recording a keyword, `pause` and `resume` to suspend and continue, `stop` to finish the keyword, `save` to save and return to the main menu, or `cancel` to discard and return."
                     ]; 
                 }
 
