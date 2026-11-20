@@ -28,6 +28,8 @@ namespace RoboSAPiens.Recorder
 
         public abstract record BaseRepl
         {
+            bool exitRequested;
+
             protected virtual string prompt()
             {
                 return "> ";
@@ -74,11 +76,17 @@ namespace RoboSAPiens.Recorder
                 }
             }
 
+            protected void exitRepl()
+            {
+                exitRequested = true;
+            }
+
             public void repl()
             {
+                exitRequested = false;
                 getBanner().ForEach(Console.WriteLine);
 
-                while (true)
+                while (!exitRequested)
                 {
                     try
                     {
@@ -140,25 +148,27 @@ namespace RoboSAPiens.Recorder
 
             public abstract record Recording(Recorder.State.Recording recorder): BaseRepl
             {
+                enum CaptureState { Stopped, Recording, Paused }
+
+                CaptureState captureState;
+
                 protected override string prompt()
                 {
-                    if (recording)
+                    return captureState switch
                     {
-                        return "[REC]> ";
-                    }
-                    else
-                    {
-                        return base.prompt();
-                    }
+                        CaptureState.Recording => "[REC]> ",
+                        CaptureState.Paused => "[PAUSED]> ",
+                        _ => base.prompt()
+                    };
                 }
-                
-                protected bool recording = false;
 
                 void callKeyword(string input)
                 {
-                    if (!recording)
+                    if (captureState != CaptureState.Recording)
                     {
-                        Console.WriteLine("No recording in progress. Call `start` to start recording.");
+                        Console.WriteLine(captureState == CaptureState.Paused
+                            ? "Recording is paused. Call `resume` to continue recording."
+                            : "No recording in progress. Call `start` to start recording.");
                         return;
                     }
 
@@ -175,19 +185,33 @@ namespace RoboSAPiens.Recorder
 
                 void save()
                 {
-                    if (recording)
+                    if (captureState != CaptureState.Stopped)
                     {
                         Console.WriteLine("Recording in progress. Call `stop` to stop recording before saving.");
                         return;
                     }
 
                     recorder.save();
+                    Console.WriteLine("Recording saved. Returning to the main menu.");
+                    exitRepl();
+                }
+
+                void cancel()
+                {
+                    if (captureState != CaptureState.Stopped)
+                    {
+                        recorder.stop();
+                        captureState = CaptureState.Stopped;
+                    }
+
+                    Console.WriteLine("Recording cancelled. Returning to the main menu without saving.");
+                    exitRepl();
                 }
 
                 protected override List<string> getBanner()
                 {
                     return [
-                        "Call `start` to start (or resume) recording and `stop` to stop recording.",
+                        "Call `start` to start recording, `pause` and `resume` to suspend and continue, `stop` to finish recording, `save` to save and return to the main menu, or `cancel` to discard and return.",
                     ]; 
                 }
                 
@@ -197,8 +221,11 @@ namespace RoboSAPiens.Recorder
                     [
                         ..base.getCommands(),
                         new Command("save", "Save the recording to the current .robot file", save),
+                        new Command("cancel", "Discard the current recording and return to the main menu", cancel),
                         new Command("start", "Start recording", start),
-                        new Command("stop", "Stop recording", stop)
+                        new Command("pause", "Pause recording", pause),
+                        new Command("resume", "Resume a paused recording", resume),
+                        new Command("stop", "Stop recording", stopRecording)
                     ];
                 }
 
@@ -214,20 +241,63 @@ namespace RoboSAPiens.Recorder
                     }
                 }
 
-                protected virtual void start()
+                void start()
                 {
+                    if (captureState != CaptureState.Stopped)
+                    {
+                        Console.WriteLine(captureState == CaptureState.Paused
+                            ? "Recording is paused. Call `resume` to continue recording."
+                            : "Recording is already in progress.");
+                        return;
+                    }
+
                     recorder.start();
-                    recording = true;
+                    captureState = CaptureState.Recording;
                     Console.WriteLine("Recording started.");
                     Console.WriteLine("To manually call a keyword: ${return_value}   <keyword_name>   [<arg1>   <arg2> ...]");
                 }
 
-                protected virtual void stop()
+                void pause()
                 {
-                    recorder.stop();
-                    recording = false;
-                    Console.WriteLine("Recording stopped.");
+                    if (captureState != CaptureState.Recording)
+                    {
+                        Console.WriteLine("Recording must be active to pause it.");
+                        return;
+                    }
+
+                    recorder.pause();
+                    captureState = CaptureState.Paused;
+                    Console.WriteLine("Recording paused.");
                 }
+
+                void resume()
+                {
+                    if (captureState != CaptureState.Paused)
+                    {
+                        Console.WriteLine("Recording must be paused to resume it.");
+                        return;
+                    }
+
+                    recorder.resume();
+                    captureState = CaptureState.Recording;
+                    Console.WriteLine("Recording resumed.");
+                }
+
+                void stopRecording()
+                {
+                    if (captureState == CaptureState.Stopped)
+                    {
+                        Console.WriteLine("No recording in progress.");
+                        return;
+                    }
+
+                    recorder.stop();
+                    captureState = CaptureState.Stopped;
+                    Console.WriteLine("Recording stopped.");
+                    onStopped();
+                }
+
+                protected virtual void onStopped() {}
             }
         }
 
@@ -251,24 +321,12 @@ namespace RoboSAPiens.Recorder
                 protected override List<string> getBanner()
                 {
                     return [
-                        "Call `start` to start recording a keyword and `stop` to stop recording."
+                        "Call `start` to start recording a keyword, `pause` and `resume` to suspend and continue, `stop` to finish the keyword, `save` to save and return to the main menu, or `cancel` to discard and return."
                     ]; 
                 }
 
-                protected override void start()
+                protected override void onStopped()
                 {
-                    keywordRecorder.start();
-                    recording = true;
-                    Console.WriteLine("Recording started.");
-                    Console.WriteLine("To manually call a keyword: ${return_value}   <keyword_name>   [<arg1>   <arg2> ...]");
-                }
-
-                protected override void stop()
-                {
-                    keywordRecorder.stop();
-                    recording = false;
-                    Console.WriteLine("Recording stopped.");
-
                     if (keywordRecorder.hasEvents())
                     {
                         var keywordName = validatedReadInput(

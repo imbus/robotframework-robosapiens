@@ -164,6 +164,7 @@ namespace RoboSAPiens.Recorder
         bool debug;
         List<Event> eventLog = [];
         List<KeyGuiEvent> keyGuiEventLog = [];
+        volatile bool paused;
         GuiSession? session;
         List<Window> windows = [];
 
@@ -236,6 +237,8 @@ namespace RoboSAPiens.Recorder
 
         void addConnectEvent(GuiSession session, string? connectionDescription)
         {
+            if (paused) return;
+
             var timestamp = getTimestamp();
             var window = session.ActiveWindow;
 
@@ -245,6 +248,8 @@ namespace RoboSAPiens.Recorder
 
         void addDisconnectEvent(GuiSession session)
         {
+            if (paused) return;
+
             var timestamp = getTimestamp();
             var window = session.ActiveWindow;
 
@@ -300,6 +305,8 @@ namespace RoboSAPiens.Recorder
 
         void handleChange(GuiSession session, GuiComponent component, object commmandArray)
         {
+            if (paused) return;
+
             if (debug) Console.WriteLine("============");
             if (debug) Console.WriteLine($"Id: {component.Id}");
             if (debug) Console.WriteLine($"Type: {component.Type}");
@@ -764,6 +771,16 @@ namespace RoboSAPiens.Recorder
             }
         }
 
+        public void recordPause()
+        {
+            paused = true;
+        }
+
+        public void recordResume()
+        {
+            paused = false;
+        }
+
         public void recordStop()
         {
             try
@@ -777,6 +794,10 @@ namespace RoboSAPiens.Recorder
                 }
             }
             catch (Exception) {}
+            finally
+            {
+                paused = false;
+            }
         }
 
         SapObject getSapObject(string componentId)
